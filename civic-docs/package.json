@@ -8,10 +8,12 @@
     "start": "next start",
     "lint": "eslint",
     "db:init": "psql $DATABASE_URL -f db/schema.sql",
-    "ingest": "tsx scripts/ingest.ts"
+    "ingest": "tsx scripts/ingest.ts",
+    "seed": "tsx scripts/seed.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.88.0",
+    "dotenv": "^16.6.1",
     "next": "16.2.6",
     "pdf-parse": "^1.1.1",
     "pg": "^8.13.1",

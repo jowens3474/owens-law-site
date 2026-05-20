@@ -50,7 +50,11 @@ cp .env.example .env
 npm install
 npm run db:init
 
-# 4. Ingest a document
+# 4a. Seed example contracts so the chat works immediately
+#     (synthetic data, prefixed "EXAMPLE:")
+npm run seed
+
+# 4b. ...or ingest real documents (requires VOYAGE_API_KEY for chunks)
 npm run ingest -- ./path/to/contract.pdf --type=contract --title="Acme Janitorial Services 2024"
 npm run ingest -- ./path/to/plan.pdf     --type=plan
 npm run ingest -- ./path/to/budget.pdf   --type=budget
@@ -60,6 +64,20 @@ npm run ingest -- ./path/to/minutes.pdf  --type=minutes
 npm run dev
 # → http://localhost:3000
 ```
+
+## What works after `npm run seed`
+
+Seeding inserts 10 synthetic contracts directly into `documents` +
+`contracts` (no embeddings, no PDFs). That's enough to demo every
+SQL question — try:
+
+- "Which contract has the largest total value?"
+- "Show me all departments and the total they've spent."
+- "Are there multiple vendors providing janitorial services?"
+- "How much did the city spend on legal services?"
+
+Narrative questions (`search_documents` tool) return empty until you
+ingest real text via `npm run ingest`.
 
 ## File layout
 
@@ -82,6 +100,9 @@ db/
 scripts/
   ingest.ts                 PDF → text → chunks/embeddings → DB
                             (contracts also get Claude field extraction)
+  seed.ts                   inserts synthetic example contracts (no
+                            embeddings) so SQL queries work without a
+                            VOYAGE_API_KEY or real documents
 ```
 
 ## Production notes
