@@ -89,6 +89,33 @@ const POSTS: Post[] = [
       "Empty.",
     ],
   },
+  {
+    slug: "the-mayor-who-made-one-phone-call",
+    title: "The Mayor Who Made One Phone Call",
+    dek: "For readers who want to understand Chokwe Antar Lumumba's case: of the three men charged, his alleged crime is the thinnest — and his defense the most purely legal.",
+    category: "Politics",
+    categories: ["General News"],
+    author: "Jackson Wire Staff",
+    date: "2026-05-25",
+    views: 0,
+    image: "/lumumba.jpg",
+    imageAlt:
+      "Former Jackson Mayor Chokwe Antar Lumumba, hands pressed together, listens during a public meeting.",
+    body: [
+      "He was supposed to be the future. Chokwe Antar Lumumba inherited not just a name but a movement — his father had been Jackson's mayor before him, a civil-rights radical turned city executive, and the son carried that legacy into office promising to make Jackson \"the most radical city on the planet.\" Now he's a former mayor, beaten badly at the ballot box while under federal indictment, waiting for a July trial that will decide whether he's also a felon.",
+      "But here's what makes Lumumba's case genuinely different from his co-defendants', and worth understanding on its own terms: of the three men charged, his alleged crime is the thinnest. And his defense is the most purely legal.",
+      "Strip away the yacht and the cash and the cigar-bar theatrics, and the government's case against Lumumba comes down to a single act. One phone call. In April 2024, he told a city employee to move a submission deadline forward by two weeks — from April 30 to April 16. For that, prosecutors say, he took $50,000, routed through campaign checks so it would look like it came from inside Mississippi.",
+      "Lumumba doesn't deny the call. He admits he made it. His entire defense is that the call wasn't a crime.",
+      "This is where his case turns on a 2016 Supreme Court decision called McDonnell — the case that overturned the bribery conviction of Virginia's governor. The Court ruled there that not everything a politician does for a donor is an \"official act.\" Setting up a meeting, making a call, hosting an event — those ordinary courtesies of political life don't automatically become federal felonies just because money changed hands somewhere. There has to be a real exercise of government power: a vote, a hearing, a formal decision.",
+      "Lumumba's argument is that moving a deadline is exactly the kind of ministerial errand McDonnell says is not a crime. The employee who carried out the change later said it didn't strike him as unusual. No developer was shut out. The deadline could have been any date on the calendar. Where, his lawyers ask, is the formal exercise of governmental power in nudging a date two weeks?",
+      "The government's answer is that you can't look at one phone call in isolation — that the call was one move in a larger agreement, and that Lumumba's real value was his power to \"do damage\" to the project if he wanted, to make life difficult for developers who didn't pay. The bribe, prosecutors say, bought his cooperation across the whole scheme, not just the calendar.",
+      "The judge sided with the government on a crucial technical point in May. He ruled that the specific bribery statute used here doesn't even require an \"official act\" in the strict McDonnell sense — only a corrupt deal in exchange for influence. But he also left the hardest question unanswered, handing it to the jury and to a fight over how they'll be instructed: what, exactly, did Lumumba have to agree to do for that $50,000 to be a crime? That instruction may matter more to his fate than any witness.",
+      "There's a human layer underneath the law, too. Lumumba asked to be tried separately from Owens — he didn't want to sit beside a man recorded talking about \"cleaning\" money and keeping dirt on the city council, didn't want that spectacle bleeding onto him in front of a jury. The judge said no. So the quietest defense in the case will be heard in the same room as the loudest, and Lumumba will have to hope twelve jurors can keep the two men separate in their minds.",
+      "The political verdict is already in. Jackson voters threw him out in 2025 by a landslide, ending a family dynasty on a wave of scandal. What's left is the legal one. And it rests on a question that sounds almost too small to carry a man's freedom:",
+      "Is moving a deadline a crime?",
+      "In July, a jury will answer.",
+    ],
+  },
 ];
 
 const sortByDateDesc = (a: Post, b: Post) => b.date.localeCompare(a.date);
