@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { type Post, formatDate, readingTime } from "@/lib/posts";
-import Placeholder from "./Placeholder";
+import ArticleImage from "./ArticleImage";
 import CategoryTag from "./CategoryTag";
 
 function Byline({ post }: { post: Post }) {
@@ -38,11 +38,12 @@ export default function ArticleCard({
     return (
       <article className="flex gap-4 border-t border-rule py-5">
         <Link href={href} className="shrink-0">
-          <Placeholder
-            seed={post.slug}
+          <ArticleImage
+            post={post}
             className="h-20 w-28 rounded-sm sm:h-24 sm:w-36"
             monogram={false}
             label={post.category}
+            sizes="144px"
           />
         </Link>
         <div className="min-w-0">
@@ -62,9 +63,10 @@ export default function ArticleCard({
   return (
     <article className="group flex flex-col">
       <Link href={href} className="block">
-        <Placeholder
-          seed={post.slug}
+        <ArticleImage
+          post={post}
           label={post.category}
+          sizes="(max-width: 1024px) 100vw, 640px"
           className="aspect-[16/10] w-full rounded-sm"
         />
       </Link>

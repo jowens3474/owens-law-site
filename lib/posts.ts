@@ -10,6 +10,8 @@ export interface Post {
   date: string; // ISO yyyy-mm-dd
   views: number;
   featured?: boolean;
+  image?: string; // path under /public, e.g. "/aaron-banks.webp"
+  imageAlt?: string; // describes the image for screen readers
   body: string[];
 }
 
@@ -29,6 +31,9 @@ export interface Post {
 //   date: "2026-05-25",                       // format: YYYY-MM-DD
 //   views: 0,                                 // used only for "Most Read" ranking
 //   featured: true,                           // optional; set on the lead story only
+//   image: "/photo.webp",                     // optional; file lives in /public.
+//                                             // Omit to fall back to a generated plate.
+//   imageAlt: "Describe the photo.",          // optional; for screen readers
 //   body: [
 //     "First paragraph.",
 //     "Second paragraph.",
@@ -45,6 +50,9 @@ const POSTS: Post[] = [
     date: "2026-05-25",
     views: 0,
     featured: true,
+    image: "/aaron-banks.webp",
+    imageAlt:
+      "Former Jackson city councilman Aaron Banks, right, arrives at the federal courthouse alongside his attorney.",
     body: [
       "Of the three men headed to trial in Jackson's biggest corruption case, Aaron Banks has always been the quiet one. The former city councilman has said almost nothing in public — \"I have nothing to say,\" he told one reporter — while District Attorney Jody Owens calls the case an \"assassination\" of his character and the former mayor argues constitutional theory in the press.",
       "But quiet may be the smartest move in the room. And it makes Banks the man to watch as the May 29 plea deadline closes in.",

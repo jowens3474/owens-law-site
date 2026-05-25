@@ -9,7 +9,7 @@ import {
   readingTime,
 } from "@/lib/posts";
 import { site } from "@/lib/site";
-import Placeholder from "@/app/components/Placeholder";
+import ArticleImage from "@/app/components/ArticleImage";
 import CategoryTag from "@/app/components/CategoryTag";
 import ArticleCard from "@/app/components/ArticleCard";
 
@@ -66,9 +66,11 @@ export default async function ArticlePage({
           </div>
         </header>
 
-        <Placeholder
-          seed={post.slug}
+        <ArticleImage
+          post={post}
           label={post.category}
+          preload
+          sizes="(max-width: 768px) 100vw, 768px"
           className="mt-6 aspect-[16/9] w-full rounded-sm"
         />
 
