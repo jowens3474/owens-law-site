@@ -10,6 +10,7 @@ import {
 } from "@/lib/posts";
 import { site } from "@/lib/site";
 import ArticleImage from "@/app/components/ArticleImage";
+import Timeline from "@/app/components/Timeline";
 import CategoryTag from "@/app/components/CategoryTag";
 import ArticleCard from "@/app/components/ArticleCard";
 
@@ -79,6 +80,14 @@ export default async function ArticlePage({
             <p key={i}>{para}</p>
           ))}
         </div>
+
+        {post.timeline && <Timeline entries={post.timeline} />}
+
+        {post.note && (
+          <p className="mt-8 border-t border-rule pt-4 text-sm italic text-muted">
+            {post.note}
+          </p>
+        )}
 
         <footer className="mt-10 border-t-2 border-ink pt-5">
           <p className="text-sm text-muted">
