@@ -7,9 +7,9 @@ import {
 } from "@/lib/posts";
 import { site } from "@/lib/site";
 import ArticleCard from "./components/ArticleCard";
+import ArticleImage from "./components/ArticleImage";
 import Sidebar from "./components/Sidebar";
 import CategoryTag from "./components/CategoryTag";
-import Placeholder from "./components/Placeholder";
 
 function SectionHeading({ children }: { children: React.ReactNode }) {
   return (
@@ -57,9 +57,11 @@ export default function Home() {
           {/* Lead story */}
           <article>
             <Link href={`/article/${lead.slug}`}>
-              <Placeholder
-                seed={lead.slug}
+              <ArticleImage
+                post={lead}
                 label={lead.category}
+                preload
+                sizes="(max-width: 1024px) 100vw, 768px"
                 className="aspect-[16/9] w-full rounded-sm"
               />
             </Link>
