@@ -138,6 +138,30 @@ const POSTS: Post[] = [
       "The trial begins July 13.",
     ],
   },
+  {
+    slug: "one-investor-bought-the-heart-of-downtown-jackson",
+    title:
+      "One Investor Just Bought the Heart of Downtown Jackson, and He's Just Getting Started",
+    dek: "In barely a year, New Jersey tech founder Kumar Bhavanasi has quietly bought five of downtown's most important buildings — and he's planning to spend more than $100 million bringing them back to life.",
+    category: "Commercial Real Estate",
+    categories: ["General News"],
+    author: "Jackson Wire Staff",
+    date: "2026-05-25",
+    views: 0,
+    image: "/bhavanasi.jpg",
+    imageAlt:
+      "Investor Kumar Bhavanasi stands before the office towers he has acquired in downtown Jackson.",
+    body: [
+      "Something big is happening in downtown Jackson, and it has a name: Kumar Bhavanasi.",
+      "In barely a year, this New Jersey tech founder has quietly bought up five of the most important buildings in the city's business district. The Regions Building. The Pinnacle. The Deposit Guaranty Building. The Electric Building. And now the old Marriott Hotel. Put them together and Bhavanasi owns the spine of downtown Jackson.",
+      "His Jackson story started by accident. He first rolled through town in 2019 to look at a shopping center and fell in love with the skyline. \"Wow, beautiful downtown,\" he remembers thinking. A few years later, a broker called him about the Deposit Guaranty Building while he was on vacation in Italy. He bought it almost sight unseen. Then he kept going.",
+      "The Marriott was the one that nearly got away. He bid in an online auction last December and lost. But when the winning bid fell through, he jumped back in and closed the deal in January 2026. \"It was so attractive that I could not pass it up,\" he said.",
+      "Now he's swinging big. Bhavanasi plans to pour more than $100 million into these buildings. The Deposit Guaranty Building is set to become up to 200 apartments with shops on the ground floor, maybe even a small grocery store. The Marriott will be gutted to the studs and reopened as a full hotel. He's bringing the kind of energy downtown hasn't felt in years.",
+      "And it's already working. In February 2026, the law firm Cosmich Simmons & Brown moved nearly 50 employees into the Pinnacle Building, his first major tenant. People who'll buy lunch, grab coffee, and bring life back to the streets.",
+      "\"I knew it was going to work,\" Bhavanasi said. \"But when you get your first lease, you know it's working.\"",
+      "Downtown Jackson is waking up. And the best part? This is only the beginning.",
+    ],
+  },
 ];
 
 const sortByDateDesc = (a: Post, b: Post) => b.date.localeCompare(a.date);
