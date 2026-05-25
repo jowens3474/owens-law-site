@@ -5,7 +5,7 @@ export const site = {
   tagline: "Politics, property, and power in Mississippi.",
   description:
     "Independent reporting on Mississippi politics, development, and the real-estate market — and the people who profit from them. Tips welcome, sacred cows not.",
-  email: "jason@owensowens.com",
+  email: "capitolmain42@gmail.com",
   city: "Jackson, Mississippi",
   founded: 2026,
 } as const;
