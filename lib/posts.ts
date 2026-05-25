@@ -62,6 +62,33 @@ const POSTS: Post[] = [
       "May 29 is the tell. If Banks is going to fold, he'll do it before he ever sees that courtroom.",
     ],
   },
+  {
+    slug: "the-lot",
+    title: "The Lot",
+    dek: "An essay: for twenty years Jackson couldn't give away a downtown lot — and when investors finally arrived with a private jet and a yacht, they turned out to be the FBI.",
+    category: "Politics",
+    categories: ["General News", "Commercial Real Estate"],
+    author: "Jackson Wire Staff",
+    date: "2026-05-25",
+    views: 0,
+    image: "/the-lot.webp",
+    imageAlt:
+      "Aerial view of the undeveloped parcels (outlined and labeled A through D) across from the Jackson Convention Complex in downtown Jackson.",
+    body: [
+      "For twenty years, the City of Jackson could not give away a parking lot.",
+      "It sits downtown, across from the convention center — a flat, hopeful rectangle of nothing that generations of city officials have dreamed of turning into a hotel. They issued the paperwork. They held the meetings. They waited. And year after year, the developers of America looked at Jackson, Mississippi, and looked away. Not one serious bid. Not once. The lot stayed a lot.",
+      "Then, in 2023, the perfect developers finally arrived. They had money to burn and grand plans for the convention-center hotel the city had been begging for. They flew the right people to Nashville on a private jet. They hosted them on a yacht in Fort Lauderdale. They were everything Jackson had been waiting two decades to see.",
+      "They were the FBI.",
+      "What unfolded next is now the largest public-corruption case in modern Mississippi history — Hinds County District Attorney Jody Owens, then-Mayor Chokwe Antar Lumumba, and Councilman Aaron Banks, charged in a bribery scheme built around that empty downtown lot. There are recordings. There is cash, including bills the FBI later found stuffed inside a hollowed-out copy of the U.S. Constitution. There is talk, captured on tape, of \"cleaning\" money and a \"bag of information\" on the city council. It is, by any measure, an ugly story, and a jury will weigh it starting July 13.",
+      "But here is the strange, almost literary heart of the case, the part that should make you sit up: the thing the city could never develop in real life, it could not quite manage to be bribed over either.",
+      "The government's whole trap depended on a vote — the kind of formal council approval that turns a campaign check into a federal crime. But somewhere in the machinery, worn down by a decade of soliciting proposals that drew no response, the city switched the type of paperwork it was using. The new version never goes before the council at all. There was, the defense argues, no vote to sell. The single \"official act\" the mayor allegedly performed for his money was a phone call nudging a deadline two weeks earlier on a calendar — a deadline that locked nobody out, that the city employee who carried it out said raised no red flags.",
+      "The FBI spent over a million dollars, two years, and a yacht to catch a crime built on a hotel that was never going to be built, on land that has defeated everyone who ever touched it.",
+      "The judge has ruled the case will go to a jury — these are questions for twelve citizens, not for him to dismiss. The government's evidence is real and, in places, damning. The men may well be convicted. This is not a story about innocence.",
+      "It's a story about a city. About what it does to a place when nothing gets built, when the only outside investor who ever showed real interest in twenty years turned out to be a federal agent wearing a wire. About a downtown lot so cursed that even the corruption attached to it may have been, in the end, a fiction.",
+      "The trial starts in July. Whatever the verdict, the lot will still be there.",
+      "Empty.",
+    ],
+  },
 ];
 
 const sortByDateDesc = (a: Post, b: Post) => b.date.localeCompare(a.date);
