@@ -46,6 +46,11 @@ export default function Footer() {
             © {new Date().getFullYear()} {site.name}. {site.city}. Independent
             and reader-supported.
           </p>
+          <p className="mt-2">
+            This site uses cookies and Google Analytics to measure traffic and
+            understand how readers use {site.name}. We don&apos;t sell your
+            data.
+          </p>
         </div>
       </div>
     </footer>
