@@ -116,6 +116,28 @@ const POSTS: Post[] = [
       "In July, a jury will answer.",
     ],
   },
+  {
+    slug: "judge-lets-owens-take-his-fight-to-a-jury",
+    title: "Judge Lets Owens Take His Fight to a Jury",
+    dek: "Why the defense sees an opening: the judge denied the motion to dismiss, but kept Owens's entrapment defense alive and left the central legal question for the jury.",
+    category: "Politics",
+    categories: ["General News"],
+    author: "Jackson Wire Staff",
+    date: "2026-05-25",
+    views: 0,
+    image: "/owens.jpg",
+    imageAlt:
+      "Hinds County District Attorney Jody Owens arrives at the federal courthouse as a reporter follows with a microphone.",
+    body: [
+      "A federal judge would not throw out the corruption case against Hinds County District Attorney Jody Owens this week. But read the order closely and the defense may have come out better than the headlines suggest.",
+      "It is true that Judge Daniel P. Jordan III denied the motion to dismiss. That was always the likely result. Federal judges rarely toss a case before trial. They leave the big questions for a jury. But what a judge says while denying a motion can matter more than the denial itself. And here, Jordan said two things the defense wanted to hear.",
+      "First, he refused to block Owens from arguing entrapment at trial. Prosecutors asked him to take that defense off the table. He said no. \"The Court will not prevent him from attempting to prove his theory of the case,\" he wrote. So a jury will get to hear Owens's main argument. That argument is simple. The FBI did not catch a crime. It built one. Agents flew him on private jets, pushed him at every step, and spent more than a million dollars chasing a development deal that was never real.",
+      "Second, Jordan left the most important legal question in the case wide open. To convict, the government has to prove a corrupt deal, a this for that exchange. But Jordan said how that has to be explained to the jury is not settled yet. The two sides, he wrote, will have to sort it out when the jury instructions are written. In plain words, the fight over what prosecutors actually have to prove is not over. It is just moving to the stage where it may count the most.",
+      "That matters because the defense's best argument lives right in that gap. Owens's lawyers say the one official act at the center of the case, a phone call moving a paperwork deadline, is not the kind of serious government action the bribery laws were meant to punish. Jordan ruled that this is a question for the jury, not a reason to dismiss. But a question for the jury is a long way from case closed. It means twelve people from Jackson, not a prosecutor, will decide it.",
+      "None of this makes the path easy. The government has a lot of evidence, and Owens still goes to trial in July. But the defense filed a bold, heavy challenge, and this ruling kept its best tools instead of taking them away. Owens did not get the case dismissed. He got something his lawyers may value almost as much. He gets to make his full case to a jury, and the rules of that fight are still up for grabs.",
+      "The trial begins July 13.",
+    ],
+  },
 ];
 
 const sortByDateDesc = (a: Post, b: Post) => b.date.localeCompare(a.date);
