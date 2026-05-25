@@ -185,6 +185,32 @@ const POSTS: Post[] = [
       "The bottom line? The data center boom that's been sweeping Mississippi is now knocking on Jackson's door, and the next few weeks will tell us whether the city says come on in, or not so fast.",
     ],
   },
+  {
+    slug: "one-courtroom-three-defendants",
+    title:
+      "One Courtroom, Three Defendants, and a Trial That Isn't What It Looks Like",
+    dek: "As the Jackson corruption case heads toward trial, here's what the headlines won't tell you about how it will actually unfold.",
+    category: "Politics",
+    categories: ["General News"],
+    author: "Jackson Wire Staff",
+    date: "2026-05-25",
+    views: 0,
+    image: "/courtroom.webp",
+    imageAlt:
+      "An empty courtroom with rows of jury chairs, the judge's bench, and a U.S. flag.",
+    body: [
+      "This summer, a federal jury in Jackson is set to hear one of the most closely watched public corruption cases this city has seen in years. Former Hinds County District Attorney Jody Owens, former Mayor Chokwe Antar Lumumba, and former City Councilman Aaron Banks are charged together in a single indictment. Most people assume that means one trial, one jury, and one verdict, guilty or not guilty all the way around.",
+      "It is almost never that simple. Understanding why is worth a few minutes, because what happens in that courtroom will say something about how the justice system treats all of us, not just the powerful.",
+      "Start with a basic fact most people don't know. Federal prosecutors strongly prefer to try co-defendants together, and the law presumes they should. Joint trials save money, spare witnesses from testifying twice, and prevent different juries from reaching contradictory results. But there is a strategic edge too. When jurors hear the entire alleged scheme in one sitting, every meeting, every dollar, every text message, the conduct can feel bigger and more coordinated than the evidence against any one person might show on its own.",
+      "Defense lawyers have a word for that effect. They call it spillover, and it is the central risk of a joint trial. A defendant can be judged not only by what the government proves against him, but by the mood the evidence against everyone else creates in the room. That is why defense attorneys routinely ask the judge to sever the case, meaning they want each client tried separately. It is also why those requests usually fail. Courts trust juries to keep each defendant's evidence in its own box. In this case, the judge denied severance, so all three men are currently set to be tried together.",
+      "Now picture the room. On one side sits a single prosecution team telling one clean story. On the other sit three separate defendants, each with his own lawyers and his own theory, and those theories do not have to agree. Often they don't. Every objection and every cross-examination by one defense team ripples onto the other two. A point that helps one defendant can quietly damage another.",
+      "Even jury selection reflects the strain. In a federal felony trial, the defense as a group typically gets ten peremptory strikes, which is the power to remove a potential juror without giving a reason. The phrase that matters is as a group. Three defendants often must share strikes that a single defendant would have had to himself, which forces their lawyers to negotiate over which jurors to cut. The juror one defendant fears may be the very juror another wants to keep.",
+      "Then there are the cooperators. Two people originally charged in this matter have already pleaded guilty and now await sentencing. That is one of the most common turns in federal practice, and it is rarely an accident of timing. A defendant who cooperates usually does so before sentencing, because the most valuable thing he can give the government is testimony, and that testimony can shorten his own punishment. For the defendants still standing trial, a former co-defendant on the witness stand is both a danger and an opening. A danger, because an insider's account is persuasive. An opening, because that witness can be questioned about the deal he made and the powerful incentive he has to tell prosecutors what they want to hear. Jurors are allowed to weigh that, and good lawyers make sure they do.",
+      "All of this points to the part the headlines tend to miss. Because a joint trial puts three people, with three different levels of alleged involvement, in front of the same twelve jurors, the ending is rarely all or nothing. A jury can convict one defendant and acquit another. It can convict on some charges and reject others. It can even fail to agree at all about one person while reaching a verdict on the rest. Each defendant is judged separately, on each count, even though they shared a courtroom, a judge, and a jury.",
+      "None of this is about whether these particular men are guilty. That is for the jury, and every one of them is presumed innocent until the government proves otherwise beyond a reasonable doubt. It is about recognizing that the pretrial motions, the jury math, and the cooperation deals are not lawyer's trivia. They are the architecture that decides what a jury is ever allowed to see, and in the end what justice in this case will look like.",
+      "When the verdict comes, it may not be a single word. Pay attention to the pieces, because that is where the real story usually lives.",
+    ],
+  },
 ];
 
 const sortByDateDesc = (a: Post, b: Post) => b.date.localeCompare(a.date);
