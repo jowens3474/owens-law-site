@@ -1,5 +1,10 @@
 import { cache } from "react";
 
+export interface TimelineEntry {
+  date: string;
+  text: string;
+}
+
 export interface Post {
   slug: string;
   title: string;
@@ -13,6 +18,8 @@ export interface Post {
   image?: string; // path under /public, e.g. "/aaron-banks.webp"
   imageAlt?: string; // describes the image for screen readers
   body: string[];
+  timeline?: TimelineEntry[]; // optional dated entries, rendered after the body
+  note?: string; // optional muted source/editor's note shown at the end
 }
 
 // All articles live here. To publish a new story, add an object to this array.
@@ -210,6 +217,70 @@ const POSTS: Post[] = [
       "None of this is about whether these particular men are guilty. That is for the jury, and every one of them is presumed innocent until the government proves otherwise beyond a reasonable doubt. It is about recognizing that the pretrial motions, the jury math, and the cooperation deals are not lawyer's trivia. They are the architecture that decides what a jury is ever allowed to see, and in the end what justice in this case will look like.",
       "When the verdict comes, it may not be a single word. Pay attention to the pieces, because that is where the real story usually lives.",
     ],
+  },
+  {
+    slug: "the-jackson-bribery-case-a-timeline",
+    title: "The Jackson Bribery Case: A Timeline",
+    dek: "How the federal corruption case against Jody Owens, Chokwe Antar Lumumba, and Aaron Banks reached trial.",
+    category: "Politics",
+    categories: ["General News"],
+    author: "Jackson Wire Staff",
+    date: "2026-05-25",
+    views: 0,
+    body: [
+      "This timeline is drawn from the federal indictment, court filings, and the court's scheduling order in United States v. Owens, et al. The allegations described are the government's. All three defendants have pleaded not guilty and are presumed innocent unless and until proven guilty beyond a reasonable doubt.",
+    ],
+    timeline: [
+      {
+        date: "2023–2024",
+        text: "Federal prosecutors charge a bribery conspiracy spanning October 2023 through May 2024, tied to an FBI undercover operation. Sources posing as private developers proposed a convention center hotel in downtown Jackson, according to the indictment.",
+      },
+      {
+        date: "December 2023",
+        text: "The indictment alleges Owens accepted a $125,000 payment in Fort Lauderdale, Florida, and that he later facilitated bribe payments to other officials.",
+      },
+      {
+        date: "February–April 2024",
+        text: "The indictment describes a series of meetings, trips, and payments, culminating in an April 2024 trip to Florida and the alleged movement of a city deadline to benefit the purported developers.",
+      },
+      {
+        date: "May 22, 2024",
+        text: "FBI agents raid the office and businesses of Hinds County District Attorney Jody Owens.",
+      },
+      {
+        date: "August 2024",
+        text: "Former Ward 2 Councilwoman Angelique Lee resigns and pleads guilty to conspiracy. A second defendant also pleads guilty. Both await sentencing.",
+      },
+      {
+        date: "November 7, 2024",
+        text: "A federal grand jury indictment is unsealed against Owens, former Mayor Chokwe Antar Lumumba, and former Councilman Aaron Banks. All three are arraigned and plead not guilty.",
+      },
+      {
+        date: "April 11, 2025",
+        text: "Judge Daniel P. Jordan III signs a scheduling order setting the trial date and pretrial deadlines.",
+      },
+      {
+        date: "October 1, 2025",
+        text: "First status and discovery conference.",
+      },
+      {
+        date: "April 1, 2026",
+        text: "Second status and discovery conference.",
+      },
+      {
+        date: "May 14, 2026",
+        text: "The court rules on pretrial motions, denying the motions to dismiss and to sever, while allowing the defense to present an entrapment argument to the jury.",
+      },
+      {
+        date: "May 29, 2026",
+        text: "Deadline for any defendant who chooses to plead guilty to do so.",
+      },
+      {
+        date: "July 13, 2026",
+        text: "Trial is set to begin at 9:00 a.m. in Jackson before Judge Jordan.",
+      },
+    ],
+    note: "Compiled from public court records. Dates and allegations reflect filings in the case and are subject to change as proceedings continue.",
   },
 ];
 
