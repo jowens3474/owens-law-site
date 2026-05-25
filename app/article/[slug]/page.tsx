@@ -81,7 +81,7 @@ export default async function ArticlePage({
           ))}
         </div>
 
-        {post.timeline && <Timeline entries={post.timeline} />}
+        {post.timeline && <Timeline sections={post.timeline} />}
 
         {post.note && (
           <p className="mt-8 border-t border-rule pt-4 text-sm italic text-muted">

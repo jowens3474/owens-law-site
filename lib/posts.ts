@@ -3,6 +3,12 @@ import { cache } from "react";
 export interface TimelineEntry {
   date: string;
   text: string;
+  highlight?: boolean; // jury/venue development; rendered with a crimson accent
+}
+
+export interface TimelineSection {
+  heading: string;
+  entries: TimelineEntry[];
 }
 
 export interface Post {
@@ -18,7 +24,7 @@ export interface Post {
   image?: string; // path under /public, e.g. "/aaron-banks.webp"
   imageAlt?: string; // describes the image for screen readers
   body: string[];
-  timeline?: TimelineEntry[]; // optional dated entries, rendered after the body
+  timeline?: TimelineSection[]; // optional grouped dated entries, rendered after the body
   note?: string; // optional muted source/editor's note shown at the end
 }
 
@@ -221,66 +227,202 @@ const POSTS: Post[] = [
   {
     slug: "the-jackson-bribery-case-a-timeline",
     title: "The Jackson Bribery Case: A Timeline",
-    dek: "How the federal corruption case against Jody Owens, Chokwe Antar Lumumba, and Aaron Banks reached trial.",
+    dek: "An updated chronology of United States v. Owens — from the FBI's 2022 tip through the July 13 trial date, with the jury and venue fight in focus.",
     category: "Politics",
     categories: ["General News"],
     author: "Jackson Wire Staff",
     date: "2026-05-25",
     views: 0,
     body: [
-      "This timeline is drawn from the federal indictment, court filings, and the court's scheduling order in United States v. Owens, et al. The allegations described are the government's. All three defendants have pleaded not guilty and are presumed innocent unless and until proven guilty beyond a reasonable doubt.",
+      "United States v. Jody E. Owens II, et al. — No. 3:24-cr-103-DPJ-LGI (S.D. Miss.). Updated through May 25, 2026.",
+      "Highlighted entries mark jury and venue developments. Trial is set to begin July 13, 2026. All three defendants have pleaded not guilty and are presumed innocent unless and until proven guilty beyond a reasonable doubt.",
     ],
     timeline: [
       {
-        date: "2023–2024",
-        text: "Federal prosecutors charge a bribery conspiracy spanning October 2023 through May 2024, tied to an FBI undercover operation. Sources posing as private developers proposed a convention center hotel in downtown Jackson, according to the indictment.",
+        heading: "2022–2024 · Investigation, Sting, Indictment",
+        entries: [
+          {
+            date: "May 2022",
+            text: "FBI receives the tip that launches the Jackson public-corruption probe.",
+          },
+          {
+            date: "Aug–Sept 2022",
+            text: "Source reporting references Owens and the cigar shop; Owens added as a \"subject\" (Sept. 12 email). Sept. 2: Capitol Police gun-pointing incident.",
+          },
+          {
+            date: "Dec 2022",
+            text: "FBI confidential sources begin operating in Jackson as fake developers.",
+          },
+          {
+            date: "July 26, 2023",
+            text: "First government contact with Owens at the cigar bar (defense's key predisposition date).",
+          },
+          {
+            date: "Aug 14, 2023",
+            text: "Meeting where the defense says Owens showed reluctance.",
+          },
+          {
+            date: "Oct 2023",
+            text: "Nashville trip (private jet); Owens allegedly becomes a target. Oct. 16: indictment's claimed \"predisposed\" date.",
+          },
+          {
+            date: "Nov 2023",
+            text: "Owens reelected; designated a subject of the investigation.",
+          },
+          {
+            date: "Dec 2023",
+            text: "First Florida yacht trip; $125,000 cash.",
+          },
+          {
+            date: "Jan–April 2024",
+            text: "Payments around Banks and Lee; the \"War Room\"; RFQ deadline moved (Lumumba call, April 12); 2nd Florida trip, five $10K checks to Lumumba.",
+          },
+          {
+            date: "May 22, 2024",
+            text: "Search warrants; hollow-Constitution cash recovered; Owens interview (false-statement count).",
+          },
+          {
+            date: "Aug 14, 2024",
+            text: "Angelique Lee resigns and pleads guilty.",
+          },
+          {
+            date: "Oct 17, 2024",
+            text: "Sherik Marve' Smith pleads guilty.",
+          },
+          {
+            date: "Oct 31 / Nov 7, 2024",
+            text: "Grand jury indicts; indictment unsealed; all three plead not guilty.",
+          },
+        ],
       },
       {
-        date: "December 2023",
-        text: "The indictment alleges Owens accepted a $125,000 payment in Fort Lauderdale, Florida, and that he later facilitated bribe payments to other officials.",
+        heading: "2025 · Scheduling and the Election",
+        entries: [
+          {
+            date: "Feb 19, 2025",
+            text: "Smith's first sentencing date; later continued (cooperation posture).",
+          },
+          {
+            date: "March 4, 2025",
+            text: "Mayfield sentenced (24 months).",
+          },
+          {
+            date: "March 7, 2025",
+            text: "Trial set for July 13, 2026. DOJ estimates 1–2 days for jury selection; Jordan corrects him, citing the 2009 Frank Melton trial (a full week; ~90% of pool had seen coverage).",
+            highlight: true,
+          },
+          {
+            date: "April 22, 2025",
+            text: "Lumumba loses the runoff to John Horhn (~75–25); leaves office July 1.",
+          },
+        ],
       },
       {
-        date: "February–April 2024",
-        text: "The indictment describes a series of meetings, trips, and payments, culminating in an April 2024 trip to Florida and the alleged movement of a city deadline to benefit the purported developers.",
+        heading: "2026 · The Pretrial Run-Up",
+        entries: [
+          {
+            date: "Jan 12, 2026",
+            text: "Owens files 68-page motion to dismiss with ~50 FBI exhibits (entrapment / outrageous conduct).",
+          },
+          {
+            date: "Jan 13–15, 2026",
+            text: "Government emergency seal; temporary seal granted; Owens contests it.",
+          },
+          {
+            date: "Feb 11, 2026",
+            text: "Status conference: Jordan says jury selection \"could take a while\"; signals reluctance to move to Gulfport.",
+            highlight: true,
+          },
+          {
+            date: "Feb 17, 2026",
+            text: "Jordan formally seals filings pending redaction review.",
+          },
+          {
+            date: "Feb 2026",
+            text: "Government moves to transfer venue to Gulfport OR draw a district-wide venire (sealed; AUSA Purdie).",
+            highlight: true,
+          },
+          {
+            date: "March 11, 2026",
+            text: "Lumumba files his own motion to dismiss (McDonnell \"no official act\").",
+          },
+          {
+            date: "March 15, 2026",
+            text: "Banks moves to sever.",
+          },
+          {
+            date: "March 25, 2026",
+            text: "Owens opposes transfer: \"forum shopping\" brief (Jackson 82% Black vs. Gulfport ~38%).",
+            highlight: true,
+          },
+          {
+            date: "April 1, 2026",
+            text: "Status conference: Jordan — \"I am not moving this trial to Gulfport.\" Adopts a questionnaire-first plan; district-wide venire as backup. Sets discovery deadlines.",
+            highlight: true,
+          },
+          {
+            date: "Early May 2026",
+            text: "Court mails the Frank Melton-style juror questionnaire to the Northern Division pool.",
+            highlight: true,
+          },
+          {
+            date: "May 11, 2026",
+            text: "New protective order restricting discovery to defense teams; return/destruction post-trial.",
+          },
+          {
+            date: "May 14, 2026",
+            text: "Omnibus order: denies all dismissal and severance motions; PRESERVES entrapment for the jury; holds §666 needs no \"official act\" but still requires quid pro quo (jury-instruction fight); defers jury-taint to selection.",
+            highlight: true,
+          },
+          {
+            date: "May 15, 2026",
+            text: "Venue briefing and questionnaire unsealed and reported.",
+            highlight: true,
+          },
+          {
+            date: "May 19, 2026",
+            text: "Owens's \"forum shopping\" response published.",
+            highlight: true,
+          },
+        ],
       },
       {
-        date: "May 22, 2024",
-        text: "FBI agents raid the office and businesses of Hinds County District Attorney Jody Owens.",
-      },
-      {
-        date: "August 2024",
-        text: "Former Ward 2 Councilwoman Angelique Lee resigns and pleads guilty to conspiracy. A second defendant also pleads guilty. Both await sentencing.",
-      },
-      {
-        date: "November 7, 2024",
-        text: "A federal grand jury indictment is unsealed against Owens, former Mayor Chokwe Antar Lumumba, and former Councilman Aaron Banks. All three are arraigned and plead not guilty.",
-      },
-      {
-        date: "April 11, 2025",
-        text: "Judge Daniel P. Jordan III signs a scheduling order setting the trial date and pretrial deadlines.",
-      },
-      {
-        date: "October 1, 2025",
-        text: "First status and discovery conference.",
-      },
-      {
-        date: "April 1, 2026",
-        text: "Second status and discovery conference.",
-      },
-      {
-        date: "May 14, 2026",
-        text: "The court rules on pretrial motions, denying the motions to dismiss and to sever, while allowing the defense to present an entrapment argument to the jury.",
-      },
-      {
-        date: "May 29, 2026",
-        text: "Deadline for any defendant who chooses to plead guilty to do so.",
-      },
-      {
-        date: "July 13, 2026",
-        text: "Trial is set to begin at 9:00 a.m. in Jackson before Judge Jordan.",
+        heading: "The Road Ahead",
+        entries: [
+          {
+            date: "May 29, 2026",
+            text: "Plea-change deadline.",
+            highlight: true,
+          },
+          {
+            date: "June 8, 2026",
+            text: "Parties meet to identify jurors to strike (lawyers' work session, NOT in-court voir dire).",
+            highlight: true,
+          },
+          {
+            date: "June 9, 2026",
+            text: "Strike lists due to the court.",
+            highlight: true,
+          },
+          {
+            date: "June 15, 2026",
+            text: "Final supplemental briefing on the transfer / venire question due.",
+            highlight: true,
+          },
+          {
+            date: "June 9 – July 1",
+            text: "Watch for Jordan's written ruling on the venire: stand pat, enlarge the Northern Division pool, or go district-wide.",
+            highlight: true,
+          },
+          {
+            date: "July 13, 2026",
+            text: "Trial begins; in-court voir dire starts this day (projected ~1 week, within a ~6-week trial).",
+            highlight: true,
+          },
+        ],
       },
     ],
-    note: "Compiled from public court records. Dates and allegations reflect filings in the case and are subject to change as proceedings continue.",
+    note: "Correction from earlier drafts: in-court jury selection begins July 13, 2026, not June 8 — June 8 is the lawyers' strike-list meeting on questionnaire results. Compiled from public court filings and Mississippi news reporting (WLBT, WLOX, Mississippi Today, WJTV, Magnolia Tribune). Dates involving sealed filings reflect news accounts of unsealed versions; some exact dates are approximate. Informal analysis, not legal advice.",
   },
 ];
 
