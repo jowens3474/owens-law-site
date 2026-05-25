@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Source_Sans_3 } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 import { site } from "@/lib/site";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+
+// Set NEXT_PUBLIC_GA_ID (e.g. "G-XXXXXXXXXX") in the deployment environment to
+// turn on Google Analytics. Left unset (as in local dev), nothing is loaded.
+const gaId = process.env.NEXT_PUBLIC_GA_ID;
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -42,6 +47,7 @@ export default function RootLayout({
         <main className="flex-1">{children}</main>
         <Footer />
       </body>
+      {gaId && <GoogleAnalytics gaId={gaId} />}
     </html>
   );
 }
