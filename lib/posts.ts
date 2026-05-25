@@ -4,7 +4,8 @@ export interface Post {
   slug: string;
   title: string;
   dek: string;
-  category: string;
+  category: string; // primary section; shown as the article's tag
+  categories?: string[]; // optional extra sections to cross-file the story under
   author: string;
   date: string; // ISO yyyy-mm-dd
   views: number;
@@ -39,6 +40,7 @@ const POSTS: Post[] = [
     title: "Plea Deadline May 29th: Will Banks Plead?",
     dek: "An analysis: of the three men headed to trial in Jackson's biggest corruption case, Aaron Banks has always been the quiet one — and the quiet may be calculated.",
     category: "Politics",
+    categories: ["General News"],
     author: "Jackson Wire Staff",
     date: "2026-05-25",
     views: 0,
@@ -69,8 +71,10 @@ export const getFeaturedPost = cache((): Post | undefined =>
 );
 
 export function getPostsByCategorySlug(categorySlug: string): Post[] {
-  return getAllPosts().filter(
-    (p) => slugifyCategory(p.category) === categorySlug,
+  return getAllPosts().filter((p) =>
+    [p.category, ...(p.categories ?? [])].some(
+      (c) => slugifyCategory(c) === categorySlug,
+    ),
   );
 }
 
