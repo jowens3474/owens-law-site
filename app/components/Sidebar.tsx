@@ -10,26 +10,28 @@ export default function Sidebar() {
     <aside className="space-y-8">
       <NewsletterSignup />
 
-      <section>
-        <h2 className="border-b-2 border-ink pb-1 font-serif text-lg font-bold uppercase tracking-wide">
-          Most Read
-        </h2>
-        <ol className="mt-3 space-y-4">
-          {mostRead.map((post, i) => (
-            <li key={post.slug} className="flex gap-3">
-              <span className="font-serif text-2xl font-black leading-none text-crimson/70">
-                {i + 1}
-              </span>
-              <Link
-                href={`/article/${post.slug}`}
-                className="font-serif font-semibold leading-snug hover:text-crimson"
-              >
-                {post.title}
-              </Link>
-            </li>
-          ))}
-        </ol>
-      </section>
+      {mostRead.length > 0 && (
+        <section>
+          <h2 className="border-b-2 border-ink pb-1 font-serif text-lg font-bold uppercase tracking-wide">
+            Most Read
+          </h2>
+          <ol className="mt-3 space-y-4">
+            {mostRead.map((post, i) => (
+              <li key={post.slug} className="flex gap-3">
+                <span className="font-serif text-2xl font-black leading-none text-crimson/70">
+                  {i + 1}
+                </span>
+                <Link
+                  href={`/article/${post.slug}`}
+                  className="font-serif font-semibold leading-snug hover:text-crimson"
+                >
+                  {post.title}
+                </Link>
+              </li>
+            ))}
+          </ol>
+        </section>
+      )}
 
       <section>
         <h2 className="border-b-2 border-ink pb-1 font-serif text-lg font-bold uppercase tracking-wide">

@@ -50,11 +50,6 @@ export default function AboutPage() {
           {site.email}
         </a>
       </section>
-
-      <p className="mt-8 text-xs text-muted">
-        Note: The stories on this site are sample content created to demonstrate
-        the publication. Names, agencies, and events are fictional.
-      </p>
     </div>
   );
 }

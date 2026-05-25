@@ -46,10 +46,6 @@ export default function Footer() {
             © {new Date().getFullYear()} {site.name}. {site.city}. Independent
             and reader-supported.
           </p>
-          <p className="mt-1">
-            Stories on this site are sample content for demonstration. Names and
-            events are fictional.
-          </p>
         </div>
       </div>
     </footer>
