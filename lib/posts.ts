@@ -27,7 +27,7 @@ const POSTS: Post[] = [
     body: [
       "After a meeting that stretched past midnight, the City Council voted 4–3 Tuesday to award a seven-year, $58 million solid-waste contract to Delta Sanitation Group without putting the work out for competitive bid.",
       "The administration argued an emergency extension was necessary to avoid a lapse in pickup. Critics on the dais were not buying it. \"We have known this contract was expiring for two years,\" said Ward 5 Councilwoman Brenda Tatum, who voted no. \"There is no emergency except the one we manufactured.\"",
-      "Campaign finance records reviewed by the Muckraker show Delta Sanitation's principals and their spouses contributed a combined $14,500 to three of the four council members who voted yes, all within the last eighteen months. None of the members disclosed the contributions before the vote.",
+      "Campaign finance records reviewed by Capitol & Main show Delta Sanitation's principals and their spouses contributed a combined $14,500 to three of the four council members who voted yes, all within the last eighteen months. None of the members disclosed the contributions before the vote.",
       "Two members — both of whom had filed written objections to the no-bid process — left chambers before the roll was called, denying the meeting a quorum on a separate ethics measure that had been scheduled to follow.",
       "City Attorney Lionel Frost defended the procurement, telling the council that state law permits emergency awards \"when a delay would threaten public health.\" When pressed on whether uncollected garbage met that bar after only a brief gap, Frost said he would \"provide a written opinion at a later date.\"",
       "The contract takes effect July 1. A coalition of neighborhood associations said Wednesday it is weighing a legal challenge.",
@@ -119,7 +119,7 @@ const POSTS: Post[] = [
     views: 7044,
     body: [
       "The state auditor has issued subpoenas for the financial records of a Jackson-based nonprofit that received roughly $9 million in federal welfare block-grant funds over five years.",
-      "The organization, which says it provides job training and family services, has not published an annual report since 2022. Several listed program addresses are vacant storefronts, according to a Muckraker visit this week.",
+      "The organization, which says it provides job training and family services, has not published an annual report since 2022. Several listed program addresses are vacant storefronts, according to a Capitol & Main visit this week.",
       "The auditor's office declined to characterize the investigation beyond confirming the subpoenas were issued. The nonprofit's director did not respond to multiple requests for comment.",
       "Federal welfare block grants give states wide latitude over spending, a flexibility that watchdogs say has repeatedly invited abuse in Mississippi.",
     ],
@@ -148,7 +148,7 @@ const POSTS: Post[] = [
     date: "2026-05-12",
     views: 6210,
     body: [
-      "Hinds-area county government paid more than $1.2 million over three years for an enterprise permitting system that was never deployed, according to an internal memo obtained by the Muckraker.",
+      "Hinds-area county government paid more than $1.2 million over three years for an enterprise permitting system that was never deployed, according to an internal memo obtained by Capitol & Main.",
       "The software, purchased in 2023 to modernize building and zoning permits, still runs on a paper-and-spreadsheet workflow that predates most of the current staff. The vendor, MeridianGov Solutions, continued to invoice the county for annual licensing and \"premium support\" the entire time.",
       "\"Nobody could tell me who signed off on the renewal,\" wrote the county's interim IT director in the memo, which was circulated to supervisors last month. \"The original project manager left in 2023 and the contract auto-renewed twice after that.\"",
       "Supervisors have asked the state auditor's office for guidance on whether any of the money can be recovered. A spokesperson for MeridianGov said the company \"delivered the licensed product and stands by its contract.\"",

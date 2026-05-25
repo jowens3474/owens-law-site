@@ -1,10 +1,10 @@
 // Central place to rebrand the publication. Change these and the whole site updates.
 export const site = {
-  name: "The Magnolia Muckraker",
-  shortName: "The Muckraker",
-  tagline: "Mississippi real estate and politics, unfiltered.",
+  name: "Capitol & Main",
+  shortName: "Capitol & Main",
+  tagline: "Politics, property, and power in Mississippi.",
   description:
-    "Independent reporting on Mississippi real estate, development, and government — and the people who profit from them. Tips welcome, sacred cows not.",
+    "Independent reporting on Mississippi politics, development, and the real-estate market — and the people who profit from them. Tips welcome, sacred cows not.",
   email: "jason@owensowens.com",
   city: "Jackson, Mississippi",
   founded: 2026,
