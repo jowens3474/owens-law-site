@@ -162,6 +162,29 @@ const POSTS: Post[] = [
       "Downtown Jackson is waking up. And the best part? This is only the beginning.",
     ],
   },
+  {
+    slug: "data-centers-coming-to-metro-jackson",
+    title: "Data Centers Are Coming to Metro Jackson, and the Debate Is Heating Up",
+    dek: "A New Jersey firm wants to rezone 190 acres for what looks like a data center, just as the City Council weighs a moratorium — part of a boom that's made Mississippi one of the country's hottest markets.",
+    category: "Commercial Real Estate",
+    categories: ["General News", "Politics"],
+    author: "Jackson Wire Staff",
+    date: "2026-05-25",
+    views: 0,
+    image: "/data-center.webp",
+    imageAlt:
+      "An aerial view of a large data center complex next to a suburban subdivision.",
+    body: [
+      "The race to build data centers in Mississippi has officially reached Jackson's front door, and not everyone is rolling out the welcome mat.",
+      "Just one day after the Jackson City Council tabled a temporary ban on data centers, WLBT learned that a rezoning request tied to one is headed to the Planning Board on May 27. A New Jersey real estate firm, Saxum Investment Company, wants to rezone roughly 190 acres along Forest Avenue, near I-220 and Medgar Evers Boulevard, for heavy industrial use.",
+      "Here's the twist: the application never actually says \"data center.\" But almost everyone seems to know that's the plan. \"When you read that application it doesn't say data center,\" said Ward Two Councilwoman Tina Clay, who worries about the impact on the nearby Ashley Acres subdivision. \"But that's what it is. We all know that.\"",
+      "So why all the buzz over a building full of servers? Money, for one. The company's attorney told the council a new data center could pump tens of millions of dollars in fresh property taxes into the city and school district over the next decade. But Council President Brian Grizzell, who authored the proposed moratorium, has concerns about what these power-hungry, water-thirsty facilities could do to Jackson's already strained water and sewer systems. \"All money is not good money,\" he told the council.",
+      "Whatever Jackson decides, it's not happening in a vacuum. Mississippi has quietly become one of the hottest data center markets in the country. Amazon alone now plans to invest a staggering $25 billion across the state, with projects in Madison County, Ridgeland, Warren County, and a $1 billion build in Hinds County at the old Delphi plant. Just down the road in Clinton, Amazon is putting up a $750 million data center on the former Milwaukee Tool site, a deal the mayor called the biggest economic development project in the city and county's history.",
+      "The pitch is hard to ignore: billions in investment, thousands of high-paying jobs, and a serious tech footprint for a state that's used to being overlooked. The catch is that all those servers need enormous amounts of power and water, and cities are now wrestling with whether the payoff is worth the strain.",
+      "For Jackson, that decision is coming fast. The Planning Board meets May 27, and if it approves the rezoning, the matter heads to the council in June for a final vote.",
+      "The bottom line? The data center boom that's been sweeping Mississippi is now knocking on Jackson's door, and the next few weeks will tell us whether the city says come on in, or not so fast.",
+    ],
+  },
 ];
 
 const sortByDateDesc = (a: Post, b: Post) => b.date.localeCompare(a.date);
