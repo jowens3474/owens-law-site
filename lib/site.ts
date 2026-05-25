@@ -1,10 +1,10 @@
 // Central place to rebrand the publication. Change these and the whole site updates.
 export const site = {
-  name: "Capitol & Main",
-  shortName: "Capitol & Main",
-  tagline: "Politics, property, and power in Mississippi.",
+  name: "The Jackson Wire",
+  shortName: "Jackson Wire",
+  tagline: "Jackson politics, property, and power.",
   description:
-    "Independent reporting on Mississippi politics, development, and the real-estate market — and the people who profit from them. Tips welcome, sacred cows not.",
+    "Independent reporting on Jackson and Mississippi politics, development, and real estate — and the people who profit from them. Tips welcome, sacred cows not.",
   email: "capitolmain42@gmail.com",
   city: "Jackson, Mississippi",
   founded: 2026,
