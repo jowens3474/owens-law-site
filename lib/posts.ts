@@ -85,6 +85,9 @@ const POSTS: Post[] = [
     author: "Jackson Wire Staff",
     date: "2026-05-25",
     views: 0,
+    image: "/lofts-at-eastover.webp",
+    imageAlt:
+      "A green-and-white “Coming Soon — The Lofts at Eastover” sign on the lawn at 2625 Ridgewood Road, with the converted townhouse-style building behind it.",
     body: [
       "There's a “Coming Soon” sign up at 2625 Ridgewood Road in Northeast Jackson, where a modest Class B office building called Eastover Commons is being reborn as The Lofts at Eastover. The pitch on the sign is simple: “New, Luxury Style Lofts.” The strategy behind it is more interesting than the marketing.",
       "The developer is State Street Group, the Jackson firm founded in 1971 by J. Kane Ditto, the former two-term mayor of Jackson, who remains the company's principal. Day-to-day operations run through president Justin Peterson. Grant Ethridge Construction, out of Lafayette, is the general contractor, and Ridgeland's Dean Architecture is handling design. The building is being converted into roughly 15 loft-style apartments, one and two bedrooms, ranging from about 530 to 1,190 square feet, with asking rents listed between $1,321 and $2,630 a month.",
