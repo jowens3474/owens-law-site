@@ -2,6 +2,7 @@
 export const site = {
   name: "The Jackson Wire",
   shortName: "Jackson Wire",
+  url: "https://thejacksonwire.com",
   tagline: "Jackson politics, property, and power.",
   description:
     "Independent reporting on Jackson and Mississippi politics, development, and real estate — and the people who profit from them. Tips welcome, sacred cows not.",
