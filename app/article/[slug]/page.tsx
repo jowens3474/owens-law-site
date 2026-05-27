@@ -9,6 +9,7 @@ import {
   readingTime,
 } from "@/lib/posts";
 import { site } from "@/lib/site";
+import { absoluteUrl } from "@/lib/markdown";
 import ArticleImage from "@/app/components/ArticleImage";
 import Timeline from "@/app/components/Timeline";
 import CategoryTag from "@/app/components/CategoryTag";
@@ -28,6 +29,10 @@ export async function generateMetadata({
     title: post.title,
     description: post.dek,
     authors: [{ name: post.author }],
+    alternates: {
+      canonical: `/article/${slug}`,
+      types: { "text/markdown": `/article/${slug}.md` },
+    },
   };
 }
 
@@ -40,8 +45,29 @@ export default async function ArticlePage({
 
   const related = getRelatedPosts(post, 3);
 
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    headline: post.title,
+    description: post.dek,
+    datePublished: post.date,
+    dateModified: post.date,
+    articleSection: post.category,
+    author: [{ "@type": "Organization", name: post.author }],
+    publisher: { "@id": absoluteUrl("/#org") },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": absoluteUrl(`/article/${post.slug}`),
+    },
+    ...(post.image ? { image: [absoluteUrl(post.image)] } : {}),
+  };
+
   return (
     <div className="mx-auto max-w-3xl px-4 py-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
       <nav className="mb-6 text-xs uppercase tracking-widest text-muted">
         <Link href="/" className="hover:text-crimson">
           Home
