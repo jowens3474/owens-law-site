@@ -8,7 +8,7 @@ import {
   formatDate,
   readingTime,
 } from "@/lib/posts";
-import { site } from "@/lib/site";
+import { site, categoryByName } from "@/lib/site";
 import { absoluteUrl } from "@/lib/markdown";
 import ArticleImage from "@/app/components/ArticleImage";
 import Timeline from "@/app/components/Timeline";
@@ -25,6 +25,8 @@ export async function generateMetadata({
   const { slug } = await params;
   const post = getPostBySlug(slug);
   if (!post) return {};
+  const url = absoluteUrl(`/article/${slug}`);
+  const images = post.image ? [absoluteUrl(post.image)] : undefined;
   return {
     title: post.title,
     description: post.dek,
@@ -32,6 +34,24 @@ export async function generateMetadata({
     alternates: {
       canonical: `/article/${slug}`,
       types: { "text/markdown": `/article/${slug}.md` },
+    },
+    openGraph: {
+      type: "article",
+      title: post.title,
+      description: post.dek,
+      url,
+      siteName: site.name,
+      publishedTime: post.date,
+      modifiedTime: post.date,
+      section: post.category,
+      authors: [post.author],
+      images,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.dek,
+      images,
     },
   };
 }
@@ -44,6 +64,31 @@ export default async function ArticlePage({
   if (!post) notFound();
 
   const related = getRelatedPosts(post, 3);
+
+  const categorySlug = categoryByName(post.category)?.slug;
+  const breadcrumbsJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") },
+      ...(categorySlug
+        ? [
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: post.category,
+              item: absoluteUrl(`/category/${categorySlug}`),
+            },
+          ]
+        : []),
+      {
+        "@type": "ListItem",
+        position: categorySlug ? 3 : 2,
+        name: post.title,
+        item: absoluteUrl(`/article/${post.slug}`),
+      },
+    ],
+  };
 
   const articleJsonLd = {
     "@context": "https://schema.org",
@@ -67,6 +112,10 @@ export default async function ArticlePage({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbsJsonLd) }}
       />
       <nav className="mb-6 text-xs uppercase tracking-widest text-muted">
         <Link href="/" className="hover:text-crimson">

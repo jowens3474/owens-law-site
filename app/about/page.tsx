@@ -1,9 +1,25 @@
 import type { Metadata } from "next";
 import { site } from "@/lib/site";
+import { absoluteUrl } from "@/lib/markdown";
+
+const description = `About ${site.name} — ${site.tagline}`;
 
 export const metadata: Metadata = {
   title: "About",
-  description: `About ${site.name} — ${site.tagline}`,
+  description,
+  alternates: { canonical: "/about" },
+  openGraph: {
+    type: "website",
+    title: `About ${site.name}`,
+    description,
+    url: absoluteUrl("/about"),
+    siteName: site.name,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `About ${site.name}`,
+    description,
+  },
 };
 
 export default function AboutPage() {
