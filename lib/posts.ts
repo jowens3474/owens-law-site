@@ -62,6 +62,9 @@ const POSTS: Post[] = [
     author: "Jackson Wire Staff",
     date: "2026-05-28",
     views: 0,
+    image: "/indictment.webp",
+    imageAlt:
+      "A black book titled “Indictment” next to a wooden judge's gavel on a desk.",
     body: [
       "Look closely at the charging document in the federal corruption case against Hinds County District Attorney Jody Owens, former Mayor Chokwe Antar Lumumba, and former Councilman Aaron Banks, and you'll notice something most coverage skips. The three men are charged together, but they are not charged equally. The numbers reveal a hierarchy.",
       "Owens faces eight counts. Lumumba faces five. Banks faces two.",
