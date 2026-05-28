@@ -40,11 +40,25 @@ pages must be replaced with real, verified information:
 - **Client reviews** — real testimonials used with permission only
 - **Domain** (`site.url`)
 
-## Wire up lead capture
+## Lead capture (contact form + attorney referrals)
 
-`app/components/IntakeForm.tsx` is front-end only today. To actually receive
-leads, add a Route Handler at `app/api/intake/route.ts` that emails the firm
-and/or writes to a CRM, then post the form to it.
+Both the contact form (`/contact`) and the attorney-referral form
+(`/for-attorneys`) post to `app/api/leads/route.ts`. That endpoint delivers
+each lead through whichever channels you configure, and degrades gracefully —
+with nothing configured it logs the lead server-side and still succeeds, so the
+forms work the moment you deploy.
+
+Set these environment variables in Vercel to start receiving leads:
+
+| Variable             | Purpose                                                        |
+| -------------------- | -------------------------------------------------------------- |
+| `LEAD_NOTIFY_EMAIL`  | Inbox that receives leads (e.g. the firm's intake address).    |
+| `LEAD_FROM_EMAIL`    | A **verified** sender address for [Resend](https://resend.com).|
+| `RESEND_API_KEY`     | Resend API key. Enables email delivery.                        |
+| `LEAD_WEBHOOK_URL`   | Optional — also POST each lead to a CRM/Zapier/Slack webhook.  |
+
+You can use email, a webhook, or both. Swap Resend for another provider by
+editing the one `sendViaResend` function.
 
 ## Compliance note
 

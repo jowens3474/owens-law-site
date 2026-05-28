@@ -11,6 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/results",
     "/reviews",
     "/about",
+    "/for-attorneys",
     "/contact",
   ];
 
