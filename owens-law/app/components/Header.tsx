@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { site, nav } from "@/lib/site";
+import { site, nav, primaryNav } from "@/lib/site";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
@@ -37,7 +37,7 @@ export default function Header() {
 
         {/* Desktop nav */}
         <nav className="hidden items-center gap-5 lg:flex">
-          {nav.map((item) => (
+          {primaryNav.map((item) => (
             <Link
               key={item.href}
               href={item.href}

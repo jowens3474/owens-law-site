@@ -226,12 +226,24 @@ export const reviews: Review[] = [
   },
 ];
 
+// Full list (used in the footer). The header uses the leaner `primaryNav`.
 export const nav = [
   { label: "Home", href: "/" },
   { label: "Practice Areas", href: "/practice-areas" },
+  { label: "Areas We Serve", href: "/areas-we-serve" },
   { label: "Results", href: "/results" },
   { label: "Reviews", href: "/reviews" },
   { label: "About", href: "/about" },
   { label: "For Attorneys", href: "/for-attorneys" },
   { label: "Contact", href: "/contact" },
+] as const;
+
+// Trimmed set shown in the desktop header so it doesn't overflow.
+export const primaryNav = [
+  { label: "Home", href: "/" },
+  { label: "Practice Areas", href: "/practice-areas" },
+  { label: "Areas We Serve", href: "/areas-we-serve" },
+  { label: "Results", href: "/results" },
+  { label: "About", href: "/about" },
+  { label: "For Attorneys", href: "/for-attorneys" },
 ] as const;

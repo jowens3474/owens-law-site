@@ -1,11 +1,6 @@
 import Link from "next/link";
-import {
-  site,
-  practiceAreas,
-  results,
-  reviews,
-  serviceAreas,
-} from "@/lib/site";
+import { site, practiceAreas, results, reviews } from "@/lib/site";
+import { cities } from "@/lib/locations";
 import CtaBand from "./components/CtaBand";
 import Stars from "./components/Stars";
 
@@ -165,15 +160,24 @@ export default function Home() {
           From the Gulf Coast to the Delta, we represent clients statewide.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
-          {serviceAreas.map((a) => (
-            <span
-              key={a}
-              className="rounded-full border border-rule bg-surface px-4 py-1.5 text-sm text-ink"
+          {cities.map((c) => (
+            <Link
+              key={c.slug}
+              href={`/areas-we-serve/${c.slug}`}
+              className="rounded-full border border-rule bg-surface px-4 py-1.5 text-sm text-ink transition-colors hover:border-gold hover:text-gold-dark"
             >
-              {a}
-            </span>
+              {c.name}
+            </Link>
           ))}
         </div>
+        <p className="mt-5">
+          <Link
+            href="/areas-we-serve"
+            className="text-sm font-bold text-gold-dark hover:underline"
+          >
+            See all areas we serve →
+          </Link>
+        </p>
       </section>
 
       <CtaBand />
