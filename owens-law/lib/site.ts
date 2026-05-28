@@ -226,7 +226,85 @@ export const reviews: Review[] = [
   },
 ];
 
-// Full list (used in the footer). The header uses the leaner `primaryNav`.
+export interface Faq {
+  q: string;
+  a: string;
+}
+
+// General Mississippi personal-injury FAQs reused across pages. These are
+// accurate, plain-language answers with appropriate caveats — they are general
+// information, not legal advice (the footer states this). Have the attorney
+// confirm them and update statutes as the law changes.
+export const generalFaqs: Faq[] = [
+  {
+    q: `How much does it cost to hire ${site.name}?`,
+    a: "Nothing up front. We work on a contingency fee, which means you pay no attorney fee unless we recover money for you, and the initial consultation is always free.",
+  },
+  {
+    q: "How long do I have to file a personal injury claim in Mississippi?",
+    a: "In most Mississippi injury cases the statute of limitations is three years from the date of the injury (Miss. Code Ann. § 15-1-49). Some claims have much shorter deadlines — for example, claims against a city, county, or state agency under the Mississippi Tort Claims Act require notice within strict time limits. Because deadlines vary and missing one can bar your claim, call as soon as you can.",
+  },
+  {
+    q: "Can I still recover money if the wreck was partly my fault?",
+    a: "Often, yes. Mississippi follows a 'pure comparative negligence' rule, so you can recover even if you were partially at fault — your compensation is reduced by your percentage of fault. Don't assume you have no case; let us evaluate it.",
+  },
+  {
+    q: "Should I give the insurance company a recorded statement?",
+    a: "Be careful. The other driver's insurer may ask for a recorded statement or push a quick, low settlement before you know the full extent of your injuries. You are generally not required to give them a statement, and it's wise to talk to a lawyer first — we deal with the adjusters for you.",
+  },
+  {
+    q: "How long will my case take?",
+    a: "Every case is different. Some settle in a few months; serious-injury or disputed-liability cases can take longer, especially if a lawsuit is filed. We work to resolve your case as efficiently as possible without leaving money on the table.",
+  },
+];
+
+// Practice-specific FAQs, keyed by practice-area slug.
+export const practiceFaqs: Record<string, Faq[]> = {
+  "car-accidents": [
+    {
+      q: "What should I do after a car accident in Mississippi?",
+      a: "If you're able: call 911, get medical attention, photograph the scene and vehicles, exchange insurance and contact information, and avoid admitting fault. Then talk to a lawyer before giving a recorded statement to the insurance company.",
+    },
+    {
+      q: "What if the other driver was uninsured or underinsured?",
+      a: "You may be able to recover through your own uninsured/underinsured motorist (UM/UIM) coverage. Mississippi insurers must offer UM coverage, and it can be critical when the at-fault driver has no insurance or too little to cover your injuries.",
+    },
+  ],
+  "truck-accidents": [
+    {
+      q: "Why are truck accident cases different from car accidents?",
+      a: "Commercial trucking is governed by federal safety regulations, and there is often more than one responsible party — the driver, the trucking company, and others. Key evidence like the truck's black box (ECM), driver logs, and maintenance records can disappear quickly, so it's important to act fast.",
+    },
+  ],
+  "motorcycle-accidents": [
+    {
+      q: "The insurer says the crash was my fault because I ride a motorcycle. Is that right?",
+      a: "Bias against riders is common, but it isn't the law. We investigate what actually happened and push back on unfair blame. Even if you were partly at fault, Mississippi's comparative negligence rule may still allow you to recover.",
+    },
+  ],
+  "wrongful-death": [
+    {
+      q: "Who can file a wrongful death claim in Mississippi?",
+      a: "Mississippi's wrongful death statute allows certain family members and the personal representative of the estate to bring a claim. Who is entitled to recover, and in what share, can be complicated — we can walk you through how it applies to your family.",
+    },
+  ],
+  "catastrophic-injury": [
+    {
+      q: "Why do catastrophic injury cases need special handling?",
+      a: "A catastrophic injury can mean a lifetime of medical care and lost earning capacity. Valuing the claim properly usually takes medical experts, life-care planners, and economists so that any settlement or verdict accounts for future costs — not just today's bills.",
+    },
+  ],
+  "premises-liability": [
+    {
+      q: "When is a property owner responsible for my injury?",
+      a: "Generally when the owner knew or should have known about a dangerous condition and failed to fix it or warn you. The owner's duty depends in part on why you were on the property. We can assess whether the owner's negligence caused your injury.",
+    },
+  ],
+};
+
+// Practice FAQs first, then the general ones — capped for a tidy page.
+export const faqsForPractice = (slug: string): Faq[] =>
+  [...(practiceFaqs[slug] ?? []), ...generalFaqs].slice(0, 6);
 export const nav = [
   { label: "Home", href: "/" },
   { label: "Practice Areas", href: "/practice-areas" },

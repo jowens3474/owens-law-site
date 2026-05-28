@@ -1,9 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { practiceAreas, practiceAreaBySlug, site } from "@/lib/site";
+import {
+  practiceAreas,
+  practiceAreaBySlug,
+  faqsForPractice,
+  site,
+} from "@/lib/site";
 import { absoluteUrl } from "@/lib/seo";
 import CtaBand from "../../components/CtaBand";
+import FaqSection from "../../components/FaqSection";
 
 export function generateStaticParams() {
   return practiceAreas.map((p) => ({ slug: p.slug }));
@@ -135,6 +141,11 @@ export default async function PracticeAreaPage({
             </Link>
           ))}
         </div>
+
+        <FaqSection
+          faqs={faqsForPractice(area.slug)}
+          heading={`${area.name}: frequently asked questions`}
+        />
       </article>
 
       <CtaBand />

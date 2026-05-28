@@ -1,10 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { practiceAreas, practiceAreaBySlug, site } from "@/lib/site";
+import {
+  practiceAreas,
+  practiceAreaBySlug,
+  practiceFaqs,
+  site,
+  type Faq,
+} from "@/lib/site";
 import { cities, cityBySlug } from "@/lib/locations";
 import { absoluteUrl } from "@/lib/seo";
 import CtaBand from "../../../components/CtaBand";
+import FaqSection from "../../../components/FaqSection";
 
 export function generateStaticParams() {
   return practiceAreas.flatMap((p) =>
@@ -56,6 +63,25 @@ export default async function PracticeCityPage({
 
   const phrase = lawyerPhrase(area.name);
   const path = `/practice-areas/${area.slug}/${loc.slug}`;
+  const lower = phrase.toLowerCase();
+
+  // City-specific questions keep each page distinct, prefixed with the
+  // practice-specific FAQ for real substance.
+  const localFaqs: Faq[] = [
+    ...(practiceFaqs[area.slug] ?? []),
+    {
+      q: `How long do I have to file a ${lower} claim in ${loc.name}, Mississippi?`,
+      a: "In most Mississippi injury cases the deadline is three years from the date of injury (Miss. Code Ann. § 15-1-49), but some claims — such as those against a city, county, or state agency — have much shorter notice deadlines. Don't wait; call as soon as you can so you don't lose your right to recover.",
+    },
+    {
+      q: `How much does a ${loc.name} ${lower} lawyer cost?`,
+      a: `${site.name} works on a contingency fee — no money up front and no attorney fee unless we win your case. Your consultation is always free.`,
+    },
+    {
+      q: `Can I still recover if I was partly at fault for a ${lower} in ${loc.name}?`,
+      a: "Likely yes. Mississippi's pure comparative negligence rule lets you recover even if you were partially at fault — your compensation is simply reduced by your percentage of fault.",
+    },
+  ];
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -217,6 +243,11 @@ export default async function PracticeCityPage({
             </Link>
           ))}
         </div>
+
+        <FaqSection
+          faqs={localFaqs}
+          heading={`${phrase} claims in ${loc.name}: FAQs`}
+        />
       </article>
 
       <CtaBand heading={`Hurt in ${loc.name}? Let's talk — free.`} />

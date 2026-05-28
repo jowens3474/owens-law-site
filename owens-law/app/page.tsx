@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { site, practiceAreas, results, reviews } from "@/lib/site";
+import { site, practiceAreas, results, reviews, generalFaqs } from "@/lib/site";
 import { cities } from "@/lib/locations";
 import CtaBand from "./components/CtaBand";
 import Stars from "./components/Stars";
+import FaqSection from "./components/FaqSection";
 
 export default function Home() {
   return (
@@ -179,6 +180,10 @@ export default function Home() {
           </Link>
         </p>
       </section>
+
+      <div className="mx-auto max-w-4xl px-4 pb-4">
+        <FaqSection faqs={generalFaqs} />
+      </div>
 
       <CtaBand />
     </>
