@@ -62,6 +62,7 @@ const POSTS: Post[] = [
     author: "Jackson Wire Staff",
     date: "2026-05-28",
     views: 0,
+    featured: true,
     image: "/indictment.webp",
     imageAlt:
       "A black book titled “Indictment” next to a wooden judge's gavel on a desk.",
@@ -89,7 +90,6 @@ const POSTS: Post[] = [
     author: "Jackson Wire Staff",
     date: "2026-05-25",
     views: 0,
-    featured: true,
     image: "/aaron-banks.webp",
     imageAlt:
       "Former Jackson city councilman Aaron Banks, right, arrives at the federal courthouse alongside his attorney.",
