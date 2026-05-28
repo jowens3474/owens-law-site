@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* Fonts (sourced from next/font in layout.tsx) */
+  --font-serif: var(--font-playfair), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-source), system-ui, -apple-system, sans-serif;
+
+  /* Trust palette: deep navy + gold */
+  --color-navy: #0b2545;
+  --color-navy-dark: #061629;
+  --color-navy-light: #13315c;
+  --color-gold: #c9a227;
+  --color-gold-dark: #a8851a;
+  --color-ink: #16202c;
+  --color-muted: #5b6675;
+  --color-paper: #ffffff;
+  --color-surface: #f4f6f9;
+  --color-rule: #e2e6ec;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-feature-settings: "kern", "liga";
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-serif);
+}
+
+/* Subtle entrance for hero content */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-rise {
+  animation: rise 0.6s ease both;
+}
