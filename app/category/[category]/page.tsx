@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPostsByCategorySlug } from "@/lib/posts";
 import { categories, categoryBySlug, site } from "@/lib/site";
+import { absoluteUrl } from "@/lib/markdown";
 import ArticleCard from "@/app/components/ArticleCard";
 import Sidebar from "@/app/components/Sidebar";
 
@@ -15,9 +16,24 @@ export async function generateMetadata({
   const { category } = await params;
   const cat = categoryBySlug(category);
   if (!cat) return {};
+  const url = absoluteUrl(`/category/${cat.slug}`);
+  const title = `${cat.name} — ${site.name}`;
   return {
     title: cat.name,
     description: `${cat.name} — ${cat.blurb} ${site.name}.`,
+    alternates: { canonical: `/category/${cat.slug}` },
+    openGraph: {
+      type: "website",
+      title,
+      description: cat.blurb,
+      url,
+      siteName: site.name,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description: cat.blurb,
+    },
   };
 }
 
