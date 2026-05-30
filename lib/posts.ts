@@ -91,6 +91,9 @@ const POSTS: Post[] = [
     date: "2026-05-28",
     views: 0,
     featured: true,
+    image: "/jackson-prices-chart.png",
+    imageAlt:
+      "Bar chart: year-over-year change in median sale price through April 2026 — Jackson +32.4%, Ridgeland +23.0%, Pearl +8.9%. Source: Redfin.",
     body: [
       "Something is shifting in Jackson's housing market, and it's showing up in the data.",
       "Home prices in the city of Jackson rose 32.4 percent over the past year, the largest jump in the metro area, according to Redfin. The median sale price climbed to $144,000, with Ridgeland up 23 percent and Pearl up 8.9 percent over the same period. Over the three months ending April 2026, Jackson prices were up 25.5 percent compared with the same stretch a year earlier, and homes are moving faster. The typical Jackson home now sells in 44 days. A year ago, it took 60.",
