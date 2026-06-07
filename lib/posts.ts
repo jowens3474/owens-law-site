@@ -55,7 +55,7 @@ export interface Post {
 const POSTS: Post[] = [
   {
     slug: "no-deals-no-dismissals-jackson-gets-trial",
-    title: "No Deals. No Dismissals. Jackson Gets a Trial.",
+    title: "Jackson Corruption Case Hits the Recording Fight as Trial Date Closes In",
     dek: "The federal corruption case against Hinds County District Attorney Jody Owens, former Mayor Chokwe Antar Lumumba, and former Councilman Aaron Banks moved another inch toward the jury this week. The inches are starting to add up.",
     category: "Politics",
     categories: ["General News"],
