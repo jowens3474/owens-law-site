@@ -1,7 +1,21 @@
+import Image from "next/image";
 import Link from "next/link";
 import { getMostRead } from "@/lib/posts";
 import { categories, site } from "@/lib/site";
 import NewsletterSignup from "./NewsletterSignup";
+
+const orderSubject = "STOKES Hat order";
+const orderBody = `Hi —
+
+I'd like to order [quantity] STOKES hat(s).
+
+Name:
+Shipping address:
+
+Thanks!`;
+const orderHref = `mailto:${site.email}?subject=${encodeURIComponent(
+  orderSubject,
+)}&body=${encodeURIComponent(orderBody)}`;
 
 export default function Sidebar() {
   const mostRead = getMostRead(5);
@@ -65,6 +79,33 @@ export default function Sidebar() {
           className="mt-3 inline-block text-sm font-bold uppercase tracking-wide text-crimson hover:text-crimson-dark"
         >
           {site.email}
+        </a>
+      </section>
+
+      <section className="border-2 border-ink bg-paper p-5">
+        <h2 className="border-b-2 border-ink pb-1 font-serif text-lg font-bold uppercase tracking-wide">
+          Shop
+        </h2>
+        <Image
+          src="/stokes-hat.png"
+          alt="Black structured baseball cap with white embroidered STOKES lettering."
+          width={800}
+          height={600}
+          className="mt-4 h-auto w-full"
+        />
+        <p className="mt-4 font-serif text-xl font-black">STOKES Hat</p>
+        <p className="mt-1 text-sm text-muted">
+          $25 · Black structured cap, white embroidery. One size, adjustable
+          strap.
+        </p>
+        <p className="mt-2 text-xs text-muted">
+          Flat $5 shipping (US only). All sales final.
+        </p>
+        <a
+          href={orderHref}
+          className="mt-4 inline-block bg-crimson px-4 py-2 text-sm font-bold uppercase tracking-wide text-white transition-colors hover:bg-crimson-dark"
+        >
+          Order by email →
         </a>
       </section>
     </aside>
