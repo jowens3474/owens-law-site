@@ -56,14 +56,14 @@ const POSTS: Post[] = [
   {
     slug: "no-deals-no-dismissals-jackson-gets-trial",
     title: "No Deals. No Dismissals. Jackson Gets a Trial.",
-    dek: "The plea deadline came and went without deals, the motions to dismiss died, and the latest pretrial housekeeping points every deadline straight at the courthouse door.",
+    dek: "The federal corruption case against Hinds County District Attorney Jody Owens, former Mayor Chokwe Antar Lumumba, and former Councilman Aaron Banks moved another inch toward the jury this week. The inches are starting to add up.",
     category: "Politics",
     categories: ["General News"],
     author: "Jackson Wire Staff",
     date: "2026-06-07",
     views: 0,
+    featured: true,
     body: [
-      "The federal corruption case against Hinds County District Attorney Jody Owens, former Mayor Chokwe Antar Lumumba, and former Councilman Aaron Banks moved another inch toward the jury this week. The inches are starting to add up.",
       "On Monday, Chief U.S. District Judge Daniel P. Jordan III pulled the lawyers onto a Zoom and ran through the kind of housekeeping that says, plainly, we are going to try this case. No grand pronouncements. Just deadlines, and the deadlines all point at the courthouse door.",
       "The fight, as everyone in the room knows, is going to be about tape. The FBI ran an undercover operation here. Yachts, a private jet, cash, the works. And it recorded a lot of it. Judge Jordan told both sides to come back by June 9 with the clips they want played and the portions they want included for context. By June 16, the lawyers have to sit down with each other and hash out the objections. Then the same day, a pretrial conference. That is the last big stop before testimony.",
       "A few things worth noting from the call.",
@@ -110,7 +110,6 @@ const POSTS: Post[] = [
     author: "Jackson Wire Staff",
     date: "2026-05-28",
     views: 0,
-    featured: true,
     image: "/jackson-prices-chart.png",
     imageAlt:
       "Bar chart: year-over-year change in median sale price through April 2026 — Jackson +32.4%, Ridgeland +23.0%, Pearl +8.9%. Source: Redfin.",
