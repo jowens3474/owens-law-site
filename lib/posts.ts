@@ -54,6 +54,26 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "no-deals-no-dismissals-jackson-gets-trial",
+    title: "No Deals. No Dismissals. Jackson Gets a Trial.",
+    dek: "The plea deadline came and went without deals, the motions to dismiss died, and the latest pretrial housekeeping points every deadline straight at the courthouse door.",
+    category: "Politics",
+    categories: ["General News"],
+    author: "Jackson Wire Staff",
+    date: "2026-06-07",
+    views: 0,
+    body: [
+      "The federal corruption case against Hinds County District Attorney Jody Owens, former Mayor Chokwe Antar Lumumba, and former Councilman Aaron Banks moved another inch toward the jury this week. The inches are starting to add up.",
+      "On Monday, Chief U.S. District Judge Daniel P. Jordan III pulled the lawyers onto a Zoom and ran through the kind of housekeeping that says, plainly, we are going to try this case. No grand pronouncements. Just deadlines, and the deadlines all point at the courthouse door.",
+      "The fight, as everyone in the room knows, is going to be about tape. The FBI ran an undercover operation here. Yachts, a private jet, cash, the works. And it recorded a lot of it. Judge Jordan told both sides to come back by June 9 with the clips they want played and the portions they want included for context. By June 16, the lawyers have to sit down with each other and hash out the objections. Then the same day, a pretrial conference. That is the last big stop before testimony.",
+      "A few things worth noting from the call.",
+      "The government brought a four-prosecutor team: David H. Fulcher, Charles W. Kirkham, Herbert S. Carraway III, and Kabah S. Ealy. Carraway and Ealy only entered the case in early May. The bench is full. Reinforcements are seated.",
+      "Owens had Warren Gary Kohlman, Luke E. Whitaker, and Joel J. Averitt. Lumumba had Gerald K. Evelyn, Thomas J. Bellinder, and Jeffrey L. Edison. Banks had E. Carlos Tanner III. Eleven lawyers on one Zoom call about one case. That is not the staffing of a case anyone is settling.",
+      "And nobody settled. The court's deadline for a guilty plea was May 29. It came. It went. Nothing. Jury selection started May 11. The big motions to dismiss died on May 14. The off-ramps are closed and the highway is one way now.",
+      "The deals didn't come. The motions didn't land. Jackson is getting a trial.",
+    ],
+  },
+  {
     slug: "what-the-charge-sheet-tells-you",
     title: "What the Charge Sheet Tells You About Who Did What",
     dek: "Three Jackson officials, three different indictments. The numbers aren't an accident.",
