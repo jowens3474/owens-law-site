@@ -32,6 +32,12 @@ export interface Post {
 // The newest date appears first automatically. Mark one with `featured: true`
 // to make it the big lead story on the homepage.
 //
+// SCHEDULING: An article's `date` controls when it goes live. Set `date` to a
+// future YYYY-MM-DD and the article stays hidden from the site, sitemap, RSS,
+// llms.txt, and search until that day arrives (compared in Central time).
+// Batch-write 3–4 pieces on one day and stagger their dates across the week
+// to drip-publish — no manual rebuild needed (pages revalidate every 10 min).
+//
 // Template:
 // {
 //   slug: "url-friendly-headline",            // becomes /article/url-friendly-headline
@@ -569,13 +575,30 @@ const POSTS: Post[] = [
 
 const sortByDateDesc = (a: Post, b: Post) => b.date.localeCompare(a.date);
 
+// Today's calendar date (YYYY-MM-DD) in the publication's local time zone
+// (America/Chicago). Used to schedule article publication by date so writers
+// can batch-write multiple pieces and drip-publish across the week without
+// rebuilding — pages revalidate every 10 minutes (see `revalidate` exports).
+function todayLocalIso(): string {
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/Chicago",
+  }).format(new Date());
+}
+
+// An article is "live" once its `date` is today or earlier (Chicago time).
+// Future-dated articles stay hidden from every public surface until then.
+function isPublished(p: Post): boolean {
+  return p.date <= todayLocalIso();
+}
+
 export const getAllPosts = cache((): Post[] =>
-  [...POSTS].sort(sortByDateDesc),
+  POSTS.filter(isPublished).sort(sortByDateDesc),
 );
 
-export const getPostBySlug = cache((slug: string): Post | undefined =>
-  POSTS.find((p) => p.slug === slug),
-);
+export const getPostBySlug = cache((slug: string): Post | undefined => {
+  const post = POSTS.find((p) => p.slug === slug);
+  return post && isPublished(post) ? post : undefined;
+});
 
 export const getFeaturedPost = cache((): Post | undefined =>
   getAllPosts().find((p) => p.featured) ?? getAllPosts()[0],
@@ -590,7 +613,9 @@ export function getPostsByCategorySlug(categorySlug: string): Post[] {
 }
 
 export function getMostRead(limit = 5): Post[] {
-  return [...POSTS].sort((a, b) => b.views - a.views).slice(0, limit);
+  return POSTS.filter(isPublished)
+    .sort((a, b) => b.views - a.views)
+    .slice(0, limit);
 }
 
 export function getRelatedPosts(post: Post, limit = 3): Post[] {

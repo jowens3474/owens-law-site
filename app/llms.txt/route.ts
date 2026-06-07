@@ -2,7 +2,7 @@ import { getAllPosts } from "@/lib/posts";
 import { site, categories } from "@/lib/site";
 import { absoluteUrl } from "@/lib/markdown";
 
-export const dynamic = "force-static";
+export const revalidate = 600;
 
 export async function GET() {
   const posts = getAllPosts();

@@ -1,7 +1,7 @@
 import { getAllPosts, getPostBySlug } from "@/lib/posts";
 import { postToMarkdown } from "@/lib/markdown";
 
-export const dynamic = "force-static";
+export const revalidate = 600;
 
 export function generateStaticParams() {
   return getAllPosts().map((post) => ({ slug: post.slug }));

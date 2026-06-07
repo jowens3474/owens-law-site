@@ -15,6 +15,9 @@ import Timeline from "@/app/components/Timeline";
 import CategoryTag from "@/app/components/CategoryTag";
 import ArticleCard from "@/app/components/ArticleCard";
 
+// Refresh every 10 minutes so scheduled articles render on schedule.
+export const revalidate = 600;
+
 export function generateStaticParams() {
   return getAllPosts().map((post) => ({ slug: post.slug }));
 }
