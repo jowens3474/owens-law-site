@@ -5,6 +5,10 @@ import {
   formatDate,
   readingTime,
 } from "@/lib/posts";
+
+// Refresh every 10 minutes so scheduled (future-dated) articles flip live
+// automatically without a redeploy.
+export const revalidate = 600;
 import { site } from "@/lib/site";
 import ArticleCard from "./components/ArticleCard";
 import ArticleImage from "./components/ArticleImage";

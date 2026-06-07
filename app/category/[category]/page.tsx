@@ -6,6 +6,9 @@ import { absoluteUrl } from "@/lib/markdown";
 import ArticleCard from "@/app/components/ArticleCard";
 import Sidebar from "@/app/components/Sidebar";
 
+// Refresh every 10 minutes so scheduled articles appear on their date.
+export const revalidate = 600;
+
 export function generateStaticParams() {
   return categories.map((c) => ({ category: c.slug }));
 }

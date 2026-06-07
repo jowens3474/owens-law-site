@@ -3,6 +3,9 @@ import { getAllPosts } from "@/lib/posts";
 import { categories } from "@/lib/site";
 import { absoluteUrl } from "@/lib/markdown";
 
+// Refresh every 10 minutes so newly-scheduled articles appear in the sitemap.
+export const revalidate = 600;
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const posts = getAllPosts();
   const latest = posts[0] ? new Date(posts[0].date) : new Date();
