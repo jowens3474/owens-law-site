@@ -63,6 +63,9 @@ const POSTS: Post[] = [
     date: "2026-06-07",
     views: 0,
     featured: true,
+    image: "/wiretap.webp",
+    imageAlt:
+      "A man in headphones at a desk, listening to a reel-to-reel tape recorder beside backlit window blinds — a surveillance-style illustration.",
     body: [
       "On Monday, Chief U.S. District Judge Daniel P. Jordan III pulled the lawyers onto a Zoom and ran through the kind of housekeeping that says, plainly, we are going to try this case. No grand pronouncements. Just deadlines, and the deadlines all point at the courthouse door.",
       "The fight, as everyone in the room knows, is going to be about tape. The FBI ran an undercover operation here. Yachts, a private jet, cash, the works. And it recorded a lot of it. Judge Jordan told both sides to come back by June 9 with the clips they want played and the portions they want included for context. By June 16, the lawyers have to sit down with each other and hash out the objections. Then the same day, a pretrial conference. That is the last big stop before testimony.",
