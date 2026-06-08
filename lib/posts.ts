@@ -68,6 +68,7 @@ const POSTS: Post[] = [
     author: "Jackson Wire Staff",
     date: "2026-06-07",
     views: 0,
+    featured: true,
     body: [
       "When Hinds County District Attorney Jody Owens walks into a federal courtroom in Jackson this summer, one of the lead voices speaking for him will be a Washington, DC, attorney most people in Mississippi have never heard of. His name is Warren Gary Kohlman, and his career reads like a tour through some of the biggest federal cases of the last fifty years.",
       "Kohlman has been on the Owens defense team since the very beginning. He appeared at the November 2024 arraignment, alongside local counsel from Carroll Bufkin in Ridgeland, and he is still appearing in May and June of this year as the case heads to trial. He is admitted to practice in his home jurisdiction and has been brought into this case by special permission of the court.",
@@ -113,7 +114,6 @@ const POSTS: Post[] = [
     author: "Jackson Wire Staff",
     date: "2026-06-07",
     views: 0,
-    featured: true,
     image: "/wiretap.webp",
     imageAlt:
       "A man in headphones at a desk, listening to a reel-to-reel tape recorder beside backlit window blinds — a surveillance-style illustration.",
