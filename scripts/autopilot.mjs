@@ -1,12 +1,12 @@
 #!/usr/bin/env node
-// Autopilot — researches a fresh topic via DeepSeek + (CourtListener docket if
-// available) + Tavily web search, writes a full article in the Wire's voice,
-// appends it to lib/posts.ts, and pushes to main. Triggered by
+// Autopilot — researches a fresh topic via Claude Opus 4.8 + integrated web
+// search + CourtListener docket feed, writes a full article in the Wire's
+// voice, appends it to lib/posts.ts, and pushes to main. Triggered by
 // .github/workflows/autopilot.yml on a cron schedule.
 
 import { readFileSync, writeFileSync } from "node:fs";
 import { execSync } from "node:child_process";
-import OpenAI from "openai";
+import Anthropic from "@anthropic-ai/sdk";
 
 const POSTS_FILE = "lib/posts.ts";
 const CATEGORIES = [
@@ -16,8 +16,8 @@ const CATEGORIES = [
   "Politics",
 ];
 
-// Federal criminal case the Wire is tracking. Adjust docket-number variants if
-// CourtListener doesn't recognize the first one — the search tries each in turn.
+// Federal criminal case the Wire is tracking. The CourtListener lookup tries
+// each docket-number variant in turn before falling back to a name search.
 const OWENS_CASE = {
   label: "U.S. v. Owens, Lumumba, and Banks",
   court: "mssd", // Southern District of Mississippi
@@ -66,117 +66,86 @@ OUTPUT
 - After research, call publish_article exactly ONCE with the final article.
 - Do not narrate your process — go straight from research to publishing.`;
 
+// --- Tool definitions (Anthropic format) ------------------------------------
+
 const TOOLS = [
+  { type: "web_search_20260209", name: "web_search" },
   {
-    type: "function",
-    function: {
-      name: "get_owens_case_docket",
-      description:
-        "Get recent docket entries from the federal criminal case against Jody Owens, Chokwe Antar Lumumba, and Aaron Banks in the Southern District of Mississippi. Returns the most recent entries (motions, orders, filings). Call this FIRST every run, before web_search. Returns 'unavailable' if CourtListener can't be reached.",
-      parameters: {
-        type: "object",
-        properties: {
-          days_back: {
-            type: "integer",
-            description:
-              "How many days back to look. Default 7. Maximum 30.",
-            minimum: 1,
-            maximum: 30,
-          },
+    name: "get_owens_case_docket",
+    description:
+      "Get recent docket entries from the federal criminal case against Jody Owens, Chokwe Antar Lumumba, and Aaron Banks in the Southern District of Mississippi. Returns the most recent entries (motions, orders, filings). Call this FIRST every run, before web_search. Returns 'unavailable' if CourtListener can't be reached.",
+    input_schema: {
+      type: "object",
+      properties: {
+        days_back: {
+          type: "integer",
+          description: "How many days back to look. Default 7. Maximum 30.",
+          minimum: 1,
+          maximum: 30,
         },
       },
     },
   },
   {
-    type: "function",
-    function: {
-      name: "read_court_filing",
-      description:
-        "Read the full plain text of a specific court filing by its recap_document_id (from get_owens_case_docket). Use this to write about what the filing actually says, not just news coverage of it.",
-      parameters: {
-        type: "object",
-        properties: {
-          recap_document_id: {
-            type: "integer",
-            description:
-              "The recap_document_id returned by get_owens_case_docket.",
-          },
+    name: "read_court_filing",
+    description:
+      "Read the full plain text of a specific court filing by its recap_document_id (from get_owens_case_docket). Use this to write about what the filing actually says, not just news coverage of it.",
+    input_schema: {
+      type: "object",
+      properties: {
+        recap_document_id: {
+          type: "integer",
+          description:
+            "The recap_document_id returned by get_owens_case_docket.",
         },
-        required: ["recap_document_id"],
       },
+      required: ["recap_document_id"],
     },
   },
   {
-    type: "function",
-    function: {
-      name: "web_search",
-      description:
-        "Search the web for current news and information. Returns 5 result snippets with titles, URLs, and content excerpts. Use this AFTER checking the docket, for context or fallback topic selection.",
-      parameters: {
-        type: "object",
-        properties: {
-          query: {
-            type: "string",
-            description: "Specific search query.",
-          },
+    name: "publish_article",
+    description:
+      "Submit the final, fully-researched and written article for immediate publication on The Jackson Wire. Call this exactly once, after research is complete.",
+    input_schema: {
+      type: "object",
+      additionalProperties: false,
+      properties: {
+        slug: {
+          type: "string",
+          description:
+            "URL slug: lowercase, hyphens only, no leading/trailing hyphens, no other punctuation.",
         },
-        required: ["query"],
-      },
-    },
-  },
-  {
-    type: "function",
-    function: {
-      name: "publish_article",
-      description:
-        "Submit the final, fully-researched and written article for immediate publication on The Jackson Wire. Call this exactly once, after research is complete.",
-      parameters: {
-        type: "object",
-        additionalProperties: false,
-        properties: {
-          slug: {
-            type: "string",
-            description:
-              "URL slug: lowercase, hyphens only, no leading/trailing hyphens, no other punctuation.",
-          },
-          title: { type: "string", description: "Article headline." },
-          dek: {
-            type: "string",
-            description:
-              "One or two sentences summarizing the article. Shown italicized under the headline; do not repeat it as the first body paragraph.",
-          },
-          category: {
-            type: "string",
-            enum: CATEGORIES,
-            description: "Primary section.",
-          },
-          categories: {
-            type: "array",
-            items: { type: "string", enum: CATEGORIES },
-            description:
-              "Optional cross-file sections (e.g. ['General News']). Empty array if none.",
-          },
-          body: {
-            type: "array",
-            items: { type: "string" },
-            minItems: 6,
-            description:
-              "Article paragraphs as plain strings. 6–12 paragraphs. Curly quotes ('' \"\") where appropriate. No markdown.",
-          },
+        title: { type: "string", description: "Article headline." },
+        dek: {
+          type: "string",
+          description:
+            "One or two sentences summarizing the article. Shown italicized under the headline; do not repeat it as the first body paragraph.",
         },
-        required: ["slug", "title", "dek", "category", "categories", "body"],
+        category: {
+          type: "string",
+          enum: CATEGORIES,
+          description: "Primary section.",
+        },
+        categories: {
+          type: "array",
+          items: { type: "string", enum: CATEGORIES },
+          description:
+            "Optional cross-file sections (e.g. ['General News']). Empty array if none.",
+        },
+        body: {
+          type: "array",
+          items: { type: "string" },
+          minItems: 6,
+          description:
+            "Article paragraphs as plain strings. 6–12 paragraphs. Curly quotes ('' \"\") where appropriate. No markdown.",
+        },
       },
+      required: ["slug", "title", "dek", "category", "categories", "body"],
     },
   },
 ];
 
-function todayLocalIso() {
-  return new Intl.DateTimeFormat("en-CA", {
-    timeZone: "America/Chicago",
-  }).format(new Date());
-}
-
-// --- CourtListener helpers ---------------------------------------------------
+// --- CourtListener helpers --------------------------------------------------
 
 const CL_BASE = "https://www.courtlistener.com/api/rest/v3";
 
@@ -188,7 +157,6 @@ function clHeaders() {
   return h;
 }
 
-// Cached after first lookup so we don't re-search every iteration.
 let cachedOwensDocketId = null;
 
 async function findOwensDocketId() {
@@ -213,7 +181,6 @@ async function findOwensDocketId() {
       return docket.id;
     }
   }
-  // Last-ditch attempt: search by case name
   const url = `${CL_BASE}/dockets/?court=${OWENS_CASE.court}&case_name__icontains=Owens`;
   console.log(`[autopilot] CourtListener search by name: Owens`);
   const res = await fetch(url, { headers: clHeaders() });
@@ -253,9 +220,7 @@ async function getOwensCaseDocket(daysBack = 7) {
     "",
   ];
   for (const e of entries) {
-    const docIds = (e.recap_documents || [])
-      .map((d) => d.id)
-      .filter(Boolean);
+    const docIds = (e.recap_documents || []).map((d) => d.id).filter(Boolean);
     lines.push(`[Entry #${e.entry_number ?? "?"}, filed ${e.date_filed}]`);
     lines.push(`${(e.description || "(no description)").slice(0, 800)}`);
     if (docIds.length) {
@@ -279,49 +244,23 @@ async function readCourtFiling(recapDocumentId) {
       data.description || data.short_description || "n/a"
     })`;
   }
-  // Cap at ~15k chars to keep token cost sane
   return text.length > 15000 ? text.slice(0, 15000) + "\n\n[truncated]" : text;
-}
-
-// --- Tavily search ----------------------------------------------------------
-
-async function tavilySearch(query) {
-  const res = await fetch("https://api.tavily.com/search", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      api_key: process.env.TAVILY_API_KEY,
-      query,
-      max_results: 5,
-      search_depth: "basic",
-      include_answer: false,
-      include_raw_content: false,
-    }),
-  });
-  if (!res.ok) {
-    throw new Error(`Tavily HTTP ${res.status}: ${await res.text()}`);
-  }
-  const data = await res.json();
-  const results = data.results || [];
-  if (results.length === 0) return "(no results)";
-  return results
-    .map(
-      (r, i) =>
-        `[${i + 1}] ${r.title}\nURL: ${r.url}\n${(r.content || "").slice(0, 1000)}`,
-    )
-    .join("\n\n");
 }
 
 // --- main loop --------------------------------------------------------------
 
-async function main() {
-  if (!process.env.DEEPSEEK_API_KEY) throw new Error("Missing DEEPSEEK_API_KEY");
-  if (!process.env.TAVILY_API_KEY) throw new Error("Missing TAVILY_API_KEY");
+function todayLocalIso() {
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/Chicago",
+  }).format(new Date());
+}
 
-  const client = new OpenAI({
-    apiKey: process.env.DEEPSEEK_API_KEY,
-    baseURL: "https://api.deepseek.com",
-  });
+async function main() {
+  if (!process.env.ANTHROPIC_API_KEY) {
+    throw new Error("Missing ANTHROPIC_API_KEY");
+  }
+
+  const client = new Anthropic();
 
   const postsContent = readFileSync(POSTS_FILE, "utf8");
   const recentTitles = [...postsContent.matchAll(/title:\s*"([^"]+)"/g)]
@@ -343,113 +282,128 @@ Use date "${today}". Pick a category from: ${CATEGORIES.join(", ")}.`;
     `[autopilot] today=${today}, recent_titles=${recentTitles.length}`,
   );
 
-  const messages = [
-    { role: "system", content: SYSTEM_PROMPT },
-    { role: "user", content: userPrompt },
-  ];
+  const messages = [{ role: "user", content: userPrompt }];
 
   let article = null;
   let iteration = 0;
-  const MAX_ITERATIONS = 16;
+  const MAX_ITERATIONS = 12;
 
   while (iteration++ < MAX_ITERATIONS && !article) {
-    console.log(`[autopilot] iteration ${iteration}: calling DeepSeek...`);
+    console.log(`[autopilot] iteration ${iteration}: calling Claude...`);
 
-    const response = await client.chat.completions.create({
-      model: "deepseek-chat",
-      messages,
+    const response = await client.messages.create({
+      model: "claude-opus-4-8",
+      max_tokens: 16000,
+      thinking: { type: "adaptive" },
+      output_config: { effort: "high" },
+      system: SYSTEM_PROMPT,
       tools: TOOLS,
-      tool_choice: "auto",
-      temperature: 0.3,
-      max_tokens: 8000,
+      messages,
     });
 
-    const msg = response.choices[0].message;
     console.log(
-      `[autopilot] finish=${response.choices[0].finish_reason}, tool_calls=${msg.tool_calls?.length ?? 0}`,
+      `[autopilot] stop_reason=${response.stop_reason}, blocks=${response.content.length}`,
     );
 
-    messages.push(msg);
+    // Look for the publish_article tool_use first — it's terminal.
+    for (const block of response.content) {
+      if (block.type === "tool_use" && block.name === "publish_article") {
+        article = block.input;
+      }
+    }
+    if (article) break;
 
-    if (!msg.tool_calls || msg.tool_calls.length === 0) {
-      console.error("[autopilot] Model returned no tool calls. Nudging.");
-      messages.push({
-        role: "user",
-        content:
-          "You must call get_owens_case_docket, web_search, read_court_filing, or publish_article. Do not respond with text only.",
-      });
+    // Otherwise, append the assistant turn and respond to any client tool calls.
+    messages.push({ role: "assistant", content: response.content });
+
+    if (response.stop_reason === "pause_turn") {
+      // Server-side tool (web_search) hit its iteration limit; re-send to resume.
       continue;
     }
 
-    for (const tc of msg.tool_calls) {
-      const name = tc.function.name;
-      let args;
-      try {
-        args = JSON.parse(tc.function.arguments || "{}");
-      } catch (e) {
-        messages.push({
-          role: "tool",
-          tool_call_id: tc.id,
-          content: `Error parsing arguments: ${e.message}. Retry with valid JSON.`,
-        });
-        continue;
-      }
+    if (response.stop_reason === "end_turn") {
+      console.error(
+        "[autopilot] Model ended turn without calling publish_article.",
+      );
+      const text = response.content
+        .filter((b) => b.type === "text")
+        .map((b) => b.text)
+        .join("\n");
+      console.error("[autopilot] Final text:", text.slice(0, 1000));
+      process.exit(1);
+    }
+
+    if (response.stop_reason !== "tool_use") {
+      console.error(`[autopilot] Unexpected stop_reason: ${response.stop_reason}`);
+      process.exit(1);
+    }
+
+    // Handle each client-side tool_use block. Server tools (web_search) are
+    // handled automatically by the server; their results are already in
+    // response.content as server_tool_result blocks.
+    const toolResults = [];
+    for (const block of response.content) {
+      if (block.type !== "tool_use") continue;
+      const name = block.name;
 
       if (name === "get_owens_case_docket") {
-        const daysBack = Math.min(Math.max(args.days_back ?? 7, 1), 30);
+        const daysBack = Math.min(
+          Math.max(block.input?.days_back ?? 7, 1),
+          30,
+        );
         console.log(`[autopilot] docket: last ${daysBack} days`);
         try {
-          const out = await getOwensCaseDocket(daysBack);
-          messages.push({ role: "tool", tool_call_id: tc.id, content: out });
+          const content = await getOwensCaseDocket(daysBack);
+          toolResults.push({
+            type: "tool_result",
+            tool_use_id: block.id,
+            content,
+          });
         } catch (e) {
           console.error(`[autopilot] docket failed:`, e.message);
-          messages.push({
-            role: "tool",
-            tool_call_id: tc.id,
-            content: `CourtListener unavailable (${e.message}). Fall back to web_search for topic selection.`,
+          toolResults.push({
+            type: "tool_result",
+            tool_use_id: block.id,
+            content: `CourtListener unavailable (${e.message}). Fall back to web_search.`,
+            is_error: true,
           });
         }
       } else if (name === "read_court_filing") {
-        console.log(`[autopilot] read filing: ${args.recap_document_id}`);
+        console.log(`[autopilot] read filing: ${block.input?.recap_document_id}`);
         try {
-          const out = await readCourtFiling(args.recap_document_id);
-          messages.push({ role: "tool", tool_call_id: tc.id, content: out });
+          const content = await readCourtFiling(block.input.recap_document_id);
+          toolResults.push({
+            type: "tool_result",
+            tool_use_id: block.id,
+            content,
+          });
         } catch (e) {
           console.error(`[autopilot] read filing failed:`, e.message);
-          messages.push({
-            role: "tool",
-            tool_call_id: tc.id,
+          toolResults.push({
+            type: "tool_result",
+            tool_use_id: block.id,
             content: `Could not read filing: ${e.message}`,
-          });
-        }
-      } else if (name === "web_search") {
-        console.log(`[autopilot] search: "${args.query}"`);
-        try {
-          const results = await tavilySearch(args.query);
-          messages.push({
-            role: "tool",
-            tool_call_id: tc.id,
-            content: results,
-          });
-        } catch (e) {
-          console.error(`[autopilot] Search failed:`, e.message);
-          messages.push({
-            role: "tool",
-            tool_call_id: tc.id,
-            content: `Search error: ${e.message}`,
+            is_error: true,
           });
         }
       } else if (name === "publish_article") {
-        article = args;
-        console.log(`[autopilot] publish_article called.`);
+        // already captured above; nothing more to do
       } else {
-        messages.push({
-          role: "tool",
-          tool_call_id: tc.id,
+        toolResults.push({
+          type: "tool_result",
+          tool_use_id: block.id,
           content: `Unknown tool: ${name}`,
+          is_error: true,
         });
       }
     }
+
+    if (toolResults.length === 0) {
+      // No client tools called this turn; just continue.
+      continue;
+    }
+
+    messages.push({ role: "user", content: toolResults });
   }
 
   if (!article) {
@@ -530,8 +484,5 @@ ${article.body.map((p) => `      ${JSON.stringify(p)},`).join("\n")}
 
 main().catch((err) => {
   console.error("[autopilot] FAILED:", err?.message || err);
-  if (err?.response?.data) {
-    console.error("[autopilot] Response:", JSON.stringify(err.response.data));
-  }
   process.exit(1);
 });
