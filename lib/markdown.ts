@@ -21,8 +21,19 @@ export function postToMarkdown(post: Post): string {
     lines.push(`![${post.imageAlt ?? post.title}](${absoluteUrl(post.image)})`, "");
   }
 
-  for (const para of post.body) {
-    lines.push(para, "");
+  const isBrief = post.tags?.includes("morning-brief");
+  if (isBrief) {
+    post.body.forEach((para, i) => {
+      const sep = para.indexOf(": ");
+      const headline =
+        sep > 0 && sep < 100 ? para.slice(0, sep) : `Item ${i + 1}`;
+      const body = sep > 0 && sep < 100 ? para.slice(sep + 2) : para;
+      lines.push(`## ${i + 1}. ${headline}`, "", body, "");
+    });
+  } else {
+    for (const para of post.body) {
+      lines.push(para, "");
+    }
   }
 
   if (post.timeline?.length) {
