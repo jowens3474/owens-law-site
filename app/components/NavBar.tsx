@@ -12,6 +12,7 @@ export default function NavBar() {
   const links = [
     { name: "Home", href: "/" },
     ...categories.map((c) => ({ name: c.name, href: `/category/${c.slug}` })),
+    { name: "The Trial", href: "/corruption-case", featured: true as const },
     { name: "About", href: "/about" },
   ];
 
@@ -31,6 +32,12 @@ export default function NavBar() {
                   isActive(l.href) ? "text-crimson" : "text-ink"
                 }`}
               >
+                {"featured" in l && l.featured && (
+                  <span
+                    aria-hidden
+                    className="mr-1.5 inline-block h-1.5 w-1.5 rounded-full bg-crimson align-middle"
+                  />
+                )}
                 {l.name}
               </Link>
             </li>

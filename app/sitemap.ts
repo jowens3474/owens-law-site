@@ -18,6 +18,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.5,
     },
+    {
+      url: absoluteUrl("/corruption-case"),
+      lastModified: latest,
+      changeFrequency: "daily",
+      priority: 0.9,
+    },
   ];
 
   const categoryPages: MetadataRoute.Sitemap = categories.map((c) => ({

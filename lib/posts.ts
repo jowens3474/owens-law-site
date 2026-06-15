@@ -24,6 +24,7 @@ export interface Post {
   image?: string; // path under /public, e.g. "/aaron-banks.webp"
   imageAlt?: string; // describes the image for screen readers
   body: string[];
+  tags?: string[]; // optional topic tags used by hub pages (e.g. ["corruption-case"])
   timeline?: TimelineSection[]; // optional grouped dated entries, rendered after the body
   note?: string; // optional muted source/editor's note shown at the end
 }
@@ -92,6 +93,7 @@ const POSTS: Post[] = [
     author: "Jackson Wire Staff",
     date: "2026-06-14",
     views: 0,
+    tags: ["corruption-case"],
     body: [
       "The government blinked. On Wednesday, June 10, federal prosecutors filed a motion to withdraw their request to move the Jackson bribery trial to another court or to expand the jury pool, telling the court they are, in their own words, satisfied that a fair and impartial jury can be seated in this case. That is according to WLBT, which first reported the filing.",
       "It is a quiet end to a loud fight. For months, the venue and the jury pool were the live questions in the case against Hinds County District Attorney Jody Owens, former Mayor Chokwe Antar Lumumba and former Ward Six Councilman Aaron Banks. With this withdrawal, both questions are effectively settled. The trial stays in Jackson, and the jurors will be drawn from where they always would have been.",
@@ -138,6 +140,7 @@ const POSTS: Post[] = [
     author: "Jackson Wire Staff",
     date: "2026-06-13",
     views: 0,
+    tags: ["corruption-case"],
     body: [
       "For four months, the most consequential question in the Jackson bribery case wasn't whether the three defendants would stand trial. It was where. On June 10, the government answered it by walking away from the question entirely.",
       "Prosecutors filed a motion to withdraw their request to transfer the case to another court or to expand the jury pool, telling the court they are now “satisfied that a fair and impartial jury can be seated in this case,” according to WLBT. The trial of Hinds County District Attorney Jody Owens, former Mayor Chokwe Antar Lumumba and former Ward 6 Councilman Aaron Banks will begin July 13 at the Thad Cochran U.S. Courthouse in downtown Jackson, where the indictment was returned and where the defendants have always wanted it.",
@@ -186,6 +189,7 @@ const POSTS: Post[] = [
     date: "2026-06-07",
     views: 0,
     featured: true,
+    tags: ["corruption-case"],
     body: [
       "When Hinds County District Attorney Jody Owens walks into a federal courtroom in Jackson this summer, one of the lead voices speaking for him will be a Washington, DC, attorney most people in Mississippi have never heard of. His name is Warren Gary Kohlman, and his career reads like a tour through some of the biggest federal cases of the last fifty years.",
       "Kohlman has been on the Owens defense team since the very beginning. He appeared at the November 2024 arraignment, alongside local counsel from Carroll Bufkin in Ridgeland, and he is still appearing in May and June of this year as the case heads to trial. He is admitted to practice in his home jurisdiction and has been brought into this case by special permission of the court.",
@@ -234,6 +238,7 @@ const POSTS: Post[] = [
     image: "/wiretap.webp",
     imageAlt:
       "A man in headphones at a desk, listening to a reel-to-reel tape recorder beside backlit window blinds — a surveillance-style illustration.",
+    tags: ["corruption-case"],
     body: [
       "On Monday, Chief U.S. District Judge Daniel P. Jordan III pulled the lawyers onto a Zoom and ran through the kind of housekeeping that says, plainly, we are going to try this case. No grand pronouncements. Just deadlines, and the deadlines all point at the courthouse door.",
       "The fight, as everyone in the room knows, is going to be about tape. The FBI ran an undercover operation here. Yachts, a private jet, cash, the works. And it recorded a lot of it. Judge Jordan told both sides to come back by June 9 with the clips they want played and the portions they want included for context. By June 16, the lawyers have to sit down with each other and hash out the objections. Then the same day, a pretrial conference. That is the last big stop before testimony.",
@@ -256,6 +261,7 @@ const POSTS: Post[] = [
     image: "/indictment.webp",
     imageAlt:
       "A black book titled “Indictment” next to a wooden judge's gavel on a desk.",
+    tags: ["corruption-case"],
     body: [
       "Look closely at the charging document in the federal corruption case against Hinds County District Attorney Jody Owens, former Mayor Chokwe Antar Lumumba, and former Councilman Aaron Banks, and you'll notice something most coverage skips. The three men are charged together, but they are not charged equally. The numbers reveal a hierarchy.",
       "Owens faces eight counts. Lumumba faces five. Banks faces two.",
@@ -310,6 +316,7 @@ const POSTS: Post[] = [
     image: "/aaron-banks.webp",
     imageAlt:
       "Former Jackson city councilman Aaron Banks, right, arrives at the federal courthouse alongside his attorney.",
+    tags: ["corruption-case"],
     body: [
       "Of the three men headed to trial in Jackson's biggest corruption case, Aaron Banks has always been the quiet one. The former city councilman has said almost nothing in public — \"I have nothing to say,\" he told one reporter — while District Attorney Jody Owens calls the case an \"assassination\" of his character and the former mayor argues constitutional theory in the press.",
       "But quiet may be the smartest move in the room. And it makes Banks the man to watch as the May 29 plea deadline closes in.",
@@ -356,6 +363,7 @@ const POSTS: Post[] = [
     image: "/the-lot.webp",
     imageAlt:
       "Aerial view of the undeveloped parcels (outlined and labeled A through D) across from the Jackson Convention Complex in downtown Jackson.",
+    tags: ["corruption-case"],
     body: [
       "For twenty years, the City of Jackson could not give away a parking lot.",
       "It sits downtown, across from the convention center — a flat, hopeful rectangle of nothing that generations of city officials have dreamed of turning into a hotel. They issued the paperwork. They held the meetings. They waited. And year after year, the developers of America looked at Jackson, Mississippi, and looked away. Not one serious bid. Not once. The lot stayed a lot.",
@@ -383,6 +391,7 @@ const POSTS: Post[] = [
     image: "/lumumba.jpg",
     imageAlt:
       "Former Jackson Mayor Chokwe Antar Lumumba, hands pressed together, listens during a public meeting.",
+    tags: ["corruption-case"],
     body: [
       "He was supposed to be the future. Chokwe Antar Lumumba inherited not just a name but a movement — his father had been Jackson's mayor before him, a civil-rights radical turned city executive, and the son carried that legacy into office promising to make Jackson \"the most radical city on the planet.\" Now he's a former mayor, beaten badly at the ballot box while under federal indictment, waiting for a July trial that will decide whether he's also a felon.",
       "But here's what makes Lumumba's case genuinely different from his co-defendants', and worth understanding on its own terms: of the three men charged, his alleged crime is the thinnest. And his defense is the most purely legal.",
@@ -410,6 +419,7 @@ const POSTS: Post[] = [
     image: "/owens.jpg",
     imageAlt:
       "Hinds County District Attorney Jody Owens arrives at the federal courthouse as a reporter follows with a microphone.",
+    tags: ["corruption-case"],
     body: [
       "A federal judge would not throw out the corruption case against Hinds County District Attorney Jody Owens this week. But read the order closely and the defense may have come out better than the headlines suggest.",
       "It is true that Judge Daniel P. Jordan III denied the motion to dismiss. That was always the likely result. Federal judges rarely toss a case before trial. They leave the big questions for a jury. But what a judge says while denying a motion can matter more than the denial itself. And here, Jordan said two things the defense wanted to hear.",
@@ -480,6 +490,7 @@ const POSTS: Post[] = [
     image: "/courtroom.webp",
     imageAlt:
       "An empty courtroom with rows of jury chairs, the judge's bench, and a U.S. flag.",
+    tags: ["corruption-case"],
     body: [
       "This summer, a federal jury in Jackson is set to hear one of the most closely watched public corruption cases this city has seen in years. Former Hinds County District Attorney Jody Owens, former Mayor Chokwe Antar Lumumba, and former City Councilman Aaron Banks are charged together in a single indictment. Most people assume that means one trial, one jury, and one verdict, guilty or not guilty all the way around.",
       "It is almost never that simple. Understanding why is worth a few minutes, because what happens in that courtroom will say something about how the justice system treats all of us, not just the powerful.",
@@ -502,6 +513,7 @@ const POSTS: Post[] = [
     author: "Jackson Wire Staff",
     date: "2026-05-25",
     views: 0,
+    tags: ["corruption-case"],
     body: [
       "United States v. Jody E. Owens II, et al. — No. 3:24-cr-103-DPJ-LGI (S.D. Miss.). Updated through May 25, 2026.",
       "Highlighted entries mark jury and venue developments. Trial is set to begin July 13, 2026. All three defendants have pleaded not guilty and are presumed innocent unless and until proven guilty beyond a reasonable doubt.",
@@ -772,6 +784,10 @@ export function getPostsByCategorySlug(categorySlug: string): Post[] {
       (c) => slugifyCategory(c) === categorySlug,
     ),
   );
+}
+
+export function getPostsByTag(tag: string): Post[] {
+  return getAllPosts().filter((p) => p.tags?.includes(tag));
 }
 
 export function getMostRead(limit = 5): Post[] {
