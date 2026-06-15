@@ -42,6 +42,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "daily",
       priority: 0.4,
     },
+    {
+      url: absoluteUrl("/methodology"),
+      lastModified: latest,
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
+    {
+      url: absoluteUrl("/corrections"),
+      lastModified: latest,
+      changeFrequency: "weekly",
+      priority: 0.5,
+    },
   ];
 
   const categoryPages: MetadataRoute.Sitemap = categories.map((c) => ({

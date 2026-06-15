@@ -163,11 +163,33 @@ export default function AboutPage() {
 
       <section className="mt-12">
         <h2 className="mb-3 border-b-2 border-ink pb-1 font-serif text-2xl font-black uppercase tracking-wide">
-          Corrections
+          Corrections &amp; methodology
         </h2>
         <p className="mt-4 text-base leading-relaxed">
           When we get something wrong, we fix it at the top of the affected
-          article and append a dated correction note. We do not quietly edit.
+          article and append a dated correction note. We do not quietly
+          edit. The public list of every correction we&rsquo;ve issued is at{" "}
+          <Link
+            href="/corrections"
+            className="font-bold text-crimson hover:text-crimson-dark"
+          >
+            /corrections
+          </Link>
+          .
+        </p>
+        <p className="mt-3 text-base leading-relaxed">
+          For the long-form version of how a Wire article is built &mdash;
+          source policy, AI disclosure, what we monitor, what we don&rsquo;t
+          do &mdash; see{" "}
+          <Link
+            href="/methodology"
+            className="font-bold text-crimson hover:text-crimson-dark"
+          >
+            /methodology
+          </Link>
+          .
+        </p>
+        <p className="mt-3 text-base leading-relaxed">
           To request a correction, email{" "}
           <a
             href={`mailto:${site.email}?subject=Correction%20request`}
