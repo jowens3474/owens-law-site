@@ -154,11 +154,46 @@ export default async function ArticlePage({
           className="mt-6 aspect-[16/9] w-full rounded-sm"
         />
 
-        <div className="prose-article mt-8">
-          {post.body.map((para, i) => (
-            <p key={i}>{para}</p>
-          ))}
-        </div>
+        {post.tags?.includes("morning-brief") ? (
+          <ol className="mt-10 space-y-10">
+            {post.body.map((para, i) => {
+              const sep = para.indexOf(": ");
+              const headline =
+                sep > 0 && sep < 100 ? para.slice(0, sep) : `Item ${i + 1}`;
+              const body = sep > 0 && sep < 100 ? para.slice(sep + 2) : para;
+              return (
+                <li key={i} className="grid gap-4 sm:grid-cols-[60px_1fr]">
+                  <span
+                    aria-hidden
+                    className="font-serif text-5xl font-black leading-none text-crimson/70 sm:text-6xl"
+                  >
+                    {i + 1}
+                  </span>
+                  <div>
+                    <h3 className="font-serif text-2xl font-black leading-[1.1] sm:text-3xl">
+                      {headline}
+                    </h3>
+                    <p className="mt-3 font-serif text-lg leading-relaxed">
+                      {body}
+                    </p>
+                  </div>
+                  {i < post.body.length - 1 && (
+                    <span
+                      aria-hidden
+                      className="col-span-full mt-6 border-b border-rule"
+                    />
+                  )}
+                </li>
+              );
+            })}
+          </ol>
+        ) : (
+          <div className="prose-article mt-8">
+            {post.body.map((para, i) => (
+              <p key={i}>{para}</p>
+            ))}
+          </div>
+        )}
 
         {post.timeline && <Timeline sections={post.timeline} />}
 

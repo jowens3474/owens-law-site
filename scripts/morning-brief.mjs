@@ -34,9 +34,12 @@ Your job: produce the day's Morning Brief, a punchy summary of the FIVE things J
 
 FORMAT — strict
 - Five items. Exactly five.
-- Each item is ONE self-contained body paragraph, 80–140 words.
-- Each item leads with a strong, fact-dense topic sentence (a "lead line") that summarizes the development. The rest of the paragraph adds context, attribution, and what is at stake.
-- Order items by news weight: biggest, most consequential first. Item 1 should hook the reader. Item 5 can be lighter.
+- Each item is ONE self-contained body string with this exact structure:
+    "Short headline phrase: Body paragraph text..."
+- The HEADLINE PHRASE is 3 to 9 words, no terminal period, written to stand alone as a sub-headline (e.g. "Saxum rezoning vote looms", "Court strikes jurors for cause", "Lumumba calls for water-board overhaul"). It is followed by a colon and a single space, then the body.
+- The BODY is 70 to 130 words of context, attribution, and stakes, written in the Wire's voice.
+- Items must be ordered by news weight: biggest first. Item 1 should hook the reader. Item 5 can be lighter.
+- Do not number the items yourself; the site renders the number.
 
 TOPIC MIX — required
 - Across the five items, cover a MIX of beats. Do NOT make all five about the corruption case.
@@ -158,7 +161,7 @@ const TOOLS = [
           minItems: 5,
           maxItems: 5,
           description:
-            "Exactly five paragraphs, one per item, in news-weight order. Each 80-140 words.",
+            "Exactly five strings, one per item, in news-weight order. Each string MUST start with a 3-9 word headline phrase (no terminal period) followed by ': ' and then a 70-130 word body paragraph. Example: 'Saxum rezoning vote looms: The Planning Board reconvenes Tuesday at 5 p.m. ...'",
         },
       },
       required: ["slug", "title", "dek", "body"],
