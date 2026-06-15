@@ -36,50 +36,42 @@ export default function ArticleCard({
 
   if (variant === "row") {
     return (
-      <article className="flex gap-4 border-t border-rule py-5">
-        <Link href={href} className="shrink-0">
-          <ArticleImage
-            post={post}
-            className="h-20 w-28 rounded-sm sm:h-24 sm:w-36"
-            monogram={false}
-            label={post.category}
-            sizes="144px"
-          />
-        </Link>
-        <div className="min-w-0">
-          <CategoryTag category={post.category} />
-          <h3 className="mt-1 font-serif text-lg font-bold leading-snug">
-            <Link href={href} className="headline-link">
-              {post.title}
-            </Link>
-          </h3>
-          <p className="mt-1 line-clamp-2 text-sm text-muted">{post.dek}</p>
-        </div>
-      </article>
-    );
-  }
-
-  // feature
-  return (
-    <article className="group flex flex-col">
-      <Link href={href} className="block">
-        <ArticleImage
-          post={post}
-          label={post.category}
-          sizes="(max-width: 1024px) 100vw, 640px"
-          className="aspect-[16/10] w-full rounded-sm"
-        />
-      </Link>
-      <div className="mt-3">
+      <article className="border-t border-rule py-5">
         <CategoryTag category={post.category} />
-        <h3 className="mt-1 font-serif text-2xl font-bold leading-tight">
+        <h3 className="mt-1 font-serif text-lg font-bold leading-snug">
           <Link href={href} className="headline-link">
             {post.title}
           </Link>
         </h3>
-        <p className="mt-2 leading-relaxed text-muted">{post.dek}</p>
-        <Byline post={post} />
-      </div>
+        <p className="mt-1 line-clamp-2 text-sm italic text-muted">
+          {post.dek}
+        </p>
+      </article>
+    );
+  }
+
+  // feature — image is optional, typography carries the design when absent
+  return (
+    <article className="group flex flex-col">
+      {post.image && (
+        <Link href={href} className="mb-4 block">
+          <ArticleImage
+            post={post}
+            sizes="(max-width: 1024px) 100vw, 640px"
+            className="aspect-[16/10] w-full"
+          />
+        </Link>
+      )}
+      <CategoryTag category={post.category} />
+      <h3 className="mt-1 font-serif text-2xl font-bold leading-tight">
+        <Link href={href} className="headline-link">
+          {post.title}
+        </Link>
+      </h3>
+      <p className="mt-2 font-serif italic leading-relaxed text-muted">
+        {post.dek}
+      </p>
+      <Byline post={post} />
     </article>
   );
 }

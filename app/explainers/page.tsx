@@ -60,24 +60,24 @@ export default function ExplainersPage() {
               href={`/article/${p.slug}`}
               className="group block border-2 border-ink bg-paper p-5 hover:border-crimson"
             >
-              <ArticleImage
-                post={p}
-                label={p.category}
-                sizes="(max-width: 640px) 100vw, 480px"
-                className="aspect-[16/9] w-full"
-              />
-              <div className="mt-4">
-                <CategoryTag category={p.category} />
-                <h2 className="mt-1 font-serif text-2xl font-black leading-[1.1] group-hover:text-crimson">
-                  {p.title}
-                </h2>
-                <p className="mt-2 font-serif text-base leading-relaxed text-muted">
-                  {p.dek}
-                </p>
-                <p className="mt-2 text-xs uppercase tracking-wider text-muted">
-                  {formatDate(p.date)} · {readingTime(p)} min read
-                </p>
-              </div>
+              {p.image && (
+                <ArticleImage
+                  post={p}
+                  label={p.category}
+                  sizes="(max-width: 640px) 100vw, 480px"
+                  className="mb-4 aspect-[16/9] w-full"
+                />
+              )}
+              <CategoryTag category={p.category} />
+              <h2 className="mt-1 font-serif text-2xl font-black leading-[1.1] group-hover:text-crimson">
+                {p.title}
+              </h2>
+              <p className="mt-2 font-serif text-base leading-relaxed text-muted">
+                {p.dek}
+              </p>
+              <p className="mt-2 text-xs uppercase tracking-wider text-muted">
+                {formatDate(p.date)} · {readingTime(p)} min read
+              </p>
             </Link>
           ))}
         </div>
