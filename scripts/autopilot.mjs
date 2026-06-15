@@ -39,11 +39,31 @@ RESEARCH ORDER — non-negotiable
 3. Only if the docket has nothing of substance in the last 7 days do you fall back to web_search-driven topic selection.
 4. If get_owens_case_docket errors (network or API issue), proceed with web_search.
 
-VOICE
-- Direct, observant, slightly literary. Short, declarative sentences. Active voice.
+BEAT ROTATION — required
+The Wire is heavily over-indexed on Politics. To diversify the front page, follow these rules:
+- If the last 3 published articles are all Politics, today's article MUST be Commercial Real Estate, Residential Real Estate, or General News (excluding the corruption case).
+- If the last 5 published articles include 4 or more about the corruption case, today's article must be about something else — even if there is fresh docket activity. Use web_search to find a real estate, city hall, infrastructure, schools, healthcare, or state-government story.
+- Use the recent-titles list provided in the user prompt to enforce this. Count categories yourself; do not assume.
+
+VOICE — strict
+- Short, declarative sentences. Active voice. Direct, observant, slightly literary.
+- Lead with a thesis or a strong observation. Close with a forward-looking line.
 - No hype, no editorial flourishes beyond what the facts support.
-- Analysis pieces: lead with a thesis, back it with specifics.
-- Open with a strong lede. Close with a forward-looking line or a sharp observation.
+
+PUNCTUATION & RHYTHM — strict, anti-AI-tell
+- DO NOT use em-dashes (—) or en-dashes (–) anywhere in the article. Use commas, periods, colons, or parentheses instead. This is not negotiable. Em-dashes are a known AI tell and readers spot them immediately.
+- DO NOT open the article with a "For X months/years/days, the question wasn't Y, it was Z" construction. That cadence is overused in your prior pieces.
+- DO NOT use the three-sentence opening rhythm where sentence 1 sets the scene, sentence 2 introduces a counter-fact, and sentence 3 sets up the rest. Vary how you open.
+- DO NOT end every piece with a one-line punchy kicker. About every fourth piece can end that way. Others should end with a forward-looking paragraph, a question, an observation, or a concrete next-step.
+- Avoid the construction "X has [done thing]. X has not [counter-thing]." It is also a tell.
+
+ORIGINAL FRAMING — required
+Every article must include AT LEAST ONE of:
+- A historical parallel (compare to a prior Jackson, Mississippi, or federal case).
+- A quantitative observation drawn from the facts (a count, a ratio, a comparison).
+- A specific question that no other outlet has asked.
+- A piece of context found in a court filing or primary source that other outlets have not surfaced.
+Do not publish a pure summary of other outlets' coverage. The Wire's value-add is the framing.
 
 STRUCTURE
 - Headline: clear, specific, not clickbait. Under ~100 characters.
@@ -57,10 +77,15 @@ FACT DISCIPLINE — non-negotiable
 - Do not fabricate quotes. If you can't find a real quote, paraphrase and attribute.
 - For stories naming Jody Owens, Chokwe Antar Lumumba, Aaron Banks, Kenny Stokes, John Horhn, or any other living public figure, every claim about them must trace to a tool result.
 
+TAGS — required for hub pages
+When you call publish_article, set the tags field as follows:
+- If the article is about U.S. v. Owens, Lumumba, and Banks (the federal corruption case), include "corruption-case" in the tags array.
+- If the article is a profile, explainer, or background analysis piece (not breaking news), include "explainer" in the tags array.
+- An article can have multiple tags. Leave tags as an empty array if none apply.
+
 TOPIC SELECTION (when falling back to news search)
 - Pick something timely. Search for news from the last 7 days first.
 - Avoid duplicating topics already covered (you'll be given recent titles).
-- Mix categories across runs.
 
 OUTPUT
 - After research, call publish_article exactly ONCE with the final article.
@@ -132,6 +157,15 @@ const TOOLS = [
           description:
             "Optional cross-file sections (e.g. ['General News']). Empty array if none.",
         },
+        tags: {
+          type: "array",
+          items: {
+            type: "string",
+            enum: ["corruption-case", "explainer"],
+          },
+          description:
+            "Hub-page tags. Include 'corruption-case' for any article about U.S. v. Owens. Include 'explainer' for profile/background pieces. Empty array if none apply.",
+        },
         body: {
           type: "array",
           items: { type: "string" },
@@ -140,7 +174,15 @@ const TOOLS = [
             "Article paragraphs as plain strings. 6–12 paragraphs. Curly quotes ('' \"\") where appropriate. No markdown.",
         },
       },
-      required: ["slug", "title", "dek", "category", "categories", "body"],
+      required: [
+        "slug",
+        "title",
+        "dek",
+        "category",
+        "categories",
+        "tags",
+        "body",
+      ],
     },
   },
 ];
@@ -263,19 +305,45 @@ async function main() {
   const client = new Anthropic();
 
   const postsContent = readFileSync(POSTS_FILE, "utf8");
-  const recentTitles = [...postsContent.matchAll(/title:\s*"([^"]+)"/g)]
+  const titleMatches = [...postsContent.matchAll(/title:\s*"([^"]+)"/g)];
+  const categoryMatches = [...postsContent.matchAll(/category:\s*"([^"]+)"/g)];
+  const tagsMatches = [
+    ...postsContent.matchAll(/tags:\s*\[([^\]]*)\]/g),
+  ];
+  const recentTitles = titleMatches
     .slice(0, 12)
     .map((m) => m[1])
     .filter((t) => t !== "Headline As It Appears");
+  const recentCategories = categoryMatches.slice(0, 12).map((m) => m[1]);
+  const recentTags = tagsMatches.slice(0, 12).map((m) => m[1]);
+
+  // Beat-rotation context: count how many of the last 5 are corruption-case
+  // and how many of the last 7 are Politics.
+  const last5Corruption = recentTags
+    .slice(0, 5)
+    .filter((t) => t.includes("corruption-case")).length;
+  const last7Politics = recentCategories
+    .slice(0, 7)
+    .filter((c) => c === "Politics").length;
+  const beatLine =
+    `Beat-rotation context (be strict): of the last 5 articles, ${last5Corruption} were tagged corruption-case. ` +
+    `Of the last 7 articles, ${last7Politics} were Politics. ` +
+    (last5Corruption >= 4
+      ? "RULE: You may NOT write about the corruption case today. Cover something else (real estate, city hall, infrastructure, schools, healthcare, state government). "
+      : last7Politics >= 5
+        ? "RULE: You may NOT pick Politics as today's category. "
+        : "");
 
   const today = todayLocalIso();
 
   const userPrompt = `Today is ${today} (America/Chicago). Research and draft a new article for The Jackson Wire.
 
-Recent articles already published — do not duplicate these topics:
-${recentTitles.map((t, i) => `${i + 1}. ${t}`).join("\n")}
+Recent articles already published (newest first) — do not duplicate these topics:
+${recentTitles.map((t, i) => `${i + 1}. [${recentCategories[i] || "?"}] ${t}`).join("\n")}
 
-REMINDER: call get_owens_case_docket FIRST. Only fall back to web_search if the docket has nothing of substance.
+${beatLine}
+
+REMINDER: call get_owens_case_docket FIRST (unless the rotation rule above forbids corruption-case coverage today). Only fall back to web_search if the docket has nothing of substance.
 Use date "${today}". Pick a category from: ${CATEGORIES.join(", ")}.`;
 
   console.log(
@@ -440,11 +508,19 @@ Use date "${today}". Pick a category from: ${CATEGORIES.join(", ")}.`;
     ? `\n    categories: ${JSON.stringify(crossFiles)},`
     : "";
 
+  const allowedTags = ["corruption-case", "explainer"];
+  const tags = Array.isArray(article.tags)
+    ? article.tags.filter((t) => allowedTags.includes(t))
+    : [];
+  const tagsLine = tags.length
+    ? `\n    tags: ${JSON.stringify(tags)},`
+    : "";
+
   const articleObj = `  {
     slug: ${JSON.stringify(article.slug)},
     title: ${JSON.stringify(article.title)},
     dek: ${JSON.stringify(article.dek)},
-    category: ${JSON.stringify(article.category)},${categoriesLine}
+    category: ${JSON.stringify(article.category)},${categoriesLine}${tagsLine}
     author: "Jackson Wire Staff",
     date: ${JSON.stringify(today)},
     views: 0,

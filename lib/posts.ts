@@ -189,7 +189,7 @@ const POSTS: Post[] = [
     date: "2026-06-07",
     views: 0,
     featured: true,
-    tags: ["corruption-case"],
+    tags: ["corruption-case", "explainer"],
     body: [
       "When Hinds County District Attorney Jody Owens walks into a federal courtroom in Jackson this summer, one of the lead voices speaking for him will be a Washington, DC, attorney most people in Mississippi have never heard of. His name is Warren Gary Kohlman, and his career reads like a tour through some of the biggest federal cases of the last fifty years.",
       "Kohlman has been on the Owens defense team since the very beginning. He appeared at the November 2024 arraignment, alongside local counsel from Carroll Bufkin in Ridgeland, and he is still appearing in May and June of this year as the case heads to trial. He is admitted to practice in his home jurisdiction and has been brought into this case by special permission of the court.",
@@ -261,7 +261,7 @@ const POSTS: Post[] = [
     image: "/indictment.webp",
     imageAlt:
       "A black book titled “Indictment” next to a wooden judge's gavel on a desk.",
-    tags: ["corruption-case"],
+    tags: ["corruption-case", "explainer"],
     body: [
       "Look closely at the charging document in the federal corruption case against Hinds County District Attorney Jody Owens, former Mayor Chokwe Antar Lumumba, and former Councilman Aaron Banks, and you'll notice something most coverage skips. The three men are charged together, but they are not charged equally. The numbers reveal a hierarchy.",
       "Owens faces eight counts. Lumumba faces five. Banks faces two.",
@@ -363,7 +363,7 @@ const POSTS: Post[] = [
     image: "/the-lot.webp",
     imageAlt:
       "Aerial view of the undeveloped parcels (outlined and labeled A through D) across from the Jackson Convention Complex in downtown Jackson.",
-    tags: ["corruption-case"],
+    tags: ["corruption-case", "explainer"],
     body: [
       "For twenty years, the City of Jackson could not give away a parking lot.",
       "It sits downtown, across from the convention center — a flat, hopeful rectangle of nothing that generations of city officials have dreamed of turning into a hotel. They issued the paperwork. They held the meetings. They waited. And year after year, the developers of America looked at Jackson, Mississippi, and looked away. Not one serious bid. Not once. The lot stayed a lot.",
@@ -391,7 +391,7 @@ const POSTS: Post[] = [
     image: "/lumumba.jpg",
     imageAlt:
       "Former Jackson Mayor Chokwe Antar Lumumba, hands pressed together, listens during a public meeting.",
-    tags: ["corruption-case"],
+    tags: ["corruption-case", "explainer"],
     body: [
       "He was supposed to be the future. Chokwe Antar Lumumba inherited not just a name but a movement — his father had been Jackson's mayor before him, a civil-rights radical turned city executive, and the son carried that legacy into office promising to make Jackson \"the most radical city on the planet.\" Now he's a former mayor, beaten badly at the ballot box while under federal indictment, waiting for a July trial that will decide whether he's also a felon.",
       "But here's what makes Lumumba's case genuinely different from his co-defendants', and worth understanding on its own terms: of the three men charged, his alleged crime is the thinnest. And his defense is the most purely legal.",
@@ -490,7 +490,7 @@ const POSTS: Post[] = [
     image: "/courtroom.webp",
     imageAlt:
       "An empty courtroom with rows of jury chairs, the judge's bench, and a U.S. flag.",
-    tags: ["corruption-case"],
+    tags: ["corruption-case", "explainer"],
     body: [
       "This summer, a federal jury in Jackson is set to hear one of the most closely watched public corruption cases this city has seen in years. Former Hinds County District Attorney Jody Owens, former Mayor Chokwe Antar Lumumba, and former City Councilman Aaron Banks are charged together in a single indictment. Most people assume that means one trial, one jury, and one verdict, guilty or not guilty all the way around.",
       "It is almost never that simple. Understanding why is worth a few minutes, because what happens in that courtroom will say something about how the justice system treats all of us, not just the powerful.",
@@ -513,7 +513,7 @@ const POSTS: Post[] = [
     author: "Jackson Wire Staff",
     date: "2026-05-25",
     views: 0,
-    tags: ["corruption-case"],
+    tags: ["corruption-case", "explainer"],
     body: [
       "United States v. Jody E. Owens II, et al. — No. 3:24-cr-103-DPJ-LGI (S.D. Miss.). Updated through May 25, 2026.",
       "Highlighted entries mark jury and venue developments. Trial is set to begin July 13, 2026. All three defendants have pleaded not guilty and are presumed innocent unless and until proven guilty beyond a reasonable doubt.",
