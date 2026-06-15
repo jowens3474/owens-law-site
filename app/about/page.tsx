@@ -82,13 +82,24 @@ export default function AboutPage() {
           </li>
           <li>
             <Link
+              href="/data-centers"
+              className="font-bold text-crimson hover:text-crimson-dark"
+            >
+              Data Centers
+            </Link>{" "}
+            <span className="text-muted">·</span> The AI-infrastructure rush
+            into Mississippi. Saxum, Prado AI, AWS, and the PSC fights that
+            will set precedent.
+          </li>
+          <li>
+            <Link
               href="/category/commercial-real-estate"
               className="font-bold text-crimson hover:text-crimson-dark"
             >
               Commercial real estate
             </Link>{" "}
             <span className="text-muted">·</span> Office, retail, industrial,
-            and the data center boom that is reshaping the metro.
+            and the development that is reshaping the metro.
           </li>
           <li>
             <Link
