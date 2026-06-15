@@ -61,6 +61,28 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "owens-experts-jurors-sealed-withdrawal",
+    title: "Five Owens Experts in the Crosshairs. A Sealed Withdrawal. Jurors Already Cut.",
+    dek: "The corruption case has been quieter on the docket than in the headlines. The last two weeks changed that. Twenty-eight days from trial, the pretrial motions are picking up.",
+    category: "Politics",
+    categories: ["General News"],
+    tags: ["corruption-case"],
+    author: "Jackson Wire Staff",
+    date: "2026-06-15",
+    views: 0,
+    body: [
+      "The corruption case has been louder in the headlines than on the docket. That changed last week.",
+      "In the seven business days between June 2 and June 12, Chief U.S. District Judge Daniel P. Jordan III held a status conference, scheduled the final pretrial conference, signed an order striking a list of jurors for cause, watched the government withdraw a sealed motion, and saw prosecutors file a new one aimed at gutting the defense's expert witness lineup. Twenty-eight days from trial, the rhythm of motions is starting to pick up.",
+      "The biggest filing in the stretch is Docket No. 191, filed June 12 by Assistant U.S. Attorney David H. Fulcher. The government is asking Judge Jordan to exclude testimony from five witnesses the Owens defense plans to call as experts. The names appear in the exhibit list attached to the motion: Burns, R. King, Sparks, C. King, and Webb. Fulcher's theory is procedural rather than substantive. The motion argues the defense failed to comply with the discovery rules that govern expert disclosure in federal criminal cases. If Jordan agrees, the heart of Owens's affirmative case could shrink before the jury hears a word.",
+      "On the same day, Jordan signed Docket No. 190, an order striking a list of jurors for cause. The order is brief and incorporates a sealed list. The substance is procedural but the timing is not. Jury questionnaires went out to the Northern Division pool in May. The parties met June 8 to compare strike sheets. June 12's order is the first public confirmation that a portion of that pool has been removed before voir dire even begins. Anyone struck for cause will not appear in the courtroom on July 13.",
+      "Docket No. 187, filed by the government on June 10, was a one-page unopposed motion to withdraw an earlier filing. Two days later, on June 12, Jordan granted it in a text-only order. The original motion being withdrawn is Docket No. 93, and the order is marked RESTRICTED, which means the underlying document is sealed. There is no public way to know yet what the government took back. The court signaled finality with the standard line: “No further written order shall issue.”",
+      "A smaller item, Docket No. 188 on June 12, gave the first public look at how prosecutors plan to streamline their case at trial. The Notice of Intent to Introduce Self-Authenticating Business Records is the federal mechanism that lets the government enter bank statements, phone records, and similar documents without calling a custodian to lay foundation. It is housekeeping, but it is meaningful housekeeping. It tells the defense which records to expect on the screen and which witnesses the government will not bother to call.",
+      "Per Jordan's June 2 text order, both sides had until June 9 to file their Rule 106 designations naming the recording clips they want played at trial. By June 16, they have to sit down with each other and hash out objections. The final pretrial conference is set for the same morning at 9 a.m. in Courtroom 5A. That is the last formal gate before opening statements on July 13.",
+      "The shape of the trial is beginning to fix itself. The address is set. The plea window is closed. The jury pool is being trimmed. The recording fight is real and dated. And the government is moving to take pieces off the defense's table before the table is even set.",
+      "Twenty-eight days.",
+    ],
+  },
+  {
     slug: "morning-brief-2026-06-15",
     title: "Morning Brief: Jun 15 — Airport Takeover Trial Opens; Supervisor Vows Appeal",
     dek: "The decade-long legal fight over who controls Jackson's airport goes to trial today before U.S. District Judge Carlton Reeves.",
