@@ -7,6 +7,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { execSync } from "node:child_process";
 import Anthropic from "@anthropic-ai/sdk";
+import { fetchUrl } from "./lib/fetch-url.mjs";
 
 const POSTS_FILE = "lib/posts.ts";
 const CATEGORIES = [
@@ -38,6 +39,25 @@ RESEARCH ORDER — non-negotiable
 2. If you find a substantive new entry, call read_court_filing to get the actual filing text. Write about what the filing SAYS — quote it directly, cite the docket entry number. Cross-check with web_search if you want context, but lead with the document.
 3. Only if the docket has nothing of substance in the last 7 days do you fall back to web_search-driven topic selection.
 4. If get_owens_case_docket errors (network or API issue), proceed with web_search.
+
+PRIMARY SOURCES — use fetch_url to read documents directly
+The Wire's differentiator is reading source documents instead of summarizing other outlets' summaries of them. When a story has an underlying public document, you should fetch and quote from it.
+
+Use the fetch_url tool to read these directly. Find the current document URL via web_search first (e.g. "Jackson City Council agenda June 16 2026 site:jacksonms.gov"), then fetch_url it.
+
+Sources worth checking, by beat:
+- Jackson City Council agendas, packets, and minutes: jacksonms.gov (search for the meeting portal each session)
+- Jackson Planning Board / zoning hearings: jacksonms.gov
+- Hinds County Board of Supervisors agendas: hindscountyms.com
+- Mississippi Public Service Commission dockets: psc.ms.gov (especially Docket 2026-AD-10 for data centers)
+- Mississippi Legislature bills and committee actions: billstatus.ls.state.ms.us / legislature.ms.gov
+- Mississippi Secretary of State business filings: sos.ms.gov
+- Mississippi Department of Revenue, MDE, MDOC published reports
+- Federal civil cases at courtlistener.com (use get_owens_case_docket for the Owens case; for others, search via web_search and fetch_url)
+
+If web_search reveals an agenda or filing is available as a PDF, fetch_url that PDF directly — it works on PDFs.
+
+Quote and cite by URL in the article. Example: "according to the city council agenda for June 16 (jacksonms.gov), item 7-B authorizes..."
 
 BEAT ROTATION — required
 The Wire is heavily over-indexed on Politics. To diversify the front page, follow these rules:
@@ -96,6 +116,21 @@ OUTPUT
 
 const TOOLS = [
   { type: "web_search_20260209", name: "web_search" },
+  {
+    name: "fetch_url",
+    description:
+      "Fetch the text content of a public government, court, or news URL. Handles HTML pages (extracts visible text), PDF documents (extracts text — works on Council agendas, court orders, PSC filings), and JSON. Use to read primary-source documents directly: City Council agendas, Planning Commission packets, Mississippi PSC docket filings, Hinds County board agendas, state legislative bill text. Find the URL via web_search first, then fetch_url it. Do not use for paywalled sites or sites that require authentication.",
+    input_schema: {
+      type: "object",
+      properties: {
+        url: {
+          type: "string",
+          description: "Absolute https/http URL of a public document or page.",
+        },
+      },
+      required: ["url"],
+    },
+  },
   {
     name: "get_owens_case_docket",
     description:
@@ -452,6 +487,26 @@ Use date "${today}". Pick a category from: ${CATEGORIES.join(", ")}.`;
             type: "tool_result",
             tool_use_id: block.id,
             content: `Could not read filing: ${e.message}`,
+            is_error: true,
+          });
+        }
+      } else if (name === "fetch_url") {
+        console.log(`[autopilot] fetch_url: ${block.input?.url}`);
+        try {
+          const { contentType, text } = await fetchUrl(block.input.url);
+          const truncated =
+            text.length > 18000 ? text.slice(0, 18000) + "\n\n[truncated]" : text;
+          toolResults.push({
+            type: "tool_result",
+            tool_use_id: block.id,
+            content: `[${contentType}]\n${truncated}`,
+          });
+        } catch (e) {
+          console.error(`[autopilot] fetch_url failed:`, e.message);
+          toolResults.push({
+            type: "tool_result",
+            tool_use_id: block.id,
+            content: `Fetch failed: ${e.message}`,
             is_error: true,
           });
         }
