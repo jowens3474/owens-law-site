@@ -14,6 +14,9 @@ import ArticleCard from "./components/ArticleCard";
 import ArticleImage from "./components/ArticleImage";
 import Sidebar from "./components/Sidebar";
 import CategoryTag from "./components/CategoryTag";
+import NewsletterSignup from "./components/NewsletterSignup";
+
+const LATEST_LIMIT = 8;
 
 function SectionHeading({ children }: { children: React.ReactNode }) {
   return (
@@ -52,7 +55,9 @@ export default function Home() {
   // Brand-new site with nothing published yet.
   if (!lead) return <EmptyFrontPage />;
 
-  const rest = getAllPosts().filter((p) => p.slug !== lead.slug);
+  const allRest = getAllPosts().filter((p) => p.slug !== lead.slug);
+  const rest = allRest.slice(0, LATEST_LIMIT);
+  const hasMore = allRest.length > LATEST_LIMIT;
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8">
@@ -112,8 +117,22 @@ export default function Home() {
                   <ArticleCard key={post.slug} post={post} variant="feature" />
                 ))}
               </div>
+              {hasMore && (
+                <div className="mt-8 flex justify-center">
+                  <Link
+                    href="/archive"
+                    className="border-2 border-ink bg-paper px-6 py-3 text-sm font-bold uppercase tracking-wide hover:border-crimson hover:text-crimson"
+                  >
+                    All articles ({allRest.length}) →
+                  </Link>
+                </div>
+              )}
             </section>
           )}
+
+          <div className="mt-12">
+            <NewsletterSignup variant="block" />
+          </div>
         </div>
 
         <Sidebar />

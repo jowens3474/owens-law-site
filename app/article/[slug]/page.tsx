@@ -14,6 +14,7 @@ import ArticleImage from "@/app/components/ArticleImage";
 import Timeline from "@/app/components/Timeline";
 import CategoryTag from "@/app/components/CategoryTag";
 import ArticleCard from "@/app/components/ArticleCard";
+import NewsletterSignup from "@/app/components/NewsletterSignup";
 
 // Refresh every 10 minutes so scheduled articles render on schedule.
 export const revalidate = 600;
@@ -180,6 +181,10 @@ export default async function ArticlePage({
           </p>
         </footer>
       </article>
+
+      <div className="mt-12">
+        <NewsletterSignup variant="block" />
+      </div>
 
       {related.length > 0 && (
         <section className="mt-14">

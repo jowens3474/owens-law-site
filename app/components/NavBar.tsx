@@ -13,6 +13,7 @@ export default function NavBar() {
     { name: "Home", href: "/" },
     ...categories.map((c) => ({ name: c.name, href: `/category/${c.slug}` })),
     { name: "The Trial", href: "/corruption-case", featured: true as const },
+    { name: "Explainers", href: "/explainers" },
     { name: "About", href: "/about" },
   ];
 
