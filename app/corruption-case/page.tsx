@@ -403,24 +403,24 @@ export default function CorruptionCasePage() {
               href={`/article/${p.slug}`}
               className="group block"
             >
-              <ArticleImage
-                post={p}
-                label={p.category}
-                sizes="(max-width: 768px) 100vw, 480px"
-                className="aspect-[16/9] w-full"
-              />
-              <div className="mt-3">
-                <CategoryTag category={p.category} />
-                <h3 className="mt-1 font-serif text-2xl font-black leading-[1.1] group-hover:text-crimson">
-                  {p.title}
-                </h3>
-                <p className="mt-2 font-serif text-base leading-relaxed text-muted">
-                  {p.dek}
-                </p>
-                <p className="mt-2 text-xs uppercase tracking-wider text-muted">
-                  {formatDate(p.date)} · {readingTime(p)} min read
-                </p>
-              </div>
+              {p.image && (
+                <ArticleImage
+                  post={p}
+                  label={p.category}
+                  sizes="(max-width: 768px) 100vw, 480px"
+                  className="mb-3 aspect-[16/9] w-full"
+                />
+              )}
+              <CategoryTag category={p.category} />
+              <h3 className="mt-1 font-serif text-2xl font-black leading-[1.1] group-hover:text-crimson">
+                {p.title}
+              </h3>
+              <p className="mt-2 font-serif text-base leading-relaxed text-muted">
+                {p.dek}
+              </p>
+              <p className="mt-2 text-xs uppercase tracking-wider text-muted">
+                {formatDate(p.date)} · {readingTime(p)} min read
+              </p>
             </Link>
           ))}
         </div>

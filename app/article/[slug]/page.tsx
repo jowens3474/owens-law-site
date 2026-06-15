@@ -147,13 +147,14 @@ export default async function ArticlePage({
           </div>
         </header>
 
-        <ArticleImage
-          post={post}
-          label={post.category}
-          preload
-          sizes="(max-width: 768px) 100vw, 768px"
-          className="mt-6 aspect-[16/9] w-full rounded-sm"
-        />
+        {post.image && (
+          <ArticleImage
+            post={post}
+            preload
+            sizes="(max-width: 768px) 100vw, 768px"
+            className="mt-6 aspect-[16/9] w-full"
+          />
+        )}
 
         {post.tags?.includes("morning-brief") ? (
           <ol className="mt-10 space-y-10">

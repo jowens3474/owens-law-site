@@ -108,32 +108,31 @@ export default function Home() {
 
       <div className="grid gap-12 lg:grid-cols-3">
         <div className="lg:col-span-2">
-          {/* Lead story */}
+          {/* Lead story — image optional, typography carries the design */}
           <article>
-            <Link href={`/article/${lead.slug}`}>
-              <ArticleImage
-                post={lead}
-                label={lead.category}
-                preload
-                sizes="(max-width: 1024px) 100vw, 768px"
-                className="aspect-[16/9] w-full rounded-sm"
-              />
-            </Link>
-            <div className="mt-4">
-              <CategoryTag category={lead.category} />
-              <h2 className="mt-1 font-serif text-4xl font-black leading-[1.05] sm:text-5xl">
-                <Link href={`/article/${lead.slug}`} className="headline-link">
-                  {lead.title}
-                </Link>
-              </h2>
-              <p className="mt-3 max-w-2xl font-serif text-lg leading-relaxed text-muted">
-                {lead.dek}
-              </p>
-              <p className="mt-3 text-xs uppercase tracking-wider text-muted">
-                By {lead.author} · {formatDate(lead.date)} · {readingTime(lead)}{" "}
-                min read
-              </p>
-            </div>
+            {lead.image && (
+              <Link href={`/article/${lead.slug}`} className="mb-4 block">
+                <ArticleImage
+                  post={lead}
+                  preload
+                  sizes="(max-width: 1024px) 100vw, 768px"
+                  className="aspect-[16/9] w-full"
+                />
+              </Link>
+            )}
+            <CategoryTag category={lead.category} />
+            <h2 className="mt-1 font-serif text-4xl font-black leading-[1.02] sm:text-5xl md:text-6xl">
+              <Link href={`/article/${lead.slug}`} className="headline-link">
+                {lead.title}
+              </Link>
+            </h2>
+            <p className="mt-4 max-w-3xl font-serif text-xl italic leading-relaxed text-muted">
+              {lead.dek}
+            </p>
+            <p className="mt-4 text-xs uppercase tracking-wider text-muted">
+              By {lead.author} · {formatDate(lead.date)} · {readingTime(lead)}{" "}
+              min read
+            </p>
           </article>
 
           {rest.length > 0 && (
