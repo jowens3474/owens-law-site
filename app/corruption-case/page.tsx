@@ -192,11 +192,72 @@ export default function CorruptionCasePage() {
     })),
   };
 
+  // FAQ schema — Google's rich results surface for hub pages. Pulls real
+  // questions readers search for around this case.
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "When does the Owens trial start?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: `The trial begins ${TRIAL_LABEL} in Courtroom 5A of the Thad Cochran U.S. Courthouse in downtown Jackson, Mississippi, before Chief U.S. District Judge Daniel P. Jordan III.`,
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Who is on trial in the Jackson corruption case?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Three Jackson elected officials: Hinds County District Attorney Jody Owens (8 counts), former Mayor Chokwe Antar Lumumba (5 counts), and former Ward 6 Councilman Aaron Banks (2 counts). Two others, former Councilwoman Angelique Lee and Sherik Marve Smith, pleaded guilty in 2024.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "What is the docket number?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "3:24-cr-103, in the U.S. District Court for the Southern District of Mississippi, Northern Division.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "What are the charges?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Bribery, conspiracy, honest services wire fraud, money laundering, and a Travel Act count for the interstate trips. Owens also faces a false statement count. The total indictment is 17 counts spread across the three defendants.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "What is the defense argument?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Each defendant has a different defense. Owens is mounting an entrapment defense, arguing the FBI manufactured the crime through its undercover operation. Lumumba is relying on McDonnell v. United States to argue that moving a paperwork deadline is not an official act. Banks argues that the city never held the vote he was allegedly paid to influence.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Where do the jurors come from?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "The jury is drawn from the 18 counties of the U.S. District Court's Northern Division of the Southern District of Mississippi. Hinds County is one of those 18.",
+        },
+      },
+    ],
+  };
+
   return (
     <div className="mx-auto max-w-6xl px-4 py-8">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
 
       {/* Header */}

@@ -8,6 +8,7 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { execSync } from "node:child_process";
 import Anthropic from "@anthropic-ai/sdk";
 import { fetchUrl } from "./lib/fetch-url.mjs";
+import { pingIndexNow } from "./lib/indexnow.mjs";
 
 const POSTS_FILE = "lib/posts.ts";
 const CATEGORIES = [
@@ -491,6 +492,13 @@ ${brief.body.map((p) => `      ${JSON.stringify(p)},`).join("\n")}
   const commitMsg = `Morning Brief: ${brief.title}`.replace(/"/g, '\\"');
   execSync(`git commit -m "${commitMsg}"`, { stdio: "inherit" });
   execSync(`git push origin HEAD:main`, { stdio: "inherit" });
+
+  await pingIndexNow([
+    `https://www.thejacksonwire.com/article/${brief.slug}`,
+    "https://www.thejacksonwire.com/",
+    "https://www.thejacksonwire.com/sitemap.xml",
+    "https://www.thejacksonwire.com/news-sitemap.xml",
+  ]);
 
   console.log(`[brief] ✓ Published "${brief.title}".`);
 }

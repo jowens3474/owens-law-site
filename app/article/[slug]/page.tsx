@@ -15,6 +15,7 @@ import Timeline from "@/app/components/Timeline";
 import CategoryTag from "@/app/components/CategoryTag";
 import ArticleCard from "@/app/components/ArticleCard";
 import NewsletterSignup from "@/app/components/NewsletterSignup";
+import { extractCitations } from "@/lib/citations";
 
 // Refresh every 10 minutes so scheduled articles render on schedule.
 export const revalidate = 600;
@@ -196,6 +197,41 @@ export default async function ArticlePage({
         )}
 
         {post.timeline && <Timeline sections={post.timeline} />}
+
+        {(() => {
+          const citations = extractCitations(post);
+          if (citations.length === 0) return null;
+          return (
+            <aside className="mt-8 border-t border-rule pt-4">
+              <p className="font-serif text-xs font-bold uppercase tracking-widest text-crimson">
+                Sources cited in this article
+              </p>
+              <ul className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-sm text-muted">
+                {citations.map((c, i) => (
+                  <li key={c.name}>
+                    {c.url ? (
+                      <a
+                        href={c.url}
+                        target="_blank"
+                        rel="noopener noreferrer nofollow"
+                        className="hover:text-crimson"
+                      >
+                        {c.name}
+                      </a>
+                    ) : (
+                      <span>{c.name}</span>
+                    )}
+                    {i < citations.length - 1 && (
+                      <span aria-hidden className="ml-3">
+                        ·
+                      </span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </aside>
+          );
+        })()}
 
         {post.note && (
           <p className="mt-8 border-t border-rule pt-4 text-sm italic text-muted">
