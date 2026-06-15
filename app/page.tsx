@@ -56,6 +56,24 @@ export default function Home() {
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8">
+      {/* Corruption case hub promo */}
+      <Link
+        href="/corruption-case"
+        className="mb-8 flex flex-wrap items-center justify-between gap-3 border-2 border-ink bg-paper px-5 py-3 hover:border-crimson"
+      >
+        <div>
+          <p className="font-serif text-xs font-bold uppercase tracking-widest text-crimson">
+            Now tracking · The Trial
+          </p>
+          <p className="mt-0.5 font-serif text-base font-bold">
+            U.S. v. Owens, Lumumba, and Banks
+          </p>
+        </div>
+        <span className="font-serif text-sm font-bold uppercase tracking-wide text-crimson">
+          Full coverage →
+        </span>
+      </Link>
+
       <div className="grid gap-12 lg:grid-cols-3">
         <div className="lg:col-span-2">
           {/* Lead story */}
