@@ -69,6 +69,7 @@ const POSTS: Post[] = [
     author: "Jackson Wire Staff",
     date: "2026-06-15",
     views: 0,
+    tags: ["data-centers"],
     body: [
       "Two data center stories are unfolding in the Jackson metro at once. One is loud, local, and on a clock. The other is quieter, slipperier, and may matter more.",
       "The loud one belongs to Saxum Investment Company, a New Jersey developer asking the city to rezone roughly 230 acres in northwest Jackson from residential and commercial use to heavy industrial, according to Mississippi Today. The site sits south of Forest Avenue, between Interstate 220 and Medgar Evers Boulevard — land that is mostly trees and brush, save for a small two-acre farm in the middle of it. Protesters packed a Planning Board meeting over it in late May. The board is scheduled to take the application back up on June 24.",
@@ -117,6 +118,7 @@ const POSTS: Post[] = [
     author: "Jackson Wire Staff",
     date: "2026-06-13",
     views: 0,
+    tags: ["data-centers"],
     body: [
       "On Friday afternoon, in an auditorium at Jackson State University, the city gathered a panel to ask a question it has not yet answered out loud: does Jackson want a data center? Mayor John Horhn put it plainly at the start, according to Mississippi Today. “What we’re trying to do today is just have a conversation so that we can educate ourselves about what makes sense for us,” he said. “Do we want this in our community? And if so, under what conditions?”",
       "The framing matters, because the city is running short on time to answer it. The forum, hosted by Jackson’s Planning and Development Department, was billed as a public education event and announced just two days before it was held, Mississippi Today reported. About 30 people attended the roughly 90-minute session; WLBT described dozens filling the seats at JSU’s College of Science, Engineering and Technology Auditorium. Attendees were invited to submit written questions, only some of which were taken up from the stage.",
@@ -466,6 +468,7 @@ const POSTS: Post[] = [
     image: "/data-center.webp",
     imageAlt:
       "An aerial view of a large data center complex next to a suburban subdivision.",
+    tags: ["data-centers"],
     body: [
       "The race to build data centers in Mississippi has officially reached Jackson's front door, and not everyone is rolling out the welcome mat.",
       "Just one day after the Jackson City Council tabled a temporary ban on data centers, WLBT learned that a rezoning request tied to one is headed to the Planning Board on May 27. A New Jersey real estate firm, Saxum Investment Company, wants to rezone roughly 190 acres along Forest Avenue, near I-220 and Medgar Evers Boulevard, for heavy industrial use.",

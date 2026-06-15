@@ -79,8 +79,9 @@ FACT DISCIPLINE — non-negotiable
 
 TAGS — required for hub pages
 When you call publish_article, set the tags field as follows:
-- If the article is about U.S. v. Owens, Lumumba, and Banks (the federal corruption case), include "corruption-case" in the tags array.
-- If the article is a profile, explainer, or background analysis piece (not breaking news), include "explainer" in the tags array.
+- If the article is about U.S. v. Owens, Lumumba, and Banks (the federal corruption case), include "corruption-case".
+- If the article is about Mississippi data center development, AI infrastructure, utility-deregulation fights, or related zoning hearings (Saxum, Prado AI, AWS, Madison County projects, PSC dockets), include "data-centers".
+- If the article is a profile, explainer, or background analysis piece (not breaking news), include "explainer".
 - An article can have multiple tags. Leave tags as an empty array if none apply.
 
 TOPIC SELECTION (when falling back to news search)
@@ -161,10 +162,10 @@ const TOOLS = [
           type: "array",
           items: {
             type: "string",
-            enum: ["corruption-case", "explainer"],
+            enum: ["corruption-case", "explainer", "data-centers"],
           },
           description:
-            "Hub-page tags. Include 'corruption-case' for any article about U.S. v. Owens. Include 'explainer' for profile/background pieces. Empty array if none apply.",
+            "Hub-page tags. Include 'corruption-case' for any article about U.S. v. Owens. Include 'data-centers' for any article about Mississippi data center development, AI infrastructure, or related utility/zoning fights (Saxum, Prado AI, AWS, PSC dockets). Include 'explainer' for profile/background pieces. Empty array if none apply. An article can have multiple tags.",
         },
         body: {
           type: "array",
@@ -508,7 +509,7 @@ Use date "${today}". Pick a category from: ${CATEGORIES.join(", ")}.`;
     ? `\n    categories: ${JSON.stringify(crossFiles)},`
     : "";
 
-  const allowedTags = ["corruption-case", "explainer"];
+  const allowedTags = ["corruption-case", "explainer", "data-centers"];
   const tags = Array.isArray(article.tags)
     ? article.tags.filter((t) => allowedTags.includes(t))
     : [];

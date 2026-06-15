@@ -168,6 +168,35 @@ export default async function ArticlePage({
           </p>
         )}
 
+        {(() => {
+          const hubMap: Record<string, { label: string; href: string }> = {
+            "corruption-case": {
+              label: "The Trial — full coverage of U.S. v. Owens",
+              href: "/corruption-case",
+            },
+            "data-centers": {
+              label: "Data Centers — every Jackson project we track",
+              href: "/data-centers",
+            },
+          };
+          const hubTag = post.tags?.find((t) => hubMap[t]);
+          if (!hubTag) return null;
+          const hub = hubMap[hubTag];
+          return (
+            <aside className="mt-10 border-2 border-ink bg-paper p-5">
+              <p className="font-serif text-xs font-bold uppercase tracking-widest text-crimson">
+                From this beat
+              </p>
+              <Link
+                href={hub.href}
+                className="mt-2 inline-block font-serif text-lg font-bold hover:text-crimson"
+              >
+                {hub.label} →
+              </Link>
+            </aside>
+          );
+        })()}
+
         <footer className="mt-10 border-t-2 border-ink pt-5">
           <p className="text-sm text-muted">
             Have something to add to this story? Documents, corrections, or a
