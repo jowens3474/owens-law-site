@@ -7,6 +7,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { execSync } from "node:child_process";
 import Anthropic from "@anthropic-ai/sdk";
+import { fetchUrl } from "./lib/fetch-url.mjs";
 
 const POSTS_FILE = "lib/posts.ts";
 const CATEGORIES = [
@@ -45,7 +46,16 @@ TOPIC MIX — required
 RESEARCH ORDER
 1. Call get_owens_case_docket FIRST to check for new substantive filings in the last 24 hours. Include only if there's real news (motion, ruling, order, not a routine notice).
 2. Call web_search 3 to 6 times across the Wire's beats to find news from the last 24 hours. Vary your searches across topics.
-3. Build the 5-item lineup, ordered by news weight.
+3. When a city/county/state meeting is happening today or this week, use web_search to find the agenda or notice URL, then call fetch_url to read it directly. Quote from the agenda. This is what differentiates the Wire from competitors.
+4. Build the 5-item lineup, ordered by news weight.
+
+PRIMARY SOURCES (use fetch_url for these)
+- Jackson City Council, Planning Board, Zoning hearings: jacksonms.gov
+- Hinds County Board of Supervisors: hindscountyms.com
+- Mississippi PSC dockets (especially 2026-AD-10 data center): psc.ms.gov
+- Mississippi Legislature bill text: legislature.ms.gov
+- Mississippi Secretary of State filings: sos.ms.gov
+Find the URL via web_search first ("Jackson City Council agenda this week site:jacksonms.gov"), then fetch_url.
 
 VOICE — strict
 - Direct, observant. Shorter sentences than the longer articles.
@@ -76,6 +86,21 @@ OUTPUT
 
 const TOOLS = [
   { type: "web_search_20260209", name: "web_search" },
+  {
+    name: "fetch_url",
+    description:
+      "Fetch the text content of a public government, court, or news URL. Handles HTML, PDF agendas, and JSON. Use to read primary-source documents directly: Council agendas, PSC filings, county board notices, legislative bill text. Find the URL via web_search first, then fetch_url it.",
+    input_schema: {
+      type: "object",
+      properties: {
+        url: {
+          type: "string",
+          description: "Absolute https/http URL of a public document or page.",
+        },
+      },
+      required: ["url"],
+    },
+  },
   {
     name: "get_owens_case_docket",
     description:
@@ -355,6 +380,26 @@ Process:
             type: "tool_result",
             tool_use_id: block.id,
             content: `Could not read filing: ${e.message}`,
+            is_error: true,
+          });
+        }
+      } else if (name === "fetch_url") {
+        console.log(`[brief] fetch_url: ${block.input?.url}`);
+        try {
+          const { contentType, text } = await fetchUrl(block.input.url);
+          const truncated =
+            text.length > 12000 ? text.slice(0, 12000) + "\n\n[truncated]" : text;
+          toolResults.push({
+            type: "tool_result",
+            tool_use_id: block.id,
+            content: `[${contentType}]\n${truncated}`,
+          });
+        } catch (e) {
+          console.error(`[brief] fetch_url failed:`, e.message);
+          toolResults.push({
+            type: "tool_result",
+            tool_use_id: block.id,
+            content: `Fetch failed: ${e.message}`,
             is_error: true,
           });
         }
