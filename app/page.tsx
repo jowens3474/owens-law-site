@@ -2,6 +2,7 @@ import Link from "next/link";
 import {
   getAllPosts,
   getFeaturedPost,
+  getTodaysBrief,
   formatDate,
   readingTime,
 } from "@/lib/posts";
@@ -51,16 +52,42 @@ function EmptyFrontPage() {
 
 export default function Home() {
   const lead = getFeaturedPost();
+  const todaysBrief = getTodaysBrief();
 
   // Brand-new site with nothing published yet.
   if (!lead) return <EmptyFrontPage />;
 
-  const allRest = getAllPosts().filter((p) => p.slug !== lead.slug);
+  const allRest = getAllPosts().filter(
+    (p) => p.slug !== lead.slug && p.slug !== todaysBrief?.slug,
+  );
   const rest = allRest.slice(0, LATEST_LIMIT);
   const hasMore = allRest.length > LATEST_LIMIT;
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8">
+      {/* Today's brief, if published */}
+      {todaysBrief && (
+        <Link
+          href={`/article/${todaysBrief.slug}`}
+          className="mb-6 block border-2 border-crimson bg-paper p-5 transition-colors hover:bg-newsprint"
+        >
+          <div className="flex flex-wrap items-baseline justify-between gap-3">
+            <p className="font-serif text-xs font-bold uppercase tracking-[0.3em] text-crimson">
+              The Morning Brief · {formatDate(todaysBrief.date)}
+            </p>
+            <span className="text-xs font-bold uppercase tracking-widest text-crimson">
+              Read →
+            </span>
+          </div>
+          <h2 className="mt-2 font-serif text-2xl font-black leading-tight sm:text-3xl">
+            {todaysBrief.title.replace(/^Morning Brief:\s*/, "")}
+          </h2>
+          <p className="mt-2 font-serif text-base italic leading-relaxed text-muted">
+            {todaysBrief.dek}
+          </p>
+        </Link>
+      )}
+
       {/* Corruption case hub promo */}
       <Link
         href="/corruption-case"

@@ -790,6 +790,14 @@ export function getPostsByTag(tag: string): Post[] {
   return getAllPosts().filter((p) => p.tags?.includes(tag));
 }
 
+// Returns today's Morning Brief if one has been published today (Chicago time).
+export function getTodaysBrief(): Post | undefined {
+  const today = todayLocalIso();
+  return getAllPosts().find(
+    (p) => p.tags?.includes("morning-brief") && p.date === today,
+  );
+}
+
 export function getMostRead(limit = 5): Post[] {
   return POSTS.filter(isPublished)
     .sort((a, b) => b.views - a.views)
