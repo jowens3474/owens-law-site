@@ -61,6 +61,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-06-16",
+    title: "Morning Brief: Jun 16 — Data Center Vote Nears; Hinds County Election Do-Over",
+    dek: "A contentious plan to rezone 230 acres of northwest Jackson for a data center heads toward a June 24 Planning Board vote, with a citywide public hearing set for June 22.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-06-16",
+    views: 0,
+    body: [
+      "Data center rezoning heads to a vote: The Jackson Planning Board is set to take up Saxum Investment's request to rezone roughly 230 acres of northwest Jackson from residential and commercial to heavy industrial use on June 24, after attorneys postponed an earlier vote. Mississippi Today reported the land sits near the Presidential Hills neighborhood and currently holds a horse track. Ahead of that, the city has scheduled a 6 p.m. public hearing June 22 in City Council chambers on data centers and a possible zoning ordinance. The city's own education forum on June 12 drew only about 30 people and, per Mississippi Today, was announced just two days in advance. Residents left with more questions than answers.",
+      "Hinds County faces a do-over election: Hinds County will hold a special election July 14 for the District 2 seat on the Board of Supervisors, the county Election Commission announced. Mississippi Today reported that Special Judge Barry Ford ruled in favor of former Supervisor David Archie, who challenged his 2023 loss to current Supervisor Anthony Smith, finding that materials from the Democratic primary were not properly handled and made the winner unverifiable. The decision effectively reopens a contest settled nearly three years ago. Voters in the district, which includes parts of Jackson, will return to the polls in under a month. Smith holds the seat for now, and the campaign is restarting on a compressed timeline.",
+      "Arrest in deadly trail ride shooting: Jackson police have arrested 18-year-old Amarien Carmichael in connection with the June 6 shooting at a trail ride event that left one person dead and five wounded, SuperTalk Mississippi reported this morning. Officers responded to the 2900 block of Forrest Avenue around 12:30 a.m., where 18-year-old Joidan Worthy was killed by a single gunshot, according to WJTV, with five others injured. The arrest follows earlier detentions tied to the gathering. The violence struck the same northwest Jackson corridor where Saxum is seeking its data center rezoning. Investigators have urged anyone with information to contact the Jackson Police Department or Crime Stoppers.",
+      "4,100 water customers, 1980s rates: About 4,100 JXN Water customers who live more than a mile outside Jackson have paid essentially the same rates they did 40 years ago, WLBT reported. In May, the City Council unanimously approved a non-binding resolution, authored by Ward 1 Councilman Ashby Foote, urging JXN Water to file a rate case with the Mississippi Public Service Commission to close the gap. By comparison, customers inside and within a mile of the city now pay a minimum of $7.48 per CCF. Interim third-party manager Ted Henifin, who has raised in-city rates twice since 2023, has signaled he intends to bring the outlying rates before the PSC.",
+      "Juneteenth Jubilee returns downtown: The Two Mississippi Museums will host a free Juneteenth celebration starting June 19 and running through the weekend, with the Jubilee from 4 p.m. to 8 p.m. Friday, according to WJTV and Visit Jackson. Sponsored by Ingalls Shipbuilding, the event includes specialized flash tours at 5 p.m. at the Museum of Mississippi History and 6 p.m. at the Mississippi Civil Rights Museum, plus performances by local talent and family activities. Admission is free all weekend. City offices are scheduled to close June 18 for the holiday observance, according to the City Council's meeting agenda. It is one of a dozen Juneteenth events listed around the capital city.",
+    ],
+  },
+  {
     slug: "how-to-watch-the-jackson-bribery-trial",
     title: "Want to Watch the Jackson Bribery Trial? Here's How.",
     dek: "When the federal corruption trial of Jody Owens, Chokwe Antar Lumumba, and Aaron Banks opens July 13, the courtroom is open to the public. No ticket, no press pass. A reader's guide to getting in.",
