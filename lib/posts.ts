@@ -61,6 +61,28 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "how-to-watch-the-jackson-bribery-trial",
+    title: "Want to Watch the Jackson Bribery Trial? Here's How.",
+    dek: "When the federal corruption trial of Jody Owens, Chokwe Antar Lumumba, and Aaron Banks opens July 13, the courtroom is open to the public. No ticket, no press pass. A reader's guide to getting in.",
+    category: "Politics",
+    categories: ["General News"],
+    tags: ["corruption-case", "explainer"],
+    author: "Jackson Wire Staff",
+    date: "2026-06-16",
+    views: 0,
+    body: [
+      "When the federal corruption trial of Jody Owens, Chokwe Antar Lumumba, and Aaron Banks begins July 13, 2026, the courtroom doors at the Thad Cochran U.S. Courthouse in downtown Jackson will be open to the public. Anyone can walk in. No ticket, no invitation, no press pass.",
+      "Here's what you need to know.",
+      "WHO CAN ATTEND. Anyone. Federal criminal trials are open to the public by long-standing constitutional tradition. Seating is first-come, first-served. In a case this big, that means people will line up early.",
+      "WHAT YOU NEED. A valid government-issued photo ID to clear courthouse security. That's it.",
+      "WHAT YOU CAN'T DO. No photos. No video. No audio recording. No livestreaming. Cell phones must be silenced or off. Federal rules have banned cameras and broadcasting from federal criminal trials since 1946, and there are no exceptions for high-profile cases. If you want a live view of what happens, you have to be in the room.",
+      "WHAT HAPPENS IF THE COURTROOM FILLS UP. Federal courtrooms have fixed seating, and in trials drawing this much attention, the main room often runs out of seats. When that happens, judges commonly open an overflow courtroom in the same building, where the proceedings are piped in live by closed-circuit video and audio for spectators who couldn't fit. Reporters and defendants' families are sometimes given reserved seats. In the highest-interest federal trials, courts have used numbered passes or daily line systems to manage crowds.",
+      "The court has not announced specific seating or overflow arrangements for this trial. Those decisions are typically made closer to the trial date and will be posted by the court when made.",
+      "A FEW PRACTICAL NOTES FOR PEOPLE PLANNING TO GO. Arrive early on key days: opening statements, the testimony of cooperating witnesses, and the verdict are the moments that fill the room. Leave recording devices at home or in your car. Be ready to wait in line. If the main courtroom is full, ask a court security officer where the overflow room is.",
+      "WHERE TO CHECK FOR UPDATES. Schedule changes, overflow procedures, and any special access arrangements will be posted on the U.S. District Court for the Southern District of Mississippi's website at mssd.uscourts.gov.",
+    ],
+  },
+  {
     slug: "jackson-water-data-centers",
     title:
       "Jackson Can't Keep Its Own Water On. Now They Want to Sell It to a Server Farm.",
