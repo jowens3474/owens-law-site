@@ -79,7 +79,7 @@ export default function CorrectionsPage() {
         <h2 className="font-serif text-xl font-bold">Spot something wrong?</h2>
         <p className="mt-2 text-muted">
           The Wire takes corrections seriously. Email the link to the article
-          and the specific factual error, and we'll fix it.
+          and the specific factual error, and we&apos;ll fix it.
         </p>
         <a
           href={`mailto:${site.email}?subject=Correction%20request`}

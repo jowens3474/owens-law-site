@@ -51,7 +51,7 @@ export default function NewsletterSignup({
           The Morning Dispatch
         </p>
         <p className="mt-3 font-serif text-xl font-black leading-tight sm:text-2xl">
-          Read this story? You'll want the next one too.
+          Read this story? You&apos;ll want the next one too.
         </p>
         <p className="mt-2 text-sm text-muted">
           The Jackson Wire, in your inbox each morning. No spam, no sacred

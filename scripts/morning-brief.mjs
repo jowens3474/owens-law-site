@@ -11,12 +11,6 @@ import { fetchUrl } from "./lib/fetch-url.mjs";
 import { pingIndexNow } from "./lib/indexnow.mjs";
 
 const POSTS_FILE = "lib/posts.ts";
-const CATEGORIES = [
-  "General News",
-  "Commercial Real Estate",
-  "Residential Real Estate",
-  "Politics",
-];
 
 const OWENS_CASE = {
   label: "U.S. v. Owens, Lumumba, and Banks",
