@@ -27,7 +27,7 @@ export default function AboutPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-10">
       <header className="border-b-4 border-double border-ink pb-5">
-        <p className="font-serif text-xs font-bold uppercase tracking-[0.3em] text-crimson">
+        <p className="font-serif text-xs font-bold uppercase tracking-wide text-crimson sm:tracking-[0.3em]">
           About
         </p>
         <h1 className="mt-2 font-serif text-4xl font-black sm:text-5xl">

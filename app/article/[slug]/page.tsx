@@ -132,10 +132,10 @@ export default async function ArticlePage({
 
       <article>
         <header>
-          <h1 className="font-serif text-4xl font-black leading-[1.08] sm:text-5xl">
+          <h1 className="font-serif text-3xl font-black leading-[1.08] sm:text-4xl md:text-5xl">
             {post.title}
           </h1>
-          <p className="mt-4 font-serif text-xl italic leading-relaxed text-muted">
+          <p className="mt-4 font-serif text-lg italic leading-relaxed text-muted sm:text-xl">
             {post.dek}
           </p>
           <div className="mt-5 flex flex-wrap items-center gap-x-2 gap-y-1 border-y border-rule py-3 text-sm">
