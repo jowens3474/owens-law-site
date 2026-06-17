@@ -61,6 +61,31 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "owens-pretrial-conference-anonymous-jury-strikes",
+    title:
+      "Pretrial Conference Done. Anonymous-Jury Briefing Ordered. Defense Gets Two Extra Strikes.",
+    dek: "Judge Jordan held the final pretrial conference June 16, then a separate in-chambers session the same day. By the end of it, the defendants had a bigger strike sheet, a tighter deadline stack, and an order to start drafting anonymous-jury instructions.",
+    category: "Politics",
+    categories: ["General News"],
+    tags: ["corruption-case"],
+    author: "Jackson Wire Staff",
+    date: "2026-06-16",
+    views: 0,
+    body: [
+      "The final pretrial conference is done. Chief U.S. District Judge Daniel P. Jordan III held the open-court session in the Owens corruption case on the morning of June 16, then convened a separate in-chambers conference the same day with the same lawyers. By the end of it, the defense had two more peremptory strikes, the court had ordered briefing on anonymous-jury instructions, and a tight new pretrial calendar was on the docket. Trial begins July 13. That is 27 days.",
+      "TWO MORE STRIKES FOR THE DEFENSE. The headline from the open courtroom was an oral motion by Lumumba attorney Gerald K. Evelyn, on behalf of all three defendants, for additional peremptory challenges. Jordan granted it from the bench. As entered: defendants shall have an additional 2 challenges, for a total of 12. The standard federal rule allots co-defendants 10 peremptory strikes between them when tried together. Adding two reflects the judge's recognition that three defendants splitting a single pot in a high-publicity case need more room than a single-defendant trial would. No further written order will issue.",
+      "ANONYMOUS-JURY BRIEFING. The second piece of news comes from a single line buried in the text order setting the new pretrial calendar: \"Defendants are instructed to provide proposed instructions related to anonymous jurors by July 6.\" Federal judges use anonymous juries sparingly, usually in cases involving organized crime, witness intimidation, or sustained pretrial publicity. The court has not said the jury here will be anonymous. It has said the defense needs to draft the cautionary instructions a judge would deliver if it is. That is a request defense lawyers do not get unless the judge thinks the question is live.",
+      "THE NEW DEADLINE STACK. The same June 16 text order locks in a tight cascade. The defense response to the government's motion to exclude the Owens experts is due June 22. The government's reply is due June 23. All objections to recording designations are due June 24, in the manner the judge laid out at the conference but did not put on the docket. A proposed jury questionnaire, if the parties want to submit one, is due June 29. The government's final 404(b) notices, identifying any other-acts evidence prosecutors plan to put before the jury, are due July 1. Bench briefs, voir dire questions, and the anonymous-juror instructions are all due July 6. The court also set July 6 as the working deadline for the parties to swap trial PowerPoints and discuss block introduction of unobjected-to exhibits.",
+      "STATUS OF THE OWENS EXPERTS. The government's motion to strike all five defense experts, filed June 12 as Docket No. 191, is now on a briefing schedule. Owens has until June 22 to respond. Assistant U.S. Attorney David H. Fulcher gets one day to reply on June 23. Judge Jordan can rule from there at any time. The five experts on the disclosure list are Burns, R. King, Sparks, C. King, and Webb. If the motion is granted in whole, the heart of the Owens affirmative case shrinks markedly before opening statements.",
+      "A WITHDRAWAL MOTION. Docket No. 192, filed June 16, is a motion by Assistant U.S. Attorney Madison Mumma to withdraw from the case as to all three defendants. The same day, the clerk attached a procedural note: proposed orders are not to be filed as attachments to a motion, but instead sent to chambers by email under Section 5.B of the court's Administrative Procedures for Electronic Case Filing. The withdrawal of one AUSA from a multi-prosecutor case is common as a long trial approaches. The lead prosecutor remains Fulcher, and the courtroom team that appeared June 16 was a five-AUSA lineup: Fulcher, Charles W. Kirkham, Kimberly T. Purdie, Herbert S. Carraway III, and Kabah S. Ealy.",
+      "ON THE DEFENSE TABLE. Owens was represented in the open session by W. Gary Kohlman, T. Gary Bufkin, Luke E. Whitaker, and Joel J. Averitt. Lumumba was represented by Gerald K. Evelyn and Thomas J. Bellinder. Banks was represented by E. Carlos Tanner III and R. Thomas Rich. The same lineup reconvened with the judge in chambers later that day.",
+      "THE IN-CHAMBERS CONFERENCE. The minute entry shows that after the open-court pretrial conference, Jordan brought the same lawyers back to chambers for a separate session. Federal judges hold in-chambers conferences when the subject touches sealed materials, cooperator logistics, evidentiary previews, or anything else the court does not want to put on the public record. The docket does not say what was discussed. The fact that it happened is itself information.",
+      "WHAT IT MEANS GOING IN. The shape of the trial is fixing fast. The strike sheet is two bigger. Anonymous-jury procedures are at least being prepared. The recording designations and the questionnaire are due before the end of the month. The 404(b) notice lands the first week of July. Bench briefs and voir dire questions follow within days of that.",
+      "Twenty-seven days.",
+    ],
+    note: "Source: U.S. District Court for the Southern District of Mississippi, Northern Division, Docket No. 3:24-cr-103, entries of June 16, 2026 (Docket Nos. 191–192, text orders and minute entries).",
+  },
+  {
     slug: "morning-brief-2026-06-16",
     title: "Morning Brief: Jun 16 — Data Center Vote Nears; Hinds County Election Do-Over",
     dek: "A contentious plan to rezone 230 acres of northwest Jackson for a data center heads toward a June 24 Planning Board vote, with a citywide public hearing set for June 22.",
