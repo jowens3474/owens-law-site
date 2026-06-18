@@ -392,11 +392,12 @@ Use date "${today}". Pick a category from: ${CATEGORIES.join(", ")}.`;
   let article = null;
   let iteration = 0;
   const MAX_ITERATIONS = 12;
+  let container = null;
 
   while (iteration++ < MAX_ITERATIONS && !article) {
     console.log(`[autopilot] iteration ${iteration}: calling Claude...`);
 
-    const response = await client.messages.create({
+    const requestParams = {
       model: "claude-opus-4-8",
       max_tokens: 16000,
       thinking: { type: "adaptive" },
@@ -404,7 +405,16 @@ Use date "${today}". Pick a category from: ${CATEGORIES.join(", ")}.`;
       system: SYSTEM_PROMPT,
       tools: TOOLS,
       messages,
-    });
+    };
+    if (container) {
+      requestParams.container = container;
+    }
+
+    const response = await client.messages.create(requestParams);
+
+    if (response.container?.id) {
+      container = response.container.id;
+    }
 
     console.log(
       `[autopilot] stop_reason=${response.stop_reason}, blocks=${response.content.length}`,
