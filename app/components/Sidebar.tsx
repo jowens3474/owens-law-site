@@ -103,7 +103,7 @@ export default function Sidebar() {
         </p>
         <a
           href={orderHref}
-          className="mt-4 inline-block bg-crimson px-4 py-2 text-sm font-bold uppercase tracking-wide text-white transition-colors hover:bg-crimson-dark"
+          className="mt-4 inline-block bg-crimson px-4 py-3 text-sm font-bold uppercase tracking-wide text-white transition-colors hover:bg-crimson-dark"
         >
           Order by email →
         </a>

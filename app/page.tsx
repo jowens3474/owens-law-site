@@ -72,7 +72,7 @@ export default function Home() {
           className="mb-6 block border-2 border-crimson bg-paper p-5 transition-colors hover:bg-newsprint"
         >
           <div className="flex flex-wrap items-baseline justify-between gap-3">
-            <p className="font-serif text-xs font-bold uppercase tracking-[0.3em] text-crimson">
+            <p className="font-serif text-xs font-bold uppercase tracking-wide text-crimson sm:tracking-[0.3em]">
               The Morning Brief · {formatDate(todaysBrief.date)}
             </p>
             <span className="text-xs font-bold uppercase tracking-widest text-crimson">
@@ -91,7 +91,7 @@ export default function Home() {
       {/* Corruption case hub promo */}
       <Link
         href="/corruption-case"
-        className="mb-8 flex flex-wrap items-center justify-between gap-3 border-2 border-ink bg-paper px-5 py-3 hover:border-crimson"
+        className="mb-6 flex flex-wrap items-center justify-between gap-3 border-2 border-ink bg-paper px-5 py-3 hover:border-crimson sm:mb-8"
       >
         <div>
           <p className="font-serif text-xs font-bold uppercase tracking-widest text-crimson">
@@ -121,12 +121,12 @@ export default function Home() {
               </Link>
             )}
             <CategoryTag category={lead.category} />
-            <h2 className="mt-1 font-serif text-4xl font-black leading-[1.02] sm:text-5xl md:text-6xl">
+            <h2 className="mt-1 font-serif text-3xl font-black leading-[1.02] sm:text-5xl md:text-6xl">
               <Link href={`/article/${lead.slug}`} className="headline-link">
                 {lead.title}
               </Link>
             </h2>
-            <p className="mt-4 max-w-3xl font-serif text-xl italic leading-relaxed text-muted">
+            <p className="mt-4 max-w-3xl font-serif text-lg italic leading-relaxed text-muted sm:text-xl">
               {lead.dek}
             </p>
             <p className="mt-4 text-xs uppercase tracking-wider text-muted">
@@ -147,7 +147,7 @@ export default function Home() {
                 <div className="mt-8 flex justify-center">
                   <Link
                     href="/archive"
-                    className="border-2 border-ink bg-paper px-6 py-3 text-sm font-bold uppercase tracking-wide hover:border-crimson hover:text-crimson"
+                    className="border-2 border-ink bg-paper px-6 py-3.5 text-sm font-bold uppercase tracking-wide hover:border-crimson hover:text-crimson"
                   >
                     All articles ({allRest.length}) →
                   </Link>

@@ -11,12 +11,6 @@ import { fetchUrl } from "./lib/fetch-url.mjs";
 import { pingIndexNow } from "./lib/indexnow.mjs";
 
 const POSTS_FILE = "lib/posts.ts";
-const CATEGORIES = [
-  "General News",
-  "Commercial Real Estate",
-  "Residential Real Estate",
-  "Politics",
-];
 
 const OWENS_CASE = {
   label: "U.S. v. Owens, Lumumba, and Banks",
@@ -305,11 +299,12 @@ Process:
   let brief = null;
   let iteration = 0;
   const MAX_ITERATIONS = 14;
+  let container = null;
 
   while (iteration++ < MAX_ITERATIONS && !brief) {
     console.log(`[brief] iteration ${iteration}: calling Claude...`);
 
-    const response = await client.messages.create({
+    const requestParams = {
       model: "claude-opus-4-8",
       max_tokens: 16000,
       thinking: { type: "adaptive" },
@@ -317,7 +312,16 @@ Process:
       system: SYSTEM_PROMPT,
       tools: TOOLS,
       messages,
-    });
+    };
+    if (container) {
+      requestParams.container = container;
+    }
+
+    const response = await client.messages.create(requestParams);
+
+    if (response.container?.id) {
+      container = response.container.id;
+    }
 
     console.log(
       `[brief] stop_reason=${response.stop_reason}, blocks=${response.content.length}`,

@@ -68,7 +68,7 @@ export default function MethodologyPage() {
           </li>
           <li>
             <strong>3. Draft with disclosure.</strong> A drafting model
-            (Anthropic's Claude Opus) writes the article under a strict
+            (Anthropic&apos;s Claude Opus) writes the article under a strict
             system prompt that bans em-dashes, fabricated quotes, and
             paraphrasing from memory. Every concrete claim must trace to a
             tool result the model saw in the same session.
@@ -130,17 +130,17 @@ export default function MethodologyPage() {
         <div className="prose-article mt-4">
           <p>
             The Wire uses AI tools for research synthesis and drafting on
-            most articles. The drafting models are Anthropic's Claude (Opus
-            and Haiku families). The fact-discipline rules in the model's
+            most articles. The drafting models are Anthropic&apos;s Claude (Opus
+            and Haiku families). The fact-discipline rules in the model&apos;s
             instructions require every claim to trace to a tool result the
             model saw in that session: a court filing, a news article, an
-            agenda document. If the model can't verify a claim, it is
+            agenda document. If the model can&apos;t verify a claim, it is
             instructed to leave it out.
           </p>
           <p>
             AI use does not eliminate error. The editorial responsibility,
             and the consequences of error, belong to the publisher. The
-            site's <Link href="/corrections" className="font-bold text-crimson hover:text-crimson-dark">corrections log</Link> is public.
+            site&apos;s <Link href="/corrections" className="font-bold text-crimson hover:text-crimson-dark">corrections log</Link> is public.
           </p>
         </div>
       </section>
