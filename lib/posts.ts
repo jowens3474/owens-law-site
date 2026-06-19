@@ -61,6 +61,27 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "jtran-strike-authorization-route-cuts",
+    title: "Jackson's Bus Drivers Voted to Strike. The Real Fight Is Over Shrinking JTRAN.",
+    dek: "ATU Local 1208 authorized a mid-July walkout in a 32-to-6 vote. Behind the wage dispute sits a $23 million city shortfall and a contractor's plan to cut routes, end Saturday service and pivot to microtransit.",
+    category: "General News",
+    author: "Jackson Wire Staff",
+    date: "2026-06-19",
+    views: 0,
+    body: [
+      "Jackson's bus drivers have started a 30-day clock. If their union and the company that runs JTRAN cannot close a contract, the buses could stop in the middle of July, in the hottest stretch of a Mississippi summer.",
+      "The vote itself was lopsided. According to WLBT, 32 of the 38 members of Amalgamated Transit Union Local 1208 who were present Friday night voted to authorize a strike, with six opposed. The union has been bargaining with MV Transportation, the private contractor that has operated the city system since early 2024, for months. Local 1208 president Charles Tornes Jr. told WLBT the two sides are \"at a standstill\" and \"at an impasse.\"",
+      "On paper, the fight looks like a wage fight, and it partly is. WLBT reported that starting pay sits just above $17 an hour and that MV has proposed raising it to about $22. Tornes said he supports that bump. His concern is the top of the scale: he told WLBT that competitors, including school bus operators, have passed JTRAN on top pay, and that without a competitive ceiling the system cannot keep the drivers it trains.",
+      "The deeper dispute is about whether JTRAN gets smaller. The proposals on the table would cut two fixed routes, end Saturday service, shorten the operating day, let MV hire drivers without commercial licenses, and shift part of the system to an on-demand \"microtransit\" model. Gary Coles, MV's chief customer success officer, told WLBT the company built the proposal after hearing the city wanted to save money. Jackson is facing a roughly $23 million shortfall.",
+      "That is the part other coverage has mostly framed as a labor story. It is also a budget story. The cost-saving menu did not originate with the drivers. It traces back to a city under fiscal pressure asking its contractor to spend less, and the easiest place to find savings in a transit contract is service: fewer routes, fewer hours, fewer career drivers. The question Jackson has not squarely answered is whether it intends to balance part of a $23 million gap on the residents least able to absorb it.",
+      "The numbers frame the stakes. The collective bargaining agreement runs to 56 articles, and Tornes said the two sides remain split on 24 of them, nearly half the contract. The city says JTRAN provides tens of thousands of rides each month. For many of those riders, the bus is not a convenience. Jane Carroll of Disability Rights Mississippi told WLBT that a July walkout would hit disabled riders hardest, picturing someone in a power wheelchair forced onto a sidewalk in peak heat, or priced into a taxi they cannot afford.",
+      "Jackson has been here before, and recently. In 2024, JTRAN workers walked off the job for 14 days before reaching a compromise. That strike ended only after ATU's international president flew to Jackson and met with then-Mayor Chokwe Antar Lumumba and city attorneys to press MV to settle. The contract that resolved it expired at the end of 2025. This time the mayor's office belongs to John Horhn, and the route-cutting plan landed in front of a City Council that tabled it on June 2 rather than vote.",
+      "Horhn has tried to keep distance from both sides. In a statement to WLBT, he said he respects the operators' concerns and is weighing the union's objection to microtransit against the provider's argument that it saves money, to find \"what makes the most sense for our riders, our workers and our taxpayers.\" Council President Brian Grizzell, the Ward 4 representative, said he supports the right to collectively bargain but warned that a prolonged strike would disrupt access to jobs, healthcare and schools across the city.",
+      "Those are careful words, and they leave the central choice unmade. The council controls the MV contract and the budget it is squeezing. It can fund transit at current service levels, or it can let the contractor shrink the system through attrition and on-demand vans. The drivers' strike authorization is a way of forcing that decision into the open before the buses go quiet.",
+      "Talks are expected to continue against the 30-day deadline. If the pattern of 2024 repeats, the resolution will come late, under pressure, and only after riders have spent days wondering whether a bus is coming. The cheaper outcome, for everyone, is a deal that arrives before mid-July rather than after it.",
+    ],
+  },
+  {
     slug: "morning-brief-2026-06-19",
     title: "Morning Brief: Jun 19 — Bus Drivers Eye July Strike; Hinds Election in Limbo",
     dek: "Jackson's bus drivers have authorized a mid-July walkout that could strand roughly a thousand daily riders, even as the city wrestles with a $23 million shortfall.",
