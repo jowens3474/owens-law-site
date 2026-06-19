@@ -61,6 +61,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-06-19",
+    title: "Morning Brief: Jun 19 — Bus Drivers Eye July Strike; Hinds Election in Limbo",
+    dek: "Jackson's bus drivers have authorized a mid-July walkout that could strand roughly a thousand daily riders, even as the city wrestles with a $23 million shortfall.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-06-19",
+    views: 0,
+    body: [
+      "JTRAN drivers set mid-July strike deadline: Jackson's bus drivers have voted to authorize a strike against MV Transportation, the contractor that runs JTRAN, if no contract deal is reached within 30 days, WLBT reported. Of 38 union members voting June 12, 32 backed a walkout. ATU Local 1208 president Charles Tornes Jr. said the two sides are at an impasse on 24 of the 56 contract articles, with top-tier pay the central fight. Starting pay sits just above $17 an hour, and MV has proposed raising it to $22. The company, citing the city's $23 million shortfall, also wants to cut Saturday service and two routes. Roughly a thousand riders depend on the system daily. Mayor John Horhn said he is weighing all sides. A 2024 strike lasted 14 days.",
+      "Hinds supervisor appeals do-over election order: District 2 Supervisor Anthony \"Tony\" Smith has appealed the ruling that ordered a special election for his seat, WJTV reported, a move that could stall the July 14 do-over of the disputed 2023 Democratic primary against predecessor David Archie. Special Judge Barry Ford ordered the rerun June 3, finding no fraud but faulting the chain of custody and safekeeping of voter materials and criticizing Circuit Clerk Zack Wallace. Smith, who has until July 9 to appeal, told Mississippi Today he has new evidence and is involving the FBI. The winner serves through Dec. 31, 2027, in a district spanning Edwards, Bolton, parts of Clinton, Raymond and Jackson. Election officials say 26 precincts will open if the vote proceeds.",
+      "Amazon opens fourth Mississippi data center: Amazon Web Services cut the ribbon June 9 on its fourth Mississippi data center, a Clinton facility in Hinds County that local officials say will bring more than 100 jobs and was built in 11 months on a previously abandoned site. AWS has now committed more than $25 billion across the state, with locations in Madison County, Ridgeland, Vicksburg and Clinton. The expansion is drawing scrutiny. Central District PSC Commissioner De'Keither Stamps says the industry is outpacing Mississippi's regulatory framework, and he is pushing lawmakers for expanded oversight authority. He likened the moment to the railroad era, warning the state could cede local control to Washington without proactive rules. The Clinton site will operate without water coolants, the company said.",
+      "4,100 water customers still on 1980s rates: About 4,100 JXN Water customers living more than a mile outside Jackson are still paying water rates set more than 40 years ago, a gap city leaders want closed. The City Council unanimously passed a non-binding resolution urging JXN Water to file a rate case with the Public Service Commission, WLBT reported. Ward 1 Councilman Ashby Foote, who wrote it, said those customers pay far less than residents for essentially the same water while the city and utility both strain for revenue. Interim manager Ted Henifin said in March he would file, but as of late May nothing had appeared on the PSC's site. The last such request, in 1992 under Mayor Kane Ditto, was later withdrawn.",
+      "Juneteenth fills Jackson with free events: Jackson marks Juneteenth today with a slate of mostly free events, the Mississippi Free Press reported. The Medgar and Myrlie Evers Home National Monument hosts \"The Transformation of Freedom,\" with yard games and a ranger talk at 9 a.m., while the Two Mississippi Museums open their Juneteenth Jubilee at 4 p.m. with food trucks, dancing in the Hall of History and spoken-word performances. The Mississippi Children's Museum runs a daytime celebration for $13. Festivities continue Saturday with the 10th Annual Juneteenth on Farish festival at 5 p.m. in the historic Farish Street district and a community tennis day at the Dorothy Vest Tennis Center. The federal holiday commemorates the end of slavery.",
+    ],
+  },
+  {
     slug: "owens-pretrial-conference-anonymous-jury-strikes",
     title:
       "Pretrial Conference Done. Anonymous-Jury Briefing Ordered. Defense Gets Two Extra Strikes.",
