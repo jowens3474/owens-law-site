@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Privileged client case files & attorney work product — NEVER commit.
+# The folder ships with only its README so a fresh clone knows what goes here.
+/case-files/*
+!/case-files/README.md
