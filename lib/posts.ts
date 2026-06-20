@@ -61,6 +61,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-06-20",
+    title: "Morning Brief: Jun 20 — Smith Appeal Clouds July 14 Vote; City Centre Sale Collapses",
+    dek: "Hinds Supervisor Tony Smith has taken his fight to the Mississippi Supreme Court, throwing the scheduled July 14 do-over election into doubt.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-06-20",
+    views: 0,
+    body: [
+      "Smith appeal clouds July 14 election: Hinds County Supervisor Anthony \"Tony\" Smith filed a notice of appeal to the Mississippi Supreme Court on June 15, challenging Special Judge Barry Ford's order for a do-over election in District 2, WJTV reported. The move casts doubt on whether the July 14 special election, a rematch with former Supervisor David Archie, proceeds on schedule. Ford ruled June 3 that mishandled ballots and a broken chain of custody made the 2023 Democratic primary unverifiable, saying \"I cannot determine the will of the voters,\" per Mississippi Today. Smith stays in office pending the outcome and told Mississippi Today a \"big announcement\" would come within days. The seat stretches through western Hinds, Edwards, Bolton and parts of Clinton, Raymond and Jackson.",
+      "City Centre office sale collapses: The planned sale of City Centre, the two-tower office complex at 200 S. Lamar Street, has fallen through, the Clarion Ledger reported. Listed at $7.25 million, the 266,922-square-foot property went under contract in February, but three months later it remains unsold with no buyer in sight, broker Isabel Eiler confirmed. Owner Hertz Investment Group, which paid $6.2 million in 2015, has steadily shed downtown holdings including The Pinnacle and Regions Plaza. The Mississippi Department of Human Services anchors the complex, occupying 69 percent on a lease with 14 years left. The stalled deal stands in contrast to New Jersey developer Kumar Bhavanasi, who the Clarion Ledger says has poured more than $5 million into nearby downtown upgrades.",
+      "Who pays for the data center boom: As Mississippi chases AI data centers, the question of who foots the power bill is sharpening. Entergy Mississippi says deals with Amazon, Meta and others will save its existing customers roughly $2 billion over 20 years, Mississippi Today reported. Critics counter that the 2024 law fast-tracking the projects gutted Public Service Commission oversight, and Earthjustice estimates ratepayers could already be paying about $11 more a month. Amazon's rate terms with Entergy remain confidential. Separately, developer Gabriel Prado is pressing ahead with a private power plant and AI campus somewhere in the Jackson metro after the PSC declined to rule on his request June 1, calling it premature. Entergy and Mississippi Power both oppose his plan.",
+      "JTRAN talks stuck on 24 articles: Jackson's bus drivers and operator MV Transportation remain deadlocked on 24 of 56 contract articles, union president Charles Tornes told WLBT, with a strike possible by mid-July if no deal lands within 30 days. Of 38 union members voting June 12, 32 backed strike authorization. Starting pay is a rare point of agreement, with MV proposing a jump from about $17 to $22 an hour. The fights are over top pay and MV's push to hire 38 non-CDL drivers, drop Saturday service and two routes, and move to microtransit, changes the company ties to the city's $23 million shortfall. Roughly 1,000 riders depend on the system. Drivers walked for 14 days in 2024.",
+      "Juneteenth action links freedom to ballots: Jackson marked Juneteenth on Friday with organizing that tied the holiday to voter registration, WLBT reported, part of a wider Juneteenth voter push some activists are billing as a Freedom Summer revival. The timing lands as Mississippi lawmakers prepare to redraw voting districts and as the Legislature weighs same-day registration under House Bill 22, per the ACLU of Mississippi. Celebrations continued across the metro through the weekend, with the Mississippi Free Press cataloguing events statewide. In a capital city where turnout fights and a contested supervisor race are back in the headlines, the message connecting emancipation to the franchise carried local weight. Organizers framed registration as the day's unfinished work.",
+    ],
+  },
+  {
     slug: "jtran-strike-authorization-route-cuts",
     title: "Jackson's Bus Drivers Voted to Strike. The Real Fight Is Over Shrinking JTRAN.",
     dek: "ATU Local 1208 authorized a mid-July walkout in a 32-to-6 vote. Behind the wage dispute sits a $23 million city shortfall and a contractor's plan to cut routes, end Saturday service and pivot to microtransit.",
