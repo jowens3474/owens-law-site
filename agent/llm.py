@@ -38,10 +38,12 @@ _SERVER_SIDE_FALLBACK_BETA = "server-side-fallback-2026-06-01"
 
 # Token budgets. Briefs run 40-50 pages, but the graph drafts one section per
 # call, so a per-call cap need only cover the longest single section — not the
-# whole brief. PROSE_MAX_TOKENS gives generous headroom for that; above ~16K the
-# SDK requires streaming to avoid HTTP timeouts, so prose models stream.
-# Structured nodes emit data, not prose, so they stay small.
-PROSE_MAX_TOKENS = 32000
+# whole brief. PROSE_MAX_TOKENS is set near the model ceiling so a section is
+# never truncated; above ~16K the SDK requires streaming to avoid HTTP timeouts,
+# so prose models stream. Structured nodes emit data, not prose, so they stay
+# small. max_tokens is a ceiling, not a target — you only pay for what's
+# generated, so a high cap costs nothing on shorter output.
+PROSE_MAX_TOKENS = 64000
 STRUCTURED_MAX_TOKENS = 8192
 
 

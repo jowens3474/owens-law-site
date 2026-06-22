@@ -12,9 +12,12 @@ Pipeline::
           ├─ needs_revision & under cap → revise → critique  (loop)
           └─ otherwise                  → assemble → END
 
-Prose nodes run on a thinking-enabled model; the structured-output nodes run on
-a thinking-disabled model (they force a tool call to shape the response). Pass
-``heavy_llm`` to route the synthesis-heavy nodes (drafting/revision) to Fable 5.
+This is tuned for quality over cost. The generative nodes (research, statement
+of facts, argument drafting, revision) default to Fable 5 — Anthropic's most
+capable model — at ``max`` effort with the Opus 4.8 refusal fallback wired in.
+The structured-output nodes (fact extraction, issue triage, critique) stay on
+Opus 4.8 with thinking off: they force a tool call, which can't combine with
+Fable's always-on thinking, so Opus 4.8 is the most capable model that fits.
 """
 
 from functools import partial
@@ -24,7 +27,7 @@ from langchain_anthropic import ChatAnthropic
 from langgraph.graph import StateGraph, START, END
 
 from agent import nodes
-from agent.llm import build_llm, PROSE_MAX_TOKENS, STRUCTURED_MAX_TOKENS
+from agent.llm import build_llm, build_fable_llm, PROSE_MAX_TOKENS, STRUCTURED_MAX_TOKENS
 from agent.state import AppellateState
 
 
@@ -36,24 +39,29 @@ def build_graph(
     """Construct and compile the appellate brief graph.
 
     Args:
-        llm: prose model (thinking on). Defaults to Opus 4.8.
+        llm: prose fallback model (thinking on). Defaults to Opus 4.8; used for
+            ``assemble`` and as a conservative override target.
         structured_llm: model for structured-output nodes (thinking off).
-        heavy_llm: optional model for drafting/revision — e.g. ``build_fable_llm()``
-            to run the heaviest synthesis on Fable 5. Defaults to ``llm``.
+            Defaults to Opus 4.8 — the most capable model that supports forced
+            tool calls.
+        heavy_llm: model for the generative nodes (research, drafting, revision).
+            Defaults to Fable 5 at ``max`` effort with an Opus 4.8 refusal
+            fallback. Pass ``build_llm()`` here to keep everything on Opus.
     """
-    # Prose model: large budget + streaming so 40-50 page briefs aren't capped
-    # mid-section (streaming is required above ~16K to avoid SDK HTTP timeouts).
+    # Prose fallback (assemble has no LLM call; this is the safe default target).
     llm = llm or build_llm(max_tokens=PROSE_MAX_TOKENS, streaming=True)
     structured_llm = structured_llm or build_llm(
         max_tokens=STRUCTURED_MAX_TOKENS, adaptive_thinking=False
     )
-    heavy_llm = heavy_llm or llm
+    # Quality-first default: the most capable model at max effort on every
+    # generative node. Streaming is required at this token budget.
+    heavy_llm = heavy_llm or build_fable_llm(max_tokens=PROSE_MAX_TOKENS, effort="max")
 
     graph = StateGraph(AppellateState)
 
     graph.add_node("extract_facts", partial(nodes.extract_facts, structured_llm=structured_llm))
     graph.add_node("triage_issues", partial(nodes.triage_issues, structured_llm=structured_llm))
-    graph.add_node("research_issues", partial(nodes.research_issues, llm=llm))
+    graph.add_node("research_issues", partial(nodes.research_issues, llm=heavy_llm))
     graph.add_node(
         "draft_statement_of_facts",
         partial(nodes.draft_statement_of_facts, llm=heavy_llm),

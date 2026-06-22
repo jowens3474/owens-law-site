@@ -18,9 +18,10 @@ from pydantic import BaseModel, Field
 
 from agent.state import AppellateState, Issue
 
-# After this many revision passes the critique loop stops and the brief is
-# assembled as-is, so polish can't spin forever.
-MAX_REVISIONS = 2
+# The critique loop exits as soon as the reviewer returns a clean verdict; this
+# is only the safety cap so it can't spin forever. Set high to favor quality —
+# keep polishing a flawed brief across several passes.
+MAX_REVISIONS = 4
 
 
 # --- Structured-output schemas -------------------------------------------------
