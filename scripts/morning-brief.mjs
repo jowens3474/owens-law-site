@@ -3,10 +3,11 @@
 // know this morning. Different format from the standard autopilot article:
 // shorter items, broader topic mix, no single-topic deep dive. Runs early
 // in the morning Central time so the brief lands at breakfast.
+// Uses DeepSeek + Tavily web search.
 
 import { readFileSync, writeFileSync } from "node:fs";
 import { execSync } from "node:child_process";
-import Anthropic from "@anthropic-ai/sdk";
+import OpenAI from "openai";
 import { fetchUrl } from "./lib/fetch-url.mjs";
 import { pingIndexNow } from "./lib/indexnow.mjs";
 
@@ -76,95 +77,125 @@ FACT DISCIPLINE — non-negotiable
 
 OUTPUT
 - Call publish_brief once with the final five items.
-- Title format: 'Morning Brief: [Date in "Mon DD" form] — [punchy summary of the day's biggest story]'. Example: 'Morning Brief: Jun 16 — Pretrial Conference Lands; Saxum Vote Looms'.
+- Title format: 'Morning Brief: [Date in "Mon DD" form] · [punchy summary of the day's biggest story]'. Example: 'Morning Brief: Jun 16 · Pretrial Conference Lands; Saxum Vote Looms'.
 - Dek: ONE sentence summarizing the biggest item. Do not repeat as the first item.
 - Body: 5 paragraphs, one per item. Each starts with a fact-dense lead sentence.
 - Category: "General News"
 - Tags: ["morning-brief"]`;
 
 const TOOLS = [
-  { type: "web_search_20260209", name: "web_search" },
   {
-    name: "fetch_url",
-    description:
-      "Fetch the text content of a public government, court, or news URL. Handles HTML, PDF agendas, and JSON. Use to read primary-source documents directly: Council agendas, PSC filings, county board notices, legislative bill text. Find the URL via web_search first, then fetch_url it.",
-    input_schema: {
-      type: "object",
-      properties: {
-        url: {
-          type: "string",
-          description: "Absolute https/http URL of a public document or page.",
+    type: "function",
+    function: {
+      name: "web_search",
+      description:
+        "Search the web for current news and information. Returns 5 result snippets with titles, URLs, and content excerpts.",
+      parameters: {
+        type: "object",
+        properties: {
+          query: {
+            type: "string",
+            description:
+              "Specific search query. Use multiple distinct queries to cover different beats.",
+          },
         },
-      },
-      required: ["url"],
-    },
-  },
-  {
-    name: "get_owens_case_docket",
-    description:
-      "Get recent docket entries from the federal criminal case against Jody Owens, Chokwe Antar Lumumba, and Aaron Banks. Returns the most recent entries (motions, orders, filings). Call this FIRST. Returns 'unavailable' if CourtListener can't be reached.",
-    input_schema: {
-      type: "object",
-      properties: {
-        days_back: {
-          type: "integer",
-          description: "How many days back to look. Default 3 for the brief.",
-          minimum: 1,
-          maximum: 14,
-        },
+        required: ["query"],
       },
     },
   },
   {
-    name: "read_court_filing",
-    description:
-      "Read the full plain text of a specific court filing by its recap_document_id. Use sparingly in the brief — only when the filing is genuinely the lead.",
-    input_schema: {
-      type: "object",
-      properties: {
-        recap_document_id: { type: "integer" },
+    type: "function",
+    function: {
+      name: "fetch_url",
+      description:
+        "Fetch the text content of a public government, court, or news URL. Handles HTML, PDF agendas, and JSON. Use to read primary-source documents directly: Council agendas, PSC filings, county board notices, legislative bill text. Find the URL via web_search first, then fetch_url it.",
+      parameters: {
+        type: "object",
+        properties: {
+          url: {
+            type: "string",
+            description: "Absolute https/http URL of a public document or page.",
+          },
+        },
+        required: ["url"],
       },
-      required: ["recap_document_id"],
     },
   },
   {
-    name: "publish_brief",
-    description:
-      "Submit the final Morning Brief for immediate publication. Call this exactly once after research is complete.",
-    input_schema: {
-      type: "object",
-      additionalProperties: false,
-      properties: {
-        slug: {
-          type: "string",
-          description:
-            "URL slug: lowercase, hyphens only. Include the date: e.g. 'morning-brief-2026-06-16'.",
-        },
-        title: {
-          type: "string",
-          description:
-            "Headline. Format: 'Morning Brief: Jun 16 — [punchy summary]'.",
-        },
-        dek: {
-          type: "string",
-          description:
-            "One sentence summarizing the biggest item. Shown italicized under the headline.",
-        },
-        body: {
-          type: "array",
-          items: { type: "string" },
-          minItems: 5,
-          maxItems: 5,
-          description:
-            "Exactly five strings, one per item, in news-weight order. Each string MUST start with a 3-9 word headline phrase (no terminal period) followed by ': ' and then a 70-130 word body paragraph. Example: 'Saxum rezoning vote looms: The Planning Board reconvenes Tuesday at 5 p.m. ...'",
+    type: "function",
+    function: {
+      name: "get_owens_case_docket",
+      description:
+        "Get recent docket entries from the federal criminal case against Jody Owens, Chokwe Antar Lumumba, and Aaron Banks. Returns the most recent entries (motions, orders, filings). Call this FIRST. Returns 'unavailable' if CourtListener can't be reached.",
+      parameters: {
+        type: "object",
+        properties: {
+          days_back: {
+            type: "integer",
+            description: "How many days back to look. Default 3 for the brief.",
+            minimum: 1,
+            maximum: 14,
+          },
         },
       },
-      required: ["slug", "title", "dek", "body"],
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "read_court_filing",
+      description:
+        "Read the full plain text of a specific court filing by its recap_document_id. Use sparingly in the brief — only when the filing is genuinely the lead.",
+      parameters: {
+        type: "object",
+        properties: {
+          recap_document_id: { type: "integer" },
+        },
+        required: ["recap_document_id"],
+      },
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "publish_brief",
+      description:
+        "Submit the final Morning Brief for immediate publication. Call this exactly once after research is complete.",
+      parameters: {
+        type: "object",
+        additionalProperties: false,
+        properties: {
+          slug: {
+            type: "string",
+            description:
+              "URL slug: lowercase, hyphens only. Include the date: e.g. 'morning-brief-2026-06-16'.",
+          },
+          title: {
+            type: "string",
+            description:
+              "Headline. Format: 'Morning Brief: Jun 16 · [punchy summary]'.",
+          },
+          dek: {
+            type: "string",
+            description:
+              "One sentence summarizing the biggest item. Shown italicized under the headline.",
+          },
+          body: {
+            type: "array",
+            items: { type: "string" },
+            minItems: 5,
+            maxItems: 5,
+            description:
+              "Exactly five strings, one per item, in news-weight order. Each string MUST start with a 3-9 word headline phrase (no terminal period) followed by ': ' and then a 70-130 word body paragraph. Example: 'Saxum rezoning vote looms: The Planning Board reconvenes Tuesday at 5 p.m. ...'",
+          },
+        },
+        required: ["slug", "title", "dek", "body"],
+      },
     },
   },
 ];
 
-// --- CourtListener helpers (copy of autopilot.mjs's) ------------------------
+// --- CourtListener helpers --------------------------------------------------
 
 const CL_BASE = "https://www.courtlistener.com/api/rest/v3";
 
@@ -249,6 +280,37 @@ async function readCourtFiling(recapDocumentId) {
   return text.length > 10000 ? text.slice(0, 10000) + "\n\n[truncated]" : text;
 }
 
+// --- Tavily search -----------------------------------------------------------
+
+async function tavilySearch(query) {
+  const res = await fetch("https://api.tavily.com/search", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${process.env.TAVILY_API_KEY}`,
+    },
+    body: JSON.stringify({
+      query,
+      max_results: 5,
+      search_depth: "advanced",
+    }),
+  });
+  if (!res.ok) {
+    throw new Error(`Tavily HTTP ${res.status}: ${await res.text()}`);
+  }
+  const data = await res.json();
+  const results = data.results || [];
+  if (results.length === 0) {
+    return "(no results)";
+  }
+  return results
+    .map(
+      (r, i) =>
+        `[${i + 1}] ${r.title}\nURL: ${r.url}\n${(r.content || "").slice(0, 1000)}`,
+    )
+    .join("\n\n");
+}
+
 // --- main -------------------------------------------------------------------
 
 function todayLocalIso() {
@@ -266,11 +328,17 @@ function todayPretty() {
 }
 
 async function main() {
-  if (!process.env.ANTHROPIC_API_KEY) {
-    throw new Error("Missing ANTHROPIC_API_KEY");
+  if (!process.env.DEEPSEEK_API_KEY) {
+    throw new Error("Missing DEEPSEEK_API_KEY");
+  }
+  if (!process.env.TAVILY_API_KEY) {
+    throw new Error("Missing TAVILY_API_KEY");
   }
 
-  const client = new Anthropic();
+  const client = new OpenAI({
+    apiKey: process.env.DEEPSEEK_API_KEY,
+    baseURL: "https://api.deepseek.com",
+  });
 
   const postsContent = readFileSync(POSTS_FILE, "utf8");
   const recentTitles = [...postsContent.matchAll(/title:\s*"([^"]+)"/g)]
@@ -290,141 +358,185 @@ Process:
 1. Call get_owens_case_docket FIRST. Include a corruption-case item ONLY if there's a substantive filing in the last 2-3 days.
 2. Call web_search 3-6 times across the Wire's beats: politics, city hall, real estate, business, infrastructure, schools, courts.
 3. Compose 5 items, mixed across beats, news-weight order.
-4. Call publish_brief with slug "morning-brief-${today}", title format "Morning Brief: ${pretty} — [punchy summary]".`;
+4. Call publish_brief with slug "morning-brief-${today}", title format "Morning Brief: ${pretty} · [punchy summary]".`;
 
   console.log(`[brief] today=${today} (${pretty})`);
 
-  const messages = [{ role: "user", content: userPrompt }];
+  const messages = [
+    { role: "system", content: SYSTEM_PROMPT },
+    { role: "user", content: userPrompt },
+  ];
 
   let brief = null;
   let iteration = 0;
   const MAX_ITERATIONS = 14;
-  let container = null;
 
   while (iteration++ < MAX_ITERATIONS && !brief) {
-    console.log(`[brief] iteration ${iteration}: calling Claude...`);
+    console.log(`[brief] iteration ${iteration}: calling DeepSeek...`);
 
-    const requestParams = {
-      model: "claude-opus-4-8",
-      max_tokens: 16000,
-      thinking: { type: "adaptive" },
-      output_config: { effort: "high" },
-      system: SYSTEM_PROMPT,
-      tools: TOOLS,
+    const response = await client.chat.completions.create({
+      model: "deepseek-chat",
       messages,
-    };
-    if (container) {
-      requestParams.container = container;
-    }
+      tools: TOOLS,
+      tool_choice: "auto",
+      temperature: 0.3,
+      max_tokens: 8000,
+    });
 
-    const response = await client.messages.create(requestParams);
-
-    if (response.container?.id) {
-      container = response.container.id;
-    }
-
+    const msg = response.choices[0].message;
     console.log(
-      `[brief] stop_reason=${response.stop_reason}, blocks=${response.content.length}`,
+      `[brief] finish=${response.choices[0].finish_reason}, tool_calls=${msg.tool_calls?.length ?? 0}`,
     );
 
-    for (const block of response.content) {
-      if (block.type === "tool_use" && block.name === "publish_brief") {
-        brief = block.input;
+    // Check for publish_brief in tool calls before pushing the message.
+    let publishParseError = false;
+    if (msg.tool_calls) {
+      for (const tc of msg.tool_calls) {
+        if (tc.function.name === "publish_brief") {
+          try {
+            brief = JSON.parse(tc.function.arguments);
+          } catch (e) {
+            console.error("[brief] Failed to parse publish_brief args:", e.message);
+            publishParseError = true;
+            messages.push(msg);
+            messages.push({
+              role: "tool",
+              tool_call_id: tc.id,
+              content: "Arguments were not valid JSON — please retry with valid JSON.",
+            });
+          }
+        }
       }
     }
     if (brief) break;
+    if (publishParseError) continue;
 
-    messages.push({ role: "assistant", content: response.content });
+    // Push the full assistant message (OpenAI format).
+    messages.push(msg);
 
-    if (response.stop_reason === "pause_turn") continue;
-
-    if (response.stop_reason === "end_turn") {
-      console.error("[brief] Model ended turn without calling publish_brief.");
-      const text = response.content
-        .filter((b) => b.type === "text")
-        .map((b) => b.text)
-        .join("\n");
-      console.error("[brief] Final text:", text.slice(0, 1000));
+    if (response.choices[0].finish_reason !== "tool_calls") {
+      if (response.choices[0].finish_reason === "stop") {
+        console.error("[brief] Model ended turn without calling publish_brief.");
+        const text = (msg.content || "").slice(0, 1000);
+        console.error("[brief] Final text:", text);
+        messages.push({
+          role: "user",
+          content:
+            "You must call either a research tool or the publish_brief tool. Do not respond with text only.",
+        });
+        continue;
+      }
+      console.error(`[brief] Unexpected finish_reason: ${response.choices[0].finish_reason}`);
       process.exit(1);
     }
 
-    if (response.stop_reason !== "tool_use") {
-      console.error(`[brief] Unexpected stop_reason: ${response.stop_reason}`);
+    if (!msg.tool_calls || msg.tool_calls.length === 0) {
+      console.error("[brief] finish_reason=tool_calls but no tool_calls present.");
       process.exit(1);
     }
 
-    const toolResults = [];
-    for (const block of response.content) {
-      if (block.type !== "tool_use") continue;
-      const name = block.name;
+    // Handle each tool call.
+    for (const tc of msg.tool_calls) {
+      const name = tc.function.name;
+      let args;
+      try {
+        args = JSON.parse(tc.function.arguments);
+      } catch (e) {
+        console.error(`[brief] Failed to parse arguments for ${name}:`, e.message);
+        messages.push({
+          role: "tool",
+          tool_call_id: tc.id,
+          content: `Error parsing arguments: ${e.message}. Please retry with valid JSON.`,
+        });
+        continue;
+      }
 
-      if (name === "get_owens_case_docket") {
-        const daysBack = Math.min(Math.max(block.input?.days_back ?? 3, 1), 14);
+      if (name === "web_search") {
+        console.log(`[brief] search: "${args.query}"`);
+        try {
+          const results = await tavilySearch(args.query);
+          messages.push({
+            role: "tool",
+            tool_call_id: tc.id,
+            content: results,
+          });
+        } catch (e) {
+          console.error(`[brief] Search failed for "${args.query}": ${e.message}`);
+          messages.push({
+            role: "tool",
+            tool_call_id: tc.id,
+            content: `Search error: ${e.message}`,
+          });
+        }
+      } else if (name === "get_owens_case_docket") {
+        const daysBack = Math.min(Math.max(args?.days_back ?? 3, 1), 14);
+        console.log(`[brief] docket: last ${daysBack} days`);
         try {
           const content = await getOwensCaseDocket(daysBack);
-          toolResults.push({
-            type: "tool_result",
-            tool_use_id: block.id,
+          messages.push({
+            role: "tool",
+            tool_call_id: tc.id,
             content,
           });
         } catch (e) {
-          toolResults.push({
-            type: "tool_result",
-            tool_use_id: block.id,
+          console.error(`[brief] docket failed:`, e.message);
+          messages.push({
+            role: "tool",
+            tool_call_id: tc.id,
             content: `CourtListener unavailable (${e.message}). Skip corruption-case item.`,
-            is_error: true,
           });
         }
       } else if (name === "read_court_filing") {
+        console.log(`[brief] read filing: ${args?.recap_document_id}`);
         try {
-          const content = await readCourtFiling(block.input.recap_document_id);
-          toolResults.push({
-            type: "tool_result",
-            tool_use_id: block.id,
+          const content = await readCourtFiling(args.recap_document_id);
+          messages.push({
+            role: "tool",
+            tool_call_id: tc.id,
             content,
           });
         } catch (e) {
-          toolResults.push({
-            type: "tool_result",
-            tool_use_id: block.id,
+          console.error(`[brief] read filing failed:`, e.message);
+          messages.push({
+            role: "tool",
+            tool_call_id: tc.id,
             content: `Could not read filing: ${e.message}`,
-            is_error: true,
           });
         }
       } else if (name === "fetch_url") {
-        console.log(`[brief] fetch_url: ${block.input?.url}`);
+        console.log(`[brief] fetch_url: ${args?.url}`);
         try {
-          const { contentType, text } = await fetchUrl(block.input.url);
+          const { contentType, text } = await fetchUrl(args.url);
           const truncated =
             text.length > 12000 ? text.slice(0, 12000) + "\n\n[truncated]" : text;
-          toolResults.push({
-            type: "tool_result",
-            tool_use_id: block.id,
+          messages.push({
+            role: "tool",
+            tool_call_id: tc.id,
             content: `[${contentType}]\n${truncated}`,
           });
         } catch (e) {
           console.error(`[brief] fetch_url failed:`, e.message);
-          toolResults.push({
-            type: "tool_result",
-            tool_use_id: block.id,
+          messages.push({
+            role: "tool",
+            tool_call_id: tc.id,
             content: `Fetch failed: ${e.message}`,
-            is_error: true,
           });
         }
       } else if (name === "publish_brief") {
-        // captured above
+        // already captured above; push a placeholder tool response
+        messages.push({
+          role: "tool",
+          tool_call_id: tc.id,
+          content: "Brief received.",
+        });
       } else {
-        toolResults.push({
-          type: "tool_result",
-          tool_use_id: block.id,
+        messages.push({
+          role: "tool",
+          tool_call_id: tc.id,
           content: `Unknown tool: ${name}`,
-          is_error: true,
         });
       }
     }
-
-    if (toolResults.length === 0) continue;
-    messages.push({ role: "user", content: toolResults });
   }
 
   if (!brief) {
@@ -504,7 +616,7 @@ ${brief.body.map((p) => `      ${JSON.stringify(p)},`).join("\n")}
     "https://www.thejacksonwire.com/news-sitemap.xml",
   ]);
 
-  console.log(`[brief] ✓ Published "${brief.title}".`);
+  console.log(`[brief] Published "${brief.title}".`);
 }
 
 main().catch((err) => {

@@ -1,7 +1,7 @@
 name: Autopilot
 
 # Researches, writes, and publishes one article every day.
-# Requires ANTHROPIC_API_KEY in repo Settings → Secrets and variables → Actions.
+# Requires DEEPSEEK_API_KEY and TAVILY_API_KEY in repo Settings → Secrets and variables → Actions.
 # Optional: COURTLISTENER_API_TOKEN raises CourtListener rate limits.
 
 on:
@@ -41,6 +41,7 @@ jobs:
 
       - name: Run autopilot
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
           COURTLISTENER_API_TOKEN: ${{ secrets.COURTLISTENER_API_TOKEN }}
         run: node scripts/autopilot.mjs
