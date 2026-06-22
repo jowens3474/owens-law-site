@@ -1,12 +1,12 @@
 #!/usr/bin/env node
-// Autopilot — researches a fresh topic via Claude Opus 4.8 + integrated web
-// search + CourtListener docket feed, writes a full article in the Wire's
-// voice, appends it to lib/posts.ts, and pushes to main. Triggered by
+// Autopilot — researches a fresh topic via DeepSeek + Tavily web search +
+// CourtListener docket feed, writes a full article in the Wire's voice,
+// appends it to lib/posts.ts, and pushes to main. Triggered by
 // .github/workflows/autopilot.yml on a cron schedule.
 
 import { readFileSync, writeFileSync } from "node:fs";
 import { execSync } from "node:child_process";
-import Anthropic from "@anthropic-ai/sdk";
+import OpenAI from "openai";
 import { fetchUrl } from "./lib/fetch-url.mjs";
 import { pingIndexNow } from "./lib/indexnow.mjs";
 
@@ -113,113 +113,143 @@ OUTPUT
 - After research, call publish_article exactly ONCE with the final article.
 - Do not narrate your process — go straight from research to publishing.`;
 
-// --- Tool definitions (Anthropic format) ------------------------------------
+// --- Tool definitions (OpenAI format) ----------------------------------------
 
 const TOOLS = [
-  { type: "web_search_20260209", name: "web_search" },
   {
-    name: "fetch_url",
-    description:
-      "Fetch the text content of a public government, court, or news URL. Handles HTML pages (extracts visible text), PDF documents (extracts text — works on Council agendas, court orders, PSC filings), and JSON. Use to read primary-source documents directly: City Council agendas, Planning Commission packets, Mississippi PSC docket filings, Hinds County board agendas, state legislative bill text. Find the URL via web_search first, then fetch_url it. Do not use for paywalled sites or sites that require authentication.",
-    input_schema: {
-      type: "object",
-      properties: {
-        url: {
-          type: "string",
-          description: "Absolute https/http URL of a public document or page.",
-        },
-      },
-      required: ["url"],
-    },
-  },
-  {
-    name: "get_owens_case_docket",
-    description:
-      "Get recent docket entries from the federal criminal case against Jody Owens, Chokwe Antar Lumumba, and Aaron Banks in the Southern District of Mississippi. Returns the most recent entries (motions, orders, filings). Call this FIRST every run, before web_search. Returns 'unavailable' if CourtListener can't be reached.",
-    input_schema: {
-      type: "object",
-      properties: {
-        days_back: {
-          type: "integer",
-          description: "How many days back to look. Default 7. Maximum 30.",
-          minimum: 1,
-          maximum: 30,
-        },
-      },
-    },
-  },
-  {
-    name: "read_court_filing",
-    description:
-      "Read the full plain text of a specific court filing by its recap_document_id (from get_owens_case_docket). Use this to write about what the filing actually says, not just news coverage of it.",
-    input_schema: {
-      type: "object",
-      properties: {
-        recap_document_id: {
-          type: "integer",
-          description:
-            "The recap_document_id returned by get_owens_case_docket.",
-        },
-      },
-      required: ["recap_document_id"],
-    },
-  },
-  {
-    name: "publish_article",
-    description:
-      "Submit the final, fully-researched and written article for immediate publication on The Jackson Wire. Call this exactly once, after research is complete.",
-    input_schema: {
-      type: "object",
-      additionalProperties: false,
-      properties: {
-        slug: {
-          type: "string",
-          description:
-            "URL slug: lowercase, hyphens only, no leading/trailing hyphens, no other punctuation.",
-        },
-        title: { type: "string", description: "Article headline." },
-        dek: {
-          type: "string",
-          description:
-            "One or two sentences summarizing the article. Shown italicized under the headline; do not repeat it as the first body paragraph.",
-        },
-        category: {
-          type: "string",
-          enum: CATEGORIES,
-          description: "Primary section.",
-        },
-        categories: {
-          type: "array",
-          items: { type: "string", enum: CATEGORIES },
-          description:
-            "Optional cross-file sections (e.g. ['General News']). Empty array if none.",
-        },
-        tags: {
-          type: "array",
-          items: {
+    type: "function",
+    function: {
+      name: "web_search",
+      description:
+        "Search the web for current news and information. Returns 5 result snippets with titles, URLs, and content excerpts.",
+      parameters: {
+        type: "object",
+        properties: {
+          query: {
             type: "string",
-            enum: ["corruption-case", "explainer", "data-centers"],
+            description:
+              "Specific search query, like a news search. Use multiple distinct queries to triangulate.",
           },
-          description:
-            "Hub-page tags. Include 'corruption-case' for any article about U.S. v. Owens. Include 'data-centers' for any article about Mississippi data center development, AI infrastructure, or related utility/zoning fights (Saxum, Prado AI, AWS, PSC dockets). Include 'explainer' for profile/background pieces. Empty array if none apply. An article can have multiple tags.",
         },
-        body: {
-          type: "array",
-          items: { type: "string" },
-          minItems: 6,
-          description:
-            "Article paragraphs as plain strings. 6–12 paragraphs. Curly quotes ('' \"\") where appropriate. No markdown.",
+        required: ["query"],
+      },
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "fetch_url",
+      description:
+        "Fetch the text content of a public government, court, or news URL. Handles HTML pages (extracts visible text), PDF documents (extracts text — works on Council agendas, court orders, PSC filings), and JSON. Use to read primary-source documents directly: City Council agendas, Planning Commission packets, Mississippi PSC docket filings, Hinds County board agendas, state legislative bill text. Find the URL via web_search first, then fetch_url it. Do not use for paywalled sites or sites that require authentication.",
+      parameters: {
+        type: "object",
+        properties: {
+          url: {
+            type: "string",
+            description: "Absolute https/http URL of a public document or page.",
+          },
+        },
+        required: ["url"],
+      },
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "get_owens_case_docket",
+      description:
+        "Get recent docket entries from the federal criminal case against Jody Owens, Chokwe Antar Lumumba, and Aaron Banks in the Southern District of Mississippi. Returns the most recent entries (motions, orders, filings). Call this FIRST every run, before web_search. Returns 'unavailable' if CourtListener can't be reached.",
+      parameters: {
+        type: "object",
+        properties: {
+          days_back: {
+            type: "integer",
+            description: "How many days back to look. Default 7. Maximum 30.",
+            minimum: 1,
+            maximum: 30,
+          },
         },
       },
-      required: [
-        "slug",
-        "title",
-        "dek",
-        "category",
-        "categories",
-        "tags",
-        "body",
-      ],
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "read_court_filing",
+      description:
+        "Read the full plain text of a specific court filing by its recap_document_id (from get_owens_case_docket). Use this to write about what the filing actually says, not just news coverage of it.",
+      parameters: {
+        type: "object",
+        properties: {
+          recap_document_id: {
+            type: "integer",
+            description:
+              "The recap_document_id returned by get_owens_case_docket.",
+          },
+        },
+        required: ["recap_document_id"],
+      },
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "publish_article",
+      description:
+        "Submit the final, fully-researched and written article for immediate publication on The Jackson Wire. Call this exactly once, after research is complete.",
+      parameters: {
+        type: "object",
+        additionalProperties: false,
+        properties: {
+          slug: {
+            type: "string",
+            description:
+              "URL slug: lowercase, hyphens only, no leading/trailing hyphens, no other punctuation.",
+          },
+          title: { type: "string", description: "Article headline." },
+          dek: {
+            type: "string",
+            description:
+              "One or two sentences summarizing the article. Shown italicized under the headline; do not repeat it as the first body paragraph.",
+          },
+          category: {
+            type: "string",
+            enum: CATEGORIES,
+            description: "Primary section.",
+          },
+          categories: {
+            type: "array",
+            items: { type: "string", enum: CATEGORIES },
+            description:
+              "Optional cross-file sections (e.g. ['General News']). Empty array if none.",
+          },
+          tags: {
+            type: "array",
+            items: {
+              type: "string",
+              enum: ["corruption-case", "explainer", "data-centers"],
+            },
+            description:
+              "Hub-page tags. Include 'corruption-case' for any article about U.S. v. Owens. Include 'data-centers' for any article about Mississippi data center development, AI infrastructure, or related utility/zoning fights (Saxum, Prado AI, AWS, PSC dockets). Include 'explainer' for profile/background pieces. Empty array if none apply. An article can have multiple tags.",
+          },
+          body: {
+            type: "array",
+            items: { type: "string" },
+            minItems: 6,
+            description:
+              "Article paragraphs as plain strings. 6–12 paragraphs. Curly quotes ('' \"\") where appropriate. No markdown.",
+          },
+        },
+        required: [
+          "slug",
+          "title",
+          "dek",
+          "category",
+          "categories",
+          "tags",
+          "body",
+        ],
+      },
     },
   },
 ];
@@ -326,6 +356,37 @@ async function readCourtFiling(recapDocumentId) {
   return text.length > 15000 ? text.slice(0, 15000) + "\n\n[truncated]" : text;
 }
 
+// --- Tavily search -----------------------------------------------------------
+
+async function tavilySearch(query) {
+  const res = await fetch("https://api.tavily.com/search", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${process.env.TAVILY_API_KEY}`,
+    },
+    body: JSON.stringify({
+      query,
+      max_results: 5,
+      search_depth: "advanced",
+    }),
+  });
+  if (!res.ok) {
+    throw new Error(`Tavily HTTP ${res.status}: ${await res.text()}`);
+  }
+  const data = await res.json();
+  const results = data.results || [];
+  if (results.length === 0) {
+    return "(no results)";
+  }
+  return results
+    .map(
+      (r, i) =>
+        `[${i + 1}] ${r.title}\nURL: ${r.url}\n${(r.content || "").slice(0, 1000)}`,
+    )
+    .join("\n\n");
+}
+
 // --- main loop --------------------------------------------------------------
 
 function todayLocalIso() {
@@ -335,11 +396,17 @@ function todayLocalIso() {
 }
 
 async function main() {
-  if (!process.env.ANTHROPIC_API_KEY) {
-    throw new Error("Missing ANTHROPIC_API_KEY");
+  if (!process.env.DEEPSEEK_API_KEY) {
+    throw new Error("Missing DEEPSEEK_API_KEY");
+  }
+  if (!process.env.TAVILY_API_KEY) {
+    throw new Error("Missing TAVILY_API_KEY");
   }
 
-  const client = new Anthropic();
+  const client = new OpenAI({
+    apiKey: process.env.DEEPSEEK_API_KEY,
+    baseURL: "https://api.deepseek.com",
+  });
 
   const postsContent = readFileSync(POSTS_FILE, "utf8");
   const titleMatches = [...postsContent.matchAll(/title:\s*"([^"]+)"/g)];
@@ -387,158 +454,186 @@ Use date "${today}". Pick a category from: ${CATEGORIES.join(", ")}.`;
     `[autopilot] today=${today}, recent_titles=${recentTitles.length}`,
   );
 
-  const messages = [{ role: "user", content: userPrompt }];
+  const messages = [
+    { role: "system", content: SYSTEM_PROMPT },
+    { role: "user", content: userPrompt },
+  ];
 
   let article = null;
   let iteration = 0;
   const MAX_ITERATIONS = 12;
-  let container = null;
 
   while (iteration++ < MAX_ITERATIONS && !article) {
-    console.log(`[autopilot] iteration ${iteration}: calling Claude...`);
+    console.log(`[autopilot] iteration ${iteration}: calling DeepSeek...`);
 
-    const requestParams = {
-      model: "claude-opus-4-8",
-      max_tokens: 16000,
-      thinking: { type: "adaptive" },
-      output_config: { effort: "high" },
-      system: SYSTEM_PROMPT,
-      tools: TOOLS,
+    const response = await client.chat.completions.create({
+      model: "deepseek-chat",
       messages,
-    };
-    if (container) {
-      requestParams.container = container;
-    }
+      tools: TOOLS,
+      tool_choice: "auto",
+      temperature: 0.3,
+      max_tokens: 8000,
+    });
 
-    const response = await client.messages.create(requestParams);
-
-    if (response.container?.id) {
-      container = response.container.id;
-    }
-
+    const msg = response.choices[0].message;
     console.log(
-      `[autopilot] stop_reason=${response.stop_reason}, blocks=${response.content.length}`,
+      `[autopilot] finish=${response.choices[0].finish_reason}, tool_calls=${msg.tool_calls?.length ?? 0}`,
     );
 
-    // Look for the publish_article tool_use first — it's terminal.
-    for (const block of response.content) {
-      if (block.type === "tool_use" && block.name === "publish_article") {
-        article = block.input;
+    // Check for publish_article in tool calls before pushing the message.
+    let publishParseError = false;
+    if (msg.tool_calls) {
+      for (const tc of msg.tool_calls) {
+        if (tc.function.name === "publish_article") {
+          try {
+            article = JSON.parse(tc.function.arguments);
+          } catch (e) {
+            console.error("[autopilot] Failed to parse publish_article args:", e.message);
+            publishParseError = true;
+            messages.push(msg);
+            messages.push({
+              role: "tool",
+              tool_call_id: tc.id,
+              content: "Arguments were not valid JSON — please retry with valid JSON.",
+            });
+          }
+        }
       }
     }
     if (article) break;
+    if (publishParseError) continue;
 
-    // Otherwise, append the assistant turn and respond to any client tool calls.
-    messages.push({ role: "assistant", content: response.content });
+    // Push the full assistant message (OpenAI format).
+    messages.push(msg);
 
-    if (response.stop_reason === "pause_turn") {
-      // Server-side tool (web_search) hit its iteration limit; re-send to resume.
-      continue;
-    }
-
-    if (response.stop_reason === "end_turn") {
-      console.error(
-        "[autopilot] Model ended turn without calling publish_article.",
-      );
-      const text = response.content
-        .filter((b) => b.type === "text")
-        .map((b) => b.text)
-        .join("\n");
-      console.error("[autopilot] Final text:", text.slice(0, 1000));
+    if (response.choices[0].finish_reason !== "tool_calls") {
+      if (response.choices[0].finish_reason === "stop") {
+        console.error(
+          "[autopilot] Model ended turn without calling publish_article.",
+        );
+        console.error("[autopilot] Final text:", (msg.content || "").slice(0, 1000));
+        // Nudge the model to use a tool.
+        messages.push({
+          role: "user",
+          content:
+            "You must call either a research tool or the publish_article tool. Do not respond with text only.",
+        });
+        continue;
+      }
+      console.error(`[autopilot] Unexpected finish_reason: ${response.choices[0].finish_reason}`);
       process.exit(1);
     }
 
-    if (response.stop_reason !== "tool_use") {
-      console.error(`[autopilot] Unexpected stop_reason: ${response.stop_reason}`);
+    if (!msg.tool_calls || msg.tool_calls.length === 0) {
+      console.error("[autopilot] finish_reason=tool_calls but no tool_calls present.");
       process.exit(1);
     }
 
-    // Handle each client-side tool_use block. Server tools (web_search) are
-    // handled automatically by the server; their results are already in
-    // response.content as server_tool_result blocks.
-    const toolResults = [];
-    for (const block of response.content) {
-      if (block.type !== "tool_use") continue;
-      const name = block.name;
+    // Handle each tool call.
+    for (const tc of msg.tool_calls) {
+      const name = tc.function.name;
+      let args;
+      try {
+        args = JSON.parse(tc.function.arguments);
+      } catch (e) {
+        console.error(`[autopilot] Failed to parse arguments for ${name}:`, e.message);
+        messages.push({
+          role: "tool",
+          tool_call_id: tc.id,
+          content: `Error parsing arguments: ${e.message}. Please retry with valid JSON.`,
+        });
+        continue;
+      }
 
-      if (name === "get_owens_case_docket") {
+      if (name === "web_search") {
+        console.log(`[autopilot] search: "${args.query}"`);
+        try {
+          const results = await tavilySearch(args.query);
+          messages.push({
+            role: "tool",
+            tool_call_id: tc.id,
+            content: results,
+          });
+        } catch (e) {
+          console.error(`[autopilot] Search failed for "${args.query}": ${e.message}`);
+          messages.push({
+            role: "tool",
+            tool_call_id: tc.id,
+            content: `Search error: ${e.message}`,
+          });
+        }
+      } else if (name === "get_owens_case_docket") {
         const daysBack = Math.min(
-          Math.max(block.input?.days_back ?? 7, 1),
+          Math.max(args?.days_back ?? 7, 1),
           30,
         );
         console.log(`[autopilot] docket: last ${daysBack} days`);
         try {
           const content = await getOwensCaseDocket(daysBack);
-          toolResults.push({
-            type: "tool_result",
-            tool_use_id: block.id,
+          messages.push({
+            role: "tool",
+            tool_call_id: tc.id,
             content,
           });
         } catch (e) {
           console.error(`[autopilot] docket failed:`, e.message);
-          toolResults.push({
-            type: "tool_result",
-            tool_use_id: block.id,
+          messages.push({
+            role: "tool",
+            tool_call_id: tc.id,
             content: `CourtListener unavailable (${e.message}). Fall back to web_search.`,
-            is_error: true,
           });
         }
       } else if (name === "read_court_filing") {
-        console.log(`[autopilot] read filing: ${block.input?.recap_document_id}`);
+        console.log(`[autopilot] read filing: ${args?.recap_document_id}`);
         try {
-          const content = await readCourtFiling(block.input.recap_document_id);
-          toolResults.push({
-            type: "tool_result",
-            tool_use_id: block.id,
+          const content = await readCourtFiling(args.recap_document_id);
+          messages.push({
+            role: "tool",
+            tool_call_id: tc.id,
             content,
           });
         } catch (e) {
           console.error(`[autopilot] read filing failed:`, e.message);
-          toolResults.push({
-            type: "tool_result",
-            tool_use_id: block.id,
+          messages.push({
+            role: "tool",
+            tool_call_id: tc.id,
             content: `Could not read filing: ${e.message}`,
-            is_error: true,
           });
         }
       } else if (name === "fetch_url") {
-        console.log(`[autopilot] fetch_url: ${block.input?.url}`);
+        console.log(`[autopilot] fetch_url: ${args?.url}`);
         try {
-          const { contentType, text } = await fetchUrl(block.input.url);
+          const { contentType, text } = await fetchUrl(args.url);
           const truncated =
             text.length > 18000 ? text.slice(0, 18000) + "\n\n[truncated]" : text;
-          toolResults.push({
-            type: "tool_result",
-            tool_use_id: block.id,
+          messages.push({
+            role: "tool",
+            tool_call_id: tc.id,
             content: `[${contentType}]\n${truncated}`,
           });
         } catch (e) {
           console.error(`[autopilot] fetch_url failed:`, e.message);
-          toolResults.push({
-            type: "tool_result",
-            tool_use_id: block.id,
+          messages.push({
+            role: "tool",
+            tool_call_id: tc.id,
             content: `Fetch failed: ${e.message}`,
-            is_error: true,
           });
         }
       } else if (name === "publish_article") {
-        // already captured above; nothing more to do
+        // already captured above; push a placeholder tool response
+        messages.push({
+          role: "tool",
+          tool_call_id: tc.id,
+          content: "Article received.",
+        });
       } else {
-        toolResults.push({
-          type: "tool_result",
-          tool_use_id: block.id,
+        messages.push({
+          role: "tool",
+          tool_call_id: tc.id,
           content: `Unknown tool: ${name}`,
-          is_error: true,
         });
       }
     }
-
-    if (toolResults.length === 0) {
-      // No client tools called this turn; just continue.
-      continue;
-    }
-
-    messages.push({ role: "user", content: toolResults });
   }
 
   if (!article) {
@@ -628,7 +723,7 @@ ${article.body.map((p) => `      ${JSON.stringify(p)},`).join("\n")}
     "https://www.thejacksonwire.com/sitemap.xml",
   ]);
 
-  console.log(`[autopilot] ✓ Published "${article.title}".`);
+  console.log(`[autopilot] Published "${article.title}".`);
 }
 
 main().catch((err) => {
