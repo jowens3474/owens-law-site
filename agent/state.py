@@ -50,7 +50,8 @@ class AppellateState(TypedDict):
     current_draft_section: Optional[str]
 
     # Critique & Revision
-    critiques: Annotated[List[str], operator.add]
+    critiques: Annotated[List[str], operator.add]   # append-only audit of all notes
+    needs_revision: bool                            # last critique's verdict (routing)
     revision_count: int
 
     # Final

@@ -42,19 +42,25 @@ def build_llm(
     max_tokens: int = 8192,
     effort: str = "high",
     streaming: bool = False,
+    adaptive_thinking: bool = True,
 ) -> ChatAnthropic:
     """Construct a chat model for the graph's nodes.
 
     When ``model`` is Fable 5, a server-side refusal fallback to Opus 4.8 is
     wired automatically so a classifier decline doesn't fail the request.
+
+    Set ``adaptive_thinking=False`` for structured-output nodes: forcing a tool
+    call (how ``with_structured_output`` constrains the response) does not mix
+    with thinking, and on Opus 4.8 omitting the thinking field is allowed.
     """
     kwargs = dict(
         model=model,
         max_tokens=max_tokens,
-        thinking={"type": "adaptive"},
         output_config={"effort": effort},
         streaming=streaming,
     )
+    if adaptive_thinking:
+        kwargs["thinking"] = {"type": "adaptive"}
     if model == FABLE_MODEL:
         kwargs["betas"] = [_SERVER_SIDE_FALLBACK_BETA]
         kwargs["model_kwargs"] = {"fallbacks": [{"model": FALLBACK_MODEL}]}
