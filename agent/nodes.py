@@ -64,6 +64,48 @@ def _section_key(index: int, issue: Issue) -> str:
     return f"Issue {index + 1}: {issue.issue_name}"
 
 
+def _compose_brief(state: AppellateState) -> str:
+    """Stitch the Statement of Facts and argument sections into one document.
+
+    Used both by the clean-room reviewer (to judge the brief whole) and by the
+    final assembly node, so reviewer and output see the same text.
+    """
+    parts = [
+        f"STATEMENT OF FACTS\n\n{state.get('statement_of_facts', '')}",
+        "\nARGUMENT",
+    ]
+    for name, text in state["argument_sections"].items():
+        parts.append(f"\n{name}\n\n{text}")
+    return "\n".join(parts)
+
+
+# A demanding reviewer needs an explicit bar, not "make it good." This rubric is
+# what the clean-room verifier grades against.
+_REVIEW_RUBRIC = """\
+You are a demanding appellate judge's clerk reviewing a brief you did NOT write.
+You have not seen the drafting process — judge the brief solely on what is on the
+page, against this rubric. Be specific and unsparing; a strong-looking draft can
+still have fatal gaps.
+
+Grade against every criterion and report concrete, actionable failures:
+1. Issue selection & order — strongest issues first; each is genuinely appealable
+   and preserved.
+2. Standard of review — each argument leads with the correct standard and frames
+   the analysis around it.
+3. Record support — every factual assertion traces to the record; no overstatement
+   or facts absent from the Statement of Facts.
+4. Authority — controlling authority is cited and correctly applied; adverse
+   authority is confronted, not ignored.
+5. Counterarguments — the other side's best points are anticipated and rebutted.
+6. Statement of Facts — neutral in tone yet sets up every argument that follows.
+7. Internal consistency — no contradictions, no redundancy across sections; the
+   theory of the appeal is coherent end to end.
+8. Persuasion & precision — clear roadmap, tight prose, no filler, no hedging.
+
+Set needs_revision to false ONLY if the brief would withstand a hostile read.
+For each failure, name the section and the specific fix."""
+
+
 def _text(message) -> str:
     """Pull plain text out of an AIMessage.
 
@@ -199,19 +241,19 @@ def draft_arguments(state: AppellateState, llm: ChatAnthropic) -> dict:
 
 
 def critique(state: AppellateState, structured_llm: ChatAnthropic) -> dict:
-    """Review the drafted sections and decide whether another pass is needed."""
-    sections = "\n\n".join(
-        f"## {name}\n{text}" for name, text in state["argument_sections"].items()
-    )
+    """Clean-room review of the whole brief against the quality rubric.
+
+    Reads the full assembled draft (not isolated sections) with no drafting
+    history, so it catches cross-section problems — contradictions, redundancy,
+    mis-ordered issues, a Statement of Facts that doesn't support the argument.
+    """
+    draft = _compose_brief(state)
     result: CritiqueResult = structured_llm.with_structured_output(CritiqueResult).invoke(
         [
-            SystemMessage(
-                "You are a demanding appellate reviewer. Identify concrete, "
-                "actionable problems in the argument sections: weak record support, "
-                "missed counterarguments, misstated standards, or unpersuasive "
-                "structure. If the draft is strong, set needs_revision to false."
+            SystemMessage(_REVIEW_RUBRIC),
+            HumanMessage(
+                f"Appeal goal: {state['appeal_goal']}\n\nBrief under review:\n\n{draft}"
             ),
-            HumanMessage(f"Appeal goal: {state['appeal_goal']}\n\n{sections}"),
         ]
     )
     return {
@@ -257,12 +299,9 @@ def revise(state: AppellateState, llm: ChatAnthropic) -> dict:
 
 
 def assemble(state: AppellateState, llm: ChatAnthropic) -> dict:
-    """Stitch the sections into the final brief."""
-    body = [f"STATEMENT OF FACTS\n\n{state.get('statement_of_facts', '')}", "\nARGUMENT"]
-    for name, text in state["argument_sections"].items():
-        body.append(f"\n{name}\n\n{text}")
+    """Stitch the sections into the final brief (same composer the reviewer reads)."""
     return {
-        "final_brief": "\n".join(body),
+        "final_brief": _compose_brief(state),
         "messages": [{"node": "assemble", "summary": "brief assembled"}],
     }
 
