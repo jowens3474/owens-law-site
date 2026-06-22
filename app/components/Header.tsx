@@ -11,7 +11,7 @@ export default function Header() {
   });
 
   return (
-    <header className="bg-newsprint">
+    <header className="border-t border-crimson bg-newsprint">
       {/* Utility bar */}
       <div className="border-b border-rule">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-1.5 text-[0.7rem] uppercase tracking-widest text-muted">
@@ -24,9 +24,9 @@ export default function Header() {
       </div>
 
       {/* Masthead */}
-      <div className="mx-auto max-w-6xl px-4 py-6 text-center">
+      <div className="mx-auto max-w-6xl border-b border-rule px-4 py-8 text-center sm:py-10">
         <Link href="/" className="inline-block">
-          <h1 className="font-serif text-5xl font-black leading-none tracking-tight text-ink sm:text-6xl md:text-7xl">
+          <h1 className="font-serif text-6xl font-black leading-none tracking-tight text-ink sm:text-7xl md:text-8xl">
             {site.name}
           </h1>
         </Link>

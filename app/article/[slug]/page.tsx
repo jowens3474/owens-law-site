@@ -132,13 +132,13 @@ export default async function ArticlePage({
 
       <article>
         <header>
-          <h1 className="font-serif text-3xl font-black leading-[1.08] sm:text-4xl md:text-5xl">
+          <h1 className="font-serif text-4xl font-black leading-[1.08] sm:text-5xl md:text-6xl">
             {post.title}
           </h1>
           <p className="mt-4 font-serif text-lg italic leading-relaxed text-muted sm:text-xl">
             {post.dek}
           </p>
-          <div className="mt-5 flex flex-wrap items-center gap-x-2 gap-y-1 border-y border-rule py-3 text-sm">
+          <div className="mt-5 flex flex-wrap items-center gap-x-2 gap-y-1 border-t-2 border-ink border-b border-rule py-4 text-sm">
             <span className="font-semibold">By {post.author}</span>
             <span className="text-muted">·</span>
             <span className="text-muted">{formatDate(post.date)}</span>
@@ -190,7 +190,7 @@ export default async function ArticlePage({
             })}
           </ol>
         ) : (
-          <div className="prose-article mt-8">
+          <div className="prose-article mt-8 max-w-2xl">
             {post.body.map((para, i) => (
               <p key={i}>{para}</p>
             ))}
