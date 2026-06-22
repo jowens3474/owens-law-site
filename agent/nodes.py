@@ -63,6 +63,24 @@ def _section_key(index: int, issue: Issue) -> str:
     return f"Issue {index + 1}: {issue.issue_name}"
 
 
+def _text(message) -> str:
+    """Pull plain text out of an AIMessage.
+
+    With adaptive thinking on, ``message.content`` is a list of blocks
+    (``thinking`` + ``text``) rather than a string; concatenate only the text.
+    """
+    content = message.content
+    if isinstance(content, str):
+        return content
+    parts = []
+    for block in content:
+        if isinstance(block, str):
+            parts.append(block)
+        elif isinstance(block, dict) and block.get("type") == "text":
+            parts.append(block.get("text", ""))
+    return "".join(parts)
+
+
 # --- Nodes ---------------------------------------------------------------------
 
 def extract_facts(state: AppellateState, structured_llm: ChatAnthropic) -> dict:
@@ -125,7 +143,7 @@ def research_issues(state: AppellateState, llm: ChatAnthropic) -> dict:
                 ),
             ]
         )
-        research.append({"issue": issue.issue_name, "memo": memo.content})
+        research.append({"issue": issue.issue_name, "memo": _text(memo)})
     return {
         "legal_research": research,
         "messages": [{"node": "research_issues", "summary": f"{len(research)} memos"}],
@@ -146,7 +164,7 @@ def draft_statement_of_facts(state: AppellateState, llm: ChatAnthropic) -> dict:
         ]
     )
     return {
-        "statement_of_facts": draft.content,
+        "statement_of_facts": _text(draft),
         "messages": [{"node": "draft_statement_of_facts", "summary": "drafted"}],
     }
 
@@ -172,7 +190,7 @@ def draft_arguments(state: AppellateState, llm: ChatAnthropic) -> dict:
                 ),
             ]
         )
-        sections[_section_key(i, issue)] = section.content
+        sections[_section_key(i, issue)] = _text(section)
     return {
         "argument_sections": sections,
         "messages": [{"node": "draft_arguments", "summary": f"{len(sections)} sections"}],
@@ -227,7 +245,7 @@ def revise(state: AppellateState, llm: ChatAnthropic) -> dict:
                 ),
             ]
         )
-        sections[key] = revised.content
+        sections[key] = _text(revised)
     return {
         "argument_sections": sections,
         "revision_count": state.get("revision_count", 0) + 1,

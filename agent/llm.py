@@ -36,6 +36,14 @@ FALLBACK_MODEL = "claude-opus-4-8"
 
 _SERVER_SIDE_FALLBACK_BETA = "server-side-fallback-2026-06-01"
 
+# Token budgets. Briefs run 40-50 pages, but the graph drafts one section per
+# call, so a per-call cap need only cover the longest single section — not the
+# whole brief. PROSE_MAX_TOKENS gives generous headroom for that; above ~16K the
+# SDK requires streaming to avoid HTTP timeouts, so prose models stream.
+# Structured nodes emit data, not prose, so they stay small.
+PROSE_MAX_TOKENS = 32000
+STRUCTURED_MAX_TOKENS = 8192
+
 
 def build_llm(
     model: str = DEFAULT_MODEL,
@@ -67,10 +75,16 @@ def build_llm(
     return ChatAnthropic(**kwargs)
 
 
-def build_fable_llm(max_tokens: int = 16000, effort: str = "high") -> ChatAnthropic:
+def build_fable_llm(
+    max_tokens: int = PROSE_MAX_TOKENS,
+    effort: str = "high",
+    streaming: bool = True,
+) -> ChatAnthropic:
     """Fable 5 for the heaviest nodes (with Opus 4.8 refusal fallback).
 
-    Defaults to a larger ``max_tokens`` since the nodes that warrant Fable tend
-    to produce long output; pair with ``streaming`` upstream above ~16K.
+    Defaults to the prose token budget with streaming on, since the nodes that
+    warrant Fable produce long sections.
     """
-    return build_llm(model=FABLE_MODEL, max_tokens=max_tokens, effort=effort)
+    return build_llm(
+        model=FABLE_MODEL, max_tokens=max_tokens, effort=effort, streaming=streaming
+    )

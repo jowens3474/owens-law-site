@@ -24,7 +24,7 @@ from langchain_anthropic import ChatAnthropic
 from langgraph.graph import StateGraph, START, END
 
 from agent import nodes
-from agent.llm import build_llm
+from agent.llm import build_llm, PROSE_MAX_TOKENS, STRUCTURED_MAX_TOKENS
 from agent.state import AppellateState
 
 
@@ -41,8 +41,12 @@ def build_graph(
         heavy_llm: optional model for drafting/revision — e.g. ``build_fable_llm()``
             to run the heaviest synthesis on Fable 5. Defaults to ``llm``.
     """
-    llm = llm or build_llm()
-    structured_llm = structured_llm or build_llm(adaptive_thinking=False)
+    # Prose model: large budget + streaming so 40-50 page briefs aren't capped
+    # mid-section (streaming is required above ~16K to avoid SDK HTTP timeouts).
+    llm = llm or build_llm(max_tokens=PROSE_MAX_TOKENS, streaming=True)
+    structured_llm = structured_llm or build_llm(
+        max_tokens=STRUCTURED_MAX_TOKENS, adaptive_thinking=False
+    )
     heavy_llm = heavy_llm or llm
 
     graph = StateGraph(AppellateState)
