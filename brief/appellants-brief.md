@@ -246,3 +246,70 @@ chancellor separately questioned the *intensity* of the Nelsons' post-2013 use, 
 distinct ruling is addressed in Argument III; this Issue establishes only that the
 continuity element cannot be defeated by record-title transactions that never touched
 the possession.) Reversal is required.
+
+### III. The chancellor demanded continuous physical residence that Mississippi law does not require — a legal-standard error that infected his findings on visible, continuous, and exclusive possession.
+
+The chancellor found Nelson failed to prove *visible, continuous,* and *exclusive*
+possession. (R. 447.) But he reached that result by holding the Nelsons' possession to
+a residence requirement Mississippi law does not impose — a question of law reviewed
+**de novo**, even on review of a Rule 41(b) dismissal. [PIN: the legal standard
+governing the elements of adverse possession is reviewed de novo; applying an
+erroneous legal standard is reversible error regardless of the deference owed factual
+findings.]
+
+**A. Mississippi does not require constant occupancy or residence.** Adverse possession
+requires use of a character consistent with the nature and condition of the property —
+such that it gives notice of a hostile claim — not continuous physical residence or
+uninterrupted day-to-day use. Payment of taxes, maintenance of utilities, periodic
+visits, and assertion of control over a rural family home can establish possession.
+The chancellor *conceded the point* — "[t]he Court concurs that Mississippi does not
+require daily occupancy or residence to establish continuous and actual occupation"
+(R. 500) — and the very authorities he cited recognize adverse possession by a
+claimant who no longer resides on the land. (R. 500–501, discussing *Buford v. Logue*,
+832 So. 2d 594 (Miss. Ct. App. 2002), and *Bowser v. Tootle*, 556 So. 2d 1373
+(Miss.).) [PIN: confirm citations/holdings of *Buford* and *Bowser*; add governing
+authority that possession need only be consistent with the property's nature.]
+
+**B. Having stated the right rule, the chancellor applied the wrong one.** Despite that
+concession, the chancellor discounted every indicium of the Nelsons' possession by
+measuring it against constant occupancy: he treated electrical service that remained
+on (in Marie Nelson's name since 1975) as "almost non-use" because consumption was
+low; furniture and belongings left in the home as "abandonment" rather than
+possession; a maintained mailbox as insignificant because little mail arrived; "No
+Trespassing" signs as too few and too late; and Nelson's regular visits as
+insufficient. (R. 501–502.) Each of those is an act of dominion consistent with
+possession of a rural homestead; the chancellor deemed them inadequate only because he
+required the continuous presence the law does not. That is legal error, and it infected
+each of the visible/continuous/exclusive findings that flowed from it.
+
+**C. Under the correct standard, the discounted evidence is powerful proof of open,
+visible possession — and the assessor's testimony removes the chancellor's chief
+objection.** The Nelsons paid the ad valorem taxes, and Marie Nelson held the homestead
+exemption on the home — the most public, notorious assertion of ownership the property
+records allow. The chancellor discounted that proof because the taxes and homestead
+appeared on Parcel 226 rather than the disputed Parcel 225. (R. 448, 452.) But the Tax
+Assessor — Nelson's own witness — testified that the home was assessed on **Parcel 226**
+throughout the Nelsons' possession and was reassigned to **Parcel 225** on the tax rolls
+only "upon th[e] 2024 deed transfer" to the defendants, the chancellor himself
+confirming "[t]he answer to your question is yes." (Tr. 160–162, 172.) The
+tax-and-homestead evidence therefore goes to the very home in dispute; the "wrong
+parcel" objection is an artifact of the defendants' own 2024 deed, not a gap in
+Nelson's proof. Combined with the maintained utilities, the periodic visits — Nelson
+came "at least once a month," "[s]ometimes ... every other week," and went "inside"
+the house (Tr. 300) — the mailbox, the No-Trespassing postings, and the family's
+belongings kept in the home until the defendants discarded them (Tr. 262), this
+evidence is more than sufficient to support each element under the correct standard.
+Nelson does not ask this Court to make those findings; she asks that the elements be
+weighed under the law Mississippi actually applies, rather than under a residence
+requirement that forecloses them at the threshold.
+
+**D. The chancellor's credibility concern flowed from the same legal error.** The
+chancellor doubted Nelson's account because she described her visits as "once per
+month" and, elsewhere, as "every other week" — which he viewed as an inconsistency.
+(R. 501–502.) Those descriptions are not inconsistent: visiting every other week is
+*more* frequent than once a month, and both describe regular, continuing presence.
+That the chancellor read regular visits as impeaching rather than corroborating
+reflects the same erroneous premise — that anything short of residence is suspect. A
+Rule 41(b) dismissal that rests on an erroneous legal standard, and on
+credibility doubts generated by that standard, cannot stand. Reversal and remand are
+required so the elements may be weighed under the law Mississippi actually applies.
