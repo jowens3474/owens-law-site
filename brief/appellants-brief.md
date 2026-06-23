@@ -101,9 +101,9 @@ November 21, 2024, using a metes-and-bounds description drawn from a 2024 survey
 
 ### D. The home was assessed on Parcel 226 throughout the Nelsons' possession; the 2024 deed reassigned it to Parcel 225 on the tax rolls.
 
-The single fact the chancellor treated as fatal — that Nelson's taxes and homestead
-were recorded on Parcel 226, not the disputed Parcel 225 — was itself a product of
-the 2024 transaction Nelson challenges. The Tax Assessor, Rocky Kennedy (called by
+One ground the chancellor relied upon was that Nelson's taxes and homestead were
+recorded on Parcel 226, not the disputed Parcel 225. That record posture, however, was
+itself a product of the 2024 transaction Nelson challenges. The Tax Assessor, Rocky Kennedy (called by
 Nelson), testified that the home had long been assessed on Parcel 226 and that the
 residence was "transferred" and "moved" on the tax rolls from Parcel 226 to Parcel
 225 only "upon that 2024 deed transfer." (Tr. 160–162; C.P. 688–690.) When counsel asked whether
@@ -190,7 +190,11 @@ evidence to supply the description the deed itself lacks. Because that ruling re
 legal premises and the construction of a written instrument, it is reviewed **de
 novo**. [PIN: standard of review — deed construction / sufficiency of legal
 description / application of the parol-evidence rule are questions of law reviewed de
-novo.]
+novo.] Nelson does not seek title from the weakness of the defendants' deed; her own
+possession is the subject of Issues II–III. This Issue matters because the chancellor
+made the defendants' record title and the "interruptions" he drew from it a *stated
+ground* of his ruling that the Nelsons' possession was not continuous (C.P. 449–451);
+if that title is void, the premise of that ground fails.
 
 **A. A description so indefinite that the land cannot be located is void for a patent
 ambiguity, and parol evidence cannot cure it.** Mississippi law distinguishes between a
@@ -246,13 +250,19 @@ identifiable tract is precisely the use *Loper* and the parol-evidence rule forb
 title and no "interruption" of the Nelsons' possession.** The chancellor treated the
 St. Amand deed and the conveyances flowing from it (St. Amand → HFVE Farms → JJM) as
 "interruptions" that defeated the Nelsons' adverse possession. (C.P. 449–451.) If the
-St. Amand deed is void, every link that depends on it fails with it: the defendants
-hold no valid record title, and a void instrument cannot interrupt actual, adverse
-possession. The premise on which the chancellor rested much of the involuntary
-dismissal therefore collapses, and the judgment cannot stand. At minimum, the legal
+St. Amand deed is void, every link that depends on it fails with it. That the 2024
+warranty deed to JJM contains a precise, survey-based description does not rescue the
+chain: a grantee takes no greater title than its grantor had to convey, so a later
+deed — however well it describes the land — passes nothing if the root tax deed was
+void. Nor does the chancellor's "bona fide purchaser" label cure the defect, because a
+purchaser cannot take good title through a void tax sale, and BFP status does not
+defeat one already in actual adverse possession, whose occupancy is itself notice. [PIN:
+Mississippi authority that (a) a grantee takes no greater title than the grantor; (b) a
+void conveyance does not interrupt adverse possession; and (c) BFP status does not cut
+off the rights of one in open, actual possession.] The premise on which the chancellor
+rested much of the involuntary dismissal therefore collapses; at minimum, the legal
 error requires reversal and remand for the claim to be adjudicated under the correct
-rule. [PIN: Mississippi authority that a void conveyance does not interrupt adverse
-possession.]
+rule.
 
 ### II. The chancellor applied the wrong legal standard for "continuous and uninterrupted" possession by treating strangers' recorded conveyances, a tax sale, and a utility easement as "interruptions" of the Nelsons' actual possession.
 
@@ -357,11 +367,18 @@ possession; a maintained mailbox as insignificant because little mail arrived; "
 Trespassing" signs as too few and too late; and Nelson's regular visits as
 insufficient. (C.P. 501–502.) Each of those is an act of dominion consistent with
 possession of a rural homestead; the chancellor deemed them inadequate only because he
-required the continuous presence the law does not. That is legal error, and it infected
-each of the visible/continuous/exclusive findings that flowed from it.
+required the continuous presence the law does not. That the electrical consumption was
+low and the water service was eventually discontinued does not, under the correct
+standard, negate possession: an inherited home visited periodically rather than lived in
+is expected to show reduced or suspended utility use, and use of a property consistent
+with its character — here, a family home kept and checked on, not occupied full-time —
+is the measure of possession, not its absence. The chancellor's treatment of reduced use
+as "almost non-use" and "abandonment" applied the residence yardstick the law rejects.
+That is legal error, and it infected each of the visible/continuous/exclusive findings
+that flowed from it.
 
-**C. Under the correct standard, the discounted evidence is powerful proof of open,
-visible possession — and the assessor's testimony removes the chancellor's chief
+**C. Under the correct standard, the discounted evidence bears directly on open and
+visible possession — and the assessor's testimony answers the chancellor's parcel
 objection.** The Nelsons paid the ad valorem taxes, and Marie Nelson held the homestead
 exemption on the home — the most public, notorious assertion of ownership the property
 records allow. The chancellor discounted that proof because the taxes and homestead
@@ -400,16 +417,18 @@ the home. [PIN: Mississippi authority that exclusivity means possession as one's
 not shared occupancy, and that occasional or permissive third-party use does not defeat
 it.]
 
-**E. The chancellor's credibility concern flowed from the same legal error.** The
-chancellor doubted Nelson's account because she described her visits as "once per
-month" and, elsewhere, as "every other week" — which he viewed as an inconsistency.
-(C.P. 501–502.) Those descriptions are not inconsistent: visiting every other week is
-*more* frequent than once a month, and both describe regular, continuing presence.
-That the chancellor read regular visits as impeaching rather than corroborating
-reflects the same erroneous premise — that anything short of residence is suspect. A
-Rule 41(b) dismissal that rests on an erroneous legal standard, and on
-credibility doubts generated by that standard, cannot stand. Reversal and remand are
-required so the elements may be weighed under the law Mississippi actually applies.
+**E. The legal-standard error is dispositive even if every credibility finding stands.**
+The chancellor doubted Nelson's account of how often she visited. (C.P. 501–502.) This
+Court need not disturb that or any other credibility determination, because the open-
+and-notorious element does not depend on Nelson's visit testimony at all: it is
+established by undisputed documentary proof — the ad valorem taxes the Nelsons paid, the
+homestead exemption of record, and the electrical service carried in Marie Nelson's name
+from 1975 forward. The chancellor discounted that documentary dominion only by measuring
+it against continuous residence. Fully crediting the chancellor's view of the live
+testimony, then, the dismissal still rests on an erroneous legal standard applied to
+undisputed facts — which is reversible regardless of the deference owed his credibility
+calls. Reversal and remand are required so the elements may be weighed under the law
+Mississippi actually applies.
 
 ### IV. The chancellor erred as a matter of law in holding Nelson's adverse-possession claim time-barred under Mississippi Code §§ 15-1-7, 15-1-9, and 15-1-15.
 
@@ -458,15 +477,13 @@ that provision exists to protect those in actual occupation of land sold for tax
 does not bar the claim of the Nelsons, who were the occupants. [PIN: confirm the
 operation of § 15-1-15 and that it protects, rather than bars, the actual occupant.]
 
-**E. The chancellor's limitations holding contradicts his merits holding and cannot
-independently support the dismissal.** The chancellor wrote, in the same breath, that
-"no amount of time would cure the failure of her claim" *and* that "the 10 year statute
-of limitation does bar her bringing such a claim." (C.P. 493.) Those propositions are in
-tension: if the claim failed on the elements, the limitations statutes are beside the
-point; and the limitations bar, offered as an independent ground, is wrong as a matter
-of law for the reasons above. Either way, the statutes of limitation furnish no valid
-basis for the involuntary dismissal, and the judgment cannot be affirmed on that
-ground.
+**E. The limitations ground fails on its own terms and cannot independently support the
+dismissal.** The chancellor offered the limitations bar as a ground independent of his
+elements findings. (C.P. 493.) As an independent ground it is wrong as a matter of law
+for the reasons set out above: a party in possession is not time-barred from asserting
+the title the running of time has perfected, and §§ 15-1-7, -9, and -15 do not convert
+her possession into a stale claim for recovery. Because those statutes furnish no valid
+basis for dismissal, the judgment cannot be affirmed on that ground.
 
 ### V. With the foregoing legal errors corrected, the involuntary dismissal under Rule 41(b) cannot stand.
 
