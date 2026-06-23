@@ -39,3 +39,19 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# python
+__pycache__/
+*.py[cod]
+.venv/
+
+# case records (confidential client material — keep local, never commit here;
+# the transcript lives on its own branch/PR, not on the code branch)
+/record/*.pdf
+/record/*.docx
+/record/*.doc
+/record/*.rtf
+
+# Large case record (lives on transcript-upload branch)
+record/transcript.pdf
+record/*.pdf
