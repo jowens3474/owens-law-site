@@ -257,10 +257,14 @@ chain: a grantee takes no greater title than its grantor had to convey, so a lat
 deed — however well it describes the land — passes nothing if the root tax deed was
 void. Nor does the chancellor's "bona fide purchaser" label cure the defect, because a
 purchaser cannot take good title through a void tax sale, and BFP status does not
-defeat one already in actual adverse possession, whose occupancy is itself notice. [PIN:
+defeat one already in actual adverse possession, whose occupancy is itself notice — and
+here the purchaser, Matthews, admitted he "assumed" the home "was abandoned" while
+conceding he "did not talk to any neighbors" before buying (Tr. 259; C.P. 787), so he
+cannot claim the protection of a good-faith inquiry he never made. [PIN:
 Mississippi authority that (a) a grantee takes no greater title than the grantor; (b) a
 void conveyance does not interrupt adverse possession; and (c) BFP status does not cut
-off the rights of one in open, actual possession.] The premise on which the chancellor
+off the rights of one in open, actual possession or protect a purchaser on inquiry
+notice.] The premise on which the chancellor
 rested much of the involuntary dismissal therefore collapses; at minimum, the legal
 error requires reversal and remand for the claim to be adjudicated under the correct
 rule.
@@ -402,6 +406,19 @@ kind of open, continuing dominion the correct standard credits. Nelson does not 
 Court to find the elements in the first instance; she asks that this evidence be weighed
 under the law Mississippi actually applies, rather than discarded at the threshold under
 a residence requirement the chancellor conceded the law does not impose.
+
+The open-and-notorious element exists to give notice to the world that someone holds and
+claims the land — and active electrical service does precisely that. A connected meter
+and an account kept and paid in the family's name are objective, observable signals, to a
+neighbor or a prospective purchaser alike, that the home is maintained and claimed, not
+abandoned. The disinterested witnesses confirmed it: they saw Nelson maintaining the home
+over the years (Tr. 35, 37, 63, 88, 110; C.P. 563, 565, 591, 616, 638) and testified she
+never abandoned it (Tr. 91, 105; C.P. 619, 633). Tellingly, the defendant Josh Matthews
+*assumed* the house "was abandoned," yet admitted he "did not talk to any neighbors"
+before buying. (Tr. 259; C.P. 787.) The indicia of an active, maintained homestead were
+open and available to anyone who looked or asked; that the purchaser chose not to inquire
+does not render Nelson's possession invisible — it is the essence of the notice that the
+open-and-notorious element supplies.
 
 **D. Exclusive possession was not defeated by a utility easement, unexercised paper
 title, or a cousin's occasional use of an edge driveway.** The chancellor's separate
