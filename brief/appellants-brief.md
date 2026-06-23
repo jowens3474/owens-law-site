@@ -102,3 +102,82 @@ the floor," "removed a lot of the walls," and "threw everything inside the house
 dumpsters." (Tr. 262.) Matthews acknowledged that he "never stepped foot into the
 house until after" the work began. (Tr. 261.) Nelson's pleaded claims for trespass,
 conversion, and damages arose from this entry and destruction. (R. 445.)
+
+---
+
+## ARGUMENT
+
+> **Citation note (draft):** Authorities the chancellor and the parties cited
+> below (e.g., *Loper*) are quoted from the record. Propositions marked
+> **[PIN]** require counsel to supply/verify controlling Mississippi authority
+> before filing; they are stated as settled doctrine but are not yet pinpoint-cited.
+
+### I. The chancellor erred as a matter of law in holding the 1980 St. Amand tax deed merely "voidable," and in using parol evidence to cure its void description.
+
+The defendants' entire claim of record title — and the chancellor's finding that
+their predecessors' instruments "interrupted" the Nelsons' possession — depends on a
+single root instrument: the 1980 tax deed to Wilbrod St. Amand. (R. 449–450.) That
+deed is void on its face for an insufficient legal description, and the chancellor
+committed reversible legal error in holding it "only voidable" and in using parol
+evidence to supply the description the deed itself lacks. Because that ruling rests on
+legal premises and the construction of a written instrument, it is reviewed **de
+novo**. [PIN: standard of review — deed construction / sufficiency of legal
+description / application of the parol-evidence rule are questions of law reviewed de
+novo.]
+
+**A. A description so indefinite that the land cannot be located is void for a patent
+ambiguity, and parol evidence cannot cure it.** Mississippi law distinguishes between a
+*latent* ambiguity — a description sufficient on its face but uncertain in its
+application to the ground, which extrinsic evidence may resolve — and a *patent*
+ambiguity, where the description is so indefinite that the land cannot be identified
+from the instrument at all. A patent defect renders the deed void, and it cannot be
+cured by parol or extrinsic evidence; to allow otherwise would let testimony supply
+the very description the law requires the instrument to contain. [PIN: Mississippi
+authority on patent vs. latent ambiguity and the rule that a void/indefinite
+description cannot be supplied by parol.] Tax deeds in particular are strictly
+construed, and a tax conveyance resting on a description too indefinite to identify
+the land is void. [PIN: Mississippi authority strictly construing tax titles and
+voiding tax deeds for indefinite descriptions.]
+
+**B. The St. Amand description is void on its face — by the defendants' own proof.**
+The defendants' title searcher, Matthew Moore, examined Exhibit 5 (the St. Amand tax
+deed) on the stand. Though Moore declined to label the description "vague" — "I think
+that's an opinion that I would not agree" (Tr. 223) — he then made the dispositive
+concession regardless of the label: the description fixes only "a half an acre
+somewhere in the Southwest Quarter of Section 13," so that "based off this legal
+description, we only know that it's half an acre somewhere in 160 acres." (Tr.
+223–224.) Whether one calls that "vague" is beside the point; a description that
+locates a half-acre nowhere more precisely than within a 160-acre quarter-section is,
+as a matter of law, a patent defect: nothing in the four corners of the instrument
+permits the land to be identified. The deed is therefore void, not merely voidable,
+and the chancellor's contrary conclusion (R. 449) was legal error. The issue was
+preserved below — Nelson litigated the description at trial and raised the
+parol-evidence point in her motion for reconsideration, which the chancellor
+addressed. (R. 494.)
+
+**C. The chancellor used parol evidence to do what the law forbids — manufacture a
+description.** Having labeled the deed "voidable," the chancellor held its "deficiency
+... was cured by the sworn testimony (parol evidence)" of Moore and of Tax Assessor
+Rocky Kennedy, together with extrinsic documents — assessment rolls, tax-sale notices,
+and the published Notice to Creditors (Ex. 8). (R. 449.) That inverts the
+parol-evidence rule. Extrinsic evidence may identify on the ground a parcel the deed
+*adequately describes*; it may not supply a sufficient description where the
+instrument contains none. The chancellor relied on *Loper v. Hinds Land Co.*, 214
+Miss. 644, 59 So. 2d 297 (1952), for the proposition that parol evidence "could be
+properly used in this instance." (R. 494.) But *Loper* permits extrinsic evidence to
+apply or clarify a description — to resolve a *latent* ambiguity — not to cure a
+patently void one. [PIN: confirm *Loper* holding and quote its limiting language.]
+Using parol testimony to convert "a half-acre somewhere in 160 acres" into an
+identifiable tract is precisely the use *Loper* and the parol-evidence rule forbid.
+
+**D. The error is dispositive: a void root deed leaves the defendants with no superior
+title and no "interruption" of the Nelsons' possession.** The chancellor treated the
+St. Amand deed and the conveyances flowing from it (St. Amand → HFVE Farms → JJM) as
+"interruptions" that defeated the Nelsons' adverse possession. (R. 449–451.) If the
+St. Amand deed is void, every link that depends on it fails with it: the defendants
+hold no valid record title, and a void instrument cannot interrupt actual, adverse
+possession. The premise on which the chancellor rested much of the involuntary
+dismissal therefore collapses, and the judgment cannot stand. At minimum, the legal
+error requires reversal and remand for the claim to be adjudicated under the correct
+rule. [PIN: Mississippi authority that a void conveyance does not interrupt adverse
+possession.]
