@@ -217,15 +217,14 @@ quarter-section gives a court nothing to construe — there is no reasonable con
 only a guess, and the reasonable-construction rule does not license guessing.
 
 **B. The St. Amand description is void on its face — by the defendants' own proof.**
-The defendants' title searcher, Matthew Moore, examined Exhibit 5 (the St. Amand tax
-deed) on the stand. Though Moore declined to label the description "vague" — "I think
-that's an opinion that I would not agree" (Tr. 223; C.P. 751) — he then made the dispositive
-concession regardless of the label: the description fixes only "a half an acre
-somewhere in the Southwest Quarter of Section 13," so that "based off this legal
-description, we only know that it's half an acre somewhere in 160 acres." (Tr. 223–224; C.P. 751–752.) Whether one calls that "vague" is beside the point; a description that
-locates a half-acre nowhere more precisely than within a 160-acre quarter-section is,
-as a matter of law, a patent defect: nothing in the four corners of the instrument
-permits the land to be identified. The deed is therefore void, not merely voidable,
+Examined on what the St. Amand deed (Exhibit 5) shows within its four corners, the
+defendants' own title searcher, Matthew Moore, acknowledged that the description fixes
+only "a half an acre somewhere in the Southwest Quarter of Section 13," so that "based
+off this legal description, we only know that it's half an acre somewhere in 160 acres."
+(Tr. 223–224; C.P. 751–752.) A description that locates a half-acre nowhere more
+precisely than within a 160-acre quarter-section is, as a matter of law, a patent
+defect: nothing in the four corners of the instrument permits the land to be
+identified. The deed is therefore void, not merely voidable,
 and the chancellor's contrary conclusion (C.P. 449) was legal error. The issue was
 preserved below — Nelson litigated the description at trial and raised the
 parol-evidence point in her motion for reconsideration, which the chancellor
@@ -417,17 +416,18 @@ the home. [PIN: Mississippi authority that exclusivity means possession as one's
 not shared occupancy, and that occasional or permissive third-party use does not defeat
 it.]
 
-**E. The legal-standard error is dispositive even if every credibility finding stands.**
-The chancellor doubted Nelson's account of how often she visited. (C.P. 501–502.) This
-Court need not disturb that or any other credibility determination, because the open-
-and-notorious element does not depend on Nelson's visit testimony at all: it is
-established by undisputed documentary proof — the ad valorem taxes the Nelsons paid, the
-homestead exemption of record, and the electrical service carried in Marie Nelson's name
-from 1975 forward. The chancellor discounted that documentary dominion only by measuring
-it against continuous residence. Fully crediting the chancellor's view of the live
-testimony, then, the dismissal still rests on an erroneous legal standard applied to
-undisputed facts — which is reversible regardless of the deference owed his credibility
-calls. Reversal and remand are required so the elements may be weighed under the law
+**E. The legal-standard error does not turn on the credibility findings.** The chancellor
+doubted Nelson's account of how often she visited. (C.P. 501–502.) This Court need not
+disturb that or any other credibility determination to reverse, because the
+open-and-notorious element rests substantially on documentary dominion that does not
+depend on Nelson's visit testimony — the ad valorem taxes the Nelsons paid, the homestead
+exemption of record, and the electrical service carried in Marie Nelson's name from 1975
+forward, all pertaining to the home itself, which (as Part C explains) was carried on the
+Parcel 226 assessment until the 2024 reassignment. The chancellor discounted that
+documentary dominion not by disbelieving it, but by measuring it against continuous
+residence. The dismissal thus rests, even apart from the credibility findings, on an
+erroneous legal standard — which is reversible regardless of the deference owed those
+findings. Reversal and remand are required so the elements may be weighed under the law
 Mississippi actually applies.
 
 ### IV. The chancellor erred as a matter of law in holding Nelson's adverse-possession claim time-barred under Mississippi Code §§ 15-1-7, 15-1-9, and 15-1-15.
@@ -532,21 +532,19 @@ findings.]
 **B. The claims were never reached on their merits — and they do not rise or fall with
 the title question.** The defendants entered the home and gutted it — "jack[ing] the
 entire house up," removing the floor and "a lot of the walls," and "thr[owing]
-everything inside the house into dumpsters." (Tr. 261–262; C.P. 789–790.) A trespass claim vindicates
-*possession*, not record title: one in actual possession may recover for an
-unauthorized entry against anyone not entitled to immediate possession. Nelson was in
-actual possession of the home when the defendants entered and gutted it in November
-2024; her trespass claim therefore does not depend on the ultimate quiet-title
-determination and must be adjudicated on its own terms. Her conversion claim — for the
-personal property the defendants removed and discarded (Tr. 262; C.P. 790) — likewise turns on her
-ownership of those chattels and is independent of title to the realty. So even if this
-Court were to affirm on adverse possession, the trespass, conversion, and damages claims
-would remain unadjudicated and require remand. [PIN: Mississippi authority that actual
-possession supports a trespass action against one not entitled to possession; elements
-of trespass and conversion.]
+everything inside the house into dumpsters." (Tr. 261–262; C.P. 789–790.) A trespass claim turns on
+*actual possession* at the time of entry — a distinct and lesser showing than the
+ten-year, title-ripening adverse possession Nelson was put to her proof on, and one the
+chancellor never separately adjudicated. Conversion turns on Nelson's ownership of the
+chattels the defendants removed and discarded (Tr. 262; C.P. 790), a question likewise
+never reached. Whatever the ultimate quiet-title outcome, the chancellor made no finding
+on Nelson's actual possession for trespass purposes or on her ownership of the personalty;
+those claims were left undecided and must be resolved on remand. [PIN: Mississippi
+authority that actual possession supports a trespass action against one not entitled to
+possession; elements of trespass and conversion.]
 
-**C.** Because these claims were never actually adjudicated — and because, as shown
-above, they do not depend on the title outcome — they must be remanded for resolution on
+**C.** Because the chancellor never reached these claims on their merits, they must be
+remanded for resolution on
 the merits.
 
 ---
