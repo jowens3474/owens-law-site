@@ -144,7 +144,7 @@ actual disturbance of occupancy that never occurred (Issue II). Third, he discou
 every indicium of the Nelsons' possession — taxes, a decades-long homestead, utilities,
 regular visits — by demanding the continuous residence he conceded the law does not
 require; and the assessor's own testimony shows the "wrong parcel" objection that drove
-his ruling was an artifact of the defendants' 2024 deed, which moved the home from
+his ruling was an artifact of the defendants' 2024 deed, which reassigned the home from
 Parcel 226 to Parcel 225 on the tax rolls (Issue III). Fourth, he inverted adverse
 possession by holding the claim time-barred, when the limitations statutes govern
 recovery by those out of possession and a possessor's title is perfected, not
@@ -529,8 +529,9 @@ would remain unadjudicated and require remand. [PIN: Mississippi authority that 
 possession supports a trespass action against one not entitled to possession; elements
 of trespass and conversion.]
 
-**C.** Because these claims are intertwined with the possession ruling and were never
-actually adjudicated, they must be remanded for resolution on the merits.
+**C.** Because these claims were never actually adjudicated — and because, as shown
+above, they do not depend on the title outcome — they must be remanded for resolution on
+the merits.
 
 ---
 
