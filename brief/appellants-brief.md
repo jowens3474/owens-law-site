@@ -181,3 +181,68 @@ dismissal therefore collapses, and the judgment cannot stand. At minimum, the le
 error requires reversal and remand for the claim to be adjudicated under the correct
 rule. [PIN: Mississippi authority that a void conveyance does not interrupt adverse
 possession.]
+
+### II. The chancellor applied the wrong legal standard for "continuous and uninterrupted" possession by treating strangers' recorded conveyances, a tax sale, and a utility easement as "interruptions" of the Nelsons' actual possession.
+
+The chancellor's finding that Nelson failed to prove *continuous and uninterrupted*
+possession rests not on any break in the Nelsons' occupancy, but on paper: he held
+that recorded conveyances among third parties, a tax sale, and a water-line easement
+each "interrupted" the adverse possession. (R. 449–451.) That is a legal error in the
+meaning of "interruption," reviewed **de novo**. [PIN: what legally constitutes an
+interruption of adverse possession is a question of law reviewed de novo.]
+
+**A. Continuity is broken by an interruption of *possession*, not by transactions in
+the record of *title*.** Adverse possession turns on the fact of possession. The
+continuity required by Miss. Code Ann. § 15-1-13 is interrupted only by an act that
+actually disturbs the possessor's occupancy — an ouster, the possessor's abandonment,
+or the record owner's re-entry into actual possession. A deed, tax sale, or other
+conveyance executed and recorded among strangers to the possession, of which the
+possessor is unaware and which removes no one from the land, does not break the
+continuity of actual, hostile occupancy. [PIN: Mississippi authority that interruption
+of adverse possession requires an actual disturbance of possession — ouster,
+abandonment, or re-entry — and that a recorded conveyance among third parties does not
+interrupt continuous possession.]
+
+**B. The 1970–1977 conveyances and the 1980 tax deed disturbed nothing.** The
+chancellor identified five recorded conveyances from 1970 to 1977 (deraignment
+sub-paragraphs 12–15 and 17) and the 1980 St. Amand tax deed as "interruptions to the
+claim of adverse possession." (R. 449.) But the undisputed evidence is that Marie
+Nelson lived in and occupied the home continuously from the 1970s until her death in
+2013 (R. 447–448, 451), and that the family's possession continued thereafter. None of
+the recorded instruments put anyone on the land or removed the Nelsons from it. Treating
+them as "interruptions" conflates the chain of record title with the fact of
+possession — exactly the legal error that, under Issue I, is compounded by the voidness
+of the root deed.
+
+**C. The tax sale to HFVE Farms did not interrupt possession.** The chancellor held
+that HFVE Farms, as a "bona fide purchaser for value," was "an open, visible, actual,
+interruption to Plaintiff's claim." (R. 451.) Not so as a matter of law: a tax-sale
+purchaser does not interrupt an adverse possessor's continuity merely by buying paper
+title; interruption requires the purchaser to take *actual possession*. HFVE Farms — and
+its grantee JJM — took no possession of the home until the defendants entered in
+November 2024 (Tr. 261), and Matthews admitted he "never stepped foot into the house
+until after" that. (Tr. 261.) [PIN: Mississippi authority that a tax-sale purchaser
+must take actual possession to interrupt an adverse possessor.] And because the tax
+chain is void (Issue I), HFVE took nothing capable of interrupting anything.
+
+**D. The water-line easement did not interrupt possession, and § 15-1-7 was
+misapplied.** The chancellor held that "Plaintiff's claim was interrupted by the
+easement grant and use," and that Miss. Code Ann. § 15-1-7 therefore applied. (R. 493;
+see R. 450.) A possessor's grant or use of a utility easement across her own occupied
+land is an exercise of dominion *consistent with* possession, not a surrender of it;
+it does not oust the possessor or break continuity. Section 15-1-7 — a limitations
+provision governing entry and recovery — does not convert the Nelsons' continuous
+occupancy into interrupted possession. [PIN: confirm scope of § 15-1-7 and authority
+that a possessor's own easement use does not interrupt adverse possession.]
+
+**E. Stripped of the legal error, the only actual interruption came decades too late.**
+The record identifies a single event that actually disturbed the Nelsons' possession:
+the defendants' own entry in November 2024. (Tr. 261.) Possession that began no later
+than the 1970s — to which Nelson, as her parents' descendant, may tack (see R. 452) —
+ran for decades before that entry, far more than § 15-1-13's ten years. The
+involuntary dismissal therefore cannot rest on the paper "interruptions" the chancellor
+relied upon, because as a matter of law they interrupted nothing. (To the extent the
+chancellor separately questioned the *intensity* of the Nelsons' post-2013 use, that
+distinct ruling is addressed in Argument III; this Issue establishes only that the
+continuity element cannot be defeated by record-title transactions that never touched
+the possession.) Reversal is required.
