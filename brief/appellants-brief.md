@@ -10,6 +10,30 @@ On appeal from the Chancery Court of Lafayette County, No. CV25-66-W (Hon. John 
 
 ---
 
+## STATEMENT OF THE ISSUES
+
+I. Whether the chancellor erred as a matter of law in holding the 1980 St. Amand tax
+deed merely voidable, and in using parol evidence to cure its void legal description.
+
+II. Whether the chancellor applied the wrong legal standard for "continuous and
+uninterrupted" possession by treating strangers' recorded conveyances, a tax sale, and
+a utility easement as interruptions of the Nelsons' actual possession.
+
+III. Whether the chancellor erred by requiring continuous physical residence that
+Mississippi law does not require, thereby infecting his findings on visible,
+continuous, and exclusive possession.
+
+IV. Whether the chancellor erred in holding Nelson's adverse-possession claim barred by
+the statutes of limitation, Miss. Code Ann. §§ 15-1-7, 15-1-9, and 15-1-15.
+
+V. Whether, the foregoing legal errors corrected, the involuntary dismissal under
+M.R.C.P. 41(b) can stand.
+
+VI. Whether the chancellor erred in failing to adjudicate Nelson's separately pleaded
+claims for trespass, conversion, and damages.
+
+---
+
 ## STATEMENT OF THE CASE
 
 **Nature of the case.** This is an appeal from a judgment of involuntary dismissal
@@ -105,12 +129,52 @@ conversion, and damages arose from this entry and destruction. (R. 445.)
 
 ---
 
+## SUMMARY OF THE ARGUMENT
+
+The chancellor dismissed Joanne Nelson's adverse-possession claim at the close of her
+case, finding she proved three of the six elements but failed to prove visible,
+continuous, and exclusive possession. That result rests on four legal errors, each
+reviewed de novo. First, the defendants' entire chain of title traces to a 1980 tax
+deed whose description — by the defendants' own title searcher's admission — locates
+only "half an acre somewhere in 160 acres"; that description is patently void, and the
+chancellor erred in deeming it merely voidable and curing it with parol evidence
+(Issue I). Second, the chancellor treated strangers' recorded conveyances, a tax sale,
+and a utility easement as "interruptions" of possession, when interruption requires an
+actual disturbance of occupancy that never occurred (Issue II). Third, he discounted
+every indicium of the Nelsons' possession — taxes, a decades-long homestead, utilities,
+regular visits — by demanding the continuous residence he conceded the law does not
+require; and the assessor's own testimony shows the "wrong parcel" objection that drove
+his ruling was an artifact of the defendants' 2024 deed, which moved the home from
+Parcel 226 to Parcel 225 on the tax rolls (Issue III). Fourth, he inverted adverse
+possession by holding the claim time-barred, when the limitations statutes govern
+recovery by those out of possession and a possessor's title is perfected, not
+extinguished, by the passage of time (Issue IV). With those errors corrected, the
+Rule 41(b) dismissal cannot stand (Issue V). Finally, the chancellor never adjudicated
+Nelson's pleaded claims for trespass, conversion, and damages, disposing of them by an
+unexplained "general denial" after calling them "unresolved" (Issue VI). The judgment
+should be reversed and the cause remanded.
+
+---
+
 ## ARGUMENT
 
 > **Citation note (draft):** Authorities the chancellor and the parties cited
 > below (e.g., *Loper*) are quoted from the record. Propositions marked
 > **[PIN]** require counsel to supply/verify controlling Mississippi authority
 > before filing; they are stated as settled doctrine but are not yet pinpoint-cited.
+
+**Standard of review.** This appeal is from a judgment of involuntary dismissal entered
+under M.R.C.P. 41(b) at the close of the plaintiff's case in a bench trial. The
+chancellor's findings of fact are reviewed for manifest error or against the
+overwhelming weight of the evidence; but the legal standards he applied — what makes a
+deed's description void, what interrupts adverse possession, what the elements of
+adverse possession require, and how the statutes of limitation operate — are questions
+of law reviewed **de novo**, and a dismissal that rests on an erroneous legal standard
+must be reversed regardless of the deference otherwise owed the findings. [PIN:
+consolidated authority for the Rule 41(b) standard and de novo review of legal
+questions.] Issues I–IV present such legal errors; Issue V shows that, those errors
+corrected, the dismissal cannot stand; and Issue VI concerns claims the chancellor
+never adjudicated.
 
 ### I. The chancellor erred as a matter of law in holding the 1980 St. Amand tax deed merely "voidable," and in using parol evidence to cure its void description.
 
@@ -367,3 +431,93 @@ point; and the limitations bar, offered as an independent ground, is wrong as a 
 of law for the reasons above. Either way, the statutes of limitation furnish no valid
 basis for the involuntary dismissal, and the judgment cannot be affirmed on that
 ground.
+
+### V. With the foregoing legal errors corrected, the involuntary dismissal under Rule 41(b) cannot stand.
+
+**A. The standard.** On a motion for involuntary dismissal at the close of the
+plaintiff's evidence in a bench trial, the chancellor does not view the evidence in the
+light most favorable to the plaintiff, as on a directed verdict; he sits as factfinder
+and weighs it. [PIN: M.R.C.P. 41(b) standard and authority.] The resulting dismissal is
+reviewed for manifest error as to the facts, but the legal standards the court applied
+are reviewed de novo, and a dismissal that rests on an erroneous legal standard must be
+reversed. [PIN.]
+
+**B. The dismissal rests on legal error.** The chancellor's findings that Nelson failed
+to prove *visible, continuous,* and *exclusive* possession were the product of the
+errors identified above: treating a void tax deed and strangers' conveyances as title
+and "interruptions" (Issues I–II); demanding the continuous residence Mississippi law
+does not require (Issue III); and an erroneous limitations bar (Issue IV). Strip those
+errors away and the stated grounds for dismissal disappear.
+
+**C. The chancellor found half the elements proven.** He found that Nelson established
+*claim of ownership, actual or hostile,* and *peaceful* possession. (R. 447.) The three
+elements he found wanting failed only under the erroneous standard. Properly analyzed —
+decades of family occupancy, taxes and homestead on the home, utilities maintained in
+Marie Nelson's name from 1975 until the defendants cut them off, regular visits, and
+exclusive control until the defendants' 2024 entry — Nelson's evidence was sufficient to
+avoid dismissal at the close of her case. Reversal and remand are required.
+
+### VI. The chancellor failed to adjudicate Nelson's trespass, conversion, and damages claims, which must be resolved on remand.
+
+Nelson's complaint pleaded not only quiet title and adverse possession but also
+trespass, conversion, and damages arising from the defendants' entry into and
+destruction of the home. (R. 445.) The chancellor did not adjudicate those claims on
+their merits. He expressly labeled the trespass and conversion issues "[u]nresolved" in
+his judgment (R. 458) and, in the Final Judgment, stated only that "the issues of
+trespass and conversion were dealt with in the court's general denial of all other
+relief." (R. 500.)
+
+**A. A blanket "general denial" did not discharge the court's duty.** Having tried the
+case under Rules 41(b) and 52(a), the chancellor was required to make findings of fact
+and state separately his conclusions of law on the pleaded claims. Disposing of
+trespass, conversion, and damages by an unexplained "general denial" — after expressly
+calling them "unresolved" — does not permit meaningful appellate review. [PIN: M.R.C.P.
+52(a) findings requirement and authority that tried claims must be adjudicated with
+findings.]
+
+**B. The claims were never reached on their merits.** The defendants entered the home
+and gutted it — "jack[ing] the entire house up," removing the floor and "a lot of the
+walls," and "thr[owing] everything inside the house into dumpsters." (Tr. 261–262.) A
+trespass claim vindicates the right of possession: if Nelson establishes her possessory
+interest (Issues I–III), her trespass claim against the defendants' unauthorized entry
+must be adjudicated and damages assessed. Her conversion claim — for the personal
+property the defendants removed and discarded — turns on her ownership of those
+chattels and is not necessarily foreclosed even if title to the realty remains
+contested. [PIN: elements of trespass and conversion under Mississippi law.]
+
+**C.** Because these claims are intertwined with the possession ruling and were never
+actually adjudicated, they must be remanded for resolution on the merits.
+
+---
+
+## CONCLUSION
+
+For the foregoing reasons, Appellant Joanne Nelson respectfully requests that this
+Court reverse the judgment of involuntary dismissal and remand for further proceedings
+under the correct legal standards, including adjudication of her claims for adverse
+possession, quiet title, trespass, conversion, and damages, together with such other
+and further relief as the Court deems just and proper.
+
+Respectfully submitted,
+
+_______________________________
+Jason Owens (MSB# ____)
+Law Office of Jason Owens, PLLC
+770 N. West Street, Jackson, MS 39202
+(601) 235-9961 · jason@owensowens.com
+*Counsel for Appellant, Joanne Nelson*
+
+---
+
+## REMAINING FRONT/BACK MATTER — for counsel to complete
+
+These M.R.A.P. 28 components are **not** drafted above and must be added before filing:
+
+- [ ] **Certificate of Interested Persons** (M.R.A.P. 28(a)(1)) — judge, parties, counsel, and any other interested persons.
+- [ ] **Table of Contents** (28(a)(2)) — generate after pagination is final.
+- [ ] **Table of Authorities** (28(a)(3)) — depends on the `[PIN]` citations being resolved first.
+- [ ] **Statement Regarding Oral Argument** (if requested).
+- [ ] **Standard of Review** — stated inline per issue above (each "de novo" / Rule 41(b) line); confirm the consolidated authority.
+- [ ] **Certificate of Compliance** with the M.R.A.P. word/volume limit.
+- [ ] **Certificate of Service.**
+- [ ] **Resolve every `[PIN]` placeholder** with verified Mississippi authority, and **verify every `(R. __)` and `(Tr. __)` cite** against the final record pagination — including the Notice-of-Appeal record cite left blank in the Statement of the Case.
