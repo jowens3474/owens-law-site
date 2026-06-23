@@ -99,7 +99,7 @@ $20,100 (Exs. 3, 8), which conveyed to JJM Holdings, LLC by warranty deed dated
 November 21, 2024, using a metes-and-bounds description drawn from a 2024 survey.
 (R. 450.)
 
-### D. The 2024 deed — not Nelson's possession — moved the home from Parcel 226 to Parcel 225 on the tax rolls.
+### D. The home was assessed on Parcel 226 throughout the Nelsons' possession; the 2024 deed reassigned it to Parcel 225 on the tax rolls.
 
 The single fact the chancellor treated as fatal — that Nelson's taxes and homestead
 were recorded on Parcel 226, not the disputed Parcel 225 — was itself a product of
@@ -163,18 +163,21 @@ should be reversed and the cause remanded.
 > **[PIN]** require counsel to supply/verify controlling Mississippi authority
 > before filing; they are stated as settled doctrine but are not yet pinpoint-cited.
 
-**Standard of review.** This appeal is from a judgment of involuntary dismissal entered
-under M.R.C.P. 41(b) at the close of the plaintiff's case in a bench trial. The
-chancellor's findings of fact are reviewed for manifest error or against the
-overwhelming weight of the evidence; but the legal standards he applied — what makes a
-deed's description void, what interrupts adverse possession, what the elements of
-adverse possession require, and how the statutes of limitation operate — are questions
-of law reviewed **de novo**, and a dismissal that rests on an erroneous legal standard
-must be reversed regardless of the deference otherwise owed the findings. [PIN:
-consolidated authority for the Rule 41(b) standard and de novo review of legal
-questions.] Issues I–IV present such legal errors; Issue V shows that, those errors
-corrected, the dismissal cannot stand; and Issue VI concerns claims the chancellor
-never adjudicated.
+**Standard of review.** A judgment of involuntary dismissal under M.R.C.P. 41(b) that
+rests on an erroneous legal standard is reviewed **de novo** and must be reversed,
+regardless of the deference otherwise owed a chancellor's findings. The questions this
+appeal presents — what makes a deed's description void, what interrupts adverse
+possession, what the elements of adverse possession require, and how the statutes of
+limitation operate — are all questions of law reviewed de novo. The chancellor's
+subsidiary findings of fact are ordinarily reviewed for manifest error or against the
+overwhelming weight of the evidence; but where, as here, those findings flow from a
+mistaken legal premise, that deference does not preserve them. [PIN: consolidated
+authority for the Rule 41(b) standard and de novo review of legal questions.] Issues
+I–IV present such legal errors; Issue V shows that, those errors corrected, the
+dismissal cannot stand; and Issue VI concerns claims the chancellor never adjudicated.
+Nelson does not ask this Court to find the elements of adverse possession in the first
+instance; she asks that her claim be weighed under the correct legal standards on
+remand.
 
 ### I. The chancellor erred as a matter of law in holding the 1980 St. Amand tax deed merely "voidable," and in using parol evidence to cure its void description.
 
@@ -201,7 +204,13 @@ authority on patent vs. latent ambiguity and the rule that a void/indefinite
 description cannot be supplied by parol.] Tax deeds in particular are strictly
 construed, and a tax conveyance resting on a description too indefinite to identify
 the land is void. [PIN: Mississippi authority strictly construing tax titles and
-voiding tax deeds for indefinite descriptions.]
+voiding tax deeds for indefinite descriptions.] The appellees will invoke the
+countervailing rule that a deed "will not be held void for uncertainty if by any
+reasonable construction it can be upheld." That rule rescues a description that supplies
+*some* anchoring call a court can reasonably construe; it cannot save one that supplies
+no call at all. A description fixing only "half an acre somewhere" within a 160-acre
+quarter-section gives a court nothing to construe — there is no reasonable construction,
+only a guess, and the reasonable-construction rule does not license guessing.
 
 **B. The St. Amand description is void on its face — by the defendants' own proof.**
 The defendants' title searcher, Matthew Moore, examined Exhibit 5 (the St. Amand tax
@@ -302,10 +311,16 @@ that a possessor's own easement use does not interrupt adverse possession.]
 **E. Stripped of the legal error, the only actual interruption came decades too late.**
 The record identifies a single event that actually disturbed the Nelsons' possession:
 the defendants' own entry in November 2024. (Tr. 261.) Possession that began no later
-than the 1970s — to which Nelson, as her parents' descendant, may tack (see R. 452) —
-ran for decades before that entry, far more than § 15-1-13's ten years. The
-involuntary dismissal therefore cannot rest on the paper "interruptions" the chancellor
-relied upon, because as a matter of law they interrupted nothing. (To the extent the
+than the 1970s ran for decades before that entry, far more than § 15-1-13's ten years.
+Nelson may tack her parents' possession to her own: § 15-1-13 vests title in an actual
+occupant "by occupancy, descent, conveyance, or otherwise," and the privity supplied by
+descent joins the family's continuous occupancy of the home — Marie Nelson's until her
+death in 2013, and Joanne Nelson's own continuing possession thereafter (Tr. 300) — into
+a single, unbroken adverse possession. (The chancellor recognized that a descendant need
+not first establish heirship to maintain an adverse-possession claim. R. 452.) [PIN:
+Mississippi authority on tacking by descent/privity under § 15-1-13.] The involuntary
+dismissal therefore cannot rest on the paper "interruptions" the chancellor relied upon,
+because as a matter of law they interrupted nothing. (To the extent the
 chancellor separately questioned the *intensity* of the Nelsons' post-2013 use, that
 distinct ruling is addressed in Argument III; this Issue establishes only that the
 continuity element cannot be defeated by record-title transactions that never touched
@@ -361,13 +376,32 @@ parcel" objection is an artifact of the defendants' own 2024 deed, not a gap in
 Nelson's proof. Combined with the maintained utilities, the periodic visits — Nelson
 came "at least once a month," "[s]ometimes ... every other week," and went "inside"
 the house (Tr. 300) — the mailbox, the No-Trespassing postings, and the family's
-belongings kept in the home until the defendants discarded them (Tr. 262), this
-evidence is more than sufficient to support each element under the correct standard.
-Nelson does not ask this Court to make those findings; she asks that the elements be
-weighed under the law Mississippi actually applies, rather than under a residence
-requirement that forecloses them at the threshold.
+belongings kept in the home until the defendants discarded them (Tr. 262), this is the
+kind of open, continuing dominion the correct standard credits. Nelson does not ask this
+Court to find the elements in the first instance; she asks that this evidence be weighed
+under the law Mississippi actually applies, rather than discarded at the threshold under
+a residence requirement the chancellor conceded the law does not impose.
 
-**D. The chancellor's credibility concern flowed from the same legal error.** The
+**D. Exclusive possession was not defeated by a utility easement, unexercised paper
+title, or a cousin's occasional use of an edge driveway.** The chancellor's separate
+finding that Nelson failed to prove *exclusive* possession reflects the same error and,
+in any event, is unsupported as a matter of law. Exclusivity does not require that no
+other person ever set foot on or near the land; it requires that the claimant possess
+the property as her own and not in common with others. A utility easement, and the
+defendants' unexercised paper title — HFVE and JJM took no possession until 2024
+(Tr. 261) — establish no shared occupancy of the home and do not defeat exclusive
+possession. The only third-party use the record reflects is Nelson's cousin James
+Joiner's occasional use of a driveway along the south and east edge of Parcel 225 to
+reach the adjoining Parcel 226 where he resides (R. 503) — and the chancellor himself
+found that access-route question "unresolved," not "presented in Plaintiff's Amended
+Complaint or testimony," and "not a factor considered in the Court's determination"
+(R. 502). A relative's intermittent passage along the edge of the parcel to reach his
+own adjoining land is not the concurrent occupancy that defeats exclusive possession of
+the home. [PIN: Mississippi authority that exclusivity means possession as one's own,
+not shared occupancy, and that occasional or permissive third-party use does not defeat
+it.]
+
+**E. The chancellor's credibility concern flowed from the same legal error.** The
 chancellor doubted Nelson's account because she described her visits as "once per
 month" and, elsewhere, as "every other week" — which he viewed as an inconsistency.
 (R. 501–502.) Those descriptions are not inconsistent: visiting every other week is
@@ -380,22 +414,25 @@ required so the elements may be weighed under the law Mississippi actually appli
 
 ### IV. The chancellor erred as a matter of law in holding Nelson's adverse-possession claim time-barred under Mississippi Code §§ 15-1-7, 15-1-9, and 15-1-15.
 
-As an independent ground, the chancellor held that Nelson's claim was barred by the
-statutes of limitation. (R. 493–494.) That holding misconceives the nature of adverse
-possession and the statutes invoked, and is reviewed **de novo**. [PIN: statutory
-construction and the application of a limitations bar are questions of law reviewed de
-novo.]
+The chancellor offered, as a ground *independent* of his elements findings, that
+Nelson's claim was barred by the statutes of limitation. (R. 493–494.) This Issue is
+therefore addressed in the alternative: even assuming the adverse-possession question is
+reached, the statutes of limitation furnish no basis to dismiss the claim. That holding
+misconceives the nature of adverse possession and the statutes invoked, and is reviewed
+**de novo**. [PIN: statutory construction and the application of a limitations bar are
+questions of law reviewed de novo.]
 
 **A. Applying a limitations bar to an adverse-possession claim inverts the doctrine.**
 Adverse possession under Miss. Code Ann. § 15-1-13 is a means of *acquiring* title
 through the passage of time: ten years of adverse, continuous possession ripens into
 ownership. The limitations statutes the chancellor invoked govern the opposite
 situation — actions by a person *out of* possession to recover land. They do not
-operate to time-bar the claim of a party who *is in* possession and whose title the
-running of time has perfected. The chancellor had it backwards: the more time that
-passed, the *stronger* Nelson's claim, not the weaker. [PIN: Mississippi authority that
-a party in possession is not time-barred from asserting title by adverse possession,
-and that the limitations statutes govern recovery by one out of possession.]
+operate to time-bar the claim of a party who *is in* possession. To the extent Nelson's
+possession satisfies the elements (Issues II–III), the running of time *perfects* her
+title; it does not extinguish her claim. The chancellor had it backwards: more time
+strengthens such a claim, it does not bar it. [PIN: Mississippi authority that a party
+in possession is not time-barred from asserting title by adverse possession, and that
+the limitations statutes govern recovery by one out of possession.]
 
 **B. Section 15-1-9 does not bar a possessor's claim, and *Reid* does not hold
 otherwise.** The chancellor held Nelson "properly barred by Miss. Code Ann. § 15-1-9
@@ -451,11 +488,12 @@ errors away and the stated grounds for dismissal disappear.
 
 **C. The chancellor found half the elements proven.** He found that Nelson established
 *claim of ownership, actual or hostile,* and *peaceful* possession. (R. 447.) The three
-elements he found wanting failed only under the erroneous standard. Properly analyzed —
-decades of family occupancy, taxes and homestead on the home, utilities maintained in
-Marie Nelson's name from 1975 until the defendants cut them off, regular visits, and
-exclusive control until the defendants' 2024 entry — Nelson's evidence was sufficient to
-avoid dismissal at the close of her case. Reversal and remand are required.
+elements he found wanting — visible, continuous, and exclusive — failed only under the
+legal errors identified above; each of his subsidiary findings on those elements flows
+from a mistaken premise rather than from a permissible weighing of the evidence under
+the correct law. Corrected of those errors, no valid ground remains for terminating
+Nelson's case at its close. The judgment must be reversed and the cause remanded for the
+elements to be weighed under the correct standards.
 
 ### VI. The chancellor failed to adjudicate Nelson's trespass, conversion, and damages claims, which must be resolved on remand.
 
@@ -475,15 +513,21 @@ calling them "unresolved" — does not permit meaningful appellate review. [PIN:
 52(a) findings requirement and authority that tried claims must be adjudicated with
 findings.]
 
-**B. The claims were never reached on their merits.** The defendants entered the home
-and gutted it — "jack[ing] the entire house up," removing the floor and "a lot of the
-walls," and "thr[owing] everything inside the house into dumpsters." (Tr. 261–262.) A
-trespass claim vindicates the right of possession: if Nelson establishes her possessory
-interest (Issues I–III), her trespass claim against the defendants' unauthorized entry
-must be adjudicated and damages assessed. Her conversion claim — for the personal
-property the defendants removed and discarded — turns on her ownership of those
-chattels and is not necessarily foreclosed even if title to the realty remains
-contested. [PIN: elements of trespass and conversion under Mississippi law.]
+**B. The claims were never reached on their merits — and they do not rise or fall with
+the title question.** The defendants entered the home and gutted it — "jack[ing] the
+entire house up," removing the floor and "a lot of the walls," and "thr[owing]
+everything inside the house into dumpsters." (Tr. 261–262.) A trespass claim vindicates
+*possession*, not record title: one in actual possession may recover for an
+unauthorized entry against anyone not entitled to immediate possession. Nelson was in
+actual possession of the home when the defendants entered and gutted it in November
+2024; her trespass claim therefore does not depend on the ultimate quiet-title
+determination and must be adjudicated on its own terms. Her conversion claim — for the
+personal property the defendants removed and discarded (Tr. 262) — likewise turns on her
+ownership of those chattels and is independent of title to the realty. So even if this
+Court were to affirm on adverse possession, the trespass, conversion, and damages claims
+would remain unadjudicated and require remand. [PIN: Mississippi authority that actual
+possession supports a trespass action against one not entitled to possession; elements
+of trespass and conversion.]
 
 **C.** Because these claims are intertwined with the possession ruling and were never
 actually adjudicated, they must be remanded for resolution on the merits.
