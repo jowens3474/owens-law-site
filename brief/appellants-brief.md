@@ -74,16 +74,18 @@ occupied the home from the 1970s until her death on January 20, 2013. (C.P. 447�
 
 ### B. Joanne Nelson's continuing possession after 2013.
 
-Although she had moved to Jackson for work, Nelson maintained her possession of the
-home. She testified that she came home "at least once a month," "[s]ometimes ...
-every other week," and that the practice "pretty much ha[d] continued the same"
-after her mother's death: "I come home. I check on her house. I check on my property.
-I always go by her house. I go in her house. I walk around her house ... inside it."
-(Tr. 300; C.P. 828.) The electric service — in Marie Nelson's name since it was first connected
-on August 4, 1975 — remained on until the defendants disconnected it after their 2024
-purchase. (C.P. 448, 452.) Marie Nelson had claimed the homestead exemption on the
-home; that exemption was removed in 2014, following her death, and Joanne Nelson
-continued to pay the ad valorem taxes "up until present." (Tr. 175; C.P. 703.)
+Joanne Nelson did not reside in the home — her mother lived there until her death in
+2013 — but she maintained possession of it afterward by keeping it up. She kept the
+electricity on: the service, in Marie Nelson's name since it was first connected on
+August 4, 1975, remained connected and the bills were paid until the defendants
+disconnected it after their 2024 purchase, and the power-usage records (Exhibit 19)
+show consumption varying from month to month. (Tr. 65, 107; C.P. 448, 452, 593, 635.)
+She visited regularly — "at least once a month," "[s]ometimes ... every other week" —
+and would "go in [the] house" and "walk around ... inside it" (Tr. 300; C.P. 828), a
+practice family witnesses corroborated (Tr. 62; C.P. 590). Marie Nelson had claimed the
+homestead exemption on the home; that exemption was removed in 2014, following her
+death, and Joanne Nelson continued to pay the ad valorem taxes "up until present."
+(Tr. 175; C.P. 703.)
 
 ### C. The defendants' competing title rests on a 1980 tax deed Nelson contends is void.
 
@@ -359,22 +361,26 @@ authority that possession need only be consistent with the property's nature.]
 
 **B. Having stated the right rule, the chancellor applied the wrong one.** Despite that
 concession, the chancellor discounted every indicium of the Nelsons' possession by
-measuring it against constant occupancy: he treated electrical service that remained
-on (in Marie Nelson's name since 1975) as "almost non-use" because consumption was
-low; furniture and belongings left in the home as "abandonment" rather than
-possession; a maintained mailbox as insignificant because little mail arrived; "No
-Trespassing" signs as too few and too late; and Nelson's regular visits as
-insufficient. (C.P. 501–502.) Each of those is an act of dominion consistent with
-possession of a rural homestead; the chancellor deemed them inadequate only because he
-required the continuous presence the law does not. That the electrical consumption was
-low and the water service was eventually discontinued does not, under the correct
-standard, negate possession: an inherited home visited periodically rather than lived in
-is expected to show reduced or suspended utility use, and use of a property consistent
-with its character — here, a family home kept and checked on, not occupied full-time —
-is the measure of possession, not its absence. The chancellor's treatment of reduced use
-as "almost non-use" and "abandonment" applied the residence yardstick the law rejects.
-That is legal error, and it infected each of the visible/continuous/exclusive findings
-that flowed from it.
+measuring it against constant occupancy: he treated electrical service that was kept
+on and paid (in Marie Nelson's name since 1975) as "almost non-use" because monthly
+consumption was sometimes low; furniture and belongings left in the home as
+"abandonment" rather than possession; a maintained mailbox as insignificant because
+little mail arrived; "No Trespassing" signs as too few and too late; and Nelson's
+regular visits as insufficient. (C.P. 501–502.) Each of those is an act of dominion
+consistent with possession of a rural homestead; the chancellor deemed them inadequate
+only because he required the continuous presence the law does not. The electricity was
+not "almost non-use": it remained connected and the bills were paid throughout (Exhibit
+19; Tr. 65, 107; C.P. 593, 635), and the power-usage records show consumption that
+varied from month to month — exactly what a home kept up and visited monthly, rather
+than lived in, would show. Characterizing maintained, paid electrical service as
+"almost non-use" reframes ordinary upkeep as abandonment, applying the residence
+yardstick the law rejects. The water having been disconnected does not change the
+analysis: a house preserved for periodic visits, not occupied as a residence, has no
+need of running water, and its absence is consistent with — not contrary to — the
+non-residential possession Mississippi law permits, while the dispositive utility, the
+electricity, stayed on until the defendants cut it off in 2024 (Tr. 75; C.P. 603). That
+the chancellor labeled this upkeep "almost non-use" and "abandonment" is legal error,
+and it infected each of the visible/continuous/exclusive findings that flowed from it.
 
 **C. Under the correct standard, the discounted evidence bears directly on open and
 visible possession — and the assessor's testimony answers the chancellor's parcel
