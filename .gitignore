@@ -44,3 +44,10 @@ next-env.d.ts
 __pycache__/
 *.py[cod]
 .venv/
+
+# case records (confidential client material — keep local, never commit here;
+# the transcript lives on its own branch/PR, not on the code branch)
+/record/*.pdf
+/record/*.docx
+/record/*.doc
+/record/*.rtf
