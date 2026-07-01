@@ -261,7 +261,8 @@ export default function CorruptionCasePage() {
       />
 
       {/* Header */}
-      <header className="border-b-4 border-double border-ink pb-8">
+      <header className="border-b border-rule pb-8">
+        <div className="mb-4 h-px w-24 bg-gradient-to-r from-crimson/60 to-transparent" />
         <p className="font-serif text-xs font-bold uppercase tracking-[0.3em] text-crimson">
           Federal Criminal Case · Docket 3:24-cr-103
         </p>
@@ -275,7 +276,7 @@ export default function CorruptionCasePage() {
 
       {/* Countdown + facts */}
       <section className="mt-8 grid gap-6 md:grid-cols-3">
-        <div className="border-2 border-ink bg-paper p-6 text-center md:col-span-1">
+        <div className="glow-card p-6 text-center md:col-span-1">
           {trialPassed ? (
             <>
               <p className="font-serif text-xs font-bold uppercase tracking-widest text-crimson">
@@ -303,7 +304,7 @@ export default function CorruptionCasePage() {
           )}
         </div>
 
-        <div className="border-2 border-ink bg-paper p-6 md:col-span-2">
+        <div className="glow-card p-6 md:col-span-2">
           <p className="font-serif text-xs font-bold uppercase tracking-widest text-crimson">
             At a glance
           </p>
@@ -331,7 +332,7 @@ export default function CorruptionCasePage() {
           {DEFENDANTS.map((d) => (
             <article
               key={d.name}
-              className="border-2 border-ink bg-paper p-5"
+              className="glow-card p-5"
             >
               {d.image ? (
                 <div className="relative aspect-square w-full overflow-hidden border border-rule">
@@ -391,7 +392,7 @@ export default function CorruptionCasePage() {
           </h2>
           <Link
             href="#all-coverage"
-            className="text-xs font-bold uppercase tracking-widest text-crimson hover:text-crimson-dark"
+            className="text-xs font-bold uppercase tracking-widest text-crimson hover:text-crimson-bright"
           >
             All articles ↓
           </Link>
@@ -454,7 +455,7 @@ export default function CorruptionCasePage() {
           Need more detail? See{" "}
           <Link
             href="/article/the-jackson-bribery-case-a-timeline"
-            className="font-bold text-crimson hover:text-crimson-dark"
+            className="font-bold text-crimson hover:text-crimson-bright"
           >
             our full chronology
           </Link>
@@ -473,7 +474,7 @@ export default function CorruptionCasePage() {
               <Link
                 key={p.slug}
                 href={`/article/${p.slug}`}
-                className="block border-2 border-ink bg-paper p-5 hover:border-crimson"
+                className="glow-card block p-5"
               >
                 <p className="text-xs uppercase tracking-widest text-muted">
                   {formatDate(p.date)}

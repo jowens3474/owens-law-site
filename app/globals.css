@@ -2,17 +2,18 @@
 
 @theme inline {
   /* Fonts (sourced from next/font in layout.tsx) */
-  --font-serif: var(--font-playfair), Georgia, "Times New Roman", serif;
-  --font-sans: var(--font-source), system-ui, -apple-system, sans-serif;
+  --font-serif: var(--font-display), "Space Grotesk", system-ui, sans-serif;
+  --font-sans: var(--font-body), system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-jbmono), ui-monospace, monospace;
 
-  /* Newsprint palette */
-  --color-ink: #1b1714;
-  --color-muted: #6c6259;
-  --color-newsprint: #ffffff;
-  --color-paper: #fffdf8;
-  --color-rule: #e2dccf;
-  --color-crimson: #8a1c1c;
-  --color-crimson-dark: #6d1414;
+  /* Futuristic dark palette */
+  --color-ink: #e8eef7;
+  --color-muted: #94a3b8;
+  --color-newsprint: #060a12;
+  --color-paper: #0d1420;
+  --color-rule: #1e293b;
+  --color-crimson: #22d3ee;
+  --color-crimson-bright: #7dd3fc;
 }
 
 html {
@@ -20,25 +21,35 @@ html {
 }
 
 body {
-  background: var(--color-newsprint);
+  background: radial-gradient(
+      ellipse 80% 50% at 50% -10%,
+      rgba(34, 211, 238, 0.08),
+      transparent 60%
+    ),
+    var(--color-newsprint);
+  background-attachment: fixed;
   color: var(--color-ink);
   font-family: var(--font-sans);
   font-feature-settings: "kern", "liga";
+}
+
+::selection {
+  background: rgba(34, 211, 238, 0.3);
 }
 
 /* Long-form article typography */
 .prose-article p {
   font-family: var(--font-serif);
   font-size: 1.125rem;
-  line-height: 1.85;
+  line-height: 1.9;
   margin-bottom: 1.25rem;
-  color: #2a2521;
+  color: #c7d2e0;
 }
 
 .prose-article p:first-of-type::first-letter {
   float: left;
   font-family: var(--font-serif);
-  font-weight: 800;
+  font-weight: 700;
   font-size: 2.8rem;
   line-height: 0.85;
   padding: 0.25rem 0.5rem 0 0;
@@ -64,4 +75,37 @@ body {
 }
 .headline-link:hover {
   background-size: 100% 2px;
+}
+
+/* Card surface with a subtle cyan glow on hover */
+.glow-card {
+  border: 1px solid var(--color-rule);
+  background: linear-gradient(180deg, rgba(34, 211, 238, 0.04), transparent 40%),
+    var(--color-paper);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.glow-card:hover {
+  border-color: rgba(34, 211, 238, 0.5);
+  box-shadow: 0 0 24px rgba(34, 211, 238, 0.12);
+}
+
+/* Thin custom scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-rule) var(--color-newsprint);
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-newsprint);
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-rule);
+  border-radius: 9999px;
+  border: 2px solid var(--color-newsprint);
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-crimson);
 }

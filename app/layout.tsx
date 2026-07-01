@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Source_Sans_3 } from "next/font/google";
+import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 import { site } from "@/lib/site";
@@ -11,17 +11,22 @@ import Footer from "./components/Footer";
 // turn on Google Analytics. Left unset (as in local dev), nothing is loaded.
 const gaId = process.env.NEXT_PUBLIC_GA_ID;
 
-const playfair = Playfair_Display({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  variable: "--font-playfair",
+  variable: "--font-display",
   display: "swap",
-  weight: ["400", "700", "800", "900"],
-  style: ["normal", "italic"],
+  weight: ["400", "500", "600", "700"],
 });
 
-const source = Source_Sans_3({
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-source",
+  variable: "--font-body",
+  display: "swap",
+});
+
+const jbmono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jbmono",
   display: "swap",
 });
 
@@ -99,7 +104,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${playfair.variable} ${source.variable} h-full antialiased`}
+      className={`${spaceGrotesk.variable} ${inter.variable} ${jbmono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <script

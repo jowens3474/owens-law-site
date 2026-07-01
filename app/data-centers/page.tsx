@@ -126,7 +126,8 @@ export default function DataCentersPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }}
       />
 
-      <header className="border-b-4 border-double border-ink pb-8">
+      <header className="border-b border-rule pb-8">
+        <div className="mb-4 h-px w-24 bg-gradient-to-r from-crimson/60 to-transparent" />
         <p className="font-serif text-xs font-bold uppercase tracking-[0.3em] text-crimson">
           The Beat · AI Infrastructure in Mississippi
         </p>
@@ -139,7 +140,7 @@ export default function DataCentersPage() {
       </header>
 
       {/* At a glance */}
-      <section className="mt-8 border-2 border-ink bg-paper p-6">
+      <section className="glow-card mt-8 p-6">
         <p className="font-serif text-xs font-bold uppercase tracking-widest text-crimson">
           At a glance
         </p>
@@ -166,7 +167,7 @@ export default function DataCentersPage() {
           {PROJECTS.map((p) => (
             <article
               key={p.name}
-              className="border-2 border-ink bg-paper p-5"
+              className="glow-card p-5"
             >
               <h3 className="font-serif text-xl font-black leading-tight">
                 {p.name}
@@ -208,7 +209,7 @@ export default function DataCentersPage() {
             </h2>
             <Link
               href="#all-coverage"
-              className="text-xs font-bold uppercase tracking-widest text-crimson hover:text-crimson-dark"
+              className="text-xs font-bold uppercase tracking-widest text-crimson hover:text-crimson-bright"
             >
               All articles ↓
             </Link>

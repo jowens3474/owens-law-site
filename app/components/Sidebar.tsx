@@ -76,13 +76,13 @@ export default function Sidebar() {
         </p>
         <a
           href={`mailto:${site.email}`}
-          className="mt-3 inline-block text-sm font-bold uppercase tracking-wide text-crimson hover:text-crimson-dark"
+          className="mt-3 inline-block text-sm font-bold uppercase tracking-wide text-crimson hover:text-crimson-bright"
         >
           {site.email}
         </a>
       </section>
 
-      <section className="border-2 border-ink bg-paper p-5">
+      <section className="glow-card p-5">
         <h2 className="border-b-2 border-ink pb-1 font-serif text-lg font-bold uppercase tracking-wide">
           Shop
         </h2>
@@ -91,7 +91,7 @@ export default function Sidebar() {
           alt="Black structured baseball cap with white embroidered STOKES lettering."
           width={800}
           height={600}
-          className="mt-4 h-auto w-full"
+          className="mt-4 h-auto w-full rounded bg-white p-3"
         />
         <p className="mt-4 font-serif text-xl font-black">STOKES Hat</p>
         <p className="mt-1 text-sm text-muted">
@@ -103,7 +103,7 @@ export default function Sidebar() {
         </p>
         <a
           href={orderHref}
-          className="mt-4 inline-block bg-crimson px-4 py-3 text-sm font-bold uppercase tracking-wide text-white transition-colors hover:bg-crimson-dark"
+          className="mt-4 inline-block bg-crimson px-4 py-3 text-sm font-bold uppercase tracking-wide text-newsprint transition-colors hover:bg-crimson-bright"
         >
           Order by email →
         </a>

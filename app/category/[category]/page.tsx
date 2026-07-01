@@ -51,7 +51,8 @@ export default async function CategoryPage({
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8">
-      <header className="border-b-4 border-double border-ink pb-5">
+      <header className="border-b border-rule pb-5">
+        <div className="mb-4 h-px w-24 bg-gradient-to-r from-crimson/60 to-transparent" />
         <p className="font-serif text-sm font-bold uppercase tracking-widest text-crimson">
           Section
         </p>

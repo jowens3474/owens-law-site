@@ -38,7 +38,8 @@ export default function ExplainersPage() {
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-10">
-      <header className="border-b-4 border-double border-ink pb-5">
+      <header className="border-b border-rule pb-5">
+        <div className="mb-4 h-px w-24 bg-gradient-to-r from-crimson/60 to-transparent" />
         <p className="font-serif text-xs font-bold uppercase tracking-[0.3em] text-crimson">
           Background &amp; Analysis
         </p>
@@ -58,7 +59,7 @@ export default function ExplainersPage() {
             <Link
               key={p.slug}
               href={`/article/${p.slug}`}
-              className="group block border-2 border-ink bg-paper p-5 hover:border-crimson"
+              className="glow-card group block p-5"
             >
               {p.image && (
                 <ArticleImage
