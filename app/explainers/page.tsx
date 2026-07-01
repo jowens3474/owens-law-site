@@ -59,7 +59,7 @@ export default function ExplainersPage() {
             <Link
               key={p.slug}
               href={`/article/${p.slug}`}
-              className="group block border-2 border-ink bg-paper p-5 hover:border-crimson"
+              className="glow-card group block p-5"
             >
               {p.image && (
                 <ArticleImage

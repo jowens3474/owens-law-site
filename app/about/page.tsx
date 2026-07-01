@@ -61,7 +61,7 @@ export default function AboutPage() {
           <li>
             <Link
               href="/corruption-case"
-              className="font-bold text-crimson hover:text-crimson-dark"
+              className="font-bold text-crimson hover:text-crimson-bright"
             >
               The Trial
             </Link>{" "}
@@ -73,7 +73,7 @@ export default function AboutPage() {
           <li>
             <Link
               href="/category/politics"
-              className="font-bold text-crimson hover:text-crimson-dark"
+              className="font-bold text-crimson hover:text-crimson-bright"
             >
               Politics
             </Link>{" "}
@@ -84,7 +84,7 @@ export default function AboutPage() {
           <li>
             <Link
               href="/data-centers"
-              className="font-bold text-crimson hover:text-crimson-dark"
+              className="font-bold text-crimson hover:text-crimson-bright"
             >
               Data Centers
             </Link>{" "}
@@ -95,7 +95,7 @@ export default function AboutPage() {
           <li>
             <Link
               href="/category/commercial-real-estate"
-              className="font-bold text-crimson hover:text-crimson-dark"
+              className="font-bold text-crimson hover:text-crimson-bright"
             >
               Commercial real estate
             </Link>{" "}
@@ -105,7 +105,7 @@ export default function AboutPage() {
           <li>
             <Link
               href="/category/residential-real-estate"
-              className="font-bold text-crimson hover:text-crimson-dark"
+              className="font-bold text-crimson hover:text-crimson-bright"
             >
               Residential real estate
             </Link>{" "}
@@ -115,7 +115,7 @@ export default function AboutPage() {
           <li>
             <Link
               href="/explainers"
-              className="font-bold text-crimson hover:text-crimson-dark"
+              className="font-bold text-crimson hover:text-crimson-bright"
             >
               Explainers
             </Link>{" "}
@@ -172,7 +172,7 @@ export default function AboutPage() {
           edit. The public list of every correction we&rsquo;ve issued is at{" "}
           <Link
             href="/corrections"
-            className="font-bold text-crimson hover:text-crimson-dark"
+            className="font-bold text-crimson hover:text-crimson-bright"
           >
             /corrections
           </Link>
@@ -184,7 +184,7 @@ export default function AboutPage() {
           do &mdash; see{" "}
           <Link
             href="/methodology"
-            className="font-bold text-crimson hover:text-crimson-dark"
+            className="font-bold text-crimson hover:text-crimson-bright"
           >
             /methodology
           </Link>
@@ -194,7 +194,7 @@ export default function AboutPage() {
           To request a correction, email{" "}
           <a
             href={`mailto:${site.email}?subject=Correction%20request`}
-            className="font-bold text-crimson hover:text-crimson-dark"
+            className="font-bold text-crimson hover:text-crimson-bright"
           >
             {site.email}
           </a>{" "}
@@ -210,7 +210,7 @@ export default function AboutPage() {
         </p>
         <a
           href={`mailto:${site.email}`}
-          className="mt-4 inline-block bg-crimson px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-newsprint transition-colors hover:bg-crimson-dark"
+          className="mt-4 inline-block bg-crimson px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-newsprint transition-colors hover:bg-crimson-bright"
         >
           {site.email}
         </a>

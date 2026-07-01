@@ -2,8 +2,8 @@
 
 @theme inline {
   /* Fonts (sourced from next/font in layout.tsx) */
-  --font-serif: var(--font-playfair), "Space Grotesk", system-ui, sans-serif;
-  --font-sans: var(--font-source), system-ui, -apple-system, sans-serif;
+  --font-serif: var(--font-display), "Space Grotesk", system-ui, sans-serif;
+  --font-sans: var(--font-body), system-ui, -apple-system, sans-serif;
   --font-mono: var(--font-jbmono), ui-monospace, monospace;
 
   /* Futuristic dark palette */
@@ -13,7 +13,7 @@
   --color-paper: #0d1420;
   --color-rule: #1e293b;
   --color-crimson: #22d3ee;
-  --color-crimson-dark: #7dd3fc;
+  --color-crimson-bright: #7dd3fc;
 }
 
 html {

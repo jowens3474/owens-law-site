@@ -11,16 +11,16 @@ import Footer from "./components/Footer";
 // turn on Google Analytics. Left unset (as in local dev), nothing is loaded.
 const gaId = process.env.NEXT_PUBLIC_GA_ID;
 
-const playfair = Space_Grotesk({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  variable: "--font-playfair",
+  variable: "--font-display",
   display: "swap",
   weight: ["400", "500", "600", "700"],
 });
 
-const source = Inter({
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-source",
+  variable: "--font-body",
   display: "swap",
 });
 
@@ -104,7 +104,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${playfair.variable} ${source.variable} ${jbmono.variable} h-full antialiased`}
+      className={`${spaceGrotesk.variable} ${inter.variable} ${jbmono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <script

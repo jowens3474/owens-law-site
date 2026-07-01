@@ -84,7 +84,7 @@ export default function CorrectionsPage() {
         </p>
         <a
           href={`mailto:${site.email}?subject=Correction%20request`}
-          className="mt-4 inline-block bg-crimson px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-newsprint transition-colors hover:bg-crimson-dark"
+          className="mt-4 inline-block bg-crimson px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-newsprint transition-colors hover:bg-crimson-bright"
         >
           {site.email}
         </a>

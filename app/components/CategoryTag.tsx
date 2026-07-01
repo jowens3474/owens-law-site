@@ -11,7 +11,7 @@ export default function CategoryTag({
   return (
     <Link
       href={`/category/${slugifyCategory(category)}`}
-      className={`inline-block text-[0.72rem] font-bold uppercase tracking-[0.18em] text-crimson hover:text-crimson-dark ${className}`}
+      className={`inline-block text-[0.72rem] font-bold uppercase tracking-[0.18em] text-crimson hover:text-crimson-bright ${className}`}
     >
       {category}
     </Link>

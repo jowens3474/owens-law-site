@@ -141,7 +141,7 @@ export default function MethodologyPage() {
           <p>
             AI use does not eliminate error. The editorial responsibility,
             and the consequences of error, belong to the publisher. The
-            site&apos;s <Link href="/corrections" className="font-bold text-crimson hover:text-crimson-dark">corrections log</Link> is public.
+            site&apos;s <Link href="/corrections" className="font-bold text-crimson hover:text-crimson-bright">corrections log</Link> is public.
           </p>
         </div>
       </section>
@@ -177,14 +177,14 @@ export default function MethodologyPage() {
           corrections is here:{" "}
           <Link
             href="/corrections"
-            className="font-bold text-crimson hover:text-crimson-dark"
+            className="font-bold text-crimson hover:text-crimson-bright"
           >
             /corrections
           </Link>
           . To request one, email{" "}
           <a
             href={`mailto:${site.email}?subject=Correction%20request`}
-            className="font-bold text-crimson hover:text-crimson-dark"
+            className="font-bold text-crimson hover:text-crimson-bright"
           >
             {site.email}
           </a>
@@ -200,7 +200,7 @@ export default function MethodologyPage() {
           <li>
             <Link
               href="/feed.xml"
-              className="font-bold text-crimson hover:text-crimson-dark"
+              className="font-bold text-crimson hover:text-crimson-bright"
             >
               /feed.xml
             </Link>
@@ -209,7 +209,7 @@ export default function MethodologyPage() {
           <li>
             <Link
               href="/sitemap.xml"
-              className="font-bold text-crimson hover:text-crimson-dark"
+              className="font-bold text-crimson hover:text-crimson-bright"
             >
               /sitemap.xml
             </Link>
@@ -218,7 +218,7 @@ export default function MethodologyPage() {
           <li>
             <Link
               href="/news-sitemap.xml"
-              className="font-bold text-crimson hover:text-crimson-dark"
+              className="font-bold text-crimson hover:text-crimson-bright"
             >
               /news-sitemap.xml
             </Link>
@@ -227,7 +227,7 @@ export default function MethodologyPage() {
           <li>
             <Link
               href="/llms.txt"
-              className="font-bold text-crimson hover:text-crimson-dark"
+              className="font-bold text-crimson hover:text-crimson-bright"
             >
               /llms.txt
             </Link>
@@ -236,7 +236,7 @@ export default function MethodologyPage() {
           <li>
             <Link
               href="/llms-full.txt"
-              className="font-bold text-crimson hover:text-crimson-dark"
+              className="font-bold text-crimson hover:text-crimson-bright"
             >
               /llms-full.txt
             </Link>

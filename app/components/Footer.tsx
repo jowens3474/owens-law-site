@@ -12,7 +12,7 @@ export default function Footer() {
             <p className="mt-2 text-sm text-muted">{site.description}</p>
             <a
               href={`mailto:${site.email}`}
-              className="mt-3 inline-block text-sm font-semibold text-crimson hover:text-crimson-dark"
+              className="mt-3 inline-block text-sm font-semibold text-crimson hover:text-crimson-bright"
             >
               {site.email}
             </a>

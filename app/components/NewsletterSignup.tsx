@@ -46,7 +46,7 @@ export default function NewsletterSignup({
   if (variant === "block") {
     // Full block for the end of articles
     return (
-      <aside className="border-2 border-ink bg-paper p-6 text-center">
+      <aside className="glow-card p-6 text-center">
         <p className="font-serif text-xs font-bold uppercase tracking-widest text-crimson">
           The Morning Dispatch
         </p>
@@ -59,7 +59,7 @@ export default function NewsletterSignup({
         </p>
         <a
           href={subscribeHref}
-          className="mt-4 inline-block bg-crimson px-6 py-3 text-sm font-bold uppercase tracking-wide text-newsprint transition-colors hover:bg-crimson-dark"
+          className="mt-4 inline-block bg-crimson px-6 py-3 text-sm font-bold uppercase tracking-wide text-newsprint transition-colors hover:bg-crimson-bright"
         >
           Subscribe by email
         </a>
@@ -69,14 +69,14 @@ export default function NewsletterSignup({
 
   // Sidebar card (default — used by Sidebar.tsx)
   return (
-    <div className="border-2 border-ink bg-paper p-5">
+    <div className="glow-card p-5">
       <h3 className="font-serif text-xl font-bold">The Morning Dispatch</h3>
       <p className="mt-1 text-sm text-muted">
         Our reporting in your inbox. No spam, no sacred cows.
       </p>
       <a
         href={subscribeHref}
-        className="mt-3 inline-block w-full bg-crimson px-4 py-3 text-center text-sm font-bold uppercase tracking-wide text-newsprint transition-colors hover:bg-crimson-dark sm:w-auto sm:text-left"
+        className="mt-3 inline-block w-full bg-crimson px-4 py-3 text-center text-sm font-bold uppercase tracking-wide text-newsprint transition-colors hover:bg-crimson-bright sm:w-auto sm:text-left"
       >
         Subscribe by email
       </a>

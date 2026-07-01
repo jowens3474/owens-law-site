@@ -275,7 +275,7 @@ export default async function ArticlePage({
             tip?{" "}
             <a
               href={`mailto:${site.email}`}
-              className="font-semibold text-crimson hover:text-crimson-dark"
+              className="font-semibold text-crimson hover:text-crimson-bright"
             >
               Reach the newsroom.
             </a>

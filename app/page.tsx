@@ -42,7 +42,7 @@ function EmptyFrontPage() {
       </p>
       <a
         href={`mailto:${site.email}`}
-        className="mt-8 inline-block bg-crimson px-6 py-3 text-sm font-bold uppercase tracking-wide text-newsprint transition-colors hover:bg-crimson-dark"
+        className="mt-8 inline-block bg-crimson px-6 py-3 text-sm font-bold uppercase tracking-wide text-newsprint transition-colors hover:bg-crimson-bright"
       >
         Got a tip? Get in touch
       </a>
@@ -91,7 +91,7 @@ export default function Home() {
       {/* Corruption case hub promo */}
       <Link
         href="/corruption-case"
-        className="mb-6 flex flex-wrap items-center justify-between gap-3 border-2 border-ink bg-paper px-5 py-3 hover:border-crimson sm:mb-8"
+        className="glow-card mb-6 flex flex-wrap items-center justify-between gap-3 px-5 py-3 sm:mb-8"
       >
         <div>
           <p className="font-serif text-xs font-bold uppercase tracking-widest text-crimson">
@@ -147,7 +147,7 @@ export default function Home() {
                 <div className="mt-8 flex justify-center">
                   <Link
                     href="/archive"
-                    className="border-2 border-ink bg-paper px-6 py-3.5 text-sm font-bold uppercase tracking-wide hover:border-crimson hover:text-crimson"
+                    className="glow-card px-6 py-3.5 text-sm font-bold uppercase tracking-wide hover:text-crimson"
                   >
                     All articles ({allRest.length}) →
                   </Link>
