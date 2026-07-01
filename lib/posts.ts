@@ -61,6 +61,27 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "brad-mccullouch-hinds-da-vacancy",
+    title: "Jody Owens Is Out. Who Runs the Hinds County DA's Office Now?",
+    dek: "First Assistant DA Brad McCullouch is holding the office while Governor Tate Reeves decides who gets it. Under state law, Reeves has 10 days to make an emergency appointment and must call a special election. The politics here are not simple.",
+    category: "General News",
+    categories: ["Politics"],
+    tags: ["corruption-case"],
+    author: "Jackson Wire Staff",
+    date: "2026-07-01",
+    views: 0,
+    body: [
+      "Jody Owens resigned as Hinds County District Attorney on July 1, effective immediately following his guilty plea to a federal conspiracy charge. The office he left behind prosecutes felony crimes for Mississippi's most populated county, the seat of state government, and the city at the center of one of the most significant public corruption cases in Mississippi history. Someone has to run it.",
+      "That person, for now, is Brad McCullouch. McCullouch is the First Assistant District Attorney for Hinds County, the second-ranking position in the office, and he assumes the interim leadership role automatically when the top post goes vacant. His background is in criminal prosecution. He has worked as an assistant district attorney in Mississippi, handling felony cases including crimes against persons, theft offenses, white-collar crime, and organized criminal activity. He has also served as a Special General Assistant Attorney in the Medicaid Fraud Control Unit and earlier in his career worked as an assistant district attorney in Texas.",
+      "McCullouch is a placeholder, not a permanent appointment. Under Mississippi law, Governor Tate Reeves has 10 days from the date the vacancy occurs to make an emergency appointment to fill the seat. Because Owens's term does not expire until January 2028, more than six months remain on the clock. That means Reeves is also required to call a special election to let voters fill the seat permanently.",
+      "The political dimension is significant. Hinds County is the largest Democratic stronghold in Mississippi. Owens was a Democrat. Tate Reeves is a Republican. The governor's emergency appointment power gives him the ability to install a Republican at the top of the criminal prosecution apparatus for Hinds County, at least temporarily, in a county and city that have voted Democratic in every major election in recent memory. Whether Reeves appoints a Republican, a non-partisan legal official, or reaches across the aisle to install someone more aligned with Hinds County's political character will be one of the first signals of how he intends to handle this vacancy.",
+      "The DA's office does not touch the federal bribery case against Lumumba and Banks. That is a federal prosecution brought by the U.S. Attorney's Office for the Southern District of Mississippi, and it proceeds regardless of what happens in the county DA's seat. But the Hinds County DA handles thousands of state-level felony cases each year. The office manages prosecutions for violent crime, drug offenses, property crime, and public corruption under state law. Hinds County's crime numbers are among the highest in the state. This is not a ceremonial vacancy.",
+      "Whoever Reeves appoints will serve until the special election resolves the seat. The timing of that election has not been announced. Mississippi law requires the election be held on the next regular special election day in the district after the vacancy occurs, unless that date falls within a certain window of the vacancy itself. Reeves has set special elections for other vacancies in recent weeks. The Hinds County DA's seat will require the same process.",
+      "McCullouch's name has not been floated publicly as a candidate for the seat itself, nor has any other name emerged as a clear frontrunner for Reeves's appointment. The office will continue operating under his day-to-day management while Reeves makes his decision. The 10-day clock started running July 1.",
+    ],
+    note: "Sources: WAPT, WLBT, Mississippi Today. Wire reporting.",
+  },
+  {
     slug: "owens-plea-agreement-terms",
     title: "The Owens Plea Agreement Is Public. Here Is What It Actually Says.",
     dek: "Document 205, filed June 29, reveals an asset freeze, a full waiver of all appeal rights, and a sealed supplement that almost certainly contains the cooperation terms. The fine print tells a story the courtroom summary did not.",
