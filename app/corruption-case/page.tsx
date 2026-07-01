@@ -261,7 +261,8 @@ export default function CorruptionCasePage() {
       />
 
       {/* Header */}
-      <header className="border-b-4 border-double border-ink pb-8">
+      <header className="border-b border-rule pb-8">
+        <div className="mb-4 h-px w-24 bg-gradient-to-r from-crimson/60 to-transparent" />
         <p className="font-serif text-xs font-bold uppercase tracking-[0.3em] text-crimson">
           Federal Criminal Case · Docket 3:24-cr-103
         </p>

@@ -126,7 +126,8 @@ export default function DataCentersPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }}
       />
 
-      <header className="border-b-4 border-double border-ink pb-8">
+      <header className="border-b border-rule pb-8">
+        <div className="mb-4 h-px w-24 bg-gradient-to-r from-crimson/60 to-transparent" />
         <p className="font-serif text-xs font-bold uppercase tracking-[0.3em] text-crimson">
           The Beat · AI Infrastructure in Mississippi
         </p>

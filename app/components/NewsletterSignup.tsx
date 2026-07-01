@@ -59,7 +59,7 @@ export default function NewsletterSignup({
         </p>
         <a
           href={subscribeHref}
-          className="mt-4 inline-block bg-crimson px-6 py-3 text-sm font-bold uppercase tracking-wide text-white transition-colors hover:bg-crimson-dark"
+          className="mt-4 inline-block bg-crimson px-6 py-3 text-sm font-bold uppercase tracking-wide text-newsprint transition-colors hover:bg-crimson-dark"
         >
           Subscribe by email
         </a>
@@ -76,7 +76,7 @@ export default function NewsletterSignup({
       </p>
       <a
         href={subscribeHref}
-        className="mt-3 inline-block w-full bg-crimson px-4 py-3 text-center text-sm font-bold uppercase tracking-wide text-white transition-colors hover:bg-crimson-dark sm:w-auto sm:text-left"
+        className="mt-3 inline-block w-full bg-crimson px-4 py-3 text-center text-sm font-bold uppercase tracking-wide text-newsprint transition-colors hover:bg-crimson-dark sm:w-auto sm:text-left"
       >
         Subscribe by email
       </a>

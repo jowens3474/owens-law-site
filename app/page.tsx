@@ -42,7 +42,7 @@ function EmptyFrontPage() {
       </p>
       <a
         href={`mailto:${site.email}`}
-        className="mt-8 inline-block bg-crimson px-6 py-3 text-sm font-bold uppercase tracking-wide text-white transition-colors hover:bg-crimson-dark"
+        className="mt-8 inline-block bg-crimson px-6 py-3 text-sm font-bold uppercase tracking-wide text-newsprint transition-colors hover:bg-crimson-dark"
       >
         Got a tip? Get in touch
       </a>

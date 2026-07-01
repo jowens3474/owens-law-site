@@ -3,7 +3,8 @@ import { categories, site } from "@/lib/site";
 
 export default function Footer() {
   return (
-    <footer className="mt-16 border-t-4 border-double border-ink bg-paper">
+    <footer className="mt-16 border-t border-rule bg-paper">
+      <div className="h-px bg-gradient-to-r from-crimson/60 via-transparent to-transparent" />
       <div className="mx-auto max-w-6xl px-4 py-10">
         <div className="flex flex-col gap-8 md:flex-row md:justify-between">
           <div className="max-w-sm">

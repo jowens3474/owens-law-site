@@ -26,7 +26,8 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-10">
-      <header className="border-b-4 border-double border-ink pb-5">
+      <header className="border-b border-rule pb-5">
+        <div className="mb-4 h-px w-24 bg-gradient-to-r from-crimson/60 to-transparent" />
         <p className="font-serif text-xs font-bold uppercase tracking-wide text-crimson sm:tracking-[0.3em]">
           About
         </p>
@@ -209,7 +210,7 @@ export default function AboutPage() {
         </p>
         <a
           href={`mailto:${site.email}`}
-          className="mt-4 inline-block bg-crimson px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-white transition-colors hover:bg-crimson-dark"
+          className="mt-4 inline-block bg-crimson px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-newsprint transition-colors hover:bg-crimson-dark"
         >
           {site.email}
         </a>

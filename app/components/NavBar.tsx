@@ -21,7 +21,10 @@ export default function NavBar() {
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
-    <nav className="border-b border-rule bg-paper" aria-label="Sections">
+    <nav
+      className="sticky top-0 z-50 border-b border-rule bg-paper/80 backdrop-blur-md"
+      aria-label="Sections"
+    >
       <div className="mx-auto max-w-6xl px-4">
         {/* Desktop */}
         <ul className="hidden items-center justify-center gap-1 md:flex">
@@ -29,8 +32,10 @@ export default function NavBar() {
             <li key={l.href}>
               <Link
                 href={l.href}
-                className={`block px-3 py-2 text-sm transition-colors hover:text-crimson ${"featured" in l && l.featured ? "font-semibold uppercase tracking-wide" : "font-medium"} ${
-                  isActive(l.href) ? "text-crimson" : "text-ink"
+                className={`block border-b-2 px-3 py-2 -mb-px text-sm transition-colors hover:text-crimson ${"featured" in l && l.featured ? "font-semibold uppercase tracking-wide" : "font-medium"} ${
+                  isActive(l.href)
+                    ? "border-crimson text-crimson"
+                    : "border-transparent text-ink"
                 }`}
               >
                 {"featured" in l && l.featured && (
