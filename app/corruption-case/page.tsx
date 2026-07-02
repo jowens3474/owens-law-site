@@ -17,7 +17,7 @@ export const revalidate = 600;
 const TRIAL_DATE_ISO = "2026-07-13";
 const TRIAL_LABEL = "July 13, 2026";
 const DEK =
-  "Complete coverage of U.S. v. Owens, Lumumba, and Banks — the federal bribery prosecution headed for trial July 13 in the Thad Cochran U.S. Courthouse in downtown Jackson.";
+  "Complete coverage of U.S. v. Owens, Lumumba, and Banks — the federal bribery prosecution. Owens pleaded guilty June 29. Lumumba and Banks face trial July 13 in the Thad Cochran U.S. Courthouse in downtown Jackson.";
 
 const FACTS = [
   { label: "Trial begins", value: TRIAL_LABEL },
@@ -25,7 +25,7 @@ const FACTS = [
   { label: "Courthouse", value: "Thad Cochran, downtown Jackson" },
   { label: "Judge", value: "Daniel P. Jordan III, Chief Judge" },
   { label: "Docket", value: "3:24-cr-103" },
-  { label: "Counts", value: "17 across three defendants" },
+  { label: "At trial", value: "Lumumba (5 counts) · Banks (2 counts)" },
 ];
 
 const DEFENDANTS: {
@@ -36,14 +36,16 @@ const DEFENDANTS: {
   posture: string;
   image?: string;
   alt?: string;
+  pleaded?: boolean; // pleaded guilty; renders the X overlay and plea styling
 }[] = [
   {
     name: "Jody Owens",
-    role: "Hinds County District Attorney",
-    counts: "8 counts",
-    exposure: "Up to 90 years · $2M",
+    role: "Former Hinds County District Attorney",
+    counts: "Pleaded guilty · Jun 29, 2026",
+    exposure: "Conspiracy · max 5 years",
     posture:
-      "Alleged organizer. Mounting an entrapment defense. Has held press conferences and disputed the indictment publicly.",
+      "Pleaded guilty to one count of conspiracy and resigned as district attorney effective July 1. No forfeiture; the government will seek restitution. His plea agreement references a sealed supplement, the standard vehicle for cooperation terms. Sentencing October 15.",
+    pleaded: true,
   },
   {
     name: "Chokwe Antar Lumumba",
@@ -125,8 +127,13 @@ const KEY_DATES: { date: string; text: string; highlight?: boolean }[] = [
     text: "Tape-clip designations and objections due. Final pretrial conference.",
   },
   {
+    date: "Jun 29, 2026",
+    text: "Owens pleads guilty to one count of conspiracy and resigns as Hinds County DA effective July 1. Sentencing set for October 15.",
+    highlight: true,
+  },
+  {
     date: "Jul 13, 2026",
-    text: "Trial begins. Jury selection projected ~1 week. Whole proceeding projected ~1 month.",
+    text: "Trial begins for Lumumba and Banks. Jury selection projected ~1 week. Whole proceeding projected ~1 month.",
     highlight: true,
   },
 ];
@@ -211,7 +218,7 @@ export default function CorruptionCasePage() {
         name: "Who is on trial in the Jackson corruption case?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Three Jackson elected officials: Hinds County District Attorney Jody Owens (8 counts), former Mayor Chokwe Antar Lumumba (5 counts), and former Ward 6 Councilman Aaron Banks (2 counts). Two others, former Councilwoman Angelique Lee and Sherik Marve Smith, pleaded guilty in 2024.",
+          text: "Two defendants: former Mayor Chokwe Antar Lumumba (5 counts) and former Ward 6 Councilman Aaron Banks (2 counts). Former Hinds County District Attorney Jody Owens pleaded guilty to conspiracy on June 29, 2026, and resigned. Two others, former Councilwoman Angelique Lee and Sherik Marve Smith, pleaded guilty in 2024.",
         },
       },
       {
@@ -235,7 +242,7 @@ export default function CorruptionCasePage() {
         name: "What is the defense argument?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Each defendant has a different defense. Owens is mounting an entrapment defense, arguing the FBI manufactured the crime through its undercover operation. Lumumba is relying on McDonnell v. United States to argue that moving a paperwork deadline is not an official act. Banks argues that the city never held the vote he was allegedly paid to influence.",
+          text: "Each remaining defendant has a different defense. Lumumba is relying on McDonnell v. United States to argue that moving a paperwork deadline is not an official act. Banks argues actual innocence: the city never held the vote he was allegedly paid to influence. Owens had planned an entrapment defense before pleading guilty on June 29.",
         },
       },
       {
@@ -334,25 +341,59 @@ export default function CorruptionCasePage() {
               key={d.name}
               className="glow-card p-5"
             >
-              {d.image ? (
-                <div className="relative aspect-square w-full overflow-hidden border border-rule">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
+              <div className="relative aspect-square w-full overflow-hidden border border-rule">
+                {d.image ? (
+                  // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src={d.image}
                     alt={d.alt ?? d.name}
-                    className="h-full w-full object-cover"
+                    className={`h-full w-full object-cover ${d.pleaded ? "opacity-40 grayscale" : ""}`}
                   />
-                </div>
-              ) : (
-                <div className="flex aspect-square w-full items-center justify-center border border-rule bg-newsprint">
-                  <span className="font-serif text-5xl font-black text-muted">
-                    {d.name
-                      .split(" ")
-                      .map((n) => n[0])
-                      .join("")}
-                  </span>
-                </div>
-              )}
+                ) : (
+                  <div
+                    className={`flex h-full w-full items-center justify-center bg-newsprint ${d.pleaded ? "opacity-60" : ""}`}
+                  >
+                    <span className="font-serif text-5xl font-black text-muted">
+                      {d.name
+                        .split(" ")
+                        .map((n) => n[0])
+                        .join("")}
+                    </span>
+                  </div>
+                )}
+                {d.pleaded && (
+                  <>
+                    <svg
+                      viewBox="0 0 100 100"
+                      preserveAspectRatio="none"
+                      aria-hidden
+                      className="absolute inset-0 h-full w-full"
+                    >
+                      <line
+                        x1="10"
+                        y1="10"
+                        x2="90"
+                        y2="90"
+                        stroke="#ef4444"
+                        strokeWidth="5"
+                        strokeLinecap="round"
+                      />
+                      <line
+                        x1="90"
+                        y1="10"
+                        x2="10"
+                        y2="90"
+                        stroke="#ef4444"
+                        strokeWidth="5"
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                    <span className="absolute bottom-0 left-0 right-0 bg-[#ef4444] px-2 py-1 text-center text-xs font-bold uppercase tracking-widest text-white">
+                      Pleaded Guilty
+                    </span>
+                  </>
+                )}
+              </div>
               <h3 className="mt-4 font-serif text-2xl font-black leading-tight">
                 {d.name}
               </h3>
@@ -361,7 +402,9 @@ export default function CorruptionCasePage() {
               </p>
               <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 font-serif text-sm font-bold">
                 <span>{d.counts}</span>
-                <span className="text-crimson">{d.exposure}</span>
+                <span className={d.pleaded ? "text-[#ef4444]" : "text-crimson"}>
+                  {d.exposure}
+                </span>
               </div>
               <p className="mt-3 text-sm leading-relaxed">{d.posture}</p>
             </article>
