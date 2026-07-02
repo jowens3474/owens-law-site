@@ -1,0 +1,81 @@
+name: Instagram
+
+# Posts today's freshly published articles to Instagram as branded card
+# images. Runs about 90 minutes after Autopilot publishes, giving the site
+# time to build and deploy so /api/card/<slug> is live.
+# Requires IG_USER_ID and IG_ACCESS_TOKEN in repo Settings → Secrets and
+# variables → Actions. See docs/INSTAGRAM-SETUP.md.
+
+on:
+  schedule:
+    # Daily at 15:30 UTC (10:30 AM CDT / 9:30 AM CST).
+    - cron: "30 15 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: instagram
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+          persist-credentials: true
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Post to Instagram
+        env:
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+        run: node scripts/post-instagram.mjs
+
+      # Runs even when the posting step fails partway: each successful publish
+      # is written to data/instagram-posted.json immediately, and losing that
+      # record would double-post the same article on the next run.
+      - name: Commit posted-state changes
+        if: ${{ !cancelled() }}
+        run: |
+          git config user.name "Jackson Wire Autopilot"
+          git config user.email "autopilot@thejacksonwire.com"
+          git add data/instagram-posted.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Instagram: record posted articles [skip ci]"
+            # Autopilot/Morning Brief may have pushed to main while this job
+            # ran; rebase our one state commit instead of hard-failing. The
+            # step must fail loudly if the push never lands: losing this
+            # commit means double-posting the same article on the next run.
+            pushed=false
+            for i in 1 2 3; do
+              if git push origin HEAD:main; then
+                pushed=true
+                break
+              fi
+              echo "Push rejected (attempt $i); rebasing onto latest main..."
+              git pull --rebase origin main
+              sleep 5
+            done
+            if [ "$pushed" != true ]; then
+              echo "::error::Failed to push posted-state commit after 3 attempts"
+              exit 1
+            fi
+          fi
