@@ -1,0 +1,60 @@
+name: Instagram
+
+# Posts today's freshly published articles to Instagram as branded card
+# images. Runs about 90 minutes after Autopilot publishes, giving the site
+# time to build and deploy so /api/card/<slug> is live.
+# Requires IG_USER_ID and IG_ACCESS_TOKEN in repo Settings → Secrets and
+# variables → Actions. See docs/INSTAGRAM-SETUP.md.
+
+on:
+  schedule:
+    # Daily at 15:30 UTC (10:30 AM CDT / 9:30 AM CST).
+    - cron: "30 15 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: instagram
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+          persist-credentials: true
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Post to Instagram
+        env:
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+        run: node scripts/post-instagram.mjs
+
+      - name: Commit posted-state changes
+        run: |
+          git config user.name "Jackson Wire Autopilot"
+          git config user.email "autopilot@thejacksonwire.com"
+          git add data/instagram-posted.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Instagram: record posted articles [skip ci]"
+            git push origin HEAD:main
+          fi
