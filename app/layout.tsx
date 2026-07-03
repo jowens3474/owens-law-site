@@ -57,6 +57,15 @@ export const metadata: Metadata = {
     title: `${site.name} — ${site.tagline}`,
     description: site.description,
   },
+  // Set NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION in the deployment environment to
+  // the token from Search Console's "HTML tag" method — no DNS changes needed.
+  ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+    ? {
+        verification: {
+          google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+        },
+      }
+    : {}),
   robots: {
     index: true,
     follow: true,
@@ -83,6 +92,15 @@ const orgJsonLd = {
       email: site.email,
       foundingDate: String(site.founded),
       description: site.description,
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Jackson",
+        addressRegion: "MS",
+        addressCountry: "US",
+      },
+      correctionsPolicy: absoluteUrl("/corrections"),
+      ethicsPolicy: absoluteUrl("/methodology"),
+      actionableFeedbackPolicy: absoluteUrl("/about"),
     },
     {
       "@type": "WebSite",
