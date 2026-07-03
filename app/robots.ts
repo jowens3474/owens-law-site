@@ -6,7 +6,11 @@ import { absoluteUrl } from "@/lib/markdown";
 // Google-Extended, etc.), so the Wire's reporting can surface in their answers.
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: [{ userAgent: "*", allow: "/" }],
+    rules: [
+      // Explicit welcome for Google News' dedicated crawler.
+      { userAgent: "Googlebot-News", allow: "/" },
+      { userAgent: "*", allow: "/" },
+    ],
     sitemap: [absoluteUrl("/sitemap.xml"), absoluteUrl("/news-sitemap.xml")],
     host: site.url,
   };
