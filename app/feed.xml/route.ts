@@ -19,6 +19,14 @@ export async function GET() {
   const items = posts
     .map((p) => {
       const url = absoluteUrl(`/article/${p.slug}`);
+      // Photo if the article has one, otherwise the generated branded card,
+      // so every item carries an image for feed readers and aggregators.
+      const img = absoluteUrl(p.image ?? `/api/card/${p.slug}`);
+      const imgType = img.endsWith(".webp")
+        ? "image/webp"
+        : img.endsWith(".png")
+          ? "image/png"
+          : "image/jpeg";
       return `    <item>
       <title>${esc(p.title)}</title>
       <link>${url}</link>
@@ -26,6 +34,7 @@ export async function GET() {
       <pubDate>${new Date(p.date).toUTCString()}</pubDate>
       <category>${esc(p.category)}</category>
       <description>${esc(p.dek)}</description>
+      <media:content url="${img}" type="${imgType}" medium="image" />
     </item>`;
     })
     .join("\n");
@@ -33,7 +42,7 @@ export async function GET() {
   const lastBuild = new Date(posts[0]?.date ?? Date.now()).toUTCString();
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
   <channel>
     <title>${esc(site.name)}</title>
     <link>${absoluteUrl("/")}</link>

@@ -38,6 +38,22 @@ export default function Footer() {
                   About
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/corrections"
+                  className="text-sm hover:text-crimson"
+                >
+                  Corrections
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/methodology"
+                  className="text-sm hover:text-crimson"
+                >
+                  Methodology
+                </Link>
+              </li>
             </ul>
           </nav>
         </div>
