@@ -31,7 +31,11 @@ export async function generateMetadata({
   const post = getPostBySlug(slug);
   if (!post) return {};
   const url = absoluteUrl(`/article/${slug}`);
-  const images = post.image ? [absoluteUrl(post.image)] : undefined;
+  // Articles without a photo fall back to the generated branded card so
+  // Google News and social previews always have an image to show.
+  const images = [
+    absoluteUrl(post.image ?? `/api/card/${post.slug}`),
+  ];
   return {
     title: post.title,
     description: post.dek,
@@ -95,6 +99,7 @@ export default async function ArticlePage({
     ],
   };
 
+  const articleImage = absoluteUrl(post.image ?? `/api/card/${post.slug}`);
   const articleJsonLd = {
     "@context": "https://schema.org",
     "@type": "NewsArticle",
@@ -103,13 +108,16 @@ export default async function ArticlePage({
     datePublished: post.date,
     dateModified: post.date,
     articleSection: post.category,
+    inLanguage: "en-US",
+    isAccessibleForFree: true,
     author: [{ "@type": "Organization", name: post.author }],
     publisher: { "@id": absoluteUrl("/#org") },
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": absoluteUrl(`/article/${post.slug}`),
     },
-    ...(post.image ? { image: [absoluteUrl(post.image)] } : {}),
+    image: [articleImage],
+    thumbnailUrl: articleImage,
   };
 
   return (
