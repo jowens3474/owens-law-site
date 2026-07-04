@@ -1,0 +1,33 @@
+name: Docket Check
+
+# On-demand docket report for U.S. v. Owens. Prints the latest filings to
+# the workflow log. Publishes nothing, commits nothing.
+
+on:
+  workflow_dispatch:
+    inputs:
+      days_back:
+        description: "How many days of filings to show"
+        required: false
+        default: "14"
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - name: Check docket
+        env:
+          COURTLISTENER_API_TOKEN: ${{ secrets.COURTLISTENER_API_TOKEN }}
+          DAYS_BACK: ${{ github.event.inputs.days_back }}
+        run: node scripts/check-docket.mjs
