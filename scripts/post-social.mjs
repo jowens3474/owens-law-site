@@ -397,10 +397,12 @@ async function main() {
   const items = parseFeedItems(xml);
   console.log(`[social] Parsed ${items.length} feed item(s).`);
 
+  // No slice here: the per-run cap is applied per platform AFTER filtering
+  // out already-posted slugs, so re-runs work through any backlog instead
+  // of permanently skipping articles beyond the cap.
   const todaysItems = items
     .map((item) => ({ ...item, slug: slugFromLink(item.link) }))
-    .filter((item) => item.slug && itemDateIso(item.pubDate) === today)
-    .slice(0, MAX_POSTS_PER_RUN);
+    .filter((item) => item.slug && itemDateIso(item.pubDate) === today);
 
   if (todaysItems.length === 0) {
     console.log("[social] No articles published today. Nothing to do.");
@@ -421,7 +423,9 @@ async function main() {
 
   // --- Bluesky ---
   if (blueskyCreds) {
-    const blueskyItems = todaysItems.filter((item) => !postedBluesky.has(item.slug));
+    const blueskyItems = todaysItems
+      .filter((item) => !postedBluesky.has(item.slug))
+      .slice(0, MAX_POSTS_PER_RUN);
     if (blueskyItems.length === 0) {
       console.log("[social] bluesky: nothing new to post.");
     } else if (dryRun) {
@@ -460,7 +464,9 @@ async function main() {
 
   // --- X ---
   if (xCreds) {
-    const xItems = todaysItems.filter((item) => !postedX.has(item.slug));
+    const xItems = todaysItems
+      .filter((item) => !postedX.has(item.slug))
+      .slice(0, MAX_POSTS_PER_RUN);
     if (xItems.length === 0) {
       console.log("[social] x: nothing new to post.");
     } else if (dryRun) {

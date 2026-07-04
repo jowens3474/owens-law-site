@@ -17,6 +17,13 @@ const attempts = new Map<string, number[]>();
 
 function isRateLimited(ip: string): boolean {
   const now = Date.now();
+  // Evict every IP whose window has fully expired so the map stays bounded
+  // by recent traffic instead of growing for the life of the instance.
+  for (const [key, times] of attempts) {
+    if (times.every((t) => now - t >= RATE_LIMIT_WINDOW_MS)) {
+      attempts.delete(key);
+    }
+  }
   const history = (attempts.get(ip) ?? []).filter(
     (t) => now - t < RATE_LIMIT_WINDOW_MS,
   );

@@ -79,6 +79,12 @@ function escHtml(s) {
     .replace(/'/g, "&#39;");
 }
 
+function stripDashes(s) {
+  // House style: no em-dashes or en-dashes anywhere, including email
+  // subjects and bodies. Autopilot output occasionally slips one through.
+  return s.replace(/[–—]/g, "-");
+}
+
 function truncate(s, max) {
   return s.length > max ? s.slice(0, max - 1).trimEnd() + "…" : s;
 }
@@ -215,7 +221,13 @@ async function main() {
   const items = parseFeedItems(xml);
   console.log(`[newsletter] Parsed ${items.length} feed item(s).`);
 
-  const todaysItems = items.filter((item) => itemDateIso(item.pubDate) === today);
+  const todaysItems = items
+    .filter((item) => itemDateIso(item.pubDate) === today)
+    .map((item) => ({
+      ...item,
+      title: stripDashes(item.title),
+      dek: stripDashes(item.dek),
+    }));
 
   if (todaysItems.length === 0) {
     console.log("No articles today; no send.");
