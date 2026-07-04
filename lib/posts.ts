@@ -61,6 +61,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-07-04",
+    title: "Morning Brief: Jul 4 · Airport Trial Lands With Judge; Data Center Fight Heats Up",
+    dek: "Closing arguments are done in the decade-long airport control trial, and Judge Carlton Reeves now holds the fate of Jackson-Medgar Wiley Evers International Airport.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-07-04",
+    views: 0,
+    body: [
+      "Airport control now rests with Judge Reeves: Closing arguments wrapped Wednesday in the decade-long federal bench trial over who controls Jackson-Medgar Wiley Evers International Airport, WJTV and the Clarion Ledger reported. U.S. District Judge Carlton Reeves heard four hours of final arguments from the city and the state on July 1, nearly 10 years to the day after the 2016 state law creating a regional airport board was set to take effect. Airport attorneys pointed to Mayor John Horhn's testimony that state leaders told him they pushed the bill 'because we can.' The state argued the city failed to prove the law is unconstitutional. Reeves has not said when he will rule, and whichever side loses is expected to appeal.",
+      "Saxum data center rezoning remains in limbo: The Jackson Planning Board was set to vote June 24 on Saxum Investment Company's bid to rezone 230 acres along Forest Avenue Extension for a data center, but the item was delayed again, the Mississippi Free Press reported. The proposal has drawn packed protest crowds and organized opposition from groups like Mississippi for a Just World, which is hosting a community training July 16 at Kirksey Middle School. Meanwhile, Council President Brian Grizzell's proposed six-month data center moratorium has not yet received a hearing date. The next regular City Council meeting is July 14, and the PSC is separately pushing lawmakers for stronger data center oversight.",
+      "Hinds County Board meets Monday with full agenda expected: The Hinds County Board of Supervisors holds its first regular meeting of July on Monday, July 6, at 9 a.m. in the Chancery Court Building on South President Street, according to the county's published schedule. The agenda had not been posted as of Friday evening, but the board typically considers road projects, budget amendments, and contract awards at its first-Monday sessions. The board also has a work session scheduled for July 28. Residents can watch past meetings online through the county's video archive.",
+      "Jackson home values jumped 32% in the past year: Home values in the capital city surged 32.4% over the last 12 months, the largest increase in the metro area, according to a May WLBT report citing RedFin and Zillow data. Ridgeland posted the second-highest gain at 23%, while Clinton values actually dropped 2.2% and Madison stayed flat. The Federal Reserve Bank of St. Louis's all-transactions house price index for the Jackson metro area hit 254.51 in Q1 2026, up from 241.86 a year earlier. The question worth watching is whether rising values will boost the city's property tax base enough to meaningfully fund infrastructure repairs.",
+      "Stars, Stripes & Symphony kicks off America 250 tonight: The Mississippi Symphony Orchestra performs a free patriotic concert tonight from 5 to 9 p.m. on the grounds of the Two Mississippi Museums, capping with a fireworks finale, Visit Jackson announced. The event is part of the Levitt AMP Downtown Jackson Music Series and the America 250 Mississippi celebration. The city held its own Fireworks Extravaganza at Smith-Wills Stadium on July 1, featuring a Kidz Zone, food vendors, and live entertainment. JPS students return to class July 29, with teachers reporting July 23, meaning summer break is entering its final stretch.",
+    ],
+  },
+  {
     slug: "airport-takeover-trial-closing-arguments-judge-carlton-reeves",
     title: "The Airport Trial Is Over. Judge Reeves Will Decide Who Controls Jackson's Airport.",
     dek: "After seven days of testimony and nearly four hours of closing arguments, the decade-old fight over Jackson-Medgar Wiley Evers International Airport now rests with one man. A ruling could take months.",
