@@ -461,16 +461,31 @@ Use date "${today}". Pick a category from: ${CATEGORIES.join(", ")}.`;
 
   let article = null;
   let iteration = 0;
-  const MAX_ITERATIONS = 12;
+  const MAX_ITERATIONS = 16;
+  // DeepSeek keeps researching if allowed. After this many iterations, tell
+  // it to write with what it has; on the final iteration, force the call.
+  const WRAP_UP_AT = 12;
 
   while (iteration++ < MAX_ITERATIONS && !article) {
     console.log(`[autopilot] iteration ${iteration}: calling DeepSeek...`);
+
+    if (iteration === WRAP_UP_AT) {
+      console.log("[autopilot] research window closed; instructing model to write.");
+      messages.push({
+        role: "user",
+        content:
+          "Research time is over. Using only the material gathered above, call publish_article now with the strongest story you can support. Do not call any other tool. Only if the sourcing genuinely cannot support any article, reply with the exact text NO_ARTICLE and nothing else.",
+      });
+    }
+    const isFinal = iteration === MAX_ITERATIONS;
 
     const response = await client.chat.completions.create({
       model: "deepseek-chat",
       messages,
       tools: TOOLS,
-      tool_choice: "auto",
+      tool_choice: isFinal
+        ? { type: "function", function: { name: "publish_article" } }
+        : "auto",
       temperature: 0.3,
       max_tokens: 8000,
     });
@@ -508,6 +523,12 @@ Use date "${today}". Pick a category from: ${CATEGORIES.join(", ")}.`;
 
     if (response.choices[0].finish_reason !== "tool_calls") {
       if (response.choices[0].finish_reason === "stop") {
+        // A deliberate NO_ARTICLE after the wrap-up instruction is a clean
+        // slow-news-day exit, not a failure.
+        if ((msg.content || "").trim() === "NO_ARTICLE") {
+          console.log("[autopilot] Model reports no publishable story today. Exiting cleanly.");
+          process.exit(0);
+        }
         console.error(
           "[autopilot] Model ended turn without calling publish_article.",
         );
