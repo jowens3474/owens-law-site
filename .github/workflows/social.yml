@@ -1,0 +1,86 @@
+name: Social
+
+# Posts today's freshly published articles to X (Twitter) and Bluesky.
+# Runs daily. Each platform is independently optional -- missing secrets
+# for one platform just skip it, they don't block the other.
+# Requires BLUESKY_HANDLE, BLUESKY_APP_PASSWORD, X_API_KEY, X_API_SECRET,
+# X_ACCESS_TOKEN, X_ACCESS_SECRET in repo Settings → Secrets and
+# variables → Actions. See docs/SOCIAL-SETUP.md.
+
+on:
+  schedule:
+    # Daily at 15:45 UTC (10:45 AM CDT / 9:45 AM CST).
+    - cron: "45 15 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: social
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+          persist-credentials: true
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Post to X and Bluesky
+        env:
+          BLUESKY_HANDLE: ${{ secrets.BLUESKY_HANDLE }}
+          BLUESKY_APP_PASSWORD: ${{ secrets.BLUESKY_APP_PASSWORD }}
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_SECRET: ${{ secrets.X_API_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_SECRET: ${{ secrets.X_ACCESS_SECRET }}
+        run: node scripts/post-social.mjs
+
+      # Runs even when the posting step fails partway: each successful publish
+      # is written to data/social-posted.json immediately, and losing that
+      # record would double-post the same article on the next run.
+      - name: Commit posted-state changes
+        if: ${{ !cancelled() }}
+        run: |
+          git config user.name "Jackson Wire Autopilot"
+          git config user.email "autopilot@thejacksonwire.com"
+          git add data/social-posted.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Social: record posted articles [skip ci]"
+            # Autopilot/Morning Brief may have pushed to main while this job
+            # ran; rebase our one state commit instead of hard-failing. The
+            # step must fail loudly if the push never lands: losing this
+            # commit means double-posting the same article on the next run.
+            pushed=false
+            for i in 1 2 3; do
+              if git push origin HEAD:main; then
+                pushed=true
+                break
+              fi
+              echo "Push rejected (attempt $i); rebasing onto latest main..."
+              git pull --rebase origin main
+              sleep 5
+            done
+            if [ "$pushed" != true ]; then
+              echo "::error::Failed to push posted-state commit after 3 attempts"
+              exit 1
+            fi
+          fi
