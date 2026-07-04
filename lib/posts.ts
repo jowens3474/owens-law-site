@@ -61,6 +61,28 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "world-cup-2026-jackson-drivable-games-african-teams",
+    title: "The World Cup Is Within a Day's Drive of Jackson. Here Is What's Left, and Who Is Carrying Africa's Hopes.",
+    dek: "For the first time in a generation, the world's biggest sporting event is being played within driving distance of Mississippi. Two African teams remain. One plays in Houston today. The other faces Argentina in Atlanta on Tuesday.",
+    category: "General News",
+    author: "Jackson Wire Staff",
+    date: "2026-07-04",
+    views: 0,
+    body: [
+      "The largest sporting event on earth is unfolding right now in American stadiums, and for once, geography favors Mississippi. Three of the tournament's host cities sit within a day's drive of Jackson: Atlanta, about 380 miles east; Houston, about 440 miles southwest; and Arlington, Texas, roughly 400 miles west. No World Cup has ever been played this close to the state, and none will be again for decades. The knockout rounds began Saturday, on the Fourth of July.",
+      "For Mississippians who have never had a rooting interest in international soccer, this tournament offers several. The first is proximity. The Round of 16 is underway, and the matches within driving distance are not filler games. Houston's NRG Stadium hosts Canada against Morocco. Arlington's AT&T Stadium gets Portugal against Spain on Monday, an Iberian derby that would headline any tournament in history. And on Tuesday, Mercedes-Benz Stadium in Atlanta hosts the defending champion, Argentina, against Egypt.",
+      "The second reason is what comes later. When the tournament narrows to four teams, the semifinals will be played on July 14 in Arlington and July 15 in Atlanta. A Mississippian willing to drive six hours could watch a World Cup semifinal, a sentence that has never before been true in the state's history.",
+      "Then there is the story of the African teams, which resonates in a state where nearly 38 percent of residents trace their ancestry to the continent. This World Cup, expanded to 48 teams, brought a record African contingent: ten nations. Nine of them survived the group stage and reached the Round of 32, a performance no previous tournament came close to producing. The knockout rounds have been less kind.",
+      "Eight African sides fell in the Round of 32, several by the narrowest margins the sport allows. Senegal lost a 3-2 fight with Belgium. Ghana fell 1-0 to Colombia. Ivory Coast lost 2-1 to Norway, DR Congo 2-1 to England, and South Africa 1-0 to Canada. Cape Verde, an island nation of about half a million people playing in its first World Cup, took Argentina to extra time before losing 3-2, one of the tournament's great overachievements regardless of the result.",
+      "Two remain, and both carry weight beyond their borders. Morocco, the team that captivated the world by reaching the semifinals in 2022, eliminated the Netherlands on penalties after a 1-1 draw, and faces co-host Canada in Houston. Egypt, built around Mohamed Salah, one of the greatest players of his generation, drew the hardest assignment left on the board: Argentina, in Atlanta, on Tuesday at 11 a.m. Central time.",
+      "That Atlanta match deserves particular attention from anyone in Jackson weighing a road trip. It is the closest venue, the earliest kickoff, and arguably the most consequential fixture available: the reigning champions against the last standard-bearer of the most successful African World Cup ever played. Tickets on FIFA's official resale platform fluctuate daily, and knockout-round prices are not modest. But a five-and-a-half-hour drive puts a Mississippian in the building for a match the rest of the world will set alarms to watch.",
+      "For those staying home, the economics of fandom are more forgiving. Every match airs on national television, and the tournament's schedule, built for North American time zones, means kickoffs land in the late morning and afternoon rather than the pre-dawn hours that defined World Cups in Qatar and Russia. Watching this tournament requires no sacrifice beyond a lunch break.",
+      "There is also a longer arc worth noting. Mississippi has no professional soccer team, and the nearest MLS club is Atlanta United. But youth soccer participation in the state has grown steadily, and the sport's demographics skew young in a state that struggles to keep young people. A World Cup on American soil, within driving distance, is the kind of event that creates fans for life. The children watching Morocco and Egypt this week are the adults who will decide whether soccer takes root here.",
+      "The tournament runs through July 19, when the final will be played outside New York. Between now and then, the road east on I-20 leads to Atlanta and the road west leads to Arlington, and both lead to games that will be replayed for decades. Mississippians spend their summers driving farther for less.",
+    ],
+    note: "Match details and results per FIFA, ESPN, and Al Jazeera as of July 4. Kickoff times and ticket availability subject to change; check FIFA's official channels before traveling.",
+  },
+  {
     slug: "jacksons-data-center-fight-moves-to-july-14",
     title: "Jackson's Data Center Fight Moves to July 14. Here Is What the Council Is Writing.",
     dek: "After a standing-room-only public hearing where 25 of 26 speakers opposed data centers, the Jackson City Council is drafting regulations that will determine whether Saxum's 230-acre rezoning moves forward. The next vote is July 14.",
