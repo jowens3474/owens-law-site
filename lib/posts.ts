@@ -61,6 +61,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-07-05",
+    title: "Morning Brief: Jul 5 · Stolen JPD Rifle Used in Triple Homicide; Data Center Hearing Set for Monday",
+    dek: "Jackson police confirm a department-issued SWAT rifle stolen eight weeks ago was used in the Queen Alexandria Lane triple homicide that killed two women and a toddler.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-07-05",
+    views: 0,
+    body: [
+      "Stolen JPD rifle tied to triple homicide: Mayor John Horhn and Police Chief RaShall Brackney confirmed Friday that a semi-automatic short-barrel rifle stolen from a marked JPD vehicle eight weeks ago was used in the June 27 triple homicide on Queen Alexandria Lane that killed two women and a 2-year-old child. Brackney said the rifle was taken during a series of vehicle burglaries at Jackson apartment complexes that also hit two other law enforcement agencies. Four suspects have been arrested, including a fourth suspect extradited from Texas. The revelation raises questions about how a department-issued weapon remained unaccounted for and whether JPD has tightened vehicle security protocols since the burglaries.",
+      "Data center public hearing set for Monday: The City Council will hold a special public hearing Monday at 6 p.m. in City Hall chambers, the next step in crafting regulations for future data center development. The hearing follows a June 22 session where more than 20 residents spoke and only one — an attorney for Saxum Investment Company — voiced support. Council President Brian Grizzell has pushed for a 183-day moratorium, but the council tabled it in May over legal questions about state zoning law. Monday’s Planning and Economic Development Committee meeting at 4 p.m. precedes the hearing. A draft ordinance is expected before a final vote, likely at the July 14 regular council meeting.",
+      "Hinds County supervisor election heads to July 14: Incumbent Tony Smith and former supervisor David Archie are set for a do-over election in Hinds County’s District 2 after Judge Barry Ford voided the 2023 Democratic primary results, citing missing voting machines and registration books. Smith has appealed the ruling to the Mississippi Supreme Court, but Hinds County election officials say they are preparing for the July 14 vote unless told otherwise. The race stems from Archie’s challenge after 25 of 26 voting machines could not be located. The winner serves the remainder of the term through December 2027.",
+      "Jackson just had its wettest June in over a century: The city recorded 9.52 inches of rain in June 2026, making it the second-wettest June on record and the wettest in more than 100 years, according to National Weather Service data. Only June 1909 was wetter, at 9.69 inches. The heavy rainfall contributed to multiple boil-water notices in early July, including advisories on Tiki Lane, Dalton Street, Old Canton Road and Linden Place affecting roughly 100 connections combined. JXN Water has lifted those notices, but the pattern underscores the strain on Jackson’s aging water infrastructure during extreme weather events.",
+      "Fondren development boom continues with 234-unit complex: Arlington Development broke ground in late April on Flats at Fondren, a $55 million apartment complex behind the Fondren Garage that will add 234 units to the neighborhood. It is the third major groundbreaking in Fondren in 2026, joining Prado Lofts and a 111-room Hampton Inn on State Street. First unit deliveries are expected in fall 2027. The project signals continued private investment in Jackson despite the city’s water and infrastructure challenges, with nearly $120 million in new luxury housing expected in Fondren alone by the end of 2027.",
+    ],
+  },
+  {
     slug: "lumumba-political-prosecution-theory-examined",
     title: "Half of Jackson Believes the Mayor Was Set Up. Here Is the Strongest Version of That Argument.",
     dek: "Lumumba has called his indictment a political prosecution timed to destroy him. In a city that watched the state take its airport, its courts, and its water, that theory did not come from nowhere. An examination of the case his defenders make, and where it collides with the record.",
