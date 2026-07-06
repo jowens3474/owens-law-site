@@ -14,18 +14,16 @@ import CategoryTag from "@/app/components/CategoryTag";
 // corruption-case articles appear without a redeploy.
 export const revalidate = 600;
 
-const TRIAL_DATE_ISO = "2026-07-13";
-const TRIAL_LABEL = "July 13, 2026";
 const DEK =
-  "Complete coverage of U.S. v. Owens, Lumumba, and Banks — the federal bribery prosecution. Owens pleaded guilty June 29 and Lumumba followed July 6. Banks, the last defendant, faces trial July 13 in the Thad Cochran U.S. Courthouse in downtown Jackson.";
+  "Complete coverage of U.S. v. Owens, Lumumba, and Banks — the federal bribery prosecution that ended July 6, 2026, with all five defendants pleading guilty and no trial. The story now moves to the fall sentencing calendar.";
 
 const FACTS = [
-  { label: "Trial begins", value: TRIAL_LABEL },
+  { label: "Status", value: "Resolved · 5 guilty pleas, no trial" },
   { label: "Court", value: "U.S. District Court, S.D. Miss." },
   { label: "Courthouse", value: "Thad Cochran, downtown Jackson" },
   { label: "Judge", value: "Daniel P. Jordan III, Chief Judge" },
   { label: "Docket", value: "3:24-cr-103" },
-  { label: "At trial", value: "Banks (2 counts) · sole remaining defendant" },
+  { label: "Next", value: "Owens sentencing · Oct 15, 2026" },
 ];
 
 const DEFENDANTS: {
@@ -61,12 +59,13 @@ const DEFENDANTS: {
   {
     name: "Aaron Banks",
     role: "Former Ward 6 Councilman",
-    counts: "2 counts",
-    exposure: "Up to 10 years",
+    counts: "Pleaded guilty · Jul 6, 2026",
+    exposure: "Terms not yet public",
     posture:
-      "Smallest charging package: conspiracy + § 666 bribery only. Did not take the alleged interstate trips. Asked to be tried separately; denied.",
+      "The last defendant standing, for a few hours. Pleaded guilty the same Monday as Lumumba, ending the case with no trial. His pending motion on the duplicitous bribery count dies unanswered.",
     image: "/aaron-banks.webp",
     alt: "Former Councilman Aaron Banks.",
+    pleaded: true,
   },
 ];
 
@@ -134,12 +133,12 @@ const KEY_DATES: { date: string; text: string; highlight?: boolean }[] = [
   },
   {
     date: "Jul 6, 2026",
-    text: "Lumumba pleads guilty, seven days before trial and on the final pretrial filing deadline. Terms not yet public. Banks is the last defendant standing.",
+    text: "Lumumba pleads guilty on the final pretrial filing deadline. Hours later, Banks pleads too. The case ends five for five, with no trial.",
     highlight: true,
   },
   {
-    date: "Jul 13, 2026",
-    text: "Trial begins for Banks, the sole remaining defendant.",
+    date: "Oct 15, 2026",
+    text: "Owens sentencing. Lumumba and Banks sentencing dates expected in the same window.",
     highlight: true,
   },
 ];
@@ -162,22 +161,9 @@ export const metadata: Metadata = {
   },
 };
 
-function daysUntilTrial() {
-  // Compute in America/Chicago time so the count flips at midnight Central.
-  const today = new Date(
-    new Intl.DateTimeFormat("en-CA", {
-      timeZone: "America/Chicago",
-    }).format(new Date()),
-  );
-  const trial = new Date(TRIAL_DATE_ISO);
-  const ms = trial.getTime() - today.getTime();
-  return Math.max(0, Math.round(ms / (1000 * 60 * 60 * 24)));
-}
 
 export default function CorruptionCasePage() {
   const articles = getPostsByTag("corruption-case");
-  const days = daysUntilTrial();
-  const trialPassed = days === 0;
   const latest = articles.slice(0, 4);
   const explainers = articles.filter((p) =>
     [
@@ -216,7 +202,7 @@ export default function CorruptionCasePage() {
         name: "When does the Owens trial start?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: `The trial begins ${TRIAL_LABEL} in Courtroom 5A of the Thad Cochran U.S. Courthouse in downtown Jackson, Mississippi, before Chief U.S. District Judge Daniel P. Jordan III.`,
+          text: "There will be no trial. All five defendants pleaded guilty. The trial had been set for July 13, 2026, before Chief U.S. District Judge Daniel P. Jordan III, but Jody Owens pleaded guilty June 29, 2026, and Chokwe Antar Lumumba and Aaron Banks both pleaded guilty July 6, 2026.",
         },
       },
       {
@@ -224,7 +210,7 @@ export default function CorruptionCasePage() {
         name: "Who is on trial in the Jackson corruption case?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "One defendant remains: former Ward 6 Councilman Aaron Banks (2 counts). Former DA Jody Owens pleaded guilty June 29, 2026, and former Mayor Chokwe Antar Lumumba pleaded guilty July 6, 2026. Former Councilwoman Angelique Lee and Sherik Marve Smith pleaded guilty in 2024.",
+          text: "No one. The case resolved with guilty pleas from all five defendants: Angelique Lee and Sherik Marve Smith in 2024, Jody Owens on June 29, 2026, and Chokwe Antar Lumumba and Aaron Banks on July 6, 2026. Sentencings begin October 15, 2026.",
         },
       },
       {
@@ -248,7 +234,7 @@ export default function CorruptionCasePage() {
         name: "What is the defense argument?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Banks, the sole remaining defendant, argues actual innocence: the city never held the vote he was allegedly paid to influence. Lumumba's McDonnell official-act defense and Owens's planned entrapment defense both ended with their guilty pleas.",
+          text: "No defense will be presented; the case ended in guilty pleas. Owens had planned an entrapment defense, Lumumba was relying on the McDonnell official-act standard, and Banks argued the vote he was allegedly paid to influence never happened. All three arguments ended, untested, with their pleas.",
         },
       },
       {
@@ -290,31 +276,18 @@ export default function CorruptionCasePage() {
       {/* Countdown + facts */}
       <section className="mt-8 grid gap-6 md:grid-cols-3">
         <div className="glow-card p-6 text-center md:col-span-1">
-          {trialPassed ? (
-            <>
-              <p className="font-serif text-xs font-bold uppercase tracking-widest text-crimson">
-                Trial underway
-              </p>
-              <p className="mt-2 font-serif text-3xl font-black leading-tight">
-                In progress
-              </p>
-            </>
-          ) : (
-            <>
-              <p className="font-serif text-xs font-bold uppercase tracking-widest text-crimson">
-                Trial begins
-              </p>
-              <p className="mt-2 font-serif text-7xl font-black leading-none text-ink">
-                {days}
-              </p>
-              <p className="mt-1 font-serif text-sm font-bold uppercase tracking-widest">
-                day{days === 1 ? "" : "s"} away
-              </p>
-              <p className="mt-4 border-t border-rule pt-3 font-serif text-base">
-                {TRIAL_LABEL}
-              </p>
-            </>
-          )}
+          <p className="font-serif text-xs font-bold uppercase tracking-widest text-crimson">
+            Case resolved
+          </p>
+          <p className="mt-2 font-serif text-6xl font-black leading-none text-ink">
+            5/5
+          </p>
+          <p className="mt-1 font-serif text-sm font-bold uppercase tracking-widest">
+            guilty pleas · no trial
+          </p>
+          <p className="mt-4 border-t border-rule pt-3 font-serif text-base">
+            Sentencings begin Oct 15
+          </p>
         </div>
 
         <div className="glow-card p-6 md:col-span-2">
