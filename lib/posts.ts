@@ -61,6 +61,28 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "jackson-cao-pieter-teeuwissen-resigns",
+    title: "Jackson's Top Administrator Resigns, Leaving a Gap at City Hall",
+    dek: "Chief Administrative Officer Pieter Teeuwissen is stepping down after less than a year on the job, citing personal obligations. His departure comes as the city faces a budget shortfall, a data center fight, and the fallout from Jody Owens's guilty plea.",
+    category: "Politics",
+    categories: ["General News"],
+    author: "Jackson Wire Staff",
+    date: "2026-07-06",
+    views: 0,
+    body: [
+      "Jackson's chief administrative officer is resigning. Pieter Teeuwissen confirmed Monday that he will step down from the role he has held for less than a year, according to WLBT. He will likely stay on through the end of the budget year on September 30.",
+      "Teeuwissen told WLBT he no longer has enough time for the job. The death of his law partner, Anthony Simon, in April and his recent appointment as a trustee to the National Conference of Bar Examiners both factored into the decision.",
+      "The CAO is the second-highest-ranking official in Jackson city government, responsible for day-to-day operations and representing the mayor's office at council meetings. Teeuwissen has been the public face of the administration on several major issues, including a $23 million budget shortfall and the city's plans to close it.",
+      "He also served on the 1% Infrastructure Sales Tax Commission, a body that oversees how the city spends its dedicated infrastructure revenue.",
+      "The timing is notable. Teeuwissen's resignation comes one week after former Hinds County District Attorney Jody Owens left office following his guilty plea to federal bribery charges. Owens's last day was July 1. Teeuwissen told WLBT he is not running for the vacant DA seat and that the timing is coincidental, though he said he is honored people have asked.",
+      "The departure leaves Mayor John Horhn without his top administrator at a moment when City Hall is juggling multiple high-stakes fights. The council is holding a public hearing Monday evening on a proposed moratorium on data center development. The city is also awaiting a federal judge's ruling on who controls Jackson's airport. And the budget Teeuwissen helped navigate is still under pressure.",
+      "Teeuwissen was appointed by Horhn in mid-2025, replacing a previous CAO. He came into the role with a background in private law practice rather than municipal government, which made him an unconventional pick for a city with Jackson's fiscal and operational challenges.",
+      "His resignation means Horhn will need to find a replacement quickly, or the city will operate without a permanent CAO during the final quarter of the budget year. The mayor's office had not issued a statement as of Monday morning.",
+      "The CAO position has been a revolving door in recent administrations. Teeuwissen's predecessor also served less than two years. The pattern raises a question that no council member has asked publicly: whether the job itself is structured in a way that makes it difficult to keep anyone in it for long.",
+      "For now, the city's day-to-day management falls to a staff that is already stretched. Monday's council meetings will proceed as scheduled. But the person who has been standing at the podium explaining the administration's positions will not be there much longer.",
+    ],
+  },
+  {
     slug: "morning-brief-2026-07-06",
     title: "Morning Brief: Jul 6 · Data Center Double-Header Tonight; Fourth Arrest in Triple Homicide",
     dek: "The City Council holds a Planning Committee meeting at 4 p.m. and a public hearing at 6 p.m., both on data centers, as the fourth suspect in the Queen Alexandria Lane triple homicide is extradited from Texas.",
