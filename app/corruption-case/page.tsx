@@ -17,7 +17,7 @@ export const revalidate = 600;
 const TRIAL_DATE_ISO = "2026-07-13";
 const TRIAL_LABEL = "July 13, 2026";
 const DEK =
-  "Complete coverage of U.S. v. Owens, Lumumba, and Banks — the federal bribery prosecution. Owens pleaded guilty June 29. Lumumba and Banks face trial July 13 in the Thad Cochran U.S. Courthouse in downtown Jackson.";
+  "Complete coverage of U.S. v. Owens, Lumumba, and Banks — the federal bribery prosecution. Owens pleaded guilty June 29 and Lumumba followed July 6. Banks, the last defendant, faces trial July 13 in the Thad Cochran U.S. Courthouse in downtown Jackson.";
 
 const FACTS = [
   { label: "Trial begins", value: TRIAL_LABEL },
@@ -25,7 +25,7 @@ const FACTS = [
   { label: "Courthouse", value: "Thad Cochran, downtown Jackson" },
   { label: "Judge", value: "Daniel P. Jordan III, Chief Judge" },
   { label: "Docket", value: "3:24-cr-103" },
-  { label: "At trial", value: "Lumumba (5 counts) · Banks (2 counts)" },
+  { label: "At trial", value: "Banks (2 counts) · sole remaining defendant" },
 ];
 
 const DEFENDANTS: {
@@ -50,12 +50,13 @@ const DEFENDANTS: {
   {
     name: "Chokwe Antar Lumumba",
     role: "Former Mayor, City of Jackson",
-    counts: "5 counts",
-    exposure: "Up to 75 years · $1.5M",
+    counts: "Pleaded guilty · Jul 6, 2026",
+    exposure: "Terms not yet public",
     posture:
-      'Lost re-election in 2025. Charged with bribery, conspiracy, honest services wire fraud, Travel Act, and money laundering. Defense built on the McDonnell "official act" standard.',
+      "Pleaded guilty July 6, seven days before trial and on the deadline for final pretrial filings. His McDonnell official-act defense will never reach a jury. Full plea terms had not reached the public docket at last update.",
     image: "/lumumba.jpg",
     alt: "Former Jackson Mayor Chokwe Antar Lumumba.",
+    pleaded: true,
   },
   {
     name: "Aaron Banks",
@@ -132,8 +133,13 @@ const KEY_DATES: { date: string; text: string; highlight?: boolean }[] = [
     highlight: true,
   },
   {
+    date: "Jul 6, 2026",
+    text: "Lumumba pleads guilty, seven days before trial and on the final pretrial filing deadline. Terms not yet public. Banks is the last defendant standing.",
+    highlight: true,
+  },
+  {
     date: "Jul 13, 2026",
-    text: "Trial begins for Lumumba and Banks. Jury selection projected ~1 week. Whole proceeding projected ~1 month.",
+    text: "Trial begins for Banks, the sole remaining defendant.",
     highlight: true,
   },
 ];
@@ -218,7 +224,7 @@ export default function CorruptionCasePage() {
         name: "Who is on trial in the Jackson corruption case?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Two defendants: former Mayor Chokwe Antar Lumumba (5 counts) and former Ward 6 Councilman Aaron Banks (2 counts). Former Hinds County District Attorney Jody Owens pleaded guilty to conspiracy on June 29, 2026, and resigned. Two others, former Councilwoman Angelique Lee and Sherik Marve Smith, pleaded guilty in 2024.",
+          text: "One defendant remains: former Ward 6 Councilman Aaron Banks (2 counts). Former DA Jody Owens pleaded guilty June 29, 2026, and former Mayor Chokwe Antar Lumumba pleaded guilty July 6, 2026. Former Councilwoman Angelique Lee and Sherik Marve Smith pleaded guilty in 2024.",
         },
       },
       {
@@ -242,7 +248,7 @@ export default function CorruptionCasePage() {
         name: "What is the defense argument?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Each remaining defendant has a different defense. Lumumba is relying on McDonnell v. United States to argue that moving a paperwork deadline is not an official act. Banks argues actual innocence: the city never held the vote he was allegedly paid to influence. Owens had planned an entrapment defense before pleading guilty on June 29.",
+          text: "Banks, the sole remaining defendant, argues actual innocence: the city never held the vote he was allegedly paid to influence. Lumumba's McDonnell official-act defense and Owens's planned entrapment defense both ended with their guilty pleas.",
         },
       },
       {
