@@ -68,7 +68,7 @@ const POSTS: Post[] = [
     categories: ["Politics"],
     tags: ["corruption-case", "explainer"],
     author: "Jackson Wire Staff",
-    date: "2026-07-07",
+    date: "2026-07-06",
     views: 0,
     body: [
       "The case is over. The punishment phase is not, and it now becomes the whole story. Five people stand convicted by their own word in the FBI's Jackson operation, and one judge, Daniel P. Jordan III, will decide all five sentences, likely across a fall calendar that begins October 15. Here is what each person faces, based on the public record, the federal sentencing guidelines, and the parts of the plea agreements that have reached the docket. Where terms are not yet public, this guide says so.",
@@ -92,7 +92,7 @@ const POSTS: Post[] = [
     categories: ["Politics"],
     tags: ["corruption-case"],
     author: "Jackson Wire Staff",
-    date: "2026-07-07",
+    date: "2026-07-06",
     views: 0,
     body: [
       "The Mississippi Bar filed a formal complaint with the state Supreme Court on July 6 asking that Jody Owens be suspended from the practice of law, WLBT reported. It landed the same day Chokwe Antar Lumumba and Aaron Banks pleaded guilty in the case Owens's cooperation helped close. While the federal side of his reckoning waits for an October 15 sentencing, the professional side is already moving, and it moves on rails.",
