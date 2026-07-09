@@ -15,6 +15,7 @@ export default function NavBar() {
     { name: "The Trial", href: "/corruption-case", featured: true as const },
     { name: "Explainers", href: "/explainers" },
     { name: "About", href: "/about" },
+    { name: "Blockcraft", href: "/minecraft" },
   ];
 
   const isActive = (href: string) =>
