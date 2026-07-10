@@ -1,5 +1,10 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
+import {
+  Space_Grotesk,
+  Inter,
+  JetBrains_Mono,
+  Source_Serif_4,
+} from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 import { site } from "@/lib/site";
@@ -28,6 +33,15 @@ const jbmono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-jbmono",
   display: "swap",
+});
+
+// Long-form article body only — headlines and UI stay on the sans stack.
+const sourceSerif = Source_Serif_4({
+  subsets: ["latin"],
+  variable: "--font-article",
+  display: "swap",
+  weight: ["400", "600"],
+  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
@@ -122,7 +136,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${spaceGrotesk.variable} ${inter.variable} ${jbmono.variable} h-full antialiased`}
+      className={`${spaceGrotesk.variable} ${inter.variable} ${jbmono.variable} ${sourceSerif.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <script
