@@ -37,20 +37,21 @@ body {
   background: rgba(34, 211, 238, 0.3);
 }
 
-/* Long-form article typography */
+/* Long-form article typography. Body copy reads in Source Serif 4 for an
+   editorial register; headlines and UI stay on the sans stack. */
 .prose-article p {
-  font-family: var(--font-serif);
-  font-size: 1.125rem;
-  line-height: 1.9;
+  font-family: var(--font-article), Georgia, "Times New Roman", serif;
+  font-size: 1.1875rem;
+  line-height: 1.8;
   margin-bottom: 1.25rem;
   color: #c7d2e0;
 }
 
 .prose-article p:first-of-type::first-letter {
   float: left;
-  font-family: var(--font-serif);
-  font-weight: 700;
-  font-size: 2.8rem;
+  font-family: var(--font-article), Georgia, serif;
+  font-weight: 600;
+  font-size: 2.9rem;
   line-height: 0.85;
   padding: 0.25rem 0.5rem 0 0;
   color: var(--color-crimson);
