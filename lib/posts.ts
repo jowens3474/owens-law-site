@@ -61,6 +61,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-07-11",
+    title: "Morning Brief: Jul 11 · Data Center Moratorium Heads to Tuesday Vote; Hinds Election in Limbo",
+    dek: "The Jackson City Council on Tuesday will consider a six-month moratorium on data center projects, while the Hinds County District 2 special election remains in legal limbo three days before its scheduled date.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-07-11",
+    views: 0,
+    body: [
+      "Data center moratorium heads to Tuesday vote: The Jackson City Council will consider a six-month moratorium on new data center development and expansion at its regular meeting Tuesday at 6 p.m., following two packed public meetings July 6 where residents demanded a halt. Council President Brian Grizzell introduced the ordinance, which would pause projects for 183 days while the city drafts permanent zoning rules. The draft ordinance, first introduced in April but tabled on a 4-2 vote in May, includes definitions, zoning requirements, and council review provisions. Ward 7 Councilman Kevin Parkinson pressed Hinds County economic developers on whether a moratorium would kill potential projects. The meeting is at Jackson City Hall, 219 S. President St.",
+      "Hinds County special election in legal limbo: The July 14 special election for the Hinds County Board of Supervisors District 2 seat between incumbent Anthony Smith and challenger David Archie is in doubt after Special Judge Barry Ford voided the date and ordered Gov. Tate Reeves to set a new one under state law. The Hinds County Election Commission's meeting calendar now lists July 14 as cancelled. Ford ruled in June that significant errors in handling and safekeeping of election materials made it impossible to determine the will of voters in the 2023 Democratic primary, which Smith won by a roughly 2-to-1 margin. Smith has said he plans to appeal. Reeves has not yet set a new date.",
+      "Mayor Horhn appoints Crudup to airport board, names five judges: Mayor John Horhn announced Thursday the appointment of Bishop Ronnie Crudup, founder of New Horizon Church, to the Jackson Municipal Airport Authority Board of Commissioners. The appointment comes about a week after a 10-day federal bench trial over control of Jackson-Medgar Wiley Evers International Airport concluded before U.S. District Judge Carlton Reeves. Horhn also named five municipal court judges, though the city has not released their names. 'I wanted someone on the board who knows this community, who asks the right questions, and who will stand up for the people of Jackson,' Horhn said in a statement. The airport authority oversees operations at the city's main commercial airport.",
+      "JPS faces higher bar as state raises accountability thresholds: Jackson Public Schools will need stronger test scores to earn the same letter grades this year after the Mississippi Department of Education raised performance thresholds. Superintendent Errick Greene told the school board July 7 that even if test performance improves, the district could receive a lower accountability rating in 2026. The new law requires MDE to raise standards when 75% of students are proficient or when 65% of schools or districts earn a B or higher. The board also approved updates to the 2026-2027 Scholar Handbook, including a first-time drug policy violation program focused on education and mental health support rather than suspension alone. The school year starts July 29.",
+      "Jackson Zoo Ice Cream Safari and community events fill Saturday: The Jackson Zoo hosts its annual Ice Cream Safari fundraiser Saturday from 9 a.m. to noon, presented by Blue Bell, with admission at $15 for adults and $10 for ages 2 through 17. The JXN LemonDrop Festival runs at M Bar North on Ridgewood Court Drive. The Pupa Project holds its 2nd Annual Back to Flow Bash at the Jackson Medical Mall from 9 a.m. to noon, providing free menstrual and hygiene supplies, kit bookbags, and teacher prep kits. Fondren Guitars Student Rock Band performs at Cultivate Coffee Project in Belhaven. The events cap a week dominated by data center debates and city appointments.",
+    ],
+  },
+  {
     slug: "data-center-moratorium-vote-july-14-council",
     title: "Data Center Moratorium Heads to a Vote. The Council Is Split.",
     dek: "After two meetings on July 6 and months of debate, the Jackson City Council will vote Tuesday on a six-month pause on new data center construction. The margin is uncertain.",
