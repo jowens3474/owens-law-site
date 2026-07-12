@@ -61,6 +61,28 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "mississippi-youth-court-confidentiality-law-expires-supreme-court-temporary-order",
+    title: "Mississippi Youth Court Law Expired July 1. A Temporary Order Expires This Month. No Permanent Fix Has Passed.",
+    dek: "A state law governing how youth court records are shared expired when the Legislature failed to act. The Mississippi Supreme Court issued a temporary order that runs out July 24. The governor has not yet called a special session.",
+    category: "General News",
+    author: "Jackson Wire Staff",
+    date: "2026-07-12",
+    views: 0,
+    body: [
+      "On July 1, a section of Mississippi law that allows youth court records to be shared with attorneys, state agencies, medical providers, and families quietly expired. The Legislature had included a sunset clause in the statute, Mississippi Code Section 43-21-261, and lawmakers did not pass a bill to extend it before adjourning.",
+      "The result is a legal gray zone. The confidentiality of juvenile records themselves remains in place. But the exemptions that let those records move between courts, the Mississippi Department of Child Protection Services, defense attorneys, parents, and foster care providers disappeared with the sunset.",
+      "CPS Commissioner Andrea Sanders warned Governor Tate Reeves in an April 30 letter that the expiration could cause legal proceedings involving children to grind to a halt. She also raised concerns about the state's ability to draw down federal foster care funding if it could not demonstrate compliance with disclosure requirements, according to a letter obtained by Mississippi Today.",
+      "The state public defender's office went further. On June 24, State Public Defender Andre De Gruy and private attorney Arman Miri filed a federal lawsuit against the Mississippi Administrative Office of Courts, arguing that denying youth court attorneys access to case records violated their clients' due process rights. The suit asked a federal judge to force the AOC to keep providing access.",
+      "Without records, De Gruy said, lawyers walk into hearings hearing the allegations for the first time. 'The fundamental fairness of the process would be gone,' he told WLBT.",
+      "On June 29, U.S. District Judge Henry Wingate approved an agreed order requiring the AOC to continue its current record-sharing practices through at least July 15. The order can be extended, but both sides have said they intend to use the time to study the full impact of the expired statutes.",
+      "The Mississippi Supreme Court also stepped in. At the request of CPS, the court issued a temporary order restoring disclosure rules so youth court operations can continue. That order expires July 24, according to the DeSoto County News, which cited legislative sources. The court could extend it.",
+      "The expiration traces back to the 2026 regular session. Lawmakers debated a broad youth court reform bill that included an extension of the repealer, but the bill died when the House walked out before adjournment, Senator Brice Wiggins told WLBT. 'When the House walked out, it was, well, oh my gosh, that's the only bill that was left to address that,' he said.",
+      "Four other youth court-related laws also expired with the repealer, including requirements that case details be entered into the state's case management system, a prohibition on sex offenders accessing that database, state funding requirements for local youth courts, and a provision allowing military parents to grant temporary power of attorney.",
+      "Governor Reeves has already called a special session for later this month to handle judicial district redistricting after the U.S. Supreme Court's decision in Louisiana v. Callais. Legislative leaders told Mississippi Today they expect Reeves to add youth court reform to that session's agenda. As of July 12, the governor's office had not confirmed the addition.",
+      "The temporary federal order expires in three days. The Supreme Court order expires in twelve. Jackson's youth court handles cases involving children from the city's schools, its foster system, and its neighborhoods. If the special session does not produce a fix, the system will be back where it was on July 1: operating on borrowed time.",
+    ],
+  },
+  {
     slug: "morning-brief-2026-07-12",
     title: "Morning Brief: Jul 12 · JTRAN Strike Set for Monday; Data Center Moratorium Vote Looms Tuesday",
     dek: "More than 60 JTRAN workers will walk off the job at 4 a.m. Monday unless a last-minute deal is reached, leaving Jackson without public transit.",
