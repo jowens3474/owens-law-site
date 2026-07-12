@@ -61,6 +61,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-07-12",
+    title: "Morning Brief: Jul 12 · JTRAN Strike Set for Monday; Data Center Moratorium Vote Looms Tuesday",
+    dek: "More than 60 JTRAN workers will walk off the job at 4 a.m. Monday unless a last-minute deal is reached, leaving Jackson without public transit.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-07-12",
+    views: 0,
+    body: [
+      "JTRAN strike set for Monday morning: More than 60 JTRAN workers represented by Amalgamated Transit Union Local 1208 will go on strike at 4 a.m. Monday unless MV Transportation reaches a deal by Sunday, WAPT reported. The union issued a 72-hour strike notice Friday, citing bad-faith bargaining. The strike would halt all bus service across Jackson, stranding riders who depend on public transit for work, medical appointments, and school. In September 2024, a similar strike lasted 14 days before both sides reached a contract. Union President Charles Tornes Jr. said the union has been operating in good faith and does not want the strike to happen, but accused the contractor of bullying workers at the bargaining table.",
+      "Data center moratorium heads to council vote Tuesday: The Jackson City Council is set to consider a six-month moratorium on new data center development and expansion at its regular meeting Tuesday, Mississippi Today reported. The vote follows two packed meetings on July 6 where residents filled City Hall to oppose data center projects, citing concerns about water consumption, energy bills, noise pollution, and tax breaks for tech companies. Council President Brian Grizzell has said the pause would give the city time to draft a regulatory framework before any construction is approved. The council tabled a similar moratorium on a 4-2 vote in May amid debate over whether it constituted a zoning ordinance.",
+      "Mississippi Bar seeks Lumumba's law license suspended: The Mississippi Bar Association has asked the state Supreme Court to suspend former Jackson Mayor Chokwe Antar Lumumba from practicing law, WAPT reported Friday. The Bar made the same request for former Hinds County District Attorney Jody Owens. The requests come after both men and former City Council President Aaron Banks pleaded guilty to federal conspiracy charges in the FBI bribery sting involving a downtown convention complex hotel project. Their trial had been scheduled to begin Monday, July 13. The Bar's formal complaint is the first step in a process that could lead to indefinite suspension or disbarment under Rule 6.",
+      "Federal receiver says Hinds jail still overcrowded, understaffed: Court-appointed receiver Wendell France told U.S. District Judge Carlton Reeves on Friday that the Hinds County Detention Center in Raymond remains overcrowded and understaffed months into his tenure, WLBT reported. The jail is holding about 500 detainees in pods designed for roughly 400. France said starting pay of $35,000 for detention officers is the lowest in the region and makes recruitment nearly impossible. He is recommending reopening the notorious A-Pod to reduce costs of transporting detainees to Tallahatchie County, though the county's attorney questioned whether that makes sense given the new $250 million jail under construction. The hearing came one week after a detainee was beaten to death inside the facility.",
+      "Sales tax holiday ends today: Mississippi's back-to-school sales tax holiday runs through midnight tonight, offering shoppers a 7% break on eligible clothing, footwear, and school supplies priced under $100 per item, the state Department of Revenue said. The three-day exemption, which began Friday, does not cover accessories, electronics, or furniture. For a family spending $300 on qualifying items, the savings amount to roughly $21. The holiday arrives as Jackson families prepare for the upcoming school year, with community groups like the Magnolia Medical Foundation also hosting back-to-school giveaways this weekend at their new Terry Road resource center.",
+    ],
+  },
+  {
     slug: "jtran-strike-monday-july-14-2026",
     title: "JTRAN Workers to Strike Monday After 72-Hour Notice, Leaving Jackson Without Buses",
     dek: "More than 60 bus drivers and transit workers will walk off the job at 4 a.m. Monday if no deal is reached with MV Transportation. The strike would strand thousands of riders who depend on Jackson's only public transit system.",
