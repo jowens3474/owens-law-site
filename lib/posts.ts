@@ -61,6 +61,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-07-14",
+    title: "Morning Brief: Jul 14 · Council Votes on Data Center Moratorium; JTRAN Strike Enters Day 2",
+    dek: "The Jackson City Council votes this morning on a six-month moratorium on data center construction as the JTRAN strike enters its second day and MBI investigates an overnight officer-involved shooting downtown.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-07-14",
+    views: 0,
+    body: [
+      "Data center moratorium vote today: The Jackson City Council meets at 10 a.m. at City Hall to vote on a six-month moratorium on new data center development and expansion. Council President Brian Grizzell introduced the ordinance in late April, citing concerns about strain on the city's water, sewer, and electrical infrastructure. City Attorney Drew Martin presented a draft ordinance at a July 6 committee meeting that includes definitions, zoning rules, and council review provisions. The vote follows weeks of public hearings where residents urged caution. Jackson has no data centers yet, but neighboring cities Clinton and Ridgeland approved projects before passing regulations, a sequence Grizzell called putting \"the cart before the horse.\"",
+      "JTRAN strike enters second day: Bus operators with ATU Local 1208 walked off the job at 4 a.m. Monday after failing to reach a contract deal with MV Transportation, leaving Jackson without public transit. The city urged federal mediation Monday and said MV Transportation is deploying out-of-state drivers to maintain limited service. Mayor John Horhn temporarily waived the requirement that JTRAN drivers hold Mississippi driver's licenses to help keep routes running. Union President Charles Tornes Jr. said MV \"continues to bargain in bad faith.\" Riders should monitor the city's website and social media for route updates.",
+      "Capitol Police shooting downtown: MBI is investigating an officer-involved shooting that happened early Tuesday near Pearl Street and President Street in downtown Jackson. DPS spokeswoman Bailey Martin said a Capitol Police officer was patrolling when a security guard reported someone carrying a weapon near State Street businesses. The officer located the subject, who ran and fired at the officer during a foot pursuit, Martin said. The officer returned fire and struck the subject, who was taken to a hospital with non-life-threatening injuries. No officers were seriously hurt. MBI will share findings with the Attorney General's Office once the investigation is complete.",
+      "Hinds special election canceled by governor: Governor Tate Reeves canceled the special election for the Hinds County Board of Supervisors District 2 seat that had been scheduled for today, WLBT reported. The election between incumbent Anthony Smith and challenger David Archie was ordered in June after Special Judge Barry Ford overturned Smith's 2023 Democratic primary win, citing multiple irregularities. Ford later vacated his own order citing state statute. Smith will remain in office until a new election date is set. Twenty-six precincts across parts of Jackson, Bolton, Clinton, Utica, and Edwards had been prepared to open polls from 7 a.m. to 7 p.m.",
+      "JPS preps for July 29 school start: Jackson Public Schools is calling for volunteers at its annual \"All Hands on Deck\" Beautification Day this Friday, July 17, from 7 a.m. to noon at schools across the district. The district reported that 68 scholars completed graduation requirements during summer school, according to Superintendent Dr. Errick Greene. The school board also approved updates to the 2026-2027 Scholar Handbook, including a first-time drug policy violation program focused on education and mental health support rather than suspension. The first day of the 2026-2027 school year is July 29. Early registration is open on the JPS website.",
+    ],
+  },
+  {
     slug: "morning-brief-2026-07-13",
     title: "Morning Brief: Jul 13 · JTRAN Strike Begins; Council to Vote on Data Center Moratorium Tuesday",
     dek: "Jackson's bus system shuts down at 4 a.m. as more than 60 JTRAN workers walk off the job, and the City Council prepares to vote on a six-month data center moratorium Tuesday.",
