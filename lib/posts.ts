@@ -61,6 +61,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-07-15",
+    title: "Morning Brief: Jul 15 · Council Passes Data Center Moratorium; JTRAN Strike Enters Day 3",
+    dek: "The Jackson City Council voted 5-2 to pause new data center development for 183 days, while JTRAN's strike enters its third day with out-of-state operators filling routes.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-07-15",
+    views: 0,
+    body: [
+      "Data center moratorium passes 5-2: The Jackson City Council voted Tuesday to enact a 183-day ban on new data center development, with Ward 4 Councilman Brian Grizzell's ordinance passing 5-2 after nearly three months of debate. Ward 1's Ashby Foote and Ward 5's Vernon Hartley voted against the pause. Because the vote was not unanimous, the moratorium takes effect in 30 days rather than immediately. During that window, the city will not accept or approve special use permits or conditional use permits for data centers. Hartley, who was elected council president in a separate vote Tuesday, said Jackson is \"not ready\" for the industry. The Clarion Ledger reported the council will use the six-month window to study infrastructure impacts and draft permanent regulations.",
+      "JTRAN strike enters Day 3 with out-of-state drivers: JTRAN bus operators represented by ATU Local 1208 remain on strike for a third day after failing to reach a deal with contractor MV Transportation. Mayor John Horhn has waived the requirement that replacement drivers hold Mississippi driver's licenses, allowing out-of-state operators to keep limited service running. Horhn called on both sides to engage federal mediators. The union, which represents more than 60 workers, says MV Transportation has engaged in unfair labor practices. MV Transportation has accused union leadership of refusing to return to the bargaining table. The strike began at 4 a.m. Monday after a 72-hour notice, following a similar 14-day strike in September 2024.",
+      "Hinds District 2 special election canceled by governor: Governor Tate Reeves canceled Tuesday's scheduled special election for the Hinds County Board of Supervisors District 2 seat between incumbent Anthony Smith and challenger David Archie, WLBT reported. A judge had ordered the do-over election in June after overturning Smith's 2023 Democratic primary victory, citing multiple irregularities. But the judge later vacated his own order, citing state statute. Smith remains in office. The canceled election leaves the District 2 seat in limbo with no new date set. The race has been one of the most contested local elections in Hinds County, with both Smith and Archie previously trading legal victories in circuit court.",
+      "JPS calls for volunteers at Friday beautification day: Jackson Public Schools is hosting its annual \"All Hands on Deck\" beautification day this Friday, July 17, from 7 a.m. to noon at schools across the district. Superintendent Jeremy Patterson is asking volunteers to help teachers set up classrooms, refresh school entrances, and clean up grounds ahead of the first day of school on July 29. The district also opened registration for the 2026-27 school year and warned families that no registration will be accepted during the first week of classes. JPS reported at its July 7 board meeting that the state has raised accountability thresholds, meaning schools may see lower letter grades even if test scores improve.",
+      "Extreme heat persists as JXN Water reaches compliance milestone: The National Weather Service has Jackson under a heat advisory through midweek, with heat indices expected to reach 105 to 110 degrees. The dangerous conditions come as JXN Water announced it reached full compliance with the federal Lead and Copper Rule for the first time in 2026, according to recent Clarion Ledger testing. Water samples from 16 sites across the city showed no widespread contamination, though results varied depending on the age of household plumbing. JXN Water continues work on long-term improvements under federal receivership, while the proposed Metro Jackson Water Authority remains in legal limbo pending U.S. District Judge Henry Wingate's approval.",
+    ],
+  },
+  {
     slug: "jackson-seeks-300-million-doj-model-cities-grant",
     title: "Jackson Seeks $300 Million From DOJ's New Model Cities Initiative, One of the Largest Federal Grants in City History",
     dek: "The City Council will vote Tuesday on applying for a competitive federal grant that would award Jackson up to $300 million for public safety, technology, and crime reduction. Only two to four cities nationwide are expected to win.",
