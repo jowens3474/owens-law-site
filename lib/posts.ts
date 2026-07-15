@@ -61,6 +61,28 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "archie-asks-supreme-court-expedite-hinds-county-election-appeal",
+    title: "Archie Asks Supreme Court to Speed Up Election Appeal as Governor Leaves District 2 in Limbo",
+    dek: "The special election that was supposed to happen July 14 was canceled by Governor Reeves the day before. Now Archie's attorney is asking the Mississippi Supreme Court to fast-track the case, arguing every month of delay extends the harm of a voided election.",
+    category: "Politics",
+    author: "Jackson Wire Staff",
+    date: "2026-07-15",
+    views: 0,
+    body: [
+      "The special election for Hinds County District 2 supervisor was supposed to happen yesterday. It did not. Governor Tate Reeves canceled it the day before, and he has not set a new date. Now former Supervisor David Archie is asking the Mississippi Supreme Court to force the issue.",
+      "In a filing Monday, Archie's attorney Matthew Wilson asked the high court to enter an expedited briefing schedule, requiring Supervisor Tony Smith to file his brief within five days. The goal is a decision at the earliest practicable date.",
+      "\"Every day this appeal remains pending compounds a harm no later remedy can cure,\" Wilson wrote, according to the filing reported by WLBT. \"The certification of the August 8, 2023, primary has been declared void... and the election itself has been vacated.\"",
+      "The case traces back to the 2023 Democratic primary, when Smith defeated Archie by a vote of 4,687 to 2,810. Archie challenged the results, citing unsealed ballot boxes, missing machine tapes, and missing voter sign-in books across all 26 precincts in District 2. Special Judge Barry Ford spent weeks hearing the challenge and on June 3 voided the results, finding that while there was no indication of fraud, errors in the safekeeping of voter materials and compromised chain of custody made it impossible to ascertain the will of the voters.",
+      "Ford initially set the special election for July 14. But he later vacated that order, ruling that under Mississippi law, the governor must call a special election when an election is vacated. Ford said he hoped Reeves would keep the same date. The governor did not. On July 13, one day before the scheduled election, Reeves ordered it canceled.",
+      "Smith remains in office. He appealed Ford's ruling to the Mississippi Supreme Court in June, arguing the decision could set a dangerous precedent for future election challenges. As of July 14, Smith had not sought a stay in the case, according to Archie's filing.",
+      "Wilson pointed this out in his motion. \"The voters of District 2 are presently represented by Mr. Smith, who holds office under a voided election,\" he wrote. \"Each month of delay extends that condition.\"",
+      "The filing also warned that if the contest is not resolved soon, \"a contested primary might very well drag on past the general election, thereby disenfranchising the members of a political party.\" Statewide elections in Mississippi are in 2027, with party primaries scheduled for August 3.",
+      "Multiple inquiries to the governor's office about when Reeves will set a new election date have gone unanswered, according to WLBT. The governor's office has set special elections for two state House seats this year but has not acted on the Hinds County supervisor race.",
+      "The District 2 seat covers a sprawling stretch of western Hinds County, including Edwards and Bolton, parts of Clinton and Raymond, and sections of Jackson. The winner of the special election will serve the remainder of the term ending December 31, 2027.",
+      "For now, the seat hangs in a legal and political void. A judge has declared the last election invalid. The governor has not called a new one. And the state's highest court has not said whether it will speed things up.",
+    ],
+  },
+  {
     slug: "morning-brief-2026-07-15",
     title: "Morning Brief: Jul 15 · Council Passes Data Center Moratorium; JTRAN Strike Enters Day 3",
     dek: "The Jackson City Council voted 5-2 to pause new data center development for 183 days, while JTRAN's strike enters its third day with out-of-state operators filling routes.",
