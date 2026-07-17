@@ -61,6 +61,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-07-17",
+    title: "Morning Brief: Jul 17 · Youth Court Overhaul Heads to Reeves; JTRAN Strike Enters Day 5",
+    dek: "The Mississippi Legislature passed a sweeping youth court reform bill in special session, sending it to Gov. Tate Reeves for signature before a July 24 Supreme Court deadline.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-07-17",
+    views: 0,
+    body: [
+      "Youth court overhaul heads to Reeves: The Mississippi Legislature passed Senate Bill 2001 on Thursday, a sweeping redesign of the state's youth court system that will install full-time judges in all 82 counties, eliminate the part-time referee system by July 2027, and open juvenile proceedings to the public. The bill cleared the House largely along party lines after a late-night Senate vote Wednesday. Only two House Republicans voted no. Democrats argued the 200-page bill was rushed through without adequate review. The legislation also funds two new juvenile detention centers and expands the Oakley Youth Development Center in Hinds County. Gov. Tate Reeves is expected to sign the bill before the Mississippi Supreme Court's July 24 deadline, the Clarion Ledger reported.",
+      "JTRAN strike enters Day 5: JTRAN bus operators represented by ATU Local 1208 remain on strike for a fifth day Friday, leaving thousands of Jackson residents who rely on public transit without regular service. The union walked off the job Monday after failing to reach a contract deal with MV Transportation, the city's contracted operator. Mayor John Horhn has urged both sides to seek federal mediation. MV Transportation has deployed drivers from out of state to maintain limited service, and the city temporarily waived the requirement that JTRAN drivers hold Mississippi driver's licenses for the strike's duration, Mississippi Today reported. Workers last went on strike for 14 days in September 2024.",
+      "JPS Beautification Day underway, school starts July 29: Jackson Public Schools is holding its annual Beautification Day on Friday, with volunteers cleaning up campuses along the Capitol Street Corridor ahead of the first day of school on July 29. The district is partnering with the Jackson Association of Neighborhoods for the cleanup, which runs from 7 a.m. to noon. JPS has warned families that there will be no registration during the first week of school, meaning parents must enroll their children now to avoid delays. The district's Convocation for faculty and staff is scheduled for July 24. Open House schedules for the 2026-27 school year have been posted on the district's website.",
+      "Monument Street Bridge replacement heads to bid: The City of Jackson is accepting bids through July 28 for the complete removal and replacement of the Monument Street Bridge, a federal-aid project that aims to improve transportation safety in Hinds County. A pre-bid conference was held Thursday. The work includes replacing the bridge in its entirety plus related approach work, according to the city's bid management site. Contractors must comply with Mississippi Road and Bridge Construction standards. The project is part of the Jackson Metropolitan Planning Organization's Transportation Improvement Program and is funded through federal aid. Bids must be submitted in triplicate to the City Clerk's office by 10 a.m. on July 28.",
+      "Council enforces 60-person limit after data center crowds: The Jackson Fire Department has begun enforcing a 60-person occupancy limit inside the City Council chambers, a policy that went into effect at Tuesday's meeting where the council voted 5-2 to approve a 183-day data center moratorium. Fire Chief RaSean Thomas told the Clarion Ledger the enforcement followed safety concerns after a large crowd packed a Planning Board meeting in May over the proposed data center. Ward 5 Councilman Vernon Hartley, elected council president Tuesday, said he opposed how the policy was rolled out. Ward 4 Councilman Brian Grizzell defended the enforcement, saying the fire department is simply doing its job after receiving updated occupancy guidance.",
+    ],
+  },
+  {
     slug: "banks-rejected-better-plea-deal-cooperation",
     title: "Banks Rejected a Better Plea Deal. He Would Not Cooperate.",
     dek: "The former councilman turned down a government offer that required cooperation with prosecutors. His two co-defendants also pleaded guilty without cooperating.",
