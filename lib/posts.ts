@@ -61,6 +61,28 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "vicksburg-residents-protest-aws-data-center-dana-road",
+    title: "Vicksburg Residents Protest $3 Billion AWS Data Center Planned Near Elementary School",
+    dek: "About 50 people gathered Saturday on Dana Road to oppose the Amazon Web Services project, citing concerns over energy costs, water use, and health risks. The protest comes days after Jackson passed its own data center moratorium.",
+    category: "General News",
+    tags: ["data-centers"],
+    author: "Jackson Wire Staff",
+    date: "2026-07-20",
+    views: 0,
+    body: [
+      "About 50 Vicksburg residents gathered Saturday morning to protest the $3 billion Amazon Web Services data center planned for Dana Road, less than a mile from Dana Road Elementary School, according to WLBT and the Vicksburg Daily News.",
+      "The protest marks the first organized public opposition to the AWS project since the Vicksburg-Warren Economic Development Partnership announced it in November 2025. At the time, officials called the data center the largest capital investment in Warren County history, promising at least 200 high-tech direct jobs and 500 indirect jobs.",
+      "Residents carried handmade signs and wore bright colors to be visible from a distance. Their concerns mirror arguments that have surfaced in Jackson, Madison County, and other parts of the state where data center projects are proposed: increased energy and water costs, and potential health risks from the facilities' diesel backup generators and water consumption.",
+      "The Dana Road location is particularly contentious. The site sits near an elementary school, and protesters questioned whether the industrial-scale facility belongs in a residential corridor.",
+      "The protest came three days after the Jackson City Council passed a five-to-two vote to enact the state's first data center moratorium, halting new data center approvals for 180 days while the city studies infrastructure impacts. Jackson's moratorium does not affect Vicksburg, but the timing underscores a growing regional unease with the rapid pace of data center development.",
+      "Mississippi has become a national hotspot for data center construction, driven by cheap power, available land, and state incentives. AWS, Saxum, Prado AI, and other firms have announced or proposed projects across the state. The Mississippi Public Service Commission is currently weighing a docket (2026-AD-10) that could reshape utility rate structures for large industrial power users.",
+      "The Vicksburg-Warren EDP has defended the project as an economic engine for a county that has struggled to attract major employers. The $3 billion investment would generate construction work for years and add high-paying jobs to a local economy still recovering from the decline of riverboat gaming and manufacturing.",
+      "But Saturday's turnout suggests the sales pitch has not won over everyone. The crowd of 50 is small by the standards of the data center fights playing out in Virginia and Ohio, but it is a signal that Mississippi's data center boom is generating political friction beyond Jackson's city limits.",
+      "The question now is whether the Vicksburg protest is a one-day event or the beginning of a sustained opposition campaign. The AWS project has not yet broken ground. The permitting process at the county level has not been made public. And the protest organizers have not announced next steps.",
+      "For Jackson residents watching from 45 miles east, the Vicksburg protest offers a preview of what the city's own moratorium debate was trying to get ahead of: the tension between economic development promises and the tangible costs a data center imposes on a community.",
+    ],
+  },
+  {
     slug: "interim-da-mccullouch-asks-auditor-to-review-owens-office",
     title: "Interim DA McCullouch Asks State Auditor to Review Owens' Office",
     dek: "Brad McCullouch, appointed to replace Jody Owens after his federal guilty plea, invited Shad White to audit the Hinds County District Attorney's Office. Owens separately moved to surrender his law license.",
