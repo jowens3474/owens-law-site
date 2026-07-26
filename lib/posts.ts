@@ -61,6 +61,27 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "jackson-city-council-elects-new-president-july-2026",
+    title: "Jackson City Council Elects New President After Months of Data Center Turmoil",
+    dek: "The council selected a new leader at its July meeting, a shift that comes as the body navigates the aftermath of Jackson's first data center moratorium and ongoing tension with the mayor's office.",
+    category: "Politics",
+    author: "Jackson Wire Staff",
+    date: "2026-07-26",
+    views: 0,
+    body: [
+      "The Jackson City Council has a new president. The council selected its leader during a July meeting, according to reports from the Clarion Ledger, marking the first change in the body's leadership since the data center debate consumed City Hall.",
+      "The new president takes over at a moment of transition. The council passed the state's first data center moratorium earlier this month, a 5-2 vote that capped months of public hearings and legal questions about water usage, zoning, and the role of AI infrastructure in Jackson.",
+      "The leadership vote came as the council also began enforcing new chamber limits after the data center debate drew overflow crowds to council meetings. The Clarion Ledger reported that the enforcement followed weeks of packed galleries and heated public comment sessions.",
+      "The council presidency rotates among members, but the timing matters. The new leader will preside over the council's response to the moratorium's implementation, any legal challenges, and the ongoing negotiations with the Horhn administration over economic development policy.",
+      "The relationship between the council and Mayor John Horhn's office has been strained. Records obtained by The Jackson Wire earlier this month showed the Horhn administration quietly planned a data center hub at Lake Hico for months without council input, a revelation that hardened opposition on the council.",
+      "The new president inherits a docket that includes the city's application for a $300 million federal grant from the DOJ's new Model Cities Initiative, one of the largest grant requests in Jackson's history. The council must approve the spending plan if the grant is awarded.",
+      "Also pending: the youth court overhaul passed by the state legislature in special session, which will require local implementation; the ongoing JTRAN strike, now in its second week; and the city's water infrastructure improvement program, which is drawing on federal funds.",
+      "The council's next regular meeting is scheduled for early August. The new president will set the agenda for that session, the first test of whether the leadership change signals a shift in priorities or a continuation of the existing trajectory.",
+      "Jackson has had five council presidents since 2020. The turnover reflects the instability of a body that has lost members to federal indictment, resignation, and electoral defeat in recent years.",
+      "The new president declined to comment on specific legislative priorities when reached after the vote, according to news reports. The council's first test will come when the moratorium's 90-day clock runs out in October.",
+    ],
+  },
+  {
     slug: "madison-county-approves-48-million-conference-center-ridgeland",
     title: "Madison County Approves $48 Million Conference Center in Ridgeland, Despite Lone Dissent Over Taxpayer Risk",
     dek: "The 3-1 vote authorizes urban renewal bonds for a 1,800-person venue near Sunnybrook Road. A private developer plans a 250-room hotel next door. Critics say taxpayers are on the hook if revenue falls short.",
