@@ -7,6 +7,17 @@ name: Instagram
 # variables → Actions. See docs/INSTAGRAM-SETUP.md.
 
 on:
+  # Fires as soon as an article lands on main, whether pushed by Autopilot,
+  # Morning Brief, or a merged PR. The poster waits for the site to redeploy
+  # before posting. The posted-state commit touches only
+  # data/instagram-posted.json (and carries [skip ci]), so it cannot retrigger
+  # this workflow.
+  push:
+    branches: [main]
+    paths:
+      - "lib/posts.ts"
+  # Safety net: catches anything the push trigger missed (a failed run, a
+  # deploy that took longer than the poster's wait budget).
   schedule:
     # Daily at 15:30 UTC (10:30 AM CDT / 9:30 AM CST).
     - cron: "30 15 * * *"
@@ -22,7 +33,7 @@ concurrency:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
 
     steps:
       - name: Checkout main
@@ -40,6 +51,15 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      # A push-triggered run starts before the site has rebuilt, so the RSS
+      # feed the poster reads would still be stale and the new article would
+      # be invisible to it. Give the deploy a head start; the poster's own
+      # card-wait covers the remainder. The daily cron is the backstop if a
+      # deploy ever runs longer than this.
+      - name: Wait for deploy (push-triggered runs)
+        if: ${{ github.event_name == 'push' }}
+        run: sleep 360
 
       - name: Post to Instagram
         env:

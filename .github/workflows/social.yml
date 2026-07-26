@@ -8,6 +8,14 @@ name: Social
 # variables → Actions. See docs/SOCIAL-SETUP.md.
 
 on:
+  # Fires as soon as an article lands on main. The posted-state commit
+  # touches only data/social-posted.json (and carries [skip ci]), so it
+  # cannot retrigger this workflow.
+  push:
+    branches: [main]
+    paths:
+      - "lib/posts.ts"
+  # Safety net for anything the push trigger missed.
   schedule:
     # Daily at 15:45 UTC (10:45 AM CDT / 9:45 AM CST).
     - cron: "45 15 * * *"
@@ -23,7 +31,7 @@ concurrency:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
 
     steps:
       - name: Checkout main
@@ -41,6 +49,13 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      # A push-triggered run starts before the site has rebuilt, so the RSS
+      # feed the poster reads would still be stale. Give the deploy a head
+      # start. The daily cron is the backstop.
+      - name: Wait for deploy (push-triggered runs)
+        if: ${{ github.event_name == 'push' }}
+        run: sleep 360
 
       - name: Post to X and Bluesky
         env:
