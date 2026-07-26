@@ -14,7 +14,11 @@ const POSTED_FILE = "data/instagram-posted.json";
 const GRAPH_BASE = "https://graph.instagram.com/v23.0";
 
 const MAX_POSTS_PER_RUN = 3;
-const CARD_LIVE_MAX_ATTEMPTS = 5;
+// This can run seconds after an article is pushed, before the site has
+// rebuilt and deployed, so the budget covers a full deploy (~10 min). It
+// exits as soon as the card responds, so a scheduled run that finds the
+// card already live costs nothing.
+const CARD_LIVE_MAX_ATTEMPTS = 10;
 const CARD_LIVE_WAIT_MS = 60_000;
 const CONTAINER_MAX_ATTEMPTS = 10;
 const CONTAINER_POLL_WAIT_MS = 5_000;
