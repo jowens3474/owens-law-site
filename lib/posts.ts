@@ -20,7 +20,6 @@ export interface Post {
   author: string;
   date: string; // ISO yyyy-mm-dd
   views: number;
-  featured?: boolean;
   image?: string; // path under /public, e.g. "/aaron-banks.webp"
   imageAlt?: string; // describes the image for screen readers
   body: string[];
@@ -30,8 +29,9 @@ export interface Post {
 }
 
 // All articles live here. To publish a new story, add an object to this array.
-// The newest date appears first automatically. Mark one with `featured: true`
-// to make it the big lead story on the homepage.
+// The newest date appears first automatically, and the newest non-brief story
+// automatically becomes the big lead on the homepage. There is no pin flag:
+// publishing something new is what moves the top of the front page.
 //
 // SCHEDULING: An article's `date` controls when it goes live. Set `date` to a
 // future YYYY-MM-DD and the article stays hidden from the site, sitemap, RSS,
@@ -50,7 +50,6 @@ export interface Post {
 //   author: "Byline Name",
 //   date: "2026-05-25",                       // format: YYYY-MM-DD
 //   views: 0,                                 // used only for "Most Read" ranking
-//   featured: true,                           // optional; set on the lead story only
 //   image: "/photo.webp",                     // optional; file lives in /public.
 //                                             // Omit to fall back to a generated plate.
 //   imageAlt: "Describe the photo.",          // optional; for screen readers
@@ -629,7 +628,6 @@ const POSTS: Post[] = [
     author: "Jackson Wire Staff",
     date: "2026-07-06",
     views: 0,
-    featured: true,
     body: [
       "Aaron Banks pleaded guilty Monday, hours after Chokwe Antar Lumumba did the same, and with that the federal bribery case that has gripped Jackson for twenty months ended the way almost no one predicted: completely, and without a trial. The courtroom reserved for July 13 will sit empty. Full terms of both Monday pleas had not reached the public docket by publication.",
       "The arithmetic of the collapse is worth writing down plainly, because it will be recited in this city for a generation. Five public figures were charged in the FBI's undercover operation: District Attorney Jody Owens, Mayor Chokwe Antar Lumumba, Council President Aaron Banks, Councilwoman Angelique Lee, and Sherik Smith. Five pleaded guilty. Zero went to trial. Lee and Smith folded in 2024. Owens held out twenty months and folded on June 29. Lumumba and Banks held out one week longer and folded within hours of each other, on the same Monday the court had set as the deadline for the final pretrial filings.",
@@ -654,7 +652,6 @@ const POSTS: Post[] = [
     author: "Jackson Wire Staff",
     date: "2026-07-06",
     views: 0,
-    featured: true,
     body: [
       "Chokwe Antar Lumumba pleaded guilty Monday in the federal bribery case that ended his political career before a jury ever weighed it. The former two-term mayor of Jackson, who spent twenty months calling the charges a political prosecution designed to destroy him, stood in the same courthouse where his trial was set to open in seven days and admitted a federal crime. The full terms of his plea agreement were not immediately available and had not yet reached the public docket Monday.",
       "The collapse took eight days. On June 29, Jody Owens, the former district attorney prosecutors cast as the scheme's broker, pleaded guilty to conspiracy and signed an agreement whose sealed supplement pointed toward cooperation. On July 6, Lumumba followed. Of the five public figures charged in the government's undercover operation, four have now pleaded guilty: former Councilwoman Angelique Lee, Sherik Smith, Owens, and the former mayor himself. One defendant remains: former Councilman Aaron Banks, whose trial is scheduled to begin Monday, July 13.",
@@ -945,7 +942,6 @@ const POSTS: Post[] = [
     author: "Jackson Wire Staff",
     date: "2026-07-02",
     views: 0,
-    featured: true,
     body: [
       "Cities usually decide who holds power on a schedule. Elections come in November. Budgets pass in September. Terms run four years. Over the next two weeks, Jackson will decide who prosecutes its crimes, who judges its former leaders, who sits on its county board, and whether its buses keep running, and almost none of it will happen on anyone's schedule. Four deadlines, four days, all of them forced.",
       "Start with the courthouse math. By roughly July 11, Governor Tate Reeves must name an emergency district attorney for Hinds County, the 10-day clock that started when Jody Owens's resignation took effect July 1. On July 13, the federal bribery trial of former Mayor Chokwe Antar Lumumba and former Council President Aaron Banks opens at the Thad Cochran courthouse. On July 14, Hinds County is scheduled to rerun the District 2 supervisor election a judge threw out. And somewhere in that same window, the 30-day strike clock that JTRAN's drivers started on June 12 runs out.",
@@ -1253,7 +1249,6 @@ const POSTS: Post[] = [
     author: "Jackson Wire Staff",
     date: "2026-06-15",
     views: 0,
-    featured: true,
     body: [
       "The pitch always sounds like prosperity. Historic investment. Billions of dollars. The biggest deal anyone can remember. What it never mentions is water.",
       "Three summers ago, Jackson couldn't produce a glass of tap water its own residents could safely drink. The Pearl River flooded, the O.B. Curtis plant failed, and a slow collapse went loud. For years the system had been losing half the water it produced to broken meters and leaking pipes, breaking lines at nearly four times the safe rate.",
@@ -2061,9 +2056,18 @@ export const getPostBySlug = cache((slug: string): Post | undefined => {
   return post && isPublished(post) ? post : undefined;
 });
 
-export const getFeaturedPost = cache((): Post | undefined =>
-  getAllPosts().find((p) => p.featured) ?? getAllPosts()[0],
-);
+// The homepage lead is always the newest published story, so the top of the
+// front page turns over every time anything publishes. Morning Briefs are
+// skipped because the homepage already gives today's brief its own banner
+// above the lead; leading with it would print the same story twice.
+// Falls back to the newest post of any kind if briefs are all that exist.
+export const getFeaturedPost = cache((): Post | undefined => {
+  const published = getAllPosts();
+  return (
+    published.find((p) => !(p.tags ?? []).includes("morning-brief")) ??
+    published[0]
+  );
+});
 
 export function getPostsByCategorySlug(categorySlug: string): Post[] {
   return getAllPosts().filter((p) =>
