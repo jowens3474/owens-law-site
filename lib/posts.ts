@@ -60,6 +60,28 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "records-show-jackson-courted-no-bid-vendor-weeks-before-emergency-declaration",
+    title: "Records Show Jackson Courted No-Bid Vendor 66 Days Before 'Emergency' Declaration",
+    dek: "Chief Brackney's calendar reveals city officials met with the camera manufacturer whose hardware was specified in the contract more than two months before the emergency was declared, undercutting the city's justification for bypassing competitive bidding.",
+    category: "General News",
+    categories: ["Politics"],
+    author: "Jackson Wire Staff",
+    date: "2026-07-27",
+    views: 0,
+    body: [
+      "The city of Jackson met with the camera manufacturer whose equipment ended up in a no-bid police contract a full 66 days before the administration declared an emergency to justify bypassing competitive bidding, records obtained by WLBT show.",
+      "Chief RaShall Brackney's own calendar entries, obtained through public records requests, show city officials were meeting with the vendor as early as April 24. The emergency was declared on June 29. The gap undercuts the central justification for the no-bid deal: that the city faced an urgent, unforeseen need.",
+      "Jackson's procurement rules require competitive bidding for contracts over a certain threshold. An emergency declaration allows the city to bypass that process, but only for genuine, sudden crises. The calendar suggests the city was planning this purchase for months.",
+      "The contract in question involves police camera equipment. WLBT's investigation found that the hardware specified in the eventual no-bid contract matched the products made by the vendor city officials had been meeting with since April.",
+      "The story echoes a pattern that has drawn scrutiny in Jackson before. In 2024, the city awarded a no-bid contract for water meter repairs during the water crisis, only to face questions later about whether the emergency designation was appropriate.",
+      "Brackney, who was hired as police chief in 2025 under Mayor John Horhn, has not publicly commented on the calendar entries. The mayor's office did not respond to WLBT's requests for comment before publication.",
+      "The city council was not notified of the meetings or the contract terms before the emergency declaration, according to council members who spoke with WLBT. Several said they learned of the deal only after it was already in motion.",
+      "Jackson's history with no-bid contracting has cost the city before. A 2023 audit by the state found that the city had awarded at least $2.3 million in no-bid contracts over a two-year period without proper documentation of emergencies.",
+      "The question now is whether the city will face similar scrutiny over this deal. The state auditor's office has not announced an investigation, but the calendar entries provide a paper trail that could invite one.",
+      "For Jackson residents, the pattern is familiar: an emergency declared, a contract signed, and only later do the records show the emergency was planned all along.",
+    ],
+  },
+  {
     slug: "jackson-city-council-elects-new-president-july-2026",
     title: "Jackson City Council Elects New President After Months of Data Center Turmoil",
     dek: "The council selected a new leader at its July meeting, a shift that comes as the body navigates the aftermath of Jackson's first data center moratorium and ongoing tension with the mayor's office.",
