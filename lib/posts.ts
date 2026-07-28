@@ -20,6 +20,7 @@ export interface Post {
   author: string;
   date: string; // ISO yyyy-mm-dd
   views: number;
+  lead?: boolean; // pin to the homepage lead; auto-expires after LEAD_PIN_DAYS
   image?: string; // path under /public, e.g. "/aaron-banks.webp"
   imageAlt?: string; // describes the image for screen readers
   body: string[];
@@ -30,8 +31,12 @@ export interface Post {
 
 // All articles live here. To publish a new story, add an object to this array.
 // The newest date appears first automatically, and the newest non-brief story
-// automatically becomes the big lead on the homepage. There is no pin flag:
-// publishing something new is what moves the top of the front page.
+// automatically becomes the big lead on the homepage, so publishing something
+// new is what normally moves the top of the front page.
+//
+// To hold a big story at the top anyway, set `lead: true` on it. That pin
+// wins for 7 days from the story's date and then releases on its own, so a
+// forgotten pin can never freeze the front page.
 //
 // SCHEDULING: An article's `date` controls when it goes live. Set `date` to a
 // future YYYY-MM-DD and the article stays hidden from the site, sitemap, RSS,
@@ -111,6 +116,7 @@ const POSTS: Post[] = [
     author: "Jackson Wire Staff",
     date: "2026-07-24",
     views: 0,
+    lead: true,
     body: [
       "Madison County is betting $48 million in urban renewal bonds on a conference center that does not yet exist. The Board of Supervisors voted 3-1 Monday to authorize the financing for a 1,800-person venue near the intersection of Sunnybrook Road and Colony Park Boulevard in Ridgeland. One supervisor was absent.",
       "The project pairs the publicly financed conference center with a privately funded 250-room resort hotel. Gabriel Prado, CEO of Pracon Global Investment Group, is the developer behind the hotel. He says the combined $120 million investment will generate $250 million in economic impact across the county.",
@@ -2078,13 +2084,32 @@ export const getPostBySlug = cache((slug: string): Post | undefined => {
   return post && isPublished(post) ? post : undefined;
 });
 
-// The homepage lead is always the newest published story, so the top of the
+// How long a `lead: true` pin holds the homepage lead, counted from the
+// article's own date. The pin expires on its own so a story someone forgot
+// to unpin can never freeze the front page the way the old `featured` flags
+// did; after the window, normal newest-wins rotation resumes.
+const LEAD_PIN_DAYS = 7;
+
+function daysSincePublished(p: Post): number {
+  const day = 24 * 60 * 60 * 1000;
+  return Math.floor(
+    (Date.parse(`${todayLocalIso()}T00:00:00Z`) -
+      Date.parse(`${p.date}T00:00:00Z`)) /
+      day,
+  );
+}
+
+// The homepage lead is normally the newest published story, so the top of the
 // front page turns over every time anything publishes. Morning Briefs are
 // skipped because the homepage already gives today's brief its own banner
 // above the lead; leading with it would print the same story twice.
-// Falls back to the newest post of any kind if briefs are all that exist.
+// A story marked `lead: true` overrides that for LEAD_PIN_DAYS, then releases.
 export const getFeaturedPost = cache((): Post | undefined => {
   const published = getAllPosts();
+  const pinned = published.find(
+    (p) => p.lead && daysSincePublished(p) <= LEAD_PIN_DAYS,
+  );
+  if (pinned) return pinned;
   return (
     published.find((p) => !(p.tags ?? []).includes("morning-brief")) ??
     published[0]
