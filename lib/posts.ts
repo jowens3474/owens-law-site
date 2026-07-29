@@ -65,6 +65,28 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "grand-chateau-apartments-empty-power-shutoff-jsu-student-housing",
+    title: "A Block of Empty Apartments on Capitol Street: Owner Pitches JSU Housing After Power Shutoff",
+    dek: "The Grand Chateau Apartments sit vacant after Entergy cut power amid a heat emergency. The owner says he wants to turn the building into student housing for Jackson State University, but safety concerns and a history of meter tampering have stalled the plan.",
+    category: "Residential Real Estate",
+    categories: ["General News"],
+    author: "Jackson Wire Staff",
+    date: "2026-07-29",
+    views: 0,
+    body: [
+      "The Grand Chateau Apartments on Capitol Street are empty. Entergy cut the power last week during a heat emergency after discovering meter tampering and electricity theft. All tenants have been relocated with help from city officials.",
+      "The building's owner, Ramesh Rammchandran, says he wants to renovate the property and convert it into student housing for Jackson State University. He points out that the building is a five-minute walk from campus. JSU Road connects directly to Capitol Street.",
+      "\"The university has a shortage of rooms for students, and they will be willing to rent from us,\" Rammchandran told WLBT. He said he has already bought new appliances from Lowe's for the project.",
+      "But the building has sat vacant for a reason. Rammchandran said ongoing safety concerns have prevented renovation crews from entering the property. He described workers being threatened by people carrying guns inside the building, and said the same conditions enabled the electricity theft.",
+      "\"We would love to actually help and get the building renovated, but we can't when there are people who are carrying guns in there, threatening the employees coming to work and stealing power from Entergy,\" he said.",
+      "Rammchandran acquired the property about five years ago. He said it was operational for tenants at the time, but that major renovations required the building to be vacated. Once it emptied, the security problems made it impossible to bring in repair crews.",
+      "The standoff is a familiar one in Jackson: a private property owner with a plan, a building that needs serious work, and a neighborhood where safety conditions block the investment from flowing in. No timeline for renovations has been set.",
+      "Rammchandran said he plans to put a fence around the property and hopes to meet with city leaders to move the project forward. The city has not announced any meeting.",
+      "The Grand Chateau sits on a stretch of Capitol Street that connects downtown Jackson to JSU's main campus. If the student housing plan materializes, it would add beds at a time when JSU has publicly acknowledged a shortage of on-campus housing. If it does not, the building will remain another vacant shell on a corridor the city has long wanted to revive.",
+      "The question is whether the city can help create conditions that make the renovation possible, or whether the same forces that emptied the building will keep it empty.",
+    ],
+  },
+  {
     slug: "morning-brief-2026-07-29",
     title: "Morning Brief: Jul 29 · Hinds County Weighs Millage Hike; Council OKs $24M in Road Work",
     dek: "Hinds County supervisors propose a 1.5-mill tax increase that would cost homeowners $30 a year as the Jackson City Council approves $24 million in infrastructure projects and JPS students head back to class.",
