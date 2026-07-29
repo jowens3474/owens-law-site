@@ -65,6 +65,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-07-29",
+    title: "Morning Brief: Jul 29 · Hinds County Weighs Millage Hike; Council OKs $24M in Road Work",
+    dek: "Hinds County supervisors propose a 1.5-mill tax increase that would cost homeowners $30 a year as the Jackson City Council approves $24 million in infrastructure projects and JPS students head back to class.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-07-29",
+    views: 0,
+    body: [
+      "Hinds County weighs 1.5-mill tax hike: The Board of Supervisors held a budget work session Tuesday on a proposed millage increase that would cost the average homeowner $2.50 a month, or $30 a year, generating $2.3 million in additional annual revenue. Board President Robert Graham said the money would fund a new criminal justice facility with capacity for more than 800 people, county building repairs, and infrastructure including roads, boilers, and elevators. Graham argued the investment would help Hinds compete with Rankin and Madison counties. But some residents pushed back. \"If you can't manage what you have, getting more is not going to solve the problem,\" said Monica Bradshaw. The board is expected to vote in the coming months.",
+      "Council approves $24M in road and creek work: The Jackson City Council voted Tuesday night on six road resurfacing projects totaling $20.4 million and five creek-clearing contracts worth $3.9 million, according to the council agenda. The work covers streets including Northside Drive, Martin Luther King Jr. Drive, Bailey Avenue, and portions of West Capitol Street, plus clearing on Woodhaven Creek, Lynch Creek, Big Creek, and Hanging Moss Creek among others. The projects are paid for with proceeds from a $40 million bond the council approved in November 2023, which the city confirmed hit its bank account last October. The bond will be repaid through the city's Infrastructure Modernization Tax on online sales.",
+      "Council expands municipal court to five judges: The Jackson City Council voted unanimously Tuesday to appoint Louis Clifford IV as municipal court judge and amended the city ordinance to increase the number of judges to five. CFO Pieter Teeuwissen said the change is designed to prevent judge shopping and create a chief municipal court judge role with up to 35% more compensation to improve scheduling. Councilman Kenneth Stokes noted the council had previously authorized seven judges with plans for a night court, and Teeuwissen confirmed night court is not off the table. Clifford, a Hinds County assistant prosecutor since 2018, told council members he would be \"tough but fair\" and hold repeat offenders accountable.",
+      "JPS students return as Brinkley Middle reopens: Thousands of Jackson Public Schools students headed back to class Wednesday as the district released its back-to-school guide including bell schedules, dress codes, and the student handbook. The district opened a superintendent hotline through Thursday at (601) 960-2781 for parents with questions. Meanwhile, Brinkley Middle School reopened its doors after a three-year closure, having been shuttered in 2023 as part of the district's consolidation plan. JPS renovated the facility before bringing students back. The Medgar Evers Library also reopened this week after a 71-day closure caused by an air conditioning failure, restoring internet access and a cooling space for residents.",
+      "AT&T opens Connected Learning Center at The Bean Path: AT&T launched its first Connected Learning Center in Jackson at The Bean Path, the technology resource hub founded by Dr. Nashlie Sephus. The investment includes three years of free high-speed fiber internet and Wi-Fi, 15 computers, and a $50,000 donation to the nonprofit. It is AT&T's second such center in Mississippi. Sephus said the resources will allow The Bean Path to scale its existing programs for older adults, youth, small business owners, and those seeking tech careers. Michael Walker of AT&T said the company sees the partnership as a way to support the organization's continued growth in bridging Jackson's digital divide.",
+    ],
+  },
+  {
     slug: "prado-vista-ridgeland-100-million-development",
     title: "A $100 Million Development Is Rising in Ridgeland. One Man Is Behind It, and Behind Jackson's AI Campus Too.",
     dek: "Prado Vista will put a county-owned conference center, a 250-room luxury hotel, and four restaurants on 77 acres off I-55. The developer is Gabriel Prado, the same man asking to build an off-grid AI campus while Jackson debates banning data centers.",
