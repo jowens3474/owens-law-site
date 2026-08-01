@@ -65,6 +65,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-08-01",
+    title: "Morning Brief: Aug 1 · Wells Autopsy Sealed; Council Pulls Budget Amendment",
+    dek: "Mississippi's medical examiner completed Nolan Wells's autopsy with results sealed for a grand jury, while Jackson's council adjourned without acting on a budget amendment tied to a $36 million revenue shortfall.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-08-01",
+    views: 0,
+    body: [
+      "Wells autopsy complete, sealed: Mississippi's state medical examiner finished the autopsy of Nolan Wells, the 18-year-old who vanished from Horn Island on July 4 and whose body was found two days later, officials confirmed Friday. Results have not been made public and will go to a grand jury, which will decide whether a crime occurred. The case has drawn national attention, with attorney Ben Crump representing the family and questioning whether Wells's race was related to his disappearance. A private autopsy commissioned by the family found cause and manner of death 'undetermined pending investigation.' Authorities have said they believe the death was likely an accidental drowning.",
+      "Council pulls budget amendment: The Jackson City Council adjourned Friday's recessed meeting after about 45 minutes without acting on a proposed amendment to the city's fiscal 2025-26 budget, the Clarion Ledger reported. The proposal was withdrawn after debate over whether state law requires the city to cut spending projections when revenues fall short. CFO Jillian Caldwell has said revenues are projected around $99 million, roughly $36 million below the $135 million budgeted last September. Ward 7's Kevin Parkinson warned of possible audit findings and personal liability, while Ward 1's Ashby Foote argued the city can stay compliant by controlling spending.",
+      "Hinds weighs 1.5-mill hike: Hinds County supervisors are considering a 1.5-mill property tax increase to close an $8 million gap between the county's $80 million in expenditures and $72 million in projected revenue, WLBT reported. Supervisor Robert Graham said the increase would cost a typical homeowner about $30 a year and would support construction of the county's new jail, warning that without it construction could halt and layoffs could follow. The board meets again Monday, Aug. 3, in the Chancery Court Building. The mill rate for the new year is not set until September.",
+      "JTRAN mediation lands Friday: JTRAN bus operators and contractor MV Transportation entered federal mediation Friday, now in the strike's third week, after agreeing to a third-party session. Union President Charles Tornes Jr. said he was optimistic a deal could be reached, telling WLBT the union is 'willing to listen and be reasonable.' Workers walked off the job July 13 over pay, mandatory overtime and sick leave, the second JTRAN strike in under two years after a 14-day stoppage in 2024. MV has said it wants to raise pay but needs to modify routes to afford it. Riders face continued service disruptions while talks continue.",
+      "Data center moratorium nears: Jackson's 183-day ban on new data centers takes effect in about two weeks, roughly 30 days after the council's 5-2 vote July 14. The measure, the state's first data center moratorium, blocks the city from accepting or approving special use permits, conditional use permits and zoning applications for data centers. Ward 4's Brian Grizzell said the pause gives the city time to pass regulations before any construction is approved. Ward 1's Ashby Foote and Ward 5's Vernon Hartley voted against, with Foote warning the pause could signal extra hurdles to developers. The moratorium runs through early 2027.",
+    ],
+  },
+  {
     slug: "stokes-moves-to-abolish-planning-department-fold-code-enforcement-into-police",
     title: "Stokes Moves to Abolish Planning Department, Fold Code Enforcement Into Police",
     dek: "Ward Three Councilman Kenneth Stokes wants to dissolve the city's Planning and Development Department and move most of its divisions under the Jackson Police Department. The council deferred the ordinance to committee.",
