@@ -65,6 +65,28 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "jtran-strike-third-week-mediation-pearl",
+    title: "JTRAN Strike Enters Third Week as Federal Mediation in Pearl Ends Without a Deal",
+    dek: "Bus operators walked off the job July 13. Friday's mediation in Pearl produced no announced agreement, and the strike has now outlasted the 14-day stoppage of 2024.",
+    category: "General News",
+    author: "Jackson Wire Staff",
+    date: "2026-08-01",
+    views: 0,
+    body: [
+      "JTRAN bus operators spent Friday waiting in a hotel lobby in Pearl while federal mediators shuttled between the union and MV Transportation. By evening, there was no announced deal. The strike, which began July 13, is now in its third week and has already outlasted the last one.",
+      "That matters because the last JTRAN strike, in 2024, ran 14 days before the Federal Mediation and Conciliation Service helped broker an agreement. This one crossed that mark days ago. As of Friday, the picket line was still up and the buses were still running with replacement drivers.",
+      "More than 60 workers with Amalgamated Transit Union Local 1208 walked off the job at 4 a.m. on July 13 after their contract expired at the end of 2025. The union and MV Transportation, which operates the city's bus system under contract, had been negotiating since, with a marathon session on June 27 that ran from 10:15 a.m. until 1 a.m. producing no deal.",
+      "The union is asking for wages to rise to $26 an hour in 2026, $28 by 2028 and $30 by 2030, an end to mandatory overtime, and sick leave that accrues in four months instead of six, according to the Mississippi Free Press. MV Transportation has countered with raises of $3 to $5 an hour for most workers, funded by cutting Route 20, which serves the University of Mississippi Medical Center, and Route 70 in West Jackson, plus ending Saturday service and shrinking weekday hours.",
+      "That trade-off is the heart of the dispute. The company wants to redesign the transit map to pay for raises. The union says the redesign would strand riders who depend on the bus to reach medical appointments and jobs.",
+      "ATU Local 1208 president Charles Tornes Jr. told WAPT that workers want an agreement that shows they are valued. \"We want something that says that we respect you as a human being,\" he said. \"We want to take care of you; let's create a working environment where everybody can come to work and be safe and have peace of mind.\"",
+      "MV Transportation says service has not stopped. The company told WAPT that all 12 fixed routes are running and 100 percent of scheduled paratransit passengers are being served, with experienced operators brought in from other MV locations. Mayor John Horhn temporarily waived the requirement that JTRAN drivers hold a Mississippi driver's license and CDL for the duration of the strike, according to the Free Press.",
+      "The strike has now pulled the City Council into the fight. Councilman Kenneth Stokes told MV officials at the July 28 meeting that if the strike is not ended by the next council meeting, likely August 11, he will put an item on the agenda to end the city's contract with the company, WLBT reported.",
+      "Ward 7 Councilman Kevin Parkinson pushed back, saying the contract should not be canceled automatically because of the strike's length. He said the city should instead examine whether MV Transportation is meeting the requirements of its contract and whether residents are getting the service they pay for.",
+      "The city is an interested party, not a direct employer. JTRAN is publicly funded but privately managed, which leaves Jackson in the awkward position of paying for a service it does not control while its workers and the contractor fight over the terms.",
+      "Friday's mediation in Pearl was the first real test of whether the two sides could close the gap. It ended without a public resolution. The next regular council meeting on August 11 is now the deadline Stokes has set, and the question is whether the buses keep rolling with replacement drivers or the city's contract with MV Transportation becomes the next casualty.",
+    ],
+  },
+  {
     slug: "morning-brief-2026-08-01",
     title: "Morning Brief: Aug 1 · Wells Autopsy Sealed; Council Pulls Budget Amendment",
     dek: "Mississippi's medical examiner completed Nolan Wells's autopsy with results sealed for a grand jury, while Jackson's council adjourned without acting on a budget amendment tied to a $36 million revenue shortfall.",
