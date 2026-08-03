@@ -65,6 +65,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-08-03",
+    title: "Morning Brief: Aug 3 · Hinds Board Meets on Millage; JPS Year Underway",
+    dek: "The Hinds County Board of Supervisors convenes today for its first regular meeting since floating a 1.5-mill tax increase to close an $8 million budget gap.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-08-03",
+    views: 0,
+    body: [
+      "Hinds board meets today on millage: The Hinds County Board of Supervisors convenes at 9 a.m. today in the Chancery Court Building, the first regular meeting since supervisors floated a 1.5-mill property tax increase at a July 28 work session. Board President Robert Graham said the hike would cost the average homeowner about $30 a year and generate roughly $2.3 million annually, most of it for the new county jail under construction. The county faces an $8 million gap between its $80 million in expenditures and $72 million in projected revenue. Supervisors must adopt a balanced budget by Sept. 15, and Graham has warned that without new funding, jail construction could halt and layoffs could follow.",
+      "JPS year opens with uniforms, free meals: Jackson Public Schools began the 2026-27 academic year July 29, with all elementary and middle school students now required to wear uniforms in navy or white tops with navy or khaki bottoms. The district's back-to-school guide also highlights free school meals for all scholars and a schedule of open houses across the district. The new year comes as the district continues to navigate enrollment and staffing questions that have shaped recent budget debates at the state and local level.",
+      "Jackson homicides on pace to top 2025: Jackson recorded 44 homicides between Jan. 1 and June 30, putting the city on track to surpass last year's total, according to Clarion Ledger data. The deadliest month of 2026 so far was June, which saw a homicide every week, including a 2-year-old shot and killed with his mother and aunt. Police Chief RaShall Brackney launched a Quick Response Team Unit on July 1, pulling together narcotics, task force, intelligence and traffic officers to focus on high-crime areas around the clock.",
+      "Data center moratorium takes effect next week: Jackson's 183-day moratorium on new data center development takes effect around Aug. 13, 30 days after the City Council passed it with a 5-2 vote on July 14. Ward 1's Ashby Foote and Ward 5's Vernon Hartley voted against the pause, arguing it could scare off developers at a time when the city needs tax revenue. The moratorium gives the city time to write regulations governing data centers, which have drawn opposition from residents in northwest Jackson over energy use and environmental concerns.",
+      "JTRAN strike enters fourth week: The JTRAN bus strike entered its fourth week Monday, with no new talks scheduled between the Amalgamated Transit Union Local 1208 and MV Transportation after federal mediation in Pearl ended without a deal. Workers walked off the job July 13 over pay, mandatory overtime and sick leave. MV has brought in replacement drivers to keep some routes running. The Federal Mediation and Conciliation Service previously helped resolve a 14-day JTRAN strike in 2024, raising questions about whether a similar breakthrough is possible this time.",
+    ],
+  },
+  {
     slug: "jody-owens-permanently-disbarred-mississippi-supreme-court",
     title: "Jody Owens Permanently Disbarred by Mississippi Supreme Court, Effective Immediately",
     dek: "The former Hinds County district attorney cannot practice law in Mississippi again. The court's order was both immediate and permanent, an unusual departure from the state's normal 30-day grace period.",
