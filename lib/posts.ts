@@ -65,6 +65,28 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "flats-at-fondren-55-million-bet-jackson-rents",
+    title: "Flats at Fondren: A $55 Million Bet That Jackson Rents Can Reach $2,100",
+    dek: "Arlington Development's 234-unit Class A project, its fourth in Jackson, is betting on pent-up demand for high-end rentals in a city where the median rent sits near $1,100.",
+    category: "Commercial Real Estate",
+    author: "Jackson Wire Staff",
+    date: "2026-08-03",
+    views: 0,
+    body: [
+      "Birmingham-based Arlington Development broke ground in April on Flats at Fondren, a 234-unit apartment complex on Mitchell Avenue that the company calls its fourth investment in the Jackson market. The project is a $55 million wager, per WLBT, that enough Jackson renters will pay roughly $2,100 a month to fill it.",
+      "The rent figure matters. Developer Jason Watkins told the Clarion Ledger last fall that average rents at Flats at Fondren would likely be the highest in the market. That is roughly double Jackson's median rent of about $1,100, according to market data, in a city where the median home sells for about $97,000.",
+      "Arlington's own track record is the argument for the bet. The company's District at Eastover, about a mile and a half away, has kept a waiting list for years, according to WLBT. Watkins cited occupancy at comparable Class A properties: Quarter House at 97 percent, The Meridian at 99 percent, District at Eastover at 94 percent. That is an average of 97 percent.",
+      "“We know that there's pent-up demand for quality rental housing in this market,” David G. Ellis, Arlington's chief development officer, said at the groundbreaking. “And that's why we're here.”",
+      "The project has been nearly two decades in the making. Watkins and local developer David Farr began assembling land in 2008, piecing together 15 separate parcels before Arlington came on board in 2019, according to WLBT. The site wraps around the rear of Highball Lanes, Little Tokyo Sushi, Campbell's Bakery, the Capri Theatre and The Station, a live music venue, per Arlington's announcement.",
+      "The location sits along the edge of the Mississippi hospital district. Arlington's release notes UMMC alone employs roughly 10,000 people, with more than 20,000 healthcare professionals working in the surrounding area. The units, averaging 977 square feet across one-, two- and three-bedroom plans, are aimed at that workforce.",
+      "Public money is woven through the deal. Parking will come from a deck owned by Hinds County, directly connected to the property. The city of Jackson is contributing federal housing funds, and state legislation funded the Fondren Garage that made the site viable, according to WLBT. Hinds County supervisors attended the groundbreaking.",
+      "The project is the third groundbreaking in Fondren in 2026 alone, per WLBT. A mixed-use building is rising on the former Kolb's Grand Cleaners site, and a $25 million boutique Hampton Inn is planned along State Street. A Fondren Renaissance Foundation study found the neighborhood could house twice its current population.",
+      "The contrast with the rest of Jackson is sharp. The Wire reported last month on a block of empty apartments on Capitol Street, where a power shutoff left units vacant and the owner pitching JSU housing. One project struggles to fill existing units while another bets $55 million on new ones at double the market rent.",
+      "The question no one has answered is who fills 234 units at $2,100 a month in a city running a $36 million budget deficit. Arlington's comparable properties run near full, which suggests the demand is real. Whether it is deep enough to absorb a fourth Class A project, with deliveries starting in fall 2027, is the bet the company is making.",
+      "Initial unit deliveries are anticipated in fall 2027, per Arlington. The parking deck is under construction. The rest of the answer arrives when the first tenants sign leases.",
+    ],
+  },
+  {
     slug: "morning-brief-2026-08-03",
     title: "Morning Brief: Aug 3 · Hinds Board Meets on Millage; JPS Year Underway",
     dek: "The Hinds County Board of Supervisors convenes today for its first regular meeting since floating a 1.5-mill tax increase to close an $8 million budget gap.",
