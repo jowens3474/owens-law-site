@@ -65,6 +65,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-08-04",
+    title: "Morning Brief: Aug 4 · Heat Index Nears 110; PSC Data Center Docket Looms",
+    dek: "A heat advisory blankets central Mississippi with indices near 110 as Leflore County reports two heat deaths.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-08-04",
+    views: 0,
+    body: [
+      "Extreme heat grips Jackson: The National Weather Service has issued a heat advisory for central Mississippi as heat indices could climb to 110 degrees through midweek, MPB reported. Leflore County has now reported two heat-related deaths of 2026, and officials are urging residents to limit outdoor time and stay hydrated. Daytime highs are running in the upper 90s with very high humidity. The advisory comes as Jackson's cooling centers and libraries face increased demand, and city officials have not announced extended cooling center hours. Residents without air conditioning are encouraged to seek public buildings during peak afternoon heat. The heat wave follows a summer that has already seen the continental U.S. endure its second-hottest first half on record.",
+      "PSC weighs 350MW Ridgeland plant: Developer Gabriel Prado, the man behind the Fondren luxury apartments and Ridgeland's Topgolf, has asked the Mississippi Public Service Commission for a declaratory opinion that his proposed 350-megawatt natural gas plant, data center and AI semiconductor fabrication complex in Ridgeland is exempt from utility regulation. Docket 2026-AD-10 argues the project falls under the landlord-tenant exception in state code. Critics, including Central District Commissioner De'Keither Stamps, say data center growth is outpacing the regulatory framework. The PSC's August utility docket is now posted. The case echoes Jackson's own data center fight, where the council paused new development in July pending new regulations.",
+      "Developer Academy kicks off this week: The city's Planning and Development Department launches its 18-month Real Estate Developer Academy this week, an intensive program training aspiring developers, contractors and investors in real estate finance and project planning. The program runs alongside industry professionals and mentors as part of a push to strengthen Jackson's development pipeline. The launch comes as Ward 3 Councilman Kenneth Stokes pushes an ordinance to abolish the Planning and Development Department and fold code enforcement into the police department, leaving the academy's future under that reorganization unclear. The program is part of a broader city effort to grow local development capacity as Jackson grapples with a $36 million budget deficit.",
+      "Council banks $291K in PFAS payouts: The Jackson City Council's July 28 agenda, recessed to July 31, included orders accepting $85,961.10 from the BASF PFAS settlement and $204,986.79 from the Tyco settlement, both from multidistrict litigation docket 2:18-MN-2873. Combined, the two payouts total roughly $291,000 for the city, with orders authorizing Mayor John Horhn to endorse the settlement checks. The PFAS litigation stems from contamination claims against chemical manufacturers. The same agenda approved a $1,002,150 homeland security grant for the information technology department to support cybersecurity operations and confirmed Louis Clifford IV as a municipal judge for the Jackson Municipal Court.",
+      "Council returns Aug. 11 with unfinished business: The Jackson City Council's next regular meeting is set for Tuesday, Aug. 11 at 10 a.m. at City Hall, according to the Jackson Association of Neighborhoods calendar. Ward 3 Councilman Kenneth Stokes' ordinance to abolish the Planning and Development Department, introduced in July, is expected to return for action after Council President Vernon Hartley declined to take it up that night. The council also faces unfinished work on the fiscal year 2026-27 budget, which the administration revised after the council rejected a budget amendment in July. The city's new fiscal year begins Oct. 1, and the deficit has been pegged at $36 million.",
+    ],
+  },
+  {
     slug: "flats-at-fondren-55-million-bet-jackson-rents",
     title: "Flats at Fondren: A $55 Million Bet That Jackson Rents Can Reach $2,100",
     dek: "Arlington Development's 234-unit Class A project, its fourth in Jackson, is betting on pent-up demand for high-end rentals in a city where the median rent sits near $1,100.",
