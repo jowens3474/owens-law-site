@@ -65,6 +65,28 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "mississippi-infant-mortality-hinds-community-meetings",
+    title: "Mississippi's Infant Mortality Rate Hits a Decade High. Hinds County Is Worse Than the State.",
+    dek: "The state's 2024 rate of 9.7 deaths per 1,000 births is the highest in 10 years, and Hinds County's five-year mark runs higher still. MSDH is turning to community meetings to find out why.",
+    category: "General News",
+    author: "Jackson Wire Staff",
+    date: "2026-08-04",
+    views: 0,
+    body: [
+      "Mississippi recorded 323 infant deaths in 2024, a rate of 9.7 per 1,000 live births, the highest the state has seen in a decade, according to the Mississippi State Department of Health's 2025 infant mortality report. The national average that year was 5.5. The department declared a public health emergency over the number.",
+      "The state's own county data shows the problem is not evenly spread. Over the five years from 2020 through 2024, Hinds County's aggregate infant mortality rate was 10.5 per 1,000 births, above the statewide figure and well above the national rate, per the MSDH report's county map.",
+      "The gap is widest along racial lines. In 2024 the rate among Black babies was 15.2 deaths per 1,000 live births, up roughly 24 percent from the prior year, while the rate among white babies was 5.8, according to March of Dimes and the state health department. Black infants in Mississippi face the highest death rates in the nation.",
+      "The leading causes are congenital malformations, preterm birth, low birth weight and sudden infant death syndrome, MSDH says.",
+      "In response, the department has stopped relying on statistics alone. It is holding town halls across the state, starting with a July 21 meeting at Lamar Park Community Center in Hattiesburg, to ask residents what keeps mothers from care. Transportation, housing, limited awareness of available resources and weak coordination among organizations came up repeatedly, according to the Roy Howard Community Journalism Center, which covered the session.",
+      "\"You only know what the community can tell you,\" Dr. Ashley Hollins, an epidemiologist with the Northeast Mississippi Healthy Start Program, told the meeting. \"We can't solve the problem from Jackson or from the top of the state to the bottom of the state.\"",
+      "The scale of the access problem is stark. More than half of Mississippi's counties are classified as maternity care deserts, and fewer than one in four women live within 30 minutes of a birthing clinic or hospital, per March of Dimes data cited in the coverage. Roughly 6 percent of births in 2024 came after late or no prenatal care.",
+      "There is a tension in the state's approach. In February, MSDH told Mississippi Today it was scaling back its Healthy Moms, Healthy Babies home-visiting program from all 82 counties to a pilot in 10, shifting from nurse-led visits to community health workers. The department has not publicly named the 10 counties.",
+      "The Legislature has a competing answer. Senate Bill 2559, the Mississippi Healthy Moms, Healthy Babies Act of 2026, introduced by Sen. Mumford and referred to the Public Health and Welfare Committee, would create an Infant Mortality Reduction Initiative inside MSDH, extend postpartum Medicaid coverage to 12 months, fund prenatal care at community health centers and rural hospitals, and expand safe-sleep education.",
+      "For Jackson, the question is whether any of it reaches Hinds County, where the rate already runs above the state average. The department's next community meetings have not been scheduled, and the 10-county pilot list remains undisclosed. The state's own data says the county that contains the capital is among the places that need the most attention.",
+      "MSDH will gather maternal and infant health professionals at the Jackson Convention Complex on September 25 for its annual conference. Whether the community meetings that precede it produce anything beyond testimony will be the test of whether the state's newest strategy changes a number that has been climbing for a decade.",
+    ],
+  },
+  {
     slug: "morning-brief-2026-08-04",
     title: "Morning Brief: Aug 4 · Heat Index Nears 110; PSC Data Center Docket Looms",
     dek: "A heat advisory blankets central Mississippi with indices near 110 as Leflore County reports two heat deaths.",
