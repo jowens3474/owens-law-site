@@ -65,6 +65,27 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "vieux-carre-tif-north-jackson-28-million",
+    title: "A $28 Million Bet on North Jackson, Financed With $1.3 Million the City Doesn't Have to Pay",
+    dek: "The council set an August 25 hearing on tax-increment financing for a Vieux Carre expansion that adds 84 apartments and a medical office building. The TIF only pays out if the project generates new property taxes.",
+    category: "Commercial Real Estate",
+    author: "Jackson Wire Staff",
+    date: "2026-08-05",
+    views: 0,
+    body: [
+      "The math on the newest North Jackson development deal is roughly 4.6 cents of public financing for every dollar of private construction. The Jackson City Council set a public hearing for August 25 to consider awarding $1.3 million in tax-increment financing bonds to a $28 million project at Vieux Carre Apartments, according to WLBT. The developer, an affiliate of Jackson's State Street Group, wants to renovate the existing dwellings, add 84 units, and build a 10,000-square-foot medical office building on the I-55 North frontage road south of Meadowbrook Road.",
+      "TIF works differently from a grant. The city does not write a check up front. Instead, it reimburses the developer for infrastructure work out of a portion of the new property taxes the finished project generates. If the project never gets built, or if the tax increase falls short, the developer absorbs the loss.",
+      "That structure is what Council Vice-President Kevin Parkinson is selling. \"It's a low-risk way for the city to encourage development deals,\" he told the council on Friday, according to WLBT. \"I would like to see TIF projects across the city.\"",
+      "The pitch matters because of what the city is not spending. Jackson is staring at a $36 million deficit, and the council just rejected a budget amendment meant to address it. A tool that costs nothing unless a project succeeds is attractive to a council that has little room to spend.",
+      "Christiana Sugg, with Gouras & Associates, made the case to the council on Friday. She said Hinds County agreed to contribute contingent on the city also signing on. She stressed the low risk to Jackson directly: \"If no project built, or if the project is built and the increases are not sufficient to reimburse... it's the developer's loss,\" she said, per WLBT. \"They'll just have to eat the costs for the improvements that they made.\"",
+      "The timeline is tight. Sugg said construction would take about 18 months, and site clearing could begin as soon as August 26, the day after the hearing. That assumes the council approves the financing.",
+      "The project is a different kind of bet than the one the Wire covered at Flats at Fondren, a $55 million play that rents can reach $2,100 a month. Vieux Carre is a renovation-plus-expansion of an existing complex, and the TIF ties the city's exposure to the project's actual tax performance rather than to a rent forecast.",
+      "Jackson has used TIF before. The Townsend Courts development on the city's TIF map is a three-phase mixed-use project with a permitted value around $27 million. But Parkinson's push to spread the tool citywide suggests the council sees it as a template, not a one-off.",
+      "The open question is whether the new units and the medical office building generate enough assessed value to repay the $1.3 million, and how quickly. TIF reimbursements are paid out of incremental tax revenue, which means the city's return depends on the county's assessment schedule and the pace of leasing.",
+      "The August 25 hearing will put the details on the record. If the council approves, the site clearing that could start the next day will be the first visible sign of whether North Jackson's newest bet pays off.",
+    ],
+  },
+  {
     slug: "morning-brief-2026-08-05",
     title: "Morning Brief: Aug 5 · JTRAN Strike Drags Into Week Four; JXN Water Collections Top $8.3M",
     dek: "JTRAN bus operators remain on the picket line as MV Transportation touts an enhanced wage offer, while JXN Water reports record monthly collections and Hinds supervisors weigh a one-mill increase.",
