@@ -65,6 +65,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-08-05",
+    title: "Morning Brief: Aug 5 · JTRAN Strike Drags Into Week Four; JXN Water Collections Top $8.3M",
+    dek: "JTRAN bus operators remain on the picket line as MV Transportation touts an enhanced wage offer, while JXN Water reports record monthly collections and Hinds supervisors weigh a one-mill increase.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-08-05",
+    views: 0,
+    body: [
+      "JTRAN strike enters week four: Union bus operators with ATU Local 1208 remained on the picket line Tuesday as Mayor John Horhn urged both sides toward good-faith talks, WJTV reported. The union met MV Transportation with a federal mediator on July 31 at a hotel in Pearl, where MV said both parties agreed to implement safety policies already in place at several of its operations nationwide. MV also said it enhanced its wage proposal with increases for 2026 and 2027. Union president Charles Tornes Jr. has said workers want a fair contract and a safe environment, and the city has temporarily waived Mississippi CDL requirements so out-of-state replacement drivers can keep routes running. Riders have gone without full service for nearly a month.",
+      "JXN Water collections top $8.3M a month: Monthly collections averaged $8.3 million in the second quarter of 2026, interim third-party manager Ted Henifin reported, a roughly 116 percent increase since the utility took over billing in late 2023 and about $1.3 million more than the first three months of the year, WLBT reported. The average monthly shortfall between local revenue and total costs has narrowed to $665,172.54, Henifin wrote, and JXN Water has cut operating costs to help close the gap. The numbers come months after a federal judge approved an 11.7 percent rate increase that took effect in March, adding about $8.88 to the average residential bill.",
+      "Hinds supervisors weigh one-mill increase: The Board of Supervisors is in final budget deliberations on a proposed one-mill increase projected to raise $2.3 million annually for capital improvements and debt service on the new Hinds County Criminal Justice Facility, WLBT reported. The increase would cost the average homeowner about $2.50 a month, or $30 a year. Board President Robert Graham said the hike is needed to cover unfunded state mandates, tariff impacts and rising material costs, and that the detention center project authorized by the previous board leaves little room to avoid a tax increase. Residents pushed back at a July 28 work session, with one telling supervisors the county should manage existing spending before asking for more. The board must adopt a budget by September 15.",
+      "PSC data center fight simmers after June ruling: The Mississippi Public Service Commission held its regular docket meeting Tuesday, months after declining to issue a declaratory opinion in Docket 2026-AD-10, the case where developer Gabriel Prado sought to build a 350-megawatt natural gas plant in Ridgeland to power an AI data center and semiconductor fabrication campus. By declining to rule, the commission left intact the statutory exemption allowing private companies to generate power for their own facilities without a Certificate of Public Convenience and Necessity, a Prado statement said. Entergy Mississippi and Mississippi Power had argued the arrangement would make Prado AI a public utility. Commissioner De'Keither Stamps has pushed for stronger data center oversight as AWS expands across the region.",
+      "Teen pleads guilty in 2021 Jackson killing: Dennis \"DJ\" Williams Jr., 19, pleaded guilty Monday to kidnapping and second-degree murder in the abduction and killing of 33-year-old Teshundra Fortune, the Hinds County District Attorney's Office said. Williams was sentenced to 30 years for kidnapping and 40 years for second-degree murder, with five years suspended, followed by five years of post-release supervision, WLBT reported. The case dates to 2021, when Fortune was abducted and killed in Jackson. Prosecutors said nothing imposed in a courtroom can undo the loss, but the sentence holds Williams accountable for the crime.",
+    ],
+  },
+  {
     slug: "mississippi-infant-mortality-hinds-community-meetings",
     title: "Mississippi's Infant Mortality Rate Hits a Decade High. Hinds County Is Worse Than the State.",
     dek: "The state's 2024 rate of 9.7 deaths per 1,000 births is the highest in 10 years, and Hinds County's five-year mark runs higher still. MSDH is turning to community meetings to find out why.",
