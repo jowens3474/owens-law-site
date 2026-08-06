@@ -65,6 +65,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-08-06",
+    title: "Morning Brief: Aug 6 · Homicides Projected Near 92; JTRAN Talks Stall",
+    dek: "Jackson's homicide count through July is up 26% over last year, and the JTRAN strike enters its fourth week with the union walking out of mediated talks.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-08-06",
+    views: 0,
+    body: [
+      "Homicides projected near 92 for 2026: Jackson recorded 54 homicides from Jan. 1 through July 31, up from 43 in the same stretch of 2025, the Clarion Ledger reported Wednesday. Ten murders closed out July after a nearly two-week lull, including a drive-by that killed 19-year-old Andreanna Cooper inside her South Prentiss Street home and a shooting that killed 61-year-old Emanuel Lee as he tried to break up a domestic dispute. JPD investigated 50 of the cases and Capitol Police four. At the current pace, the city is projected to finish 2026 with about 92 homicides, still below the 111 recorded in 2024 but well above last year's 75. Tyrone Thomas, 19, was arrested in the Cooper killing and ordered held without bond.",
+      "JTRAN talks stall as strike hits week four: The Amalgamated Transit Union Local 1208 walked out of a federal mediation session July 31 without an agreement, WJTV reported, even as MV Transportation said it enhanced its wage offer. Under MV's latest proposal, starting pay would rise from $17.18 an hour today to $23.34 by January 2028, with top-rate operators climbing from $23.00 to $27.58 over the same period, figures the company says exceed the union's last proposal. Mayor Chokwe Antar Lumumba urged both sides to return to good-faith talks. The strike, now in its fourth week, is the second JTRAN walkout in under two years, following a 14-day stoppage in September 2024. Riders continue to face reduced service as out-of-state replacement drivers cover routes.",
+      "Westland Plaza sells for $11.8 million: A 214,281-square-foot shopping center anchored by Grocery Depot on Robinson Road changed hands in a deal arranged by Legacy Realty Group Advisors, the firm announced Tuesday. The property, built in the late 1950s and renovated in 2009, is roughly 83% occupied with tenants including Planet Fitness, Family Dollar, Hibbett Sports, Rent-A-Center, Rainbow Shops and City Gear. Jacob Baruch, Daniel Baruch and Ari Warshaw represented the buyer; Beezie Landry and Justin Langlois of Stirling Investment Advisors represented the seller. Both parties requested anonymity. The sale price works out to about $55 per square foot, a signal that investors still see value in west Jackson retail despite the market's well-documented challenges.",
+      "JXN Water hosts quarterly meeting Saturday: The utility will hold its quarterly community meeting Aug. 8 at the Summit Office on Greymont Avenue, with breakfast and coffee provided and customer care representatives on site, according to a release issued Tuesday. The gathering comes as Ted Henifin's Q2 report shows monthly collections averaging $8.3 million, with the gap between local revenue and total costs narrowing to a $665,172 monthly shortfall. JXN Water cut operating costs by nearly 14% through the first six months of 2026 and caught up on past-due amounts after receiving a $54 million congressional allocation. Residents can also pick up the latest Water Quality Report and an update on priority projects across the system.",
+      "Hinds County millage hike heads toward vote: The Board of Supervisors is weighing a property tax increase that would generate $2.3 million annually for a new criminal justice facility, county buildings, infrastructure and equipment including boilers and elevators, WLBT reported after a July 29 budget work session. The proposed increase would cost the average homeowner about $2.50 a month, or $30 a year. Board President Robert Graham said the county faces rising operational costs and needs the revenue to pay down debt service. Some residents pushed back at the work session. The board met Monday and the millage question is expected to return as budget season accelerates ahead of the fiscal year deadline.",
+    ],
+  },
+  {
     slug: "vieux-carre-tif-north-jackson-28-million",
     title: "A $28 Million Bet on North Jackson, Financed With $1.3 Million the City Doesn't Have to Pay",
     dek: "The council set an August 25 hearing on tax-increment financing for a Vieux Carre expansion that adds 84 apartments and a medical office building. The TIF only pays out if the project generates new property taxes.",
