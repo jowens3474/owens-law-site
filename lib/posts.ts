@@ -65,6 +65,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-08-07",
+    title: "Morning Brief: Aug 7 · Budget Hearings Open Monday; State to Raze Virginia College",
+    dek: "The city releases its 2026-27 budget hearing schedule as council members clash over a revenue shortfall, and the state moves to demolish a North Jackson eyesore.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-08-07",
+    views: 0,
+    body: [
+      "Budget hearings open Monday: The city released its 2026-27 departmental budget hearing schedule Thursday, with the first session set for Monday at 10 a.m. Council members will get an overview of revenues, debt service, employee benefits and opioid settlement funds before department heads present through the week. Police, fire and public works make their cases Thursday, Aug. 13. The council must adopt a budget by Sept. 15, effective Oct. 1. The hearings come as Mayor John Horhn says a revenue shortfall requires a budget amendment by July 31, a move council members have yet to act on. Ward One's Ashby Foote said he was not convinced a deficit looms, citing unfilled positions in public works and police.",
+      "State to raze Virginia College site: The Mississippi Secretary of State's office confirmed Thursday it is working through the process of cleaning up and demolishing the former Virginia College building at Ridgewood Road and Adkins Boulevard. The property has sat vacant since the for-profit college closed in December 2018 and has since been ransacked by vagrants. A body was found in a creek near the facility last month, prompting a police investigation. Ward Two Councilwoman Tina Clay said the city should fence the property and clean it up in the meantime. Chris Jefferson, co-owner of neighboring Scrooge's Restaurant, said he was relieved: 'Thank, God.'",
+      "PSC swaps water aid for charity: The Mississippi Public Service Commission voted Tuesday to replace a resolution calling for a permanent federal water assistance program with one urging churches, businesses and neighbors to help families struggling to pay water bills. Commissioner De'Keither Stamps, who introduced the original resolution, argued the state should not leave water access to benevolence. Commissioner Chris Brown said communities, not Washington, are best positioned to respond. The vote came as Jackson residents have pressed for relief from rising water bills under JXN Water's rate increases.",
+      "JXN Water hosts Saturday meeting: JXN Water will hold its quarterly community meeting Saturday at 8 a.m. at the Summit Office on Greymont Avenue, with breakfast and coffee provided. Staff will present the latest water quality report and priority project updates, and customer care representatives will be on site. The Q2 report, released July 31, shows collection rates climbing to 71 percent from 53.6 percent in 2023, with revenue up 116 percent. JXN Water is also pursuing a rate increase for roughly 4,300 customers living beyond city limits, whose rates have not changed since 1985. Some of those bills could rise as much as 850 percent.",
+      "Westland Plaza sells for $11.8M: Legacy Realty Group Advisors arranged the sale of Westland Plaza, a 214,281-square-foot shopping center in Jackson, for $11.8 million, or roughly $55 per square foot. Grocery Depot anchors the property, joined by Planet Fitness, Family Dollar, Hibbett Sports, Rent-A-Center, Rainbow Shops and City Gear. Both buyer and seller requested anonymity. The deal closed after an earlier contract fell through, according to the seller's brokerage Stirling Investment Advisors, which cited investor skepticism about the Jackson market as a hurdle. The sale is one of the larger retail transactions in the city this year.",
+    ],
+  },
+  {
     slug: "morning-brief-2026-08-06",
     title: "Morning Brief: Aug 6 · Homicides Projected Near 92; JTRAN Talks Stall",
     dek: "Jackson's homicide count through July is up 26% over last year, and the JTRAN strike enters its fourth week with the union walking out of mediated talks.",
