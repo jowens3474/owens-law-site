@@ -65,6 +65,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-08-08",
+    title: "Morning Brief: Aug 8 · Budget Hearings Open Monday Amid $36M Deficit Fight",
+    dek: "Jackson's 2026-27 budget hearings open Monday as the council and mayor remain at odds over a projected revenue shortfall the council has refused to formally acknowledge.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-08-08",
+    views: 0,
+    body: [
+      "Budget hearings open Monday amid deficit fight: The City Council convenes its 2026-27 departmental budget hearings Monday at 2 p.m., starting with an overview of revenues, debt service, employee benefits and opioid settlement funds, per the schedule the city released Thursday. Police, fire and public works present Aug. 13, and the city must adopt a budget by Sept. 15. The hearings land weeks after CFO Jillian Caldwell told the council revenues are projected near $99 million, about $36 million below what the city budgeted, and after four of seven members voted down a required amendment. Ward 1's Ashby Foote said he was not convinced the city would run a deficit given unfilled Public Works and police slots. Mayor John Horhn has warned the city risks violating state law.",
+      "Homicide count nears 55, pacing above 2025: Jackson recorded 54 homicides from Jan. 1 through July 31, up from 43 in the same stretch of 2025 but still below 2024 levels, the Clarion Ledger reported. JPD investigated 50 of the cases and Capitol Police four. The count climbed after a deadly July that saw 10 murders, including a two-week stretch with none, and comes as the city projects a year-end total near 92. The pace puts Jackson on track to finish above last year's count for the first time since 2021, a reversal of the recent downward trend that city leaders had pointed to as evidence of progress.",
+      "JXN Water holds quarterly meeting today: The court-appointed water utility hosts its quarterly community meeting Saturday at 8 a.m. at the Summit Office on Greymont Avenue, with breakfast, coffee, the latest water quality report and a priority projects update on offer, per a release dated Aug. 4. On-site customer support will be available for residents who cannot reach the Customer Care Center during business hours. The meeting also marks the start of a partnership between JXN Water and the Jackson-Hinds Library System aimed at expanding access to essential services. It comes as the utility continues system-wide line flushing after seasonal manganese levels caused discolored water in parts of the distribution network last month.",
+      "JTRAN strike drags on with new wage offer: Union bus operators remain off the job as MV Transportation, the JTRAN contractor, says it enhanced its wage proposal during July 31 negotiations with a federal mediator. Under the latest offer, starting pay would rise from $17.18 an hour today to $23.34 by January 2028, while top-rate senior operators would climb from $23 to $27.58, MV said, a package it argues exceeds the union's last proposal. Mayor John Horhn has urged good-faith talks, saying the city needs both workers and riders. The strike, now in its fourth week, is the second JTRAN walkout in under two years, following a 14-day stoppage in 2024.",
+      "PSC data center docket draws Entergy opposition: The Public Service Commission is weighing Docket 2026-AD-10, in which Ridgeland developer Gabriel Prado asks for a declaratory opinion that he is not a public utility and needs no certificate to build a 350-megawatt natural gas plant powering his own data center and AI chip fabrication campus. Entergy has filed in opposition, arguing the commission must still determine whether new generation serves the public interest even if Prado sells no power on the open market. The case, filed April 14, tests whether Mississippi's regulatory regime can police a private plant that would sit outside the grid, and it comes as Commissioner De'Keither Stamps pushes for stronger data center oversight.",
+    ],
+  },
+  {
     slug: "morning-brief-2026-08-07",
     title: "Morning Brief: Aug 7 · Budget Hearings Open Monday; State to Raze Virginia College",
     dek: "The city releases its 2026-27 budget hearing schedule as council members clash over a revenue shortfall, and the state moves to demolish a North Jackson eyesore.",
