@@ -65,6 +65,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-08-09",
+    title: "Morning Brief: Aug 9 · Person of Interest Held in Fortune Death; Budget Hearings Open Monday",
+    dek: "A man interviewed in the death of Tasia Fortune sits in jail on an unrelated gun charge, while Jackson's budget hearings open Monday amid a disputed $36 million deficit.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-08-09",
+    views: 0,
+    body: [
+      "Person of interest held in Fortune death: Terence Anderson, a man detectives interviewed in connection with the death of Tasia Fortune, appeared in Jackson Municipal Court on Tuesday charged as a felon in possession of a firearm, WLBT reported. Judge Jeffrey Reynolds set bond at $250,000, and Anderson remains at the Hinds County Detention Center in Raymond. Detectives said in court that Anderson denied involvement in Fortune's death but admitted he had argued with her. Jackson police would not confirm he is a person of interest, and he has not been charged in her death. Fortune, 29, was found hanging from a tree behind a vacant home on Road of Remembrance on Aug. 3; her body had been there three to four days. An autopsy is pending at the state medical examiner's office.",
+      "Budget hearings open Monday amid deficit fight: The Jackson City Council convenes its first 2026-27 departmental budget hearing Monday at 9 a.m., with an overview of the 2027 budget, revenues, debt service, employee benefits and opioid settlement funds on the agenda. The hearings come two weeks after four of seven council members voted down an administration request to amend the current-year budget in line with state law, refusing to declare the $36 million deficit CFO Jillian Caldwell projected. The city's new budget year begins Oct. 1. Hearings run through mid-August, with police, fire and public works departments presenting Aug. 14 and the mayor's office and chief administrative office Aug. 18.",
+      "JTRAN strike drags into fourth week: Union bus operators met Thursday with MV Transportation for the second time this month, with a federal mediator present, and left without a deal, WAPT reported. ATU Local 1208 has been on strike since July 13 over pay, sick leave and mandatory overtime. MV says its latest proposal moves starting pay from $17.18 an hour today to $23.34 by January 2028, with top-rate senior operators rising from $23.00 to $27.58, figures the company says exceed the union's last offer. The strike is the second in less than two years, following a 14-day walkout in 2024. Roughly 1,000 daily riders rely on the system.",
+      "JXN Water hosts quarterly meeting, seeks pipeline bids: JXN Water holds its quarterly community meeting Saturday at its Summit Office on Greymont Avenue, offering the latest water quality report and a priority projects update alongside on-site customer support. Separately, the utility is seeking bids for a new 20-inch water pipeline funded in part by Safe Drinking Water Act State Revolving Loan Funds, with a mandatory pre-bid conference set for Aug. 20. The 120-day contract includes connections to existing mains, abandonment of an old line and $2,000 per day in liquidated damages for delays. The utility continues to operate under federal court oversight with Ted Henifin as interim third-party manager.",
+      "Data center moratorium nears effective date: Jackson's 183-day ban on data center development, passed July 14 on a 5-2 vote, takes effect this week, roughly 30 days after approval. The measure halts acceptance of special use, conditional use and zoning applications for data centers while the council drafts regulations, and it exempts land around Jackson-Medgar Wiley Evers International Airport. Ward 1's Ashby Foote and Ward 5's Vernon Hartley voted against the pause, with Foote warning it could signal extra hurdles to developers. The moratorium follows months of community opposition to a proposed 230-acre data center site in northwest Jackson and makes Jackson the first Mississippi city to enact such a pause.",
+    ],
+  },
+  {
     slug: "jackson-council-refuses-declare-36m-deficit",
     title: "Jackson Council Refuses to Declare a $36 Million Deficit, Betting on Spending Restraint",
     dek: "A 3-4 vote and a withdrawn motion leave the city's books showing a $135 million budget against roughly $99 million in projected revenue, with the CFO warning of audit findings and personal liability.",
