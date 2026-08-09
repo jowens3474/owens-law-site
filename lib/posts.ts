@@ -65,6 +65,28 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "westland-plaza-sale-11-8-million-west-jackson",
+    title: "West Jackson's Westland Plaza Changes Hands for $11.8 Million, a Bet Priced for Vacancy",
+    dek: "A New York brokerage arranged the sale of the 214,000-square-foot Robinson Road center at a 9 percent cap rate and 83 percent occupancy. The price tells you what investors think of west Jackson retail risk.",
+    category: "Commercial Real Estate",
+    author: "Jackson Wire Staff",
+    date: "2026-08-09",
+    views: 0,
+    body: [
+      "Westland Plaza, the grocery-anchored shopping center that has anchored west Jackson since 1957, has sold for $11.8 million, according to trade coverage published this week. The deal closed months ago, but the terms only surfaced publicly in the last few days.",
+      "The property sits on 30.83 acres at 2590 Robinson Road, on the MS-18 corridor where Robinson Road meets Ellis Avenue. It totals 214,281 square feet and trades at roughly $55 a square foot, a price that reflects the center's 83 percent occupancy and the market's view of west Jackson retail.",
+      "Legacy Realty Group Advisors, a New York firm that specializes in off-market deals, represented the buyer. Stirling Investment Advisors represented the seller. Both parties requested anonymity, so the new owner's identity and plans are unknown.",
+      "The listing marketed the center at a 9 percent cap rate, according to the Stirling property page. That is roughly double what a fully leased grocery-anchored center would fetch in a stronger market, and it is the number that tells the real story: the buyer is being paid to take on leasing risk.",
+      "At 83 percent occupancy, the buyer is effectively paying for about 178,000 square feet of occupied space, or closer to $66 per occupied square foot. The gap between the two figures is the vacancy the new owner will have to fill.",
+      "Grocery Depot anchors the property. The discount grocer, operated by Hattiesburg-based Roberts Company, rebranded the store from Froogel's in 2020. Other tenants include Planet Fitness, Family Dollar, Hibbett Sports, Rent-A-Center, Rainbow Shops and City Gear.",
+      "The center is a piece of Jackson's retail history. It opened in 1957, designed by E.L. Malvaney with a V-shaped layout and a parking lot inside the Vee that held 450 cars, according to a Mississippi Department of Archives and History nomination. In 1959, McRae's leased space there for its second suburban store, making Westland Plaza one of the city's first true community shopping centers.",
+      "That history cuts both ways. Robinson Road was the western edge of the city in 1957; today the corridor runs through some of Jackson's poorest neighborhoods, and the tenant mix of dollar stores, check-cashing-adjacent retail and discount grocers reflects the demographics the center serves.",
+      "The sale comes as Jackson's grocery landscape is shifting. A separate Food Depot in South Jackson closed in late 2025, and other discount grocers have consolidated in recent years, leaving parts of the city with thin options for fresh food.",
+      "The 9 percent cap rate and the $55-a-square-foot price are the market's honest assessment of that risk. Whether the new owner can push occupancy back toward 90 percent or higher, and what rents that requires, will determine whether the bet pays off.",
+      "For now, the center's future is a question of who bought it and what they intend to do. Both parties kept that quiet. The trade press published the terms this week; the strategy behind them has not been disclosed.",
+    ],
+  },
+  {
     slug: "morning-brief-2026-08-09",
     title: "Morning Brief: Aug 9 · Person of Interest Held in Fortune Death; Budget Hearings Open Monday",
     dek: "A man interviewed in the death of Tasia Fortune sits in jail on an unrelated gun charge, while Jackson's budget hearings open Monday amid a disputed $36 million deficit.",
