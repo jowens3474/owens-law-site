@@ -65,6 +65,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-08-10",
+    title: "Morning Brief: Aug 10 · Budget Hearings Open Amid Deficit Fight",
+    dek: "The city's 2026-27 departmental budget hearings open Monday at 9 a.m. with an overview of revenues and debt service, landing amid the council's unresolved fight over the current-year shortfall.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-08-10",
+    views: 0,
+    body: [
+      "Budget hearings open amid deficit fight: The first of the city's 2026-27 departmental budget hearings convenes Monday at 9 a.m., when the Jackson City Council gets an overview of the 2027 budget, revenues, debt service, employee benefits and opioid settlement funds. The city must adopt a budget by Sept. 15, effective Oct. 1. The hearings land amid the unresolved fight over the current-year shortfall: Mayor John Horhn warned the council it must amend the budget by July 31 to stay in compliance with state law, but a majority has refused to declare a deficit. Ward 1 Councilman Ashby Foote told WLBT he wasn't convinced the city would run a deficit, citing \"a huge shortfall in spending.\" Fire, police and public works present Thursday.",
+      "Stokes pushes planning-to-JPD merger: Ward 3 Councilman Kenneth Stokes is pressing an ordinance that would shift community improvement and code enforcement out of Planning and Development and into the Jackson Police Department, arguing residents \"need to see a police officer\" when they call about neighborhood problems. Stokes said he wants the money redirected to crime-fighting technology for JPD, though he told WLBT he doesn't yet know how much the reorganization would free up and hasn't spoken directly with Police Chief RaShall Brackney. The proposal would effectively do away with Planning and Development as a department, folding building and permits and planning and zoning under JPD.",
+      "JXN Water seeks outside-city rate hike: JXN Water's Q2 report, filed July 31, shows local revenue now covers operating expenses but still leaves an average monthly shortfall of $665,172.54 against debt service. The utility is pursuing a rate increase for roughly 4,300 customers living more than a mile outside city limits, whose rates were last set in 1985 and run far below what other customers pay. Proposed increases range from 338% to 850% depending on usage tier. The report also flags two ongoing illegal sanitary sewer overflows needing capital funding JXN Water doesn't have, and says a $54 million federal grant awarded in April paid off all aging invoices.",
+      "Hinds weighs $30-a-year millage hike: Hinds County supervisors are weighing a millage increase that would cost the average homeowner about $30 a year and generate $2.3 million annually for a new criminal justice facility, county buildings, infrastructure and equipment. Board President Robert Graham said the money would help the county stay competitive with Rankin and Madison counties, arguing \"$30 is not an unusual amount to invest in your county.\" Some residents pushed back at the July 29 work session, with Monica Bradshaw saying the county should examine existing spending before raising taxes. The board is expected to vote in the coming months.",
+      "Flats at Fondren breaks ground: Arlington Properties has broken ground on the Flats at Fondren, a 234-unit apartment community in Jackson's Fondren district, with initial deliveries anticipated in Fall 2027. The roughly 293,797-square-foot development spans one-, two- and three-bedroom floor plans averaging 977 square feet, with a saltwater pool, fitness center and coworking lounge. Parking will be supported by a new deck owned by Hinds County. The project is the latest in a wave of private investment in the capital city, arriving as Jackson home values have surged 32% across the metro.",
+    ],
+  },
+  {
     slug: "westland-plaza-sale-11-8-million-west-jackson",
     title: "West Jackson's Westland Plaza Changes Hands for $11.8 Million, a Bet Priced for Vacancy",
     dek: "A New York brokerage arranged the sale of the 214,000-square-foot Robinson Road center at a 9 percent cap rate and 83 percent occupancy. The price tells you what investors think of west Jackson retail risk.",
