@@ -65,6 +65,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-08-11",
+    title: "Morning Brief: Aug 11 · Budget Hearings Enter Day Two",
+    dek: "The council's Finance Committee reconvenes today for day two of departmental budget hearings after Mayor Horhn proposed a flat $112.9 million general fund.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-08-11",
+    views: 0,
+    body: [
+      "Budget hearings enter day two: The Jackson City Council's Finance Committee reconvenes at 3 p.m. by teleconference for the second day of departmental budget hearings, with Human and Cultural Services, the Municipal Clerk's Office, and Human Resources on the docket. A regular council meeting is set for noon. The hearings follow Mayor John Horhn's Monday proposal of a $112.9 million general fund budget, roughly $23 million below the current year's adopted figure but flat against actual spending. Chief Financial Officer Jillian Caldwell told the committee the city expects to spend about $20.3 million on employee health insurance this year, up from $19.1 million, with the city absorbing 83 percent of plan costs. Police and fire together consume more than half the general fund.",
+      "Homicides up 26 percent year over year: Jackson recorded 54 homicides from January through July, up from 43 in the same period last year, a 26 percent jump, Clarion Ledger records show. Ten murders came in the final two weeks of July after the city went nearly two weeks without a homicide. The pace still trails 2024, when 74 people were killed by July 31 and 111 by year's end. JPD investigated 50 of this year's cases and Capitol Police handled four. At the current rate, the city is on pace for roughly 92 homicides in 2026, above last year's 75 total. The numbers arrive as the council weighs public safety spending in the new budget.",
+      "Redistricting hearings set across state: Mississippi's joint legislative redistricting committee has scheduled eight public hearings beginning Aug. 18 in Tupelo, with the Jackson hearing set for Sept. 24 at the Capitol. The 20-member panel, 16 Republicans and four Democrats, met Aug. 3 to launch the process after the U.S. Supreme Court's Louisiana v. Callais decision. Lawmakers are expected to redraw legislative districts before the Jan. 2 qualifying deadline for the 2027 election cycle, with Gov. Tate Reeves likely to call a special session. Sen. Jeremy England, R-Vancleave, called it \"basically a clean slate.\" Congressional and judicial redistricting would follow in the 2027 regular session. All hearings run at 6 p.m. and stream on the Legislature's YouTube channel.",
+      "JXN Water rate hike now on bills: Jackson water customers have been paying roughly 11.7 percent more on their bills since March, when federal Judge Henry Wingate approved the rate adjustment sought by interim manager Ted Henifin. The average combined water and sewer bill now runs about $88 a month, up from roughly $76. The increase covers operating costs and debt service as JXN Water works toward financial sustainability. The bigger question looms in October, when the stipulated order requires a transition plan for handing the system to the new Metro Jackson Water Authority. Henifin has said the utility will keep operating under court direction until an approved plan is implemented. The city must agree on the plan with EPA, DOJ, MDEQ and state health officials.",
+      "Book Festival lands Dav Pilkey tour: The Mississippi Book Festival announced that Dav Pilkey, creator of Dog Man and Captain Underpants, will launch his international \"Do Good Tour\" in Jackson ahead of the Sept. 26 festival at the State Capitol. The festival, now in its 11th year, drew more than 9,300 attendees in its fifth year and has become the state's signature literary event, with panels across Capitol rooms and a marketplace on the grounds. Organizers also announced a Southern screening of The Wild Robot. The festival remains free and open to the public. For Jackson readers, the Pilkey announcement gives the city a national spotlight before the fall event season.",
+    ],
+  },
+  {
     slug: "stokes-code-enforcement-jpd-brackney-opposes",
     title: "Stokes Wants Code Enforcement Under JPD. The Police Chief Says No.",
     dek: "Ward 3 Councilman Kenneth Stokes is pushing to dissolve the Planning and Development Department and hand code enforcement to police. The city's top cop, who would inherit the job, opposes the move.",
