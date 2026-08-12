@@ -65,6 +65,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-08-12",
+    title: "Morning Brief: Aug 12 · Council Eyes Data Center Sites as Ban Looms",
+    dek: "The Jackson City Council voted 5-2 to explore data center locations even as a six-month moratorium takes effect Thursday, while JTRAN's strike nears its one-month mark.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-08-12",
+    views: 0,
+    body: [
+      "Data center sites eyed as ban looms: The council voted 5-2 Tuesday on a Stokes resolution urging the administration to explore data center locations away from residential areas, even as the 183-day moratorium takes effect Thursday. Stokes said the city needs revenue, pointing to closed pools and libraries. Horhn said he is \"an advocate for data centers\" if projects are safe and environmentally sound. Grizzell, who voted no, cautioned the city is \"operating right now on a bunch of promises\" about revenue. The resolution names land near the airport, Hawkins Field, and the landfill as possible sites. City Attorney Drew Martin said no new ordinance draft is ready yet.",
+      "JTRAN termination dies, strike nears month: Stokes' order to terminate the city's contract with MV Transportation failed Tuesday without a second from other council members. The strike by ATU Local 1208 workers is nearly a month old. MV's Gary Coles told the council wages and safety are agreed and only \"language\" remains; union president Charles Tornes disputed that, saying no tentative agreement exists. Riders urged the council not to end the contract without a backup plan. Separately, the council approved two $1.145 million hybrid-electric bus payments, drawing questions from Foote about cost. CAO Peter Teeuwissen said the city needs to \"reexamine how we're providing transit.\"",
+      "Budget hearings hit IT, police next: The council's departmental budget hearings continue today at 3 p.m. with Information Technology, Constituent Services, and Communications. Tomorrow brings the big ones: Fire, Police, and Public Works. The hearings come as Mayor Horhn proposes a $112.9 million flat general fund budget for FY 2026-27, about $23 million less than the current year's budget but flat against actual spending. The city must adopt a budget by September 15. The hearings unfold against the council's refusal last month to declare a $36 million deficit, betting instead on spending restraint.",
+      "Homicides up 26% over 2025 pace: Jackson recorded 54 homicides from Jan. 1 through July 31, up from 43 in the same period last year, a 26% jump. The city is projected to close 2026 with about 92 homicides if trends hold, still below the 111 recorded in 2024 but above the 75 in 2025. July saw 10 murders after a nearly two-week stretch without one. JPD investigated 50 of the cases and Capitol Police four. The count includes a man who died in July from gunshot wounds sustained in 2016, ruled a homicide by the Hinds County coroner.",
+      "Hinds supervisors weigh millage hike: Hinds County supervisors are weighing a millage increase that would cost the average homeowner about $2.50 a month, or $30 a year, to fund a criminal justice facility and infrastructure. The board discussed the proposal at a July 29 budget work session, and the county's budget process continues this month. The increase would generate roughly $2.3 million annually. Some residents pushed back at the work session. The board's next regular meeting is Monday, Aug. 17.",
+    ],
+  },
+  {
     slug: "jackson-flat-budget-property-tax-projection",
     title: "Jackson's Flat Budget Assumes $37.5 Million in Property Tax It Hasn't Collected in Three Years",
     dek: "Mayor Horhn's $112.9 million general fund proposal holds spending flat, but two revenue lines drew sharp questions from the council's finance committee on Monday.",
