@@ -65,6 +65,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-08-13",
+    title: "Morning Brief: Aug 13 · Public Safety Budgets on the Table Today",
+    dek: "Fire, police and public works make their FY27 budget pitches today as the council weighs a flat $112.9 million general fund against shrinking revenues.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-08-13",
+    views: 0,
+    body: [
+      "Public safety pitches land today: The Jackson City Council hears FY27 budget requests from the Fire Department, Police Department and Public Works at 1 p.m. today, the fourth day of departmental hearings. Mayor John Horhn has proposed a flat $112.9 million general fund for 2026-27, and the revenue picture is tightening: general fund revenues have slid from $118.1 million in 2023 to $112.7 million in 2025, with $91.8 million collected through June. Council President Vernon Hartley has said his priority is more money for potholes and blight cleanup. The council must adopt a budget by Sept. 15, with the new fiscal year starting Oct. 1.",
+      "Delta Waste opens Jackson hub: Mayor John Horhn and Greater Jackson Chamber Partnership leaders joined Delta Waste Solutions on Aug. 11 to cut the ribbon on the company's new Jackson facility. Founded in 2022 by Chris Gomes and Sander Ohnstad, the locally owned firm provides residential, commercial and construction waste collection across the metro and Pine Belt. President and CEO Gomes said the company competes with larger industry players on community commitment, service and pricing. City leaders framed the expansion as a sign of local entrepreneurship, with Horhn noting the founders started out driving their own trucks before growing the operation.",
+      "Water tests show system gains, pipe caveats: The Clarion Ledger's follow-up testing of Jackson tap water at 16 sites, nearly four years after the 2022 crisis, found no E. coli in any sample and just one total coliform positive that cleared on retesting. The results mark real progress from the crisis era, but they also underscore a lingering reality: water quality still depends on the pipes inside individual homes. JXN Water, the court-appointed utility manager, is not subject to public records laws the way the city is, a gap advocacy groups keep pressing. The utility held its quarterly community meeting Aug. 8 with its latest water quality report.",
+      "Bond denied in Beasley Road double homicide: Two men charged in the June 12 double shooting on Beasley Road appeared in court Aug. 11 and were denied bond, WJTV reported. JPD Detective Tommie Brown said Meshard Johnson, 24, and Gary Wilson, 22, were killed and a third man injured in the 400 block of Beasley Road around 6:30 p.m. The case adds to the city's homicide tally as the council weighs police funding in today's budget hearing, where JPD's request will be scrutinized against the flat general fund proposal.",
+      "Book Festival books Dav Pilkey for Jackson: The Mississippi Book Festival, set for Sept. 26 at the State Capitol, announced that Dav Pilkey, creator of Dog Man and Captain Underpants, will launch his international Do Good Tour in Jackson. The free event runs 9 a.m. to 5 p.m. across Capitol grounds and nearby venues, with panelists including W. Ralph Eubanks, Tom Junod, Kate McKinnon and George Saunders. The festival drew 9,300 attendees in its fifth year with 47 panels at 10 venues, and C-SPAN coverage expands its reach. It's a bright spot on the city's late-summer calendar.",
+    ],
+  },
+  {
     slug: "mississippi-redistricting-hearings-transparency-jackson",
     title: "Mississippi's Redistricting Hearings Open With No Maps to Show. Advocates Call That the Point.",
     dek: "The joint committee that will redraw Mississippi's legislative, congressional and Supreme Court maps holds its first public hearing Aug. 18. Voting-rights advocates say the process is starting without a single draft map, and they want to know why.",
