@@ -65,6 +65,28 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "jackson-fire-chief-1-7-million-hiring-plan-rating",
+    title: "Jackson's Fire Chief Wants $1.7 Million to Hire 25 Firefighters. The Rating Bureau Wanted 104 on Duty.",
+    dek: "RaSean Thomas told the Finance Committee Thursday that $1.68 million would add 25 personnel this year, the first step toward 75 new hires by the end of Mayor John Horhn's term. The math starts with a staffing gap the state flagged in May.",
+    category: "General News",
+    categories: ["Politics"],
+    author: "Jackson Wire Staff",
+    date: "2026-08-14",
+    views: 0,
+    body: [
+      "Jackson Fire Chief RaSean Thomas asked the City Council's Finance Committee on Thursday for an additional $1.7 million to hire firefighters, the first installment of a three-year plan to rebuild a department the state downgraded in May. The request is small next to the city's deficit, which records show could reach $36 million. But it is the clearest price tag yet for a rating change that touches every homeowner's insurance bill.",
+      "The Mississippi State Rating Bureau lowered Jackson's fire rating from a 3 to a 4 on May 1, citing staffing, record-keeping, training, equipment and maintenance concerns, according to the Clarion Ledger. To hold a 3, the bureau said, Jackson needed 104 full-time firefighters on duty around the clock. At the assessment, the department had 255 on staff, or 85 per shift.",
+      "That is a gap of 19 firefighters per shift, or 57 across three shifts. Thomas's plan would not close it in one year. The $1.68 million he requested Thursday would hire 25 personnel, he told the committee, with additional funding in the next two years to reach 75 new hires by the end of Horhn's term, WLBT reported.",
+      "“I stated then I needed 60 to 70 more firefighters,” Thomas said, referring to his May appearance before the council. “I don't know if we can do that at this point in time. So, we came up with a strategic plan to increase it over the years.”",
+      "The department now lists 263 positions, Thomas said, and recent retirements have opened new shortfalls. “We had some people to recently retire, so that's where our shortfall is going to fall, along with other shortfalls that we've already had.”",
+      "The request carries a historical echo. In 2024, Jackson firefighters won their first significant pay raise in more than two decades, a deal funded in part by the department giving up 25 vacant positions, according to the International Association of Fire Fighters. Thomas is now asking the council to put some of those positions back on the books.",
+      "The chief said he had planned to seek additional money for building maintenance but instead found it through federal grants and other sources. That left the hiring request as the department's main ask, a deliberate move in a budget year when Horhn has told every department head to hunt for outside money.",
+      "“The only way that we're going to be able to meet the needs of these three departments, in particular, is we've got to be creative, we've got to be nimble, and we've got to seek other resources,” Horhn said Thursday, according to WLBT. “We'll get there, but it will not be without gnashing of teeth and a little bit of grimacing.”",
+      "The city's next fire inspection is scheduled for 2029, which gives the administration roughly three budget cycles to move the rating back before the bureau looks again. Ward 7 Councilman Kevin Parkinson argued in May that the city should not wait that long, telling Thomas the council stood ready to consider an immediate amendment if 60 more firefighters were needed.",
+      "The question now is whether the council treats the $1.7 million as a floor or a ceiling. At 25 hires this year, the department would still be short of the 104-per-shift standard the state set, and the next two years of the plan depend on budgets that have not been written yet.",
+    ],
+  },
+  {
     slug: "morning-brief-2026-08-14",
     title: "Morning Brief: Aug 14 · Public Safety Budget Day Lands as Hearings Continue",
     dek: "The City Council takes up police, fire, public works and water rates today as it races a Sept. 15 budget deadline under a revenue shortfall.",
