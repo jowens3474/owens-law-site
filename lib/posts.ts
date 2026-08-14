@@ -65,6 +65,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-08-14",
+    title: "Morning Brief: Aug 14 · Public Safety Budget Day Lands as Hearings Continue",
+    dek: "The City Council takes up police, fire, public works and water rates today as it races a Sept. 15 budget deadline under a revenue shortfall.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-08-14",
+    views: 0,
+    body: [
+      "Public safety budget day lands: The City Council reconvenes at 2 p.m. today for the public safety slice of its FY 2027 budget hearings, with Police, Fire, Public Works and the Water and Sewer rate on the docket. The city must adopt a budget by Sept. 15, and it takes effect Oct. 1. The hearings come as Mayor John Horhn's administration wrestles a revenue shortfall that forced a July 31 budget amendment, and as the council weighs a spending plan that assumes $37.5 million in property tax the city hasn't collected in three years. JPD and JFD are the two biggest line items, together topping $64 million in the current budget, with fire officials noting 93 percent of their funding goes to personnel.",
+      "Fortune autopsy still pending: The Mississippi State Medical Examiner's Office conducted an autopsy on Tasia Fortune, the 29-year-old mother of four found hanging from a tree behind a vacant West Jackson home Aug. 3, but JPD says it has not received an official cause or manner of death. The investigation remains classified as a death pending investigation. Ward 7 Councilman Kenneth Stokes has asked U.S. attorneys and senators to get involved, invoking the 1955 murder of Emmett Till. The case has drawn national attention, with CNN and ABC covering it, as two other people have been found hanging from trees in Mississippi in less than a year.",
+      "JTRAN strike enters fifth week: JTRAN union workers remain on strike after more than a month, with Amalgamated Transit Union Local 1208 and contractor MV Transportation still far apart on a new contract. A roughly 10-hour session with a federal mediator last week ended without a deal, and the dispute came before the City Council on Aug. 11, where at least one councilman sought to terminate MV's contract. MV says its latest proposal would lift starting pay from $17.18 an hour today to $23.34 by January 2028, while the union's president walked out of negotiations. Riders are caught in the middle as the city's transit system idles.",
+      "Hinds millage hike heads to vote: The Hinds County Board of Supervisors is weighing a millage increase that would cost the average homeowner about $2.50 a month, or $30 a year, and generate $2.3 million in new annual revenue for a criminal justice facility, county buildings and infrastructure. The board meets again Monday, Aug. 17, for a special called session. The jail project has ballooned in cost: the county has spent more than $51 million on phase one, originally projected at $30 to $40 million, with phase two estimated at $100 million or more. Board President Robert Graham blames a 20 percent rise in supplies, equipment and steel.",
+      "School safety summit set for Aug. 26: The Mississippi Department of Education and the U.S. Secret Service's National Threat Assessment Center will host a free school safety event Aug. 26 at the Jackson Convention Complex, aimed at educators and administrators. The session runs 9 a.m. to 1 p.m. and is part of a broader push as JPS settles into its new school year, which began July 29. The event comes as districts across the state weigh threat assessment protocols ahead of the fall semester, and as JPS holds open houses to welcome families back to its campuses.",
+    ],
+  },
+  {
     slug: "jackson-data-center-moratorium-takes-effect-as-council-asks-where-to-put-them",
     title: "Jackson's Data Center Ban Takes Effect Thursday. Two Days Earlier, the Council Asked Where to Put Them.",
     dek: "The six-month moratorium on data centers goes into force today, banning them at most Jackson locations. On Tuesday the council voted 5-2 to urge the administration to find places to build them anyway.",
