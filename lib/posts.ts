@@ -65,6 +65,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-08-15",
+    title: "Morning Brief: Aug 15 · JPD Chief Warns $5M Cut Hits Staffing",
+    dek: "Jackson Police Chief RaShall Brackney told the council a proposed $5 million cut would freeze hiring and take the department back to 2021 staffing levels.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-08-15",
+    views: 0,
+    body: [
+      "JPD faces $5M budget cut: Jackson Police Chief RaShall Brackney told the City Council Finance Committee Thursday that a proposed $5 million reduction would freeze hiring and take the department back to 2021 staffing levels. The proposed $32.9 million budget for fiscal 2027 compares with roughly $37 million in fiscal 2026, WLBT reported. Brackney said every sworn and civilian vacancy would be frozen and 24-hour patrols would suffer. The cut is part of Mayor John Horhn's $112.9 million general fund proposal, which he says aligns recurring expenses with expected revenue. The council continues deliberations before a public hearing on the tax levy.",
+      "Budget hearings wrap, deliberations ahead: The Jackson City Council wrapped its department-by-department budget hearings Friday with presentations from the Jackson Redevelopment Authority, Jackson Municipal Airport Authority, Jackson Public Schools and the library system. The hearings, which began Monday, walked through Mayor John Horhn's $112.9 million general fund proposal for fiscal 2027. Council members now move into deliberations before a public hearing on the proposed budget and tax levy, with the new fiscal year starting Oct. 1. The process has exposed friction between departments seeking to hold staffing and a proposal aimed at matching recurring expenses to expected revenue.",
+      "JXN Water collections top $8.3M a month: JXN Water's monthly collections averaged $8.3 million in the second quarter of 2026, a roughly 116% increase from the first three months after the utility took over billing in late 2023, interim manager Ted Henifin's report shows. That is about $1.3 million more per month than the first quarter of this year, WLBT reported. In June, the utility issued 52,760 bills and 39,356 customers paid, a 75% collection rate. The figures come as a court-approved rate adjustment raising residential bills about 11.7%, or roughly $8.88 a month, took effect in March.",
+      "PSC commissioner pushes data center oversight: Central District Public Service Commissioner De'Keither Stamps is pressing for stronger state oversight of the data center boom, warning that Amazon Web Services' more than $25 billion in Mississippi investments is outpacing the regulatory framework. Stamps has raised concerns about local control and protections as facilities open in Madison County, Ridgeland, Vicksburg and Clinton, WLBT reported. The push comes as Jackson's own data center moratorium took effect Thursday, with the council still weighing where, if anywhere, to allow the facilities. The state's AI Regulation Task Force is studying the issue ahead of the 2027 session.",
+      "Farish Street Book Fair returns Saturday: The Farish Street Book Fair returns to the Farish Street Courtyard at 207 N. Farish St. next Saturday, Aug. 22, part of a month of downtown Jackson programming. The fair celebrates the historic district's literary and cultural legacy. It joins a slate of downtown events including artmaking in the garden at the Mississippi Museum of Art and live music at Hal & Mal's. The event is free and open to the public, according to Downtown Jackson Partners.",
+    ],
+  },
+  {
     slug: "jackson-fire-chief-1-7-million-hiring-plan-rating",
     title: "Jackson's Fire Chief Wants $1.7 Million to Hire 25 Firefighters. The Rating Bureau Wanted 104 on Duty.",
     dek: "RaSean Thomas told the Finance Committee Thursday that $1.68 million would add 25 personnel this year, the first step toward 75 new hires by the end of Mayor John Horhn's term. The math starts with a staffing gap the state flagged in May.",
