@@ -65,6 +65,27 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "flats-at-fondren-rent-double-jackson-median",
+    title: "Flats at Fondren Will Rent at Roughly Double Jackson's Median. The Plan It Cites Calls for Mixed-Income Housing.",
+    dek: "Arlington's $59 million, 234-unit project on Mitchell Avenue is set to deliver in fall 2027 at an average rent near $2,100 a month, about twice the city's median. Its own planning blueprint calls for something different.",
+    category: "Residential Real Estate",
+    author: "Jackson Wire Staff",
+    date: "2026-08-15",
+    views: 0,
+    body: [
+      "The Flats at Fondren broke ground in April as the largest new apartment project Jackson has seen in years, and the numbers behind it tell a story the ribbon-cutting speeches did not. Arlington Development's $59 million, 234-unit complex on Mitchell Avenue is set to deliver in fall 2027 at an average rent near $2,100 a month, according to the developer and local partners who assembled the site.",
+      "That figure is roughly double what renters in Jackson pay today. RentCafe put the city's average apartment rent at $1,098 in its August 2026 market report, and Apartment List's August report placed the median at $1,153. A unit at the Flats would land at nearly the top of the market, a tier the Clarion Ledger reported in November 2025 would likely be the highest rent in the city.",
+      "Arlington's own track record suggests the pricing is deliberate. The company's District Lofts at Eastover, about a mile and a half away, lists one-bedrooms at $2,000 to $2,020 and two-bedrooms at $2,615, and it has held a waiting list for years. Chief development officer David G. Ellis told WAPT the Flats is a response to that pent-up demand: 'It has stayed full, it has a waiting list, so we know that there is pent-up demand for quality rental housing, and that's why we're here.'",
+      "The tension sits in the project's own stated purpose. Visit Jackson's announcement says the Flats 'aligns directly with the Fondren Forward Action Plan,' the community blueprint led by the Fondren Renaissance Foundation that calls for 'more diverse, mixed-income housing thoughtfully integrated into the neighborhood.' A 234-unit building averaging $2,100 a month is not obviously that.",
+      "The gap matters because of what the city is not building. Jackson's median home sale price has drifted to about $140,000 over the last three months, down nearly 10 percent year over year, per Redfin, and the city's rental stock skews older and cheaper. The Flats is aimed at a different resident entirely: the roughly 10,000 UMMC employees and 20,000 healthcare professionals the developer cites as the project's employment base.",
+      "There is a public piece to the deal that makes the pricing question sharper. The community's parking will sit in a newly constructed deck owned by Hinds County and directly connected to the property, and Visit Jackson says the city expects to collect revenue through leased parking in the adjacent 500-space garage. Public infrastructure, private market-rate housing.",
+      "The project is Arlington's fourth in the Jackson market, and the company manages roughly 31,000 units across 13 states, per WLBT. It is also the third major development in the district this year, alongside a nearby Hampton Inn. The momentum is real, and Hinds County Supervisor Tony Smith framed it in the language of a comeback: 'Jackson is rising, and there is a rebirth of Hinds County.'",
+      "The question no one at the groundbreaking asked is whether a project at double the city's median rent can do the work the Fondren Forward plan assigns it. Mixed-income housing by definition needs units at multiple price points, and the Flats, as priced, delivers one.",
+      "Arlington's own data argues the market will absorb it. The District Lofts has a waiting list, and the developer says demand for quality rental housing is under-served. That may be true and still leave the city's affordability problem untouched.",
+      "Deliveries are still more than a year out, and rents can move. But the gap between the $2,100 average and the $1,100 median is not a rounding error, and it is the number worth watching as the first tenants move in during fall 2027.",
+    ],
+  },
+  {
     slug: "morning-brief-2026-08-15",
     title: "Morning Brief: Aug 15 · JPD Chief Warns $5M Cut Hits Staffing",
     dek: "Jackson Police Chief RaShall Brackney told the council a proposed $5 million cut would freeze hiring and take the department back to 2021 staffing levels.",
