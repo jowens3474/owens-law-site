@@ -65,6 +65,26 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "owens-federal-law-license-show-cause-order",
+    title: "Owens Gets 30 Days to Save His Federal Law License. The State Court Already Called His Resignation 'Tantamount to Proof of Guilt.'",
+    dek: "Chief U.S. District Judge Halil Ozerden has ordered Jody Owens to show why he should keep practicing in federal court after the state permanently disbarred him. His response is limited to two narrow claims, and his own words may have already foreclosed them.",
+    category: "General News",
+    tags: ["corruption-case"],
+    author: "Jackson Wire Staff",
+    date: "2026-08-16",
+    views: 0,
+    body: [
+      "Chief U.S. District Judge Halil Ozerden has given Jody Owens 30 days to explain why he should keep his federal law license, or face the same permanent disbarment the state handed down last month. The show-cause order, issued Aug. 4, came in response to the Mississippi Supreme Court's July 29 decision to permanently disbar the former Hinds County district attorney.",
+      "Ozerden limited Owens' response to two claims: a lack of procedural due process in the original proceedings, or a lack of substantial evidence to support the state court's factual findings. The narrow scope matters. Owens asked to resign from the Mississippi Bar with prejudice on July 6, and the state court wrote that his request 'is tantamount to proof of guilt.' An attorney who concedes guilt has little room to argue the evidence was thin.",
+      "Owens had been charged with eight counts and faced up to 100 years in prison and $2.25 million in fines. He pleaded guilty June 29 to a single count of conspiracy, which carries a maximum of five years and a $250,000 fine, and resigned as district attorney the same day.",
+      "The state disbarment was immediate and permanent, an exception to Mississippi Rule of Discipline 12, which normally lets a disbarred attorney keep a license for 30 days to wind down a practice. Presiding Justice Leslie D. King wrote the order, which also requires Owens to tell his clients and relevant courts of the disbarment and to file an affidavit confirming he did so within 45 days.",
+      "Owens is not alone in surrendering his license. Former Mayor Chokwe Antar Lumumba signed a notice of irrevocable resignation July 29 and delivered it to the Bar on Aug. 2, with the Bar filing a motion to accept it the next day. He used the same phrase Owens did: 'I do not desire to defend these matters.'",
+      "Lumumba pleaded guilty July 6 to one count of conspiracy and admitted accepting $50,000 in checks disguised as campaign contributions. He and former Councilman Aaron Banks, who also pleaded guilty that day, face the same maximum sentence of five years and a $250,000 fine.",
+      "All three are scheduled to be sentenced Oct. 15 in the same courthouse where the case was set to go to trial before it unraveled in the final weeks. Owens' plea on June 29, followed a week later by Lumumba and Banks, ended the case before a single juror was sworn in.",
+      "The federal show-cause order is the last formal step in stripping Owens of the profession he held while prosecutors say he helped arrange bribes from undercover FBI agents posing as developers. His 30-day window closes in early September, weeks before the sentencing that will decide how much of the next five years he spends in prison.",
+    ],
+  },
+  {
     slug: "flats-at-fondren-rent-double-jackson-median",
     title: "Flats at Fondren Will Rent at Roughly Double Jackson's Median. The Plan It Cites Calls for Mixed-Income Housing.",
     dek: "Arlington's $59 million, 234-unit project on Mitchell Avenue is set to deliver in fall 2027 at an average rent near $2,100 a month, about twice the city's median. Its own planning blueprint calls for something different.",
