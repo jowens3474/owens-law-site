@@ -65,6 +65,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-08-17",
+    title: "Morning Brief: Aug 17 · Library Donation Offer Tests Budget; Zoning Council Meets Today",
+    dek: "The owner of the building housing Jackson's most-used library wants to give it to the city, but repair costs could run millions the city doesn't have.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-08-17",
+    views: 0,
+    body: [
+      "Library donation offer tests city's budget: The owner of the building housing the Margaret Walker Alexander Library, the most-used branch in the Jackson/Hinds Library System, has offered to donate the facility to the city. Council President Vernon Hartley raised the question during Friday's budget talks, and JHLS Executive Director Jeanne Williams told him the building would likely cost millions to repair, money the city doesn't have, WLBT reported. The offer lands as the council weighs Mayor John Horhn's $112.9 million flat general fund budget, about $23 million below the current year's spending plan. Whether the city accepts a building it can't afford to fix is now a live question ahead of the council's Aug 25 regular meeting.",
+      "Zoning council meets today by teleconference: The city's Regular Zoning Council convenes today via teleconference, the first zoning session since the council's 183-day data center moratorium took effect Thursday. The moratorium, passed 5-2 in July, blocks new data center construction until the city writes regulations. Today's agenda was not posted publicly ahead of the meeting, but the session comes as the council weighs how to handle the rezoning requests that prompted the ban, including the proposed data center near Presidential Hills. Watch whether the zoning body takes up new applications or defers pending cases.",
+      "JPS opens school year next week: Jackson Public Schools welcomes students back Wednesday, Aug 26, with open houses at campuses across the district Aug 24-25. The district's 2026-27 calendar shows the first half day of school is Aug 26. All JPS elementary and middle school students will wear uniforms, navy or white tops with navy or khaki bottoms. Free school meals continue under the Community Eligibility Provision, covering every student regardless of household income. The district also celebrated a ribbon-cutting at the newly remodeled Brinkley Middle School campus this month.",
+      "Smith Robertson Museum renovation advances: The historic Smith Robertson Museum and Cultural Center, one of Jackson's oldest surviving school buildings and a cornerstone of Black history in the city, is moving through renovation assessments. Museum director Pamela Junior told WLBT the assessments are underway and she hopes to have them done before the new year of 2027. Junior thanked Mayor John Horhn and Chief Administrative Officer Pieter Teeuwissen for carving out funding. The museum, located on Bloom Street, has hosted Civil Rights Movement figures and Smithsonian exhibitions.",
+      "JXN Water collections top $8.3M a month: JXN Water's monthly collections averaged $8.3 million in the second quarter of 2026, a roughly 116% increase since the utility took over billing in late 2023, interim manager Ted Henifin's report shows. That's up about $1.3 million from the first quarter. The higher collections give the utility additional capacity to issue debt for sewer repairs, WLBT reported. The utility also began conversations with the Public Service Commission about raising rates for roughly 4,300 customers beyond city limits, whose rates haven't changed since 1985.",
+    ],
+  },
+  {
     slug: "owens-federal-law-license-show-cause-order",
     title: "Owens Gets 30 Days to Save His Federal Law License. The State Court Already Called His Resignation 'Tantamount to Proof of Guilt.'",
     dek: "Chief U.S. District Judge Halil Ozerden has ordered Jody Owens to show why he should keep practicing in federal court after the state permanently disbarred him. His response is limited to two narrow claims, and his own words may have already foreclosed them.",
