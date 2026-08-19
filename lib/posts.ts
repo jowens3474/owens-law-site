@@ -65,6 +65,28 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "jacksons-4-million-library-grant-clock-ticking",
+    title: "Jackson Has Five Years Left on a $4 Million Library Grant. No Site Has Been Chosen.",
+    dek: "The city received close to $4 million from HUD three years ago to replace the Eudora Welty Library. No location has been picked, and the drawdown clock is running.",
+    category: "General News",
+    author: "Jackson Wire Staff",
+    date: "2026-08-19",
+    views: 0,
+    body: [
+      "Jackson has five years left to spend close to $4 million in federal money on a new downtown library, and it still has not chosen a site. Council Vice President Kevin Parkinson raised the deadline during a Finance Committee budget hearing last week, according to WLBT.",
+      "“That money is not going to last forever, and if we can’t figure out a plan soon on how to use it, we’re going to lose those funds,” Parkinson said.",
+      "The money came from the U.S. Department of Housing and Urban Development about three years ago to replace the Eudora Welty Library, the former flagship branch that closed permanently in 2023. The city deeded the State Street building to the Mississippi Department of Archives and History in December 2023, and MDAH later tore it down to make way for Crigler Park.",
+      "Jackson/Hinds Library System Executive Director Jeanne Williams told the committee the grant carries an eight-year drawdown window. “We’re three years in,” she said, per WLBT.",
+      "The gap between the grant and a plan is wide. Williams said the system is working with a partner on a plan but could not commit to building or renovating a branch without knowing it could afford to run one. Parkinson suggested preparing a building now and keeping it offline until it can be staffed and furnished, rather than returning the money.",
+      "“I hate leaving a dime on the table. I hate if people give us money, I hate giving the money back to them,” he said.",
+      "The stakes are geographic as much as financial. “There’s not a single branch in all of Ward 7, all of Ward 6,” Parkinson said. “To not have a downtown branch in the capital... it’s embarrassing.”",
+      "The library system's finances make the timing awkward. Williams told the committee the system spends just 4.9% of its budget on books and collections, against a 10% best-practice benchmark, and that Hinds County has cut its allocation by about $500,000 over the past decade. She said the system could exceed expenses by as much as $208,000 next year without level city funding and a county increase.",
+      "The grant deadline lands in the middle of Jackson's budget season. The council has been working through departmental hearings for the 2026-27 fiscal year, with the Finance Committee meeting again Wednesday and a special council session set for Friday.",
+      "The Welty grant is not the only library question on the table. The owner of the Margaret Walker Alexander Library, the system's busiest branch in Jackson, has offered to donate the building to the city. Williams told the council it would likely cost millions to repair, calling it “not a sound investment.”",
+      "Five years is a long window on paper and a short one in city procurement. The question now is whether the library board and the council can agree on a site, a partner, and an operating budget before the HUD clock runs out.",
+    ],
+  },
+  {
     slug: "morning-brief-2026-08-19",
     title: "Morning Brief: Aug 19 · Prado Conservatory Clears Rezoning; Budget Talks Resume",
     dek: "The former Fortification Street YMCA cleared a key rezoning hurdle Monday, clearing the way for a $60 million residential and recreation project along the I-55 corridor.",
