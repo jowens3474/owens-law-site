@@ -65,6 +65,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-08-19",
+    title: "Morning Brief: Aug 19 · Prado Conservatory Clears Rezoning; Budget Talks Resume",
+    dek: "The former Fortification Street YMCA cleared a key rezoning hurdle Monday, clearing the way for a $60 million residential and recreation project along the I-55 corridor.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-08-19",
+    views: 0,
+    body: [
+      "Prado Conservatory clears rezoning hurdle: The former Fortification Street YMCA at 800 E. River Place, vacant since 2017, moved a step closer to redevelopment Monday when the city's zoning council approved rezoning the 9-acre parcel from light industrial to Community Mixed Use. Developer Gabriel Prado's PraCon Global Investment Group plans a $60 million project with roughly 160 residential units, converting the old YMCA building into about 60 multifamily units in phase one and adding a five-story building with about 100 more in phase two. The plan also calls for Mississippi's first padel courts. Prado called the unanimous vote a chance to \"save a property that has been dilapidated for years.\" No construction timeline has been announced.",
+      "JPD logs 50 homicides, cites 84% clearance: Jackson police investigated 50 homicides from January through Aug. 13, with Chief RaShall Brackney citing an 84% clearance rate, meaning roughly four of five cases ended in arrest. The Clarion Ledger reports it could not independently verify that figure, saying publicly shared arrest details suggest rates between 65% and 70%. The count is down sharply from 135 homicides in 2022, when clearance sat at 47%, and from 63 in 2025. Brackney pointed to a Quick Response Team that has pulled 51 firearms off streets in five weeks since July 1, and to rising domestic and family violence as a driver. She said JPD is partnering with the Mississippi Coalition Against Domestic Violence on officer training.",
+      "Council budget hearings resume today: The Jackson City Council's Finance Committee reconvenes at 11:15 a.m. today for the next round of FY 2026-27 budget deliberations, following a week of departmental hearings. Mayor John Horhn has proposed a flat $112.9 million general fund budget, with more than half going to police and fire. The police department faces a proposed budget of just under $33 million, roughly a $5 million cut from last year, which Chief RaShall Brackney called a 13.5% reduction that is \"not sustainable\" with JPD already about 50 officers short. The budget must be adopted by Oct. 1, with a public hearing and tax levy vote expected later this month.",
+      "JPS open houses precede Aug. 26 start: Jackson Public Schools kicks off the 2026-27 year with a half day Wednesday, Aug. 26, preceded by open houses starting Monday, Aug. 24, at schools including Cascades, Hunt, John R. Lewis, Sharp Park, and the Middle School at Parkside. Registration remains open weekdays at all JPS schools and the Poindexter Complex. The district is issuing internet-ready devices to every scholar and asks families to check school distribution schedules. The calendar runs through graduation May 28, 2027. Families can find school assignments through the district's new transportation lookup tool.",
+      "JMAA hosts Aviation Industry Day today: The Jackson Municipal Airport Authority hosts its 2026 Aviation Industry Day today at Jackson-Medgar Wiley Evers International Airport, a free event connecting small, medium, and large businesses with airport project opportunities and procurement leads. Breakout sessions cover topics from aviation security to drone technology and foreign trade zones, with speakers from TSA, the U.S. Army Corps of Engineers, Jackson State University, and MDOT. Last year's event drew more than 100 participants. The authority's DBE program organizes the gathering, which JMAA says aims to open doors for local firms in Mississippi's aviation economy.",
+    ],
+  },
+  {
     slug: "jacksons-own-consultant-warned-data-centers-strain-water-system",
     title: "Jackson's Own Consultant Warned Data Centers Strain a Water System Under Federal Control",
     dek: "A week after the council voted to explore data center sites, records show the city's hired consultant cautioned that the industry's defining input, water, is the one most directly tied to Jackson's vulnerabilities.",
