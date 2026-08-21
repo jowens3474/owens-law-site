@@ -65,6 +65,26 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "jtran-strike-ends-38-days-new-contract",
+    title: "JTRAN Strike Ends After 38 Days. The New Contract Lets MV Hire More Non-CDL Drivers.",
+    dek: "Jackson's bus workers voted 29-9 Thursday to end their second strike in two years. The deal delivers the raises they wanted, but it also concedes ground on who is allowed behind the wheel.",
+    category: "General News",
+    author: "Jackson Wire Staff",
+    date: "2026-08-21",
+    views: 0,
+    body: [
+      "Jackson's bus workers voted 29-9 Thursday to end a strike that ran from July 13 to August 20, a stretch of 38 days. The walkout was the second in two years against MV Transportation, the private contractor that runs the city's publicly funded JTRAN system. The 2024 strike lasted 14 days, according to Mississippi Today. This one ran more than two and a half times as long.",
+      "The new contract, which still must be ratified by the Amalgamated Transit Union's Local 1208, delivers the pay increase workers said they walked off the job for. Union president Charles Tornes Jr. laid out the schedule: 5 percent in 2026, retroactive to January 1, then 3 percent in 2027 and 3 percent in 2028. Tornes said the raises apply to all workers and bring them to a competitive wage.",
+      "The deal also keeps current bus routes and service times unchanged, according to JTRAN officials. Tornes called it a win-win. We no longer have to be on the strike line, of course, and hot out there in the Mississippi weather, he said.",
+      "The vote was not unanimous. Tornes said the nine workers who voted against the contract wanted a bigger raise. With any agreement, you're going to have some that feel like things could be a little bit better than what was laid out on the table, he said. He expects those workers to return anyway.",
+      "The settlement includes a concession that the union did not frame as a win. MV Transportation can now hire two additional operators without a commercial driver's license if the roster falls below 40 drivers, bringing the total allowed to seven non-CDL operators. Tornes acknowledged the union gave ground on that point.",
+      "The city is paying to end the standoff. Mayor John Horhn said the City Council joined him in providing three months of strike pay for workers who stayed on the line. The mayor called the agreement good news for the roughly 1,000 people who depend on the transit system daily, many of them low-income and disabled residents who had no bus through the hottest weeks of a Mississippi summer.",
+      "MV Transportation issued a statement praising the leadership of Horhn, Council President Hartley and the City Council for helping bring the dispute to a close. Our focus now is on moving forward together, the company said.",
+      "Workers and the company have not yet set an exact return-to-work date. The contract still needs ratification by the full union membership.",
+      "The longer question is what the non-CDL provision does to a system the city has struggled to staff. JTRAN has leaned on a private contractor for years, and this contract now lets that contractor put more people without commercial licenses behind the wheel when rosters thin. Whether that keeps buses running or quietly lowers the bar for who drives them is a question the city has not answered.",
+    ],
+  },
+  {
     slug: "morning-brief-2026-08-21",
     title: "Morning Brief: Aug 21 · Flats at Fondren Breaks Ground; Council Meets Today",
     dek: "Arlington Properties broke ground on a $59 million, 234-unit apartment complex in west Fondren, while the City Council convenes a special teleconference session this morning.",
