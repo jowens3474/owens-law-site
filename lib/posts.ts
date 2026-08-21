@@ -65,6 +65,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-08-21",
+    title: "Morning Brief: Aug 21 · Flats at Fondren Breaks Ground; Council Meets Today",
+    dek: "Arlington Properties broke ground on a $59 million, 234-unit apartment complex in west Fondren, while the City Council convenes a special teleconference session this morning.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-08-21",
+    views: 0,
+    body: [
+      "Flats at Fondren breaks ground: Arlington Properties broke ground this week on a $59 million, 234-unit apartment complex on Mitchell Avenue in west Fondren, a project city leaders are calling the finest rental housing in Jackson. The one, two and three bedroom units average 977 square feet, with first deliveries expected in fall 2027. Parking will sit in a new Hinds County owned deck connected to the property. Developer Dave Arlington pointed to the District Lofts, another Arlington property he said stays full with a waiting list, as evidence of pent-up demand for quality rentals. Hinds County Supervisor Tony Smith framed the project as a reversal of years of business losses in the district.",
+      "Council convenes special session: The Jackson City Council holds a special teleconference meeting at 10 a.m. today, a rare midweek session as the FY 26-27 budget hearings grind toward a close. The city's proposed budget is roughly 16.8 percent smaller than the current year, and council members have said even the trimmed numbers look too high. Police Chief RaShall Brackney told the council last week that a proposed JPD budget of just under $33 million, nearly $5 million below last year, is not sustainable with the department about 50 officers short. The public notice for today's session did not list specific agenda items as of early morning.",
+      "Water authority board takes shape: Mayor John Horhn has named his three appointments to the nine member Metro Jackson Water Authority board, including Shirley Tucker, a business counselor, and Austin Barbour of The Clearwater Group. He also recommended retired Major General Leon Collins for a gubernatorial slot. The board, created by a law Governor Tate Reeves signed in April, is expected to assume oversight of the city's water system as early as 2027, pending federal court approval. Jackson will not hold a majority of seats, a structure Horhn has publicly criticized. All of Horhn's appointments require city council confirmation.",
+      "Tap tests show system improved: The Clarion Ledger's 2026 water testing across 16 Jackson sites found no E. coli in any sample, a marked improvement from the 2022 crisis, though one sample tested positive for total coliform before a follow-up came back clean. The results point to a system that has recovered under JXN Water's court appointed management but still depends heavily on the pipes inside each home. JXN Water, which is not subject to public records laws the way the city is, continues to run the system while the regional authority's transition is pending. The testing mirrors the paper's 2022 effort for a direct comparison.",
+      "JPS opens school Wednesday: Jackson Public Schools starts the 2026-27 year Wednesday, Aug. 26, with a half day for students. The district kicked off its high school football season with a press conference last week, with Lanier and Callaway coming off strong 2025 campaigns. Open houses are scheduled across several schools Tuesday evening. The district calendar runs to June 11, 2027, with winter break from Dec. 21 to Jan. 1 and spring break in late March. Families still enrolling can do so through the district's website.",
+    ],
+  },
+  {
     slug: "jackson-flat-budget-revenue-projections-council-skepticism",
     title: "Jackson's 'Flat' Budget Is 16.8% Smaller. Council Members Say Even the New Numbers Look Too High.",
     dek: "Mayor John Horhn pitched a $112.9 million general fund budget as flat for fiscal 2027. It is $23 million below the current year's adopted budget, and two council members are questioning whether the revenue it counts on will actually arrive.",
