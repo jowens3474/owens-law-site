@@ -65,6 +65,28 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "jackson-budget-council-vote-august-25",
+    title: "Jackson's Budget Heads to a Vote Tuesday. The Council Has Met on It Three Times in One Week.",
+    dek: "After two finance committee hearings and a special session, the council faces a regular meeting Tuesday to adopt a budget that is 16.8% smaller than last year's. The calendar shows how compressed the process has become.",
+    category: "General News",
+    categories: ["Politics"],
+    author: "Jackson Wire Staff",
+    date: "2026-08-22",
+    views: 0,
+    body: [
+      "Jackson's city council has spent the better part of a week inside the budget, and it is not done yet. The city's own meeting calendar shows a finance committee hearing on August 14, a revised budget hearing on August 19, a special council session on August 21, and now a regular council meeting set for Tuesday, August 25 at 6:00 p.m. (jacksonms.gov). Four budget-related sessions in eleven days.",
+      "The Tuesday meeting is the one that matters. That is when the council is scheduled to act on a general fund budget that, by the numbers already in public circulation, is roughly 16.8% smaller than the current year's. The council members who have reviewed the draft have said even the trimmed figures look too high to be credible.",
+      "The compressed calendar is itself a story. Jackson's fiscal year turns over on October 1, which leaves the council roughly five weeks from Tuesday's vote to the start of the new year. State law gives the council a deadline to adopt a budget, and the repeated hearings suggest the numbers are still moving.",
+      "The August 19 hearing was labeled a budget hearing in the city's notice, and the August 14 session was revised and re-noticed, a sign that the administration's first pass did not hold. The special session on August 21 was called by teleconference notice, the same format the council has used all month.",
+      "What is not on the calendar is a public airing of the specific line items. The council's finance committee has met behind the teleconference format, and the agendas posted on the city site do not attach the draft budget document itself. Residents who want to see where the cuts land have to ask.",
+      "The stakes are concrete. The police department has already warned that a $5 million reduction hits staffing, and the council has spent recent weeks weighing a library grant with no chosen site against a budget that keeps shrinking. Every department is competing for a smaller pool.",
+      "The tension is between what the administration proposed and what the council believes it can defend. Council members have said publicly that the new numbers, even at 16.8% smaller, still look too high. That is an unusual position: a council arguing the budget should be cut further than the mayor's own draft.",
+      "Tuesday's vote will settle part of that. If the council rejects the draft, the process extends into September and the special-session calendar grows. If it passes, the city locks in a spending plan that the council itself has called optimistic.",
+      "The pattern is familiar to anyone who watched Jackson's budget fights in prior years, when the council and the mayor's office traded drafts into the final weeks of September. The difference this year is the scale: a 16.8% reduction is not a trim, it is a restructuring, and it is being done on a compressed timeline.",
+      "The question no one has answered yet is where the floor is. The council has said the numbers look too high, but it has not said what number it would accept. Tuesday's meeting is the first real test of whether the two sides can land on one before October 1.",
+    ],
+  },
+  {
     slug: "jtran-strike-ends-38-days-new-contract",
     title: "JTRAN Strike Ends After 38 Days. The New Contract Lets MV Hire More Non-CDL Drivers.",
     dek: "Jackson's bus workers voted 29-9 Thursday to end their second strike in two years. The deal delivers the raises they wanted, but it also concedes ground on who is allowed behind the wheel.",
