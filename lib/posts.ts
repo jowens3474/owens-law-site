@@ -65,6 +65,27 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "jxn-water-files-plan-another-10-percent-rate-hike-spring-2027",
+    title: "JXN Water Files Plan Calling for Another 10% Rate Hike Next Spring",
+    dek: "Interim manager Ted Henifin filed the utility's financial management plan with the federal court Friday, projecting a 10% increase in spring 2027 and further hikes in 2028 and 2029.",
+    category: "General News",
+    author: "Jackson Wire Staff",
+    date: "2026-08-23",
+    views: 0,
+    body: [
+      "Jackson's water customers are looking at a third straight year of rate increases. Interim Third-Party Manager Ted Henifin filed the utility's financial management plan with the U.S. District Court on Friday, and the 30-page document calls for a 10% increase in the spring of 2027, according to WLBT.",
+      "“This is the plan's most immediate step. The rate increase approved in March 2026 (about 12%) improved the system's finances but does not eliminate the need for continued annual increases,” the plan states.",
+      "Henifin also projects additional hikes in 2028 and 2029. The size of those would hinge on something called “acquisition financing,” which would occur if a new JXN Water entity buys the system's assets from the city and allows Jackson to pay off its existing water and sewer debt.",
+      "The numbers show a system that is collecting more but still running short. In the first half of 2026, operating revenues exceeded operating expenses for the first time since 2020, Henifin wrote. But “once debt service is included, the system still faces a near-term cash deficit that has been covered by rapidly diminished federal grant funds.”",
+      "Collections have climbed steadily since the federal takeover. The utility collected 60% of what it billed in 2023, 62% in 2024, 75% in 2025, and 82% in the first half of 2026, when it took in $46.2 million of the $56.4 million billed. JXN Water hopes to reach 85% by year's end.",
+      "The plan says JXN Water needs $114 million this year to cover operational costs, a figure that grows to $186 million by fiscal year 2046. It also needs about $20 million a year for debt service, an amount that holds steady until fiscal year 2035, when it drops to $9.7 million. Jackson carried roughly $150 million in outstanding water and sewer debt as of last year.",
+      "The city stepped in to make the debt payments on JXN Water's behalf last year after a shortfall. Under the court orders that put Henifin in charge of water and sewer, the utility is supposed to cover that debt from collections.",
+      "The 2026 increase was itself a fight. Henifin pushed for a 12% raise for more than a year before U.S. District Judge Henry Wingate reluctantly approved it in February. Wingate called the decision a “tragic Catch-22,” saying the utility cannot fix its billing system and find the “free riders” without revenue from paying customers.",
+      "For one North Jackson resident, the math is manageable but the system is not. Richard Laswell told WLBT the 10% hike would mean about $2 more a month, which he can afford. He has spent months fighting billing errors, including a $31,000 bill in 2025 that was reduced to $3,100 after WLBT contacted Henifin directly. Laswell said he recently tried to pay off his balance only to have the amount applied as a credit instead of toward his past due.",
+      "The question the plan does not answer is where the increases stop. Henifin has said operating costs should stay flat through 2029, then rise 2% in 2030 and 3% a year after that, in part because a national operator now runs the system. But the near-term cash deficit is real, and the federal grant money that has been covering it is running out. The next rate decision lands with the same judge who called the last one a Catch-22.",
+    ],
+  },
+  {
     slug: "prime-left-kiffin-left-mississippi-stayed",
     title: "Prime Left. Kiffin Left. Mississippi Stayed.",
     dek: "Three years apart, the two most magnetic coaches in the state walked away from its Black flagship and its white one, each at the peak of what he built. The departures look like opposites. They are the same story, and it is not really about football.",
