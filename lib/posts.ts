@@ -65,6 +65,27 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "jackson-council-special-public-hearing-budget-august-27",
+    title: "Jackson Council Schedules Another Budget Hearing for Thursday, a Day After the Vote",
+    dek: "The council has now met on the budget four times in nine days. Thursday's special public hearing comes one day after the regular meeting where the spending plan was expected to go to a vote.",
+    category: "Politics",
+    categories: ["General News"],
+    author: "Jackson Wire Staff",
+    date: "2026-08-26",
+    views: 0,
+    body: [
+      "The Jackson City Council has posted notice of a special meeting and public hearing for Thursday, August 27 at 6:00 p.m., one day after the regular meeting where the city's budget was expected to come to a vote. The notice, published on the city's council agendas page (jacksonms.gov), lists no agenda items in the public posting, only the date, time, and a phone number for details.",
+      "The Thursday hearing is the fourth council budget session in nine days. The Finance Committee held a teleconference budget hearing on August 19 at 11:15 a.m. A special council teleconference followed on August 21 at 10:00 a.m. The regular meeting with a revised agenda ran Tuesday, August 25 at 6:00 p.m. Now the public hearing is set for Thursday.",
+      "That cadence is unusual for a body that normally meets twice a month. It suggests the spending plan is not settled, or that the council wants a public airing before a final vote. The revised agenda for Tuesday's regular meeting was posted as a separate notice, a sign the items shifted late.",
+      "The budget in question is smaller than the current one. The administration's proposal is roughly 16.8 percent smaller than the current spending plan, and council members have said publicly that even the new numbers look too high. The city is also under a federal consent decree on its water system, which has pushed rate increases and capital costs into every budget conversation.",
+      "Thursday's hearing is a public hearing, not a work session. That distinction matters. A work session lets the council and administration negotiate numbers in the open. A public hearing is where residents get their turn, and where the council often signals whether it will amend the mayor's proposal or send it back.",
+      "The council's seven members are Ashby Foote in Ward 1, Tina Clay in Ward 2, Kenneth Stokes in Ward 3, Brian Grizzell in Ward 4, Vernon Hartley in Ward 5, Lashia Brown-Thomas in Ward 6, and Kevin Parkinson in Ward 7. Under the mayor-council form of government, the council holds the power of the purse; the mayor proposes, but the council adopts.",
+      "The question Thursday is whether the hearing is a formality before adoption or a genuine reopening. If the council votes the budget down or amends it heavily, the city would need another round of meetings before the fiscal year begins. If it passes, Thursday becomes the last public word on a spending plan that has consumed the council's calendar for a week and a half.",
+      "The city has not published an agenda for Thursday's hearing beyond the notice itself. Residents who want to speak should expect the standard public-comment rules, which have themselves been the subject of a lawsuit filed by a candidate who lost by 621 votes.",
+      "For a council that has met on the budget three times in one week, a fourth session the day after the vote is either a sign of diligence or a sign of unfinished work. Thursday will show which.",
+    ],
+  },
+  {
     slug: "jafcu-leigh-bridges-plea-ncua-stay-filing",
     title: "NCUA Says Former JAFCU CEO Likely to Plead Guilty as $95M Case Drags On",
     dek: "Federal regulators are fighting a request to pause their civil suit against Leigh Bridges, saying her own attorney signaled a bill of information is coming and a guilty plea is likely. The case has already cost the agency $225,625 in security alone.",
