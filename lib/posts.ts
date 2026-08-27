@@ -65,6 +65,28 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "jackson-tourism-tax-referendum-november",
+    title: "Jackson Puts a Tourism Tax Hike on the November Ballot. First Since 1983.",
+    dek: "The City Council voted unanimously Tuesday to ask voters for a 0.5% prepared-food tax increase and a 1% lodging tax increase. The money would go to Visit Jackson, and the tax has not moved since the bureau was founded in 1983.",
+    category: "Politics",
+    categories: ["General News"],
+    author: "Jackson Wire Staff",
+    date: "2026-08-27",
+    views: 0,
+    body: [
+      "The Jackson City Council voted unanimously Tuesday to put a tourism tax increase on the November 3 ballot, the first proposed change to the levy since the city's convention bureau was created in 1983.",
+      "The resolution of intent passed with no discussion, according to WLBT. It asks voters to approve a 0.5% increase on restaurant and prepared-food sales, moving that tax from 1% to 1.5%, and a 1% increase on hotel, motel, and vacation-rental stays, moving lodging from 1% to 2%.",
+      "For a diner, the prepared-food change works out to about 30 cents on a $20 meal, on top of regular sales tax. For a traveler, the lodging tax on a $200-a-night room would double, from $2 to $4.",
+      "The referendum needs 60% of voters to sign off before it takes effect. The enabling legislation, S.B. 3328, passed during the 2026 session of the Mississippi Legislature.",
+      "The revenue would be \"dedicated solely\" to the Jackson Convention and Visitors' Bureau, which operates as Visit Jackson, according to council documents cited by WLBT. The money could fund destination marketing, convention sales, tourism promotion, visitor services, and economic development initiatives that generate visitor spending.",
+      "Yolanda Clay-Moore, director of External Affairs, Partnerships & Alliances with Visit Jackson, told WLBT the tax has not been increased since the bureau was established in 1983. She called the November referendum \"the first proposed adjustment to that foundational rate.\"",
+      "Clay-Moore said the funds would be accounted for separately from city funds and audited annually.",
+      "The city has scheduled a special council meeting and public hearing for Thursday at 6:00 p.m., according to the city's meeting portal (jacksonms.gov). The hearing gives residents a chance to weigh in before the question reaches the ballot.",
+      "The timing is notable. Jackson is in the middle of a budget season that has already produced a \"flat\" budget 16.8% smaller than the current one, and the council has met on the spending plan three times in a single week. A tourism tax that flows to a separate bureau, audited on its own, is a rare revenue stream that does not land in the general fund.",
+      "The question for voters in November is whether a tax that has gone untouched for 43 years should move now, and whether the money is best spent marketing a city whose water system remains under federal control. The public hearing Thursday is the first chance to hear the argument made out loud.",
+    ],
+  },
+  {
     slug: "jackson-council-special-public-hearing-budget-august-27",
     title: "Jackson Council Schedules Another Budget Hearing for Thursday, a Day After the Vote",
     dek: "The council has now met on the budget four times in nine days. Thursday's special public hearing comes one day after the regular meeting where the spending plan was expected to go to a vote.",
