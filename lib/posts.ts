@@ -65,6 +65,28 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "chapel-ridge-apartments-fifth-fire-nine-months",
+    title: "Fifth Fire in Nine Months at Chapel Ridge Apartments. All 'Human Involvement,' Chief Says.",
+    dek: "Jackson's fire chief says the latest blaze at the Chapel Ridge complex was set by people, the fifth such fire in nine months. The pattern raises questions about what the city and the property owner are doing in between.",
+    category: "Residential Real Estate",
+    categories: ["General News"],
+    author: "Jackson Wire Staff",
+    date: "2026-08-28",
+    views: 0,
+    body: [
+      "Five fires in nine months. All of them started by people. That is the record at Chapel Ridge Apartments, and Jackson Fire Chief RaSean Thomas is running out of ways to describe it. “A new obstacle every time,” Thomas said after the latest blaze, according to WLBT.",
+      "The fifth fire was reported Wednesday. Thomas said the cause of each of the five fires has been “human involvement,” a phrase that covers everything from arson to carelessness to cooking accidents. The chief did not say whether anyone has been arrested or charged in connection with any of the fires.",
+      "The math is worth sitting with. Five fires in roughly 270 days works out to one every 54 days, or about seven a year at the same complex. For comparison, the Jackson Fire Department has said publicly in the past that it responds to hundreds of structure fires citywide each year, which makes a single address producing five in nine months an outlier by any measure.",
+      "Chapel Ridge is a rental complex, which means the fires are not just a public safety story. They are a housing story. Every unit that burns is a unit taken out of Jackson's already thin rental stock, and every displaced tenant is another household pushed into a market with few options.",
+      "The pattern also puts a spotlight on the property owner. City fire codes require working smoke detectors, clear exits, and, in many cases, fire-resistant construction. Whether Chapel Ridge meets those standards, and whether the city has inspected the complex since the first fire, are questions the chief's comments do not answer.",
+      "There is a historical echo here. Jackson has seen concentrated fire problems before, most notably in older apartment buildings where deferred maintenance and vacancy compound each other. What is unusual about Chapel Ridge is the speed of the repeat: nine months is not a slow burn, it is a cycle.",
+      "The fires have all been contained enough that no deaths have been reported, according to the coverage. But the chief's own framing, “a new obstacle every time,” suggests each incident has been harder to manage than the last.",
+      "The city has not said whether it is treating Chapel Ridge as a special watch area, whether it has met with the owner, or whether it is considering condemning any of the damaged units. Those are the next steps that would actually break the cycle.",
+      "For now, the complex sits at five fires and counting. The question is not whether there will be a sixth. It is whether anyone in city government or at the property is doing anything to make sure there is not.",
+      "Until someone answers that, Chapel Ridge is a warning about what happens when a building becomes a repeat emergency and nobody treats it like one.",
+    ],
+  },
+  {
     slug: "jackson-tourism-tax-referendum-november",
     title: "Jackson Puts a Tourism Tax Hike on the November Ballot. First Since 1983.",
     dek: "The City Council voted unanimously Tuesday to ask voters for a 0.5% prepared-food tax increase and a 1% lodging tax increase. The money would go to Visit Jackson, and the tax has not moved since the bureau was founded in 1983.",
