@@ -65,6 +65,28 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "planetarium-reopening-mma-transfer-six-months",
+    title: "After $23 Million Renovation, Jackson Hands the Planetarium to the Art Museum",
+    dek: "The city transferred operations of the McNair Davis Planetarium to the Mississippi Museum of Art in July. Reopening is expected in about six months, once digital screens go in.",
+    category: "General News",
+    author: "Jackson Wire Staff",
+    date: "2026-08-29",
+    views: 0,
+    body: [
+      "The wait to reopen the McNair Davis Planetarium now runs through the Mississippi Museum of Art. The city handed operations of the renovated astronomy space to the museum in July, and the museum's director says reopening is about six months out, once the digital screens at the Space Station on the second floor are installed.",
+      "MMA director Betsy Bradley walked WLBT through the building after the transfer. The $23 million renovation includes a solar system at the entrance, a finished educational classroom, and the centerpiece: a 60-foot dome on the third floor with a new projector system.",
+      "“It’s where the magic happens,” Bradley said of the dome. “It’s where people will sit back and look up and watch the universe, all the stars.”",
+      "The dome holds 80 fixed seats, with removable seating that can push capacity to 160 people. The first floor connects to the Mississippi Art Center, which leads into the Museum of Art, tying the space program to the museum's galleries.",
+      "The transfer is a notable shift in how Jackson runs a civic institution. The planetarium has sat largely dark for years while the city worked through the renovation, and the museum now carries the operating risk, the staffing, and the ticket window.",
+      "Bradley acknowledged the division of labor plainly. “We are seasoned at putting on tours and selling tickets and marketing an attraction and developing public programs,” she said. “What we don’t know as much about is the science and astronomy, and so we’ll be hiring people to bring that expertise.”",
+      "That means the museum is hiring astronomers and science staff to run a facility whose core product is not art. It is a bet that an institution built around exhibitions can sell the night sky.",
+      "The numbers are worth weighing. Jackson has spent $23 million to renovate a building that will seat at most 160 people per show. The museum will need steady programming and steady attendance to make that math work, and Bradley promises a fast start. “Get ready because we’re gonna have some fast moving programs and a lot going on,” she said.",
+      "The reopening target of roughly six months puts the planetarium back in service in early 2027, more than a decade after the original Davis Planetarium closed to the public. For a generation of Jackson children who grew up under that dome, the museum is now the keeper of the memory.",
+      "“I’m really excited for people who grew up coming to the Davis Planetarium to now get to bring their children,” Bradley said.",
+      "Whether the museum can fill the seats and the dome in a city that has struggled to keep its public attractions open is the open question. The answer starts with those digital screens, and with the science staff the museum has yet to hire.",
+    ],
+  },
+  {
     slug: "chapel-ridge-apartments-fifth-fire-nine-months",
     title: "Fifth Fire in Nine Months at Chapel Ridge Apartments. All 'Human Involvement,' Chief Says.",
     dek: "Jackson's fire chief says the latest blaze at the Chapel Ridge complex was set by people, the fifth such fire in nine months. The pattern raises questions about what the city and the property owner are doing in between.",
