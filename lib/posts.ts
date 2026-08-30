@@ -65,6 +65,26 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "south-jackson-resilience-hub-former-school-one-voice",
+    title: "A Closed South Jackson School Reopens as a 'Resilience Hub'",
+    dek: "One Voice has converted a shuttered school building into an opportunity center offering jobs, after-school care, and other services. It is the latest chapter in Jackson's long struggle to find new uses for its empty schools.",
+    category: "General News",
+    author: "Jackson Wire Staff",
+    date: "2026-08-30",
+    views: 0,
+    body: [
+      "The South Jackson Resilience Hub and Opportunity Center opened this week in a former school building, and the group behind it is betting that a building that once held classrooms can hold a community again. One Voice, the nonprofit leading the project, is offering job opportunities, after-school care, and other resources out of the space, according to WLBT.",
+      "The opening, reported Aug. 27, is the latest attempt to answer a question Jackson has circled for years: what happens to the school buildings the district no longer needs? The city has closed and consolidated schools for two decades, and the empty structures have become a recurring problem, sitting vacant, attracting blight, and draining the neighborhoods around them.",
+      "The Resilience Hub takes the opposite approach. Instead of tearing the building down or leaving it to decay, One Voice has moved services into it, putting the structure back to work in the same South Jackson neighborhood it once served.",
+      "The model is not new to the city. Jackson has seen community centers, churches, and nonprofits move into former school buildings before, with mixed results. Some have thrived. Others have struggled to keep the lights on in buildings that were never designed for their new tenants.",
+      "What makes the Resilience Hub notable is the range of services under one roof. Job training, child care, and social services in a single location is a deliberate design, an attempt to meet residents where they already are rather than sending them across town for help.",
+      "South Jackson has been the part of the city most affected by school closures and disinvestment, and it is also where the need for these services is most acute. The hub's location matters as much as its programming.",
+      "The project is still in its early days. The real test will come in the months ahead, as One Voice works to keep the building occupied, the programs staffed, and the community coming back.",
+      "For now, the opening is a small sign of progress in a part of Jackson that has seen too little of it. Whether the hub becomes a lasting anchor or another short-lived experiment will depend on the same thing that decides the fate of every reused school building in this city: sustained funding and sustained attention.",
+      "Jackson has more empty school buildings than it knows what to do with. The Resilience Hub is one answer. It will not be the last, and it will not be the easiest, but it is a start.",
+    ],
+  },
+  {
     slug: "planetarium-reopening-mma-transfer-six-months",
     title: "After $23 Million Renovation, Jackson Hands the Planetarium to the Art Museum",
     dek: "The city transferred operations of the McNair Davis Planetarium to the Mississippi Museum of Art in July. Reopening is expected in about six months, once digital screens go in.",
