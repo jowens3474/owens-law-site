@@ -65,6 +65,25 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "mississippi-commissioner-snap-ebt-water-bills",
+    title: "A Mississippi Commissioner Wants to Let SNAP Benefits Pay Water Bills",
+    dek: "The proposal would let families use food assistance dollars to cover water bills, a first-of-its-kind move that lands as Jackson faces another rate hike next spring.",
+    category: "General News",
+    author: "Jackson Wire Staff",
+    date: "2026-08-31",
+    views: 0,
+    body: [
+      "A Mississippi commissioner has introduced a plan that would let families use Supplemental Nutrition Assistance Program and Electronic Benefits Transfer dollars to pay their water bill, according to WLBT. The proposal is the first of its kind in the state and lands at a moment when Jackson's water system is asking for another rate increase.",
+      "The commissioner's pitch is straightforward: allow SNAP and EBT benefits to be applied toward water bills. The idea is that a household's assistance dollars, which are federally restricted to food purchases, could be redirected to cover a utility that has become one of the most expensive line items in many Jackson budgets.",
+      "The timing matters. JXN Water filed a plan calling for another 10 percent rate hike next spring, a story The Wire covered last week. That would come on top of the increases already layered in since the federal takeover of the city's water system in 2022. For a household already leaning on SNAP to make ends meet, the water bill and the grocery bill are increasingly competing for the same dollars.",
+      "The proposal raises a question no one in the statehouse has fully answered: if a family can spend assistance money on water, what happens to the food budget? The trade is not neutral. A dollar spent on a water bill is a dollar not spent on groceries, even if the federal rules were relaxed to allow it.",
+      "There is a historical echo here. Mississippi has long used federal benefit programs as a backstop for basic needs the state underfunds. Medicaid expansion took years of negotiation. The water system itself only got a federal receiver after the state and city failed to fix it on their own. Routing SNAP dollars toward water would be another step down the same road, treating a federal food program as an emergency utility fund.",
+      "The proposal is early. There is no bill number, no committee assignment, and no indication yet whether the federal government would even permit SNAP dollars to be spent on water. The U.S. Department of Agriculture, which runs SNAP, restricts benefits to food items. A waiver would be required, and USDA has shown little appetite for expanding what the program covers.",
+      "Still, the fact that a commissioner is floating the idea at all signals how far the affordability conversation has moved. Jackson's water bills have climbed steadily under the receiver, and the next increase is already on the books. When a state official starts proposing to pay water bills with food stamps, it is a measure of how squeezed the system's customers have become.",
+      "The proposal will need a legislative vehicle and a federal waiver to go anywhere. In the meantime, it gives Jackson's water customers a new question to ask at the next rate hearing: if the state thinks water bills are so unaffordable that food assistance should cover them, why is the next rate hike still moving forward?",
+    ],
+  },
+  {
     slug: "south-jackson-resilience-hub-former-school-one-voice",
     title: "A Closed South Jackson School Reopens as a 'Resilience Hub'",
     dek: "One Voice has converted a shuttered school building into an opportunity center offering jobs, after-school care, and other services. It is the latest chapter in Jackson's long struggle to find new uses for its empty schools.",
