@@ -65,6 +65,28 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "jackson-data-center-moratorium-clock-ordinance",
+    title: "Jackson's Data Center Moratorium Is Ticking. The Ordinance Isn't Drafted.",
+    dek: "The council paused data center construction for 183 days in July, then voted in August to explore sites anyway. The clock runs out in January, and the city's zoning code still has no definition for a data center.",
+    category: "General News",
+    categories: ["Politics"],
+    tags: ["data-centers"],
+    author: "Jackson Wire Staff",
+    date: "2026-09-01",
+    views: 0,
+    body: [
+      "Jackson's data center moratorium runs out in January, and the city is still writing the rules that are supposed to replace it. The two moves the council made this summer point in opposite directions.",
+      "On July 14, the council voted 5-2 to pause data center construction for 183 days. The moratorium stops the city from accepting or approving special use permits, conditional use permits, zoning map amendments, and building permits for the facilities. Because the vote was not unanimous, the ban took effect 30 days later, in mid-August, and expires around mid-January 2027.",
+      "Less than a month after that vote, the same council voted 5-2 on a resolution urging the administration to 'explore appropriate locations for data center development' in Jackson. Ward 3 Councilman Kenneth Stokes introduced it, arguing the city needs the revenue that hyperscale projects can bring. 'We've got swimming pools that are closed. We've got libraries that are closed, community centers that are closed,' he said at the Aug. 11 meeting, according to WLBT. 'I keep hearing Madison County is going to get $120 million.'",
+      "The resolution is nonbinding. But it landed weeks after the council approved the moratorium, and it came as WLBT, through open records requests, revealed the city had quietly hired a consultant to draft a data center playbook and had eyed Lake Hico as a potential site. Mayor John Horhn said the conversation started 'because of the negativity behind what was done in Memphis,' referring to the xAI facility in Southaven, and insisted Jackson would not repeat it.",
+      "The pause was meant to give the city time to write an ordinance. Jackson's zoning code currently contains no definition of a data center and no regulations governing one. City Attorney Drew Martin presented a draft to the Economic and Development Committee in early July, but he has been clear it is not ready. 'There isn't a new draft that's anywhere near ready to be brought forward yet,' he told the council in August, adding that another public hearing would be needed.",
+      "The fight that produced the moratorium centered on Saxum Investment Group, a New Jersey firm seeking to rezone roughly 230 acres along the Forest Avenue Extension for a data center. Residents turned out in standing-room-only numbers against it. Ward 2 resident Thomas Cheetham Jr., who lives in Ashley Estates near the site, told the council in June: 'I can stand in my front door and look at this rezoning, if passed, and see the top of the data center. We don't want that center built in our area.'",
+      "Saxum asked the Planning Board to postpone its rezoning request in May and has not brought it back. Planning Director Angela Brown said rezoning hearings for the site would stay delayed until the city passes data center-specific regulations.",
+      "The math is worth watching. The moratorium runs 183 days from its mid-August effective date, which puts the expiration near mid-January. The council has roughly four months to draft, hold a public hearing, amend, and pass an ordinance. Council President Brian Grizzell, who wrote the moratorium, has said the body needs to 'take this time and really try to figure this out,' and he has questioned whether data centers will deliver the promised payouts. 'Nobody has yet to show me a payout. We're operating right now on a bunch of promises,' he said.",
+      "If the ordinance is not ready by January, the moratorium lapses and the city reverts to a zoning code with no data center rules at all, the exact gap the pause was meant to close. The question now is whether the council can finish the job before the clock runs out.",
+    ],
+  },
+  {
     slug: "morning-brief-2026-09-01",
     title: "Morning Brief: Sep 1 · Budget Vote Lands Amid $30M Shortfall",
     dek: "The Jackson City Council faces a September 15 deadline to adopt a 2026-27 budget while wrestling a more than $30 million shortfall and a proposed Public Works cut.",
