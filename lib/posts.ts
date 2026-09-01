@@ -65,6 +65,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-09-01",
+    title: "Morning Brief: Sep 1 · Budget Vote Lands Amid $30M Shortfall",
+    dek: "The Jackson City Council faces a September 15 deadline to adopt a 2026-27 budget while wrestling a more than $30 million shortfall and a proposed Public Works cut.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-09-01",
+    views: 0,
+    body: [
+      "Budget vote lands amid $30M shortfall: The Jackson City Council is set to act on the proposed 2026-27 budget today, with a September 15 adoption deadline looming and a more than $30 million shortfall squeezing the general fund. WLBT reported the council could not set the millage rate at an August 27 hearing because it lacked a quorum, and Public Works Director Lorenzo Anderson said he was directed to cut his budget from about $22 million to $14 million to help hold the general fund near $100 million. Two residents who showed up urged the council not to slash public works, citing overgrown sidewalks and streets. The council has scheduled another budget hearing for Thursday, a day after today's vote.",
+      "Water governance fight takes shape: The council's August 25 resolution seeking a seat at the table for Jackson's post-JXN Water transition is now the city's clearest position on the system's future, and Mayor John Horhn has gone further. Horhn said the water system will not return to the Department of Public Works after federal management ends, instead backing a municipal utility authority that could contract with a private operator. The Clarion-Ledger reported the resolution is narrower than Ward 3 Councilman Kenneth Stokes' earlier push for direct city control. JXN Water, under interim manager Ted Henifin, has lifted revenue collection to 90 percent from 54 percent, while a February rate hike raised the average residential bill from about $76 to $85.",
+      "Data center moratorium now in force: Jackson's 183-day ban on new data centers took effect in mid-August, freezing the Saxum rezoning that had expanded to roughly 230 acres in northwest Jackson. The council passed the moratorium 5-2 on July 14, with Ward 1's Ashby Foote and Ward 5's Vernon Hartley opposed, and it went into force 30 days later because the vote was not unanimous. The pause gives the city time to write a data center ordinance and study sites, and it exempts land around Jackson-Medgar Wiley Evers International Airport. The question now is whether the council can finish that ordinance before the ban expires, or whether Saxum and other applicants simply wait it out.",
+      "Water lawsuit heads back to court: The federal class action over Jackson's water crisis, Sterling v. City of Jackson, is grinding through the Fifth Circuit after a November 2025 ruling on the plaintiffs' substantive due process claims. The suit, filed in 2022, names the city, Mayor Chokwe Antar Lumumba, former Mayor Tony Yarber, former public works directors and engineering firms including Siemens and Trilogy. Plaintiffs allege lead exposure from the system's failures harmed children who now need special education and medical services. The case is separate from Lumumba's federal bribery trial, which is pending this year. The litigation is one of several fronts where the city's water failures remain live legal exposure.",
+      "Mural unveiling marks Beloved Community: Artist Chris Windfield unveils a new mural today at The Synergy Link, 135 Bounds Street, in an event hosted by The Beloved Community, a group focused on racial healing and neighborhood revitalization. The unveiling is part of a broader push to use public art to reclaim and rebrand Jackson spaces, and it lands on the same day the city marks William Henry Lanier Day on September 6. The event is free and open to the public. It is a small, neighborhood-scale moment against a week of heavy budget and infrastructure news, a reminder that community organizing continues outside City Hall.",
+    ],
+  },
+  {
     slug: "mississippi-commissioner-snap-ebt-water-bills",
     title: "A Mississippi Commissioner Wants to Let SNAP Benefits Pay Water Bills",
     dek: "The proposal would let families use food assistance dollars to cover water bills, a first-of-its-kind move that lands as Jackson faces another rate hike next spring.",
