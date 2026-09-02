@@ -65,6 +65,28 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "owens-federal-law-license-deadline-sentencing-countdown",
+    title: "Owens' Federal Law License Hangs on a Deadline That Lands This Week",
+    dek: "Chief U.S. District Judge Halil Ozerden gave the disbarred former DA 30 days to show why he should keep practicing in federal court. That clock runs out around Sept. 3, six weeks before all three defendants are sentenced.",
+    category: "General News",
+    categories: ["Politics"],
+    tags: ["corruption-case"],
+    author: "Jackson Wire Staff",
+    date: "2026-09-02",
+    views: 0,
+    body: [
+      "Jody Owens has about a day left to save his federal law license. The clock started Aug. 4, when Chief U.S. District Judge Halil Ozerden issued a show cause order giving the disbarred former Hinds County district attorney 30 days to explain why he should still be allowed to practice in federal court. That window closes around Sept. 3.",
+      "Ozerden's order came in response to the Mississippi Supreme Court's July 29 decision to permanently disbar Owens, weeks after he pleaded guilty to one count of conspiracy in the Jackson bribery scheme. According to WLBT, Owens' response is limited to two arguments: a lack of procedural due process in the original proceedings, or a lack of substantial evidence behind the state court's findings.",
+      "The federal license fight is a second professional consequence running parallel to the criminal case. Owens surrendered his state law license to the Mississippi Bar on July 16, then was permanently disbarred two weeks later. The state court order described his request to resign as 'tantamount to proof of guilt.'",
+      "The criminal clock is running on the same men. Owens, former Mayor Chokwe Antar Lumumba, and former Councilman Aaron Banks are all scheduled to be sentenced Oct. 15 at 10 a.m. in the Thad Cochran Courthouse. Each pleaded guilty to a single conspiracy count in early July, days before their trial was set to begin.",
+      "The three men who once ran Jackson's city government reached that shared sentencing date by sharply different routes. Owens pleaded first, on June 29, and resigned as district attorney the same day. Lumumba and Banks followed on July 6. Lumumba, who initially faced five counts and decades in prison, pleaded to conspiracy to commit bribery, wire fraud and money laundering. Banks pleaded to conspiracy to commit bribery.",
+      "Banks is the outlier. He refused the government's offer of a cooperating plea, and prosecutors said they would not make a sentencing recommendation in his case. Assistant U.S. Attorney Dave Fulcher told the court the government's best offer included cooperation, and that Banks was no longer accepting any cooperating agreement. Judge Daniel P. Jordan, who will sentence all three, paused the hearing to make sure Banks understood the consequences of passing on that deal.",
+      "Lumumba has also moved to close out his legal career. He resigned from the Mississippi Bar on Aug. 3, according to WLBT, weeks after his plea. Owens, who once faced eight counts and up to 100 years in prison, now faces a maximum of five years and a $250,000 fine under the conspiracy charge, the same ceiling as his two co-defendants.",
+      "The government has said it will seek restitution and forfeiture but has not specified amounts. Federal prosecutors declined to detail their sentencing arguments, saying those would come at the hearing.",
+      "Six weeks out, the question that no one has answered is whether Banks' refusal to cooperate will translate into a meaningfully different sentence than the two men who will stand beside him on the same day. The judge who warned Banks about the value of cooperation will be the one to decide. His federal license aside, Owens' next court date is the one that matters most, and it is shared by all three.",
+    ],
+  },
+  {
     slug: "jackson-data-center-moratorium-clock-ordinance",
     title: "Jackson's Data Center Moratorium Is Ticking. The Ordinance Isn't Drafted.",
     dek: "The council paused data center construction for 183 days in July, then voted in August to explore sites anyway. The clock runs out in January, and the city's zoning code still has no definition for a data center.",
