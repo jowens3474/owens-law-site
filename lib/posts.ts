@@ -65,6 +65,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-09-03",
+    title: "Morning Brief: Sep 3 · Council Sets Tax Levy Today; Jazz Great Wilson Dies",
+    dek: "The Jackson City Council convenes at 10 a.m. to adopt the FY27 budget and set property tax rates, while Jackson mourns Grammy-winning jazz vocalist Cassandra Wilson.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-09-03",
+    views: 0,
+    body: [
+      "Council sets tax levy today: The Jackson City Council holds a special meeting at 10 a.m. today to adopt the fiscal 2027 municipal budget and set the ad valorem tax levy for the city and the Jackson Public Schools district, per the agenda posted Wednesday. The vote was delayed Aug. 27 when only three of seven members showed up, killing the quorum. Mayor John Horhn has proposed a flat $112.9 million general fund budget, down roughly 16.8 percent from the $135.7 million adopted last year, as the city wrestles with a projected revenue shortfall topping $30 million. The agenda also ratifies an emergency procurement for Baird Engineering tied to a collapsed line on St. Ann and Laurel streets.",
+      "Cassandra Wilson dies at 70: Jackson-born jazz vocalist Cassandra Wilson, a two-time Grammy winner and 2022 NEA Jazz Master, died Tuesday morning in Jackson at age 70, the Hinds County coroner confirmed. Her longtime manager Robert Torry announced the death without specifying a cause. Mayor John Horhn said Jackson \"has lost an extraordinary native daughter, and the world has lost a singular musical voice.\" Wilson, known for her deep contralto and genre-blending work across jazz, blues, folk and country, won Grammys for 1996's \"New Moon Daughter\" and 2008's \"Loverly,\" and sang in Wynton Marsalis' Pulitzer-winning \"Blood on the Fields.\" NPR and WBGO joined national tributes.",
+      "JXN Water seeks 10% hike in 2027: JXN Water interim manager Ted Henifin filed a financial management plan with the U.S. District Court calling for another 10 percent rate increase in spring 2027, on top of the roughly 12 percent hike Judge Henry Wingate reluctantly approved in March. The plan says the system needs $114 million this year to cover operations, rising to $186 million by fiscal 2046, and flags further increases in 2028 and 2029 tied to \"acquisition financing.\" Collections have climbed to 82 percent of billed revenue, up from 60 percent in 2023, with the utility collecting $46.2 million of $56.4 million billed in the first half of 2026. Henifin says operating revenue exceeded expenses for the first time since 2020, before debt service.",
+      "Bond denied in triple homicide: A Hinds County judge denied bond Tuesday for Mikala Young, 26, one of four suspects in the June 27 triple homicide on Queen Alexandria Lane that killed Keyana Weathersby, 26, her 2-year-old son Camari Givens, and her sister Erica Weathersby, 30. JPD Det. Terrence Jackson testified Young admitted being at the scene and described a plan involving marijuana, robbery and the assertion that \"no one would be left alive,\" the Clarion Ledger reported. Young faces three counts of capital murder plus burglary and armed robbery charges, and her case now heads to a Hinds County grand jury. The killings came amid a violent stretch that has Jackson on pace to surpass last year's 75 homicides.",
+      "DELTA FEST fills downtown through Friday: DELTA FEST 2026 runs through Friday at Thalia Mara Hall, the Mississippi Museum of Art and The Westin Jackson, bringing entrepreneurs, investors and policymakers together around the Deep South's economic boom. Hosted by Jackson-based Hope Credit Union and co-created with Yancey Consulting, the three-day festival focuses on business ownership, entrepreneurship and community infrastructure across six states. Hope CEO Bill Bynum has said organizers built the event to put people seeking money and contracts in the same room as those who control them. The festival returns as more than $200 billion reshapes the region, per organizers. Hope Credit Union members attend free, and passes are on sale through Friday at deltafest.money.",
+    ],
+  },
+  {
     slug: "owens-federal-law-license-deadline-sentencing-countdown",
     title: "Owens' Federal Law License Hangs on a Deadline That Lands This Week",
     dek: "Chief U.S. District Judge Halil Ozerden gave the disbarred former DA 30 days to show why he should keep practicing in federal court. That clock runs out around Sept. 3, six weeks before all three defendants are sentenced.",
