@@ -65,6 +65,28 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "belhaven-collapsed-sewer-line-emergency-survey",
+    title: "A Collapsed Line in Belhaven Gets the City's Emergency Treatment",
+    dek: "The council on Thursday ratified an emergency contract for Baird Engineering to survey a collapsed line running through properties on St. Ann and Laurel streets. It is the latest in a long line of Jackson collapses handled outside the normal bidding process.",
+    category: "General News",
+    author: "Jackson Wire Staff",
+    date: "2026-09-04",
+    views: 0,
+    body: [
+      "The first item on Thursday's special council meeting agenda was not the tax levy. It was a collapsed line in Belhaven, and the city wanted permission to pay for work that had already been done.",
+      "Item one was an order ratifying the emergency procurement of professional surveying services from Baird Engineering, Inc., 'in connection with a collapsed line running through properties on St. Ann Street Laurel Street,' according to the meeting agenda posted on jacksonms.gov. The order also authorized payment to the vendor. The item was sponsored by City Attorney Drew Martin and Mayor John Horhn.",
+      "St. Ann and Laurel streets sit in the 39202 corridor, the Belhaven historic district, where century-old homes and a university sit atop infrastructure of similar vintage. The agenda does not say whether the line is a sewer main, a water line, or a private service line, only that it runs through private properties.",
+      "The word that matters in the agenda is 'ratifying.' It means the surveying was already underway before the council voted. Jackson's procurement rules allow emergency purchases when a threat to public health or safety demands speed, and the council is asked afterward to bless the spending. Thursday's order was the council blessing Baird's work.",
+      "This is the established rhythm for Jackson's underground failures. When a line gives way, the city hires first and asks questions later. The collapsed sewer line under Fortification Street, the sinkhole at Denver and Long streets that has outlasted two years of city officials, the broken main that shut down Lou's Full-Serv in Belhaven years ago: each followed a similar path from collapse to emergency contract to a repair that stretches past its first estimate.",
+      "The JXN Water quarterly reports filed with the federal court catalogue the scale of the problem. In a single quarter this year the utility logged sanitary sewer overflows caused by collapsed pipes and defective underground lines across the city, from Belhaven to the West Bank Interceptor, in volumes measured in the thousands of gallons.",
+      "What is unusual about the St. Ann and Laurel job is the phrase 'running through properties.' A collapsed municipal line that crosses private land raises a question the agenda does not answer: who is responsible for the damage, and who pays to fix the ground above the pipe? In Belhaven, where lots are small and old, a failing line can threaten foundations and basements.",
+      "The council also used Thursday's meeting to set the millage rates for the city, the library system, and Jackson Public Schools, holding each flat. Chief Administrative Officer Pieter Teeuwissen told reporters the city was not voting for a tax increase this year. The collapsed line in Belhaven will be paid for out of an emergency account instead.",
+      "Jackson has now spent years rebuilding its water treatment plants and reaching federal compliance on drinking water, a milestone the utility announced in 2026. The sewer system underneath the streets is a separate, slower problem, and it does not announce itself in quarterly reports so much as in dips in the road and holes in the ground.",
+      "The survey of the St. Ann and Laurel line is a first step, not a fix. Baird's job is to map what is under the properties so the city can decide what to dig up. Whether the repair becomes another months-long project, like the one on Fortification Street, will depend on what the survey finds.",
+      "For the residents of Belhaven, the collapsed line is a reminder that the city's most reliable infrastructure problem is the one it cannot see. The council has approved the survey. The ground will tell them what comes next.",
+    ],
+  },
+  {
     slug: "stokes-water-resolution-seat-at-table",
     title: "Stokes Softens His Water Demands: A Seat at the Table, Not the Keys",
     dek: "The council's 6-1 vote on Aug. 25 marks a shift for JXN Water's fiercest critic, who once demanded the city retake the system outright. Now he wants Jackson in the room when the transition plan is written.",
