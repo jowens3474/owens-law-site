@@ -65,6 +65,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-09-06",
+    title: "Morning Brief: Sep 6 · Fifth Circuit Kills Lead-Water Suit; Budget Clock Ticks",
+    dek: "The full Fifth Circuit affirmed dismissal of the class action alleging Jackson knowingly served lead-tainted water, while the council races a Sept. 15 budget deadline.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-09-06",
+    views: 0,
+    body: [
+      "Fifth Circuit kills lead-water suit: The full U.S. Fifth Circuit on Friday affirmed dismissal of Sterling v. City of Jackson, the class action alleging the city knowingly let residents drink lead-contaminated water. The court wrote 'We will not expand the 14th Amendment,' finding the claims 'not constitutionally cognizable.' The en banc ruling reverses a November three-judge panel that had revived the suit on a bodily-integrity theory. City Attorney Drew Martin thanked the court and Jones Walker for 'exceptional representation.' Mississippi Today reported the decision closes the federal avenue for plaintiffs, though state claims and the separate fight over the water system's future governance continue.",
+      "Budget clock ticks to Sept. 15: The council must pass the FY 2026-27 budget by Sept. 15 and reconvenes Tuesday at 10 a.m. with the deadline closing. Public Works faces the deepest cut, an $8 million reduction to roughly $14 million, even as the department carries thousands of open service requests. Council President Vernon Hartley and Vice President Kevin Parkinson both name police, fire and Public Works as funding priorities, but Parkinson wants conservative revenue projections to avoid a midyear shortfall. The council cleared one hurdle at its Sept. 3 special meeting by setting the ad valorem tax levy, leaving the spending plan itself for the coming days.",
+      "Five seek Owens' DA seat: Five candidates have qualified for the Nov. 3 special election to finish former District Attorney Jody Owens' term, which ends January 2028. The nonpartisan field: deputy chief assistant DA Gwen Agho, attorneys Greta Mack, Marvin L. Sanders and Wendy Wilson White, and Darla Palmer, who lost to Owens in 2019 and 2023. Owens resigned in June after pleading guilty in the federal bribery case and was permanently disbarred. Gov. Tate Reeves appointed Brad McCullouch interim DA. The Clarion-Ledger reported the winner will serve out a term tied to the corruption case that also ensnared former Mayor Chokwe Antar Lumumba.",
+      "HBCU bands take the field today: The HBCU Labor Day Classic Battle of the Bands hits Veterans Memorial Stadium today, with 10 HBCU marching bands facing off. Fan Fest opens at 1 p.m., gates at 4, the parade of bands at 5:30 and the show at 7. It follows Saturday's Hope Labor Day Classic, where Jackson State erupted for 66 points in a rout of Edward Waters. The council also declared today William Henry Lanier Day, and Lanier High School opens homecoming week with a wreath-laying at Greenwood Cemetery honoring the educator whose name the school carries.",
+      "Grove Park lights wait until 2027: Chief Administrative Officer Pieter Teeuwissen, expected to step down around Oct. 1, told a Refill Cafe crowd that Grove Park's baseball field lights won't go in until 2027. He pointed to the Bailey Avenue and Fortification Street bridges, whose lights went dark after being replaced late in Mayor Lumumba's term, saying 'I refuse to send money that the city doesn't have more than one time.' The progress report came against a roughly $27 million revenue shortfall, a year into Mayor John Horhn's term. The delay is a window into how the city is rationing capital spending.",
+    ],
+  },
+  {
     slug: "public-works-cut-budget-deadline-sept-15",
     title: "Public Works Faces the Deepest Cut in a Budget the Council Must Pass by Sept. 15",
     dek: "Mayor Horhn's flat $112.9 million general fund plan trims Public Works by $8 million even as the city folds its parks crews into the department. The council has until Sept. 15 to find a different answer.",
