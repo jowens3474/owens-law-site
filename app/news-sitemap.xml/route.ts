@@ -1,4 +1,4 @@
-import { getAllPosts } from "@/lib/posts";
+import { getAllPosts, isBrief } from "@/lib/posts";
 import { site } from "@/lib/site";
 import { absoluteUrl } from "@/lib/markdown";
 
@@ -18,8 +18,10 @@ const TWO_DAYS_MS = 2 * 24 * 60 * 60 * 1000;
 
 export async function GET() {
   const cutoff = Date.now() - TWO_DAYS_MS;
+  // Original reporting only: Morning Briefs (digests of other outlets) are
+  // excluded so the News feed is not diluted by aggregation.
   const recent = getAllPosts().filter(
-    (p) => new Date(p.date).getTime() >= cutoff,
+    (p) => !isBrief(p) && new Date(p.date).getTime() >= cutoff,
   );
 
   const urls = recent

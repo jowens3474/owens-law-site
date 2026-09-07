@@ -9,6 +9,13 @@ export const site = {
   email: "capitolmain42@gmail.com",
   city: "Jackson, Mississippi",
   founded: 2026,
+  // Human editor of record. Every article carries this byline and the
+  // NewsArticle schema names this Person as editor.
+  editor: {
+    name: "J. Edward Owens",
+    title: "Editor",
+    path: "/about/editor",
+  },
 } as const;
 
 export interface Category {

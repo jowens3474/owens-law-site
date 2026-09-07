@@ -7,6 +7,7 @@ import {
   getRelatedPosts,
   formatDate,
   readingTime,
+  isBrief,
 } from "@/lib/posts";
 import { site, categoryByName } from "@/lib/site";
 import { absoluteUrl } from "@/lib/markdown";
@@ -31,11 +32,15 @@ export async function generateMetadata({
   const post = getPostBySlug(slug);
   if (!post) return {};
   const url = absoluteUrl(`/article/${slug}`);
-  // Articles without a photo fall back to the generated branded card so
-  // Google News and social previews always have an image to show.
-  const images = [
-    absoluteUrl(post.image ?? `/api/card/${post.slug}`),
-  ];
+  // Articles without a photo fall back to the generated branded cards so
+  // Google News and social previews always have an image to show. The wide
+  // 16:9 card leads because Google prefers images at least 1200px wide.
+  const images = post.image
+    ? [absoluteUrl(post.image)]
+    : [
+        absoluteUrl(`/api/card/${post.slug}?size=wide`),
+        absoluteUrl(`/api/card/${post.slug}`),
+      ];
   return {
     title: post.title,
     description: post.dek,
@@ -51,7 +56,7 @@ export async function generateMetadata({
       url,
       siteName: site.name,
       publishedTime: post.date,
-      modifiedTime: post.date,
+      modifiedTime: post.updated ?? post.date,
       section: post.category,
       authors: [post.author],
       images,
@@ -99,25 +104,47 @@ export default async function ArticlePage({
     ],
   };
 
-  const articleImage = absoluteUrl(post.image ?? `/api/card/${post.slug}`);
+  const brief = isBrief(post);
+  // Wide 16:9 first (Google wants >=1200px wide), then square; a real photo
+  // replaces both.
+  const articleImages = post.image
+    ? [absoluteUrl(post.image)]
+    : [
+        absoluteUrl(`/api/card/${post.slug}?size=wide`),
+        absoluteUrl(`/api/card/${post.slug}`),
+      ];
+  const editorId = absoluteUrl(`${site.editor.path}#person`);
   const articleJsonLd = {
     "@context": "https://schema.org",
     "@type": "NewsArticle",
     headline: post.title,
     description: post.dek,
     datePublished: post.date,
-    dateModified: post.date,
-    articleSection: post.category,
+    dateModified: post.updated ?? post.date,
+    articleSection: brief ? "Briefing" : post.category,
     inLanguage: "en-US",
     isAccessibleForFree: true,
-    author: [{ "@type": "Organization", name: post.author }],
+    author: [
+      {
+        "@type": "Organization",
+        name: post.author,
+        url: absoluteUrl("/about"),
+      },
+    ],
+    editor: {
+      "@type": "Person",
+      "@id": editorId,
+      name: site.editor.name,
+      jobTitle: site.editor.title,
+      url: absoluteUrl(site.editor.path),
+    },
     publisher: { "@id": absoluteUrl("/#org") },
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": absoluteUrl(`/article/${post.slug}`),
     },
-    image: [articleImage],
-    thumbnailUrl: articleImage,
+    image: articleImages,
+    thumbnailUrl: articleImages[0],
   };
 
   return (
@@ -149,7 +176,29 @@ export default async function ArticlePage({
           <div className="mt-5 flex flex-wrap items-center gap-x-2 gap-y-1 border-t-2 border-ink border-b border-rule py-4 text-sm">
             <span className="font-semibold">By {post.author}</span>
             <span className="text-muted">·</span>
-            <span className="text-muted">{formatDate(post.date)}</span>
+            <span className="text-muted">
+              Edited by{" "}
+              <Link
+                href={site.editor.path}
+                rel="author"
+                className="font-semibold text-ink hover:text-crimson"
+              >
+                {site.editor.name}
+              </Link>
+            </span>
+            <span className="text-muted">·</span>
+            <time dateTime={post.date} className="text-muted">
+              {formatDate(post.date)}
+            </time>
+            {post.updated && post.updated !== post.date && (
+              <>
+                <span className="text-muted">·</span>
+                <span className="text-muted">
+                  Updated{" "}
+                  <time dateTime={post.updated}>{formatDate(post.updated)}</time>
+                </span>
+              </>
+            )}
             <span className="text-muted">·</span>
             <span className="text-muted">{readingTime(post)} min read</span>
           </div>

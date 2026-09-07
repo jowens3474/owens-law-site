@@ -19,6 +19,7 @@ export interface Post {
   categories?: string[]; // optional extra sections to cross-file the story under
   author: string;
   date: string; // ISO yyyy-mm-dd
+  updated?: string; // ISO yyyy-mm-dd; set when a story is materially revised
   views: number;
   lead?: boolean; // pin to the homepage lead; auto-expires after LEAD_PIN_DAYS
   image?: string; // path under /public, e.g. "/aaron-banks.webp"
@@ -662,7 +663,7 @@ const POSTS: Post[] = [
   },
   {
     slug: "owens-federal-law-license-show-cause-order",
-    title: "Owens Gets 30 Days to Save His Federal Law License. The State Court Already Called His Resignation 'Tantamount to Proof of Guilt.'",
+    title: "Owens Gets 30 Days to Save His Federal Law License. State Court Called His Resignation Proof of Guilt.",
     dek: "Chief U.S. District Judge Halil Ozerden has ordered Jody Owens to show why he should keep practicing in federal court after the state permanently disbarred him. His response is limited to two narrow claims, and his own words may have already foreclosed them.",
     category: "General News",
     tags: ["corruption-case"],
@@ -682,7 +683,7 @@ const POSTS: Post[] = [
   },
   {
     slug: "flats-at-fondren-rent-double-jackson-median",
-    title: "Flats at Fondren Will Rent at Roughly Double Jackson's Median. The Plan It Cites Calls for Mixed-Income Housing.",
+    title: "Flats at Fondren Will Rent at Double Jackson's Median. The Plan It Cites Calls for Mixed-Income Housing.",
     dek: "Arlington's $59 million, 234-unit project on Mitchell Avenue is set to deliver in fall 2027 at an average rent near $2,100 a month, about twice the city's median. Its own planning blueprint calls for something different.",
     category: "Residential Real Estate",
     author: "Jackson Wire Staff",
@@ -1596,7 +1597,7 @@ const POSTS: Post[] = [
   },
   {
     slug: "jackson-seeks-300-million-doj-model-cities-grant",
-    title: "Jackson Seeks $300 Million From DOJ's New Model Cities Initiative, One of the Largest Federal Grants in City History",
+    title: "Jackson Seeks $300 Million From DOJ's Model Cities Initiative, One of Its Largest Federal Grants Ever",
     dek: "The City Council will vote Tuesday on applying for a competitive federal grant that would award Jackson up to $300 million for public safety, technology, and crime reduction. Only two to four cities nationwide are expected to win.",
     category: "General News",
     categories: ["Politics"],
@@ -3335,6 +3336,13 @@ function todayLocalIso(): string {
 // Future-dated articles stay hidden from every public surface until then.
 function isPublished(p: Post): boolean {
   return p.date <= todayLocalIso();
+}
+
+// Morning Briefs are daily digests of other outlets' reporting. They stay on
+// the site but are kept out of the Google News sitemap and labeled as a
+// briefing section so the news feed reflects only original reporting.
+export function isBrief(p: Post): boolean {
+  return (p.tags ?? []).includes("morning-brief");
 }
 
 export const getAllPosts = cache((): Post[] =>

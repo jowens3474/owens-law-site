@@ -2,17 +2,18 @@ import { ImageResponse } from "next/og";
 import sharp from "sharp";
 import { getPostBySlug, formatDate } from "@/lib/posts";
 
-// Generates a branded 1080x1080 card image for a published article, used as
-// the Instagram post image by scripts/post-instagram.mjs. Instagram's Graph
-// API only accepts JPEG via image_url, so the PNG ImageResponse produces is
-// converted with sharp before being returned.
+// Generates a branded card image for a published article. Default is the
+// 1080x1080 square used for Instagram by scripts/post-instagram.mjs; add
+// ?size=wide for a 1200x675 (16:9) version used as the article's Open Graph
+// image and primary NewsArticle image, since Google prefers images at least
+// 1200px wide. Instagram's Graph API only accepts JPEG via image_url, so the
+// PNG ImageResponse produces is converted with sharp before being returned.
 export const runtime = "nodejs";
 
-const SIZE = 1080;
 const PAD = 80;
 
 export async function GET(
-  _req: Request,
+  req: Request,
   { params }: { params: Promise<{ slug: string }> },
 ) {
   const { slug } = await params;
@@ -21,7 +22,19 @@ export async function GET(
     return new Response("Not found", { status: 404 });
   }
 
-  const headlineSize = post.title.length > 70 ? 56 : 72;
+  const wide = new URL(req.url).searchParams.get("size") === "wide";
+  const width = wide ? 1200 : 1080;
+  const height = wide ? 675 : 1080;
+  // Less vertical room on the wide card, so scale the type down a step.
+  const headlineSize = wide
+    ? post.title.length > 70
+      ? 44
+      : 56
+    : post.title.length > 70
+      ? 56
+      : 72;
+  const dekSize = wide ? 26 : 34;
+  const dekLines = wide ? 2 : 3;
 
   const png = new ImageResponse(
     (
@@ -51,7 +64,9 @@ export async function GET(
             display: "flex",
             flexDirection: "column",
             flex: 1,
-            padding: `${PAD - 4}px ${PAD}px ${PAD}px ${PAD}px`,
+            padding: wide
+              ? `${PAD - 24}px ${PAD}px ${PAD - 20}px ${PAD}px`
+              : `${PAD - 4}px ${PAD}px ${PAD}px ${PAD}px`,
             justifyContent: "space-between",
           }}
         >
@@ -94,12 +109,12 @@ export async function GET(
             <div
               style={{
                 display: "flex",
-                marginTop: 28,
-                fontSize: 34,
+                marginTop: wide ? 18 : 28,
+                fontSize: dekSize,
                 fontWeight: 400,
                 color: "#94a3b8",
                 lineHeight: 1.45,
-                maxHeight: 34 * 1.45 * 3,
+                maxHeight: dekSize * 1.45 * dekLines,
                 overflow: "hidden",
               }}
             >
@@ -144,7 +159,7 @@ export async function GET(
         </div>
       </div>
     ),
-    { width: SIZE, height: SIZE },
+    { width, height },
   );
 
   const pngBuffer = Buffer.from(await png.arrayBuffer());
