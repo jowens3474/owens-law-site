@@ -12,7 +12,6 @@ export default function NavBar() {
   const links = [
     { name: "Home", href: "/" },
     ...categories.map((c) => ({ name: c.name, href: `/category/${c.slug}` })),
-    { name: "The Trial", href: "/corruption-case", featured: true as const },
     { name: "Explainers", href: "/explainers" },
     { name: "About", href: "/about" },
   ];
@@ -32,18 +31,12 @@ export default function NavBar() {
             <li key={l.href}>
               <Link
                 href={l.href}
-                className={`block border-b-2 px-3 py-2 -mb-px text-sm transition-colors hover:text-crimson ${"featured" in l && l.featured ? "font-semibold uppercase tracking-wide" : "font-medium"} ${
+                className={`block border-b-2 px-3 py-2 -mb-px text-sm font-medium transition-colors hover:text-crimson ${
                   isActive(l.href)
                     ? "border-crimson text-crimson"
                     : "border-transparent text-ink"
                 }`}
               >
-                {"featured" in l && l.featured && (
-                  <span
-                    aria-hidden
-                    className="mr-1.5 inline-block h-1.5 w-1.5 rounded-full bg-crimson align-middle"
-                  />
-                )}
                 {l.name}
               </Link>
             </li>
