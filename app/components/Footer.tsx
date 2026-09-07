@@ -40,6 +40,14 @@ export default function Footer() {
               </li>
               <li>
                 <Link
+                  href="/corruption-case"
+                  className="text-sm hover:text-crimson"
+                >
+                  Corruption Case Archive
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/corrections"
                   className="text-sm hover:text-crimson"
                 >
