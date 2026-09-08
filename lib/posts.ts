@@ -66,6 +66,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-09-08",
+    title: "Morning Brief: Sep 8 · Council Meets Twice as Budget Deadline Nears",
+    dek: "The Jackson City Council convenes twice today with a week left to pass a fiscal 2027 budget that would cut Public Works by $8 million.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-09-08",
+    views: 0,
+    body: [
+      "Council meets twice as clock ticks: The Jackson City Council holds a regular teleconference at 10 a.m. and a special meeting at 1:30 p.m. today, with a week left before the Sept. 15 deadline to adopt the fiscal 2027 budget. The millage rate was locked Sept. 3 with no tax increase, Chief Administrative Officer Pieter Teeuwissen said. The fight centers on Public Works, which would fall from about $22 million to roughly $14 million under Mayor John Horhn's proposal, an $8 million cut Director Lorenzo Anderson has warned against even as the department sits on thousands of open service requests. Council members have ranked police, public works and fire as their top funding priorities. The new fiscal year begins Oct. 1.",
+      "Horhn calls the job grueling: Mayor John Horhn offered a blunt first-year assessment at Delta Fest on Sept. 2, reported by the Clarion Ledger, saying he never wanted the office and that 32 years in the Senate left him unprepared. \"Being a senator was a walk in the park,\" he said. He put numbers to the city's slide: population down from about 205,000 in 1985 to roughly 144,000, and homicides at 64 last year after 104 the year before, with the city already approaching 60 this year and on track to exceed it. He called new Police Chief RaShall Brackney \"very disruptive\" as she tries to change the department's culture.",
+      "Three homicides over the holiday: Jackson police are investigating three killings that occurred the same day over the Labor Day weekend, WJTV reported. Adrian Nunnery, 42, was shot and killed around 11 p.m. Sept. 6 at the Inland gas station on Terry Road after an argument escalated, police said. The suspect fled in a dark sedan with a Mississippi plate believed to read HRQ 382, possibly accompanied by a woman. The violence lands as Horhn told Delta Fest the city is on pace to exceed last year's 64 homicides, a rise that runs counter to declines in many other American cities. JPD asks anyone with information to call Crime Stoppers at 601-355-TIPS.",
+      "Data center moratorium faces a test: Jackson's 183-day ban on data centers, the state's first, passed 5-2 on July 14 and took effect last month, but developer Gabriel Prado's Prado AI says it will push ahead with a 350-megawatt natural gas plant and data center somewhere in the metro. Prado argues the PSC's May decision to decline a declaratory opinion in Docket 2026-AD-10 lets him generate power for his own tenants without utility regulation. Entergy Mississippi and Mississippi Power protest the reading. The question worth watching: whether the council extends the moratorium when it lapses early next year, and where Prado actually breaks ground.",
+      "Folk Festival returns to downtown: Jackson hosts the 83rd National Folk Festival on Nov. 13-15, the second year of a three-year downtown residency that organizers say drew about 30,000 visitors in its debut. Vendor applications for the festival marketplace and food courts have closed, with participants to be announced later this fall. The free event brings roughly 300 artists, musicians and storytellers across blues, bluegrass and go-go stages. Jackson was selected from 42 cities nationwide and is the first Mississippi city to host the Smithsonian-affiliated festival. The schedule is expected to drop in the coming weeks as the city's fall cultural calendar fills out.",
+    ],
+  },
+  {
     slug: "horhn-third-chief-of-staff-cao-departure",
     title: "Horhn's Third Chief of Staff in 14 Months Arrives as His CAO Departs",
     dek: "Marcus Chanay starts Sept. 14 as Mayor John Horhn's third chief of staff since July 2025, landing in an office that is also losing its chief administrative officer at the end of the month.",
