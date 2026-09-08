@@ -53,7 +53,7 @@ export default function NavBar() {
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
             aria-controls="mobile-menu"
-            className="rounded border border-ink/30 px-3 py-1 font-sans text-sm font-semibold uppercase tracking-wide"
+            className="border border-ink px-3 py-1 font-sans text-sm font-semibold uppercase tracking-wide"
           >
             {open ? "Close" : "Menu"}
           </button>

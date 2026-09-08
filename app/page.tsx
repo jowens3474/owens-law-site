@@ -14,9 +14,6 @@ import { site } from "@/lib/site";
 import ArticleImage from "./components/ArticleImage";
 import Sidebar from "./components/Sidebar";
 import CategoryTag from "./components/CategoryTag";
-import NewsletterSignup from "./components/NewsletterSignup";
-
-const LATEST_LIMIT = 8;
 
 function SectionHeading({ children }: { children: React.ReactNode }) {
   return (
@@ -59,13 +56,13 @@ export default function Home() {
   const allRest = getAllPosts().filter(
     (p) => p.slug !== lead.slug && p.slug !== todaysBrief?.slug,
   );
-  const rest = allRest.slice(0, LATEST_LIMIT);
-  const hasMore = allRest.length > LATEST_LIMIT;
+  const hasMore = allRest.length > 6 + 8;
 
-  // The right rail carries the next six stories; anything left in `rest`
-  // (still capped at LATEST_LIMIT) runs in the "More coverage" grid below.
-  const railItems = rest.slice(0, 6);
-  const moreItems = rest.slice(6);
+  // The right rail carries the next six stories; the "More coverage" grid
+  // below draws independently from `allRest` so it isn't starved by the
+  // rail's slice.
+  const railItems = allRest.slice(0, 6);
+  const moreItems = allRest.slice(6, 6 + 8);
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8">
@@ -133,7 +130,13 @@ export default function Home() {
           {moreItems.length > 0 && (
             <section className="mt-8">
               <SectionHeading>More coverage</SectionHeading>
-              <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:[&>*:not(:nth-child(4n+1))]:border-l lg:[&>*:not(:nth-child(4n+1))]:border-rule lg:[&>*:not(:nth-child(4n+1))]:pl-5">
+              <div
+                className={`grid gap-8 ${
+                  moreItems.length < 3
+                    ? "sm:grid-cols-2"
+                    : "sm:grid-cols-2 lg:grid-cols-4 lg:[&>*:not(:nth-child(4n+1))]:border-l lg:[&>*:not(:nth-child(4n+1))]:border-rule lg:[&>*:not(:nth-child(4n+1))]:pl-5"
+                }`}
+              >
                 {moreItems.map((post) => (
                   <article key={post.slug}>
                     <CategoryTag category={post.category} />
@@ -163,10 +166,6 @@ export default function Home() {
               )}
             </section>
           )}
-
-          <div className="mt-12">
-            <NewsletterSignup variant="block" />
-          </div>
         </div>
 
         {/* Right rail */}

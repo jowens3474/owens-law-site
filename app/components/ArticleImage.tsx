@@ -41,7 +41,7 @@ export default function ArticleImage({
         className="object-cover"
       />
       {label && (
-        <span className="absolute bottom-2 left-2 bg-black/45 px-2 py-0.5 text-[0.7rem] font-semibold uppercase tracking-widest text-white">
+        <span className="absolute bottom-2 left-2 bg-ink px-2 py-0.5 font-sans text-[0.7rem] font-semibold uppercase tracking-widest text-newsprint">
           {label}
         </span>
       )}
