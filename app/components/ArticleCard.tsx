@@ -5,7 +5,7 @@ import CategoryTag from "./CategoryTag";
 
 function Byline({ post }: { post: Post }) {
   return (
-    <p className="mt-2 text-xs uppercase tracking-wider text-muted">
+    <p className="mt-2 font-sans text-[0.7rem] uppercase tracking-wider text-muted">
       By {post.author} · {formatDate(post.date)} · {readingTime(post)} min read
     </p>
   );
@@ -43,7 +43,7 @@ export default function ArticleCard({
             {post.title}
           </Link>
         </h3>
-        <p className="mt-1 line-clamp-2 text-sm italic text-muted">
+        <p className="mt-1 line-clamp-2 font-sans text-sm text-muted">
           {post.dek}
         </p>
       </article>
@@ -52,7 +52,7 @@ export default function ArticleCard({
 
   // feature — image is optional, typography carries the design when absent
   return (
-    <article className="group flex flex-col border-t-2 border-ink pt-4 first:border-t-0">
+    <article className="group flex flex-col border-t border-rule pt-4 first:border-t-0">
       {post.image && (
         <Link href={href} className="mb-4 block">
           <ArticleImage
@@ -68,9 +68,7 @@ export default function ArticleCard({
           {post.title}
         </Link>
       </h3>
-      <p className="mt-2 font-serif italic leading-loose text-muted">
-        {post.dek}
-      </p>
+      <p className="mt-2 font-sans leading-relaxed text-muted">{post.dek}</p>
       <Byline post={post} />
     </article>
   );

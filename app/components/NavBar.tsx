@@ -21,7 +21,7 @@ export default function NavBar() {
 
   return (
     <nav
-      className="sticky top-0 z-50 border-b border-rule bg-paper/80 backdrop-blur-md"
+      className="sticky top-0 z-50 border-b border-rule bg-newsprint"
       aria-label="Sections"
     >
       <div className="mx-auto max-w-6xl px-4">
@@ -31,9 +31,9 @@ export default function NavBar() {
             <li key={l.href}>
               <Link
                 href={l.href}
-                className={`block border-b-2 px-3 py-2 -mb-px text-sm font-medium transition-colors hover:text-crimson ${
+                className={`block border-b-2 px-3 py-2 -mb-px font-sans text-[0.8rem] font-semibold tracking-wide uppercase transition-colors hover:text-crimson ${
                   isActive(l.href)
-                    ? "border-crimson text-crimson"
+                    ? "border-ink text-ink"
                     : "border-transparent text-ink"
                 }`}
               >
@@ -45,7 +45,7 @@ export default function NavBar() {
 
         {/* Mobile */}
         <div className="flex items-center justify-between py-2 md:hidden">
-          <span className="text-sm font-semibold uppercase tracking-wide">
+          <span className="font-sans text-sm font-semibold uppercase tracking-wide">
             Sections
           </span>
           <button
@@ -53,7 +53,7 @@ export default function NavBar() {
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
             aria-controls="mobile-menu"
-            className="rounded border border-ink/30 px-3 py-1 text-sm font-semibold uppercase tracking-wide"
+            className="rounded border border-ink/30 px-3 py-1 font-sans text-sm font-semibold uppercase tracking-wide"
           >
             {open ? "Close" : "Menu"}
           </button>
@@ -65,7 +65,7 @@ export default function NavBar() {
                 <Link
                   href={l.href}
                   onClick={() => setOpen(false)}
-                  className={`block border-t border-rule py-2.5 text-sm font-semibold uppercase tracking-wide ${
+                  className={`block border-t border-rule py-2.5 font-sans text-sm font-semibold uppercase tracking-wide ${
                     isActive(l.href) ? "text-crimson" : "text-ink"
                   }`}
                 >
