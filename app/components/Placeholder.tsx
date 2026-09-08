@@ -4,12 +4,12 @@ import { site } from "@/lib/site";
 // deterministic tinted "plate" with the publication monogram, like a newspaper
 // placeholder cut.
 const TINTS: [string, string][] = [
-  ["#2b2b3a", "#4a4a63"],
-  ["#3a2226", "#7a2d34"],
-  ["#22332e", "#3c5a4e"],
-  ["#33291c", "#5e4a30"],
-  ["#1f2a33", "#37505f"],
-  ["#2e2433", "#4f3c5a"],
+  ["#f3f3f3", "#e6e6e6"],
+  ["#f5efe9", "#e8dcd0"],
+  ["#eef2f5", "#d9e2ea"],
+  ["#f2efe6", "#e2dbc6"],
+  ["#eef1ee", "#dbe4db"],
+  ["#f1eef2", "#e2dbe4"],
 ];
 
 function hash(seed: string): number {
@@ -46,7 +46,7 @@ export default function Placeholder({
       {monogram && (
         <div className="absolute inset-0 flex items-center justify-center">
           <span
-            className="font-serif font-black text-white/80 select-none"
+            className="font-serif font-black text-ink/60 select-none"
             style={{ fontSize: "clamp(2rem, 8vw, 4.5rem)" }}
           >
             {site.shortName
@@ -57,7 +57,7 @@ export default function Placeholder({
         </div>
       )}
       {label && (
-        <span className="absolute bottom-2 left-2 bg-black/45 px-2 py-0.5 text-[0.7rem] font-semibold uppercase tracking-widest text-white">
+        <span className="absolute bottom-2 left-2 bg-ink px-2 py-0.5 text-[0.7rem] font-semibold uppercase tracking-widest text-newsprint">
           {label}
         </span>
       )}

@@ -54,14 +54,13 @@ export default function EditorPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
       />
       <header className="border-b border-rule pb-5">
-        <div className="mb-4 h-px w-24 bg-gradient-to-r from-crimson/60 to-transparent" />
-        <p className="font-serif text-xs font-bold uppercase tracking-wide text-crimson sm:tracking-[0.3em]">
+        <p className="font-sans text-xs font-bold uppercase tracking-wide text-crimson sm:tracking-[0.3em]">
           {editor.title}
         </p>
         <h1 className="mt-2 font-serif text-4xl font-black sm:text-5xl">
           {editor.name}
         </h1>
-        <p className="mt-3 font-serif text-xl italic text-muted">
+        <p className="mt-3 font-sans text-xl text-muted">
           Editor of record, {site.name}
         </p>
       </header>

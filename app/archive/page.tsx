@@ -51,15 +51,14 @@ export default function ArchivePage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-10">
       <header className="border-b border-rule pb-5">
-        <div className="mb-4 h-px w-24 bg-gradient-to-r from-crimson/60 to-transparent" />
-        <p className="font-serif text-xs font-bold uppercase tracking-[0.3em] text-crimson">
+        <p className="font-sans text-xs font-bold uppercase tracking-[0.3em] text-crimson">
           The Stacks
         </p>
         <h1 className="mt-3 font-serif text-4xl font-black sm:text-5xl">
           Archive
         </h1>
-        <p className="mt-3 font-serif text-lg italic text-muted">{DEK}</p>
-        <p className="mt-2 text-sm text-muted">
+        <p className="mt-3 font-sans text-lg text-muted">{DEK}</p>
+        <p className="mt-2 font-sans text-sm text-muted">
           {all.length} article{all.length === 1 ? "" : "s"} since{" "}
           {formatDate(all[all.length - 1].date)}.
         </p>
@@ -67,7 +66,7 @@ export default function ArchivePage() {
 
       {[...groups.entries()].map(([ym, posts]) => (
         <section key={ym} className="mt-10">
-          <h2 className="mb-3 border-b-2 border-ink pb-1 font-serif text-xl font-black uppercase tracking-wide">
+          <h2 className="mb-3 border-b border-ink pb-1 font-sans text-xs font-bold uppercase tracking-widest text-ink">
             {monthLabel(ym)}
           </h2>
           <ol className="divide-y divide-rule border-y border-rule">

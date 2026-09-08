@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import {
-  Space_Grotesk,
-  Inter,
+  Bodoni_Moda,
+  Libre_Franklin,
   JetBrains_Mono,
   Source_Serif_4,
 } from "next/font/google";
@@ -16,17 +16,23 @@ import Footer from "./components/Footer";
 // turn on Google Analytics. Left unset (as in local dev), nothing is loaded.
 const gaId = process.env.NEXT_PUBLIC_GA_ID;
 
-const spaceGrotesk = Space_Grotesk({
+// Display/headline face — the high-contrast "Postoni" serif that defines the
+// Washington Post look. Optical size tracks the font's own axis so small and
+// large settings both render correctly.
+const bodoniModa = Bodoni_Moda({
   subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "600", "700", "900"],
 });
 
-const inter = Inter({
+// UI/sans face — kickers, nav, metadata, decks. Stands in for Franklin
+// Gothic, the Post's house sans.
+const libreFranklin = Libre_Franklin({
   subsets: ["latin"],
   variable: "--font-body",
   display: "swap",
+  weight: ["400", "500", "600", "700"],
 });
 
 const jbmono = JetBrains_Mono({
@@ -154,7 +160,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${spaceGrotesk.variable} ${inter.variable} ${jbmono.variable} ${sourceSerif.variable} h-full antialiased`}
+      className={`${bodoniModa.variable} ${libreFranklin.variable} ${jbmono.variable} ${sourceSerif.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <script

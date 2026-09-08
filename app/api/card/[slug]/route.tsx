@@ -44,7 +44,7 @@ export async function GET(
           height: "100%",
           display: "flex",
           flexDirection: "column",
-          backgroundColor: "#060a12",
+          backgroundColor: "#ffffff",
         }}
       >
         {/* Top accent bar */}
@@ -53,8 +53,7 @@ export async function GET(
             display: "flex",
             width: "100%",
             height: 4,
-            backgroundImage:
-              "linear-gradient(90deg, #22d3ee 0%, #0891b2 45%, rgba(34,211,238,0) 100%)",
+            backgroundColor: "#111111",
           }}
         />
 
@@ -76,7 +75,7 @@ export async function GET(
               display: "flex",
               fontSize: 28,
               fontWeight: 700,
-              color: "#22d3ee",
+              color: "#a80000",
               letterSpacing: 4,
               textTransform: "uppercase",
             }}
@@ -98,7 +97,7 @@ export async function GET(
                 display: "flex",
                 fontSize: headlineSize,
                 fontWeight: 800,
-                color: "#e8eef7",
+                color: "#111111",
                 lineHeight: 1.15,
                 maxHeight: headlineSize * 1.15 * 4,
                 overflow: "hidden",
@@ -112,7 +111,7 @@ export async function GET(
                 marginTop: wide ? 18 : 28,
                 fontSize: dekSize,
                 fontWeight: 400,
-                color: "#94a3b8",
+                color: "#444444",
                 lineHeight: 1.45,
                 maxHeight: dekSize * 1.45 * dekLines,
                 overflow: "hidden",
@@ -131,11 +130,11 @@ export async function GET(
               justifyContent: "space-between",
               width: "100%",
               paddingTop: 28,
-              borderTop: "1px solid #1e293b",
+              borderTop: "1px solid #d9d9d9",
             }}
           >
             <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
-              <div style={{ display: "flex", fontSize: 32, fontWeight: 700, color: "#e8eef7" }}>
+              <div style={{ display: "flex", fontSize: 32, fontWeight: 700, color: "#111111" }}>
                 THE JACKSON WIRE
               </div>
               <div
@@ -144,15 +143,15 @@ export async function GET(
                   width: 6,
                   height: 6,
                   borderRadius: 999,
-                  backgroundColor: "#22d3ee",
+                  backgroundColor: "#a80000",
                   margin: "0 16px",
                 }}
               />
-              <div style={{ display: "flex", fontSize: 28, fontWeight: 400, color: "#94a3b8" }}>
+              <div style={{ display: "flex", fontSize: 28, fontWeight: 400, color: "#666666" }}>
                 thejacksonwire.com
               </div>
             </div>
-            <div style={{ display: "flex", fontSize: 28, fontWeight: 400, color: "#94a3b8" }}>
+            <div style={{ display: "flex", fontSize: 28, fontWeight: 400, color: "#666666" }}>
               {formatDate(post.date)}
             </div>
           </div>

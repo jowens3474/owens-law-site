@@ -39,27 +39,26 @@ export default function ExplainersPage() {
   return (
     <div className="mx-auto max-w-5xl px-4 py-10">
       <header className="border-b border-rule pb-5">
-        <div className="mb-4 h-px w-24 bg-gradient-to-r from-crimson/60 to-transparent" />
-        <p className="font-serif text-xs font-bold uppercase tracking-[0.3em] text-crimson">
+        <p className="font-sans text-xs font-bold uppercase tracking-[0.3em] text-crimson">
           Background &amp; Analysis
         </p>
         <h1 className="mt-3 font-serif text-4xl font-black sm:text-5xl">
           Explainers
         </h1>
-        <p className="mt-3 font-serif text-lg italic text-muted">{DEK}</p>
+        <p className="mt-3 font-sans text-lg text-muted">{DEK}</p>
       </header>
 
       {explainers.length === 0 ? (
-        <p className="mt-10 text-muted">
+        <p className="mt-10 font-sans text-muted">
           No explainers yet. Check back soon.
         </p>
       ) : (
-        <div className="mt-10 grid gap-8 sm:grid-cols-2">
+        <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:[&>*:not(:nth-child(2n+1))]:border-l lg:[&>*:not(:nth-child(2n+1))]:border-rule lg:[&>*:not(:nth-child(2n+1))]:pl-6">
           {explainers.map((p) => (
             <Link
               key={p.slug}
               href={`/article/${p.slug}`}
-              className="glow-card group block p-5"
+              className="glow-card group block"
             >
               {p.image && (
                 <ArticleImage
@@ -70,13 +69,13 @@ export default function ExplainersPage() {
                 />
               )}
               <CategoryTag category={p.category} />
-              <h2 className="mt-1 font-serif text-2xl font-black leading-[1.1] group-hover:text-crimson">
+              <h2 className="mt-1 font-serif text-2xl font-bold leading-[1.1] group-hover:text-crimson">
                 {p.title}
               </h2>
-              <p className="mt-2 font-serif text-base leading-relaxed text-muted">
+              <p className="mt-2 font-sans text-base leading-relaxed text-muted">
                 {p.dek}
               </p>
-              <p className="mt-2 text-xs uppercase tracking-wider text-muted">
+              <p className="mt-2 font-sans text-xs uppercase tracking-wider text-muted">
                 {formatDate(p.date)} · {readingTime(p)} min read
               </p>
             </Link>

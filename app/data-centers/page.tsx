@@ -127,21 +127,20 @@ export default function DataCentersPage() {
       />
 
       <header className="border-b border-rule pb-8">
-        <div className="mb-4 h-px w-24 bg-gradient-to-r from-crimson/60 to-transparent" />
-        <p className="font-serif text-xs font-bold uppercase tracking-[0.3em] text-crimson">
+        <p className="font-sans text-xs font-bold uppercase tracking-[0.3em] text-crimson">
           The Beat · AI Infrastructure in Mississippi
         </p>
         <h1 className="mt-3 font-serif text-5xl font-black leading-[1.02] sm:text-6xl">
           Data Centers
         </h1>
-        <p className="mt-4 max-w-3xl font-serif text-xl italic leading-relaxed text-muted">
+        <p className="mt-4 max-w-3xl font-sans text-xl leading-relaxed text-muted">
           {DEK}
         </p>
       </header>
 
       {/* At a glance */}
-      <section className="glow-card mt-8 p-6">
-        <p className="font-serif text-xs font-bold uppercase tracking-widest text-crimson">
+      <section className="glow-card mt-8 border border-rule p-6">
+        <p className="font-sans text-xs font-bold uppercase tracking-widest text-crimson">
           At a glance
         </p>
         <dl className="mt-3 grid gap-x-6 gap-y-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -160,14 +159,14 @@ export default function DataCentersPage() {
 
       {/* Active projects */}
       <section className="mt-12">
-        <h2 className="mb-5 border-b-2 border-ink pb-1 font-serif text-2xl font-black uppercase tracking-wide">
+        <h2 className="mb-5 border-b border-ink pb-1 font-sans text-xs font-bold uppercase tracking-widest text-ink">
           Active Projects
         </h2>
         <div className="grid gap-6 md:grid-cols-3">
           {PROJECTS.map((p) => (
             <article
               key={p.name}
-              className="glow-card p-5"
+              className="glow-card border border-rule p-5"
             >
               <h3 className="font-serif text-xl font-black leading-tight">
                 {p.name}
@@ -203,8 +202,8 @@ export default function DataCentersPage() {
       {/* Latest coverage */}
       {latest.length > 0 && (
         <section className="mt-14">
-          <div className="mb-5 flex items-end justify-between border-b-2 border-ink pb-1">
-            <h2 className="font-serif text-2xl font-black uppercase tracking-wide">
+          <div className="mb-5 flex items-end justify-between border-b border-ink pb-1">
+            <h2 className="font-sans text-xs font-bold uppercase tracking-widest text-ink">
               Latest Coverage
             </h2>
             <Link
@@ -230,13 +229,13 @@ export default function DataCentersPage() {
                   />
                 )}
                 <CategoryTag category={p.category} />
-                <h3 className="mt-1 font-serif text-2xl font-black leading-[1.1] group-hover:text-crimson">
+                <h3 className="mt-1 font-serif text-2xl font-bold leading-[1.1] group-hover:text-crimson">
                   {p.title}
                 </h3>
-                <p className="mt-2 font-serif text-base leading-relaxed text-muted">
+                <p className="mt-2 font-sans text-base leading-relaxed text-muted">
                   {p.dek}
                 </p>
-                <p className="mt-2 text-xs uppercase tracking-wider text-muted">
+                <p className="mt-2 font-sans text-xs uppercase tracking-wider text-muted">
                   {formatDate(p.date)} · {readingTime(p)} min read
                 </p>
               </Link>
@@ -247,23 +246,23 @@ export default function DataCentersPage() {
 
       {/* Key dates */}
       <section className="mt-14">
-        <h2 className="mb-5 border-b-2 border-ink pb-1 font-serif text-2xl font-black uppercase tracking-wide">
+        <h2 className="mb-5 border-b border-ink pb-1 font-sans text-xs font-bold uppercase tracking-widest text-ink">
           Key Dates
         </h2>
-        <ol className="space-y-3 border-l-2 border-rule pl-6">
+        <ol className="space-y-3 border-l border-rule pl-6">
           {KEY_DATES.map((e, i) => (
             <li
               key={i}
               className={`relative ${e.highlight ? "border-l-4 border-crimson pl-3 -ml-5" : ""}`}
             >
               <p
-                className={`font-serif text-xs font-bold uppercase tracking-widest ${
+                className={`font-sans text-xs font-bold uppercase tracking-widest ${
                   e.highlight ? "text-crimson" : "text-muted"
                 }`}
               >
                 {e.date}
               </p>
-              <p className="mt-0.5 font-serif text-base leading-snug">
+              <p className="mt-0.5 font-sans text-base leading-snug">
                 {e.text}
               </p>
             </li>
@@ -273,7 +272,7 @@ export default function DataCentersPage() {
 
       {/* Players */}
       <section className="mt-14">
-        <h2 className="mb-5 border-b-2 border-ink pb-1 font-serif text-2xl font-black uppercase tracking-wide">
+        <h2 className="mb-5 border-b border-ink pb-1 font-sans text-xs font-bold uppercase tracking-widest text-ink">
           The Players
         </h2>
         <ul className="grid gap-3 sm:grid-cols-2">
@@ -283,7 +282,7 @@ export default function DataCentersPage() {
               className="border border-rule bg-paper p-4"
             >
               <p className="font-serif text-base font-bold">{p.name}</p>
-              <p className="mt-0.5 text-sm text-muted">{p.role}</p>
+              <p className="mt-0.5 font-sans text-sm text-muted">{p.role}</p>
             </li>
           ))}
         </ul>
@@ -292,30 +291,30 @@ export default function DataCentersPage() {
       {/* All coverage */}
       {all.length > 0 && (
         <section id="all-coverage" className="mt-14 scroll-mt-8">
-          <h2 className="mb-5 border-b-2 border-ink pb-1 font-serif text-2xl font-black uppercase tracking-wide">
+          <h2 className="mb-5 border-b border-ink pb-1 font-sans text-xs font-bold uppercase tracking-widest text-ink">
             All Coverage
           </h2>
-          <ol className="divide-y divide-rule border-y-2 border-ink">
+          <ol className="divide-y divide-rule border-y border-ink">
             {all.map((p) => (
               <li key={p.slug} className="py-4">
                 <Link
                   href={`/article/${p.slug}`}
                   className="grid grid-cols-[100px_1fr] gap-4 sm:grid-cols-[140px_1fr_auto] hover:text-crimson"
                 >
-                  <span className="text-xs font-semibold uppercase tracking-wider text-muted">
+                  <span className="font-sans text-xs font-semibold uppercase tracking-wider text-muted">
                     {formatDate(p.date)}
                   </span>
                   <span className="font-serif text-lg font-bold leading-snug">
                     {p.title}
                   </span>
-                  <span className="hidden text-xs uppercase tracking-wider text-muted sm:block">
+                  <span className="hidden font-sans text-xs uppercase tracking-wider text-muted sm:block">
                     {readingTime(p)} min
                   </span>
                 </Link>
               </li>
             ))}
           </ol>
-          <p className="mt-4 text-sm text-muted">
+          <p className="mt-4 font-sans text-sm text-muted">
             {all.length} article{all.length === 1 ? "" : "s"} on data centers in
             metro Jackson. New coverage is added automatically.
           </p>

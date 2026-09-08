@@ -157,7 +157,7 @@ export default async function ArticlePage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbsJsonLd) }}
       />
-      <nav className="mb-6 text-xs uppercase tracking-widest text-muted">
+      <nav className="mb-6 font-sans text-xs uppercase tracking-widest text-muted">
         <Link href="/" className="hover:text-crimson">
           Home
         </Link>
@@ -167,14 +167,14 @@ export default async function ArticlePage({
 
       <article>
         <header>
-          <h1 className="font-serif text-4xl font-black leading-[1.08] sm:text-5xl md:text-6xl">
+          <h1 className="font-serif text-4xl font-bold leading-[1.05] tracking-tight text-ink sm:text-5xl md:text-[3.4rem]">
             {post.title}
           </h1>
-          <p className="mt-4 font-serif text-lg italic leading-relaxed text-muted sm:text-xl">
+          <p className="mt-4 font-sans text-lg leading-relaxed text-muted sm:text-[19px]">
             {post.dek}
           </p>
-          <div className="mt-5 flex flex-wrap items-center gap-x-2 gap-y-1 border-t-2 border-ink border-b border-rule py-4 text-sm">
-            <span className="font-semibold">By {post.author}</span>
+          <div className="mt-5 flex flex-wrap items-center gap-x-2 gap-y-1 border-y border-rule py-4 font-sans text-[13px]">
+            <span className="font-bold">By {post.author}</span>
             <span className="text-muted">·</span>
             <span className="text-muted">
               Edited by{" "}
@@ -224,15 +224,15 @@ export default async function ArticlePage({
                 <li key={i} className="grid gap-4 sm:grid-cols-[60px_1fr]">
                   <span
                     aria-hidden
-                    className="font-serif text-5xl font-black leading-none text-crimson/70 sm:text-6xl"
+                    className="font-serif text-5xl font-bold leading-none text-muted sm:text-6xl"
                   >
                     {i + 1}
                   </span>
                   <div>
-                    <h3 className="font-serif text-2xl font-black leading-[1.1] sm:text-3xl">
+                    <h3 className="font-serif text-2xl font-bold leading-[1.1] sm:text-3xl">
                       {headline}
                     </h3>
-                    <p className="mt-3 font-serif text-lg leading-relaxed">
+                    <p className="mt-3 font-sans text-lg leading-relaxed">
                       {body}
                     </p>
                   </div>
@@ -261,10 +261,10 @@ export default async function ArticlePage({
           if (citations.length === 0) return null;
           return (
             <aside className="mt-8 border-t border-rule pt-4">
-              <p className="font-serif text-xs font-bold uppercase tracking-widest text-crimson">
+              <p className="font-sans text-xs font-bold uppercase tracking-widest text-crimson">
                 Sources cited in this article
               </p>
-              <ul className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-sm text-muted">
+              <ul className="mt-2 flex flex-wrap gap-x-3 gap-y-1 font-sans text-sm text-muted">
                 {citations.map((c, i) => (
                   <li key={c.name}>
                     {c.url ? (
@@ -292,7 +292,7 @@ export default async function ArticlePage({
         })()}
 
         {post.note && (
-          <p className="mt-8 border-t border-rule pt-4 text-sm italic text-muted">
+          <p className="mt-8 border-t border-rule pt-4 font-sans text-sm text-muted">
             {post.note}
           </p>
         )}
@@ -312,8 +312,8 @@ export default async function ArticlePage({
           if (!hubTag) return null;
           const hub = hubMap[hubTag];
           return (
-            <aside className="mt-10 border-2 border-ink bg-paper p-5">
-              <p className="font-serif text-xs font-bold uppercase tracking-widest text-crimson">
+            <aside className="mt-10 border border-rule p-5">
+              <p className="font-sans text-xs font-bold uppercase tracking-widest text-crimson">
                 From this beat
               </p>
               <Link
@@ -326,8 +326,8 @@ export default async function ArticlePage({
           );
         })()}
 
-        <footer className="mt-10 border-t-2 border-ink pt-5">
-          <p className="text-sm text-muted">
+        <footer className="mt-10 border-t border-rule pt-5">
+          <p className="font-sans text-sm text-muted">
             Have something to add to this story? Documents, corrections, or a
             tip?{" "}
             <a
@@ -345,8 +345,8 @@ export default async function ArticlePage({
       </div>
 
       {related.length > 0 && (
-        <section className="mt-14">
-          <h2 className="mb-2 border-b-2 border-ink pb-1 font-serif text-2xl font-black uppercase tracking-wide">
+        <section className="mt-14 border border-rule p-6">
+          <h2 className="mb-2 border-b border-ink pb-1 font-sans text-xs font-bold uppercase tracking-widest text-ink">
             Keep Reading
           </h2>
           <div>

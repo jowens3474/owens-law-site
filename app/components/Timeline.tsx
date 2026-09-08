@@ -5,10 +5,10 @@ export default function Timeline({ sections }: { sections: TimelineSection[] }) 
     <div className="mt-8 space-y-9">
       {sections.map((section, si) => (
         <section key={si}>
-          <h2 className="mb-4 border-b-2 border-ink pb-1 font-serif text-xl font-black uppercase tracking-wide">
+          <h2 className="mb-4 border-b border-ink pb-1 font-sans text-xs font-bold uppercase tracking-widest text-ink">
             {section.heading}
           </h2>
-          <ol className="relative border-l-2 border-rule pl-7">
+          <ol className="relative border-l border-rule pl-7">
             {section.entries.map((entry, i) => (
               <li key={i} className="relative pb-6 last:pb-0">
                 <span
@@ -20,13 +20,13 @@ export default function Timeline({ sections }: { sections: TimelineSection[] }) 
                   }`}
                 />
                 <p
-                  className={`font-serif text-sm font-black uppercase tracking-widest ${
+                  className={`font-sans text-sm font-bold uppercase tracking-widest ${
                     entry.highlight ? "text-crimson" : "text-ink"
                   }`}
                 >
                   {entry.date}
                 </p>
-                <p className="mt-1 leading-relaxed">{entry.text}</p>
+                <p className="mt-1 font-sans leading-relaxed">{entry.text}</p>
               </li>
             ))}
           </ol>

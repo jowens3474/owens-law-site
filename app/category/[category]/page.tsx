@@ -52,14 +52,13 @@ export default async function CategoryPage({
   return (
     <div className="mx-auto max-w-6xl px-4 py-8">
       <header className="border-b border-rule pb-5">
-        <div className="mb-4 h-px w-24 bg-gradient-to-r from-crimson/60 to-transparent" />
-        <p className="font-serif text-sm font-bold uppercase tracking-widest text-crimson">
+        <p className="font-sans text-xs font-bold uppercase tracking-widest text-crimson">
           Section
         </p>
         <h1 className="mt-1 font-serif text-4xl font-black sm:text-5xl">
           {cat.name}
         </h1>
-        <p className="mt-2 max-w-2xl font-serif text-lg italic text-muted">
+        <p className="mt-2 max-w-2xl font-sans text-lg text-muted">
           {cat.blurb}
         </p>
       </header>
