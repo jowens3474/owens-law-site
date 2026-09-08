@@ -261,28 +261,27 @@ export default function CorruptionCasePage() {
 
       {/* Header */}
       <header className="border-b border-rule pb-8">
-        <div className="mb-4 h-px w-24 bg-gradient-to-r from-crimson/60 to-transparent" />
-        <p className="font-serif text-xs font-bold uppercase tracking-[0.3em] text-crimson">
+        <p className="font-sans text-xs font-bold uppercase tracking-[0.3em] text-crimson">
           Federal Criminal Case · Docket 3:24-cr-103
         </p>
         <h1 className="mt-3 font-serif text-5xl font-black leading-[1.02] sm:text-6xl">
           The Corruption Case
         </h1>
-        <p className="mt-4 max-w-3xl font-serif text-xl italic leading-relaxed text-muted">
+        <p className="mt-4 max-w-3xl font-sans text-xl leading-relaxed text-muted">
           {DEK}
         </p>
       </header>
 
       {/* Countdown + facts */}
       <section className="mt-8 grid gap-6 md:grid-cols-3">
-        <div className="glow-card p-6 text-center md:col-span-1">
-          <p className="font-serif text-xs font-bold uppercase tracking-widest text-crimson">
+        <div className="glow-card border border-rule p-6 text-center md:col-span-1">
+          <p className="font-sans text-xs font-bold uppercase tracking-widest text-crimson">
             Case resolved
           </p>
           <p className="mt-2 font-serif text-6xl font-black leading-none text-ink">
             5/5
           </p>
-          <p className="mt-1 font-serif text-sm font-bold uppercase tracking-widest">
+          <p className="mt-1 font-sans text-sm font-bold uppercase tracking-widest">
             guilty pleas · no trial
           </p>
           <p className="mt-4 border-t border-rule pt-3 font-serif text-base">
@@ -290,14 +289,14 @@ export default function CorruptionCasePage() {
           </p>
         </div>
 
-        <div className="glow-card p-6 md:col-span-2">
-          <p className="font-serif text-xs font-bold uppercase tracking-widest text-crimson">
+        <div className="glow-card border border-rule p-6 md:col-span-2">
+          <p className="font-sans text-xs font-bold uppercase tracking-widest text-crimson">
             At a glance
           </p>
           <dl className="mt-3 grid gap-x-6 gap-y-3 sm:grid-cols-2">
             {FACTS.map((f) => (
               <div key={f.label}>
-                <dt className="text-xs font-semibold uppercase tracking-wider text-muted">
+                <dt className="font-sans text-xs font-semibold uppercase tracking-wider text-muted">
                   {f.label}
                 </dt>
                 <dd className="mt-0.5 font-serif text-base font-bold">
@@ -311,14 +310,14 @@ export default function CorruptionCasePage() {
 
       {/* Defendants */}
       <section className="mt-12">
-        <h2 className="mb-5 border-b-2 border-ink pb-1 font-serif text-2xl font-black uppercase tracking-wide">
+        <h2 className="mb-5 border-b border-ink pb-1 font-sans text-xs font-bold uppercase tracking-widest text-ink">
           The Defendants
         </h2>
         <div className="grid gap-6 md:grid-cols-3">
           {DEFENDANTS.map((d) => (
             <article
               key={d.name}
-              className="glow-card p-5"
+              className="glow-card border border-rule p-5"
             >
               <div className="relative aspect-square w-full overflow-hidden border border-rule">
                 {d.image ? (
@@ -353,7 +352,7 @@ export default function CorruptionCasePage() {
                         y1="10"
                         x2="90"
                         y2="90"
-                        stroke="#ef4444"
+                        stroke="#a80000"
                         strokeWidth="5"
                         strokeLinecap="round"
                       />
@@ -362,39 +361,37 @@ export default function CorruptionCasePage() {
                         y1="10"
                         x2="10"
                         y2="90"
-                        stroke="#ef4444"
+                        stroke="#a80000"
                         strokeWidth="5"
                         strokeLinecap="round"
                       />
                     </svg>
-                    <span className="absolute bottom-0 left-0 right-0 bg-[#ef4444] px-2 py-1 text-center text-xs font-bold uppercase tracking-widest text-white">
+                    <span className="absolute bottom-0 left-0 right-0 bg-[#a80000] px-2 py-1 text-center font-sans text-xs font-bold uppercase tracking-widest text-white">
                       Pleaded Guilty
                     </span>
                   </>
                 )}
               </div>
-              <h3 className="mt-4 font-serif text-2xl font-black leading-tight">
+              <h3 className="mt-4 font-serif text-2xl font-bold leading-tight">
                 {d.name}
               </h3>
-              <p className="mt-1 text-xs uppercase tracking-wider text-muted">
+              <p className="mt-1 font-sans text-xs uppercase tracking-wider text-muted">
                 {d.role}
               </p>
-              <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 font-serif text-sm font-bold">
+              <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 font-sans text-sm font-bold">
                 <span>{d.counts}</span>
-                <span className={d.pleaded ? "text-[#ef4444]" : "text-crimson"}>
-                  {d.exposure}
-                </span>
+                <span className="text-crimson">{d.exposure}</span>
               </div>
-              <p className="mt-3 text-sm leading-relaxed">{d.posture}</p>
+              <p className="mt-3 font-sans text-sm leading-relaxed">{d.posture}</p>
             </article>
           ))}
         </div>
 
         <div className="mt-6 border border-rule bg-paper p-5">
-          <p className="font-serif text-xs font-bold uppercase tracking-widest text-crimson">
+          <p className="font-sans text-xs font-bold uppercase tracking-widest text-crimson">
             Already pleaded guilty (cooperators)
           </p>
-          <ul className="mt-2 space-y-2 text-sm">
+          <ul className="mt-2 space-y-2 font-sans text-sm">
             {COOPERATORS.map((c) => (
               <li key={c.name}>
                 <span className="font-serif font-bold">{c.name}</span>
@@ -408,13 +405,13 @@ export default function CorruptionCasePage() {
 
       {/* Latest coverage */}
       <section className="mt-14">
-        <div className="mb-5 flex items-end justify-between border-b-2 border-ink pb-1">
-          <h2 className="font-serif text-2xl font-black uppercase tracking-wide">
+        <div className="mb-5 flex items-end justify-between border-b border-ink pb-1">
+          <h2 className="font-sans text-xs font-bold uppercase tracking-widest text-ink">
             Latest Coverage
           </h2>
           <Link
             href="#all-coverage"
-            className="text-xs font-bold uppercase tracking-widest text-crimson hover:text-crimson-bright"
+            className="font-sans text-xs font-bold uppercase tracking-widest text-crimson hover:text-crimson-bright"
           >
             All articles ↓
           </Link>
@@ -435,13 +432,13 @@ export default function CorruptionCasePage() {
                 />
               )}
               <CategoryTag category={p.category} />
-              <h3 className="mt-1 font-serif text-2xl font-black leading-[1.1] group-hover:text-crimson">
+              <h3 className="mt-1 font-serif text-2xl font-bold leading-[1.1] group-hover:text-crimson">
                 {p.title}
               </h3>
-              <p className="mt-2 font-serif text-base leading-relaxed text-muted">
+              <p className="mt-2 font-sans text-base leading-relaxed text-muted">
                 {p.dek}
               </p>
-              <p className="mt-2 text-xs uppercase tracking-wider text-muted">
+              <p className="mt-2 font-sans text-xs uppercase tracking-wider text-muted">
                 {formatDate(p.date)} · {readingTime(p)} min read
               </p>
             </Link>
@@ -451,29 +448,29 @@ export default function CorruptionCasePage() {
 
       {/* Timeline */}
       <section className="mt-14">
-        <h2 className="mb-5 border-b-2 border-ink pb-1 font-serif text-2xl font-black uppercase tracking-wide">
+        <h2 className="mb-5 border-b border-ink pb-1 font-sans text-xs font-bold uppercase tracking-widest text-ink">
           Key Dates
         </h2>
-        <ol className="space-y-3 border-l-2 border-rule pl-6">
+        <ol className="space-y-3 border-l border-rule pl-6">
           {KEY_DATES.map((e, i) => (
             <li
               key={i}
               className={`relative ${e.highlight ? "border-l-4 border-crimson pl-3 -ml-5" : ""}`}
             >
               <p
-                className={`font-serif text-xs font-bold uppercase tracking-widest ${
+                className={`font-sans text-xs font-bold uppercase tracking-widest ${
                   e.highlight ? "text-crimson" : "text-muted"
                 }`}
               >
                 {e.date}
               </p>
-              <p className="mt-0.5 font-serif text-base leading-snug">
+              <p className="mt-0.5 font-sans text-base leading-snug">
                 {e.text}
               </p>
             </li>
           ))}
         </ol>
-        <p className="mt-4 text-sm text-muted">
+        <p className="mt-4 font-sans text-sm text-muted">
           Need more detail? See{" "}
           <Link
             href="/article/the-jackson-bribery-case-a-timeline"
@@ -488,7 +485,7 @@ export default function CorruptionCasePage() {
       {/* Explainers */}
       {explainers.length > 0 && (
         <section className="mt-14">
-          <h2 className="mb-5 border-b-2 border-ink pb-1 font-serif text-2xl font-black uppercase tracking-wide">
+          <h2 className="mb-5 border-b border-ink pb-1 font-sans text-xs font-bold uppercase tracking-widest text-ink">
             Explainers & Analysis
           </h2>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -496,15 +493,15 @@ export default function CorruptionCasePage() {
               <Link
                 key={p.slug}
                 href={`/article/${p.slug}`}
-                className="glow-card block p-5"
+                className="glow-card block border border-rule p-5"
               >
-                <p className="text-xs uppercase tracking-widest text-muted">
+                <p className="font-sans text-xs uppercase tracking-widest text-muted">
                   {formatDate(p.date)}
                 </p>
-                <h3 className="mt-1 font-serif text-xl font-black leading-tight">
+                <h3 className="mt-1 font-serif text-xl font-bold leading-tight">
                   {p.title}
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted">
+                <p className="mt-2 font-sans text-sm leading-relaxed text-muted">
                   {p.dek}
                 </p>
               </Link>
@@ -515,30 +512,30 @@ export default function CorruptionCasePage() {
 
       {/* All coverage */}
       <section id="all-coverage" className="mt-14 scroll-mt-8">
-        <h2 className="mb-5 border-b-2 border-ink pb-1 font-serif text-2xl font-black uppercase tracking-wide">
+        <h2 className="mb-5 border-b border-ink pb-1 font-sans text-xs font-bold uppercase tracking-widest text-ink">
           All Coverage
         </h2>
-        <ol className="divide-y divide-rule border-y-2 border-ink">
+        <ol className="divide-y divide-rule border-y border-ink">
           {all.map((p) => (
             <li key={p.slug} className="py-4">
               <Link
                 href={`/article/${p.slug}`}
                 className="grid grid-cols-[100px_1fr] gap-4 sm:grid-cols-[140px_1fr_auto] hover:text-crimson"
               >
-                <span className="text-xs font-semibold uppercase tracking-wider text-muted">
+                <span className="font-sans text-xs font-semibold uppercase tracking-wider text-muted">
                   {formatDate(p.date)}
                 </span>
                 <span className="font-serif text-lg font-bold leading-snug">
                   {p.title}
                 </span>
-                <span className="hidden text-xs uppercase tracking-wider text-muted sm:block">
+                <span className="hidden font-sans text-xs uppercase tracking-wider text-muted sm:block">
                   {readingTime(p)} min
                 </span>
               </Link>
             </li>
           ))}
         </ol>
-        <p className="mt-4 text-sm text-muted">
+        <p className="mt-4 font-sans text-sm text-muted">
           {all.length} article{all.length === 1 ? "" : "s"} on the corruption
           case. New coverage is added automatically as filings drop.
         </p>

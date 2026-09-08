@@ -28,14 +28,13 @@ export default function MethodologyPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-10">
       <header className="border-b border-rule pb-5">
-        <div className="mb-4 h-px w-24 bg-gradient-to-r from-crimson/60 to-transparent" />
-        <p className="font-serif text-xs font-bold uppercase tracking-[0.3em] text-crimson">
+        <p className="font-sans text-xs font-bold uppercase tracking-[0.3em] text-crimson">
           How the Wire works
         </p>
         <h1 className="mt-2 font-serif text-4xl font-black sm:text-5xl">
           Methodology
         </h1>
-        <p className="mt-3 font-serif text-lg italic text-muted">{DEK}</p>
+        <p className="mt-3 font-sans text-lg text-muted">{DEK}</p>
       </header>
 
       <div className="prose-article mt-8">
@@ -48,7 +47,7 @@ export default function MethodologyPage() {
       </div>
 
       <section className="mt-10">
-        <h2 className="mb-3 border-b-2 border-ink pb-1 font-serif text-2xl font-black uppercase tracking-wide">
+        <h2 className="mb-3 border-b border-ink pb-1 font-sans text-xs font-bold uppercase tracking-widest text-ink">
           How a Wire article is built
         </h2>
         <ol className="mt-4 space-y-4 text-base leading-relaxed">
@@ -85,7 +84,7 @@ export default function MethodologyPage() {
       </section>
 
       <section className="mt-10">
-        <h2 className="mb-3 border-b-2 border-ink pb-1 font-serif text-2xl font-black uppercase tracking-wide">
+        <h2 className="mb-3 border-b border-ink pb-1 font-sans text-xs font-bold uppercase tracking-widest text-ink">
           Sources the Wire monitors
         </h2>
         <ul className="mt-4 space-y-2 text-base leading-relaxed">
@@ -125,7 +124,7 @@ export default function MethodologyPage() {
       </section>
 
       <section className="mt-10">
-        <h2 className="mb-3 border-b-2 border-ink pb-1 font-serif text-2xl font-black uppercase tracking-wide">
+        <h2 className="mb-3 border-b border-ink pb-1 font-sans text-xs font-bold uppercase tracking-widest text-ink">
           AI disclosure
         </h2>
         <div className="prose-article mt-4">
@@ -147,7 +146,7 @@ export default function MethodologyPage() {
       </section>
 
       <section className="mt-10">
-        <h2 className="mb-3 border-b-2 border-ink pb-1 font-serif text-2xl font-black uppercase tracking-wide">
+        <h2 className="mb-3 border-b border-ink pb-1 font-sans text-xs font-bold uppercase tracking-widest text-ink">
           What the Wire is not
         </h2>
         <div className="prose-article mt-4">
@@ -168,7 +167,7 @@ export default function MethodologyPage() {
       </section>
 
       <section className="mt-10">
-        <h2 className="mb-3 border-b-2 border-ink pb-1 font-serif text-2xl font-black uppercase tracking-wide">
+        <h2 className="mb-3 border-b border-ink pb-1 font-sans text-xs font-bold uppercase tracking-widest text-ink">
           Corrections
         </h2>
         <p className="mt-4 text-base leading-relaxed">
@@ -193,7 +192,7 @@ export default function MethodologyPage() {
       </section>
 
       <section className="mt-10">
-        <h2 className="mb-3 border-b-2 border-ink pb-1 font-serif text-2xl font-black uppercase tracking-wide">
+        <h2 className="mb-3 border-b border-ink pb-1 font-sans text-xs font-bold uppercase tracking-widest text-ink">
           Machine-readable feeds
         </h2>
         <ul className="mt-4 space-y-2 text-base leading-relaxed">

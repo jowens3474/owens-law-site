@@ -36,14 +36,13 @@ export default function CorrectionsPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-10">
       <header className="border-b border-rule pb-5">
-        <div className="mb-4 h-px w-24 bg-gradient-to-r from-crimson/60 to-transparent" />
-        <p className="font-serif text-xs font-bold uppercase tracking-[0.3em] text-crimson">
+        <p className="font-sans text-xs font-bold uppercase tracking-[0.3em] text-crimson">
           Accountability
         </p>
         <h1 className="mt-2 font-serif text-4xl font-black sm:text-5xl">
           Corrections
         </h1>
-        <p className="mt-3 font-serif text-lg italic text-muted">{DEK}</p>
+        <p className="mt-3 font-sans text-lg text-muted">{DEK}</p>
       </header>
 
       {corrected.length === 0 ? (
@@ -57,10 +56,10 @@ export default function CorrectionsPage() {
               key={p.slug}
               className="border-l-4 border-crimson bg-paper p-5"
             >
-              <p className="font-serif text-xs font-bold uppercase tracking-widest text-muted">
+              <p className="font-sans text-xs font-bold uppercase tracking-widest text-muted">
                 {formatDate(p.date)}
               </p>
-              <h2 className="mt-1 font-serif text-xl font-black leading-tight">
+              <h2 className="mt-1 font-serif text-xl font-bold leading-tight">
                 <Link
                   href={`/article/${p.slug}`}
                   className="hover:text-crimson"
@@ -68,7 +67,7 @@ export default function CorrectionsPage() {
                   {p.title}
                 </Link>
               </h2>
-              <p className="mt-3 text-sm leading-relaxed text-muted">
+              <p className="mt-3 font-sans text-sm leading-relaxed text-muted">
                 {p.note}
               </p>
             </li>
@@ -76,15 +75,15 @@ export default function CorrectionsPage() {
         </ol>
       )}
 
-      <section className="mt-12 border-2 border-ink bg-paper p-6">
+      <section className="mt-12 border border-rule bg-paper p-6">
         <h2 className="font-serif text-xl font-bold">Spot something wrong?</h2>
-        <p className="mt-2 text-muted">
+        <p className="mt-2 font-sans text-muted">
           The Wire takes corrections seriously. Email the link to the article
           and the specific factual error, and we&apos;ll fix it.
         </p>
         <a
           href={`mailto:${site.email}?subject=Correction%20request`}
-          className="mt-4 inline-block bg-crimson px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-newsprint transition-colors hover:bg-crimson-bright"
+          className="mt-4 inline-block bg-ink px-5 py-2.5 font-sans text-sm font-bold uppercase tracking-wide text-newsprint transition-colors hover:bg-crimson"
         >
           {site.email}
         </a>

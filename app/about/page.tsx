@@ -27,14 +27,13 @@ export default function AboutPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-10">
       <header className="border-b border-rule pb-5">
-        <div className="mb-4 h-px w-24 bg-gradient-to-r from-crimson/60 to-transparent" />
-        <p className="font-serif text-xs font-bold uppercase tracking-wide text-crimson sm:tracking-[0.3em]">
+        <p className="font-sans text-xs font-bold uppercase tracking-wide text-crimson sm:tracking-[0.3em]">
           About
         </p>
         <h1 className="mt-2 font-serif text-4xl font-black sm:text-5xl">
           {site.name}
         </h1>
-        <p className="mt-3 font-serif text-xl italic text-muted">
+        <p className="mt-3 font-sans text-xl text-muted">
           {site.tagline}
         </p>
       </header>
@@ -54,7 +53,7 @@ export default function AboutPage() {
       </div>
 
       <section className="mt-12">
-        <h2 className="mb-3 border-b-2 border-ink pb-1 font-serif text-2xl font-black uppercase tracking-wide">
+        <h2 className="mb-3 border-b border-ink pb-1 font-sans text-xs font-bold uppercase tracking-widest text-ink">
           What we cover
         </h2>
         <ul className="mt-4 space-y-3 text-base leading-relaxed">
@@ -126,7 +125,7 @@ export default function AboutPage() {
       </section>
 
       <section className="mt-12">
-        <h2 className="mb-3 border-b-2 border-ink pb-1 font-serif text-2xl font-black uppercase tracking-wide">
+        <h2 className="mb-3 border-b border-ink pb-1 font-sans text-xs font-bold uppercase tracking-widest text-ink">
           How we work
         </h2>
         <div className="prose-article mt-4">
@@ -163,7 +162,7 @@ export default function AboutPage() {
       </section>
 
       <section className="mt-12">
-        <h2 className="mb-3 border-b-2 border-ink pb-1 font-serif text-2xl font-black uppercase tracking-wide">
+        <h2 className="mb-3 border-b border-ink pb-1 font-sans text-xs font-bold uppercase tracking-widest text-ink">
           Corrections &amp; methodology
         </h2>
         <p className="mt-4 text-base leading-relaxed">
@@ -202,22 +201,22 @@ export default function AboutPage() {
         </p>
       </section>
 
-      <section className="mt-12 border-2 border-ink bg-paper p-6">
+      <section className="mt-12 border border-rule bg-paper p-6">
         <h2 className="font-serif text-2xl font-bold">Send us a tip</h2>
-        <p className="mt-2 text-muted">
+        <p className="mt-2 font-sans text-muted">
           Leaked documents, a meeting we should be at, or a number that does
           not add up? We protect our sources and read everything.
         </p>
         <a
           href={`mailto:${site.email}`}
-          className="mt-4 inline-block bg-crimson px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-newsprint transition-colors hover:bg-crimson-bright"
+          className="mt-4 inline-block bg-ink px-5 py-2.5 font-sans text-sm font-bold uppercase tracking-wide text-newsprint transition-colors hover:bg-crimson"
         >
           {site.email}
         </a>
       </section>
 
       <section className="mt-12">
-        <h2 className="mb-3 border-b-2 border-ink pb-1 font-serif text-2xl font-black uppercase tracking-wide">
+        <h2 className="mb-3 border-b border-ink pb-1 font-sans text-xs font-bold uppercase tracking-widest text-ink">
           Who runs the Wire
         </h2>
         <div className="prose-article mt-4">

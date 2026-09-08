@@ -19,7 +19,7 @@ export async function GET() {
           display: "flex",
           flexDirection: "row",
           alignItems: "center",
-          backgroundColor: "#060a12",
+          backgroundColor: "#ffffff",
           padding: "0 22px",
         }}
       >
@@ -28,7 +28,7 @@ export async function GET() {
             display: "flex",
             width: 4,
             height: 36,
-            backgroundColor: "#22d3ee",
+            backgroundColor: "#a80000",
             marginRight: 18,
           }}
         />
@@ -38,7 +38,7 @@ export async function GET() {
             fontSize: 34,
             fontWeight: 800,
             letterSpacing: 1,
-            color: "#e8eef7",
+            color: "#111111",
             whiteSpace: "nowrap",
           }}
         >
