@@ -66,6 +66,27 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "flat-millage-locks-in-no-tax-increase-as-public-works-cut-looms",
+    title: "Flat Millage Locks In No Tax Increase as Public Works Cut Looms",
+    dek: "The Council set the city's millage at 63.03 mills on Sept. 3, a week before the budget deadline, committing to no tax increase even as Public Works faces a roughly $8 million cut and the city stares down a $23 million to $36 million shortfall.",
+    category: "Politics",
+    categories: ["General News"],
+    author: "Jackson Wire Staff",
+    date: "2026-09-08",
+    views: 0,
+    body: [
+      "The tax side of Jackson's budget is settled. The spending side is not. At a special meeting on Sept. 3, the City Council locked the millage at 63.03 mills, flat for the coming year, and Chief Administrative Officer Pieter Teeuwissen put the decision in plain terms: the city, the mayor, and Jackson Public Schools are not raising taxes this year, according to WLBT.",
+      "The Sept. 3 agenda posted on jacksonms.gov carried three resolutions: the school district tax levy, the city and library tax levy, and adoption of the municipal budget for fiscal year 2026-27. The council handled the first two and left the third open. The budget must pass by Sept. 15, and the fiscal year begins Oct. 1.",
+      "The arithmetic behind the flat millage is worth sitting with. A home valued at roughly $200,000 will pay $1,890.90 a year in city property taxes, unchanged. That figure excludes what the same homeowner owes JPS and Hinds County. The city is holding that line against a projected revenue shortfall of between $23 million and $36 million this year and flat projected revenues for 2026-27.",
+      "The tension landed hardest on Public Works. The administration is weighing a cut of roughly $8 million from the department's current $22 million budget, down to about $14.25 million. Director Lorenzo Anderson asked the council for an additional $2.6 million on top of that figure to hire 30 more workers across blight, paving, and drainage.",
+      "Anderson brought numbers to make the case. The department received 6,771 work orders and completed 4,399 of them, a 65 percent completion rate, leaving 2,300 pending. He described a paving division of 15 people responsible for 1,100 miles of road and a traffic crew of eight, too few to field a full unit for striping, lights, and signs.",
+      "Teeuwissen told the council the $2.6 million does not exist, though he allowed the city might move money around, including cancelling some contracts, to hire ten more people. Ward 6 Councilwoman LaShia Brown-Thomas argued public safety should come first, that people will not stay if they do not feel safe. Anderson answered that infrastructure failure blocks the path to crime and fire scenes alike.",
+      "The vote on millage was not the vote on the budget, and that distinction matters. Locking taxes flat is the easy half of the decision. It commits the city to a revenue ceiling while the spending floor, especially for the department that fills potholes and clears fallen trees, remains unsettled with a week to go.",
+      "The question no one has fully answered is what the flat millage means for the departments that survive the cut. If Public Works absorbs the full $8 million reduction and no new money appears, the 2,300 pending work orders become the baseline for next year, not the exception.",
+      "The council meets twice this week, and the Sept. 15 deadline is the backstop. The millage is done. Whether the budget that follows it can hold 63.03 mills and still keep a paving crew on 1,100 miles of road is the open question.",
+    ],
+  },
+  {
     slug: "morning-brief-2026-09-08",
     title: "Morning Brief: Sep 8 · Council Meets Twice as Budget Deadline Nears",
     dek: "The Jackson City Council convenes twice today with a week left to pass a fiscal 2027 budget that would cut Public Works by $8 million.",
