@@ -66,6 +66,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-09-10",
+    title: "Morning Brief: Sep 10 · Budget Clock Hits Five Days as Millage Stays Flat",
+    dek: "Jackson's council has until Sept. 15 to pass a budget with no tax increase, while MDOT's $400 million \"Big Fix\" starts overnight work on I-20 and I-55.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-09-10",
+    views: 0,
+    body: [
+      "Budget clock hits five days with millage flat: The Jackson City Council has until Sept. 15 to pass the 2026-27 budget, and the tax rate is already settled. At a special meeting, the council approved millage rates for the city, the Jackson/Hinds Library System and Jackson Public Schools, all unchanged from the current year. WLBT reported the vote under the heading 'Not voting for a tax increase this year.' Councilman Vernon Hartley, Ward 5, told WJTV that police, fire and Public Works are his priorities. Councilman Ashby Foote said sales and property tax revenue are the two areas where the city has lost ground. More budget meetings are expected before the deadline.",
+      "Big Fix overnight closures start on I-20 and I-55: MDOT's $400 million 'Big Fix' moves into its construction phase this month, with single-lane closures beginning overnight in October, WLBT reported. The project covers roughly 16 miles of I-20 and I-55, 36 bridges and 121 lane miles, and is expected to run about two and a half years. Two full directional shutdowns are planned: I-20 westbound for 45 days in summer 2027, then I-20 eastbound for 45 days in summer 2028. Detours will route traffic onto I-55, I-220 and Highway 80. MDOT says this year's traffic impact should be minimal, mostly nights and weekends.",
+      "Hinds County approves sheriff, roads, EMS budgets: The Hinds County Board of Supervisors used its Sept. 8 meeting to approve budgets for the Sheriff's Office, health, parks, roads and EMS, and to take up equipment upgrades for deputies, WJTV reported. Supervisors stressed that aging gear has to be replaced. 'They have to have the necessary tools. Bullet resistant, this has have an expiration date. Tasers have an expiration date,' one supervisor said, warning against sending deputies out with expired equipment. The board also weighed infrastructure improvements. The county's next regular meeting is set for Sept. 21, per the published 2026 schedule.",
+      "Prosecutors call Walker plea bid a delay tactic: Federal prosecutors filed responses Tuesday urging a judge to reject former Capitol Police officer Jeffery Walker's bid to withdraw his December 2025 guilty plea and to deny his attorney's request to step down, WLBT reported. The U.S. Attorney's Office called the 11th-hour moves a delay tactic, arguing a withdrawal would force the government to redo witness preparation and fly in at least one out-of-state trial witness. Walker, 45, pleaded guilty to one count of deprivation of civil rights under color of law tied to a July 2022 chase and traffic stop. He faces up to 10 years and a $250,000 fine.",
+      "South Jackson closure renews business-loss alarm: A South Jackson business closure this week drew a fresh call for action from city officials, WJTV reported Sept. 8, the latest in a run of departures that Councilman Kenneth Stokes, Ward 3, says erode the tax base the city needs to fix its own problems. Stokes has pointed to the Mayes Street bridge closure as a breaking point for businesses whose customers can no longer reach them, and to losses like the Family Dollar at the Medical Mall. 'You just don't have enough money to fix all the bridges in Jackson,' he said. 'Unless you get more money, you can't raise taxes on the citizens.'",
+    ],
+  },
+  {
     slug: "madison-county-conference-center-48m-bond-prado",
     title: "Madison County Approves $48M Conference Center Bond After a 3-2 Fight Over the Fine Print",
     dek: "Two supervisors wanted a new land appraisal and a clawback on a $10 conveyance clause before the county borrowed $48 million. They lost 3-2, and the developer who brought Topgolf to Ridgeland now builds the county's signature venue.",
