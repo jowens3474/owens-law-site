@@ -66,6 +66,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-09-11",
+    title: "Morning Brief: Sep 11 · Council Votes on Budget Today as Reserves Eyed",
+    dek: "Jackson's City Council is set to vote today on a budget that would shrink the general fund by roughly $23 million, with one member proposing to drain reserves to protect police and fire staffing.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-09-11",
+    views: 0,
+    body: [
+      "Council votes on budget today: The Jackson City Council is scheduled to vote today, Sept. 11, on the fiscal 2027 budget, four days before the Sept. 15 statutory deadline. Mayor John Horhn's initial $112.9 million proposal was about $23 million smaller than the current year's budget, a cut he says aligns recurring expenses with revenue after years of deficit spending. Ward 3 Councilman Kenneth Stokes has proposed lowering reserves to $5 million and rebuilding them over several years; the city's existing reserves sit at roughly $7.5 million to $8 million, Chief Financial Officer Jillian Caldwell told the council, the Clarion Ledger reported. Police and fire funding remain the sticking points. Millage is already locked flat.",
+      "Labor Day wave pushes homicide count to 64: Three killings over Labor Day weekend brought Jackson's 2026 homicide total to 64 as of Thursday morning, the Clarion Ledger reported, a pace that projects toward roughly 92 for the year. The weekend included Demon Anderson, 36, found unresponsive in a ditch on Pine Tree Drive; Onorio Diaz-Hernandez, 30, shot in his front yard on Langley Street while his wife and children barricaded inside; and Adrian Nunnery, 42, killed at an Inland gas station on Terry Road. Police charged Adam Edwards, 22, and Demyah Patterson, 23, with murder in the Nunnery case; both got $500,000 bonds. A fatal hit-and-run killed pedestrian Pamela Ellis, 56.",
+      "JXN Water eyes 10 percent hike, sale: JXN Water's August financial management plan, filed in U.S. District Court, calls for a 10 percent rate increase in spring 2027, followed by 9 percent in 2028 and 8 percent in 2029, Mississippi Today reported. That is a sharp jump from the 3 percent annual increases the utility floated in court last year. Interim Third-Party Manager Ted Henifin now says selling the water and sewer system could pay down debt and reduce the need for larger hikes. The plan cites $767 million in additional system needs over 25 years, $404 million for water and $364 million for sewer.",
+      "Highland Village sells to Charlotte buyer: Newmark arranged the sale of Highland Village, the 217,589-square-foot shopping center at 4500 I-55 N. anchored by Mississippi's only Whole Foods Market, to Charlotte-based Asana Partners. The 14.5-acre property was developed in 1960 and redeveloped in 2017 by seller WS Development, and was about 90 percent leased at closing. Asana manages more than $8 billion in neighborhood retail assets and specializes in buying existing centers below replacement cost. The price was undisclosed. Jeff Good, who has run Bravo in the center for 32 years, confirmed the buyer to the Clarion Ledger in June.",
+      "Redistricting hearing lands in Jackson Oct 1: The Joint Legislative Redistricting and Reapportionment Committee will hold its final public hearing Oct. 1 at 6 p.m. at the Mississippi Capitol, the last of eight stops across the state, per the ACLU of Mississippi's schedule. The hearings follow a U.S. Supreme Court ruling that prompted lawmakers to revisit the state's maps, though Mississippi's current legislative maps remain legal and no redraw is legally required. The Mississippi Legislative Black Caucus has been mobilizing turnout at each stop, most recently Meridian on Sept. 10. All hearings stream live on the Legislature's YouTube channel.",
+    ],
+  },
+  {
     slug: "jxn-water-plan-sale-acquisition-financing-120-million",
     title: "JXN Water's Own Math Says Selling the System Saves $1.4M a Year. The Rate Hikes Are the Real Story.",
     dek: "A 30-page financial plan filed in federal court proposes Jackson sell its water and sewer assets to a new, city-independent authority. The document's own tables show what that buys: smaller rate increases, and a bond that only works if the city gives up control.",
