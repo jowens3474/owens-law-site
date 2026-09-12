@@ -66,6 +66,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-09-12",
+    title: "Morning Brief: Sep 12 · Arrest Made in Tasia Fortune Killing as Budget Lands",
+    dek: "Jackson police charged a 51-year-old man with murder in the death of Tasia Fortune, hours after the state medical examiner ruled her hanging a homicide.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-09-12",
+    views: 0,
+    body: [
+      "Arrest made in Tasia Fortune killing: Jackson police arrested Jarques Ratliff, 51, on a murder charge Friday in the death of Tasia Fortune, the 29-year-old found hanging from a tree in the backyard of a vacant home on Road of Remembrance on Aug. 3. Chief RaShall Brackney said the state medical examiner classified the death as a homicide on Sept. 10, which let officers execute search and arrest warrants they already held. Ratliff was taken into custody without incident while walking on Capitol Street, Brackney said. She described an \"association\" between Ratliff and Fortune but declined to detail it. The chief said the case remains active and more arrests are pending. Councilman Kenneth Stokes has a Fortune update on Tuesday's council agenda.",
+      "Council passes $113M general fund after police and fire fight: The Jackson City Council approved next year's roughly $113 million general fund budget Friday on a 5-1 vote, with Ward 2 Councilwoman Tina Clay opposed and Ward 4's Brian Grizzell absent, the Clarion Ledger reported. The plan is about $23 million smaller than the current year's budget, a cut Mayor John Horhn's administration says aligns spending with revenue after years of deficits. Council members left the city's $7.5 million to $8 million in savings untouched, rejecting an earlier idea to tap it for salaries. Chief Administrative Officer Pieter Teeuwissen warned against using one-time money on recurring costs. The fiscal year starts Oct. 1.",
+      "Data center oversight convening set for Tuesday: County supervisors from across Mississippi gather in Jackson Tuesday for a two-day state convening on data center development, according to a tentative agenda from the Mississippi Association of Supervisors. Central District Public Service Commissioner De'Keither Stamps opens the regulatory session at 9:45 a.m., followed by the Department of Environmental Quality on environmental concerns and Mississippi State's Center for Government Technology on land use. Madison County officials lead an afternoon panel on \"answering all the tough questions.\" The session lands as the PSC weighs Docket 2026-AD-10, a Ridgeland developer's bid to build a 350-megawatt gas plant for an on-site data center and semiconductor fab without a certificate of public convenience.",
+      "Wood Street renaming stalls in a shouting match: A proposal to rename Wood Street for Jackson State's Sonic Boom band director, Dr. Roderick Demond Little, was tabled Tuesday after Ward 3 Councilman Kenneth Stokes and Ward 4's Brian Grizzell clashed, WAPT reported. Stokes, who sponsored the ordinance, said the change would give neighborhood children a positive example and push back on drug activity. Grizzell said Little himself had reservations about the honor. Ward 7's Kevin Parkinson moved to table the measure and referred it to the Public Properties and Street Naming Committee, which Stokes chairs. The ordinance would rename the stretch from Cohea Street to Peach Orchard Street.",
+      "State Fair dates set, and a West Jackson market today: The 2026 Mississippi State Fair runs Oct. 8 through Oct. 18 at the Fairgrounds on Mississippi Street, with Flo Rida headlining Oct. 15, according to the fairgrounds events calendar. Closer in, the West Fest Open Air Market runs today from 10 a.m. to 2 p.m. at Livingston Park by the Jackson Zoo, a free event with local artisans, line dancing, disc golf and food trucks, per the Jackson Association of Neighborhoods calendar. Also on the near horizon: the Mississippi Book Festival at the State Capitol on Sept. 26 and WellsFest at the Ag Museum the same day.",
+    ],
+  },
+  {
     slug: "jpd-calls-tasia-fortune-death-a-homicide-but-the-paperwork-comes-from-a-state-office",
     title: "JPD Calls Tasia Fortune's Death a Homicide. The Paperwork Comes From a State Office.",
     dek: "Jackson's police chief told the City Council her department has treated the case as a homicide since Day 1. Four weeks after the autopsy, the family still has no written cause of death, because that document is issued by a state agency the city does not control.",
