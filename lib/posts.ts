@@ -66,6 +66,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-09-13",
+    title: "Morning Brief: Sep 13 · Water Bills Headed Up Again as JXN Water Eyes 10% Hike",
+    dek: "JXN Water's August court filing puts a 10% rate increase on the table for spring 2027, with steeper hikes penciled in for 2028 and 2029.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-09-13",
+    views: 0,
+    body: [
+      "JXN Water plans another rate hike in 2027: A 30-page financial management plan filed in U.S. District Court in August puts a 10% water rate increase on the table for spring 2027, the Clarion-Ledger reported. That follows the roughly 12% increase approved by Judge Henry Wingate that took effect in March 2026, which lifted the average residential bill from about $76 to about $85. The same filing projects 9% and 8% increases in 2028 and 2029, a sharp jump from the 3% annual hikes JXN Water told the court last year it would need. Interim Third-Party Manager Ted Henifin's transition plan for the system is due near the end of September, and the city has formally objected to the rate path.",
+      "Tasia Fortune case yields an arrest, more expected: Jackson police charged Jarques Ratliff, 51, with murder in the death of Tasia Fortune, the 29-year-old mother of four found hanging from a tree behind a vacant home on Aug. 3, the Associated Press reported. Chief RaShall Brackney said Friday that the state medical examiner ruled the death a homicide on Thursday, a month after the autopsy was completed, and that investigators then secured two search warrants and an arrest warrant. Ratliff was taken into custody when officers encountered him walking on a street. Brackney said additional arrests are pending. The City Council's Sept. 8 agenda listed a discussion item on the case.",
+      "Council budget lands at $340M with a lone dissent: The Jackson City Council passed the fiscal 2027 budget 5-1 on Sept. 11, WJTV reported, with Councilwoman Tina Clay opposed and Councilman Brian Grizzle absent. The total budget is about $340 million, with a general fund near $113 million. The plan funds 237 police officers and 11 additional firefighters, though Fire Chief RaSean Thomas had sought 25. The budget runs Oct. 1 through Sept. 30, 2027, and follows the council's Sept. 3 vote to hold millage flat for the city, the Jackson/Hinds Library System and Jackson Public Schools. Chief Administrative Officer Pieter Teeuwissen said the city is not raising taxes this year.",
+      "Data center rules get a statewide airing Tuesday: County supervisors, regulators and utility interests gather Tuesday in metro Jackson for a Mississippi Data Center Information Convening, per a tentative agenda posted by the Mississippi Municipal League. PSC Central District Commissioner DeKeither Stamps is slated for a 9:45 a.m. session on state regulatory policies, followed by the Department of Environmental Quality on environmental concerns and MSU's Center for Government Technology on land use. Madison County Supervisor Karl Banks and County Administrator Greg Higginbotham headline a 1:30 p.m. panel on community concerns. It lands as Jackson's own data center ordinance remains unwritten and the city's temporary ban runs against a clock.",
+      "Redistricting roadshow reaches Jackson Oct. 1: The Legislature's Joint Committee on Redistricting and Reapportionment has held public hearings across the state since August, with stops already completed in Belden, Southaven, Cleveland, Natchez and Meridian, according to a schedule published by the ACLU of Mississippi. The next is Sept. 17 in Hattiesburg, then Sept. 22 in Gulfport, before the series closes Oct. 1 at the state Capitol in Jackson. All begin at 6 p.m. The hearings follow Gov. Tate Reeves' decision not to call a special session on redistricting after the U.S. Supreme Court's ruling in Louisiana v. Callais, which left Mississippi's current judicial map in place.",
+    ],
+  },
+  {
     slug: "jackson-data-center-moratorium-clock-runs-as-ordinance-stalls",
     title: "Jackson's Data Center Ban Has a Clock. The Ordinance It Was Meant to Buy Still Doesn't Exist.",
     dek: "The city's 183-day moratorium took effect in mid-August and runs out in February. Council members are still debating what the replacement rules should say, while a $23 million budget hole keeps the revenue question alive.",
