@@ -66,6 +66,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-09-15",
+    title: "Morning Brief: Sep 15 · Data Center Convening Opens as Jackson's Own Rules Still Unwritten",
+    dek: "County supervisors from across Mississippi gather at The Westin today to hear from the PSC, DEQ and MSU on data center regulation, while Jackson's own ordinance remains in draft.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-09-15",
+    views: 0,
+    body: [
+      "Data center convening opens downtown: The Mississippi Association of Supervisors Minority Caucus opens a two-day Data Center Development Information Convening at 9 a.m. today at The Westin, 407 S. Congress St. The tentative agenda, obtained by the Wire, runs PSC Central District Commissioner DeKeither Stamps at 9:45 a.m. on state regulatory policy, the Department of Environmental Quality at 10:15 on environmental concerns, and MSU's Center for Government Technology at 11 on land use. Madison County Supervisor Karl Banks and County Administrator Greg Higginbotham take the 1:30 p.m. slot on community concerns. Roughly 300 officials are expected. Jackson's own 183-day moratorium, passed 5-2 in July, expires in about four months with no ordinance adopted.",
+      "Ratliff pleads not guilty, bond denied: Jarques Ratliff, 51, pleaded not guilty Monday at a bond hearing in Jackson Municipal Court and was denied bond in the death of Tasia Fortune, WLBT reported. Fortune, 29, was found hanging from a tree behind a home off Road of Remembrance on Aug. 3. Police Chief RaShall Brackney said at a Friday news conference that Ratliff had an 'association' with Fortune but declined to detail it. Ratliff's next court date has not been set. Community advocate Byron Brumfield told WLBT that Ratliff should also face a hate crime charge. The case remains active, and police have said additional arrests are pending.",
+      "Council agenda carries $1M C Spire deal: The Jackson City Council's September agenda includes an order accepting a reduced C Spire Business bid of $1,001,962.88 for IT infrastructure and network modernization, per the agenda packet. The same agenda lists a full and final settlement in Walton v. City of Jackson, Civil Action No. 3:25-cv-314, in federal court, and a resolution letting the Jackson Municipal Airport Authority accept an FAA airport improvement grant. Council members also scheduled discussions on school-age children not attending school and an update on Tasia Fortune's death. The council meets at 10 a.m. at City Hall.",
+      "Water plan floats selling the system: JXN Water's 30-page financial management plan, filed in August in federal court, calls for a 10% rate increase in spring 2027, following the roughly 12% hike that took effect in March and lifted average residential bills from about $76 to $85. The plan states the March increase 'improved the system's finances but does not eliminate the need for continued annual increases.' Interim Third-Party Manager Ted Henifin also raises the option of the city selling its water and sewer infrastructure to retire debt. The filing projects operating expenses rising from $114 million in 2026 to $186 million by fiscal 2046.",
+      "C Spire builds Jackson-to-Olive Branch fiber: C Spire announced a new high-capacity fiber corridor connecting Jackson and Olive Branch, adding fiber miles along a roughly 200-mile stretch and deploying a backbone aimed at AI, cloud and data center customers. The Ridgeland-based company said the project is backed by a long-term customer commitment. President and CEO Suzy Hays framed it as strengthening Mississippi's position in the AI economy. The corridor links the capital to the Memphis market, which C Spire describes as a growing hub for logistics, technology and data center investment. It is the second Jackson-area infrastructure announcement this month.",
+    ],
+  },
+  {
     slug: "morning-brief-2026-09-14",
     title: "Morning Brief: Sep 14 · Data Center Rules Land in Jackson as Regulators, Counties Meet",
     dek: "Mississippi's data center oversight debate moves to Jackson Tuesday, with the PSC, MDEQ and county leaders on one agenda while a Ridgeland developer's 350-megawatt plant still waits on a ruling.",
