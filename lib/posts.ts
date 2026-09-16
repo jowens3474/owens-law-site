@@ -66,6 +66,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-09-16",
+    title: "Morning Brief: Sep 16 · Data Center Convening Closes as Counties Ask Who Pays",
+    dek: "Mississippi county leaders wrap a two-day data center crash course in Jackson today, with the sharpest questions aimed at utility rates and water, the same issues still unresolved in the city's own stalled ordinance.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-09-16",
+    views: 0,
+    body: [
+      "Data center convening closes with water and rate questions: The Mississippi Association of Supervisors Minority Caucus wraps its two-day Data Center Development Information Convening at the Westin Hotel today, running 8 a.m. to noon. Andrew Smith, the caucus's executive director, told WLBT the event grew out of calls from supervisors asking questions he could not answer: whether data centers will raise residents' utility rates, and whether they will drain local water wells. Organizers brought in outside experts, including representatives from the Brookings Institution. Lauderdale County Supervisor Joe Norwood, whose county has eight data centers under construction, told the room he would rather counties be on the front end of a deal than the rear end. Jackson's own data center ordinance remains unwritten.",
+      "Hitachi Energy picks Copiah County for record $528M expansion: Hitachi Energy will invest $528 million to expand its transformer factory in Copiah County, creating 654 jobs, Governor Tate Reeves announced Tuesday. The company said it is its largest U.S. investment to date. The existing plant produces small power transformers and employs 475 people; the expansion will widen the range of transformers built domestically as electricity demand climbs. CEO Andreas Schierenbeck tied the move to grid growth. For Jackson, the project lands in the same week regulators and county officials are debating how much new power infrastructure Mississippi can absorb, and who pays for it.",
+      "Judge denies bond again in Queen Alexandria Lane triple homicide: Hinds County Court Judge Johnnie McDaniels denied bond Tuesday for Devon Modacure, 32, after a preliminary hearing in the June 27 killings of Keyana Weathersby, 26, her 2-year-old son Camari Givens, and her sister Erica Weathersby, 30. A Jackson Police Department detective testified that GPS data and witness accounts placed Modacure at the scene, the Clarion Ledger reported. McDaniels found him a flight risk and a danger to the community, citing an extensive criminal history, and bound the case over to a grand jury. Modacure faces capital murder and other charges. He shook his head as the detective testified.",
+      "JXN Water plan pairs 10% rate hike with a sale proposal: A 30-page financial management plan JXN Water filed in federal court in August calls for a 10% rate increase in spring 2027, following the roughly 12% hike that took effect in March and lifted the average residential bill from about $76 to $85. The plan also floats selling the city's water and sewer infrastructure to retire debt and blunt future increases, WLBT and the Clarion Ledger reported. Interim Third-Party Manager Ted Henifin has signaled further hikes in 2028 and 2029. The numbers are steeper than the 3% annual increases the utility described in court last year. U.S. District Judge Henry Wingate must approve any change.",
+      "Jackson's $340M budget is set, and the police headcount is the tell: The Jackson City Council passed a roughly $340 million budget for fiscal year 2027 on Sept. 11 by a 5-1 vote, with a general fund near $113 million. The plan funds a Jackson Police Department authorized strength of 237 officers. The vote closed a budget season that also produced a 1.5-mill county increase in Hinds County, driven largely by jail costs. The city's fiscal year begins Oct. 1. Watch whether JPD actually reaches 237 sworn officers, a number the department has struggled to hit in recent years, and how the council reconciles that target with the water and infrastructure costs landing on the same taxpayers.",
+    ],
+  },
+  {
     slug: "hinds-county-adopts-budget-1-5-mill-increase-jail",
     title: "Hinds County Adopts Budget With a 1.5-Mill Increase, and the Jail Is Why",
     dek: "Supervisors closed an $8 million gap on Sept. 10 with a tax increase that generates about $2.3 million a year. The new criminal justice facility is the single largest reason the county says it needs the money.",
