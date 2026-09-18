@@ -1,0 +1,52 @@
+name: Site Check
+
+# Confirms what the live site is actually serving, from a GitHub runner.
+# Use it to answer "is it live?" without guessing: prints the HTTP status,
+# cache/CDN headers, the page <title>, and whether an expected phrase is
+# present. Read-only; publishes nothing.
+
+on:
+  workflow_dispatch:
+    inputs:
+      path:
+        description: "Path on the site to check (e.g. /article/some-slug or /)"
+        required: false
+        default: "/"
+      expect:
+        description: "Phrase that should appear in the page HTML"
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Fetch live page
+        env:
+          SITE: https://www.thejacksonwire.com
+          P: ${{ github.event.inputs.path }}
+          EXPECT: ${{ github.event.inputs.expect }}
+        run: |
+          URL="${SITE}${P}"
+          echo "URL: $URL"
+          curl -sS -L -D headers.txt -o page.html -w "HTTP %{http_code}  bytes %{size_download}  time %{time_total}s\n" "$URL"
+          echo "--- headers of interest ---"
+          grep -iE '^(cache-control|age|x-vercel-cache|x-vercel-id|x-nextjs-cache|last-modified|etag):' headers.txt || true
+          echo "--- <title> ---"
+          grep -oE '<title>[^<]*</title>' page.html | head -1 || echo "(no title found)"
+          echo "--- first h1 ---"
+          grep -oE '<h1[^>]*>[^<]*' page.html | head -1 | sed 's/<h1[^>]*>//' || true
+          if [ -n "$EXPECT" ]; then
+            if grep -qF -- "$EXPECT" page.html; then
+              echo "EXPECTED PHRASE: FOUND -> \"$EXPECT\""
+            else
+              echo "::warning::EXPECTED PHRASE NOT FOUND -> \"$EXPECT\""
+              echo "EXPECTED PHRASE: NOT FOUND"
+            fi
+          fi
+          echo "--- article links on page (first 8) ---"
+          grep -oE 'href="/article/[a-z0-9-]+"' page.html | head -8 || true
