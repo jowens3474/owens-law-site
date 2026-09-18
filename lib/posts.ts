@@ -75,6 +75,7 @@ const POSTS: Post[] = [
     author: "Jackson Wire Staff",
     date: "2026-09-18",
     views: 0,
+    lead: true,
     body: [
       "Editor's note: This story was substantially revised on the evening of Sept. 18 after the Wire obtained the full text of the agreement. An earlier version, drawn from secondhand coverage, gave the contract's date as April 4, 2025 and stated that treated wastewater would be routed back to the Ridgeland site for reuse. The agreement's effective date is March 18, 2025, and it contains no reuse provision; that arrangement belongs to Amazon's separate Canton campus. The Wire regrets the errors. The document-based account follows.",
       "The contract governing water for Amazon's Ridgeland data center is 45 pages long, marked Amazon Confidential on every one of them, and effective March 18, 2025. It is not a two-party deal between a company and a city. It is a three-party agreement among Amazon Data Services, the City of Ridgeland, and the Madison County Economic Development Authority, layered on top of a January 2024 cooperation agreement with the State of Mississippi that commits up to $215 million in state infrastructure money to Amazon's Mississippi projects. The Mississippi Free Press obtained it through a public records request this week. The Wire has now read all of it, and the version below is drawn from the text, not from anyone's summary of it.",
@@ -101,7 +102,6 @@ const POSTS: Post[] = [
     author: "Jackson Wire Staff",
     date: "2026-09-17",
     views: 0,
-    lead: true,
     body: [
       "J. Dewayne Thomas, the Hinds County chancellor whose courtroom became, more than once, the place where the capital city's fights over who gets to govern it were first heard, died Tuesday evening at his home in Byram. He was found around 8 p.m., and the Hinds County Board of Supervisors, which announced his death Wednesday, said it is believed to have been from natural causes. He had served on the Fifth Chancery District bench since January 2007, nearly twenty years.",
       "Most of that service left no trace in a newspaper, which is the nature of the job. Chancery court is where a county goes when life comes apart quietly: divorces and custody, wills and estates, guardianships for the old and the incapacitated, disputes over land and deeds. For two decades, thousands of Hinds County families met Dewayne Thomas on the worst days of their lives and left with a decision. That is the work that filled his docket every week, and it is the work a chancellor is actually judged by, even if it is never the work that gets written about.",
