@@ -73,7 +73,7 @@ const POSTS: Post[] = [
     categories: ["Business"],
     tags: [],
     author: "Jackson Wire Staff",
-    date: "2026-09-18",
+    date: "2026-09-19",
     views: 0,
     body: [
       "A gallon of diesel in Mississippi cost $6.05 on Friday, according to AAA, up 38 cents in a week and $2.77, or 84.5 percent, from a year ago. The national average hit $6.44 the same day, a record, and the Energy Information Administration's weekly on-highway survey put the Gulf Coast at $6.03, the cheapest region in the country. Cheapest is not cheap. On March 4, before the war, AAA had Mississippi diesel at $3.545. The state's price has risen $2.51 a gallon, about 71 percent, in six and a half months.",
