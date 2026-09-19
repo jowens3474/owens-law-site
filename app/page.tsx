@@ -13,6 +13,7 @@ export const revalidate = 600;
 import { site } from "@/lib/site";
 import ArticleImage from "./components/ArticleImage";
 import Sidebar from "./components/Sidebar";
+import ComingUp from "./components/ComingUp";
 import CategoryTag from "./components/CategoryTag";
 
 function SectionHeading({ children }: { children: React.ReactNode }) {
@@ -33,8 +34,8 @@ function EmptyFrontPage() {
         The presses are warming up.
       </h2>
       <p className="mt-5 font-sans text-lg leading-relaxed text-muted">
-        {site.name} is just getting started. Our first reporting on Mississippi
-        politics, property, and power is on the way — check back soon.
+        {site.name} is just getting started. Our first reporting on Jackson
+        business, economics, and development is on the way — check back soon.
       </p>
       <a
         href={`mailto:${site.email}`}
@@ -189,6 +190,10 @@ export default function Home() {
               </div>
             </section>
           )}
+
+          <div className="mt-10">
+            <ComingUp />
+          </div>
 
           <div className="mt-10">
             <Sidebar />

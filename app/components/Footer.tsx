@@ -36,6 +36,30 @@ export default function Footer() {
               ))}
               <li>
                 <Link
+                  href="/pipeline"
+                  className="font-sans text-sm hover:text-crimson"
+                >
+                  The Pipeline
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/data-centers"
+                  className="font-sans text-sm hover:text-crimson"
+                >
+                  Data Centers
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/explainers"
+                  className="font-sans text-sm hover:text-crimson"
+                >
+                  Explainers
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/about"
                   className="font-sans text-sm hover:text-crimson"
                 >

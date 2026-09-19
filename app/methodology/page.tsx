@@ -39,10 +39,11 @@ export default function MethodologyPage() {
 
       <div className="prose-article mt-8">
         <p>
-          The Jackson Wire is an AI-assisted, document-driven local newsroom.
-          It publishes daily, covers Jackson and Mississippi government and
-          development, and tries to be unambiguous about how each piece is
-          produced. This page is the long version of that promise.
+          The Jackson Wire is an AI-assisted, document-driven newsroom
+          focused on business, economics, and development in metro Jackson.
+          It publishes daily, works from primary sources, and tries to be
+          unambiguous about how each piece is produced. This page is the long
+          version of that promise.
         </p>
       </div>
 
@@ -53,11 +54,12 @@ export default function MethodologyPage() {
         <ol className="mt-4 space-y-4 text-base leading-relaxed">
           <li>
             <strong>1. Source first.</strong> Each story starts with a primary
-            source the Wire can read directly. The federal docket in the
-            Owens case is mirrored from CourtListener. City Council agendas
-            and Mississippi Public Service Commission filings are fetched as
-            HTML or PDF and the actual text is read, not summarized
-            second-hand.
+            source the Wire can read directly: a council packet, a bond
+            resolution, a contract, a rate filing, a business registration,
+            a layoff notice, a budget, a federal docket. The document is
+            fetched as HTML or PDF and the actual text is read, not
+            summarized second-hand. The goal is to publish what the document
+            says before it becomes a press release.
           </li>
           <li>
             <strong>2. Cross-check with public news coverage.</strong> Where
@@ -68,7 +70,7 @@ export default function MethodologyPage() {
           </li>
           <li>
             <strong>3. Draft with disclosure.</strong> A drafting model
-            (Anthropic&apos;s Claude Opus) writes the article under a strict
+            writes the article under a strict
             system prompt that bans em-dashes, fabricated quotes, and
             paraphrasing from memory. Every concrete claim must trace to a
             tool result the model saw in the same session.
@@ -89,36 +91,28 @@ export default function MethodologyPage() {
         </h2>
         <ul className="mt-4 space-y-2 text-base leading-relaxed">
           <li>
-            <strong>Federal court filings</strong> via CourtListener
-            (RECAP). The Wire watches U.S. v. Owens (3:24-cr-103) and adds
-            other federal cases as they arise.
+            <strong>Money and business filings</strong> Mississippi Secretary of State business registrations (sos.ms.gov), Mississippi Development Authority project and incentive announcements, MDES WARN layoff notices, Department of Revenue monthly sales-tax diversions by city, and SEC filings for public companies with Jackson operations.
           </li>
           <li>
-            <strong>City of Jackson</strong> Council agendas, Planning Board
-            packets, and zoning notices at jacksonms.gov.
+            <strong>Public money</strong> City of Jackson and Hinds, Madison, and Rankin County budgets and millage orders; municipal bond documents on EMMA; federal contracts and grants on USASpending.gov; Mississippi State Auditor and PEER reports.
           </li>
           <li>
-            <strong>Hinds County Board of Supervisors</strong> meetings and
-            documents at hindscountyms.com.
+            <strong>Development and land</strong> Jackson City Council agendas, Planning Board packets, and zoning notices at jacksonms.gov; suburban city and county agendas across the metro; building permits; Hinds County land and assessor records; Jackson Redevelopment Authority and Capitol Complex Improvement District actions.
           </li>
           <li>
-            <strong>Mississippi Public Service Commission</strong> dockets at
-            psc.ms.gov, particularly utility deregulation and data-center
-            filings.
+            <strong>Utilities and rates</strong> JXN Water rate filings and the federal receivership docket; Mississippi Public Service Commission dockets at psc.ms.gov, particularly data-center and utility rate cases; Entergy Mississippi and Atmos filings.
           </li>
           <li>
-            <strong>Mississippi Legislature</strong> bill text at
-            legislature.ms.gov.
+            <strong>Labor and economic data</strong> Bureau of Labor Statistics Jackson-metro employment and wage series, MDES labor-market reports, Census building-permit and population estimates.
           </li>
           <li>
-            <strong>Mississippi Secretary of State</strong> business and
-            lobbyist filings at sos.ms.gov.
+            <strong>Legislature</strong> Bill text, fiscal notes, and committee actions at legislature.ms.gov.
           </li>
           <li>
-            <strong>News coverage</strong> from Mississippi Today, WLBT,
-            WJTV, Mississippi Free Press, Magnolia Tribune, Jackson
-            Jambalaya, The Enterprise Journal, and other outlets, used for
-            context and cross-checking.
+            <strong>Federal court filings</strong> CourtListener (RECAP) for U.S. v. Owens (3:24-cr-103), business litigation, and bankruptcies in the Southern District of Mississippi.
+          </li>
+          <li>
+            <strong>News coverage</strong> Mississippi Today, WLBT, WJTV, Mississippi Free Press, Magnolia Tribune, the Clarion Ledger, Mississippi Business Journal, and other outlets, used for context and cross-checking, never as the spine of a story.
           </li>
         </ul>
       </section>

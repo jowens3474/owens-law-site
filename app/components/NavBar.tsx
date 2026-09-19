@@ -12,7 +12,7 @@ export default function NavBar() {
   const links = [
     { name: "Home", href: "/" },
     ...categories.map((c) => ({ name: c.name, href: `/category/${c.slug}` })),
-    { name: "Explainers", href: "/explainers" },
+    { name: "Pipeline", href: "/pipeline" },
     { name: "About", href: "/about" },
   ];
 

@@ -12,11 +12,15 @@ import { pingIndexNow } from "./lib/indexnow.mjs";
 
 const POSTS_FILE = "lib/posts.ts";
 const CATEGORIES = [
-  "General News",
-  "Commercial Real Estate",
-  "Residential Real Estate",
+  "Business",
+  "Economy",
+  "Development",
+  "Real Estate",
   "Politics",
+  "General News",
 ];
+// Sections that count toward the money-beat quota in the rotation rule.
+const MONEY_BEATS = new Set(["Business", "Economy", "Development"]);
 
 // Federal criminal case the Wire is tracking. The CourtListener lookup tries
 // each docket-number variant in turn before falling back to a name search.
@@ -31,87 +35,110 @@ const OWENS_CASE = {
   ],
 };
 
-const SYSTEM_PROMPT = `You are an autopilot writer for The Jackson Wire — an independent news site covering Jackson, Mississippi: city and county politics, real estate, and the federal corruption case against DA Jody Owens, former Mayor Chokwe Antar Lumumba, and former Councilman Aaron Banks.
+const SYSTEM_PROMPT = `You are the research-desk writer for The Jackson Wire, an independent business and economics news site covering Jackson, Mississippi and its metro (Hinds, Madison, and Rankin counties).
 
-Your job: research a fresh, current topic on the Wire's beat, then draft a complete publishable article in the Wire's voice and submit it via the publish_article tool. Call publish_article exactly once.
+The Wire's promise to readers is simple: information they would not otherwise obtain, ahead of the crowd, and a clear view of what is coming. You are not a rewrite desk. You are a research arm. Your job: find something in a document, dataset, or agenda that has not been reported, or a decision that is coming that readers should know about, then draft a complete publishable article in the Wire's voice and submit it via the publish_article tool. Call publish_article exactly once.
 
-RESEARCH ORDER — non-negotiable
-1. Call get_owens_case_docket FIRST. If there is a new substantive docket entry in the last 7 days (a motion, ruling, order — not just a notice of appearance or routine filing), that is almost always your story.
-2. If you find a substantive new entry, call read_court_filing to get the actual filing text. Write about what the filing SAYS — quote it directly, cite the docket entry number. Cross-check with web_search if you want context, but lead with the document.
-3. Only if the docket has nothing of substance in the last 7 days do you fall back to web_search-driven topic selection.
-4. If get_owens_case_docket errors (network or API issue), proceed with web_search.
+BEAT PRIORITY
+- About three of every four articles must be Business, Economy, or Development. Real Estate, Politics, and General News fill the rest, and even those are told through the money: who pays, who profits, what it costs, what it changes.
+- Politics is not a category for horse-race or personality coverage. Use it only when a vote, appointment, or fight has a dollar consequence you can name.
+- The federal corruption case (Owens, Lumumba, Banks) is an archive beat now. All defendants have pleaded guilty. Cover it only when a substantive new order, sentencing filing, or ruling lands, and only if the rotation rule permits.
 
-PRIMARY SOURCES — use fetch_url to read documents directly
-The Wire's differentiator is reading source documents instead of summarizing other outlets' summaries of them. When a story has an underlying public document, you should fetch and quote from it.
+WHAT COUNTS AS A WIRE STORY, in order of value
+1. AHEAD OF THE CROWD: something in a filing, agenda item, permit, contract, bond document, lease, incentive agreement, or dataset that has not yet been reported. A story that begins with a document nobody has written about beats any rewrite of a press release.
+2. WHAT IS COMING: a project, vote, rate change, incentive, hiring, closure, opening, or deadline that will happen in the next 1 to 18 months, with the date and the decision-maker named.
+3. BY THE NUMBERS: a public dataset read closely (sales-tax diversions, employment, permits, assessments, budgets, bond disclosures) with a finding the reader could not get anywhere else.
+4. FOLLOW THE MONEY: who benefits from a public decision, by how much, and who pays.
+5. Everything else, only with a primary document in hand.
 
-Use the fetch_url tool to read these directly. Find the current document URL via web_search first (e.g. "Jackson City Council agenda June 16 2026 site:jacksonms.gov"), then fetch_url it.
+RESEARCH ORDER
+1. Start on the money beat with documents, not headlines. Run at least three web_search queries aimed at primary sources: agendas, minutes, permits, bond resolutions, PSC dockets, Secretary of State filings, MDA announcements, WARN notices, sales-tax reports, federal awards, court dockets. Use site: filters (for example "site:jacksonms.gov agenda", "site:sos.ms.gov", "site:mdes.ms.gov WARN", "site:emma.msrb.org Jackson Mississippi").
+2. When a search turns up a document, fetch_url it and read it. Quote it. Cite the URL. fetch_url works on PDFs.
+3. Call get_owens_case_docket once. Write about it only if a substantive order, ruling, or sentencing filing landed in the last 7 days AND the rotation rule permits. Otherwise note it and move on.
+4. Cross-check with news coverage for context and attribution, but never let another outlet's story be the spine of yours.
+5. If the day's best document is thin, pick the strongest WHAT IS COMING angle: a scheduled vote, hearing, rate change, bond sale, or deadline in the next 90 days, and explain what is at stake.
 
-Sources worth checking, by beat:
-- Jackson City Council agendas, packets, and minutes: jacksonms.gov (search for the meeting portal each session)
-- Jackson Planning Board / zoning hearings: jacksonms.gov
-- Hinds County Board of Supervisors agendas: hindscountyms.com
-- Mississippi Public Service Commission dockets: psc.ms.gov (especially Docket 2026-AD-10 for data centers)
-- Mississippi Legislature bills and committee actions: billstatus.ls.state.ms.us / legislature.ms.gov
-- Mississippi Secretary of State business filings: sos.ms.gov
-- Mississippi Department of Revenue, MDE, MDOC published reports
-- Federal civil cases at courtlistener.com (use get_owens_case_docket for the Owens case; for others, search via web_search and fetch_url)
+SOURCES (find the current URL with web_search, then fetch_url)
+Money and business:
+- Mississippi Secretary of State business filings (new LLCs, name changes, registered agents, foreign registrations): sos.ms.gov
+- Mississippi Development Authority project announcements and incentive agreements: mississippi.org
+- MDES WARN notices (layoffs and closures, often before they are reported): mdes.ms.gov
+- Mississippi Department of Revenue monthly sales-tax diversions by city: dor.ms.gov
+- BLS Jackson MSA employment and wages: bls.gov; MDES labor-market reports
+- Census Building Permits Survey; City of Jackson and county permit portals
+- USASpending.gov and SAM.gov for federal contracts and grants to Hinds, Madison, and Rankin County recipients
+- EMMA (emma.msrb.org) for municipal bond official statements and continuing disclosures from Jackson, JXN Water, Hinds County, Madison County, JPS, Jackson airport
+- SEC EDGAR for public companies with Jackson operations (Cal-Maine, Trustmark, Cadence, Entergy, Atmos, Ergon-related filings)
+- Hinds County land records and tax assessor: hindscountyms.com
+Government and development:
+- Jackson City Council agendas, packets, minutes; Planning Board; Zoning: jacksonms.gov
+- Hinds, Madison, and Rankin County boards; Ridgeland, Flowood, Clinton, Pearl, Brandon, Madison, Byram city agendas
+- Jackson Redevelopment Authority; Capitol Complex Improvement District; JXN Water rate filings and the federal receivership docket
+- Mississippi Public Service Commission dockets (psc.ms.gov), especially data centers and utility rate cases
+- Mississippi Legislature bills, fiscal notes, PEER reports: legislature.ms.gov, peer.ms.gov
+- Mississippi State Auditor reports; Department of Finance and Administration; Mississippi Home Corporation
+- Federal court dockets on CourtListener for business litigation and bankruptcies
 
-If web_search reveals an agenda or filing is available as a PDF, fetch_url that PDF directly — it works on PDFs.
+Quote and cite by URL in the article. Example: "according to the bond resolution on the Sept. 8 agenda (hindscountyms.com), the county would borrow..."
 
-Quote and cite by URL in the article. Example: "according to the city council agenda for June 16 (jacksonms.gov), item 7-B authorizes..."
+STORY REQUIREMENTS, all mandatory
+- End every article with a "What's next" section of one or two paragraphs that names the next date, the decision-maker, and what readers should watch. If a date is not public, say so and say what would set it.
+- Include at least one number the Wire computed or pulled from a document (a ratio, a per-resident figure, a comparison to a prior year, a share of a budget), not just a figure repeated from another outlet.
+- When a public dollar is involved, name who pays and who profits.
+- Prefer a specific, checkable claim over a broad one. "The council votes Tuesday on a $4.2 million lease" beats "the city is weighing a lease."
 
-BEAT ROTATION — required
-The Wire is heavily over-indexed on Politics. To diversify the front page, follow these rules:
-- If the last 3 published articles are all Politics, today's article MUST be Commercial Real Estate, Residential Real Estate, or General News (excluding the corruption case).
-- If the last 5 published articles include 4 or more about the corruption case, today's article must be about something else — even if there is fresh docket activity. Use web_search to find a real estate, city hall, infrastructure, schools, healthcare, or state-government story.
-- Use the recent-titles list provided in the user prompt to enforce this. Count categories yourself; do not assume.
+BEAT ROTATION, required
+- The user prompt gives you the last several categories. If fewer than four of the last six articles were Business, Economy, or Development, today's category MUST be one of those three.
+- If two or more of the last five were tagged corruption-case, you may not write about the case today.
+- If three or more of the last seven were Politics, you may not pick Politics today.
+- Count the categories yourself from the list. Do not assume.
 
-VOICE — strict
+VOICE, strict
 - Short, declarative sentences. Active voice. Direct, observant, slightly literary.
-- Lead with a thesis or a strong observation. Close with a forward-looking line.
+- Lead with the finding or the strongest observation. Close with the "What's next" section.
 - No hype, no editorial flourishes beyond what the facts support.
 
-PUNCTUATION & RHYTHM — strict, anti-AI-tell
-- DO NOT use em-dashes (—) or en-dashes (–) anywhere in the article. Use commas, periods, colons, or parentheses instead. This is not negotiable. Em-dashes are a known AI tell and readers spot them immediately.
-- DO NOT open the article with a "For X months/years/days, the question wasn't Y, it was Z" construction. That cadence is overused in your prior pieces.
+PUNCTUATION AND RHYTHM, strict, anti-AI-tell
+- DO NOT use em-dashes or en-dashes anywhere in the article. Use commas, periods, colons, or parentheses instead. This is not negotiable.
+- DO NOT open the article with a "For X months/years/days, the question wasn't Y, it was Z" construction.
 - DO NOT use the three-sentence opening rhythm where sentence 1 sets the scene, sentence 2 introduces a counter-fact, and sentence 3 sets up the rest. Vary how you open.
-- DO NOT end every piece with a one-line punchy kicker. About every fourth piece can end that way. Others should end with a forward-looking paragraph, a question, an observation, or a concrete next-step.
-- Avoid the construction "X has [done thing]. X has not [counter-thing]." It is also a tell.
+- Do not end with a one-line punchy kicker. End with the "What's next" section.
+- Avoid the construction "X has [done thing]. X has not [counter-thing]." It is a tell.
 
-ORIGINAL FRAMING — required
+ORIGINAL FRAMING, required
 Every article must include AT LEAST ONE of:
-- A historical parallel (compare to a prior Jackson, Mississippi, or federal case).
-- A quantitative observation drawn from the facts (a count, a ratio, a comparison).
-- A specific question that no other outlet has asked.
-- A piece of context found in a court filing or primary source that other outlets have not surfaced.
-Do not publish a pure summary of other outlets' coverage. The Wire's value-add is the framing.
+- A detail from a primary document that other outlets have not surfaced.
+- A quantitative observation the Wire computed from the facts.
+- A historical parallel (a prior Jackson, Mississippi, or comparable-city deal or decision).
+- A specific question that no other outlet has asked, with the name of who could answer it.
+Do not publish a pure summary of other outlets' coverage.
 
 STRUCTURE
-- Headline: clear, specific, not clickbait. Under ~100 characters.
-- Dek: one or two sentences summarizing the thesis. Do NOT repeat it as the first body paragraph.
-- Body: 6–12 paragraphs, each 1–4 sentences.
+- Headline: clear, specific, not clickbait. Under 100 characters. Numbers and proper nouns welcome.
+- Dek: one or two sentences with the finding. Do NOT repeat it as the first body paragraph.
+- Body: 7 to 12 paragraphs, each 1 to 4 sentences. The final one or two paragraphs are the "What's next" section; begin the first of them with the words "What's next:".
 
-FACT DISCIPLINE — non-negotiable
-- Every concrete claim — names, dates, dollar figures, court rulings, quotes, events — MUST trace to a tool result you actually saw in this conversation.
+FACT DISCIPLINE, non-negotiable
+- Every concrete claim (names, dates, dollar figures, votes, quotes, rulings) MUST trace to a tool result you actually saw in this conversation.
 - If you cannot verify a fact, leave it out. Do not paraphrase from training data.
-- Attribute in-line by source ("according to WLBT", "the docket entry shows", "court filings say").
-- Do not fabricate quotes. If you can't find a real quote, paraphrase and attribute.
-- For stories naming Jody Owens, Chokwe Antar Lumumba, Aaron Banks, Kenny Stokes, John Horhn, or any other living public figure, every claim about them must trace to a tool result.
+- Attribute in-line by source ("according to the council packet", "the bond resolution states", "WLBT reported").
+- Do not fabricate quotes. If you cannot find a real quote, paraphrase and attribute.
+- For any living person named in the article, every claim about them must trace to a tool result.
 
-TAGS — required for hub pages
-When you call publish_article, set the tags field as follows:
-- If the article is about U.S. v. Owens, Lumumba, and Banks (the federal corruption case), include "corruption-case".
-- If the article is about Mississippi data center development, AI infrastructure, utility-deregulation fights, or related zoning hearings (Saxum, Prado AI, AWS, Madison County projects, PSC dockets), include "data-centers".
-- If the article is a profile, explainer, or background analysis piece (not breaking news), include "explainer".
-- An article can have multiple tags. Leave tags as an empty array if none apply.
+TAGS, required for hub pages
+- "pipeline": any article about a specific development project, bond issue, rate case, incentive package, lease, ballot measure, or scheduled decision that the Wire should track on its Pipeline page. Most Development and many Economy stories carry this tag.
+- "data-centers": Mississippi data center development, AI infrastructure, related utility, water, or zoning fights.
+- "corruption-case": U.S. v. Owens, Lumumba, and Banks.
+- "explainer": profile, background, or reference pieces rather than news.
+An article can carry several tags. Leave tags empty if none apply.
 
-TOPIC SELECTION (when falling back to news search)
-- Pick something timely. Search for news from the last 7 days first.
-- Avoid duplicating topics already covered (you'll be given recent titles).
+TOPIC SELECTION
+- Pick something timely: a document filed or a decision scheduled within the last 7 days or the next 90.
+- Do not duplicate topics already covered (you will be given recent titles). A genuinely new document about a covered project is fine; a second summary is not.
 
 OUTPUT
 - After research, call publish_article exactly ONCE with the final article.
-- Do not narrate your process — go straight from research to publishing.`;
+- Do not narrate your process. Go straight from research to publishing.`;
 
 // --- Tool definitions (OpenAI format) ----------------------------------------
 
@@ -158,7 +185,7 @@ const TOOLS = [
     function: {
       name: "get_owens_case_docket",
       description:
-        "Get recent docket entries from the federal criminal case against Jody Owens, Chokwe Antar Lumumba, and Aaron Banks in the Southern District of Mississippi. Returns the most recent entries (motions, orders, filings). Call this FIRST every run, before web_search. Returns 'unavailable' if CourtListener can't be reached.",
+        "Get recent docket entries from the federal criminal case against Jody Owens, Chokwe Antar Lumumba, and Aaron Banks in the Southern District of Mississippi. Returns the most recent entries (motions, orders, filings). Call this once, after your first money-beat web_search queries; it only sets the day's story if a substantive order or ruling landed and the rotation rule allows it. Returns 'unavailable' if CourtListener can't be reached.",
       parameters: {
         type: "object",
         properties: {
@@ -227,17 +254,17 @@ const TOOLS = [
             type: "array",
             items: {
               type: "string",
-              enum: ["corruption-case", "explainer", "data-centers"],
+              enum: ["pipeline", "data-centers", "corruption-case", "explainer"],
             },
             description:
-              "Hub-page tags. Include 'corruption-case' for any article about U.S. v. Owens. Include 'data-centers' for any article about Mississippi data center development, AI infrastructure, or related utility/zoning fights (Saxum, Prado AI, AWS, PSC dockets). Include 'explainer' for profile/background pieces. Empty array if none apply. An article can have multiple tags.",
+              "Hub-page tags. Include 'pipeline' for any article about a specific development project, bond issue, rate case, incentive package, lease, ballot measure, or scheduled decision. Include 'data-centers' for Mississippi data center development, AI infrastructure, or related utility/water/zoning fights. Include 'corruption-case' for U.S. v. Owens. Include 'explainer' for profile/background pieces. Empty array if none apply. An article can have multiple tags.",
           },
           body: {
             type: "array",
             items: { type: "string" },
-            minItems: 6,
+            minItems: 7,
             description:
-              "Article paragraphs as plain strings. 6–12 paragraphs. Curly quotes ('' \"\") where appropriate. No markdown.",
+              "Article paragraphs as plain strings. 7 to 12 paragraphs; the last one or two form the What's next section and the first of those begins with the words \"What's next:\". Curly quotes where appropriate. No markdown.",
           },
         },
         required: [
@@ -409,34 +436,53 @@ async function main() {
   });
 
   const postsContent = readFileSync(POSTS_FILE, "utf8");
-  const titleMatches = [...postsContent.matchAll(/title:\s*"([^"]+)"/g)];
-  const categoryMatches = [...postsContent.matchAll(/category:\s*"([^"]+)"/g)];
-  const tagsMatches = [
-    ...postsContent.matchAll(/tags:\s*\[([^\]]*)\]/g),
-  ];
-  const recentTitles = titleMatches
-    .slice(0, 12)
-    .map((m) => m[1])
-    .filter((t) => t !== "Headline As It Appears");
-  const recentCategories = categoryMatches.slice(0, 12).map((m) => m[1]);
-  const recentTags = tagsMatches.slice(0, 12).map((m) => m[1]);
+  // Walk the POSTS array in file order (newest first). Each entry is parsed
+  // on its own so a post without a tags line cannot shift the others, and
+  // Morning Briefs are left out: they are a daily digest, not a beat pick,
+  // and counting them would distort the rotation.
+  const recent = [];
+  for (const block of postsContent.split(/\n  \{\n/).slice(1)) {
+    const title = block.match(/\n    title:\s*"((?:[^"\\]|\\.)*)"/)?.[1];
+    const category = block.match(/\n    category:\s*"([^"]+)"/)?.[1];
+    const tags = block.match(/\n    tags:\s*\[([^\]]*)\]/)?.[1] ?? "";
+    if (!title || !category || title === "Headline As It Appears") continue;
+    if (tags.includes("morning-brief")) continue;
+    recent.push({ title, category, tags });
+    if (recent.length >= 12) break;
+  }
+  const recentTitles = recent.map((r) => r.title);
+  const recentCategories = recent.map((r) => r.category);
+  const recentTags = recent.map((r) => r.tags);
 
-  // Beat-rotation context: count how many of the last 5 are corruption-case
-  // and how many of the last 7 are Politics.
+  // Beat-rotation context. The Wire leans business, economics, and
+  // development: at least four of the last six articles should be money
+  // beats, the corruption case is capped, and Politics is capped.
+  const last6Money = recentCategories
+    .slice(0, 6)
+    .filter((c) => MONEY_BEATS.has(c)).length;
   const last5Corruption = recentTags
     .slice(0, 5)
     .filter((t) => t.includes("corruption-case")).length;
   const last7Politics = recentCategories
     .slice(0, 7)
     .filter((c) => c === "Politics").length;
+  const rules = [];
+  if (last6Money < 4) {
+    rules.push(
+      "RULE: today's category MUST be Business, Economy, or Development.",
+    );
+  }
+  if (last5Corruption >= 2) {
+    rules.push("RULE: you may NOT write about the corruption case today.");
+  }
+  if (last7Politics >= 3) {
+    rules.push("RULE: you may NOT pick Politics as today's category.");
+  }
   const beatLine =
-    `Beat-rotation context (be strict): of the last 5 articles, ${last5Corruption} were tagged corruption-case. ` +
-    `Of the last 7 articles, ${last7Politics} were Politics. ` +
-    (last5Corruption >= 4
-      ? "RULE: You may NOT write about the corruption case today. Cover something else (real estate, city hall, infrastructure, schools, healthcare, state government). "
-      : last7Politics >= 5
-        ? "RULE: You may NOT pick Politics as today's category. "
-        : "");
+    `Beat-rotation context (be strict): of the last 6 articles, ${last6Money} were Business, Economy, or Development. ` +
+    `Of the last 5, ${last5Corruption} were tagged corruption-case. ` +
+    `Of the last 7, ${last7Politics} were Politics. ` +
+    rules.join(" ");
 
   const today = todayLocalIso();
 
@@ -447,7 +493,7 @@ ${recentTitles.map((t, i) => `${i + 1}. [${recentCategories[i] || "?"}] ${t}`).j
 
 ${beatLine}
 
-REMINDER: call get_owens_case_docket FIRST (unless the rotation rule above forbids corruption-case coverage today). Only fall back to web_search if the docket has nothing of substance.
+REMINDER: start with at least three document-oriented web_search queries on the money beat (agendas, bond documents, permits, filings, WARN notices, rate cases), fetch_url the best document, and build the story from it. Check get_owens_case_docket once; it only wins the day with a substantive new filing and only if the rules above allow it. End the article with a "What's next:" section.
 Use date "${today}". Pick a category from: ${CATEGORIES.join(", ")}.`;
 
   console.log(
@@ -691,7 +737,7 @@ Use date "${today}". Pick a category from: ${CATEGORIES.join(", ")}.`;
     ? `\n    categories: ${JSON.stringify(crossFiles)},`
     : "";
 
-  const allowedTags = ["corruption-case", "explainer", "data-centers"];
+  const allowedTags = ["pipeline", "data-centers", "corruption-case", "explainer"];
   const tags = Array.isArray(article.tags)
     ? article.tags.filter((t) => allowedTags.includes(t))
     : [];
