@@ -108,10 +108,29 @@ export function createCourtListener({
       "",
     ];
     for (const e of entries) {
-      const docIds = (e.recap_documents || []).map((d) => d.id).filter(Boolean);
+      const docs = e.recap_documents || [];
       lines.push(`[Entry #${e.entry_number ?? "?"}, filed ${e.date_filed}]`);
-      lines.push((e.description || "(no description)").slice(0, descLimit));
-      if (docIds.length) lines.push(`recap_document_id(s): ${docIds.join(", ")}`);
+      // v4 often leaves the entry description empty and puts the text on
+      // the document, so fall back to the documents' descriptions.
+      const desc =
+        e.description ||
+        docs
+          .map((d) => d.description || d.short_description)
+          .filter(Boolean)
+          .join(" / ") ||
+        "(no description)";
+      lines.push(desc.slice(0, descLimit));
+      for (const d of docs) {
+        if (!d.id) continue;
+        const bits = [
+          `recap_document_id: ${d.id}`,
+          d.document_number ? `doc #${d.document_number}` : null,
+          d.page_count ? `${d.page_count} pp` : null,
+          d.is_available === false ? "not yet in RECAP" : null,
+          d.is_sealed ? "sealed" : null,
+        ].filter(Boolean);
+        lines.push(`  ${bits.join(", ")}`);
+      }
       lines.push("");
     }
     return lines.join("\n");
