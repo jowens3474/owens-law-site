@@ -41,23 +41,48 @@ jobs:
           fetch-depth: 1
           persist-credentials: true
 
+      # Skip cleanly (green, no failure email) until at least one platform's
+      # secrets exist. See docs/SOCIAL-SETUP.md.
+      - name: Check configuration
+        id: config
+        env:
+          BLUESKY_HANDLE: ${{ secrets.BLUESKY_HANDLE }}
+          BLUESKY_APP_PASSWORD: ${{ secrets.BLUESKY_APP_PASSWORD }}
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_SECRET: ${{ secrets.X_API_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_SECRET: ${{ secrets.X_ACCESS_SECRET }}
+        run: |
+          bsky=false; x=false
+          [ -n "$BLUESKY_HANDLE" ] && [ -n "$BLUESKY_APP_PASSWORD" ] && bsky=true
+          [ -n "$X_API_KEY" ] && [ -n "$X_API_SECRET" ] && [ -n "$X_ACCESS_TOKEN" ] && [ -n "$X_ACCESS_SECRET" ] && x=true
+          if [ "$bsky" = true ] || [ "$x" = true ]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Social posting is not configured (no Bluesky or X secrets). Skipping. See docs/SOCIAL-SETUP.md."
+          fi
+
       - name: Setup Node
+        if: ${{ steps.config.outputs.configured == 'true' }}
         uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: "npm"
 
       - name: Install dependencies
+        if: ${{ steps.config.outputs.configured == 'true' }}
         run: npm ci
 
       # A push-triggered run starts before the site has rebuilt, so the RSS
       # feed the poster reads would still be stale. Give the deploy a head
       # start. The daily cron is the backstop.
       - name: Wait for deploy (push-triggered runs)
-        if: ${{ github.event_name == 'push' }}
+        if: ${{ github.event_name == 'push' && steps.config.outputs.configured == 'true' }}
         run: sleep 360
 
       - name: Post to X and Bluesky
+        if: ${{ steps.config.outputs.configured == 'true' }}
         env:
           BLUESKY_HANDLE: ${{ secrets.BLUESKY_HANDLE }}
           BLUESKY_APP_PASSWORD: ${{ secrets.BLUESKY_APP_PASSWORD }}
@@ -71,7 +96,7 @@ jobs:
       # is written to data/social-posted.json immediately, and losing that
       # record would double-post the same article on the next run.
       - name: Commit posted-state changes
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && steps.config.outputs.configured == 'true' }}
         run: |
           git config user.name "Jackson Wire Autopilot"
           git config user.email "autopilot@thejacksonwire.com"

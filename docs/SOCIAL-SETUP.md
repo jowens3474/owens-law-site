@@ -68,3 +68,7 @@ DRY_RUN=1 \
 either API or writing `data/social-posted.json`. You can also omit one
 platform's variables entirely (even under `DRY_RUN`) to confirm the
 "skipping" log line for that platform.
+
+## Before the secrets are set
+
+Until at least one platform has its secrets, the Social workflow checks for them first and skips with a notice instead of failing, so no failure emails are sent.

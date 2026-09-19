@@ -43,13 +43,30 @@ jobs:
           fetch-depth: 1
           persist-credentials: true
 
+      # Skip cleanly (green, no failure email) until the Instagram secrets
+      # exist. See docs/INSTAGRAM-SETUP.md.
+      - name: Check configuration
+        id: config
+        env:
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+        run: |
+          if [ -n "$IG_USER_ID" ] && [ -n "$IG_ACCESS_TOKEN" ]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Instagram posting is not configured (IG_USER_ID / IG_ACCESS_TOKEN missing). Skipping. See docs/INSTAGRAM-SETUP.md."
+          fi
+
       - name: Setup Node
+        if: ${{ steps.config.outputs.configured == 'true' }}
         uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: "npm"
 
       - name: Install dependencies
+        if: ${{ steps.config.outputs.configured == 'true' }}
         run: npm ci
 
       # A push-triggered run starts before the site has rebuilt, so the RSS
@@ -58,10 +75,11 @@ jobs:
       # card-wait covers the remainder. The daily cron is the backstop if a
       # deploy ever runs longer than this.
       - name: Wait for deploy (push-triggered runs)
-        if: ${{ github.event_name == 'push' }}
+        if: ${{ github.event_name == 'push' && steps.config.outputs.configured == 'true' }}
         run: sleep 360
 
       - name: Post to Instagram
+        if: ${{ steps.config.outputs.configured == 'true' }}
         env:
           IG_USER_ID: ${{ secrets.IG_USER_ID }}
           IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
@@ -71,7 +89,7 @@ jobs:
       # is written to data/instagram-posted.json immediately, and losing that
       # record would double-post the same article on the next run.
       - name: Commit posted-state changes
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && steps.config.outputs.configured == 'true' }}
         run: |
           git config user.name "Jackson Wire Autopilot"
           git config user.email "autopilot@thejacksonwire.com"

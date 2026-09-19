@@ -252,11 +252,11 @@ async function refreshAccessToken(accessToken) {
 async function main() {
   const igUserId = process.env.IG_USER_ID;
   const accessToken = process.env.IG_ACCESS_TOKEN;
-  if (!igUserId) {
-    throw new Error("Missing IG_USER_ID environment variable.");
-  }
-  if (!accessToken) {
-    throw new Error("Missing IG_ACCESS_TOKEN environment variable.");
+  if (!igUserId || !accessToken) {
+    console.log(
+      "[instagram] Not configured (IG_USER_ID / IG_ACCESS_TOKEN missing). Nothing posted. See docs/INSTAGRAM-SETUP.md.",
+    );
+    process.exit(0);
   }
   const dryRun = process.env.DRY_RUN === "1";
   if (dryRun) {
