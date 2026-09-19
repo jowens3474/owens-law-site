@@ -25,6 +25,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      url: absoluteUrl("/pipeline"),
+      lastModified: latest,
+      changeFrequency: "daily",
+      priority: 0.9,
+    },
+    {
       url: absoluteUrl("/data-centers"),
       lastModified: latest,
       changeFrequency: "daily",

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { site } from "@/lib/site";
 import { absoluteUrl } from "@/lib/markdown";
 
-const description = `About ${site.name} — independent local news from Jackson, Mississippi. Beats, editorial standards, AI policy, corrections, and how to send a tip.`;
+const description = `About ${site.name} — independent business, economics, and development reporting from Jackson, Mississippi. Beats, editorial standards, AI policy, corrections, and how to send a tip.`;
 
 export const metadata: Metadata = {
   title: "About",
@@ -40,15 +40,29 @@ export default function AboutPage() {
 
       <div className="prose-article mt-8">
         <p>
-          {site.name} is an independent newsroom covering government, courts,
-          and money in and around {site.city}. We read the agendas nobody else
-          reads, sit through the meetings that run past midnight, and file the
-          public-records requests that make press officers sigh.
+          {site.name} is an independent newsroom covering business, economics,
+          and development in and around {site.city}. We work like a research
+          desk: we read the filings, budgets, bond documents, contracts, and
+          agendas that decide what gets built and who pays for it, and we
+          publish what they say before it turns up in a press release.
         </p>
         <p>
-          We are reader-supported and beholden to no party, donor, or
-          development authority. If a story makes a powerful person
-          uncomfortable, that is usually a sign we are doing our job.
+          Two promises. First, information you would not otherwise obtain,
+          ahead of the crowd. Second, a clear view of what is coming: the
+          projects, votes, rate changes, and deadlines on the calendar, so
+          readers can see the metro&rsquo;s next two years before they
+          arrive. The{" "}
+          <Link
+            href="/pipeline"
+            className="font-bold text-crimson hover:text-crimson-bright"
+          >
+            Pipeline
+          </Link>{" "}
+          is where we keep that calendar.
+        </p>
+        <p>
+          We are reader-supported and beholden to no party, donor, chamber,
+          or development authority.
         </p>
       </div>
 
@@ -59,26 +73,48 @@ export default function AboutPage() {
         <ul className="mt-4 space-y-3 text-base leading-relaxed">
           <li>
             <Link
-              href="/corruption-case"
+              href="/category/business"
               className="font-bold text-crimson hover:text-crimson-bright"
             >
-              The Trial
+              Business
             </Link>{" "}
-            <span className="text-muted">·</span> The federal corruption case
-            against DA Jody Owens, former Mayor Chokwe Antar Lumumba, and
-            former Councilman Aaron Banks. Trial begins July 13, 2026. Full
-            timeline, defendant profiles, and every filing as it lands.
+            <span className="text-muted">·</span> Companies, deals, jobs, and capital moving through metro Jackson, reported from the filings before the press release.
           </li>
           <li>
             <Link
-              href="/category/politics"
+              href="/category/economy"
               className="font-bold text-crimson hover:text-crimson-bright"
             >
-              Politics
+              Economy
             </Link>{" "}
-            <span className="text-muted">·</span> City council, the Hinds
-            County Board of Supervisors, the Capitol, and the campaigns shaping
-            them.
+            <span className="text-muted">·</span> Budgets, taxes, rates, wages, and the numbers that decide what Jackson can afford.
+          </li>
+          <li>
+            <Link
+              href="/category/development"
+              className="font-bold text-crimson hover:text-crimson-bright"
+            >
+              Development
+            </Link>{" "}
+            <span className="text-muted">·</span> What is being built, what is proposed, and what is stuck: projects, permits, incentives, and the votes that move them.
+          </li>
+          <li>
+            <Link
+              href="/pipeline"
+              className="font-bold text-crimson hover:text-crimson-bright"
+            >
+              The Pipeline
+            </Link>{" "}
+            <span className="text-muted">·</span> Our running tracker of every project and money decision on the calendar, with the dates that will decide them.
+          </li>
+          <li>
+            <Link
+              href="/category/real-estate"
+              className="font-bold text-crimson hover:text-crimson-bright"
+            >
+              Real estate
+            </Link>{" "}
+            <span className="text-muted">·</span> Home sales, rents, land, and the neighborhoods on the move.
           </li>
           <li>
             <Link
@@ -87,29 +123,25 @@ export default function AboutPage() {
             >
               Data Centers
             </Link>{" "}
-            <span className="text-muted">·</span> The AI-infrastructure rush
-            into Mississippi. Saxum, Prado AI, AWS, and the PSC fights that
-            will set precedent.
+            <span className="text-muted">·</span> The AI-infrastructure rush into Mississippi: Saxum, Prado AI, AWS, and the water, power, and zoning fights that come with it.
           </li>
           <li>
             <Link
-              href="/category/commercial-real-estate"
+              href="/category/politics"
               className="font-bold text-crimson hover:text-crimson-bright"
             >
-              Commercial real estate
+              Politics
             </Link>{" "}
-            <span className="text-muted">·</span> Office, retail, industrial,
-            and the development that is reshaping the metro.
+            <span className="text-muted">·</span> City Hall, the county, the Capitol, and the money behind the votes.
           </li>
           <li>
             <Link
-              href="/category/residential-real-estate"
+              href="/corruption-case"
               className="font-bold text-crimson hover:text-crimson-bright"
             >
-              Residential real estate
+              Corruption Case Archive
             </Link>{" "}
-            <span className="text-muted">·</span> Home sales, the rental
-            market, and the neighborhoods on the move.
+            <span className="text-muted">·</span> The federal case against DA Jody Owens, former Mayor Chokwe Antar Lumumba, and former Councilman Aaron Banks, from indictment through the guilty pleas and sentencing.
           </li>
           <li>
             <Link
@@ -118,8 +150,7 @@ export default function AboutPage() {
             >
               Explainers
             </Link>{" "}
-            <span className="text-muted">·</span> Background pieces, profiles,
-            and analysis for anyone arriving mid-story.
+            <span className="text-muted">·</span> Background pieces, profiles, and analysis for anyone arriving mid-story.
           </li>
         </ul>
       </section>
@@ -221,12 +252,17 @@ export default function AboutPage() {
         </h2>
         <div className="prose-article mt-4">
           <p>
-            <em>
-              The Wire is published by a Jackson-area editor. A short personal
-              bio belongs here — name, background, why this beat. Email the
-              tip line above to suggest copy, or edit
-              <code> app/about/page.tsx</code> directly.
-            </em>
+            Every article is published under the editorial responsibility of{" "}
+            <Link
+              href={site.editor.path}
+              className="font-bold text-crimson hover:text-crimson-bright"
+            >
+              {site.editor.name}
+            </Link>
+            , the Wire&rsquo;s editor of record. The byline reads
+            &ldquo;Jackson Wire Staff&rdquo; because the drafting is
+            AI-assisted; the judgment about what to cover, what the documents
+            say, and what to publish is his.
           </p>
         </div>
       </section>

@@ -13,6 +13,18 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // Sections renamed when the Wire refocused on business, economics,
+      // and development. Old section URLs keep working.
+      {
+        source: "/category/commercial-real-estate",
+        destination: "/category/development",
+        permanent: true,
+      },
+      {
+        source: "/category/residential-real-estate",
+        destination: "/category/real-estate",
+        permanent: true,
+      },
       // Renamed slug: keep the old URLs (HTML, Markdown, /markdown) working
       // with permanent (301) redirects so links and search results update.
       {
