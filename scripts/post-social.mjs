@@ -381,8 +381,10 @@ async function main() {
   if (!xCreds) console.log("[social] skipping x (no credentials)");
   if (!blueskyCreds) console.log("[social] skipping bluesky (no credentials)");
   if (!xCreds && !blueskyCreds) {
-    console.error("[social] No credentials for X or Bluesky. Nothing to do.");
-    process.exit(1);
+    console.log(
+      "[social] Not configured (no X or Bluesky secrets). Nothing posted. See docs/SOCIAL-SETUP.md.",
+    );
+    process.exit(0);
   }
 
   const today = todayLocalIso();

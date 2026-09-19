@@ -80,3 +80,7 @@ To send broadcasts from `brief@thejacksonwire.com`, the domain
 
   `DRY_RUN=1` prints the subject line and the first 500 characters of the
   HTML body without calling the Resend API.
+
+## Before the secrets are set
+
+Until both secrets exist, the Newsletter workflow checks for them first and skips with a notice instead of failing, so no failure emails are sent.

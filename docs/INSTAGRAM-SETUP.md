@@ -63,3 +63,7 @@ string itself does not change under normal operation). If the workflow log
 ever shows a "refresh_access_token returned a NEW token string" warning,
 update the `IG_ACCESS_TOKEN` secret with the new value immediately, since
 the old one will stop working once it expires.
+
+## Before the secrets are set
+
+Until both secrets exist, the Instagram workflow checks for them first and skips with a notice instead of failing, so no failure emails are sent.

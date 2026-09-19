@@ -198,11 +198,11 @@ async function resendRequest(path, apiKey, body) {
 async function main() {
   const apiKey = process.env.RESEND_API_KEY;
   const audienceId = process.env.RESEND_AUDIENCE_ID;
-  if (!apiKey) {
-    throw new Error("Missing RESEND_API_KEY environment variable.");
-  }
-  if (!audienceId) {
-    throw new Error("Missing RESEND_AUDIENCE_ID environment variable.");
+  if (!apiKey || !audienceId) {
+    console.log(
+      "[newsletter] Not configured (RESEND_API_KEY / RESEND_AUDIENCE_ID missing). Nothing sent. See docs/NEWSLETTER-SETUP.md.",
+    );
+    process.exit(0);
   }
   const dryRun = process.env.DRY_RUN === "1";
   if (dryRun) {
