@@ -54,6 +54,27 @@ filings and the receivership docket; PSC dockets (psc.ms.gov); Legislature
 bills and fiscal notes; PEER and State Auditor reports; CourtListener for
 business litigation and bankruptcies.
 
+## Search and data providers
+
+The scripts search the web through `scripts/lib/search.mjs`, which tries
+providers in order and never throws:
+
+1. **Tavily** (`TAVILY_API_KEY`), at `basic` depth. The free plan is 1,000
+   credits a month; basic searches cost 1 credit, advanced cost 2. When Tavily
+   answers with its usage-limit error (HTTP 432) the run stops calling it.
+2. **Brave Search** (`BRAVE_API_KEY`, optional). Add the secret in repo
+   Settings, Secrets and variables, Actions to enable it.
+3. **DuckDuckGo** HTML results, no key.
+
+If all three fail, the model is handed a list of portals it can read with
+`fetch_url` and told not to guess URLs.
+
+CourtListener calls go through `scripts/lib/courtlistener.mjs`, which tries
+the v4 API first and falls back to v3, logging the response body on any
+error so an auth problem is visible in the workflow log. The docket-check
+workflow runs on whatever branch it is dispatched from, so a change to that
+module can be tested before it is merged.
+
 ## The Pipeline
 
 `/pipeline` is the public tracker. Its data lives in `lib/pipeline.ts`:
