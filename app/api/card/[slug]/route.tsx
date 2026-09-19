@@ -3,10 +3,11 @@ import sharp from "sharp";
 import { getPostBySlug, formatDate } from "@/lib/posts";
 
 // Generates a branded card image for a published article. Default is the
-// 1080x1080 square used for Instagram by scripts/post-instagram.mjs; add
-// ?size=wide for a 1200x675 (16:9) version used as the article's Open Graph
-// image and primary NewsArticle image, since Google prefers images at least
-// 1200px wide. Instagram's Graph API only accepts JPEG via image_url, so the
+// 1080x1080 square used for Instagram by scripts/post-instagram.mjs. Add
+// ?size=og for the 1200x630 Open Graph image used by link previews (iMessage,
+// Facebook, X, Slack), or ?size=wide for a 1200x675 (16:9) version listed as
+// the primary NewsArticle image, since Google prefers images at least 1200px
+// wide. Instagram's Graph API only accepts JPEG via image_url, so the
 // PNG ImageResponse produces is converted with sharp before being returned.
 export const runtime = "nodejs";
 
@@ -22,9 +23,12 @@ export async function GET(
     return new Response("Not found", { status: 404 });
   }
 
-  const wide = new URL(req.url).searchParams.get("size") === "wide";
+  const size = new URL(req.url).searchParams.get("size");
+  // "og" is the 1200x630 (1.91:1) Open Graph standard used for link previews;
+  // "wide" is 1200x675 (16:9) for Google News; default is the 1080 square.
+  const wide = size === "wide" || size === "og";
   const width = wide ? 1200 : 1080;
-  const height = wide ? 675 : 1080;
+  const height = size === "og" ? 630 : wide ? 675 : 1080;
   // Less vertical room on the wide card, so scale the type down a step.
   const headlineSize = wide
     ? post.title.length > 70
