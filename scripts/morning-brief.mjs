@@ -130,7 +130,7 @@ const TOOLS = [
     function: {
       name: "get_owens_case_docket",
       description:
-        "Get recent docket entries from the federal criminal case against Jody Owens, Chokwe Antar Lumumba, and Aaron Banks. Returns the most recent entries (motions, orders, filings). Call this FIRST. Returns 'unavailable' if CourtListener can't be reached.",
+        "Get recent docket entries from the federal criminal case against Jody Owens, Chokwe Antar Lumumba, and Aaron Banks. Returns the most recent entries (motions, orders, filings). Call this once, after the money-beat searches; include an item only for a substantive filing in the last 24 to 48 hours. Returns 'unavailable' if CourtListener can't be reached.",
       parameters: {
         type: "object",
         properties: {
@@ -359,8 +359,8 @@ Recent articles already published (do not duplicate exact stories):
 ${recentTitles.map((t, i) => `${i + 1}. ${t}`).join("\n")}
 
 Process:
-1. Check get_owens_case_docket once. Include a corruption-case item ONLY if there's a substantive filing in the last 2-3 days.
-2. Call web_search 4-6 times, money beat first: business, development, budgets and taxes, utilities and rates, jobs, bonds. Then politics, infrastructure, courts, schools.
+1. Call web_search 4-6 times, money beat first: business, development, budgets and taxes, utilities and rates, jobs, bonds. Then politics, infrastructure, courts, schools.
+2. Check get_owens_case_docket once. Include a corruption-case item ONLY if there's a substantive filing in the last 2-3 days.
 3. Compose 5 items: at least three business/economy/development, at least one forward-looking with a date, news-weight order.
 4. Call publish_brief with slug "morning-brief-${today}", title format "Morning Brief: ${pretty} · [punchy summary]".`;
 

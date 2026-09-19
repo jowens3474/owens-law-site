@@ -185,7 +185,7 @@ const TOOLS = [
     function: {
       name: "get_owens_case_docket",
       description:
-        "Get recent docket entries from the federal criminal case against Jody Owens, Chokwe Antar Lumumba, and Aaron Banks in the Southern District of Mississippi. Returns the most recent entries (motions, orders, filings). Call this FIRST every run, before web_search. Returns 'unavailable' if CourtListener can't be reached.",
+        "Get recent docket entries from the federal criminal case against Jody Owens, Chokwe Antar Lumumba, and Aaron Banks in the Southern District of Mississippi. Returns the most recent entries (motions, orders, filings). Call this once, after your first money-beat web_search queries; it only sets the day's story if a substantive order or ruling landed and the rotation rule allows it. Returns 'unavailable' if CourtListener can't be reached.",
       parameters: {
         type: "object",
         properties: {
@@ -737,7 +737,7 @@ Use date "${today}". Pick a category from: ${CATEGORIES.join(", ")}.`;
     ? `\n    categories: ${JSON.stringify(crossFiles)},`
     : "";
 
-  const allowedTags = ["corruption-case", "explainer", "data-centers"];
+  const allowedTags = ["pipeline", "data-centers", "corruption-case", "explainer"];
   const tags = Array.isArray(article.tags)
     ? article.tags.filter((t) => allowedTags.includes(t))
     : [];

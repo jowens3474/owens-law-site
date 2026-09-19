@@ -136,6 +136,15 @@ export default function AboutPage() {
           </li>
           <li>
             <Link
+              href="/category/general-news"
+              className="font-bold text-crimson hover:text-crimson-bright"
+            >
+              General news
+            </Link>{" "}
+            <span className="text-muted">·</span> Courts, public safety, and the rest of the capital city.
+          </li>
+          <li>
+            <Link
               href="/corruption-case"
               className="font-bold text-crimson hover:text-crimson-bright"
             >

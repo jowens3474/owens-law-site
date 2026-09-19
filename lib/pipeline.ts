@@ -67,7 +67,7 @@ export const PROJECTS: Project[] = [
     investment: "$100M private, plus $48M county urban renewal bonds",
     stage: "approved",
     status:
-      "Supervisors authorized the $48 million bond issue for an 1,800-person conference center on a 3-2 vote on Sept. 9, 2026, over objections about the land appraisal and a $10 conveyance clause. The private side adds a 250-room hotel and four restaurants.",
+      "Supervisors authorized the $48 million bond issue for an 1,800-person conference center on a 3-2 vote on Sept. 8, 2026, over objections about the land appraisal and a $10 conveyance clause. The private side adds a 250-room hotel and four restaurants.",
     next: "Bond sale and a public construction schedule.",
     slugs: [
       "madison-county-conference-center-48m-bond-prado",
@@ -93,7 +93,7 @@ export const PROJECTS: Project[] = [
     investment: "$59M, 234 units",
     stage: "under-construction",
     status:
-      "Ground broke in August 2026. Average rents are planned near $2,100 a month, about twice the city's median.",
+      "Ground broke in April 2026. Average rents are planned near $2,100 a month, about twice the city's median.",
     next: "Delivery in fall 2027.",
     slugs: ["flats-at-fondren-rent-double-jackson-median"],
   },
@@ -161,7 +161,7 @@ export const PROJECTS: Project[] = [
 
 export const MILESTONES: Milestone[] = [
   {
-    date: "2026-07-24",
+    date: "2026-07-20",
     kind: "vote",
     text: "Madison County supervisors vote 3-1 to pursue urban renewal bonds for the Ridgeland conference center.",
     slug: "madison-county-approves-48-million-conference-center-ridgeland",
@@ -179,7 +179,7 @@ export const MILESTONES: Milestone[] = [
     slug: "flat-millage-locks-in-no-tax-increase-as-public-works-cut-looms",
   },
   {
-    date: "2026-09-09",
+    date: "2026-09-08",
     kind: "vote",
     text: "Madison County authorizes $48 million in bonds for the conference center, 3-2.",
     slug: "madison-county-conference-center-48m-bond-prado",
