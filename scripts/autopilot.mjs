@@ -8,6 +8,8 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { execSync } from "node:child_process";
 import OpenAI from "openai";
 import { fetchUrl } from "./lib/fetch-url.mjs";
+import { webSearch } from "./lib/search.mjs";
+import { createCourtListener } from "./lib/courtlistener.mjs";
 import { pingIndexNow } from "./lib/indexnow.mjs";
 
 const POSTS_FILE = "lib/posts.ts";
@@ -22,18 +24,9 @@ const CATEGORIES = [
 // Sections that count toward the money-beat quota in the rotation rule.
 const MONEY_BEATS = new Set(["Business", "Economy", "Development"]);
 
-// Federal criminal case the Wire is tracking. The CourtListener lookup tries
-// each docket-number variant in turn before falling back to a name search.
-const OWENS_CASE = {
-  label: "U.S. v. Owens, Lumumba, and Banks",
-  court: "mssd", // Southern District of Mississippi
-  docketNumberVariants: [
-    "3:24-cr-00103",
-    "3:24-cr-103",
-    "24-cr-103",
-    "24-103",
-  ],
-};
+// The federal criminal case is looked up through scripts/lib/courtlistener.mjs.
+const courtListener = createCourtListener({ prefix: "autopilot" });
+const { getOwensCaseDocket, readCourtFiling } = courtListener;
 
 const SYSTEM_PROMPT = `You are the research-desk writer for The Jackson Wire, an independent business and economics news site covering Jackson, Mississippi and its metro (Hinds, Madison, and Rankin counties).
 
@@ -281,139 +274,6 @@ const TOOLS = [
   },
 ];
 
-// --- CourtListener helpers --------------------------------------------------
-
-const CL_BASE = "https://www.courtlistener.com/api/rest/v3";
-
-function clHeaders() {
-  const h = { Accept: "application/json" };
-  if (process.env.COURTLISTENER_API_TOKEN) {
-    h.Authorization = `Token ${process.env.COURTLISTENER_API_TOKEN}`;
-  }
-  return h;
-}
-
-let cachedOwensDocketId = null;
-
-async function findOwensDocketId() {
-  if (cachedOwensDocketId) return cachedOwensDocketId;
-  for (const variant of OWENS_CASE.docketNumberVariants) {
-    const url = `${CL_BASE}/dockets/?court=${OWENS_CASE.court}&docket_number=${encodeURIComponent(
-      variant,
-    )}`;
-    console.log(`[autopilot] CourtListener search: ${variant}`);
-    const res = await fetch(url, { headers: clHeaders() });
-    if (!res.ok) {
-      console.log(`[autopilot]  -> HTTP ${res.status}`);
-      continue;
-    }
-    const data = await res.json();
-    if (data.results && data.results.length > 0) {
-      const docket = data.results[0];
-      console.log(
-        `[autopilot]  -> matched docket id=${docket.id} (${docket.docket_number})`,
-      );
-      cachedOwensDocketId = docket.id;
-      return docket.id;
-    }
-  }
-  const url = `${CL_BASE}/dockets/?court=${OWENS_CASE.court}&case_name__icontains=Owens`;
-  console.log(`[autopilot] CourtListener search by name: Owens`);
-  const res = await fetch(url, { headers: clHeaders() });
-  if (res.ok) {
-    const data = await res.json();
-    if (data.results && data.results.length > 0) {
-      const docket = data.results[0];
-      console.log(
-        `[autopilot]  -> matched docket id=${docket.id} (${docket.docket_number})`,
-      );
-      cachedOwensDocketId = docket.id;
-      return docket.id;
-    }
-  }
-  throw new Error("Owens case not found on CourtListener");
-}
-
-async function getOwensCaseDocket(daysBack = 7) {
-  const docketId = await findOwensDocketId();
-  const cutoff = new Date(Date.now() - daysBack * 24 * 60 * 60 * 1000);
-  const url = `${CL_BASE}/docket-entries/?docket=${docketId}&order_by=-date_filed&page_size=25`;
-  const res = await fetch(url, { headers: clHeaders() });
-  if (!res.ok) {
-    throw new Error(`docket-entries HTTP ${res.status}: ${await res.text()}`);
-  }
-  const data = await res.json();
-  const entries = (data.results || []).filter((e) => {
-    if (!e.date_filed) return false;
-    return new Date(e.date_filed) >= cutoff;
-  });
-  if (entries.length === 0) {
-    return `No new docket entries in the last ${daysBack} days for ${OWENS_CASE.label} (docket ${docketId}).`;
-  }
-  const lines = [
-    `=== ${OWENS_CASE.label} — Southern District of Mississippi ===`,
-    `Docket entries filed in the last ${daysBack} days:`,
-    "",
-  ];
-  for (const e of entries) {
-    const docIds = (e.recap_documents || []).map((d) => d.id).filter(Boolean);
-    lines.push(`[Entry #${e.entry_number ?? "?"}, filed ${e.date_filed}]`);
-    lines.push(`${(e.description || "(no description)").slice(0, 800)}`);
-    if (docIds.length) {
-      lines.push(`recap_document_id(s): ${docIds.join(", ")}`);
-    }
-    lines.push("");
-  }
-  return lines.join("\n");
-}
-
-async function readCourtFiling(recapDocumentId) {
-  const url = `${CL_BASE}/recap-documents/${recapDocumentId}/`;
-  const res = await fetch(url, { headers: clHeaders() });
-  if (!res.ok) {
-    throw new Error(`recap-document HTTP ${res.status}`);
-  }
-  const data = await res.json();
-  const text = data.plain_text || "";
-  if (!text.trim()) {
-    return `(no extracted text available for this filing — description: ${
-      data.description || data.short_description || "n/a"
-    })`;
-  }
-  return text.length > 15000 ? text.slice(0, 15000) + "\n\n[truncated]" : text;
-}
-
-// --- Tavily search -----------------------------------------------------------
-
-async function tavilySearch(query) {
-  const res = await fetch("https://api.tavily.com/search", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.TAVILY_API_KEY}`,
-    },
-    body: JSON.stringify({
-      query,
-      max_results: 5,
-      search_depth: "advanced",
-    }),
-  });
-  if (!res.ok) {
-    throw new Error(`Tavily HTTP ${res.status}: ${await res.text()}`);
-  }
-  const data = await res.json();
-  const results = data.results || [];
-  if (results.length === 0) {
-    return "(no results)";
-  }
-  return results
-    .map(
-      (r, i) =>
-        `[${i + 1}] ${r.title}\nURL: ${r.url}\n${(r.content || "").slice(0, 1000)}`,
-    )
-    .join("\n\n");
-}
-
 // --- main loop --------------------------------------------------------------
 
 function todayLocalIso() {
@@ -426,8 +286,10 @@ async function main() {
   if (!process.env.DEEPSEEK_API_KEY) {
     throw new Error("Missing DEEPSEEK_API_KEY");
   }
-  if (!process.env.TAVILY_API_KEY) {
-    throw new Error("Missing TAVILY_API_KEY");
+  if (!process.env.TAVILY_API_KEY && !process.env.BRAVE_API_KEY) {
+    console.log(
+      "[autopilot] No TAVILY_API_KEY or BRAVE_API_KEY; web_search will rely on DuckDuckGo.",
+    );
   }
 
   const client = new OpenAI({
@@ -615,7 +477,7 @@ Use date "${today}". Pick a category from: ${CATEGORIES.join(", ")}.`;
       if (name === "web_search") {
         console.log(`[autopilot] search: "${args.query}"`);
         try {
-          const results = await tavilySearch(args.query);
+          const results = await webSearch(args.query, { prefix: "autopilot" });
           messages.push({
             role: "tool",
             tool_call_id: tc.id,

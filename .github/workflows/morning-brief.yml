@@ -3,8 +3,8 @@ name: Morning Brief
 # Produces the daily Morning Brief — a 5-item summary of what Jackson needs
 # to know this morning. Lands before commute time, Central.
 #
-# Requires DEEPSEEK_API_KEY and TAVILY_API_KEY in repo Settings → Secrets and variables → Actions.
-# Optional: COURTLISTENER_API_TOKEN raises CourtListener rate limits.
+# Requires DEEPSEEK_API_KEY. Web search uses TAVILY_API_KEY, then BRAVE_API_KEY
+# (optional), then DuckDuckGo with no key. COURTLISTENER_API_TOKEN is optional.
 
 on:
   schedule:
@@ -45,5 +45,6 @@ jobs:
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
           TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
+          BRAVE_API_KEY: ${{ secrets.BRAVE_API_KEY }}
           COURTLISTENER_API_TOKEN: ${{ secrets.COURTLISTENER_API_TOKEN }}
         run: node scripts/morning-brief.mjs
