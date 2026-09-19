@@ -32,14 +32,20 @@ export async function generateMetadata({
   const post = getPostBySlug(slug);
   if (!post) return {};
   const url = absoluteUrl(`/article/${slug}`);
-  // Articles without a photo fall back to the generated branded cards so
-  // Google News and social previews always have an image to show. The wide
-  // 16:9 card leads because Google prefers images at least 1200px wide.
+  // Exactly one share image. Link-preview clients (Apple Messages in
+  // particular) collage every og:image they find, so listing the wide and
+  // square cards together produced a stitched two-image thumbnail. Articles
+  // with a photo share the photo; the rest share the 1200x630 Open Graph card.
   const images = post.image
-    ? [absoluteUrl(post.image)]
+    ? [{ url: absoluteUrl(post.image), alt: post.imageAlt ?? post.title }]
     : [
-        absoluteUrl(`/api/card/${post.slug}?size=wide`),
-        absoluteUrl(`/api/card/${post.slug}`),
+        {
+          url: absoluteUrl(`/api/card/${post.slug}?size=og`),
+          width: 1200,
+          height: 630,
+          type: "image/jpeg",
+          alt: post.title,
+        },
       ];
   return {
     title: post.title,
