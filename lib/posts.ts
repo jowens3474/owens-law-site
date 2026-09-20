@@ -66,6 +66,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-09-20",
+    title: "Morning Brief: Sep 20 · Solid Waste Fees and Debt Collector Land on Tuesday's Council Agenda",
+    dek: "Jackson's council meets Tuesday with a solid waste disposal fee rewrite and a private debt collection contract on the table, the same week Hinds County supervisors take up their own budget calendar.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-09-20",
+    views: 0,
+    body: [
+      "Solid waste fee rewrite returns Tuesday: The Jackson City Council's Sept. 22 agenda lists an ordinance amending the solid waste facility disposal fees at Section 106-148 of the city code, the same fee schedule the council moved to rewrite two weeks after passing its budget. The 6 p.m. meeting also carries a resolution supporting an agreement with Municipal Intercept Company, LLC for collection of unpaid debts under the Local Government Debt Collection Setoff Act. Both items sit under introduction of ordinances and resolutions, meaning a first reading rather than a final vote. The city's posted notice says the meeting is by teleconference with Council Chambers as the central public location.",
+      "City ratifies $1 million C Spire network deal: An order on Tuesday's agenda ratifies the Department of Information Technology's negotiation of a reduced price with TekLinks, Inc., doing business as C Spire Business, accepting a bid of $1,001,962.88 for IT infrastructure and network modernization. The same packet includes a 60-month Pitney Bowes postage machine rental for the Treasury Division and a 48-month Lexmark copier lease for Municipal Court Services at $70 a month plus per-page charges. The C Spire figure is the largest single technology number to reach the council this month, and the order authorizes the mayor to execute all documents for the procurement.",
+      "Hinds supervisors meet Monday on a special calendar: The Hinds County Board of Supervisors holds a special meeting Monday, Sept. 21, with a work session set for Tuesday, Sept. 22, according to the county's posted 2026 meeting schedule. The board's regular meetings fall on the first and third Mondays, which puts the Sept. 21 session on the third-Monday slot. Agendas are posted through the county's Board Agenda page, which returned an access error when the Wire attempted to read it directly. Supervisors' decisions on the county budget and tax levy set the millage that Jackson and smaller municipalities collect alongside their own, so the calendar matters to every commercial property owner in the county.",
+      "Utility storage hearings set for Wednesday: The Mississippi Public Service Commission's hearing schedule lists Wildwood Energy Storage and Greer Energy Storage, both set for Sept. 23. The commission's September utility docket and consent docket are posted on the PSC site, and the three-member body is led by Northern District Commissioner Chris Brown, Central District Commissioner De'Keither Stamps, and Southern District Commissioner Wayne Carr. Battery storage projects of this type are typically paired with data center load, the same category of demand that has driven the PSC's recent docket traffic. The Sept. 23 hearings are the next scheduled chance for the public to see how the commission treats storage as a stand-alone resource.",
+      "Hitachi Energy brings 654 jobs and $528 million: Hitachi Energy is expanding its transformer manufacturing plant in Copiah County, a $528 million corporate investment the Mississippi Development Authority announced Sept. 15, calling it the company's largest U.S. investment to date. The project is expected to create 654 jobs. It lands in the same quarter as General Atomics' second Shannon expansion in four months (125 jobs, $87 million) and Mayo Clinic Laboratories' move into Southaven (234 jobs, more than $30 million). Copiah County sits roughly 40 miles south of Jackson on the I-55 corridor, close enough that the hiring pool and supplier spending will reach the metro.",
+    ],
+  },
+  {
     slug: "diesel-six-dollars-mississippi-who-pays-first-jackson-budget-harvest",
     title: "Diesel Hit $6 in Mississippi. Here Is Who Pays First, From the Delta Harvest to Jackson's Fuel Bill.",
     dek: "Mississippi diesel averaged $6.05 a gallon on Friday, up 84 percent in a year, while the national average set another record at $6.44. The bill lands in a specific order: farmers in the middle of harvest, owner-operators who pay for fuel before they get paid for the load, then a city that just passed a budget with no room in it.",
