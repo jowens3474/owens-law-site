@@ -66,6 +66,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-09-21",
+    title: "Morning Brief: Sep 21 · Verizon Tower Deals and Tax Levies Top a Busy Council Week",
+    dek: "Jackson's Tuesday council agenda carries two Verizon Wireless antenna license amendments, a bridge bid correction, and a landscaping contract, all landing the same week the city's FY27 tax levies take effect.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-09-21",
+    views: 0,
+    body: [
+      "Verizon tower deals top Tuesday's council agenda: The Jackson City Council's Sept. 22 regular agenda, posted Friday, carries two orders authorizing Mayor John Horhn to amend antenna site license agreements with Alltel Corporation, doing business as Verizon Wireless. One covers Tower Site #2 on Riverside Drive downtown at 2320 Riverside Dr.; the other covers Tower Site #13 at 1921 W. Northside Drive near Northside Baptist. Both would modify equipment, extend terms, and update the licensee's notice address. The same agenda amends Hemphill Construction's Shaw Road Bridge Rehabilitation award to correct the amount and accepts MS Yard Barber LLC's proposal for landscaping and ground maintenance. The meeting starts at 6 p.m. in Council Chambers.",
+      "City and school tax levies locked for FY27: Jackson's fiscal 2027 millage is now on the books. On Sept. 3 the council adopted two resolutions establishing ad valorem levies on real and personal property, one for the Jackson Municipal Separate School District and one for city and library purposes, both for fiscal 2026-2027 (tax year 2027). Chief Financial Officer Jillian Caldwell and Horhn sponsored both. The council then adopted the FY27 municipal budget on Sept. 11 by a 5-1 vote, per WJTV, after rejecting a $1.5 million transfer from police to fire and a $600,000 shift from Grand Gulf and JPD capital outlay to fire personnel. Property owners will see the combined rate on next year's bills.",
+      "Zoning Council meets today at 2:30: The Jackson City Council holds its regular zoning meeting today, Sept. 21, at 2:30 p.m. in Council Chambers, with members permitted to join by teleconference. The notice, posted Friday, cites Section 2-62(b) of the city code as the purpose. No agenda items were attached to the public notice as of Monday morning, which is common for the zoning session; the substantive land-use docket typically appears at the meeting itself. Developers and property owners with pending rezonings should watch for last-minute additions. The regular council meeting follows Tuesday at 6 p.m.",
+      "Hinds supervisors meet today on third Monday: The Hinds County Board of Supervisors holds its second monthly meeting today, Sept. 21, in the Board Room of the Chancery Court Building. Under the county's published 2026 schedule, the third Monday is the board's Special Meeting slot, with regular meetings on the first Monday. The board's agenda page was not accessible Monday morning, but the schedule lists a work session for Sept. 22. County spending, road and bridge work, and economic development items typically move through these sessions. Residents can watch live through the county's streaming link.",
+      "PSC weighs two energy storage projects Wednesday: The Mississippi Public Service Commission has scheduled hearings for Sept. 23 on two battery storage proposals, Wildwood Energy Storage and Greer Energy Storage, according to the commission's hearing calendar. The PSC's September utility docket and consent docket are also posted. Storage projects matter to ratepayers because utilities recover their costs through the same base-rate mechanism that funds generation, and the commission's treatment of them shapes future electric bills. The three commissioners are Chris Brown (Northern), De'Keither Stamps (Central), and Wayne Carr (Southern). Jackson sits in the Central District. Docket documents are available through the PSC's electronic filing system.",
+    ],
+  },
+  {
     slug: "jackson-council-september-22-benefits-solid-waste-surplus-land",
     title: "Jackson Locks In 2027 Employee Benefits, Rewrites Trash Fees and Sells Surplus Land on Tuesday",
     dek: "The Sept. 22 council agenda carries a MetLife renewal for city workers, a new cafeteria-plan administrator, a solid waste fee ordinance and a quitclaim sale of three parcels to Wil-Mat Investments. None of it has been reported.",
