@@ -11,6 +11,7 @@ import OpenAI from "openai";
 import { fetchUrl } from "./lib/fetch-url.mjs";
 import { webSearch } from "./lib/search.mjs";
 import { createCourtListener } from "./lib/courtlistener.mjs";
+import { DATA_TOOLS, DATA_TOOL_NAMES, runDataTool } from "./lib/data-tools.mjs";
 import { pingIndexNow } from "./lib/indexnow.mjs";
 
 const POSTS_FILE = "lib/posts.ts";
@@ -38,8 +39,14 @@ TOPIC MIX, required
 - The remaining items can be politics, infrastructure, courts, schools, or community, told through their cost or consequence where possible.
 - Include a corruption-case item only if a substantive filing landed in the last 24 to 48 hours. Otherwise skip it.
 
+REAL-TIME DATA TOOLS, use first
+- Call news_feed("Jackson Mississippi", 24) and jackson_meetings() before anything else. They are free and have no quota.
+- Then news_feed for one or two beats (e.g. "Hinds County", "Ridgeland Mississippi", "JXN Water", "Mississippi Development Authority").
+- Use eia_fuel_prices, bls_series, federal_awards, court_search, sec_filings, or federal_register when an item needs a number or a document.
+- Use web_search only to fill gaps the feeds leave.
+
 RESEARCH ORDER
-1. Call web_search 4 to 6 times on the money beat first: metro Jackson business news, development and permits, budgets and taxes, utilities and rates, jobs and layoffs, bonds and incentives. Then one or two searches for the rest of the city.
+1. Call news_feed("Jackson Mississippi", 24) and jackson_meetings(), then web_search 2 to 4 times on the money beat: metro Jackson business news, development and permits, budgets and taxes, utilities and rates, jobs and layoffs, bonds and incentives. Then one or two searches for the rest of the city.
 2. When a city, county, or state meeting is happening today or this week, find the agenda or notice URL with web_search and call fetch_url to read it directly. Quote from the agenda. Agenda items with dollar figures make the best forward-looking entries.
 3. Call get_owens_case_docket once. Include an item only if there is a substantive filing in the last 24 to 48 hours.
 4. Build the 5-item lineup, ordered by news weight, with the money items carrying the top of the brief.
@@ -192,6 +199,7 @@ const TOOLS = [
       },
     },
   },
+  ...DATA_TOOLS,
 ];
 
 // --- main -------------------------------------------------------------------
@@ -240,7 +248,7 @@ Recent articles already published (do not duplicate exact stories):
 ${recentTitles.map((t, i) => `${i + 1}. ${t}`).join("\n")}
 
 Process:
-1. Call web_search 4-6 times, money beat first: business, development, budgets and taxes, utilities and rates, jobs, bonds. Then politics, infrastructure, courts, schools.
+1. Call news_feed("Jackson Mississippi", 24) and jackson_meetings() first, then web_search 2-4 times, money beat first: business, development, budgets and taxes, utilities and rates, jobs, bonds. Then politics, infrastructure, courts, schools.
 2. Check get_owens_case_docket once. Include a corruption-case item ONLY if there's a substantive filing in the last 2-3 days.
 3. Compose 5 items: at least three business/economy/development, at least one forward-looking with a date, news-weight order.
 4. Call publish_brief with slug "morning-brief-${today}", title format "Morning Brief: ${pretty} · [punchy summary]".`;
@@ -413,6 +421,16 @@ Process:
           role: "tool",
           tool_call_id: tc.id,
           content: "Brief received.",
+        });
+      } else if (DATA_TOOL_NAMES.has(name)) {
+        const content = await runDataTool(name, args, {
+          prefix: "brief",
+          cl: courtListener,
+        });
+        messages.push({
+          role: "tool",
+          tool_call_id: tc.id,
+          content: content ?? `Unknown data tool ${name}.`,
         });
       } else {
         messages.push({
