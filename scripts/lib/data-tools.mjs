@@ -105,7 +105,14 @@ async function newsFeed({ query = "Jackson Mississippi", hours = 24 } = {}) {
   try {
     const q = /\s/.test(query) ? `"${query}"` : query;
     const url = `https://api.gdeltproject.org/api/v2/doc/doc?query=${encodeURIComponent(q)}&mode=artlist&format=json&timespan=${hours}h&maxrecords=15&sort=datedesc`;
-    const data = await getJson(url);
+    let data;
+    try {
+      data = await getJson(url);
+    } catch (e) {
+      if (!/HTTP 429/.test(e.message)) throw e;
+      await new Promise((r) => setTimeout(r, 5500)); // GDELT allows one call per 5s
+      data = await getJson(url);
+    }
     const arts = data.articles || [];
     if (arts.length) {
       lines.push(`GDELT articles for ${q} (last ${hours}h, direct links):`);
@@ -127,31 +134,61 @@ async function newsFeed({ query = "Jackson Mississippi", hours = 24 } = {}) {
 async function jacksonMeetings({ limit = 15 } = {}) {
   const out = [];
   const errors = [];
-  const sources = [
-    {
-      name: "City of Jackson (jacksonms.gov)",
-      url: `https://www.jacksonms.gov/wp-json/wp/v2/posts?per_page=${Math.min(limit, 30)}&search=${encodeURIComponent("agenda notice meeting")}&orderby=date&order=desc&_fields=title,link,date,excerpt`,
-    },
-    {
-      name: "Hinds County (hindscountyms.com)",
-      url: `https://www.hindscountyms.com/wp-json/wp/v2/posts?per_page=10&orderby=date&order=desc&_fields=title,link,date,excerpt`,
-    },
-  ];
-  for (const s of sources) {
-    try {
-      const posts = await getJson(s.url);
-      if (!Array.isArray(posts) || posts.length === 0) continue;
-      out.push(`${s.name}, newest posts:`);
-      for (const p of posts) {
-        const ex = strip(p.excerpt?.rendered || "").slice(0, 160);
-        out.push(`- ${(p.date || "").slice(0, 10)} | ${strip(p.title?.rendered)} | ${p.link}${ex ? `\n  ${ex}` : ""}`);
-      }
+  const n = Math.min(Math.max(limit, 5), 30);
+
+  // City of Jackson runs WordPress with a custom "agendameeting" post type
+  // for agendas and packets. Read it dated, newest first; fall back to the
+  // site-wide search (undated) if the type is unavailable.
+  let gotAgendas = false;
+  try {
+    const posts = await getJson(
+      `https://www.jacksonms.gov/wp-json/wp/v2/agendameeting?per_page=${n}&orderby=date&order=desc&_fields=title,link,date`,
+    );
+    if (Array.isArray(posts) && posts.length) {
+      gotAgendas = true;
+      out.push("City of Jackson agendas and packets (jacksonms.gov), newest first:");
+      for (const p of posts) out.push(`- ${(p.date || "").slice(0, 10)} | ${strip(p.title?.rendered)} | ${p.link}`);
       out.push("");
+    }
+  } catch (e) {
+    errors.push(`jacksonms.gov agendas: ${e.message}`);
+  }
+  if (!gotAgendas) {
+    try {
+      const hits = await getJson(
+        `https://www.jacksonms.gov/wp-json/wp/v2/search?search=agenda&per_page=${n}&_fields=title,url,subtype`,
+      );
+      if (Array.isArray(hits) && hits.length) {
+        out.push("City of Jackson, pages matching \"agenda\" (undated; open with fetch_url for the packet):");
+        for (const h of hits) out.push(`- ${strip(h.title)} [${h.subtype}] | ${h.url}`);
+        out.push("");
+      }
     } catch (e) {
-      errors.push(`${s.name}: ${e.message}`);
+      errors.push(`jacksonms.gov search: ${e.message}`);
     }
   }
-  if (out.length === 0) return `jackson_meetings unavailable: ${errors.join(" | ")}. Fall back to fetch_url https://www.jacksonms.gov/meetings/`;
+  try {
+    const posts = await getJson(
+      `https://www.jacksonms.gov/wp-json/wp/v2/posts?per_page=8&orderby=date&order=desc&_fields=title,link,date`,
+    );
+    if (Array.isArray(posts) && posts.length) {
+      out.push("City of Jackson news posts, newest first:");
+      for (const p of posts) out.push(`- ${(p.date || "").slice(0, 10)} | ${strip(p.title?.rendered)} | ${p.link}`);
+      out.push("");
+    }
+  } catch (e) {
+    errors.push(`jacksonms.gov posts: ${e.message}`);
+  }
+  // Hinds County's site is a menu-driven CMS with agendas as PDFs; point
+  // the model at the page rather than dumping the navigation.
+  out.push(
+    "Hinds County Board of Supervisors: agendas and minutes are PDFs linked from https://www.hindscountyms.com/board-meetings (fetch_url that page, then the newest agenda PDF).",
+    "",
+  );
+
+  if (out.length === 0) {
+    return `jackson_meetings unavailable: ${errors.join(" | ")}. Fall back to fetch_url https://www.jacksonms.gov/meetings/`;
+  }
   out.push("Fetch any agenda packet PDF linked from these pages with fetch_url to read the items.");
   if (errors.length) out.push(`(partial: ${errors.join(" | ")})`);
   return out.join("\n");
@@ -189,7 +226,7 @@ async function federalAwards({ keyword = "", county = "hinds", days = 30, limit 
     { label: "Grants", codes: ["02", "03", "04", "05"] },
   ];
   const out = [
-    `Federal awards with place of performance in ${county[0].toUpperCase() + county.slice(1)} County, MS, starting since ${isoDaysAgo(days)} (USASpending.gov):`,
+    `Federal awards with place of performance in ${county[0].toUpperCase() + county.slice(1)} County, MS, with award activity since ${isoDaysAgo(days)}, newest start date first (USASpending.gov):`,
   ];
   const errors = [];
   for (const g of groups) {
@@ -199,7 +236,7 @@ async function federalAwards({ keyword = "", county = "hinds", days = 30, limit 
         fields,
         page: 1,
         limit,
-        sort: "Award Amount",
+        sort: "Start Date",
         order: "desc",
         subawards: false,
       });
@@ -207,7 +244,7 @@ async function federalAwards({ keyword = "", county = "hinds", days = 30, limit 
       out.push("", `${g.label}: ${rows.length}${rows.length >= limit ? "+" : ""}`);
       for (const r of rows) {
         out.push(
-          `- ${money(r["Award Amount"])} | ${r["Recipient Name"]} | ${r["Awarding Agency"]}${r["Awarding Sub Agency"] ? ` / ${r["Awarding Sub Agency"]}` : ""} | start ${r["Start Date"]} | ${r["Place of Performance City Name"] || ""}\n  ${(r.Description || "").slice(0, 220)} | id ${r["Award ID"]}`,
+          `- ${money(r["Award Amount"])} | ${r["Recipient Name"]} | ${r["Awarding Agency"]}${r["Awarding Sub Agency"] && r["Awarding Sub Agency"] !== r["Awarding Agency"] ? ` / ${r["Awarding Sub Agency"]}` : ""} | start ${r["Start Date"]}${r["Place of Performance City Name"] ? ` | ${r["Place of Performance City Name"]}` : ""}\n  ${(r.Description || "").slice(0, 220)} | id ${r["Award ID"]}`,
         );
       }
     } catch (e) {
@@ -292,14 +329,61 @@ async function eiaFuelPrices() {
       return `eia_fuel_prices unavailable (API): ${e.message}`;
     }
   }
-  try {
-    const { text } = await fetchUrl("https://www.eia.gov/petroleum/gasdiesel/");
-    const i = text.search(/On-Highway Diesel/i);
-    const slice = i >= 0 ? text.slice(Math.max(0, i - 1500), i + 2500) : text.slice(0, 4000);
-    return `EIA Gasoline and Diesel Fuel Update page (no EIA_API_KEY set; text extract):\n${slice}`;
-  } catch (e) {
-    return `eia_fuel_prices unavailable: ${e.message}. Add EIA_API_KEY (free at eia.gov/opendata) for structured data.`;
+  // Keyless path: AAA's daily state and national averages (regular, mid,
+  // premium, diesel, and E85 nationally) for today, yesterday, a week, a
+  // month, and a year ago.
+  const out = ["AAA daily average prices, $/gal (no EIA_API_KEY set):"];
+  const errors = [];
+  for (const [label, url] of [
+    ["Mississippi", "https://gasprices.aaa.com/?state=MS"],
+    ["U.S.", "https://gasprices.aaa.com/"],
+  ]) {
+    try {
+      const { text } = await fetchUrl(url);
+      const parsed = parseAaaPrices(text);
+      if (!parsed) throw new Error("could not parse the price table");
+      out.push(`${label}:`, ...parsed, "");
+    } catch (e) {
+      errors.push(`${label}: ${e.message}`);
+    }
   }
+  if (out.length === 1) {
+    return `eia_fuel_prices unavailable: ${errors.join(" | ")}. Add EIA_API_KEY (free at eia.gov/opendata) for structured weekly data.`;
+  }
+  out.push("Source: AAA (gasprices.aaa.com). For EIA's weekly on-highway series, add EIA_API_KEY (free) or fetch_url https://www.eia.gov/petroleum/gasdiesel/");
+  if (errors.length) out.push(`(partial: ${errors.join(" | ")})`);
+  return out.join("\n");
+}
+
+// Parse the text of an AAA state or national page into labeled rows.
+// Exported for tests.
+export function parseAaaPrices(text) {
+  const start = text.search(/Current Avg\./);
+  if (start < 0) return null;
+  const block = text.slice(start, start + 1200);
+  const rows = ["Current Avg.", "Yesterday Avg.", "Week Ago Avg.", "Month Ago Avg.", "Year Ago Avg."];
+  const values = {};
+  for (let i = 0; i < rows.length; i++) {
+    const a = block.indexOf(rows[i]);
+    if (a < 0) return null;
+    const b = i + 1 < rows.length ? block.indexOf(rows[i + 1], a) : block.indexOf("highest recorded", a);
+    const nums = (block.slice(a, b < 0 ? undefined : b).match(/\$\d+\.\d+/g) || []).map((x) => x.slice(1));
+    values[rows[i]] = nums;
+  }
+  const n = values["Current Avg."].length;
+  if (n < 4) return null;
+  const grades = n >= 5 ? ["Regular", "Mid", "Premium", "Diesel", "E85"] : ["Regular", "Mid", "Premium", "Diesel"];
+  const lines = [];
+  for (let g = 0; g < grades.length; g++) {
+    const cells = rows.map((r) => values[r][g]).filter(Boolean);
+    if (cells.length < 5) continue;
+    lines.push(
+      `- ${grades[g]}: today ${cells[0]}, yesterday ${cells[1]}, week ago ${cells[2]}, month ago ${cells[3]}, year ago ${cells[4]}`,
+    );
+  }
+  const rec = text.slice(start).match(/Diesel\s+\$(\d+\.\d+)\s+(\d{1,2}\/\d{1,2}\/\d{2})/);
+  if (rec) lines.push(`- Record diesel average: $${rec[1]} on ${rec[2]}`);
+  return lines.length ? lines : null;
 }
 
 // --- sec_filings ---------------------------------------------------------------
@@ -319,7 +403,8 @@ async function secFilings({ query = "Jackson, Mississippi", days = 30, forms = "
       const [adsh, file] = String(h._id).split(":");
       const cik = (s.ciks || [])[0];
       const link = cik && adsh ? `https://www.sec.gov/Archives/edgar/data/${Number(cik)}/${adsh.replace(/-/g, "")}/${file}` : "";
-      out.push(`- ${s.file_date} | ${s.form_type} | ${(s.display_names || []).join("; ")} | ${s.file_description || ""}${link ? `\n  ${link}` : ""}`);
+      const form = s.form || (s.root_forms || [])[0] || s.form_type || "";
+      out.push(`- ${s.file_date} | ${form} | ${(s.display_names || []).join("; ")} | ${s.file_description || ""}${link ? `\n  ${link}` : ""}`);
     }
     return out.join("\n");
   } catch (e) {
