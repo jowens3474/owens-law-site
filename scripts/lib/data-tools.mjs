@@ -179,17 +179,12 @@ async function jacksonMeetings({ limit = 15 } = {}) {
   } catch (e) {
     errors.push(`jacksonms.gov posts: ${e.message}`);
   }
-  // Hinds County is not WordPress; read the board-meetings page as text.
-  try {
-    const { text } = await fetchUrl("https://www.hindscountyms.com/board-meetings");
-    // Skip the navigation menu: start at the first dated line.
-    const i = text.search(/(January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2}/);
-    out.push("Hinds County Board of Supervisors page (hindscountyms.com/board-meetings), text extract:");
-    out.push(text.slice(Math.max(0, i), Math.max(0, i) + 1200).replace(/\n{2,}/g, "\n"));
-    out.push("");
-  } catch (e) {
-    errors.push(`hindscountyms.com: ${e.message}`);
-  }
+  // Hinds County's site is a menu-driven CMS with agendas as PDFs; point
+  // the model at the page rather than dumping the navigation.
+  out.push(
+    "Hinds County Board of Supervisors: agendas and minutes are PDFs linked from https://www.hindscountyms.com/board-meetings (fetch_url that page, then the newest agenda PDF).",
+    "",
+  );
 
   if (out.length === 0) {
     return `jackson_meetings unavailable: ${errors.join(" | ")}. Fall back to fetch_url https://www.jacksonms.gov/meetings/`;
