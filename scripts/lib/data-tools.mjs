@@ -136,36 +136,54 @@ async function jacksonMeetings({ limit = 15 } = {}) {
   const errors = [];
   const n = Math.min(Math.max(limit, 5), 30);
 
-  // City of Jackson runs WordPress. Two views: the newest posts (dated) and
-  // a site-wide search for agenda items, which spans custom post types.
+  // City of Jackson runs WordPress with a custom "agendameeting" post type
+  // for agendas and packets. Read it dated, newest first; fall back to the
+  // site-wide search (undated) if the type is unavailable.
+  let gotAgendas = false;
   try {
     const posts = await getJson(
-      `https://www.jacksonms.gov/wp-json/wp/v2/posts?per_page=${n}&orderby=date&order=desc&_fields=title,link,date`,
+      `https://www.jacksonms.gov/wp-json/wp/v2/agendameeting?per_page=${n}&orderby=date&order=desc&_fields=title,link,date`,
     );
     if (Array.isArray(posts) && posts.length) {
-      out.push("City of Jackson (jacksonms.gov), newest posts:");
+      gotAgendas = true;
+      out.push("City of Jackson agendas and packets (jacksonms.gov), newest first:");
+      for (const p of posts) out.push(`- ${(p.date || "").slice(0, 10)} | ${strip(p.title?.rendered)} | ${p.link}`);
+      out.push("");
+    }
+  } catch (e) {
+    errors.push(`jacksonms.gov agendas: ${e.message}`);
+  }
+  if (!gotAgendas) {
+    try {
+      const hits = await getJson(
+        `https://www.jacksonms.gov/wp-json/wp/v2/search?search=agenda&per_page=${n}&_fields=title,url,subtype`,
+      );
+      if (Array.isArray(hits) && hits.length) {
+        out.push("City of Jackson, pages matching \"agenda\" (undated; open with fetch_url for the packet):");
+        for (const h of hits) out.push(`- ${strip(h.title)} [${h.subtype}] | ${h.url}`);
+        out.push("");
+      }
+    } catch (e) {
+      errors.push(`jacksonms.gov search: ${e.message}`);
+    }
+  }
+  try {
+    const posts = await getJson(
+      `https://www.jacksonms.gov/wp-json/wp/v2/posts?per_page=8&orderby=date&order=desc&_fields=title,link,date`,
+    );
+    if (Array.isArray(posts) && posts.length) {
+      out.push("City of Jackson news posts, newest first:");
       for (const p of posts) out.push(`- ${(p.date || "").slice(0, 10)} | ${strip(p.title?.rendered)} | ${p.link}`);
       out.push("");
     }
   } catch (e) {
     errors.push(`jacksonms.gov posts: ${e.message}`);
   }
-  try {
-    const hits = await getJson(
-      `https://www.jacksonms.gov/wp-json/wp/v2/search?search=agenda&per_page=${n}&_fields=title,url,subtype`,
-    );
-    if (Array.isArray(hits) && hits.length) {
-      out.push("City of Jackson, pages matching \"agenda\" (undated; open with fetch_url for the packet):");
-      for (const h of hits) out.push(`- ${strip(h.title)} [${h.subtype}] | ${h.url}`);
-      out.push("");
-    }
-  } catch (e) {
-    errors.push(`jacksonms.gov search: ${e.message}`);
-  }
   // Hinds County is not WordPress; read the board-meetings page as text.
   try {
     const { text } = await fetchUrl("https://www.hindscountyms.com/board-meetings");
-    const i = text.search(/board of supervisors|meeting/i);
+    // Skip the navigation menu: start at the first dated line.
+    const i = text.search(/(January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2}/);
     out.push("Hinds County Board of Supervisors page (hindscountyms.com/board-meetings), text extract:");
     out.push(text.slice(Math.max(0, i), Math.max(0, i) + 1200).replace(/\n{2,}/g, "\n"));
     out.push("");
@@ -316,10 +334,10 @@ async function eiaFuelPrices() {
       return `eia_fuel_prices unavailable (API): ${e.message}`;
     }
   }
-  // Keyless path: AAA's daily state and national averages, which carry
-  // today, yesterday, a week ago, a month ago, and a year ago for regular,
-  // mid, premium, and diesel.
-  const out = ["AAA daily average prices (no EIA_API_KEY set; text extracts):"];
+  // Keyless path: AAA's daily state and national averages (regular, mid,
+  // premium, diesel, and E85 nationally) for today, yesterday, a week, a
+  // month, and a year ago.
+  const out = ["AAA daily average prices, $/gal (no EIA_API_KEY set):"];
   const errors = [];
   for (const [label, url] of [
     ["Mississippi", "https://gasprices.aaa.com/?state=MS"],
@@ -327,9 +345,9 @@ async function eiaFuelPrices() {
   ]) {
     try {
       const { text } = await fetchUrl(url);
-      const i = text.search(/Current Avg/i);
-      const slice = i >= 0 ? text.slice(i, i + 700) : text.slice(0, 700);
-      out.push(`${label} (${url}):`, slice.replace(/\n{2,}/g, "\n").trim(), "");
+      const parsed = parseAaaPrices(text);
+      if (!parsed) throw new Error("could not parse the price table");
+      out.push(`${label}:`, ...parsed, "");
     } catch (e) {
       errors.push(`${label}: ${e.message}`);
     }
@@ -337,9 +355,40 @@ async function eiaFuelPrices() {
   if (out.length === 1) {
     return `eia_fuel_prices unavailable: ${errors.join(" | ")}. Add EIA_API_KEY (free at eia.gov/opendata) for structured weekly data.`;
   }
-  out.push("For EIA's weekly on-highway diesel series, add EIA_API_KEY (free) or fetch_url https://www.eia.gov/petroleum/gasdiesel/");
+  out.push("Source: AAA (gasprices.aaa.com). For EIA's weekly on-highway series, add EIA_API_KEY (free) or fetch_url https://www.eia.gov/petroleum/gasdiesel/");
   if (errors.length) out.push(`(partial: ${errors.join(" | ")})`);
   return out.join("\n");
+}
+
+// Parse the text of an AAA state or national page into labeled rows.
+// Exported for tests.
+export function parseAaaPrices(text) {
+  const start = text.search(/Current Avg\./);
+  if (start < 0) return null;
+  const block = text.slice(start, start + 1200);
+  const rows = ["Current Avg.", "Yesterday Avg.", "Week Ago Avg.", "Month Ago Avg.", "Year Ago Avg."];
+  const values = {};
+  for (let i = 0; i < rows.length; i++) {
+    const a = block.indexOf(rows[i]);
+    if (a < 0) return null;
+    const b = i + 1 < rows.length ? block.indexOf(rows[i + 1], a) : block.indexOf("highest recorded", a);
+    const nums = (block.slice(a, b < 0 ? undefined : b).match(/\$\d+\.\d+/g) || []).map((x) => x.slice(1));
+    values[rows[i]] = nums;
+  }
+  const n = values["Current Avg."].length;
+  if (n < 4) return null;
+  const grades = n >= 5 ? ["Regular", "Mid", "Premium", "Diesel", "E85"] : ["Regular", "Mid", "Premium", "Diesel"];
+  const lines = [];
+  for (let g = 0; g < grades.length; g++) {
+    const cells = rows.map((r) => values[r][g]).filter(Boolean);
+    if (cells.length < 5) continue;
+    lines.push(
+      `- ${grades[g]}: today ${cells[0]}, yesterday ${cells[1]}, week ago ${cells[2]}, month ago ${cells[3]}, year ago ${cells[4]}`,
+    );
+  }
+  const rec = text.slice(start).match(/Diesel\s+\$(\d+\.\d+)\s+(\d{1,2}\/\d{1,2}\/\d{2})/);
+  if (rec) lines.push(`- Record diesel average: $${rec[1]} on ${rec[2]}`);
+  return lines.length ? lines : null;
 }
 
 // --- sec_filings ---------------------------------------------------------------

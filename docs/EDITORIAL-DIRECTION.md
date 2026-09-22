@@ -75,6 +75,27 @@ error so an auth problem is visible in the workflow log. The docket-check
 workflow runs on whatever branch it is dispatched from, so a change to that
 module can be tested before it is merged.
 
+## Real-time data tools
+
+`scripts/lib/data-tools.mjs` gives both scripts eight primary-source tools
+that need no search quota. The prompts tell the model to open every run
+with the first two.
+
+| Tool | Source | Key |
+| --- | --- | --- |
+| `news_feed` | Google News RSS and GDELT, newest first | none |
+| `jackson_meetings` | jacksonms.gov agenda post type and news posts; Hinds County board page | none |
+| `federal_awards` | USASpending contracts and grants by place of performance (Hinds, Madison, Rankin) | none |
+| `bls_series` | BLS Jackson MSA unemployment, employment, nonfarm jobs; Mississippi unemployment | `BLS_API_KEY` optional |
+| `eia_fuel_prices` | EIA weekly diesel and gasoline with a key; AAA daily state and national averages without | `EIA_API_KEY` optional |
+| `sec_filings` | SEC EDGAR full-text search | none |
+| `federal_register` | Federal Register documents API | none |
+| `court_search` | CourtListener RECAP search, S.D. Miss. | existing token |
+
+Run the **Data Check** workflow (Actions, workflow_dispatch) to see every
+tool's live output from a runner. It runs on the branch it is dispatched
+from, so a change to the module can be tested before merge.
+
 ## The Pipeline
 
 `/pipeline` is the public tracker. Its data lives in `lib/pipeline.ts`:
