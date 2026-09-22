@@ -508,8 +508,10 @@ ${brief.body.map((p) => `      ${JSON.stringify(p)},`).join("\n")}
     stdio: "inherit",
   });
   execSync(`git add ${POSTS_FILE}`, { stdio: "inherit" });
-  const commitMsg = `Morning Brief: ${brief.title}`.replace(/"/g, '\\"');
-  execSync(`git commit -m "${commitMsg}"`, { stdio: "inherit" });
+  const commitMsg = `Morning Brief: ${brief.title}`;
+  // Pass the message on stdin: headlines contain $ and quotes that a shell
+  // would otherwise expand or break on.
+  execSync("git commit -F -", { input: commitMsg, stdio: ["pipe", "inherit", "inherit"] });
   execSync(`git push origin HEAD:main`, { stdio: "inherit" });
 
   await pingIndexNow([
