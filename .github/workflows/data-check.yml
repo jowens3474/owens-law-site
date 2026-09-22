@@ -1,0 +1,49 @@
+name: Data Check
+
+# Smoke-tests the real-time data tools the research desk uses (news feeds,
+# meeting notices, USASpending, BLS, EIA, SEC, Federal Register,
+# CourtListener) from a runner and prints each result. Publishes nothing.
+# Runs on the branch it is dispatched from.
+
+on:
+  workflow_dispatch:
+    inputs:
+      tool:
+        description: "One tool name to test (blank = all)"
+        required: false
+        default: ""
+      query:
+        description: "Optional query override"
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run data check
+        env:
+          TOOL: ${{ github.event.inputs.tool }}
+          QUERY: ${{ github.event.inputs.query }}
+          COURTLISTENER_API_TOKEN: ${{ secrets.COURTLISTENER_API_TOKEN }}
+          EIA_API_KEY: ${{ secrets.EIA_API_KEY }}
+          BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
+        run: node scripts/data-check.mjs

@@ -154,7 +154,33 @@ export function createCourtListener({
     return text.length > 15000 ? text.slice(0, 15000) + "\n\n[truncated]" : text;
   }
 
+  /**
+   * Search recent RECAP dockets in a court (default S.D. Miss.) for new
+   * business litigation, bankruptcies, and other filings. Returns text.
+   */
+  async function searchDockets(query, { days = 30, court = OWENS_CASE.court } = {}) {
+    const since = new Date(Date.now() - days * 86400000).toISOString().slice(0, 10);
+    const q = encodeURIComponent(query || "*");
+    const data = await getJson(
+      `/search/?type=r&q=${q}&court=${court}&filed_after=${since}&order_by=dateFiled%20desc`,
+    );
+    const results = data.results || [];
+    if (results.length === 0) {
+      return `No dockets matching "${query}" filed in ${court} since ${since}.`;
+    }
+    const lines = [`Dockets in ${court} matching "${query}" filed since ${since} (newest first):`, ""];
+    for (const r of results.slice(0, 15)) {
+      lines.push(
+        `- ${r.dateFiled || "?"} | ${r.caseName || "(no name)"} | ${r.docketNumber || ""} | docket_id ${r.docket_id ?? r.id ?? "?"}` +
+          (r.suitNature ? ` | ${r.suitNature}` : "") +
+          (r.docket_absolute_url ? ` | https://www.courtlistener.com${r.docket_absolute_url}` : ""),
+      );
+    }
+    return lines.join("\n");
+  }
+
   return {
+    searchDockets,
     findDocketId,
     recentEntries,
     formatEntries,
