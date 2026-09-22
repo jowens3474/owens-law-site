@@ -116,7 +116,7 @@ Do not publish a pure summary of other outlets' coverage.
 STRUCTURE
 - Headline: clear, specific, not clickbait. Under 100 characters. Numbers and proper nouns welcome.
 - Dek: one or two sentences with the finding. Do NOT repeat it as the first body paragraph.
-- Body: 7 to 12 paragraphs, each 1 to 4 sentences. The final one or two paragraphs are the "What's next" section; begin the first of them with the words "What's next:".
+- Body: 7 to 12 paragraphs, each 1 to 4 sentences. The final one or two paragraphs are the "What's next" section. Exactly one paragraph in the article begins with the words "What's next:"; if you use a second closing paragraph, do not repeat the label.
 
 FACT DISCIPLINE, non-negotiable
 - Every concrete claim (names, dates, dollar figures, votes, quotes, rulings) MUST trace to a tool result you actually saw in this conversation.
@@ -264,7 +264,7 @@ const TOOLS = [
             items: { type: "string" },
             minItems: 7,
             description:
-              "Article paragraphs as plain strings. 7 to 12 paragraphs; the last one or two form the What's next section and the first of those begins with the words \"What's next:\". Curly quotes where appropriate. No markdown.",
+              "Article paragraphs as plain strings. 7 to 12 paragraphs; the last one or two form the What's next section; exactly one paragraph (the first of those) begins with the words \"What's next:\". Curly quotes where appropriate. No markdown.",
           },
         },
         required: [
@@ -660,8 +660,10 @@ ${article.body.map((p) => `      ${JSON.stringify(p)},`).join("\n")}
     stdio: "inherit",
   });
   execSync(`git add ${POSTS_FILE}`, { stdio: "inherit" });
-  const commitMsg = `Autopilot: ${article.title}`.replace(/"/g, '\\"');
-  execSync(`git commit -m "${commitMsg}"`, { stdio: "inherit" });
+  const commitMsg = `Autopilot: ${article.title}`;
+  // Pass the message on stdin: headlines contain $ and quotes that a shell
+  // would otherwise expand or break on.
+  execSync("git commit -F -", { input: commitMsg, stdio: ["pipe", "inherit", "inherit"] });
   execSync(`git push origin HEAD:main`, { stdio: "inherit" });
 
   await pingIndexNow([

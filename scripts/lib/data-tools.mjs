@@ -182,7 +182,7 @@ async function jacksonMeetings({ limit = 15 } = {}) {
   // Hinds County's site is a menu-driven CMS with agendas as PDFs; point
   // the model at the page rather than dumping the navigation.
   out.push(
-    "Hinds County Board of Supervisors: agendas and minutes are PDFs linked from https://www.hindscountyms.com/board-meetings (fetch_url that page, then the newest agenda PDF).",
+    "Hinds County Board of Supervisors: agendas and minutes are PDFs linked from https://www.hindscountyms.com/elected-offices/board-supervisors/board-meetings (fetch_url that page, then the newest agenda PDF; do not guess other paths on that site).",
     "",
   );
 
