@@ -66,6 +66,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-09-23",
+    title: "Morning Brief: Sep 23 · Landfill Reopens With New Per-Ton Fees as County Bids Out Demolition",
+    dek: "Jackson's rubbish landfill is set to reopen any day with a new weight-based fee schedule, the first change to what it costs to dump in the city since the facility closed in 2024.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-09-23",
+    views: 0,
+    body: [
+      "Jackson landfill reopens with per-ton fees: The Jackson Rubbish Landfill in Byram could reopen any day, and the council is introducing an ordinance that replaces the old volume-based rates with charges by weight, WLBT reported Tuesday. Residents would pay $10 per ton; commercial haulers and out-of-city users would pay $20 per ton. The old schedule charged $5 per cubic yard for construction and demolition debris and $1 per car or truck tire. A new scale and weigh system is already installed, and the structure follows a Neel-Schaffer Engineering recommendation. Outgoing Chief Administrative Officer Pieter Teeuwissen said the facility could reopen any day. Because the item is only being introduced, a vote may not come Tuesday.",
+      "Hinds County to bid out Virginia College demolition: Hinds County will put the demolition of the former Virginia College building out for bid this year, WLBT reported Tuesday, quoting a county official who said, 'It's going to happen this year.' The property has sat vacant and blighted, and the county has faced pressure to clear it. The bid-out is the first concrete step toward removing the structure, though no demolition cost estimate or construction timeline has been published. Supervisors next meet in regular session Oct. 5, and the county's FY2027 budget, adopted Sept. 10 with a 1.5-mill increase, takes effect Oct. 1. Watch whether the demolition lands inside this year's capital spending or waits on the new fiscal year.",
+      "Capitol Police manslaughter trial opens today: Opening statements begin Wednesday in Hinds County in the manslaughter trial of former Capitol Police officers Stephen Frederick and Michael Rhinewalt for the 2022 shooting death of Jaylen Lewis after a traffic stop. The officers say they fired in self-defense; a witness said Lewis was trying to drive away. A WLBT review of 68 officer-involved cases publicly reported since 2022 found the Attorney General's office announced grand jury indictments in only three of 64 shootings, about 5 percent. The trial has been continued six times, and the two men's cases were combined and reassigned after Judge Adrienne Wooten recused herself.",
+      "Mississippi diesel sets a record at $6.06: Mississippi diesel averaged $6.06 a gallon Wednesday, a record and up 85 percent from $3.27 a year ago, according to AAA. Regular gasoline in the state hit $3.99, up from $2.70 a year ago. The national diesel average was $6.52. The cost lands first on Delta farmers mid-harvest and on owner-operators who buy fuel before they get paid for a load, then on a city that passed a flat budget in September with no room for a fuel overrun. Jackson's fiscal year begins Oct. 1, and the county's 1.5-mill increase takes effect the same day.",
+      "South Jackson skate center wins use permit: The Jackson City Council voted 5-0-1 on Monday to grant a use permit for Nostalgics Skate Center, a new rink in a strip mall at 540 Raymond Rd., WLBT reported. Council President Vernon Hartley, who had tabled the request in August over neighborhood concerns, told owner Terranee Brent she has a year to prove the business can coexist without the complaints tied to the prior tenant. Councilman Kenneth Stokes abstained; Councilwoman Tina Clay congratulated Brent. The permit must be renewed annually and does not transfer if the business is sold, a condition that gives the neighborhood leverage at each renewal.",
+    ],
+  },
+  {
     slug: "trustmark-sale-leaseback-34-branches-blue-owl-91-7-million",
     title: "Trustmark Sold 34 Branches for $91.7 Million and Leased Them Back. The Rent Is $6.4 Million a Year.",
     dek: "A Sept. 3 filing shows the Jackson-based bank sold 34 branches to Blue Owl Real Estate Capital and leased them back for 15 years, then swapped $629.9 million of low-yield securities for higher-yielding ones to offset the gain. The bank says no branch will close.",
