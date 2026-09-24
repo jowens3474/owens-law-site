@@ -66,6 +66,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-09-24",
+    title: "Morning Brief: Sep 24 · $150M Street Blitz Picks Contractors; Chapel Ridge Owner Ordered to Demolish",
+    dek: "Jackson has selected contractors for a $150 million street and drainage program covering roughly 600 streets over the next 12 months, the largest paving push the mayor says the city has seen in four decades.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-09-24",
+    views: 0,
+    body: [
+      "Contractors picked for $150 million street blitz: Mayor John Horhn said Wednesday that Jackson has selected contractors for a $150 million street and drainage program, with work starting across roughly 600 streets over the next 12 months. WLBT reported Horhn said the money was assembled from the county, the state and federal grants after his staff had to get creative to close the gap. The scope includes storm drain repair and creek clearing, which the mayor tied directly to flooding during heavy rains. Horhn said the city will try to finish as much as possible before cold weather, and called the coming year's paving volume larger than anything done in about 40 years. Watch whether the council publishes the contract awards and funding sources.",
+      "Chapel Ridge owner ordered to demolish: An Environmental Court judge issued an 11-page order Thursday requiring Chapel Ridge asset manager Larry Jackson to tear down the complex or face jail, WLBT reported. Judge Jeffery Reynolds suspended a sentence of up to 360 days and a $1,000 fine on condition Jackson cleans up and demolishes the property. Jackson has 14 days to apply for permits and 90 days to complete demolition once permitted, plus 30 days to clear trash and debris. A cost bond is set at $2,500 and a secured appearance bond at $2 million, which the city would recoup and spend on demolition if he fails to comply. The judge wrote the property has been condemnable since at least April 17, 2025.",
+      "Diesel hits a record $6.05 in Mississippi: Mississippi diesel averaged $6.0535 a gallon Thursday, a record for the state and up from $5.2977 a month ago and $3.2730 a year ago, according to AAA data. That is roughly an 85 percent increase year over year, a direct hit to trucking, construction, farming and any fleet operating out of Hinds, Madison or Rankin County. Regular gasoline in Mississippi sits at $3.9962, up from $2.6956 a year ago, and the national diesel average is higher still at $6.5141. For contractors mobilizing on the city's paving program and for haulers serving the new Hinds County jail, fuel is now the fastest-moving line item in the budget.",
+      "Hinds jail supply delays persist: The new Hinds County detention center is still short on supplies, WJTV reported Monday, as supervisors carry roughly $2.3 million a year in committed costs for the facility. The county board's next regular meeting is Oct. 5, with a work session set for Oct. 27, according to the county's published 2026 calendar. Supervisors have already voted to bid out demolition of the former Virginia College building, a separate project the Mississippi Secretary of State's Office is funding, WLBT reported. The jail's supply chain is the item to watch: a facility that cannot stock itself on schedule still bills the county whether or not it is fully operational.",
+      "Raybern Foods adds 70 jobs in Shannon: The Mississippi Development Authority announced Wednesday that Raybern Foods will invest $7.1 million to add sandwich production lines at its Shannon plant, creating 70 jobs, with support through the MFLEX tax incentive program and Lee County. The company, founded in California in 1978, moved operations to Mississippi in 2015. It is the second food manufacturing expansion the state has announced in a week, following Industrial Timber's $2.6 million Ripley project. The parallel worth noting: Shannon, a town of roughly 1,700 in Lee County, has now landed two expansions this month while Jackson's largest recent wins are infrastructure contracts rather than new private payroll.",
+    ],
+  },
+  {
     slug: "jackson-metro-jobs-hit-302100-mississippi-workforce-pell-8-5-million",
     title: "Jackson Metro Payrolls Hit a Record 302,100 in August. The State Just Won $8.5 Million to Train for the Jobs Behind It.",
     dek: "The Jackson metro added 3,500 jobs in a year, the strongest August on the BLS series. On the same day the state announced an $8.5 million federal grant to build short-term training pathways, the metro's labor force is still smaller than it was in February.",
