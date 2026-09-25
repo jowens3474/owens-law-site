@@ -98,6 +98,19 @@ export const PROJECTS: Project[] = [
     slugs: ["flats-at-fondren-rent-double-jackson-median"],
   },
   {
+    name: "Jackson Rubbish Landfill reopening and fee ordinance",
+    developer: "City of Jackson Public Works",
+    location: "6810 I-55 South Frontage Road, Byram",
+    stage: "opening",
+    status:
+      "The Class I rubbish site closed in 2024 when its cell exceeded permitted capacity. MDEQ accepted the construction certification for the new cell in February 2026, and the city said in late September it could reopen any day. An ordinance introduced Sept. 22 replaces the $5-per-cubic-yard rate with $10 a ton for residents and $20 a ton for commercial and out-of-city users.",
+    next: "Council adoption vote on the fee ordinance, and the publication of the tonnage and cost study behind the rates.",
+    slugs: [
+      "jackson-landfill-reopening-10-dollars-a-ton-too-cheap-economics",
+      "jackson-solid-waste-disposal-fee-ordinance-september-22",
+    ],
+  },
+  {
     name: "McNair Davis Planetarium reopening",
     developer: "City of Jackson; operated by the Mississippi Museum of Art",
     location: "Downtown Jackson",
@@ -195,6 +208,13 @@ export const MILESTONES: Milestone[] = [
     kind: "fiscal",
     text: "New fiscal year begins for Jackson and Hinds County. The city's flat budget and the county's 1.5-mill increase take effect.",
     slug: "hinds-county-adopts-budget-1-5-mill-increase-jail",
+  },
+  {
+    date: "2026-10-13",
+    approx: true,
+    kind: "vote",
+    text: "Jackson City Council can take up the landfill fee ordinance ($10 a ton residents, $20 commercial) for adoption at a regular meeting in October.",
+    slug: "jackson-landfill-reopening-10-dollars-a-ton-too-cheap-economics",
   },
   {
     date: "2026-11-03",
