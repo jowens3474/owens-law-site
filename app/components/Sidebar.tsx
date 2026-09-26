@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { getMostRead } from "@/lib/posts";
 import { categories, site } from "@/lib/site";
+import { pro } from "@/lib/pro";
 import NewsletterSignup from "./NewsletterSignup";
 
 const orderSubject = "STOKES Hat order";
@@ -23,6 +24,23 @@ export default function Sidebar() {
   return (
     <aside className="space-y-8">
       <NewsletterSignup />
+
+      <section className="border border-ink bg-paper p-5">
+        <p className="font-sans text-xs font-bold uppercase tracking-widest text-crimson">
+          Members
+        </p>
+        <h2 className="mt-1 font-serif text-xl font-bold">{pro.name}</h2>
+        <p className="mt-2 font-sans text-sm leading-relaxed text-muted">
+          {pro.tagline} A Monday briefing, same-day alerts, and a members-only
+          desk for developers, brokers, lenders, and lawyers.
+        </p>
+        <Link
+          href={pro.path}
+          className="mt-3 inline-block bg-ink px-4 py-2 font-sans text-xs font-bold uppercase tracking-wide text-newsprint transition-colors hover:bg-crimson"
+        >
+          From ${pro.founding} a month →
+        </Link>
+      </section>
 
       {mostRead.length > 0 && (
         <section>
