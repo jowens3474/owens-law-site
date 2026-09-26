@@ -92,9 +92,33 @@ with the first two.
 | `federal_register` | Federal Register documents API | none |
 | `court_search` | CourtListener RECAP search, S.D. Miss. | existing token |
 
+Three feeds added after the first round, all keyless:
+
+| Tool | Source |
+| --- | --- |
+| `bankruptcies` | CourtListener, S.D. Miss. bankruptcy court: every Chapter 11, plus Chapter 7 cases and adversary proceedings with a business name |
+| `public_notices` | City of Jackson's bid-opportunity posts: invitations for bids, RFPs, zoning publication ads (rezonings, use permits, variances), meeting notices |
+| `sales_tax_diversions` | Department of Revenue monthly diversions to cities, parsed from the PDF; feeds `/economy/sales-tax` |
+
+The statewide public-notice site run by the Mississippi Press Association
+refuses connections from GitHub's network, so county-level foreclosure and
+bond-validation notices are not yet automated.
+
 Run the **Data Check** workflow (Actions, workflow_dispatch) to see every
 tool's live output from a runner. It runs on the branch it is dispatched
 from, so a change to the module can be tested before merge.
+
+## Sales tax series
+
+`scripts/sales-tax-report.mjs` (workflow **Sales Tax Report**, daily) checks
+the Department of Revenue listing for a report the dataset has not seen,
+backfills up to 14 months of history on the first run, updates
+`data/sales-tax-diversions.json`, and has DeepSeek write a "By the Numbers"
+Economy story from the parsed table alone. The tracker page at
+`/economy/sales-tax` reads the same file: stat tiles, a 24-month column
+chart for Jackson, and the metro table with year-over-year and
+fiscal-year-to-date changes. Dispatch the workflow with `dry_run = 1` to
+refresh the data and preview the story without publishing.
 
 ## The Pipeline
 

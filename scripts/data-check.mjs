@@ -79,6 +79,7 @@ const DEFAULT_ARGS = {
   court_search: { query: query || "*", days: 30 },
   bankruptcies: { days: 21 },
   public_notices: { days: 30 },
+  sales_tax_diversions: {},
 };
 
 let failures = 0;

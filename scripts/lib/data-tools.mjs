@@ -5,6 +5,7 @@
 // returns a short "unavailable" message instead of throwing.
 
 import { fetchUrl } from "./fetch-url.mjs";
+import { listReports, readReport, mergeReport, renderMonthTable, loadDataset, monthLabel } from "./sales-tax.mjs";
 
 const UA = "TheJacksonWire/1.0 (+https://www.thejacksonwire.com; capitolmain42@gmail.com)";
 const TIMEOUT_MS = 20000;
@@ -595,6 +596,15 @@ export const DATA_TOOLS = [
 DATA_TOOLS.push({
   type: "function",
   function: {
+    name: "sales_tax_diversions",
+    description:
+      "The newest Mississippi Department of Revenue report of sales tax diversions paid to cities: the month's payment to Jackson and each metro city, the same month a year earlier, the percent change, and fiscal-year-to-date totals. The closest thing to a monthly economic indicator for each city. Cite as 'Department of Revenue diversion reports'.",
+    parameters: { type: "object", properties: {} },
+  },
+});
+DATA_TOOLS.push({
+  type: "function",
+  function: {
     name: "public_notices",
     description:
       "Public notices posted by the City of Jackson in the last N days: invitations for bids, requests for proposals, zoning publication ads (rezonings, use permits, variances, with hearing dates), and public meeting notices. Each is a dated, future event with a document. Call once per run alongside jackson_meetings.",
@@ -652,6 +662,18 @@ export async function runDataTool(name, args = {}, { prefix = "data", cl } = {})
         log(`"${args.query}" ${args.days ?? 30}d ${args.court ?? "mssd"}`);
         if (!cl) return "court_search unavailable: no CourtListener client.";
         return await cl.searchDockets(args.query || "*", { days: args.days ?? 30, court: args.court === "mssb" ? "mssb" : "mssd" });
+      case "sales_tax_diversions": {
+        log("fetch");
+        const reports = await listReports();
+        if (!reports.length) return "sales_tax_diversions unavailable: no reports found on the DOR listing page.";
+        const d = loadDataset();
+        const newest = reports[0];
+        if (!d.reports[newest.month]) {
+          const { rows } = await readReport(newest.url);
+          mergeReport(d, newest.month, rows, newest.url, { revised: newest.revised });
+        }
+        return `Newest report: ${monthLabel(newest.month)}.\n` + renderMonthTable(d, newest.month) + "\nThe Wire's tracker with history: https://www.thejacksonwire.com/economy/sales-tax";
+      }
       case "public_notices":
         log(`${args.days ?? 14}d`);
         return await publicNotices({ days: Math.min(Math.max(args.days ?? 14, 1), 90) });

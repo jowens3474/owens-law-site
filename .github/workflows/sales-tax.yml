@@ -1,0 +1,81 @@
+name: Sales Tax Report
+
+# Watches the Department of Revenue for a new monthly diversion report,
+# updates data/sales-tax-diversions.json (the /economy/sales-tax tracker),
+# and publishes a By the Numbers story when a new month appears.
+# Requires DEEPSEEK_API_KEY to write the story.
+
+on:
+  schedule:
+    # Daily at 15:00 UTC (10 AM CDT). Exits quickly when nothing is new.
+    - cron: "0 15 * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Update data and print the story without publishing (1 = dry run)"
+        required: false
+        default: "0"
+      force:
+        description: "Rewrite the story for the newest report even if processed (1 = force)"
+        required: false
+        default: "0"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sales-tax
+  cancel-in-progress: false
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+          persist-credentials: true
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check for a new report and publish
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          DRY_RUN: ${{ github.event.inputs.dry_run }}
+          FORCE: ${{ github.event.inputs.force }}
+        run: node scripts/sales-tax-report.mjs
+
+      # A dry run still refreshes the dataset; keep that on main so the
+      # tracker page stays current even when no story is published.
+      - name: Commit dataset changes
+        if: ${{ !cancelled() }}
+        run: |
+          git config user.name "Jackson Wire Autopilot"
+          git config user.email "autopilot@thejacksonwire.com"
+          git add data/sales-tax-diversions.json
+          if git diff --cached --quiet; then
+            echo "No dataset changes to commit."
+          else
+            git commit -m "Sales tax: update diversions dataset"
+            pushed=false
+            for i in 1 2 3; do
+              if git push origin HEAD:main; then pushed=true; break; fi
+              echo "Push rejected (attempt $i); rebasing..."
+              git pull --rebase origin main
+              sleep 5
+            done
+            if [ "$pushed" != true ]; then
+              echo "::error::Failed to push dataset after 3 attempts"
+              exit 1
+            fi
+          fi

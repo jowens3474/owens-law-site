@@ -288,6 +288,20 @@ export default async function ProDashboardPage({
             )}
           </section>
 
+          <section>
+            <H2>Trackers</H2>
+            <ul className="space-y-2 font-sans text-sm">
+              <li>
+                <Link href="/economy/sales-tax" className="font-semibold text-crimson hover:text-crimson-bright">Sales Tax Tracker</Link>
+                <span className="text-muted"> · monthly diversions, Jackson vs the suburbs</span>
+              </li>
+              <li>
+                <Link href="/pipeline" className="font-semibold text-crimson hover:text-crimson-bright">The Pipeline</Link>
+                <span className="text-muted"> · projects and decision dates</span>
+              </li>
+            </ul>
+          </section>
+
           <section className="border border-rule bg-paper p-5">
             <h2 className="font-serif text-lg font-bold">Ask the desk</h2>
             <p className="mt-2 font-sans text-sm text-muted">
