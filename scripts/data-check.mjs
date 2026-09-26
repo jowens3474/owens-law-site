@@ -12,8 +12,12 @@ const query = process.env.QUERY?.trim();
 // TOOL=probe QUERY="url1|url2": print each page's links and a text excerpt
 // so a new source can be understood from a runner before a tool is written.
 if (only === "probe") {
-  for (const url of (query || "").split("|").map((u) => u.trim()).filter(Boolean)) {
-    console.log(`\n===== PROBE ${url} =====`);
+  for (const spec of (query || "").split("|").map((u) => u.trim()).filter(Boolean)) {
+    // "url#regex" prints only links whose href or text matches the regex.
+    const hash = spec.indexOf("#");
+    const url = hash > 0 ? spec.slice(0, hash) : spec;
+    const filter = hash > 0 ? new RegExp(spec.slice(hash + 1), "i") : null;
+    console.log(`\n===== PROBE ${url}${filter ? ` (links matching ${filter})` : ""} =====`);
     try {
       // A browser-like agent: some state sites answer bots with a 404 page.
       const headers = {
@@ -39,9 +43,10 @@ if (only === "probe") {
       const html = await res.text();
       const links = [...html.matchAll(/<a\b[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi)]
         .map((m) => [m[1], m[2].replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim()])
-        .filter(([h, t]) => t && !/^(#|javascript:)/.test(h));
+        .filter(([h, t]) => (t || filter) && !/^(#|javascript:)/.test(h))
+        .filter(([h, t]) => !filter || filter.test(h) || filter.test(t));
       console.log(`links: ${links.length}`);
-      for (const [h, t] of links.slice(0, 120)) console.log(`  ${t.slice(0, 80)} -> ${h}`);
+      for (const [h, t] of links.slice(0, filter ? 400 : 120)) console.log(`  ${t.slice(0, 80)} -> ${h}`);
       const forms = [...html.matchAll(/<form\b[^>]*>[\s\S]*?<\/form>/gi)].map((m) => m[0]);
       for (const f of forms.slice(0, 4)) {
         console.log("form:", (f.match(/<form\b[^>]*>/i) || [""])[0].slice(0, 300));
