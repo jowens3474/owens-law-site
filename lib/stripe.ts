@@ -64,6 +64,23 @@ export async function createCheckoutSession(opts: {
   return post<{ id: string; url: string }>("/checkout/sessions", params);
 }
 
+/** Find the newest Stripe customer with this email, if any. */
+export async function findCustomerByEmail(email: string): Promise<string | null> {
+  try {
+    const r = await get<{ data?: { id: string }[] }>(`/customers?email=${encodeURIComponent(email)}&limit=1`);
+    return r.data?.[0]?.id ?? null;
+  } catch (e) {
+    console.error(`[stripe] customer search failed: ${(e as Error).message}`);
+    return null;
+  }
+}
+
+/** Create a Billing Portal session where the member can cancel or update payment. */
+export async function createPortalSession(customerId: string, returnUrl: string): Promise<string> {
+  const r = await post<{ url: string }>("/billing_portal/sessions", { customer: customerId, return_url: returnUrl });
+  return r.url;
+}
+
 export async function getCustomerEmail(customerId: string): Promise<string | null> {
   try {
     const c = await get<{ email?: string | null }>(`/customers/${customerId}`);

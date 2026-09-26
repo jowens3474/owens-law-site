@@ -62,6 +62,8 @@ export async function POST(req: Request) {
           "",
           "Reply to any briefing with a question. A researcher answers within one business day.",
           "",
+          "To change or cancel your subscription, use Manage billing on your desk.",
+          "",
           "The Jackson Wire",
         ].join("\n"),
       });

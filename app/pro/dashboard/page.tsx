@@ -40,6 +40,7 @@ export default async function ProDashboardPage({
   const session = verifyToken(jar.get(PRO_COOKIE)?.value, "session");
   const params = await searchParams;
   const login = typeof params.login === "string" ? params.login : undefined;
+  const billing = typeof params.billing === "string" ? params.billing : undefined;
 
   if (!session) {
     return (
@@ -77,12 +78,26 @@ export default async function ProDashboardPage({
             Signed in as {session.email}. Feeds refresh every 30 minutes.
           </p>
         </div>
-        <form action="/api/pro/logout" method="post">
-          <button type="submit" className="font-sans text-xs font-bold uppercase tracking-wide text-muted hover:text-crimson">
-            Sign out
-          </button>
-        </form>
+        <div className="flex items-center gap-5">
+          <form action="/api/pro/portal" method="post">
+            <button type="submit" className="font-sans text-xs font-bold uppercase tracking-wide text-muted hover:text-crimson">
+              Manage billing
+            </button>
+          </form>
+          <form action="/api/pro/logout" method="post">
+            <button type="submit" className="font-sans text-xs font-bold uppercase tracking-wide text-muted hover:text-crimson">
+              Sign out
+            </button>
+          </form>
+        </div>
       </header>
+      {billing && (
+        <p className="mt-4 border border-rule bg-paper px-4 py-3 font-sans text-sm text-muted">
+          {billing === "manual"
+            ? "Your seat is billed outside Stripe. To change or cancel it, email pro@thejacksonwire.com and we will handle it the same day."
+            : "We could not open the billing portal just now. Email pro@thejacksonwire.com and we will handle it the same day."}
+        </p>
+      )}
 
       <div className="mt-8 grid gap-10 lg:grid-cols-12">
         <div className="space-y-12 lg:col-span-8">

@@ -164,8 +164,11 @@ async function main() {
     const id = await sendBroadcast({ apiKey, audienceId, from: FROM, subject, html, text, replyTo: "capitolmain42@gmail.com" });
     log(`Broadcast sent: ${id}`);
   }
-  // Record what was sent (or, in a dry run, what would have been) so the
-  // next run does not repeat it.
+  if (dryRun) {
+    log("DRY_RUN: seen-state not updated.");
+    return;
+  }
+  // Record what was sent so the next run does not repeat it.
   for (const [bucket, keys] of Object.entries(seenNow)) state[bucket] = [...(state[bucket] || []), ...keys];
   saveState(state);
   log(`State saved to ${STATE_FILE}.`);

@@ -33,7 +33,7 @@ export async function POST(req: Request) {
       from: pro.from,
       to: email,
       subject: `Your ${pro.name} sign-in link`,
-      text: [`Open this link to sign in to the ${pro.name} desk. It works once and expires in 30 minutes.`, "", link, "", "If you did not request this, ignore it."].join("\n"),
+      text: [`Open this link to sign in to the ${pro.name} desk. It expires in 30 minutes.`, "", link, "", "If you did not request this, ignore it."].join("\n"),
     });
   }
   return Response.json({ ok: true });

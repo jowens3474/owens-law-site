@@ -43,7 +43,7 @@ const FAQ: { q: string; a: string }[] = [
   },
   {
     q: "How do I cancel?",
-    a: "Any time, from the link in any briefing or by replying to one. Monthly seats end at the end of the billing month. Annual seats are prorated.",
+    a: "Any time. Card subscribers use the Manage billing button on the desk, which opens Stripe's portal; founding members billed by invoice email us and we cancel the same day. Monthly seats end at the end of the billing month. Annual seats are prorated. The unsubscribe link in an email stops the mail but does not cancel billing, so use the portal or email us.",
   },
 ];
 
@@ -121,8 +121,9 @@ export default function ProPage() {
               <Link href="/pipeline" className="font-semibold text-crimson hover:text-crimson-bright">
                 Pipeline
               </Link>{" "}
-              shows the next few dates. Members get all of them, {PROJECTS.length} tracked projects,
-              and the feeds behind them.
+              shows the tracker: {PROJECTS.length} projects and their dates. Members get that
+              calendar in their inbox every Monday, an alert the hour a record posts, and the live
+              feeds behind it.
             </p>
           </section>
 

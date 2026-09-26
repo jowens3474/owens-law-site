@@ -15,6 +15,13 @@ a signed cookie.
    - GitHub Actions: `RESEND_API_KEY`, `RESEND_PRO_AUDIENCE_ID`
    - Site host (Vercel) environment: `RESEND_API_KEY`, `RESEND_PRO_AUDIENCE_ID`
 
+**Cancellation.** Card subscribers cancel through the Billing Portal from
+the desk; Stripe then fires `customer.subscription.deleted` and the
+webhook unsubscribes the contact. An email unsubscribe click stops the
+mail but does not cancel billing, and the copy on `/pro` says so.
+Founding members billed by invoice cancel by email; mark the contact
+unsubscribed in Resend.
+
 **Membership rule.** A contact in the Pro audience with `unsubscribed =
 false` is an active member: it receives briefings and alerts and can sign
 in to the desk. `unsubscribed = true` is a lead or a lapsed member.
@@ -36,6 +43,9 @@ single switch turns on the briefing, the alerts, and desk sign-in.
    `customer.subscription.deleted`. Copy the signing secret.
 3. Site host environment: `STRIPE_SECRET_KEY`, `STRIPE_PRICE_MONTHLY`,
    `STRIPE_PRICE_ANNUAL`, `STRIPE_WEBHOOK_SECRET`.
+
+4. Enable the customer Billing Portal in Stripe (Settings, Billing,
+   Customer portal) so the desk's **Manage billing** button can open it.
 
 When `STRIPE_SECRET_KEY` and `STRIPE_PRICE_MONTHLY` are set, the `/pro`
 page shows the two subscribe buttons. Checkout success subscribes the
