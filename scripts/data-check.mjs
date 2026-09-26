@@ -4,9 +4,47 @@
 // COURTLISTENER_API_TOKEN, EIA_API_KEY, BLS_API_KEY (optional).
 import { DATA_TOOLS, runDataTool } from "./lib/data-tools.mjs";
 import { createCourtListener } from "./lib/courtlistener.mjs";
+import { fetchUrl } from "./lib/fetch-url.mjs";
 
 const only = process.env.TOOL?.trim();
 const query = process.env.QUERY?.trim();
+
+// TOOL=probe QUERY="url1|url2": print each page's links and a text excerpt
+// so a new source can be understood from a runner before a tool is written.
+if (only === "probe") {
+  for (const url of (query || "").split("|").map((u) => u.trim()).filter(Boolean)) {
+    console.log(`\n===== PROBE ${url} =====`);
+    try {
+      const headers = { "User-Agent": "TheJacksonWire/1.0 (+https://www.thejacksonwire.com)", Accept: "*/*" };
+      if (/courtlistener\.com/.test(url) && process.env.COURTLISTENER_API_TOKEN) headers.Authorization = `Token ${process.env.COURTLISTENER_API_TOKEN}`;
+      const res = await fetch(url, { headers });
+      const ct = res.headers.get("content-type") || "";
+      console.log(`HTTP ${res.status} ${ct}`);
+      if (/json/.test(ct)) {
+        const body = await res.text();
+        console.log(body.slice(0, 6000));
+        continue;
+      }
+      const html = await res.text();
+      const links = [...html.matchAll(/<a\b[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi)]
+        .map((m) => [m[1], m[2].replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim()])
+        .filter(([h, t]) => t && !/^(#|javascript:)/.test(h));
+      console.log(`links: ${links.length}`);
+      for (const [h, t] of links.slice(0, 120)) console.log(`  ${t.slice(0, 80)} -> ${h}`);
+      const forms = [...html.matchAll(/<form\b[^>]*>[\s\S]*?<\/form>/gi)].map((m) => m[0]);
+      for (const f of forms.slice(0, 4)) {
+        console.log("form:", (f.match(/<form\b[^>]*>/i) || [""])[0].slice(0, 300));
+        for (const inp of f.matchAll(/<(input|select|textarea)\b[^>]*>/gi)) console.log("   ", inp[0].slice(0, 200));
+      }
+      const { text } = await fetchUrl(url).catch(() => ({ text: "" }));
+      console.log("--- text excerpt ---");
+      console.log(text.slice(0, 2500));
+    } catch (e) {
+      console.log(`probe failed: ${e.message}`);
+    }
+  }
+  process.exit(0);
+}
 const cl = createCourtListener({ prefix: "data-check" });
 
 const DEFAULT_ARGS = {
