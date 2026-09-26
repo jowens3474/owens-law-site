@@ -54,15 +54,22 @@ export function shiftMonth(ym, n) {
 }
 
 /**
- * Read the DOR listing page and return every report link, newest first:
- * [{ month: "2026-08", url, revised }]. When a month has several files
- * (revisions), the one whose name says "revised" or has the highest suffix
- * wins.
+ * Read the DOR listing page and return one report link per month, newest
+ * month first: [{ month: "2026-08", url, revised }]. DOR names files
+ * stats_divMMYY.pdf, sometimes with a numeric suffix (stats_div0826_0.pdf
+ * is an ordinary first posting) and sometimes with "revised" and a date in
+ * the name. When a month has several files, a name that says "revised"
+ * wins; otherwise the highest numeric suffix wins; ties keep the first
+ * link on the page.
  */
 export async function listReports() {
   const res = await fetch(DOR_LISTING, { headers: { "User-Agent": UA, Accept: "text/html" } });
   if (!res.ok) throw new Error(`DOR listing HTTP ${res.status}`);
-  const html = await res.text();
+  return pickReports(await res.text());
+}
+
+/** Pure part of listReports, for tests. */
+export function pickReports(html) {
   const byMonth = new Map();
   for (const m of html.matchAll(/href=["']([^"']*stats_div(\d{2})(\d{2})[^"']*\.pdf)["']/gi)) {
     const href = m[1];
@@ -71,12 +78,16 @@ export async function listReports() {
     if (mm < 1 || mm > 12) continue;
     const month = `20${String(yy).padStart(2, "0")}-${String(mm).padStart(2, "0")}`;
     const url = href.startsWith("http") ? href : `${DOR_ORIGIN}${href}`;
-    const revised = /revis|rev\b|_\d\.pdf$/i.test(decodeURIComponent(href));
+    const name = decodeURIComponent(href.split("/").pop() || "");
+    const revised = /revis/i.test(name);
+    const suffix = Number((name.match(/_(\d+)\.pdf$/i) || [])[1] ?? -1);
+    const rank = (revised ? 1000 : 0) + suffix;
     const prev = byMonth.get(month);
-    // Prefer a revised file over the original for the same month.
-    if (!prev || (revised && !prev.revised)) byMonth.set(month, { month, url, revised });
+    if (!prev || rank > prev.rank) byMonth.set(month, { month, url, revised, rank });
   }
-  return [...byMonth.values()].sort((a, b) => b.month.localeCompare(a.month));
+  return [...byMonth.values()]
+    .sort((a, b) => b.month.localeCompare(a.month))
+    .map(({ month, url, revised }) => ({ month, url, revised }));
 }
 
 const NUM = String.raw`\$?\s*\(?-?[\d,]+\.\d{2}\)?(?:\s*\$)?`;
@@ -197,8 +208,10 @@ export async function backfill(d, { limit = 14, log = () => {} } = {}) {
   for (const r of reports) {
     if (added.length >= limit) break;
     const have = d.reports[r.month];
-    if (have && (have.revised || !r.revised)) continue;
-    log(`reading ${r.month} ${r.url}`);
+    // Re-read a month only when DOR lists a different file for it than the
+    // one on record (a revision or replacement).
+    if (have && have.url === r.url) continue;
+    log(`${have ? "re-reading" : "reading"} ${r.month} ${r.url}`);
     try {
       const { rows } = await readReport(r.url);
       mergeReport(d, r.month, rows, r.url, { revised: r.revised });
@@ -226,9 +239,15 @@ export function renderMonthTable(d, month) {
     rows.push({ city, now, then, change });
   }
   rows.sort((a, b) => b.now.amount - a.now.amount);
+  const signed = (v) => `${v >= 0 ? "+" : ""}${v.toFixed(1)}%`;
   for (const r of rows) {
-    const fy = r.now.fytd != null && r.then?.fytd != null ? ` | FYTD ${money(r.now.fytd)} vs ${money(r.then.fytd)} (${pct(r.now.fytd, r.then.fytd).toFixed(1)}%)` : "";
-    lines.push(`- ${r.city}: ${money(r.now.amount)}${r.then ? ` vs ${money(r.then.amount)} a year earlier (${r.change >= 0 ? "+" : ""}${r.change.toFixed(1)}%)` : ""}${fy}`);
+    const fyChange = r.now.fytd != null && r.then?.fytd != null ? pct(r.now.fytd, r.then.fytd) : null;
+    const fy =
+      r.now.fytd != null && r.then?.fytd != null
+        ? ` | FYTD ${money(r.now.fytd)} vs ${money(r.then.fytd)}${fyChange != null ? ` (${signed(fyChange)})` : ""}`
+        : "";
+    const yoy = r.then ? ` vs ${money(r.then.amount)} a year earlier${r.change != null ? ` (${signed(r.change)})` : ""}` : "";
+    lines.push(`- ${r.city}: ${money(r.now.amount)}${yoy}${fy}`);
   }
   const src = d.reports[month]?.url;
   if (src) lines.push("", `Source: ${src}`);

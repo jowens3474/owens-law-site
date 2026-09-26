@@ -131,7 +131,12 @@ Tracker page (link it once, in the body): ${SITE}/economy/sales-tax`;
   } catch (e) {
     throw new Error(`DeepSeek returned non-JSON: ${e.message}`);
   }
-  const clean = (s) => String(s || "").replace(/[—–]/g, ", ").replace(/\s,/g, ",");
+  const clean = (s) =>
+    String(s || "")
+      .replace(/[—–]/g, ", ")
+      .replace(/[\u2018\u2019]/g, "'")
+      .replace(/[\u201C\u201D]/g, '"')
+      .replace(/\s,/g, ",");
   article.title = clean(article.title).slice(0, 140);
   article.dek = clean(article.dek);
   article.body = (article.body || []).map(clean).filter(Boolean);
@@ -139,7 +144,7 @@ Tracker page (link it once, in the body): ${SITE}/economy/sales-tax`;
   const monthWord = monthLabel(month).split(" ")[0].toLowerCase();
   article.slug = `jackson-sales-tax-diversions-${monthWord}-${y}`;
   if (article.body.length < 5) throw new Error("Story too short.");
-  if (!/^What's next:/.test(article.body[article.body.length - 1])) {
+  if (!/^What['\u2019]s next:/i.test(article.body[article.body.length - 1])) {
     article.body.push(`What's next: The Department of Revenue's next diversion report, covering ${monthLabel(shiftMonth(month, 1))}, is due around the middle of next month. The Wire's tracker at ${SITE}/economy/sales-tax updates the same day.`);
   }
   log(`Drafted: "${article.title}" (${article.slug})`);

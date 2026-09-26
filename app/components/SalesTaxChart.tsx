@@ -33,7 +33,16 @@ function full(n: number): string {
  * and a hover/focus tooltip on every column. The table below the chart is
  * the accessible view of the same numbers.
  */
-export default function SalesTaxChart({ points, city }: { points: ChartPoint[]; city: string }) {
+export default function SalesTaxChart({
+  points,
+  city,
+  history,
+}: {
+  points: ChartPoint[];
+  city: string;
+  /** Every month on file for the city (month -> amount), so the year-earlier comparison works for the oldest visible columns too. */
+  history?: Record<string, number>;
+}) {
   const [active, setActive] = useState<number | null>(null);
   if (points.length === 0) return null;
 
@@ -60,14 +69,37 @@ export default function SalesTaxChart({ points, city }: { points: ChartPoint[]; 
   const maxIdx = Math.abs(rawMaxIdx - lastIdx) < 3 ? lastIdx : rawMaxIdx;
   const ticks = [0, 1, 2, 3, 4].map((k) => (top / 4) * k);
   const labelEvery = points.length > 14 ? 3 : points.length > 8 ? 2 : 1;
-  const priorOf = (i: number) => points.find((p) => p.month === shift(points[i].month, -12));
+  const priorAmount = (i: number): number | undefined => {
+    const key = shift(points[i].month, -12);
+    if (history && typeof history[key] === "number") return history[key];
+    return points.find((p) => p.month === key)?.amount;
+  };
+  // One tab stop for the whole chart; arrow keys move the highlighted column.
+  const onKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "ArrowRight" || e.key === "ArrowLeft" || e.key === "Home" || e.key === "End") {
+      e.preventDefault();
+      const cur = active ?? lastIdx;
+      const next = e.key === "ArrowRight" ? Math.min(lastIdx, cur + 1) : e.key === "ArrowLeft" ? Math.max(0, cur - 1) : e.key === "Home" ? 0 : lastIdx;
+      setActive(next);
+    } else if (e.key === "Escape") {
+      setActive(null);
+    }
+  };
 
   return (
     <figure className="relative">
+      <div
+        tabIndex={0}
+        role="group"
+        aria-label={`${city} monthly sales tax diversions, ${long(points[0].month)} to ${long(points[lastIdx].month)}. Latest ${full(points[lastIdx].amount)}. Use the left and right arrow keys to read each month.`}
+        onKeyDown={onKeyDown}
+        onFocus={() => setActive((a) => a ?? lastIdx)}
+        onBlur={() => setActive(null)}
+        className="focus:outline-none focus-visible:ring-2 focus-visible:ring-ink"
+      >
       <svg
         viewBox={`0 0 ${W} ${H}`}
-        role="img"
-        aria-label={`${city} monthly sales tax diversions, ${long(points[0].month)} to ${long(points[lastIdx].month)}. Latest ${full(points[lastIdx].amount)}.`}
+        aria-hidden="true"
         className="h-auto w-full font-sans"
         onMouseLeave={() => setActive(null)}
       >
@@ -93,11 +125,7 @@ export default function SalesTaxChart({ points, city }: { points: ChartPoint[]; 
                 width={band}
                 height={plotH}
                 fill="transparent"
-                tabIndex={0}
-                aria-label={`${long(p.month)}: ${full(p.amount)}`}
                 onMouseEnter={() => setActive(i)}
-                onFocus={() => setActive(i)}
-                onBlur={() => setActive(null)}
               />
               <path
                 d={`M${x(i)},${y(0)} L${x(i)},${y(p.amount) + r} Q${x(i)},${y(p.amount)} ${x(i) + r},${y(p.amount)} L${x(i) + barW - r},${y(p.amount)} Q${x(i) + barW},${y(p.amount)} ${x(i) + barW},${y(p.amount) + r} L${x(i) + barW},${y(0)} Z`}
@@ -120,6 +148,7 @@ export default function SalesTaxChart({ points, city }: { points: ChartPoint[]; 
         })}
         <line x1={padL} x2={W - padR} y1={y(0)} y2={y(0)} stroke="var(--color-ink)" strokeWidth="1" />
       </svg>
+      </div>
       {active !== null && (
         <div
           role="status"
@@ -127,9 +156,9 @@ export default function SalesTaxChart({ points, city }: { points: ChartPoint[]; 
         >
           <span className="font-bold">{long(points[active].month)}</span>: {full(points[active].amount)}
           {(() => {
-            const prior = priorOf(active);
+            const prior = priorAmount(active);
             if (!prior) return null;
-            const ch = ((points[active].amount - prior.amount) / prior.amount) * 100;
+            const ch = ((points[active].amount - prior) / prior) * 100;
             return (
               <span className="text-muted">
                 {" "}
@@ -141,7 +170,7 @@ export default function SalesTaxChart({ points, city }: { points: ChartPoint[]; 
         </div>
       )}
       <figcaption className="mt-2 font-sans text-xs text-muted">
-        {city}, monthly sales tax diversion paid by the state, oldest to newest. Hover or tab to a column for the figure.
+        {city}, monthly sales tax diversion paid by the state, oldest to newest. Hover a column, or focus the chart and use the arrow keys, for the figure.
       </figcaption>
     </figure>
   );

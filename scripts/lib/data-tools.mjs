@@ -6,6 +6,7 @@
 
 import { fetchUrl } from "./fetch-url.mjs";
 import { listReports, readReport, mergeReport, renderMonthTable, loadDataset, monthLabel } from "./sales-tax.mjs";
+import { classifyNotice } from "../../lib/notice-kinds.mjs";
 
 const UA = "TheJacksonWire/1.0 (+https://www.thejacksonwire.com; capitolmain42@gmail.com)";
 const TIMEOUT_MS = 20000;
@@ -197,15 +198,7 @@ async function jacksonMeetings({ limit = 15 } = {}) {
 
 // --- public_notices --------------------------------------------------------------
 
-/** Classify a City of Jackson bid-opportunity post by its title. */
-export function classifyNotice(title) {
-  const t = title.toLowerCase();
-  if (/\b(rz|up|var|rezon|zoning|pud|variance|use permit|planning)\b/.test(t)) return "zoning";
-  if (/\b(rfp|rfq|request for (proposals?|qualifications)|proposal)\b/.test(t)) return "rfp";
-  if (/\b(ifb|invitation|bid|bids)\b/.test(t)) return "bid";
-  if (/\b(meeting|hearing|notice)\b/.test(t)) return "meeting";
-  return "other";
-}
+export { classifyNotice };
 
 async function publicNotices({ days = 14, limit = 25 } = {}) {
   const since = isoDaysAgo(days);

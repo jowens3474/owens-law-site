@@ -4,6 +4,7 @@
 // fails soft to an empty list so the page always renders.
 
 import { unstable_cache } from "next/cache";
+import { classifyNotice, noticeLabel } from "./notice-kinds.mjs";
 
 const UA = "TheJacksonWire/1.0 (+https://www.thejacksonwire.com)";
 const REVALIDATE = 1800;
@@ -165,15 +166,6 @@ export interface NoticeRow {
   kind: string;
 }
 
-function classifyNotice(title: string): string {
-  const t = title.toLowerCase();
-  if (/\b(rz|up|var|rezon|zoning|pud|variance|use permit|planning)\b/.test(t)) return "Zoning";
-  if (/\b(rfp|rfq|request for (proposals?|qualifications)|proposal)\b/.test(t)) return "RFP";
-  if (/\b(ifb|invitation|bid|bids)\b/.test(t)) return "Bid";
-  if (/\b(meeting|hearing|notice)\b/.test(t)) return "Meeting";
-  return "Notice";
-}
-
 async function fetchNotices(): Promise<NoticeRow[]> {
   try {
     const posts = await getJson<{ date?: string; link?: string; title?: { rendered?: string } }[]>(
@@ -181,7 +173,7 @@ async function fetchNotices(): Promise<NoticeRow[]> {
     );
     return posts.map((p) => {
       const title = strip(p.title?.rendered || "");
-      return { date: (p.date || "").slice(0, 10), title, link: p.link || "", kind: classifyNotice(title) };
+      return { date: (p.date || "").slice(0, 10), title, link: p.link || "", kind: noticeLabel(classifyNotice(title)) };
     });
   } catch (e) {
     console.error(`[pro-live] notices: ${(e as Error).message}`);

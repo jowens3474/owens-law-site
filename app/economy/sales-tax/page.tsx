@@ -90,11 +90,11 @@ export default function SalesTaxPage() {
   const prior = shift(latest, -12);
   const jackson = data.months[latest]?.Jackson;
   const jacksonPrior = data.months[prior]?.Jackson;
-  const series = Object.keys(data.months)
+  const allJackson = Object.keys(data.months)
     .filter((ym) => typeof data.months[ym]?.Jackson?.amount === "number")
-    .sort()
-    .slice(-24)
-    .map((ym) => ({ month: ym, amount: data.months[ym].Jackson.amount }));
+    .sort();
+  const series = allJackson.slice(-24).map((ym) => ({ month: ym, amount: data.months[ym].Jackson.amount }));
+  const history: Record<string, number> = Object.fromEntries(allJackson.map((ym) => [ym, data.months[ym].Jackson.amount]));
 
   const rows = data.cities
     .map((city) => ({ city, now: data.months[latest]?.[city], then: data.months[prior]?.[city] }))
@@ -146,7 +146,7 @@ export default function SalesTaxPage() {
             <h2 className="mb-4 border-b border-ink pb-1 font-sans text-xs font-bold uppercase tracking-widest">
               Jackson, month by month
             </h2>
-            <SalesTaxChart points={series} city="Jackson" />
+            <SalesTaxChart points={series} city="Jackson" history={history} />
           </section>
 
           <section className="mt-12">
@@ -187,10 +187,14 @@ export default function SalesTaxPage() {
             <h2 className="mb-4 border-b border-ink pb-1 font-sans text-xs font-bold uppercase tracking-widest">How to read it</h2>
             <div className="space-y-3 font-sans text-sm leading-relaxed text-muted">
               <p>
-                Mississippi collects a 7 percent sales tax and returns 18.5 percent of what was collected inside a city&apos;s limits to that city. The Department of Revenue publishes the payments each month, by city, with the same month a year earlier and fiscal-year-to-date totals. The fiscal year begins July 1.
+                Under{" "}
+                <a href="https://law.justia.com/codes/mississippi/title-27/chapter-65/in-general/section-27-65-75/" className="font-semibold text-crimson hover:text-crimson-bright" target="_blank" rel="noopener noreferrer">
+                  Mississippi Code § 27-65-75
+                </a>
+                , a city receives 18.5 percent of the sales tax collected on business inside its limits during the preceding month, paid by the 15th. The Department of Revenue publishes the payments each month, by city, with the same month a year earlier and fiscal-year-to-date totals. The fiscal year begins July 1.
               </p>
               <p>
-                A month&apos;s diversion reflects sales tax that businesses remitted in the prior month, so it trails the sales themselves by roughly two months. Compare a month with the same month a year earlier, not with the month before.
+                Businesses remit sales tax the month after the sale, and the state pays the city the month after that, so a month&apos;s diversion trails the sales themselves by roughly two months. Compare a month with the same month a year earlier, not with the month before.
               </p>
               <p>
                 Percent changes, the metro total, and Jackson&apos;s share are Wire calculations from the state&apos;s figures. The metro total counts only the cities listed above.
