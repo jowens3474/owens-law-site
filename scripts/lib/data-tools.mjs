@@ -220,6 +220,7 @@ async function federalAwards({ keyword = "", county = "hinds", days = 30, limit 
     "Awarding Agency",
     "Awarding Sub Agency",
     "Place of Performance City Name",
+    "generated_internal_id",
   ];
   const groups = [
     { label: "Contracts", codes: ["A", "B", "C", "D"] },
@@ -244,7 +245,7 @@ async function federalAwards({ keyword = "", county = "hinds", days = 30, limit 
       out.push("", `${g.label}: ${rows.length}${rows.length >= limit ? "+" : ""}`);
       for (const r of rows) {
         out.push(
-          `- ${money(r["Award Amount"])} | ${r["Recipient Name"]} | ${r["Awarding Agency"]}${r["Awarding Sub Agency"] && r["Awarding Sub Agency"] !== r["Awarding Agency"] ? ` / ${r["Awarding Sub Agency"]}` : ""} | start ${r["Start Date"]}${r["Place of Performance City Name"] ? ` | ${r["Place of Performance City Name"]}` : ""}\n  ${(r.Description || "").slice(0, 220)} | id ${r["Award ID"]}`,
+          `- ${money(r["Award Amount"])} | ${r["Recipient Name"]} | ${r["Awarding Agency"]}${r["Awarding Sub Agency"] && r["Awarding Sub Agency"] !== r["Awarding Agency"] ? ` / ${r["Awarding Sub Agency"]}` : ""} | start ${r["Start Date"]}${r["Place of Performance City Name"] ? ` | ${r["Place of Performance City Name"]}` : ""}\n  ${(r.Description || "").slice(0, 220)} | id ${r["Award ID"]}${r.generated_internal_id ? `\n  https://www.usaspending.gov/award/${r.generated_internal_id}` : ""}`,
         );
       }
     } catch (e) {
