@@ -40,7 +40,7 @@ function loadState() {
   } catch {
     state = {};
   }
-  for (const k of ["agendas", "dockets", "awards", "filings", "bankruptcies"]) state[k] = state[k] || [];
+  for (const k of ["agendas", "notices", "dockets", "awards", "filings", "bankruptcies"]) state[k] = state[k] || [];
   return state;
 }
 
@@ -64,6 +64,12 @@ const strip = (h) => String(h || "").replace(/<[^>]+>/g, " ").replace(/&amp;/g, 
 async function newAgendas(state) {
   const posts = await getJson("https://www.jacksonms.gov/wp-json/wp/v2/agendameeting?per_page=15&orderby=date&order=desc&_fields=title,link,date");
   const fresh = posts.filter((p) => p.link && !state.agendas.includes(p.link) && (p.date || "").slice(0, 10) >= iso(3));
+  return fresh.map((p) => ({ key: p.link, text: `${(p.date || "").slice(0, 10)}: ${strip(p.title?.rendered)}`, url: p.link }));
+}
+
+async function newNotices(state) {
+  const posts = await getJson("https://www.jacksonms.gov/wp-json/wp/v2/bid-opportunity?per_page=20&orderby=date&order=desc&_fields=title,link,date");
+  const fresh = posts.filter((p) => p.link && !state.notices.includes(p.link) && (p.date || "").slice(0, 10) >= iso(5));
   return fresh.map((p) => ({ key: p.link, text: `${(p.date || "").slice(0, 10)}: ${strip(p.title?.rendered)}`, url: p.link }));
 }
 
@@ -142,6 +148,7 @@ async function main() {
   const sections = [];
   const checks = [
     ["Council agendas and notices posted", "agendas", newAgendas],
+    ["Bids, RFPs, and zoning ads posted", "notices", newNotices],
     ["Federal awards over $250,000", "awards", newAwards],
     ["New federal cases on the watchlist", "dockets", newDockets],
     ["Business bankruptcies filed", "bankruptcies", newBankruptcies],

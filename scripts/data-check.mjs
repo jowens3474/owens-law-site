@@ -47,6 +47,11 @@ if (only === "probe") {
         .filter(([h, t]) => !filter || filter.test(h) || filter.test(t));
       console.log(`links: ${links.length}`);
       for (const [h, t] of links.slice(0, filter ? 400 : 120)) console.log(`  ${t.slice(0, 80)} -> ${h}`);
+      for (const fr of html.matchAll(/<(?:frame|iframe)\b[^>]*src=["']([^"']+)["']/gi)) console.log("frame:", fr[1]);
+      if (links.length < 5) {
+        console.log("--- raw html head ---");
+        console.log(html.slice(0, 2500));
+      }
       const forms = [...html.matchAll(/<form\b[^>]*>[\s\S]*?<\/form>/gi)].map((m) => m[0]);
       for (const f of forms.slice(0, 4)) {
         console.log("form:", (f.match(/<form\b[^>]*>/i) || [""])[0].slice(0, 300));
@@ -73,6 +78,7 @@ const DEFAULT_ARGS = {
   federal_register: { query: query || "Jackson, Mississippi", days: 60 },
   court_search: { query: query || "*", days: 30 },
   bankruptcies: { days: 21 },
+  public_notices: { days: 30 },
 };
 
 let failures = 0;

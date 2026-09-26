@@ -194,6 +194,51 @@ async function jacksonMeetings({ limit = 15 } = {}) {
   return out.join("\n");
 }
 
+// --- public_notices --------------------------------------------------------------
+
+/** Classify a City of Jackson bid-opportunity post by its title. */
+export function classifyNotice(title) {
+  const t = title.toLowerCase();
+  if (/\b(rz|up|var|rezon|zoning|pud|variance|use permit|planning)\b/.test(t)) return "zoning";
+  if (/\b(rfp|rfq|request for (proposals?|qualifications)|proposal)\b/.test(t)) return "rfp";
+  if (/\b(ifb|invitation|bid|bids)\b/.test(t)) return "bid";
+  if (/\b(meeting|hearing|notice)\b/.test(t)) return "meeting";
+  return "other";
+}
+
+async function publicNotices({ days = 14, limit = 25 } = {}) {
+  const since = isoDaysAgo(days);
+  const out = [];
+  const errors = [];
+  try {
+    const posts = await getJson(
+      `https://www.jacksonms.gov/wp-json/wp/v2/bid-opportunity?per_page=${Math.min(limit, 50)}&orderby=date&order=desc&_fields=title,link,date,excerpt`,
+    );
+    const rows = (Array.isArray(posts) ? posts : [])
+      .map((p) => ({
+        date: (p.date || "").slice(0, 10),
+        title: strip(p.title?.rendered || ""),
+        link: p.link || "",
+        kind: classifyNotice(strip(p.title?.rendered || "")),
+        excerpt: strip(p.excerpt?.rendered || "").slice(0, 200),
+      }))
+      .filter((r) => r.date >= since);
+    if (rows.length) {
+      out.push(`City of Jackson bids, RFPs, and zoning publication ads posted since ${since} (jacksonms.gov, newest first):`);
+      for (const r of rows) out.push(`- ${r.date} | ${r.kind.toUpperCase()} | ${r.title} | ${r.link}${r.excerpt ? `\n  ${r.excerpt}` : ""}`);
+      out.push("");
+    } else {
+      out.push(`No City of Jackson bid or zoning notices posted since ${since}.`, "");
+    }
+  } catch (e) {
+    errors.push(`jacksonms.gov bid-opportunity: ${e.message}`);
+  }
+  if (out.length === 0) return `public_notices unavailable: ${errors.join(" | ")}`;
+  out.push("Zoning ads (RZ = rezoning, UP = use permit, VAR = variance) name the parcel and the hearing date inside the post; fetch_url the link to read it. RFPs and IFBs carry the bid deadline in the post.");
+  if (errors.length) out.push(`(partial: ${errors.join(" | ")})`);
+  return out.join("\n");
+}
+
 // --- federal_awards ------------------------------------------------------------
 
 async function usaSpending(body) {
@@ -550,6 +595,18 @@ export const DATA_TOOLS = [
 DATA_TOOLS.push({
   type: "function",
   function: {
+    name: "public_notices",
+    description:
+      "Public notices posted by the City of Jackson in the last N days: invitations for bids, requests for proposals, zoning publication ads (rezonings, use permits, variances, with hearing dates), and public meeting notices. Each is a dated, future event with a document. Call once per run alongside jackson_meetings.",
+    parameters: {
+      type: "object",
+      properties: { days: { type: "integer", minimum: 1, maximum: 90, description: "Default 14." } },
+    },
+  },
+});
+DATA_TOOLS.push({
+  type: "function",
+  function: {
     name: "bankruptcies",
     description:
       "Business-looking bankruptcy cases filed in the Southern District of Mississippi bankruptcy court in the last N days: every Chapter 11, plus Chapter 7 cases and adversary proceedings with a business name. Newest first, with docket links. Use for a Business story or the watch list; confirm the debtor's address before naming it.",
@@ -595,6 +652,9 @@ export async function runDataTool(name, args = {}, { prefix = "data", cl } = {})
         log(`"${args.query}" ${args.days ?? 30}d ${args.court ?? "mssd"}`);
         if (!cl) return "court_search unavailable: no CourtListener client.";
         return await cl.searchDockets(args.query || "*", { days: args.days ?? 30, court: args.court === "mssb" ? "mssb" : "mssd" });
+      case "public_notices":
+        log(`${args.days ?? 14}d`);
+        return await publicNotices({ days: Math.min(Math.max(args.days ?? 14, 1), 90) });
       case "bankruptcies":
         log(`${args.days ?? 14}d`);
         if (!cl) return "bankruptcies unavailable: no CourtListener client.";

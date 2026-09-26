@@ -101,6 +101,7 @@ async function main() {
     ["sec_filings", ["sec_filings", { query: "Jackson, Mississippi", days: 7 }]],
     ["federal_register", ["federal_register", { query: "Mississippi", days: 7 }]],
     ["jackson_meetings", ["jackson_meetings", {}]],
+    ["public_notices", ["public_notices", { days: 7 }]],
     ["eia_fuel_prices", ["eia_fuel_prices", {}]],
     ["bls_series", ["bls_series", {}]],
   ]) {
@@ -116,13 +117,14 @@ Return JSON with this shape:
   "subject": "Pipeline Pro: <week of date> | <the single most important item, under 70 characters>",
   "lede": "Two or three sentences on what matters most this week and why, for someone whose money is on the line.",
   "sections": [
+    {"heading": "Bids, RFPs, and zoning", "items": [{"text": "...", "url": "..."}]},
     {"heading": "Money moving", "items": [{"text": "...", "url": "..."}]},
     {"heading": "Filings and cases", "items": [...]},
     {"heading": "By the numbers", "items": [...]},
     {"heading": "Watch list", "items": [...]}
   ]
 }
-Rules for items: 1 to 3 sentences each, lead with the dollar figure or the name, include the url field when the feed gives one, 3 to 7 items per section, and omit a section entirely if there is nothing worth a reader's time. "Money moving" covers federal awards and grants (skip routine sub-$50,000 items unless the recipient is notable). "Filings and cases" covers court dockets, bankruptcy cases (name the chapter; a Chapter 11 by a local business leads the section), SEC filings, and Federal Register documents that touch the metro. "By the numbers" reads the fuel and labor series and states the change. "Watch list" names two to four things that are not yet scheduled but are coming, drawn from the feeds and the tracker.`;
+Rules for items: 1 to 3 sentences each, lead with the dollar figure or the name, include the url field when the feed gives one, 3 to 7 items per section, and omit a section entirely if there is nothing worth a reader's time. "Bids, RFPs, and zoning" covers every city bid, request for proposals, and zoning publication ad with its deadline or hearing date. "Money moving" covers federal awards and grants (skip routine sub-$50,000 items unless the recipient is notable). "Filings and cases" covers court dockets, bankruptcy cases (name the chapter; a Chapter 11 by a local business leads the section), SEC filings, and Federal Register documents that touch the metro. "By the numbers" reads the fuel and labor series and states the change. "Watch list" names two to four things that are not yet scheduled but are coming, drawn from the feeds and the tracker.`;
 
   const user = `Today is ${today}. Week ahead: ${today} to ${weekEnd}.
 
@@ -155,6 +157,9 @@ ${feeds.federal_register}
 
 === JACKSON MEETINGS ===
 ${feeds.jackson_meetings}
+
+=== CITY BIDS, RFPS, AND ZONING ADS (last 7 days) ===
+${feeds.public_notices}
 
 === FUEL ===
 ${feeds.eia_fuel_prices}
