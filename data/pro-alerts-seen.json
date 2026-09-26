@@ -1,1 +1,8 @@
-{ "agendas": [], "dockets": [], "awards": [], "filings": [] }
+{
+  "agendas": [],
+  "dockets": [],
+  "awards": [],
+  "filings": [],
+  "bankruptcies": [],
+  "notices": []
+}

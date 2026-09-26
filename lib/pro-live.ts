@@ -4,6 +4,7 @@
 // fails soft to an empty list so the page always renders.
 
 import { unstable_cache } from "next/cache";
+import { classifyNotice, noticeLabel } from "./notice-kinds.mjs";
 
 const UA = "TheJacksonWire/1.0 (+https://www.thejacksonwire.com)";
 const REVALIDATE = 1800;
@@ -158,6 +159,28 @@ async function fetchAgendas(): Promise<AgendaRow[]> {
   }
 }
 
+export interface NoticeRow {
+  date: string;
+  title: string;
+  link: string;
+  kind: string;
+}
+
+async function fetchNotices(): Promise<NoticeRow[]> {
+  try {
+    const posts = await getJson<{ date?: string; link?: string; title?: { rendered?: string } }[]>(
+      "https://www.jacksonms.gov/wp-json/wp/v2/bid-opportunity?per_page=15&orderby=date&order=desc&_fields=title,link,date",
+    );
+    return posts.map((p) => {
+      const title = strip(p.title?.rendered || "");
+      return { date: (p.date || "").slice(0, 10), title, link: p.link || "", kind: noticeLabel(classifyNotice(title)) };
+    });
+  } catch (e) {
+    console.error(`[pro-live] notices: ${(e as Error).message}`);
+    return [];
+  }
+}
+
 export interface FuelRow {
   grade: string;
   today: string;
@@ -209,4 +232,5 @@ async function fetchFuel(): Promise<{ mississippi: FuelRow[]; us: FuelRow[] }> {
 export const getRecentAwards = unstable_cache(() => fetchAwards(14), ["pro-live-awards"], { revalidate: REVALIDATE });
 export const getRecentDockets = unstable_cache(() => fetchDockets(7), ["pro-live-dockets"], { revalidate: REVALIDATE });
 export const getJacksonAgendas = unstable_cache(() => fetchAgendas(), ["pro-live-agendas"], { revalidate: REVALIDATE });
+export const getJacksonNotices = unstable_cache(() => fetchNotices(), ["pro-live-notices"], { revalidate: REVALIDATE });
 export const getFuelPrices = unstable_cache(() => fetchFuel(), ["pro-live-fuel"], { revalidate: REVALIDATE });

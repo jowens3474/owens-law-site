@@ -8,6 +8,7 @@
 
 import { readFileSync, writeFileSync } from "node:fs";
 import { sendBroadcast, renderEmail, renderText } from "./lib/resend.mjs";
+import { createCourtListener } from "./lib/courtlistener.mjs";
 
 const STATE_FILE = "data/pro-alerts-seen.json";
 const SITE = process.env.SITE_URL || "https://www.thejacksonwire.com";
@@ -33,11 +34,26 @@ async function getJson(url, init = {}) {
   }
 }
 function loadState() {
+  let state;
   try {
-    return JSON.parse(readFileSync(STATE_FILE, "utf8"));
+    state = JSON.parse(readFileSync(STATE_FILE, "utf8"));
   } catch {
-    return { agendas: [], dockets: [], awards: [], filings: [] };
+    state = {};
   }
+  for (const k of ["agendas", "notices", "dockets", "awards", "filings", "bankruptcies"]) state[k] = state[k] || [];
+  return state;
+}
+
+async function newBankruptcies(state) {
+  const cl = createCourtListener({ prefix: "pro-alerts" });
+  const { rows } = await cl.businessBankruptcies({ days: 4 });
+  return rows
+    .filter((r) => !state.bankruptcies.includes(r.id))
+    .map((r) => ({
+      key: r.id,
+      text: `${r.filed}: ${r.caseName} (${r.number}), ${r.chapter === "adversary" ? "adversary proceeding" : `Chapter ${r.chapter}`} in the S.D. Miss. bankruptcy court${r.trustee ? `, trustee ${r.trustee}` : ""}.`,
+      url: r.url || undefined,
+    }));
 }
 function saveState(state) {
   for (const k of Object.keys(state)) state[k] = state[k].slice(-500);
@@ -48,6 +64,12 @@ const strip = (h) => String(h || "").replace(/<[^>]+>/g, " ").replace(/&amp;/g, 
 async function newAgendas(state) {
   const posts = await getJson("https://www.jacksonms.gov/wp-json/wp/v2/agendameeting?per_page=15&orderby=date&order=desc&_fields=title,link,date");
   const fresh = posts.filter((p) => p.link && !state.agendas.includes(p.link) && (p.date || "").slice(0, 10) >= iso(3));
+  return fresh.map((p) => ({ key: p.link, text: `${(p.date || "").slice(0, 10)}: ${strip(p.title?.rendered)}`, url: p.link }));
+}
+
+async function newNotices(state) {
+  const posts = await getJson("https://www.jacksonms.gov/wp-json/wp/v2/bid-opportunity?per_page=20&orderby=date&order=desc&_fields=title,link,date");
+  const fresh = posts.filter((p) => p.link && !state.notices.includes(p.link) && (p.date || "").slice(0, 10) >= iso(5));
   return fresh.map((p) => ({ key: p.link, text: `${(p.date || "").slice(0, 10)}: ${strip(p.title?.rendered)}`, url: p.link }));
 }
 
@@ -126,8 +148,10 @@ async function main() {
   const sections = [];
   const checks = [
     ["Council agendas and notices posted", "agendas", newAgendas],
+    ["Bids, RFPs, and zoning ads posted", "notices", newNotices],
     ["Federal awards over $250,000", "awards", newAwards],
     ["New federal cases on the watchlist", "dockets", newDockets],
+    ["Business bankruptcies filed", "bankruptcies", newBankruptcies],
     ["SEC 8-K filings mentioning Jackson", "filings", newFilings],
   ];
   const seenNow = {};

@@ -11,7 +11,7 @@ import {
   STAGE_LABEL,
 } from "@/lib/pipeline";
 import { getPostBySlug } from "@/lib/posts";
-import { getRecentAwards, getRecentDockets, getJacksonAgendas, getFuelPrices } from "@/lib/pro-live";
+import { getRecentAwards, getRecentDockets, getJacksonAgendas, getJacksonNotices, getFuelPrices } from "@/lib/pro-live";
 import ProLogin from "@/app/components/ProLogin";
 
 export const metadata: Metadata = {
@@ -58,10 +58,11 @@ export default async function ProDashboardPage({
     );
   }
 
-  const [awards, dockets, agendas, fuel] = await Promise.all([
+  const [awards, dockets, agendas, notices, fuel] = await Promise.all([
     getRecentAwards(),
     getRecentDockets(),
     getJacksonAgendas(),
+    getJacksonNotices(),
     getFuelPrices(),
   ]);
   const upcoming = getUpcomingMilestones();
@@ -112,6 +113,25 @@ export default async function ProDashboardPage({
                     <span className="mr-3 text-muted">{a.date}</span>
                     <a href={a.link} target="_blank" rel="noopener noreferrer" className="font-semibold hover:text-crimson">
                       {a.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </section>
+
+          <section>
+            <H2>Bids, RFPs, and zoning publication ads (jacksonms.gov)</H2>
+            {notices.length === 0 ? (
+              <p className="font-sans text-sm text-muted">Feed unavailable right now.</p>
+            ) : (
+              <ul className="divide-y divide-rule border-y border-rule">
+                {notices.map((n) => (
+                  <li key={n.link} className="py-2.5 font-sans text-sm">
+                    <span className="mr-3 text-muted">{n.date}</span>
+                    <span className="mr-2 inline-block bg-ink px-1.5 py-0.5 text-[0.6rem] font-bold uppercase tracking-widest text-newsprint">{n.kind}</span>
+                    <a href={n.link} target="_blank" rel="noopener noreferrer" className="font-semibold hover:text-crimson">
+                      {n.title}
                     </a>
                   </li>
                 ))}
@@ -266,6 +286,20 @@ export default async function ProDashboardPage({
                 U.S. diesel today {fuel.us.find((r) => r.grade === "Diesel")?.today ?? "n/a"}.
               </p>
             )}
+          </section>
+
+          <section>
+            <H2>Trackers</H2>
+            <ul className="space-y-2 font-sans text-sm">
+              <li>
+                <Link href="/economy/sales-tax" className="font-semibold text-crimson hover:text-crimson-bright">Sales Tax Tracker</Link>
+                <span className="text-muted"> · monthly diversions, Jackson vs the suburbs</span>
+              </li>
+              <li>
+                <Link href="/pipeline" className="font-semibold text-crimson hover:text-crimson-bright">The Pipeline</Link>
+                <span className="text-muted"> · projects and decision dates</span>
+              </li>
+            </ul>
           </section>
 
           <section className="border border-rule bg-paper p-5">

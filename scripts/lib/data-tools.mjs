@@ -5,6 +5,8 @@
 // returns a short "unavailable" message instead of throwing.
 
 import { fetchUrl } from "./fetch-url.mjs";
+import { listReports, readReport, mergeReport, renderMonthTable, loadDataset, monthLabel } from "./sales-tax.mjs";
+import { classifyNotice } from "../../lib/notice-kinds.mjs";
 
 const UA = "TheJacksonWire/1.0 (+https://www.thejacksonwire.com; capitolmain42@gmail.com)";
 const TIMEOUT_MS = 20000;
@@ -190,6 +192,43 @@ async function jacksonMeetings({ limit = 15 } = {}) {
     return `jackson_meetings unavailable: ${errors.join(" | ")}. Fall back to fetch_url https://www.jacksonms.gov/meetings/`;
   }
   out.push("Fetch any agenda packet PDF linked from these pages with fetch_url to read the items.");
+  if (errors.length) out.push(`(partial: ${errors.join(" | ")})`);
+  return out.join("\n");
+}
+
+// --- public_notices --------------------------------------------------------------
+
+export { classifyNotice };
+
+async function publicNotices({ days = 14, limit = 25 } = {}) {
+  const since = isoDaysAgo(days);
+  const out = [];
+  const errors = [];
+  try {
+    const posts = await getJson(
+      `https://www.jacksonms.gov/wp-json/wp/v2/bid-opportunity?per_page=${Math.min(limit, 50)}&orderby=date&order=desc&_fields=title,link,date,excerpt`,
+    );
+    const rows = (Array.isArray(posts) ? posts : [])
+      .map((p) => ({
+        date: (p.date || "").slice(0, 10),
+        title: strip(p.title?.rendered || ""),
+        link: p.link || "",
+        kind: classifyNotice(strip(p.title?.rendered || "")),
+        excerpt: strip(p.excerpt?.rendered || "").slice(0, 200),
+      }))
+      .filter((r) => r.date >= since);
+    if (rows.length) {
+      out.push(`City of Jackson bids, RFPs, and zoning publication ads posted since ${since} (jacksonms.gov, newest first):`);
+      for (const r of rows) out.push(`- ${r.date} | ${r.kind.toUpperCase()} | ${r.title} | ${r.link}${r.excerpt ? `\n  ${r.excerpt}` : ""}`);
+      out.push("");
+    } else {
+      out.push(`No City of Jackson bid or zoning notices posted since ${since}.`, "");
+    }
+  } catch (e) {
+    errors.push(`jacksonms.gov bid-opportunity: ${e.message}`);
+  }
+  if (out.length === 0) return `public_notices unavailable: ${errors.join(" | ")}`;
+  out.push("Zoning ads (RZ = rezoning, UP = use permit, VAR = variance) name the parcel and the hearing date inside the post; fetch_url the link to read it. RFPs and IFBs carry the bid deadline in the post.");
   if (errors.length) out.push(`(partial: ${errors.join(" | ")})`);
   return out.join("\n");
 }
@@ -533,15 +572,53 @@ export const DATA_TOOLS = [
     function: {
       name: "court_search",
       description:
-        "New federal dockets in the Southern District of Mississippi (CourtListener RECAP) matching a query, newest first: business litigation, bankruptcies, civil rights suits against the city, contract fights. Use '*' for everything recent.",
+        "New federal dockets in the Southern District of Mississippi (CourtListener RECAP) matching a query, newest first: business litigation, civil rights suits against the city, contract fights. Use '*' for everything recent. Set court to 'mssb' to search the bankruptcy court instead.",
       parameters: {
         type: "object",
-        properties: { query: { type: "string" }, days: { type: "integer", minimum: 1, maximum: 365 } },
+        properties: {
+          query: { type: "string" },
+          days: { type: "integer", minimum: 1, maximum: 365 },
+          court: { type: "string", enum: ["mssd", "mssb"], description: "mssd = district court (default), mssb = bankruptcy court." },
+        },
         required: ["query"],
       },
     },
   },
 ];
+
+DATA_TOOLS.push({
+  type: "function",
+  function: {
+    name: "sales_tax_diversions",
+    description:
+      "The newest Mississippi Department of Revenue report of sales tax diversions paid to cities: the month's payment to Jackson and each metro city, the same month a year earlier, the percent change, and fiscal-year-to-date totals. The closest thing to a monthly economic indicator for each city. Cite as 'Department of Revenue diversion reports'.",
+    parameters: { type: "object", properties: {} },
+  },
+});
+DATA_TOOLS.push({
+  type: "function",
+  function: {
+    name: "public_notices",
+    description:
+      "Public notices posted by the City of Jackson in the last N days: invitations for bids, requests for proposals, zoning publication ads (rezonings, use permits, variances, with hearing dates), and public meeting notices. Each is a dated, future event with a document. Call once per run alongside jackson_meetings.",
+    parameters: {
+      type: "object",
+      properties: { days: { type: "integer", minimum: 1, maximum: 90, description: "Default 14." } },
+    },
+  },
+});
+DATA_TOOLS.push({
+  type: "function",
+  function: {
+    name: "bankruptcies",
+    description:
+      "Business-looking bankruptcy cases filed in the Southern District of Mississippi bankruptcy court in the last N days: every Chapter 11, plus Chapter 7 cases and adversary proceedings with a business name. Newest first, with docket links. Use for a Business story or the watch list; confirm the debtor's address before naming it.",
+    parameters: {
+      type: "object",
+      properties: { days: { type: "integer", minimum: 1, maximum: 90, description: "Default 14." } },
+    },
+  },
+});
 
 export const DATA_TOOL_NAMES = new Set(DATA_TOOLS.map((t) => t.function.name));
 
@@ -575,9 +652,28 @@ export async function runDataTool(name, args = {}, { prefix = "data", cl } = {})
         log(`"${args.query}" ${args.days ?? 30}d`);
         return await federalRegister({ query: args.query, days: args.days ?? 30 });
       case "court_search":
-        log(`"${args.query}" ${args.days ?? 30}d`);
+        log(`"${args.query}" ${args.days ?? 30}d ${args.court ?? "mssd"}`);
         if (!cl) return "court_search unavailable: no CourtListener client.";
-        return await cl.searchDockets(args.query || "*", { days: args.days ?? 30 });
+        return await cl.searchDockets(args.query || "*", { days: args.days ?? 30, court: args.court === "mssb" ? "mssb" : "mssd" });
+      case "sales_tax_diversions": {
+        log("fetch");
+        const reports = await listReports();
+        if (!reports.length) return "sales_tax_diversions unavailable: no reports found on the DOR listing page.";
+        const d = loadDataset();
+        const newest = reports[0];
+        if (!d.reports[newest.month]) {
+          const { rows } = await readReport(newest.url);
+          mergeReport(d, newest.month, rows, newest.url, { revised: newest.revised });
+        }
+        return `Newest report: ${monthLabel(newest.month)}.\n` + renderMonthTable(d, newest.month) + "\nThe Wire's tracker with history: https://www.thejacksonwire.com/economy/sales-tax";
+      }
+      case "public_notices":
+        log(`${args.days ?? 14}d`);
+        return await publicNotices({ days: Math.min(Math.max(args.days ?? 14, 1), 90) });
+      case "bankruptcies":
+        log(`${args.days ?? 14}d`);
+        if (!cl) return "bankruptcies unavailable: no CourtListener client.";
+        return (await cl.businessBankruptcies({ days: Math.min(Math.max(args.days ?? 14, 1), 90) })).text;
       default:
         return null;
     }
