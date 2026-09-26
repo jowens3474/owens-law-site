@@ -44,6 +44,14 @@ export default function Footer() {
               </li>
               <li>
                 <Link
+                  href="/pro"
+                  className="font-sans text-sm hover:text-crimson"
+                >
+                  Pipeline Pro
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/data-centers"
                   className="font-sans text-sm hover:text-crimson"
                 >

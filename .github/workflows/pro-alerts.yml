@@ -1,0 +1,93 @@
+name: Pro Alerts
+
+# Checks the high-signal public-record feeds three times each weekday and
+# emails Pipeline Pro members when something new appears. Commits the
+# seen-state so nothing is sent twice.
+# Requires RESEND_API_KEY and RESEND_PRO_AUDIENCE_ID. See docs/PRO-SETUP.md.
+
+on:
+  schedule:
+    # Weekdays at 13:00, 17:00, 21:00 UTC (8 AM, noon, 4 PM CDT).
+    - cron: "0 13,17,21 * * 1-5"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Print instead of sending (1 = dry run)"
+        required: false
+        default: "0"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pro-alerts
+  cancel-in-progress: false
+
+jobs:
+  alert:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+          persist-credentials: true
+
+      - name: Check configuration
+        id: config
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          RESEND_PRO_AUDIENCE_ID: ${{ secrets.RESEND_PRO_AUDIENCE_ID }}
+          DRY_RUN: ${{ github.event.inputs.dry_run }}
+        run: |
+          if [ "$DRY_RUN" = "1" ] || { [ -n "$RESEND_API_KEY" ] && [ -n "$RESEND_PRO_AUDIENCE_ID" ]; }; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Pro alerts are not configured (RESEND_API_KEY / RESEND_PRO_AUDIENCE_ID). Skipping. See docs/PRO-SETUP.md."
+          fi
+
+      - name: Setup Node
+        if: ${{ steps.config.outputs.configured == 'true' }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Install dependencies
+        if: ${{ steps.config.outputs.configured == 'true' }}
+        run: npm ci
+
+      - name: Check feeds and send alerts
+        if: ${{ steps.config.outputs.configured == 'true' }}
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          RESEND_PRO_AUDIENCE_ID: ${{ secrets.RESEND_PRO_AUDIENCE_ID }}
+          COURTLISTENER_API_TOKEN: ${{ secrets.COURTLISTENER_API_TOKEN }}
+          DRY_RUN: ${{ github.event.inputs.dry_run }}
+        run: node scripts/pro-alerts.mjs
+
+      - name: Commit seen-state
+        if: ${{ !cancelled() && steps.config.outputs.configured == 'true' && github.event.inputs.dry_run != '1' }}
+        run: |
+          git config user.name "Jackson Wire Autopilot"
+          git config user.email "autopilot@thejacksonwire.com"
+          git add data/pro-alerts-seen.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Pro alerts: record sent items [skip ci]"
+            pushed=false
+            for i in 1 2 3; do
+              if git push origin HEAD:main; then pushed=true; break; fi
+              echo "Push rejected (attempt $i); rebasing..."
+              git pull --rebase origin main
+              sleep 5
+            done
+            if [ "$pushed" != true ]; then
+              echo "::error::Failed to push seen-state after 3 attempts"
+              exit 1
+            fi
+          fi

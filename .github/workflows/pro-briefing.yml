@@ -1,0 +1,68 @@
+name: Pro Briefing
+
+# Sends the Pipeline Pro Monday briefing to the Pro audience.
+# Requires RESEND_API_KEY, RESEND_PRO_AUDIENCE_ID, DEEPSEEK_API_KEY.
+# See docs/PRO-SETUP.md.
+
+on:
+  schedule:
+    # Mondays at 11:00 UTC (6 AM CDT / 5 AM CST).
+    - cron: "0 11 * * 1"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Print the briefing instead of sending (1 = dry run)"
+        required: false
+        default: "0"
+
+concurrency:
+  group: pro-briefing
+  cancel-in-progress: false
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Check configuration
+        id: config
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          RESEND_PRO_AUDIENCE_ID: ${{ secrets.RESEND_PRO_AUDIENCE_ID }}
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          DRY_RUN: ${{ github.event.inputs.dry_run }}
+        run: |
+          if [ -n "$DEEPSEEK_API_KEY" ] && { [ "$DRY_RUN" = "1" ] || { [ -n "$RESEND_API_KEY" ] && [ -n "$RESEND_PRO_AUDIENCE_ID" ]; }; }; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Pro briefing is not configured (RESEND_API_KEY / RESEND_PRO_AUDIENCE_ID / DEEPSEEK_API_KEY). Skipping. See docs/PRO-SETUP.md."
+          fi
+
+      - name: Setup Node
+        if: ${{ steps.config.outputs.configured == 'true' }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Install dependencies
+        if: ${{ steps.config.outputs.configured == 'true' }}
+        run: npm ci
+
+      - name: Send briefing
+        if: ${{ steps.config.outputs.configured == 'true' }}
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          RESEND_PRO_AUDIENCE_ID: ${{ secrets.RESEND_PRO_AUDIENCE_ID }}
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          COURTLISTENER_API_TOKEN: ${{ secrets.COURTLISTENER_API_TOKEN }}
+          EIA_API_KEY: ${{ secrets.EIA_API_KEY }}
+          BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
+          DRY_RUN: ${{ github.event.inputs.dry_run }}
+        run: node scripts/pro-briefing.mjs
