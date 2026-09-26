@@ -128,7 +128,15 @@ export default async function ProDashboardPage({
                 {awards.map((a) => (
                   <li key={`${a.id}-${a.county}`} className="py-3 font-sans text-sm">
                     <p>
-                      <span className="font-bold">{money(a.amount)}</span> · {a.recipient} · {a.agency} ·{" "}
+                      <span className="font-bold">{money(a.amount)}</span> ·{" "}
+                      {a.url ? (
+                        <a href={a.url} target="_blank" rel="noopener noreferrer" className="font-semibold hover:text-crimson">
+                          {a.recipient}
+                        </a>
+                      ) : (
+                        a.recipient
+                      )}{" "}
+                      · {a.agency} ·{" "}
                       <span className="text-muted">{a.county} County, start {a.start}</span>
                     </p>
                     <p className="mt-0.5 text-muted">{a.description}</p>

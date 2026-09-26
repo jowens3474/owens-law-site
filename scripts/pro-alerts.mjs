@@ -72,7 +72,7 @@ async function newAwards(state) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           filters: { time_period: [{ start_date: iso(10), end_date: iso(-1) }], place_of_performance_locations: [{ country: "USA", state: "MS", county: fips }], award_type_codes: codes },
-          fields: ["Award ID", "Recipient Name", "Award Amount", "Description", "Start Date", "Awarding Agency"],
+          fields: ["Award ID", "Recipient Name", "Award Amount", "Description", "Start Date", "Awarding Agency", "generated_internal_id"],
           page: 1,
           limit: 15,
           sort: "Start Date",
@@ -88,12 +88,12 @@ async function newAwards(state) {
         out.push({
           key: id,
           text: `$${Math.round(amt).toLocaleString("en-US")} to ${r["Recipient Name"]} from ${r["Awarding Agency"]}, ${county} County, start ${r["Start Date"]}. ${String(r.Description || "").slice(0, 160)}`,
-          url: `https://www.usaspending.gov/search/?hash=`,
+          url: r.generated_internal_id ? `https://www.usaspending.gov/award/${r.generated_internal_id}` : undefined,
         });
       }
     }
   }
-  return out.map((o) => ({ ...o, url: undefined }));
+  return out;
 }
 
 async function newFilings(state) {

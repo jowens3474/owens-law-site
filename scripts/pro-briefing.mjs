@@ -32,7 +32,14 @@ function addDays(iso, n) {
 }
 function fmtDate(iso) {
   const [y, m, d] = iso.split("-").map(Number);
-  return new Date(Date.UTC(y, m - 1, d)).toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric", timeZone: "UTC" });
+  const sameYear = y === Number(todayLocalIso().slice(0, 4));
+  return new Date(Date.UTC(y, m - 1, d)).toLocaleDateString("en-US", {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+    ...(sameYear ? {} : { year: "numeric" }),
+    timeZone: "UTC",
+  });
 }
 
 async function fetchJson(url) {
@@ -151,6 +158,10 @@ ${feeds.eia_fuel_prices}
 === LABOR ===
 ${feeds.bls_series}`;
 
+  // Every URL the model may cite must have appeared in its inputs. Models
+  // will otherwise invent plausible article slugs and award pages.
+  const allowedUrls = new Set((user.match(/https?:\/\/[^\s"'<>)\]]+/g) || []).map((u) => u.replace(/[.,;]+$/, "")));
+  log(`allowed urls in inputs: ${allowedUrls.size}`);
   log("calling DeepSeek...");
   const completion = await client.chat.completions.create({
     model: "deepseek-chat",
@@ -178,7 +189,12 @@ ${feeds.bls_series}`;
     items: week.map((m) => ({ text: `${fmtDate(m.date)}${m.approx ? " (approx.)" : ""}: ${m.text}`, url: m.slug ? `${SITE}/article/${m.slug}` : undefined })),
   });
   for (const s of draft.sections || []) {
-    const items = (s.items || []).filter((it) => it && it.text).map((it) => ({ text: clean(it.text), url: it.url && /^https?:\/\//.test(it.url) ? it.url : undefined }));
+    const items = (s.items || [])
+      .filter((it) => it && it.text)
+      .map((it) => {
+        const url = typeof it.url === "string" ? it.url.trim().replace(/[.,;]+$/, "") : "";
+        return { text: clean(it.text), url: url && allowedUrls.has(url) ? url : undefined };
+      });
     if (items.length) sections.push({ heading: clean(s.heading), items });
   }
   if (later.length) {

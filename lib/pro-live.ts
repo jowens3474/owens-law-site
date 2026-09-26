@@ -50,6 +50,7 @@ export interface AwardRow {
   start: string;
   description: string;
   id: string;
+  url: string;
 }
 
 async function fetchAwards(days: number): Promise<AwardRow[]> {
@@ -68,7 +69,7 @@ async function fetchAwards(days: number): Promise<AwardRow[]> {
                 place_of_performance_locations: [{ country: "USA", state: "MS", county: fips }],
                 award_type_codes: codes,
               },
-              fields: ["Award ID", "Recipient Name", "Award Amount", "Description", "Start Date", "Awarding Agency"],
+              fields: ["Award ID", "Recipient Name", "Award Amount", "Description", "Start Date", "Awarding Agency", "generated_internal_id"],
               page: 1,
               limit: 8,
               sort: "Start Date",
@@ -86,6 +87,7 @@ async function fetchAwards(days: number): Promise<AwardRow[]> {
             start: String(r["Start Date"] ?? ""),
             description: String(r.Description ?? "").slice(0, 160),
             id: String(r["Award ID"] ?? ""),
+            url: r.generated_internal_id ? `https://www.usaspending.gov/award/${r.generated_internal_id}` : "",
           });
         }
       } catch (e) {
