@@ -97,6 +97,7 @@ async function main() {
     ["federal_awards_madison", ["federal_awards", { county: "madison", days: 7 }]],
     ["federal_awards_rankin", ["federal_awards", { county: "rankin", days: 7 }]],
     ["court_search", ["court_search", { query: '"City of Jackson" OR "Hinds County" OR "JXN Water" OR Entergy OR "Madison County" OR Ridgeland', days: 7 }]],
+    ["bankruptcies", ["bankruptcies", { days: 7 }]],
     ["sec_filings", ["sec_filings", { query: "Jackson, Mississippi", days: 7 }]],
     ["federal_register", ["federal_register", { query: "Mississippi", days: 7 }]],
     ["jackson_meetings", ["jackson_meetings", {}]],
@@ -121,7 +122,7 @@ Return JSON with this shape:
     {"heading": "Watch list", "items": [...]}
   ]
 }
-Rules for items: 1 to 3 sentences each, lead with the dollar figure or the name, include the url field when the feed gives one, 3 to 7 items per section, and omit a section entirely if there is nothing worth a reader's time. "Money moving" covers federal awards and grants (skip routine sub-$50,000 items unless the recipient is notable). "Filings and cases" covers court dockets, SEC filings, and Federal Register documents that touch the metro. "By the numbers" reads the fuel and labor series and states the change. "Watch list" names two to four things that are not yet scheduled but are coming, drawn from the feeds and the tracker.`;
+Rules for items: 1 to 3 sentences each, lead with the dollar figure or the name, include the url field when the feed gives one, 3 to 7 items per section, and omit a section entirely if there is nothing worth a reader's time. "Money moving" covers federal awards and grants (skip routine sub-$50,000 items unless the recipient is notable). "Filings and cases" covers court dockets, bankruptcy cases (name the chapter; a Chapter 11 by a local business leads the section), SEC filings, and Federal Register documents that touch the metro. "By the numbers" reads the fuel and labor series and states the change. "Watch list" names two to four things that are not yet scheduled but are coming, drawn from the feeds and the tracker.`;
 
   const user = `Today is ${today}. Week ahead: ${today} to ${weekEnd}.
 
@@ -142,6 +143,9 @@ ${feeds.federal_awards_rankin}
 
 === NEW FEDERAL DOCKETS ===
 ${feeds.court_search}
+
+=== NEW BANKRUPTCY CASES (business-looking) ===
+${feeds.bankruptcies}
 
 === SEC FILINGS ===
 ${feeds.sec_filings}

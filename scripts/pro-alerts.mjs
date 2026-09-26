@@ -8,6 +8,7 @@
 
 import { readFileSync, writeFileSync } from "node:fs";
 import { sendBroadcast, renderEmail, renderText } from "./lib/resend.mjs";
+import { createCourtListener } from "./lib/courtlistener.mjs";
 
 const STATE_FILE = "data/pro-alerts-seen.json";
 const SITE = process.env.SITE_URL || "https://www.thejacksonwire.com";
@@ -33,11 +34,26 @@ async function getJson(url, init = {}) {
   }
 }
 function loadState() {
+  let state;
   try {
-    return JSON.parse(readFileSync(STATE_FILE, "utf8"));
+    state = JSON.parse(readFileSync(STATE_FILE, "utf8"));
   } catch {
-    return { agendas: [], dockets: [], awards: [], filings: [] };
+    state = {};
   }
+  for (const k of ["agendas", "dockets", "awards", "filings", "bankruptcies"]) state[k] = state[k] || [];
+  return state;
+}
+
+async function newBankruptcies(state) {
+  const cl = createCourtListener({ prefix: "pro-alerts" });
+  const { rows } = await cl.businessBankruptcies({ days: 4 });
+  return rows
+    .filter((r) => !state.bankruptcies.includes(r.id))
+    .map((r) => ({
+      key: r.id,
+      text: `${r.filed}: ${r.caseName} (${r.number}), ${r.chapter === "adversary" ? "adversary proceeding" : `Chapter ${r.chapter}`} in the S.D. Miss. bankruptcy court${r.trustee ? `, trustee ${r.trustee}` : ""}.`,
+      url: r.url || undefined,
+    }));
 }
 function saveState(state) {
   for (const k of Object.keys(state)) state[k] = state[k].slice(-500);
@@ -128,6 +144,7 @@ async function main() {
     ["Council agendas and notices posted", "agendas", newAgendas],
     ["Federal awards over $250,000", "awards", newAwards],
     ["New federal cases on the watchlist", "dockets", newDockets],
+    ["Business bankruptcies filed", "bankruptcies", newBankruptcies],
     ["SEC 8-K filings mentioning Jackson", "filings", newFilings],
   ];
   const seenNow = {};

@@ -533,15 +533,32 @@ export const DATA_TOOLS = [
     function: {
       name: "court_search",
       description:
-        "New federal dockets in the Southern District of Mississippi (CourtListener RECAP) matching a query, newest first: business litigation, bankruptcies, civil rights suits against the city, contract fights. Use '*' for everything recent.",
+        "New federal dockets in the Southern District of Mississippi (CourtListener RECAP) matching a query, newest first: business litigation, civil rights suits against the city, contract fights. Use '*' for everything recent. Set court to 'mssb' to search the bankruptcy court instead.",
       parameters: {
         type: "object",
-        properties: { query: { type: "string" }, days: { type: "integer", minimum: 1, maximum: 365 } },
+        properties: {
+          query: { type: "string" },
+          days: { type: "integer", minimum: 1, maximum: 365 },
+          court: { type: "string", enum: ["mssd", "mssb"], description: "mssd = district court (default), mssb = bankruptcy court." },
+        },
         required: ["query"],
       },
     },
   },
 ];
+
+DATA_TOOLS.push({
+  type: "function",
+  function: {
+    name: "bankruptcies",
+    description:
+      "Business-looking bankruptcy cases filed in the Southern District of Mississippi bankruptcy court in the last N days: every Chapter 11, plus Chapter 7 cases and adversary proceedings with a business name. Newest first, with docket links. Use for a Business story or the watch list; confirm the debtor's address before naming it.",
+    parameters: {
+      type: "object",
+      properties: { days: { type: "integer", minimum: 1, maximum: 90, description: "Default 14." } },
+    },
+  },
+});
 
 export const DATA_TOOL_NAMES = new Set(DATA_TOOLS.map((t) => t.function.name));
 
@@ -575,9 +592,13 @@ export async function runDataTool(name, args = {}, { prefix = "data", cl } = {})
         log(`"${args.query}" ${args.days ?? 30}d`);
         return await federalRegister({ query: args.query, days: args.days ?? 30 });
       case "court_search":
-        log(`"${args.query}" ${args.days ?? 30}d`);
+        log(`"${args.query}" ${args.days ?? 30}d ${args.court ?? "mssd"}`);
         if (!cl) return "court_search unavailable: no CourtListener client.";
-        return await cl.searchDockets(args.query || "*", { days: args.days ?? 30 });
+        return await cl.searchDockets(args.query || "*", { days: args.days ?? 30, court: args.court === "mssb" ? "mssb" : "mssd" });
+      case "bankruptcies":
+        log(`${args.days ?? 14}d`);
+        if (!cl) return "bankruptcies unavailable: no CourtListener client.";
+        return (await cl.businessBankruptcies({ days: Math.min(Math.max(args.days ?? 14, 1), 90) })).text;
       default:
         return null;
     }

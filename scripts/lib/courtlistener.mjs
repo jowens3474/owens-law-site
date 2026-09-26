@@ -155,8 +155,9 @@ export function createCourtListener({
   }
 
   /**
-   * Search recent RECAP dockets in a court (default S.D. Miss.) for new
-   * business litigation, bankruptcies, and other filings. Returns text.
+   * Search recent RECAP dockets in a court (default S.D. Miss.; "mssb" is
+   * the bankruptcy court) for new business litigation, bankruptcies, and
+   * other filings. Returns text.
    */
   async function searchDockets(query, { days = 30, court = OWENS_CASE.court } = {}) {
     const since = new Date(Date.now() - days * 86400000).toISOString().slice(0, 10);
@@ -169,18 +170,81 @@ export function createCourtListener({
       return `No dockets matching "${query}" filed in ${court} since ${since}.`;
     }
     const lines = [`Dockets in ${court} matching "${query}" filed since ${since} (newest first):`, ""];
-    for (const r of results.slice(0, 15)) {
-      lines.push(
-        `- ${r.dateFiled || "?"} | ${r.caseName || "(no name)"} | ${r.docketNumber || ""} | docket_id ${r.docket_id ?? r.id ?? "?"}` +
-          (r.suitNature ? ` | ${r.suitNature}` : "") +
-          (r.docket_absolute_url ? ` | https://www.courtlistener.com${r.docket_absolute_url}` : ""),
-      );
+    for (const r of results.slice(0, 20)) {
+      const bits = [
+        r.dateFiled || "?",
+        r.caseName || "(no name)",
+        r.docketNumber || "",
+        `docket_id ${r.docket_id ?? r.id ?? "?"}`,
+      ];
+      if (r.chapter) bits.push(`Chapter ${r.chapter}`);
+      if (r.trustee_str) bits.push(`trustee ${r.trustee_str}`);
+      if (r.suitNature) bits.push(r.suitNature);
+      if (r.docket_absolute_url) bits.push(`https://www.courtlistener.com${r.docket_absolute_url}`);
+      lines.push(`- ${bits.join(" | ")}`);
     }
     return lines.join("\n");
   }
 
+  const BUSINESS_RE = /\b(LLC|L\.L\.C\.|Inc\.?|Incorporated|Corp\.?|Corporation|Co\.|Company|L\.?P\.?|LLP|PLLC|Enterprises?|Group|Holdings?|Partners|Properties|Ventures|Farms?|Trucking|Logistics|Construction|Restaurants?|Hospitality|Development|Investments?|Realty|Services|Industries|Church|Foundation|Clinic|Hospital|Pharmacy|Motors|Homes)\b/i;
+
+  /**
+   * New bankruptcy cases in the Southern District of Mississippi that look
+   * like businesses: every Chapter 11, plus Chapter 7 and adversary
+   * proceedings whose parties carry a business suffix. Returns structured
+   * rows for the alerts and desk, and a text rendering for the model.
+   */
+  async function businessBankruptcies({ days = 14, limit = 25 } = {}) {
+    const since = new Date(Date.now() - days * 86400000).toISOString().slice(0, 10);
+    const rows = [];
+    let cursorUrl = `/search/?type=r&q=*&court=mssb&filed_after=${since}&order_by=dateFiled%20desc`;
+    for (let page = 0; page < 3 && cursorUrl; page++) {
+      const data = await getJson(cursorUrl.replace(/^https:\/\/www\.courtlistener\.com\/api\/rest\/v[34]/, ""));
+      for (const r of data.results || []) {
+        const parties = (r.party || []).join("; ");
+        const name = r.caseName || "";
+        const business = BUSINESS_RE.test(name) || BUSINESS_RE.test(parties);
+        const adversary = /\bv\.\s/.test(name);
+        if (r.chapter === "11" || (business && (r.chapter === "7" || adversary || !r.chapter))) {
+          rows.push({
+            id: String(r.docket_id ?? r.id),
+            filed: r.dateFiled || "",
+            caseName: name,
+            number: r.docketNumber || "",
+            chapter: r.chapter || (adversary ? "adversary" : ""),
+            trustee: r.trustee_str || "",
+            judge: r.assignedTo || "",
+            parties,
+            url: r.docket_absolute_url ? `https://www.courtlistener.com${r.docket_absolute_url}` : "",
+          });
+        }
+      }
+      cursorUrl = data.next || null;
+      // Stop paging once results are older than the window; the API is
+      // sorted newest first.
+      const last = (data.results || []).slice(-1)[0];
+      if (!last || (last.dateFiled || "") < since) break;
+    }
+    const seen = new Set();
+    const unique = rows.filter((r) => (seen.has(r.id) ? false : (seen.add(r.id), true))).slice(0, limit);
+    const text = unique.length
+      ? [
+          `Business-looking bankruptcy cases filed in the S.D. Miss. bankruptcy court since ${since} (newest first):`,
+          "",
+          ...unique.map(
+            (r) =>
+              `- ${r.filed} | ${r.caseName} | ${r.number} | ${r.chapter === "adversary" ? "adversary proceeding" : `Chapter ${r.chapter}`}${r.trustee ? ` | trustee ${r.trustee}` : ""}${r.judge ? ` | Judge ${r.judge}` : ""}${r.url ? ` | ${r.url}` : ""}`,
+          ),
+          "",
+          "Chapter 11 is a business reorganization; Chapter 7 with a business name is usually a liquidation; an adversary proceeding is a lawsuit inside a bankruptcy case. Confirm the debtor's address and business before naming it.",
+        ].join("\n")
+      : `No business-looking bankruptcy cases found in mssb since ${since}.`;
+    return { rows: unique, text };
+  }
+
   return {
     searchDockets,
+    businessBankruptcies,
     findDocketId,
     recentEntries,
     formatEntries,

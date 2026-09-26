@@ -15,11 +15,22 @@ if (only === "probe") {
   for (const url of (query || "").split("|").map((u) => u.trim()).filter(Boolean)) {
     console.log(`\n===== PROBE ${url} =====`);
     try {
-      const headers = { "User-Agent": "TheJacksonWire/1.0 (+https://www.thejacksonwire.com)", Accept: "*/*" };
+      // A browser-like agent: some state sites answer bots with a 404 page.
+      const headers = {
+        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36 TheJacksonWire/1.0",
+        Accept: "text/html,application/xhtml+xml,application/json,application/pdf,*/*",
+        "Accept-Language": "en-US,en;q=0.9",
+      };
       if (/courtlistener\.com/.test(url) && process.env.COURTLISTENER_API_TOKEN) headers.Authorization = `Token ${process.env.COURTLISTENER_API_TOKEN}`;
       const res = await fetch(url, { headers });
       const ct = res.headers.get("content-type") || "";
-      console.log(`HTTP ${res.status} ${ct}`);
+      console.log(`HTTP ${res.status} ${ct} final=${res.url}`);
+      if (/pdf/.test(ct) || /\.pdf(\?|$)/i.test(url)) {
+        const { text } = await fetchUrl(url).catch((e) => ({ text: `fetchUrl failed: ${e.message}` }));
+        console.log(`--- pdf text (${text.length} chars) ---`);
+        console.log(text.slice(0, 5000));
+        continue;
+      }
       if (/json/.test(ct)) {
         const body = await res.text();
         console.log(body.slice(0, 6000));
@@ -56,6 +67,7 @@ const DEFAULT_ARGS = {
   sec_filings: { query: query || "Jackson, Mississippi", days: 60 },
   federal_register: { query: query || "Jackson, Mississippi", days: 60 },
   court_search: { query: query || "*", days: 30 },
+  bankruptcies: { days: 21 },
 };
 
 let failures = 0;

@@ -42,7 +42,7 @@ TOPIC MIX, required
 REAL-TIME DATA TOOLS, use first
 - Call news_feed("Jackson Mississippi", 24) and jackson_meetings() before anything else. They are free and have no quota.
 - Then news_feed for one or two beats (e.g. "Hinds County", "Ridgeland Mississippi", "JXN Water", "Mississippi Development Authority").
-- Use eia_fuel_prices, bls_series, federal_awards, court_search, sec_filings, or federal_register when an item needs a number or a document.
+- Use eia_fuel_prices, bls_series, federal_awards, court_search, bankruptcies, sec_filings, or federal_register when an item needs a number or a document.
 - Use web_search only to fill gaps the feeds leave.
 
 RESEARCH ORDER
