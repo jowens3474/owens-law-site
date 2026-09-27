@@ -13,7 +13,9 @@ const query = process.env.QUERY?.trim();
 // so a new source can be understood from a runner before a tool is written.
 if (only === "probe") {
   for (const spec of (query || "").split("|").map((u) => u.trim()).filter(Boolean)) {
-    // "url#regex" prints only links whose href or text matches the regex.
+    // "url#regex" prints only links whose href or text matches the regex,
+    // plus the text passages that match it. The regex cannot contain "|",
+    // which separates URLs in QUERY.
     const hash = spec.indexOf("#");
     const url = hash > 0 ? spec.slice(0, hash) : spec;
     const filter = hash > 0 ? new RegExp(spec.slice(hash + 1), "i") : null;
@@ -60,6 +62,17 @@ if (only === "probe") {
       const { text } = await fetchUrl(url).catch(() => ({ text: "" }));
       console.log("--- text excerpt ---");
       console.log(text.slice(0, 2500));
+      if (filter) {
+        // With "url#regex", also print the passages that mention the term so
+        // an article or meeting recap can be read past the excerpt cap.
+        const paras = text.split(/\n+/).map((l) => l.trim()).filter(Boolean);
+        const hits = [];
+        paras.forEach((p, i) => {
+          if (filter.test(p)) hits.push(paras.slice(Math.max(0, i - 1), i + 3).join("\n"));
+        });
+        console.log(`--- passages matching ${filter} (${hits.length}) ---`);
+        console.log([...new Set(hits)].join("\n…\n").slice(0, 8000));
+      }
     } catch (e) {
       console.log(`probe failed: ${e.message}`);
     }
