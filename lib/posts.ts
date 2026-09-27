@@ -66,6 +66,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-09-27",
+    title: "Morning Brief: Sep 27 · Diesel Sets a Record; Hinds Closes the Books Wednesday",
+    dek: "Mississippi diesel hit an all-time high of $6.0626 a gallon on Sept. 23, an 84 percent jump from a year ago that lands hardest on the metro's trucking, farm, and construction fleets.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-09-27",
+    views: 0,
+    body: [
+      "Mississippi diesel sets an all-time record: The statewide average for diesel was $6.0068 a gallon Sunday, down a hair from the record $6.0626 set Sept. 23, according to AAA daily averages. A year ago the same gallon cost $3.2667, so fuel is up roughly 84 percent in twelve months. Regular gasoline in Mississippi sits at $4.0079, against $2.6823 a year earlier. The spread matters more than the headline: diesel is the input cost for every dump truck hauling to the city landfill, every farm tractor in Hinds and Rankin, and every delivery route in the metro. Nationally diesel is $6.4709, so Mississippi is still buying below the U.S. average, but the gap has narrowed to about 46 cents.",
+      "Hinds County closes the books Wednesday: The Board of Supervisors has a Year End Closeout special meeting scheduled for Wednesday, Sept. 30 at 9 a.m. in the Chancery Court Building board room, per the county's posted agenda list. A work session is set for Tuesday, Sept. 29, also at 9 a.m. Year-end closeout is where unspent departmental money gets reallocated, encumbrances get cleaned up, and any final transfers before the Sept. 30 close of fiscal 2026 get approved. The county adopted its budget at a special called meeting Sept. 10. The regular board calendar resumes Oct. 5. Anyone tracking county contracts or carryover should watch the Tuesday work session first.",
+      "VA hospital wing contract goes to Paramount: The Department of Veterans Affairs obligated $14,522,650 to Paramount Construction Group LLC for Project 586-401, the new Community Living Center at the G.V. Sonny Montgomery VA Medical Center in Jackson, with a start date of Sept. 30, federal award records show. That is the construction contract behind the residential wing the Wire reported earlier this month. The same award file shows a $193,080 task order to Alares LLC for construction program management at the Jackson VA and a $170,552 SoundCom LLC order for audio-visual equipment. The VA is also paying Fountain Construction $7,095 for emergency steam system repairs, a sign the campus plant is straining.",
+      "Ridgeland runs away with metro sales tax growth: August sales tax diversions show Ridgeland up 23.7 percent year over year at $1,611,884, while Pearl fell 8.6 percent to $1,166,022, according to Department of Revenue diversion reports. Jackson collected $2,612,443, up 9.5 percent. Byram posted the second-strongest gain at 20.9 percent, and Madison rose 11.4 percent. The split is the clearest monthly read on where metro retail spending is actually landing: the northern suburbs are compounding while Pearl, Canton, and Edwards are shrinking. Fiscal-year-to-date, Ridgeland is up 13.7 percent and Pearl is down 10.5 percent, a 24-point swing inside one metro.",
+      "Ridgeland holds a $1.9 million street safety grant: Federal records list a $1,948,800 Safe Streets and Roads for All planning grant to the City of Ridgeland from the Federal Highway Administration, awarded under the 2025 program cycle. The money is for planning, not pavement, which means it funds the study and design work that has to exist before the city can chase construction dollars. It is the largest single federal grant to a metro municipality in the current award window. Also in the pipeline: a $466,000 Delta Rural Integrated Health Network grant to the Rural Hospital Alliance and $1.75 million to UMMC from the National Institutes of Health for benzodiazepine addiction treatment research, both starting Sept. 30.",
+    ],
+  },
+  {
     slug: "jackson-lease-purchase-rfp-94654-interest-rate-bids-due-september-29",
     title: "Jackson Is Shopping for a Lender Again: Lease-Purchase Bids Due Tuesday, and the City Won't Say What It's Buying",
     dek: "The city posted RFP 94654-092926 on Sept. 17 asking banks for an interest rate on lease-purchase financing. Bids close Sept. 29. The solicitation names no asset, no principal amount, and no term.",
