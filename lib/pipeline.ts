@@ -98,6 +98,17 @@ export const PROJECTS: Project[] = [
     slugs: ["flats-at-fondren-rent-double-jackson-median"],
   },
   {
+    name: "Vieux Carre expansion and medical office building",
+    developer: "Vieux Carre Apartments South LLC, an affiliate of State Street Group",
+    location: "I-55 North frontage road south of Meadowbrook Road, Jackson",
+    investment: "$28M, with $1.3M in city TIF bonds",
+    stage: "approved",
+    status:
+      "The council approved three actions on the project's tax-increment financing agreement on Aug. 25, 2026, clearing the way for construction to start. The plan renovates the 1968 complex, adds 84 units on the 4.8 acres rezoned R-4 in 2021, and builds a 10,000-square-foot medical office building.",
+    next: "Visible site work on the south parcel and the first building permits, within the 18-month construction window.",
+    slugs: ["vieux-carre-tif-north-jackson-28-million"],
+  },
+  {
     name: "Jackson Rubbish Landfill reopening and fee ordinance",
     developer: "City of Jackson Public Works",
     location: "6810 I-55 South Frontage Road, Byram",
@@ -186,6 +197,12 @@ export const MILESTONES: Milestone[] = [
     slug: "jackson-data-center-moratorium-takes-effect-as-council-asks-where-to-put-them",
   },
   {
+    date: "2026-08-25",
+    kind: "vote",
+    text: "Jackson City Council approves three actions on the Vieux Carre TIF agreement for the $28 million North Jackson expansion.",
+    slug: "vieux-carre-tif-north-jackson-28-million",
+  },
+  {
     date: "2026-09-03",
     kind: "vote",
     text: "Jackson City Council sets the millage at 63.03 mills, locking in no property tax increase.",
@@ -249,6 +266,13 @@ export const MILESTONES: Milestone[] = [
     kind: "opening",
     text: "Flats at Fondren scheduled to deliver 234 units in fall 2027.",
     slug: "flats-at-fondren-rent-double-jackson-median",
+  },
+  {
+    date: "2028-02-15",
+    approx: true,
+    kind: "opening",
+    text: "Vieux Carre expansion (84 units plus medical office) due if the 18-month construction estimate from an August 2026 start holds.",
+    slug: "vieux-carre-tif-north-jackson-28-million",
   },
 ];
 

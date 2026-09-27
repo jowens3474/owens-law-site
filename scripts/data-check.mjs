@@ -13,7 +13,9 @@ const query = process.env.QUERY?.trim();
 // so a new source can be understood from a runner before a tool is written.
 if (only === "probe") {
   for (const spec of (query || "").split("|").map((u) => u.trim()).filter(Boolean)) {
-    // "url#regex" prints only links whose href or text matches the regex.
+    // "url#regex" prints only links whose href or text matches the regex,
+    // plus the text passages that match it. The regex cannot contain "|",
+    // which separates URLs in QUERY.
     const hash = spec.indexOf("#");
     const url = hash > 0 ? spec.slice(0, hash) : spec;
     const filter = hash > 0 ? new RegExp(spec.slice(hash + 1), "i") : null;
