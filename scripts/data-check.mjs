@@ -60,6 +60,17 @@ if (only === "probe") {
       const { text } = await fetchUrl(url).catch(() => ({ text: "" }));
       console.log("--- text excerpt ---");
       console.log(text.slice(0, 2500));
+      if (filter) {
+        // With "url#regex", also print the passages that mention the term so
+        // an article or meeting recap can be read past the excerpt cap.
+        const paras = text.split(/\n+/).map((l) => l.trim()).filter(Boolean);
+        const hits = [];
+        paras.forEach((p, i) => {
+          if (filter.test(p)) hits.push(paras.slice(Math.max(0, i - 1), i + 3).join("\n"));
+        });
+        console.log(`--- passages matching ${filter} (${hits.length}) ---`);
+        console.log([...new Set(hits)].join("\n…\n").slice(0, 8000));
+      }
     } catch (e) {
       console.log(`probe failed: ${e.message}`);
     }
