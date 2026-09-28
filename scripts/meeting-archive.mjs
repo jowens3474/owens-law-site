@@ -134,7 +134,7 @@ async function ingestSwagit(id, { body, index, client }) {
   const num = id.replace(/^sw/, "");
   log(`ingest swagit ${num}${existing ? " (retry)" : ""}`);
   const info = await swagitVideoInfo(num);
-  if (!info.media) throw new Error("no media or download link on the video page");
+  if (!info.sources.length) throw new Error("no media or download link on the video page");
   const meeting = {
     id,
     source: "swagit",
@@ -153,8 +153,8 @@ async function ingestSwagit(id, { body, index, client }) {
   mkdirSync(TMP, { recursive: true });
   const audio = join(TMP, `${id}.mp3`);
   const t0 = Date.now();
-  extractAudio(info.media, audio);
-  log(`  audio extracted in ${Math.round((Date.now() - t0) / 1000)}s`);
+  const used = extractAudio(info.sources, audio, { log: (m) => log(`  ${m}`) });
+  log(`  audio extracted in ${Math.round((Date.now() - t0) / 1000)}s from ${used.slice(0, 80)}`);
   const { cues, engine } = await transcribe(audio, { log: (m) => log(`  ${m}`) });
   rmSync(audio, { force: true });
   meeting.duration = cues.length ? cues[cues.length - 1].t : null;

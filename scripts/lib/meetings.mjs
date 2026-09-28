@@ -521,7 +521,8 @@ export async function swagitVideoInfo(id) {
   const title = rawTitle.replace(/^[A-Za-z]{3}\.?\s+\d{1,2},\s*\d{4}\s*/, "").trim() || rawTitle;
   const download = html.match(/href="([^"]*\/videos\/\d+\/download)"/i)?.[1] || null;
   const agenda = /\/videos\/\d+\/agenda|agenda_file/i.test(html) ? `${SWAGIT_BASE}/videos/${id}/agenda` : null;
-  return { id, title, date, media: media || (download ? new URL(download, SWAGIT_BASE).href : null), agenda };
+  const downloadUrl = download ? new URL(download, SWAGIT_BASE).href : `${SWAGIT_BASE}/videos/${id}/download`;
+  return { id, title, date, media, download: downloadUrl, sources: [media, downloadUrl].filter(Boolean), agenda };
 }
 
 // --- transcription ------------------------------------------------------------------
@@ -530,11 +531,30 @@ export async function swagitVideoInfo(id) {
 // free tier covers hours a day); otherwise faster-whisper on the runner's
 // CPU via scripts/lib/transcribe.py (slower, no key). Both return cues.
 
-export function extractAudio(mediaUrl, outPath) {
-  // Mono 16 kHz MP3 keeps a 3-hour meeting near 80 MB and is what Whisper
-  // wants anyway. ffmpeg streams straight from the URL.
-  execFileSync("ffmpeg", ["-y", "-loglevel", "error", "-i", mediaUrl, "-vn", "-ac", "1", "-ar", "16000", "-b:a", "48k", outPath], { stdio: ["ignore", "ignore", "pipe"] });
-  return outPath;
+/**
+ * Pull mono 16 kHz MP3 audio (what Whisper wants; a 3-hour meeting is
+ * about 80 MB) from the first source ffmpeg can open. The archive's stream
+ * host checks the Referer, so requests carry the archive page as referer
+ * and a browser user agent.
+ */
+export function extractAudio(sources, outPath, { log = () => {} } = {}) {
+  const list = (Array.isArray(sources) ? sources : [sources]).filter(Boolean);
+  const headers = `Referer: ${SWAGIT_BASE}/\r\nOrigin: ${SWAGIT_BASE}\r\n`;
+  let lastErr = null;
+  for (const src of list) {
+    try {
+      execFileSync(
+        "ffmpeg",
+        ["-y", "-loglevel", "error", "-user_agent", UA, "-headers", headers, "-i", src, "-vn", "-ac", "1", "-ar", "16000", "-b:a", "48k", outPath],
+        { stdio: ["ignore", "ignore", "pipe"] },
+      );
+      return src;
+    } catch (e) {
+      lastErr = e;
+      log(`ffmpeg could not open ${src.slice(0, 90)}…: ${String(e.stderr || e.message).trim().split("\n").pop()}`);
+    }
+  }
+  throw new Error(`no readable media source (${list.length} tried): ${String(lastErr?.stderr || lastErr?.message || "").trim().split("\n").pop()}`);
 }
 
 function audioDuration(path) {
