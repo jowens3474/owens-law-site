@@ -626,7 +626,7 @@ DATA_TOOLS.push({
   function: {
     name: "meeting_transcripts",
     description:
-      "Search the Wire's Meeting Archive: timed transcripts of Jackson City Council meetings, budget hearings, the 1% Sales Tax Commission, and city press conferences, pulled from the city's own video. Returns the passages that contain every query term with a link to that moment in the video. Use it to quote what an official actually said, check a vote, or find when a project was discussed. Captions are machine-generated: verify spellings of names before printing them. Cite as 'the meeting video' with the date.",
+      "Search the Wire's Meeting Archive: timed transcripts of Jackson City Council meetings, committee meetings, budget hearings, and public hearings, transcribed from the city's own video archive. Returns the passages that contain every query term with a link to that moment in the video. Use it to quote what an official actually said, check a vote, or find when a project was discussed. Transcripts are machine-generated speech recognition: verify spellings of names before printing them. Cite as 'the meeting video' with the date.",
     parameters: {
       type: "object",
       properties: {

@@ -71,7 +71,9 @@ export default async function MeetingPage({ params }: PageProps<"/meetings/[id]"
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      {/* Transcript text is machine-generated from public audio, so escape "<"
+          before embedding it in a script tag. */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
 
       <header className="border-b-4 border-double border-ink pb-6">
         <p className="font-sans text-xs font-bold uppercase tracking-wide text-crimson sm:tracking-[0.3em]">
@@ -148,7 +150,7 @@ export default async function MeetingPage({ params }: PageProps<"/meetings/[id]"
             <section className="mt-8">
               <h2 className="mb-3 border-b border-ink pb-1 font-sans text-xs font-bold uppercase tracking-widest">Who spoke</h2>
               <p className="font-sans text-sm text-muted">{m.people.join(" · ")}</p>
-              <p className="mt-2 font-sans text-xs text-muted">Names as heard by the captioning; spellings are not verified.</p>
+              <p className="mt-2 font-sans text-xs text-muted">Names as heard by speech recognition; spellings are not verified.</p>
             </section>
           )}
         </aside>
