@@ -7,6 +7,7 @@
 import { fetchUrl } from "./fetch-url.mjs";
 import { listReports, readReport, mergeReport, renderMonthTable, loadDataset, monthLabel } from "./sales-tax.mjs";
 import { classifyNotice } from "../../lib/notice-kinds.mjs";
+import { searchTranscripts, renderHits } from "./meetings.mjs";
 
 const UA = "TheJacksonWire/1.0 (+https://www.thejacksonwire.com; capitolmain42@gmail.com)";
 const TIMEOUT_MS = 20000;
@@ -620,6 +621,23 @@ DATA_TOOLS.push({
   },
 });
 
+DATA_TOOLS.push({
+  type: "function",
+  function: {
+    name: "meeting_transcripts",
+    description:
+      "Search the Wire's Meeting Archive: timed transcripts of Jackson City Council meetings, committee meetings, budget hearings, and public hearings, transcribed from the city's own video archive. Returns the passages that contain every query term with a link to that moment in the video. Use it to quote what an official actually said, check a vote, or find when a project was discussed. Transcripts are machine-generated speech recognition: verify spellings of names before printing them. Cite as 'the meeting video' with the date.",
+    parameters: {
+      type: "object",
+      properties: {
+        query: { type: "string", description: "Two to four specific words, e.g. 'Vieux Carre TIF' or 'landfill tonnage'." },
+        days: { type: "integer", minimum: 7, maximum: 730, description: "Lookback window in days (default 365)." },
+      },
+      required: ["query"],
+    },
+  },
+});
+
 export const DATA_TOOL_NAMES = new Set(DATA_TOOLS.map((t) => t.function.name));
 
 /**
@@ -674,6 +692,9 @@ export async function runDataTool(name, args = {}, { prefix = "data", cl } = {})
         log(`${args.days ?? 14}d`);
         if (!cl) return "bankruptcies unavailable: no CourtListener client.";
         return (await cl.businessBankruptcies({ days: Math.min(Math.max(args.days ?? 14, 1), 90) })).text;
+      case "meeting_transcripts":
+        log(`"${args.query}" ${args.days ?? 365}d`);
+        return renderHits(searchTranscripts(args.query || "", { days: Math.min(Math.max(args.days ?? 365, 7), 730), limit: 12 }), args.query || "");
       default:
         return null;
     }

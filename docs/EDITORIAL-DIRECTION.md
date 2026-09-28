@@ -99,6 +99,7 @@ Three feeds added after the first round, all keyless:
 | `bankruptcies` | CourtListener, S.D. Miss. bankruptcy court: every Chapter 11, plus Chapter 7 cases and adversary proceedings with a business name |
 | `public_notices` | City of Jackson's bid-opportunity posts: invitations for bids, RFPs, zoning publication ads (rezonings, use permits, variances), meeting notices |
 | `sales_tax_diversions` | Department of Revenue monthly diversions to cities, parsed from the PDF; feeds `/economy/sales-tax` |
+| `meeting_transcripts` | The Record: searchable transcripts of city meetings from the city's own video; see below |
 
 The statewide public-notice site run by the Mississippi Press Association
 refuses connections from GitHub's network, so county-level foreclosure and
@@ -119,6 +120,55 @@ Economy story from the parsed table alone. The tracker page at
 chart for Jackson, and the metro table with year-over-year and
 fiscal-year-to-date changes. Dispatch the workflow with `dry_run = 1` to
 refresh the data and preview the story without publishing.
+
+## The Record (meeting archive)
+
+`/meetings` is the searchable archive of what was said at public meetings.
+`scripts/meeting-archive.mjs` (workflow **Meeting Archive**, daily at
+10:00 UTC) reads the city's own video archive at jacksonms.swagit.com
+(`listSwagitVideos` in `scripts/lib/meetings.mjs`), which carries every
+council meeting, committee meeting, budget hearing, and special meeting
+with its agenda PDF. For each new video it pulls the audio with ffmpeg,
+transcribes it (Groq's Whisper endpoint when `GROQ_API_KEY` is set,
+otherwise faster-whisper `small.en` on the runner's CPU, roughly a quarter
+of the meeting's length), merges the segments into timed blocks, and has
+DeepSeek index the meeting with the agenda text alongside: a summary,
+topics with start times, people, dollar figures, and votes. Everything
+lands in `data/meetings/`: `index.json` (metadata and the index, imported
+by the pages) and one `sw<video id>.json` per meeting with the full
+transcript.
+
+- `/meetings/<id>` shows the index beside the transcript; every timestamp
+  opens the city's player at that moment.
+- `/meetings/search?q=` and `/api/meetings/search?q=` return the passages
+  containing every query term, newest meeting first.
+- The desk tool `meeting_transcripts` runs the same search for the
+  autopilot and Pro briefing, so stories can quote what an official said
+  rather than a TV station's paraphrase.
+
+Transcripts are speech recognition, so the pages say so and the tool
+tells the model to verify spellings. Each run ingests `limit` videos
+(default 2, newest first, skipping anything over `MAX_HOURS`), so the
+backlog fills in over successive days; the runner job has a five-hour
+limit.
+
+Dispatch the workflow with `mode = list` to see what the archive holds,
+`video = 400748` plus `dry_run = 1` to preview one meeting's transcript
+and index without writing, and `limit` to ingest more per run. Set the
+`GROQ_API_KEY` secret for faster, better transcription (its free tier
+covers hours of audio a day) and the `WHISPER_MODEL` variable to change
+the local model.
+
+YouTube is a second source (`SOURCES` in the library: the City of Jackson
+PEG Network channel, which also carries the 1% Sales Tax Commission and
+press conferences) but YouTube refuses GitHub's addresses with its
+"confirm you're not a bot" check, even with a proof-of-origin token
+provider, so it is only tried when the `YOUTUBE_COOKIES` secret (a
+Netscape cookie file from a signed-in browser) is set or `YOUTUBE=1` is
+passed. `mode = ytprobe` reports which yt-dlp client can read a video.
+
+Not yet archived: Hinds County's Lifesize recordings (playback.lifesize.com
+links on the Board of Supervisors page).
 
 ## The Pipeline
 

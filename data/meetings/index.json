@@ -1,0 +1,414 @@
+{
+ "updated": "2026-09-28T00:50:26.463Z",
+ "meetings": [
+  {
+   "id": "sw402246",
+   "source": "swagit",
+   "body": "Jackson City Council special meeting",
+   "title": "Special City Council",
+   "date": "2026-09-25",
+   "duration": 1670,
+   "channel": "City of Jackson video archive",
+   "url": "https://jacksonms.new.swagit.com/videos/402246",
+   "agenda": "https://jacksonms.new.swagit.com/videos/402246/agenda",
+   "captions": "transcribed",
+   "fetched": "2026-09-28T00:44:39.021Z",
+   "engine": "faster-whisper-small.en",
+   "words": 3591,
+   "indexed": true,
+   "summary": "The Jackson City Council held a special meeting on September 25, 2026, to handle year-end budget adjustments and several agreements. The council approved a $29,966,223 interdepartmental transfer to close out the FY2026 municipal budget, with funds moved from personnel services in police and public works and other categories to cover insurance, JTRAN, and other needs. The council also approved a $1,947,008 appropriation to the Jackson/Hinds Library System and accepted the Jackson Airport Authority budget for FY2026-2027. Additionally, the council authorized the mayor to execute a torch relay agreement with the Los Angeles Organizing Committee for the 2028 Olympics, making Jackson a host community, and approved a memorandum of agreement with the DEA for participation in a state and local law enforcement task force. All items passed 4-0.",
+   "topics": [
+    {
+     "title": "FY2026 Budget Revision",
+     "start": 2,
+     "note": "Approved a $29,966,223 interdepartmental transfer to make final amendments to the FY2026 municipal budget, moving funds from various departments to cover shortfalls and close out the fiscal year."
+    },
+    {
+     "title": "Police Department Personnel Savings",
+     "start": 162,
+     "note": "The budget revision included transferring $2,220,648 from police department personnel services due to unfilled positions, which Councilman Foote noted means fewer officers on the street."
+    },
+    {
+     "title": "Public Works Personnel Savings",
+     "start": 215,
+     "note": "The budget revision included transferring $3,200,000 from public works personnel services due to unfilled positions, impacting road and drainage services."
+    },
+    {
+     "title": "Operating Transfers to Outside Funds",
+     "start": 255,
+     "note": "The budget revision included $3,700,000 in operating transfers from general government, representing money set aside for outside funds that was no longer needed."
+    },
+    {
+     "title": "Landfill Sanitation Equipment",
+     "start": 282,
+     "note": "The budget revision included $400,000 for landfill sanitation to purchase a dozer critical for getting the landfill fully online and complying with MDEQ regulations."
+    },
+    {
+     "title": "Employee Group Insurance Fund",
+     "start": 300,
+     "note": "The budget revision included $4,000,000 transferred into the employee group insurance fund because insurance costs were higher than expected."
+    },
+    {
+     "title": "Franchise Cable Television Revenue Shortfall",
+     "start": 395,
+     "note": "The budget revision decreased franchise cable television revenue by $500,000 due to lower-than-expected collections as more people stream instead of using cable."
+    },
+    {
+     "title": "JTRAN Operating Transfers",
+     "start": 742,
+     "note": "The budget revision included $4,000,000 in operating transfers to planning and development for balancing JTRAN, related to new buses."
+    },
+    {
+     "title": "Audit Update",
+     "start": 643,
+     "note": "CFO Jillian Caldwell reported that the city virtually met with auditors and is working to provide remaining items by next week, with the audit review to take a couple more weeks."
+    },
+    {
+     "title": "Monthly Finance Committee Meetings",
+     "start": 570,
+     "note": "Councilman Parkinson noted that the council has committed to monthly finance committee meetings starting after October actuals to monitor the budget throughout the year."
+    },
+    {
+     "title": "Jackson/Hinds Library System Appropriation",
+     "start": 1198,
+     "note": "Approved an appropriation of $1,947,008 to the Jackson/Hinds Library System for fiscal year 2026-2027."
+    },
+    {
+     "title": "Jackson Airport Authority Budget",
+     "start": 1281,
+     "note": "Accepted the budget of the Jackson Airport Authority for fiscal year 2026-2027."
+    },
+    {
+     "title": "Olympic Torch Relay Agreement",
+     "start": 1320,
+     "note": "Authorized the mayor to execute a torch relay agreement with the Los Angeles Organizing Committee for the 2028 Olympics, making Jackson a host community and establishing a community task force."
+    },
+    {
+     "title": "DEA Task Force Memorandum",
+     "start": 1429,
+     "note": "Authorized the mayor to enter into a memorandum of agreement with the U.S. Department of Justice, Drug Enforcement Administration, for participation in the DEA state and local law enforcement task force."
+    }
+   ],
+   "people": [
+    "Vernon Hartley",
+    "Jillian Caldwell",
+    "Ashby Foote",
+    "Kevin Parkinson",
+    "Pieter Teeuwissen",
+    "Drew Martin",
+    "Tanya Norwood",
+    "RaShall Brackney",
+    "Shanekia Jordan",
+    "Lashia Brown-Thomas"
+   ],
+   "money": [
+    "$29,966,223 interdepartmental transfer for FY2026 budget revision",
+    "$2,220,648 from police department personnel services",
+    "$3,200,000 from public works personnel services",
+    "$3,700,000 operating transfers from general government",
+    "$400,000 for landfill sanitation equipment",
+    "$4,000,000 to employee group insurance fund",
+    "$500,000 decrease in franchise cable television revenue",
+    "$4,000,000 operating transfers to planning and development for JTRAN",
+    "$1,947,008 appropriation to Jackson/Hinds Library System",
+    "$135 million FY2025-2026 general fund budget (as stated)",
+    "$110 million actual revenue (as stated)",
+    "$113 million FY2026-2027 budget (as stated)"
+   ],
+   "votes": [
+    {
+     "item": "Order revising municipal budget, fiscal year 2025-2027",
+     "outcome": "passed",
+     "start": 1198
+    },
+    {
+     "item": "Order acknowledging receipt of FY2026-2027 budget for Jackson/Hinds Library System and authorizing appropriation of $1,947,008",
+     "outcome": "passed",
+     "start": 1198
+    },
+    {
+     "item": "Order accepting the budget of Jackson Airport Authority for FY2026-2027",
+     "outcome": "passed",
+     "start": 1281
+    },
+    {
+     "item": "Order authorizing mayor to execute torch relay agreement with LA Organizing Committee for 2028 Olympics",
+     "outcome": "passed",
+     "start": 1320
+    },
+    {
+     "item": "Order authorizing mayor to enter into memorandum of agreement with DEA for state and local law enforcement task force",
+     "outcome": "passed",
+     "start": 1429
+    }
+   ]
+  },
+  {
+   "id": "sw401633",
+   "source": "swagit",
+   "body": "Jackson City Council zoning meeting",
+   "title": "Zoning Meeting",
+   "date": "2026-09-21",
+   "duration": 1325,
+   "channel": "City of Jackson video archive",
+   "url": "https://jacksonms.new.swagit.com/videos/401633",
+   "agenda": "https://jacksonms.new.swagit.com/videos/401633/agenda",
+   "captions": "transcribed",
+   "fetched": "2026-09-28T00:47:19.328Z",
+   "engine": "faster-whisper-small.en",
+   "words": 2879,
+   "indexed": true,
+   "summary": "The Jackson City Council zoning meeting tabled two cases (4332 and 4339) until October 19, 2026, because the zoning division failed to notify all parties, including opponents, and the council wanted everyone present. The council approved a conditional use permit for Terranee Brent to operate a community recreational center with skating, arcade games, fitness training, and events at 540 Raymond Road, Suite B, for one year. It also approved a five-foot front-yard setback variance for Annie Lewis to continue building an open carport at 1021 Westway Street. The council then approved renewal of special exceptions and use permits for one year. No dollar figures were discussed.",
+   "topics": [
+    {
+     "title": "Call to order and introductions",
+     "start": 4,
+     "note": "Meeting called to order at 2:32 PM; no introductions were made."
+    },
+    {
+     "title": "Tabling of cases 4332 and 4339",
+     "start": 4,
+     "note": "Zoning requested moving both cases to October because all parties, including opponents, were not notified; council agreed to table until October 19."
+    },
+    {
+     "title": "Public comment on tabling",
+     "start": 68,
+     "note": "Terrace Harris, an applicant, expressed frustration over delays and asked for a prompt hearing; council said the case would be heard in October."
+    },
+    {
+     "title": "Legal explanation of notice failure",
+     "start": 159,
+     "note": "Deputy City Attorney Carrie Johnson explained the case was first tabled in November 2025 and that only interested parties, not opponents, had been noticed."
+    },
+    {
+     "title": "Clerk clarifies notice responsibility",
+     "start": 309,
+     "note": "Shaniqui, clerk of council, said zoning normally handles notices and that the council only noticed its own meeting."
+    },
+    {
+     "title": "Zoning acknowledges misunderstanding",
+     "start": 340,
+     "note": "Zoning administrator acknowledged a misunderstanding about notifying parties and said notices would be sent that day."
+    },
+    {
+     "title": "Councilman Stokes comments on delays",
+     "start": 380,
+     "note": "Stokes said he thought the opposing party wanted to move forward and mentioned a letter from opponents; he expressed frustration that the case could not be heard."
+    },
+    {
+     "title": "Agreement to hear cases in October",
+     "start": 419,
+     "note": "After discussion, council agreed to hear both cases at the October 19 meeting; legal and zoning concurred."
+    },
+    {
+     "title": "Case 4332 tabling details",
+     "start": 507,
+     "note": "Carrie Johnson noted case 4332 was tabled at the applicant's request, not by a council member."
+    },
+    {
+     "title": "Councilman's apology and update",
+     "start": 572,
+     "note": "A councilman apologized for missing a prior meeting due to a death in the family and said he would be ready to move forward in October."
+    },
+    {
+     "title": "Case 4339 conditional use permit",
+     "start": 639,
+     "note": "Council considered a conditional use permit for Terranee Brent to operate a community recreational center at 540 Raymond Road, Suite B."
+    },
+    {
+     "title": "Legal explanation of conditional use",
+     "start": 654,
+     "note": "Deputy City Attorney explained the permit is needed because the uses are not allowed by right and would be limited to the applicant and time period."
+    },
+    {
+     "title": "Council discussion on permit terms",
+     "start": 805,
+     "note": "Councilman Stokes confirmed the permit is for one year and only for the specific applicant; the applicant was present."
+    },
+    {
+     "title": "Neighborhood leader's input",
+     "start": 845,
+     "note": "Councilman said the neighborhood leader initially opposed due to past history but agreed to a one-year trial after receiving more information."
+    },
+    {
+     "title": "Vote on case 4339",
+     "start": 905,
+     "note": "The conditional use permit for Terranee Brent was approved by a vote of 5-1."
+    },
+    {
+     "title": "Case 4340 variance request",
+     "start": 955,
+     "note": "Petition for a variance of up to five feet from the required 25-foot front setback at 1021 Westway Street for an open carport; applicant Annie Lewis represented by Joby Austin."
+    },
+    {
+     "title": "Council comments on case 4340",
+     "start": 995,
+     "note": "Councilwoman Clay expressed support and said the neighborhood had no opposition; President Hartley emphasized following law and ordinance."
+    },
+    {
+     "title": "Staff presentation on variance",
+     "start": 1016,
+     "note": "Zoning staff presented photos and maps, noted surrounding R1A single-family zoning, and recommended approval based on ordinance criteria."
+    },
+    {
+     "title": "Vote on case 4340",
+     "start": 1147,
+     "note": "The variance for Annie Lewis was approved by a vote of 5-0."
+    },
+    {
+     "title": "Special exception and use permit renewals",
+     "start": 1260,
+     "note": "Council approved renewal of special exceptions and use permits for one year by a vote of 4-0."
+    },
+    {
+     "title": "Adjournment",
+     "start": 1298,
+     "note": "Meeting adjourned with no further business."
+    }
+   ],
+   "people": [
+    "Terrace Harris",
+    "Carrie Johnson",
+    "Shaniqui",
+    "Councilman Stokes",
+    "Terranee Brent",
+    "Annie Lewis",
+    "Joby Austin",
+    "Councilwoman Clay",
+    "President Hartley"
+   ],
+   "money": [],
+   "votes": [
+    {
+     "item": "Tabling of cases 4332 and 4339 to October 19, 2026",
+     "outcome": "passed",
+     "start": 507
+    },
+    {
+     "item": "Conditional use permit for Terranee Brent at 540 Raymond Road, Suite B (case 4339)",
+     "outcome": "passed",
+     "start": 905
+    },
+    {
+     "item": "Variance of up to five feet from front setback for Annie Lewis at 1021 Westway Street (case 4340)",
+     "outcome": "passed",
+     "start": 1147
+    },
+    {
+     "item": "Extension of special exceptions and use permits for one year",
+     "outcome": "passed",
+     "start": 1260
+    }
+   ]
+  },
+  {
+   "id": "sw393599",
+   "source": "swagit",
+   "body": "Jackson City Council Finance Committee",
+   "title": "Finance",
+   "date": "2026-07-15",
+   "duration": 551,
+   "channel": "City of Jackson video archive",
+   "url": "https://jacksonms.new.swagit.com/videos/393599",
+   "agenda": "https://jacksonms.new.swagit.com/videos/393599/agenda",
+   "captions": "transcribed",
+   "fetched": "2026-09-28T00:49:24.937Z",
+   "engine": "faster-whisper-small.en",
+   "words": 1353,
+   "indexed": true,
+   "summary": "The Jackson City Council Finance Committee met on July 15, 2026, to discuss the city's budget and revenue shortfall. The chair announced that the city is not operating with a deficit but is receiving less revenue than expected, and outlined cost-control measures including freezing overtime, capital outlays, travel, and new equipment. The CFO was directed to adjust the budget by removing unused line items and to report back with updated figures. Councilman Ashby Foote raised concerns about funds deposited with the new bank, JP Morgan Chase, and called for a review of contracts from the previous administration. The meeting was adjourned without any votes.",
+   "topics": [
+    {
+     "title": "Call to Order and Opening Remarks",
+     "start": 0,
+     "note": "Chair Montyne Clay called the finance committee meeting to order at 10:04 AM."
+    },
+    {
+     "title": "Budget Status and Revenue Shortfall",
+     "start": 0,
+     "note": "Chair stated the city is not operating with a deficit but revenue is below expectations and expenditures are within receipts."
+    },
+    {
+     "title": "Proposed Cost-Control Measures",
+     "start": 0,
+     "note": "Suggestions include freezing non-essential overtime, capital outlays, travel, and new equipment, and limiting operating expenses."
+    },
+    {
+     "title": "Budget Adjustment Directive to CFO",
+     "start": 82,
+     "note": "CFO instructed to remove unused line items and reduce other professional services to actual spending, then report back."
+    },
+    {
+     "title": "Accounting and Reconciliation Improvements",
+     "start": 127,
+     "note": "Recommendation to reconcile bank statements monthly by the 15th and post data in real time."
+    },
+    {
+     "title": "Three-Year Budget Trend Review",
+     "start": 164,
+     "note": "Suggestion to review three years of financial data before making changes to the 2026-2027 budget."
+    },
+    {
+     "title": "Spending Guidance to Departments",
+     "start": 200,
+     "note": "Departments advised not to spend based on paper money and to avoid unnecessary spending in the last two months."
+    },
+    {
+     "title": "No Deficit Declaration",
+     "start": 233,
+     "note": "Chair reiterated that the city does not have a deficit in terms of expenditures."
+    },
+    {
+     "title": "CAO Comments on Collaboration",
+     "start": 233,
+     "note": "Chief Administrative Officer Pieter Teeuwissen thanked the chair and council for collaboration on budget matters."
+    },
+    {
+     "title": "Adjournment Attempt",
+     "start": 288,
+     "note": "Chair attempted to adjourn, but Councilman Foote indicated he had questions and comments."
+    },
+    {
+     "title": "Update on Funds at JP Morgan Chase",
+     "start": 346,
+     "note": "CFO Jillian Caldwell reported that 90% of city funds, approximately $90 million, are now at Chase, with some left at old banks for outstanding checks."
+    },
+    {
+     "title": "Interest Earnings Report Request",
+     "start": 346,
+     "note": "Foote requested a report on interest earned on new accounts; CFO agreed to prepare it."
+    },
+    {
+     "title": "Review of Previous Administration Contracts",
+     "start": 393,
+     "note": "Foote called for reviewing and potentially redoing contracts from the previous administration, citing missed revenue and past prosecutions."
+    },
+    {
+     "title": "Parking Meter Contract Concerns",
+     "start": 480,
+     "note": "Foote noted that the parking meter contract has generated no funds for the city despite promises."
+    },
+    {
+     "title": "Payroll Spending vs. Budget Request",
+     "start": 530,
+     "note": "Foote requested a comparison of payroll spending to budget for each department with two months left in the fiscal year."
+    },
+    {
+     "title": "Chair's Response and Adjournment",
+     "start": 530,
+     "note": "Chair stated numbers would not be discussed today, legal will review contracts, and adjourned the meeting."
+    }
+   ],
+   "people": [
+    "Montyne Clay",
+    "Pieter Teeuwissen",
+    "Jillian Caldwell",
+    "Ashby Foote"
+   ],
+   "money": [
+    "$90 million in city funds on deposit at Chase bank"
+   ],
+   "votes": []
+  }
+ ]
+}

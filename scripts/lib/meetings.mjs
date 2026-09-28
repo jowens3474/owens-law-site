@@ -28,14 +28,20 @@ export const SOURCES = [
     label: "City of Jackson PEG Network",
     handle: "@JacksonPEGNetwork",
     channelId: process.env.MEETINGS_JACKSON_PEG_CHANNEL || "",
+    // Titles seen on the channel: "Regular City Council Meeting Sep 8, 2026",
+    // "Special City Council Meeting Sep 3, 2026", "Budget Meeting Aug 25,
+    // 2026 Pt1", "1% Sales Tax Meeting Sep 9, 2026", "Press Conference
+    // July 7, 2026". Ribbon cuttings, PSAs, and films are skipped.
     bodies: [
-      [/budget\s*hearing|finance\s*committee/i, "Jackson City Council budget hearing"],
+      [/budget\s*(hearing|meeting)|finance\s*committee/i, "Jackson City Council budget hearing"],
+      [/1\s*%\s*sales\s*tax|sales\s*tax\s*(commission|meeting)/i, "Jackson 1% Sales Tax Commission"],
       [/special\s*(called\s*)?(city\s*)?council/i, "Jackson City Council special meeting"],
       [/work\s*session|planning\s*session/i, "Jackson City Council work session"],
       [/committee/i, "Jackson City Council committee"],
       [/city\s*council|council\s*meeting/i, "Jackson City Council"],
       [/zoning|planning\s*board/i, "Jackson Planning Board"],
       [/jxn\s*water/i, "JXN Water"],
+      [/press\s*conference/i, "City of Jackson press conference"],
     ],
   },
   {
@@ -131,7 +137,16 @@ function decodeXml(s) {
 // --- yt-dlp ------------------------------------------------------------------
 
 export function ytdlp(args, opts = {}) {
+  // YTDLP_ARGS: extra flags such as --extractor-args youtube:player_client=tv
+  // when YouTube's bot check blocks the runner's default client.
+  // YTDLP_COOKIES: path to a Netscape cookie file exported from a signed-in
+  // browser; the last resort for the "confirm you're not a bot" wall.
+  // BGUTIL_SCRIPT: path to bgutil-ytdlp-pot-provider's generate_once.js.
+  // YouTube demands a proof-of-origin token from datacenter addresses such
+  // as GitHub runners; the provider plugin mints one on demand.
   const extra = (process.env.YTDLP_ARGS || "").split(" ").filter(Boolean);
+  if (process.env.BGUTIL_SCRIPT) extra.push("--extractor-args", `youtubepot-bgutilscript:script_path=${process.env.BGUTIL_SCRIPT}`);
+  if (process.env.YTDLP_COOKIES) extra.push("--cookies", process.env.YTDLP_COOKIES);
   return execFileSync("yt-dlp", [...extra, ...args], {
     encoding: "utf8",
     maxBuffer: 64 * 1024 * 1024,
@@ -230,8 +245,21 @@ export function fmtTime(sec) {
   return (h ? `${h}:` : "") + `${h ? String(m).padStart(2, "0") : m}:${String(s).padStart(2, "0")}`;
 }
 
+/**
+ * Link to a moment in the video. YouTube takes &t=<s>s; the city's Swagit
+ * player takes ?ts=<seconds> (the format its own "Start video at" share
+ * box generates). `entry` is an index entry or {id, url}.
+ */
+export function watchUrl(entry, t) {
+  const url = entry.url || `https://www.youtube.com/watch?v=${entry.id}`;
+  if (!t) return url;
+  const sep = url.includes("?") ? "&" : "?";
+  if (/youtube\.com|youtu\.be/.test(url)) return `${url}${sep}t=${Math.floor(t)}s`;
+  return `${url}${sep}ts=${Math.floor(t)}`;
+}
+
 export function videoUrl(id, t) {
-  return `https://www.youtube.com/watch?v=${id}${t ? `&t=${t}s` : ""}`;
+  return watchUrl({ id }, t);
 }
 
 // --- DeepSeek index ------------------------------------------------------------
@@ -246,7 +274,7 @@ const INDEX_PROMPT = `You index transcripts of public government meetings in Jac
 }
 Cover the whole meeting in 6 to 25 topics. Use the [h:mm:ss] stamps for start values (convert to seconds). Do not invent items that are not in the transcript. Keep every string under 300 characters.`;
 
-export async function indexWithModel(client, meeting, { log = () => {} } = {}) {
+export async function indexWithModel(client, meeting, { log = () => {}, agenda = "" } = {}) {
   const lines = meeting.blocks.map((b) => `[${fmtTime(b.t)}] ${b.text}`);
   let text = lines.join("\n");
   const CAP = 420_000; // ~100k tokens; keeps a 4-hour meeting inside the context
@@ -254,11 +282,12 @@ export async function indexWithModel(client, meeting, { log = () => {} } = {}) {
     log(`transcript ${text.length} chars, truncating to ${CAP}`);
     text = text.slice(0, CAP) + "\n[transcript truncated]";
   }
+  const agendaPart = agenda ? `\n\nPublished agenda (use its item names and spellings where the transcript matches):\n${agenda.slice(0, 16_000)}` : "";
   const res = await client.chat.completions.create({
     model: "deepseek-chat",
     messages: [
       { role: "system", content: INDEX_PROMPT },
-      { role: "user", content: `Meeting: ${meeting.body}\nVideo title: ${meeting.title}\nDate: ${meeting.date}\n\nTranscript:\n${text}` },
+      { role: "user", content: `Meeting: ${meeting.body}\nVideo title: ${meeting.title}\nDate: ${meeting.date}${agendaPart}\n\nTranscript:\n${text}` },
     ],
     response_format: { type: "json_object" },
     temperature: 0.1,
@@ -304,7 +333,7 @@ export function searchTranscripts(q, { days = 365, limit = 12, meetings } = {}) 
     for (const b of full.blocks) {
       const lc = b.text.toLowerCase();
       if (terms.every((t) => lc.includes(t))) {
-        hits.push({ id: m.id, body: m.body, date: m.date, title: m.title, t: b.t, text: b.text });
+        hits.push({ id: m.id, url: m.url, body: m.body, date: m.date, title: m.title, t: b.t, text: b.text });
         if (hits.length >= limit) return hits;
       }
     }
@@ -316,8 +345,273 @@ export function renderHits(hits, q) {
   if (!hits.length) return `No archived meeting passages match "${q}".`;
   const out = [`Meeting archive passages matching "${q}" (newest first; each link opens the video at that moment):`];
   for (const h of hits) {
-    out.push(`- ${h.date} | ${h.body} | ${fmtTime(h.t)} | ${videoUrl(h.id, h.t)} | https://www.thejacksonwire.com/meetings/${h.id}`);
+    out.push(`- ${h.date} | ${h.body} | ${fmtTime(h.t)} | ${watchUrl(h, h.t)} | https://www.thejacksonwire.com/meetings/${h.id}`);
     out.push(`  "${h.text.length > 600 ? h.text.slice(0, 600) + "…" : h.text}"`);
   }
   return out.join("\n");
+}
+
+// --- runner diagnostics ---------------------------------------------------------
+
+/**
+ * Try several yt-dlp client configurations against one video and report
+ * which can read metadata and captions. Used when YouTube blocks a runner
+ * with its "confirm you're not a bot" check; the winning flags go into
+ * the YTDLP_ARGS repository variable.
+ */
+export function probeYouTubeAccess(id, log = console.log) {
+  const configs = [
+    "",
+    "--extractor-args youtube:player_client=tv",
+    "--extractor-args youtube:player_client=tv_embedded",
+    "--extractor-args youtube:player_client=web_embedded",
+    "--extractor-args youtube:player_client=mweb",
+    "--extractor-args youtube:player_client=android",
+    "--extractor-args youtube:player_client=ios",
+    "--extractor-args youtube:player_client=android_vr",
+    "--extractor-args youtube:player_client=web_safari",
+    "--extractor-args youtube:player_client=tv,mweb",
+  ];
+  const results = [];
+  for (const cfg of configs) {
+    const saved = process.env.YTDLP_ARGS;
+    process.env.YTDLP_ARGS = cfg;
+    let line;
+    try {
+      const d = JSON.parse(ytdlp(["-J", "--skip-download", "--no-playlist", `https://www.youtube.com/watch?v=${id}`]));
+      const auto = Object.keys(d.automatic_captions || {}).filter((k) => /^en/.test(k)).length;
+      const manual = Object.keys(d.subtitles || {}).filter((k) => /^en/.test(k)).length;
+      line = `OK   title="${(d.title || "").slice(0, 40)}" duration=${d.duration} manual_en=${manual} auto_en=${auto}`;
+    } catch (e) {
+      const err = String(e.stderr || "").trim().split("\n").filter((l) => /ERROR|WARNING/.test(l));
+      line = `FAIL ${(err.slice(-2).join(" | ") || e.message).slice(0, 300)}`;
+    } finally {
+      if (saved === undefined) delete process.env.YTDLP_ARGS;
+      else process.env.YTDLP_ARGS = saved;
+    }
+    log(`${(cfg || "(default)").padEnd(58)} ${line}`);
+    results.push({ cfg, line });
+  }
+  return results;
+}
+
+// --- Swagit (the city's own video archive) ---------------------------------------
+//
+// jacksonms.swagit.com holds every council, committee, and hearing video
+// with its agenda, and unlike YouTube it does not block GitHub's network.
+// It has no captions, so audio is transcribed here (see transcribe()).
+
+export const SWAGIT_BASE = "https://jacksonms.new.swagit.com";
+export const SWAGIT_VIEW = `${SWAGIT_BASE}/views/160`;
+
+// Titles as the archive uses them: "City Council", "Special City Council",
+// "Zoning Meeting" (the council's monthly zoning session), "Budget",
+// "Finance", "Planning", "Legislative", "Rules", "Public Hearing",
+// "Confirmation Hearing", "Water/Sewer Ad-Hoc", and so on.
+const SWAGIT_BODIES = [
+  [/budget/i, "Jackson City Council budget hearing"],
+  [/zoning/i, "Jackson City Council zoning meeting"],
+  [/confirmation\s*hearing/i, "Jackson City Council confirmation hearing"],
+  [/public\s*hearing/i, "Jackson City Council public hearing"],
+  [/press\s*conference/i, "City of Jackson press conference"],
+  [/finance/i, "Jackson City Council Finance Committee"],
+  [/planning\s*(&|and)\s*economic/i, "Jackson City Council Planning & Economic Development Committee"],
+  [/^planning$/i, "Jackson City Council Planning Committee"],
+  [/economic\s*development/i, "Jackson City Council Economic Development Committee"],
+  [/legislative/i, "Jackson City Council Legislative Committee"],
+  [/public\s*safety/i, "Jackson City Council Public Safety & Parks Committee"],
+  [/public\s*works/i, "Jackson City Council Public Works Committee"],
+  [/^rules$/i, "Jackson City Council Rules Committee"],
+  [/ad[\s-]*hoc|committee|internal\s*audit|government\s*operations|disaster/i, "Jackson City Council committee"],
+  [/planning\s*board/i, "Jackson Planning Board"],
+  [/1\s*%\s*sales\s*tax|sales\s*tax/i, "Jackson 1% Sales Tax Commission"],
+  [/emergency|special/i, "Jackson City Council special meeting"],
+  [/council|regular/i, "Jackson City Council"],
+  [/hearing|meeting/i, "City of Jackson public meeting"],
+];
+
+export function classifySwagitBody(title) {
+  for (const [re, body] of SWAGIT_BODIES) if (re.test(title)) return body;
+  return null;
+}
+
+const MONTHS = { jan: 1, feb: 2, mar: 3, apr: 4, may: 5, jun: 6, jul: 7, aug: 8, sep: 9, oct: 10, nov: 11, dec: 12 };
+
+function parseSwagitDate(s) {
+  const m = s.match(/([A-Za-z]{3})[a-z]*\.?\s+(\d{1,2}),\s*(\d{4})/);
+  if (!m) return "";
+  const mo = MONTHS[m[1].toLowerCase()];
+  return mo ? `${m[3]}-${String(mo).padStart(2, "0")}-${m[2].padStart(2, "0")}` : "";
+}
+
+function parseSwagitDuration(s) {
+  const h = Number(s.match(/(\d+)\s*h/)?.[1] || 0);
+  const m = Number(s.match(/(\d+)\s*m/)?.[1] || 0);
+  const sec = Number(s.match(/(\d+)\s*s/)?.[1] || 0);
+  const total = h * 3600 + m * 60 + sec;
+  return total || null;
+}
+
+/**
+ * Parse the archive listing into [{id, title, date, duration, url, agenda}].
+ * Each row on the page is a title link, a date, a duration, and the
+ * "Video"/"Agenda" links, all pointing at /videos/<n>.
+ */
+export function parseSwagitListing(html) {
+  const out = [];
+  const seen = new Set();
+  const re = /<a[^>]+href="\/videos\/(\d+)"[^>]*>([^<]+)<\/a>([\s\S]{0,1500}?)(?=<a[^>]+href="\/videos\/\d+"[^>]*>(?!Video|Agenda)|$)/g;
+  for (const m of html.matchAll(re)) {
+    const id = m[1];
+    const title = strip(m[2]);
+    if (!title || /^(video|agenda)$/i.test(title) || seen.has(id)) continue;
+    seen.add(id);
+    const tail = strip(m[3]);
+    out.push({
+      id,
+      title,
+      date: parseSwagitDate(tail),
+      duration: parseSwagitDuration(tail),
+      url: `${SWAGIT_BASE}/videos/${id}`,
+      agenda: new RegExp(`/videos/${id}/agenda`).test(m[3]) ? `${SWAGIT_BASE}/videos/${id}/agenda` : null,
+    });
+  }
+  return out;
+}
+
+function strip(s) {
+  return String(s || "").replace(/<[^>]+>/g, " ").replace(/&amp;/g, "&").replace(/&#39;/g, "'").replace(/&quot;/g, '"').replace(/\s+/g, " ").trim();
+}
+
+export async function listSwagitVideos() {
+  const res = await fetch(SWAGIT_VIEW, { headers: { "User-Agent": UA, Accept: "text/html" } });
+  if (!res.ok) throw new Error(`swagit listing HTTP ${res.status}`);
+  return parseSwagitListing(await res.text());
+}
+
+/** The media URL (mp4 or HLS playlist) on a Swagit video page. */
+export function findSwagitMedia(html) {
+  const cands = [];
+  for (const m of html.matchAll(/https?:\/\/[^"'\s<>]+\.(?:mp4|m3u8)(?:\?[^"'\s<>]*)?/gi)) cands.push(m[0]);
+  for (const m of html.matchAll(/["'](\/\/[^"'\s<>]+\.(?:mp4|m3u8)(?:\?[^"'\s<>]*)?)["']/gi)) cands.push("https:" + m[1]);
+  // Prefer a plain mp4 file, then the HLS playlist; ffmpeg reads either.
+  // (The rtmp:// variant is excluded by the https requirement.)
+  return cands.find((u) => /\.mp4$/i.test(u)) || cands.find((u) => /\.m3u8/i.test(u)) || cands[0] || null;
+}
+
+export async function swagitVideoInfo(id) {
+  const res = await fetch(`${SWAGIT_BASE}/videos/${id}`, { headers: { "User-Agent": UA, Accept: "text/html" } });
+  if (!res.ok) throw new Error(`swagit video HTTP ${res.status}`);
+  const html = await res.text();
+  // The stream URL (an HLS playlist on archive-stream.granicus.com) is only
+  // in the embed page's player setup; the main page has the title, agenda,
+  // and a /download link that serves as the fallback.
+  let media = findSwagitMedia(html);
+  if (!media) {
+    try {
+      const emb = await fetch(`${SWAGIT_BASE}/videos/${id}/embed`, { headers: { "User-Agent": UA, Accept: "text/html" } });
+      if (emb.ok) media = findSwagitMedia(await emb.text());
+    } catch {
+      /* fall through to the download link */
+    }
+  }
+  // <title>Sep 10, 2026 Public Safety &amp; Parks Committee Meeting - Jackson, MS</title>
+  const rawTitle = strip(html.match(/<title>([^<]*)<\/title>/)?.[1] || "").replace(/\s*-\s*Jackson, MS\s*$/i, "");
+  const date = parseSwagitDate(rawTitle);
+  const title = rawTitle.replace(/^[A-Za-z]{3}\.?\s+\d{1,2},\s*\d{4}\s*/, "").trim() || rawTitle;
+  const download = html.match(/href="([^"]*\/videos\/\d+\/download)"/i)?.[1] || null;
+  const agenda = /\/videos\/\d+\/agenda|agenda_file/i.test(html) ? `${SWAGIT_BASE}/videos/${id}/agenda` : null;
+  // /videos/<id>/download serves the MP4 itself and is open to any client;
+  // the HLS stream behind it sits on CloudFront and refuses the runner.
+  const downloadUrl = download ? new URL(download, SWAGIT_BASE).href : `${SWAGIT_BASE}/videos/${id}/download`;
+  return { id, title, date, media, download: downloadUrl, sources: [downloadUrl, media].filter(Boolean), agenda };
+}
+
+// --- transcription ------------------------------------------------------------------
+//
+// Groq's Whisper endpoint when GROQ_API_KEY is set (fast, large-v3-turbo,
+// free tier covers hours a day); otherwise faster-whisper on the runner's
+// CPU via scripts/lib/transcribe.py (slower, no key). Both return cues.
+
+/**
+ * Pull mono 16 kHz MP3 audio (what Whisper wants; a 3-hour meeting is
+ * about 80 MB) from the first source ffmpeg can open. The archive's stream
+ * host checks the Referer, so requests carry the archive page as referer
+ * and a browser user agent.
+ */
+export function extractAudio(sources, outPath, { log = () => {} } = {}) {
+  const list = (Array.isArray(sources) ? sources : [sources]).filter(Boolean);
+  const headers = `Referer: ${SWAGIT_BASE}/\r\nOrigin: ${SWAGIT_BASE}\r\n`;
+  let lastErr = null;
+  for (const src of list) {
+    try {
+      execFileSync(
+        "ffmpeg",
+        ["-y", "-loglevel", "error", "-user_agent", UA, "-headers", headers, "-i", src, "-vn", "-ac", "1", "-ar", "16000", "-b:a", "48k", outPath],
+        { stdio: ["ignore", "ignore", "pipe"] },
+      );
+      return src;
+    } catch (e) {
+      lastErr = e;
+      log(`ffmpeg could not open ${src.slice(0, 90)}…: ${String(e.stderr || e.message).trim().split("\n").pop()}`);
+    }
+  }
+  throw new Error(`no readable media source (${list.length} tried): ${String(lastErr?.stderr || lastErr?.message || "").trim().split("\n").pop()}`);
+}
+
+function audioDuration(path) {
+  const out = execFileSync("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", path], { encoding: "utf8" });
+  return Math.round(Number(out.trim()) || 0);
+}
+
+export async function transcribeWithGroq(audioPath, { log = () => {} } = {}) {
+  const key = process.env.GROQ_API_KEY;
+  if (!key) throw new Error("GROQ_API_KEY not set");
+  const total = audioDuration(audioPath);
+  const CHUNK = 20 * 60; // seconds; keeps each upload well under the 25 MB cap
+  const cues = [];
+  for (let start = 0; start < total; start += CHUNK) {
+    const part = `${audioPath}.${start}.mp3`;
+    execFileSync("ffmpeg", ["-y", "-loglevel", "error", "-ss", String(start), "-t", String(CHUNK), "-i", audioPath, "-c", "copy", part], { stdio: ["ignore", "ignore", "pipe"] });
+    const form = new FormData();
+    form.append("file", new Blob([readFileSync(part)], { type: "audio/mpeg" }), "chunk.mp3");
+    form.append("model", "whisper-large-v3-turbo");
+    form.append("response_format", "verbose_json");
+    form.append("language", "en");
+    let res;
+    for (let attempt = 1; attempt <= 4; attempt++) {
+      res = await fetch("https://api.groq.com/openai/v1/audio/transcriptions", { method: "POST", headers: { Authorization: `Bearer ${key}` }, body: form });
+      if (res.status !== 429 && res.status < 500) break;
+      const wait = Number(res.headers.get("retry-after")) || attempt * 20;
+      log(`groq ${res.status}; retrying in ${wait}s`);
+      await new Promise((r) => setTimeout(r, wait * 1000));
+    }
+    if (!res.ok) throw new Error(`groq HTTP ${res.status}: ${(await res.text()).slice(0, 200)}`);
+    const data = await res.json();
+    for (const s of data.segments || []) {
+      const text = String(s.text || "").trim();
+      if (text) cues.push({ t: Math.round(start + (s.start || 0)), text });
+    }
+    rmSync(part, { force: true });
+    log(`groq: ${fmtTime(Math.min(start + CHUNK, total))} of ${fmtTime(total)}`);
+  }
+  return cues;
+}
+
+export function transcribeLocally(audioPath, { log = () => {} } = {}) {
+  const model = process.env.WHISPER_MODEL || "small.en";
+  log(`faster-whisper ${model} (CPU)`);
+  const out = execFileSync("python3", ["scripts/lib/transcribe.py", audioPath, model], { encoding: "utf8", maxBuffer: 256 * 1024 * 1024, stdio: ["ignore", "pipe", "inherit"] });
+  return JSON.parse(out);
+}
+
+export async function transcribe(audioPath, opts = {}) {
+  if (process.env.GROQ_API_KEY) {
+    try {
+      return { cues: await transcribeWithGroq(audioPath, opts), engine: "groq-whisper-large-v3-turbo" };
+    } catch (e) {
+      opts.log?.(`groq failed (${e.message}); falling back to local whisper`);
+    }
+  }
+  return { cues: transcribeLocally(audioPath, opts), engine: `faster-whisper-${process.env.WHISPER_MODEL || "small.en"}` };
 }

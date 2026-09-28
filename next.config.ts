@@ -1,6 +1,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Meeting transcripts are read from disk at request time (search) and on
+  // first render of a meeting not in the build (new archive commits), so
+  // the data directory must ship with those routes.
+  outputFileTracingIncludes: {
+    "/meetings/[id]": ["./data/meetings/**/*"],
+    "/meetings/search": ["./data/meetings/**/*"],
+    "/api/meetings/search": ["./data/meetings/**/*"],
+  },
   async rewrites() {
     return {
       // beforeFiles so /article/<slug>.md is rewritten before the [slug] page matches it.
