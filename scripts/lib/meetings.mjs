@@ -521,8 +521,10 @@ export async function swagitVideoInfo(id) {
   const title = rawTitle.replace(/^[A-Za-z]{3}\.?\s+\d{1,2},\s*\d{4}\s*/, "").trim() || rawTitle;
   const download = html.match(/href="([^"]*\/videos\/\d+\/download)"/i)?.[1] || null;
   const agenda = /\/videos\/\d+\/agenda|agenda_file/i.test(html) ? `${SWAGIT_BASE}/videos/${id}/agenda` : null;
+  // /videos/<id>/download serves the MP4 itself and is open to any client;
+  // the HLS stream behind it sits on CloudFront and refuses the runner.
   const downloadUrl = download ? new URL(download, SWAGIT_BASE).href : `${SWAGIT_BASE}/videos/${id}/download`;
-  return { id, title, date, media, download: downloadUrl, sources: [media, downloadUrl].filter(Boolean), agenda };
+  return { id, title, date, media, download: downloadUrl, sources: [downloadUrl, media].filter(Boolean), agenda };
 }
 
 // --- transcription ------------------------------------------------------------------
