@@ -146,10 +146,10 @@ export default async function MeetingsPage({ searchParams }: PageProps<"/meeting
       <section className="mt-14 border-t border-rule pt-6 font-sans text-sm text-muted">
         <h2 className="font-bold uppercase tracking-widest text-ink">How the Record is made</h2>
         <p className="mt-2 max-w-3xl leading-relaxed">
-          The Wire pulls each meeting from the government&apos;s own YouTube channel, keeps the captions as a timed
-          transcript, and has its research desk index what was discussed, who spoke, and what the votes were. Captions
-          are usually machine-generated, so names and numbers can be misheard: treat the transcript as a finding aid and
-          the video as the record. Every timestamp links to that moment in the original video.
+          The Wire pulls each meeting from the city&apos;s own video archive, transcribes it with speech recognition,
+          and has its research desk index what was discussed, who spoke, and what the votes were, using the published
+          agenda for item names. Speech recognition mishears names and numbers, so treat the transcript as a finding aid
+          and the video as the record. Every timestamp links to that moment in the original video.
           {ARCHIVE_UPDATED ? ` Last updated ${formatMeetingDate(ARCHIVE_UPDATED.slice(0, 10))}.` : ""}
         </p>
       </section>

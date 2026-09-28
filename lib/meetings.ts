@@ -26,7 +26,9 @@ export interface MeetingEntry {
   duration: number | null; // seconds
   channel: string;
   url: string;
-  captions: "manual" | "auto" | "none";
+  captions: "manual" | "auto" | "none" | "transcribed";
+  agenda?: string | null; // agenda PDF, when the archive has one
+  engine?: string; // transcription engine, for transcribed meetings
   fetched: string;
   words: number;
   indexed: boolean;
@@ -93,8 +95,19 @@ export function fmtDuration(sec: number | null): string {
   return h ? `${h} hr ${m} min` : `${m} min`;
 }
 
-export function videoAt(id: string, t?: number): string {
-  return `https://www.youtube.com/watch?v=${id}${t ? `&t=${Math.floor(t)}s` : ""}`;
+/** Link to a moment in the video: YouTube takes &t=, Swagit start_at=hh:mm:ss. */
+export function videoAt(m: { id: string; url?: string }, t?: number): string {
+  const url = m.url || `https://www.youtube.com/watch?v=${m.id}`;
+  if (!t) return url;
+  const s = Math.floor(t);
+  const sep = url.includes("?") ? "&" : "?";
+  if (/youtube\.com|youtu\.be/.test(url)) return `${url}${sep}t=${s}s`;
+  const hms = `${String(Math.floor(s / 3600)).padStart(2, "0")}:${String(Math.floor((s % 3600) / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
+  return `${url}${sep}start_at=${hms}`;
+}
+
+export function isYouTube(m: { url?: string }): boolean {
+  return /youtube\.com|youtu\.be/.test(m.url || "");
 }
 
 export function formatMeetingDate(iso: string): string {
@@ -121,6 +134,7 @@ export function queryTerms(q: string): string[] {
 
 export interface Hit {
   id: string;
+  url: string;
   body: string;
   date: string;
   title: string;
@@ -140,7 +154,7 @@ export function searchTranscripts(q: string, { limit = 40, body = "" } = {}): { 
     for (const b of full.blocks) {
       const lc = b.text.toLowerCase();
       if (terms.every((t) => lc.includes(t))) {
-        hits.push({ id: m.id, body: m.body, date: m.date, title: m.title, t: b.t, text: b.text });
+        hits.push({ id: m.id, url: m.url, body: m.body, date: m.date, title: m.title, t: b.t, text: b.text });
         if (hits.length >= limit) return { terms, hits };
       }
     }

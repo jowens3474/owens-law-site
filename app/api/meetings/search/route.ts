@@ -18,7 +18,7 @@ export function GET(req: NextRequest) {
     {
       query: q,
       terms,
-      hits: hits.map((h) => ({ ...h, video: videoAt(h.id, h.t), page: `https://www.thejacksonwire.com/meetings/${h.id}#t-${h.t}` })),
+      hits: hits.map((h) => ({ ...h, video: videoAt(h, h.t), page: `https://www.thejacksonwire.com/meetings/${h.id}#t-${h.t}` })),
     },
     { headers: { "Cache-Control": "public, s-maxage=300, stale-while-revalidate=3600" } },
   );

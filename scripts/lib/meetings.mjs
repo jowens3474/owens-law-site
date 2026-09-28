@@ -245,8 +245,21 @@ export function fmtTime(sec) {
   return (h ? `${h}:` : "") + `${h ? String(m).padStart(2, "0") : m}:${String(s).padStart(2, "0")}`;
 }
 
+/**
+ * Link to a moment in the video. YouTube takes &t=; the city's Swagit
+ * player takes start_at=hh:mm:ss. `entry` is an index entry or {id, url}.
+ */
+export function watchUrl(entry, t) {
+  const url = entry.url || `https://www.youtube.com/watch?v=${entry.id}`;
+  if (!t) return url;
+  if (/youtube\.com|youtu\.be/.test(url)) return `${url}${url.includes("?") ? "&" : "?"}t=${Math.floor(t)}s`;
+  const s = Math.floor(t);
+  const hms = `${String(Math.floor(s / 3600)).padStart(2, "0")}:${String(Math.floor((s % 3600) / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
+  return `${url}${url.includes("?") ? "&" : "?"}start_at=${hms}`;
+}
+
 export function videoUrl(id, t) {
-  return `https://www.youtube.com/watch?v=${id}${t ? `&t=${t}s` : ""}`;
+  return watchUrl({ id }, t);
 }
 
 // --- DeepSeek index ------------------------------------------------------------
@@ -261,7 +274,7 @@ const INDEX_PROMPT = `You index transcripts of public government meetings in Jac
 }
 Cover the whole meeting in 6 to 25 topics. Use the [h:mm:ss] stamps for start values (convert to seconds). Do not invent items that are not in the transcript. Keep every string under 300 characters.`;
 
-export async function indexWithModel(client, meeting, { log = () => {} } = {}) {
+export async function indexWithModel(client, meeting, { log = () => {}, agenda = "" } = {}) {
   const lines = meeting.blocks.map((b) => `[${fmtTime(b.t)}] ${b.text}`);
   let text = lines.join("\n");
   const CAP = 420_000; // ~100k tokens; keeps a 4-hour meeting inside the context
@@ -269,11 +282,12 @@ export async function indexWithModel(client, meeting, { log = () => {} } = {}) {
     log(`transcript ${text.length} chars, truncating to ${CAP}`);
     text = text.slice(0, CAP) + "\n[transcript truncated]";
   }
+  const agendaPart = agenda ? `\n\nPublished agenda (use its item names and spellings where the transcript matches):\n${agenda.slice(0, 16_000)}` : "";
   const res = await client.chat.completions.create({
     model: "deepseek-chat",
     messages: [
       { role: "system", content: INDEX_PROMPT },
-      { role: "user", content: `Meeting: ${meeting.body}\nVideo title: ${meeting.title}\nDate: ${meeting.date}\n\nTranscript:\n${text}` },
+      { role: "user", content: `Meeting: ${meeting.body}\nVideo title: ${meeting.title}\nDate: ${meeting.date}${agendaPart}\n\nTranscript:\n${text}` },
     ],
     response_format: { type: "json_object" },
     temperature: 0.1,
@@ -319,7 +333,7 @@ export function searchTranscripts(q, { days = 365, limit = 12, meetings } = {}) 
     for (const b of full.blocks) {
       const lc = b.text.toLowerCase();
       if (terms.every((t) => lc.includes(t))) {
-        hits.push({ id: m.id, body: m.body, date: m.date, title: m.title, t: b.t, text: b.text });
+        hits.push({ id: m.id, url: m.url, body: m.body, date: m.date, title: m.title, t: b.t, text: b.text });
         if (hits.length >= limit) return hits;
       }
     }
@@ -331,7 +345,7 @@ export function renderHits(hits, q) {
   if (!hits.length) return `No archived meeting passages match "${q}".`;
   const out = [`Meeting archive passages matching "${q}" (newest first; each link opens the video at that moment):`];
   for (const h of hits) {
-    out.push(`- ${h.date} | ${h.body} | ${fmtTime(h.t)} | ${videoUrl(h.id, h.t)} | https://www.thejacksonwire.com/meetings/${h.id}`);
+    out.push(`- ${h.date} | ${h.body} | ${fmtTime(h.t)} | ${watchUrl(h, h.t)} | https://www.thejacksonwire.com/meetings/${h.id}`);
     out.push(`  "${h.text.length > 600 ? h.text.slice(0, 600) + "…" : h.text}"`);
   }
   return out.join("\n");
@@ -379,4 +393,180 @@ export function probeYouTubeAccess(id, log = console.log) {
     results.push({ cfg, line });
   }
   return results;
+}
+
+// --- Swagit (the city's own video archive) ---------------------------------------
+//
+// jacksonms.swagit.com holds every council, committee, and hearing video
+// with its agenda, and unlike YouTube it does not block GitHub's network.
+// It has no captions, so audio is transcribed here (see transcribe()).
+
+export const SWAGIT_BASE = "https://jacksonms.new.swagit.com";
+export const SWAGIT_VIEW = `${SWAGIT_BASE}/views/160`;
+
+const SWAGIT_BODIES = [
+  [/budget/i, "Jackson City Council budget hearing"],
+  [/special/i, "Jackson City Council special meeting"],
+  [/work\s*session/i, "Jackson City Council work session"],
+  [/finance/i, "Jackson City Council Finance Committee"],
+  [/planning\s*(&|and)\s*economic/i, "Jackson City Council Planning & Economic Development Committee"],
+  [/public\s*safety/i, "Jackson City Council Public Safety & Parks Committee"],
+  [/public\s*works/i, "Jackson City Council Public Works Committee"],
+  [/rules|education|youth|housing|transportation|committee/i, "Jackson City Council committee"],
+  [/planning\s*board|zoning/i, "Jackson Planning Board"],
+  [/1\s*%\s*sales\s*tax|sales\s*tax/i, "Jackson 1% Sales Tax Commission"],
+  [/council|regular/i, "Jackson City Council"],
+  [/hearing|meeting/i, "City of Jackson public meeting"],
+];
+
+export function classifySwagitBody(title) {
+  for (const [re, body] of SWAGIT_BODIES) if (re.test(title)) return body;
+  return null;
+}
+
+const MONTHS = { jan: 1, feb: 2, mar: 3, apr: 4, may: 5, jun: 6, jul: 7, aug: 8, sep: 9, oct: 10, nov: 11, dec: 12 };
+
+function parseSwagitDate(s) {
+  const m = s.match(/([A-Za-z]{3})[a-z]*\.?\s+(\d{1,2}),\s*(\d{4})/);
+  if (!m) return "";
+  const mo = MONTHS[m[1].toLowerCase()];
+  return mo ? `${m[3]}-${String(mo).padStart(2, "0")}-${m[2].padStart(2, "0")}` : "";
+}
+
+function parseSwagitDuration(s) {
+  const h = Number(s.match(/(\d+)\s*h/)?.[1] || 0);
+  const m = Number(s.match(/(\d+)\s*m/)?.[1] || 0);
+  const sec = Number(s.match(/(\d+)\s*s/)?.[1] || 0);
+  const total = h * 3600 + m * 60 + sec;
+  return total || null;
+}
+
+/**
+ * Parse the archive listing into [{id, title, date, duration, url, agenda}].
+ * Each row on the page is a title link, a date, a duration, and the
+ * "Video"/"Agenda" links, all pointing at /videos/<n>.
+ */
+export function parseSwagitListing(html) {
+  const out = [];
+  const seen = new Set();
+  const re = /<a[^>]+href="\/videos\/(\d+)"[^>]*>([^<]+)<\/a>([\s\S]{0,1500}?)(?=<a[^>]+href="\/videos\/\d+"[^>]*>(?!Video|Agenda)|$)/g;
+  for (const m of html.matchAll(re)) {
+    const id = m[1];
+    const title = strip(m[2]);
+    if (!title || /^(video|agenda)$/i.test(title) || seen.has(id)) continue;
+    seen.add(id);
+    const tail = strip(m[3]);
+    out.push({
+      id,
+      title,
+      date: parseSwagitDate(tail),
+      duration: parseSwagitDuration(tail),
+      url: `${SWAGIT_BASE}/videos/${id}`,
+      agenda: new RegExp(`/videos/${id}/agenda`).test(m[3]) ? `${SWAGIT_BASE}/videos/${id}/agenda` : null,
+    });
+  }
+  return out;
+}
+
+function strip(s) {
+  return String(s || "").replace(/<[^>]+>/g, " ").replace(/&amp;/g, "&").replace(/&#39;/g, "'").replace(/&quot;/g, '"').replace(/\s+/g, " ").trim();
+}
+
+export async function listSwagitVideos() {
+  const res = await fetch(SWAGIT_VIEW, { headers: { "User-Agent": UA, Accept: "text/html" } });
+  if (!res.ok) throw new Error(`swagit listing HTTP ${res.status}`);
+  return parseSwagitListing(await res.text());
+}
+
+/** The media URL (mp4 or HLS playlist) on a Swagit video page. */
+export function findSwagitMedia(html) {
+  const cands = [];
+  for (const m of html.matchAll(/https?:\/\/[^"'\s<>]+\.(?:mp4|m3u8)(?:\?[^"'\s<>]*)?/gi)) cands.push(m[0]);
+  for (const m of html.matchAll(/["'](\/\/[^"'\s<>]+\.(?:mp4|m3u8)(?:\?[^"'\s<>]*)?)["']/gi)) cands.push("https:" + m[1]);
+  // Prefer a direct mp4 over a playlist; ffmpeg reads either.
+  return cands.find((u) => /\.mp4/i.test(u)) || cands[0] || null;
+}
+
+export async function swagitVideoInfo(id) {
+  const res = await fetch(`${SWAGIT_BASE}/videos/${id}`, { headers: { "User-Agent": UA, Accept: "text/html" } });
+  if (!res.ok) throw new Error(`swagit video HTTP ${res.status}`);
+  const html = await res.text();
+  const media = findSwagitMedia(html);
+  // <title>Sep 10, 2026 Public Safety &amp; Parks Committee Meeting - Jackson, MS</title>
+  const rawTitle = strip(html.match(/<title>([^<]*)<\/title>/)?.[1] || "").replace(/\s*-\s*Jackson, MS\s*$/i, "");
+  const date = parseSwagitDate(rawTitle);
+  const title = rawTitle.replace(/^[A-Za-z]{3}\.?\s+\d{1,2},\s*\d{4}\s*/, "").trim() || rawTitle;
+  const download = html.match(/href="([^"]*\/videos\/\d+\/download)"/i)?.[1] || null;
+  const agenda = /\/videos\/\d+\/agenda|agenda_file/i.test(html) ? `${SWAGIT_BASE}/videos/${id}/agenda` : null;
+  return { id, title, date, media: media || (download ? new URL(download, SWAGIT_BASE).href : null), agenda };
+}
+
+// --- transcription ------------------------------------------------------------------
+//
+// Groq's Whisper endpoint when GROQ_API_KEY is set (fast, large-v3-turbo,
+// free tier covers hours a day); otherwise faster-whisper on the runner's
+// CPU via scripts/lib/transcribe.py (slower, no key). Both return cues.
+
+export function extractAudio(mediaUrl, outPath) {
+  // Mono 16 kHz MP3 keeps a 3-hour meeting near 80 MB and is what Whisper
+  // wants anyway. ffmpeg streams straight from the URL.
+  execFileSync("ffmpeg", ["-y", "-loglevel", "error", "-i", mediaUrl, "-vn", "-ac", "1", "-ar", "16000", "-b:a", "48k", outPath], { stdio: ["ignore", "ignore", "pipe"] });
+  return outPath;
+}
+
+function audioDuration(path) {
+  const out = execFileSync("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", path], { encoding: "utf8" });
+  return Math.round(Number(out.trim()) || 0);
+}
+
+export async function transcribeWithGroq(audioPath, { log = () => {} } = {}) {
+  const key = process.env.GROQ_API_KEY;
+  if (!key) throw new Error("GROQ_API_KEY not set");
+  const total = audioDuration(audioPath);
+  const CHUNK = 20 * 60; // seconds; keeps each upload well under the 25 MB cap
+  const cues = [];
+  for (let start = 0; start < total; start += CHUNK) {
+    const part = `${audioPath}.${start}.mp3`;
+    execFileSync("ffmpeg", ["-y", "-loglevel", "error", "-ss", String(start), "-t", String(CHUNK), "-i", audioPath, "-c", "copy", part], { stdio: ["ignore", "ignore", "pipe"] });
+    const form = new FormData();
+    form.append("file", new Blob([readFileSync(part)], { type: "audio/mpeg" }), "chunk.mp3");
+    form.append("model", "whisper-large-v3-turbo");
+    form.append("response_format", "verbose_json");
+    form.append("language", "en");
+    let res;
+    for (let attempt = 1; attempt <= 4; attempt++) {
+      res = await fetch("https://api.groq.com/openai/v1/audio/transcriptions", { method: "POST", headers: { Authorization: `Bearer ${key}` }, body: form });
+      if (res.status !== 429 && res.status < 500) break;
+      const wait = Number(res.headers.get("retry-after")) || attempt * 20;
+      log(`groq ${res.status}; retrying in ${wait}s`);
+      await new Promise((r) => setTimeout(r, wait * 1000));
+    }
+    if (!res.ok) throw new Error(`groq HTTP ${res.status}: ${(await res.text()).slice(0, 200)}`);
+    const data = await res.json();
+    for (const s of data.segments || []) {
+      const text = String(s.text || "").trim();
+      if (text) cues.push({ t: Math.round(start + (s.start || 0)), text });
+    }
+    rmSync(part, { force: true });
+    log(`groq: ${fmtTime(Math.min(start + CHUNK, total))} of ${fmtTime(total)}`);
+  }
+  return cues;
+}
+
+export function transcribeLocally(audioPath, { log = () => {} } = {}) {
+  const model = process.env.WHISPER_MODEL || "small.en";
+  log(`faster-whisper ${model} (CPU)`);
+  const out = execFileSync("python3", ["scripts/lib/transcribe.py", audioPath, model], { encoding: "utf8", maxBuffer: 256 * 1024 * 1024, stdio: ["ignore", "pipe", "inherit"] });
+  return JSON.parse(out);
+}
+
+export async function transcribe(audioPath, opts = {}) {
+  if (process.env.GROQ_API_KEY) {
+    try {
+      return { cues: await transcribeWithGroq(audioPath, opts), engine: "groq-whisper-large-v3-turbo" };
+    } catch (e) {
+      opts.log?.(`groq failed (${e.message}); falling back to local whisper`);
+    }
+  }
+  return { cues: transcribeLocally(audioPath, opts), engine: `faster-whisper-${process.env.WHISPER_MODEL || "small.en"}` };
 }

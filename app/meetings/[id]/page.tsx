@@ -10,6 +10,7 @@ import {
   fmtTime,
   fmtDuration,
   videoAt,
+  isYouTube,
   formatMeetingDate,
 } from "@/lib/meetings";
 import MeetingSearchForm from "@/app/components/MeetingSearchForm";
@@ -35,10 +36,10 @@ export async function generateMetadata({ params }: PageProps<"/meetings/[id]">):
   };
 }
 
-function Stamp({ id, t }: { id: string; t: number }) {
+function Stamp({ m, t }: { m: { id: string; url: string }; t: number }) {
   return (
     <a
-      href={videoAt(id, t)}
+      href={videoAt(m, t)}
       target="_blank"
       rel="noopener"
       className="font-mono text-xs text-crimson hover:text-crimson-bright"
@@ -61,8 +62,9 @@ export default async function MeetingPage({ params }: PageProps<"/meetings/[id]"
     description: m.summary || m.title,
     uploadDate: m.date,
     url: absoluteUrl(`/meetings/${m.id}`),
-    embedUrl: `https://www.youtube.com/embed/${m.id}`,
-    thumbnailUrl: `https://i.ytimg.com/vi/${m.id}/hqdefault.jpg`,
+    ...(isYouTube(m)
+      ? { embedUrl: `https://www.youtube.com/embed/${m.id}`, thumbnailUrl: `https://i.ytimg.com/vi/${m.id}/hqdefault.jpg` }
+      : { contentUrl: m.url }),
     publisher: { "@id": absoluteUrl("/#org") },
     transcript: m.blocks.map((b) => b.text).join(" ").slice(0, 5000),
   };
@@ -82,8 +84,16 @@ export default async function MeetingPage({ params }: PageProps<"/meetings/[id]"
         <p className="mt-3 font-sans text-sm text-muted">
           {m.title}
           {m.duration ? ` · ${fmtDuration(m.duration)}` : ""} · {m.words.toLocaleString("en-US")} words ·{" "}
+          {m.agenda && (
+            <>
+              <a href={m.agenda} target="_blank" rel="noopener" className="text-crimson">
+                Agenda (PDF) ↗
+              </a>{" "}
+              ·{" "}
+            </>
+          )}
           <a href={m.url} target="_blank" rel="noopener" className="text-crimson">
-            Watch on {m.channel || "YouTube"} ↗
+            Watch on the {isYouTube(m) ? "city's YouTube channel" : "city's video archive"} ↗
           </a>
         </p>
         {m.summary && <p className="mt-4 max-w-3xl font-sans text-lg leading-relaxed">{m.summary}</p>}
@@ -102,7 +112,7 @@ export default async function MeetingPage({ params }: PageProps<"/meetings/[id]"
                     <a href={`#t-${nearestBlock(m.blocks, t.start)}`} className="font-semibold hover:text-crimson">
                       {t.title}
                     </a>{" "}
-                    <Stamp id={m.id} t={t.start} />
+                    <Stamp m={m} t={t.start} />
                     {t.note && <p className="mt-0.5 text-muted">{t.note}</p>}
                   </li>
                 ))}
@@ -118,7 +128,7 @@ export default async function MeetingPage({ params }: PageProps<"/meetings/[id]"
                     <span className={`mr-2 rounded-sm px-1.5 py-0.5 text-[11px] font-bold uppercase ${/pass|approv|adopt/i.test(v.outcome) ? "bg-ink text-paper" : "border border-rule text-muted"}`}>
                       {v.outcome || "unclear"}
                     </span>
-                    {v.item} <Stamp id={m.id} t={v.start} />
+                    {v.item} <Stamp m={m} t={v.start} />
                   </li>
                 ))}
               </ul>
@@ -149,13 +159,17 @@ export default async function MeetingPage({ params }: PageProps<"/meetings/[id]"
           </div>
           <h2 className="mb-3 border-b border-ink pb-1 font-sans text-xs font-bold uppercase tracking-widest">Transcript</h2>
           <p className="mb-4 font-sans text-xs text-muted">
-            {m.captions === "manual" ? "Captions supplied with the video." : "Machine-generated captions; names and numbers may be misheard."}{" "}
+            {m.captions === "manual"
+              ? "Captions supplied with the video."
+              : m.captions === "transcribed"
+                ? "Transcribed by the Wire from the city's recording with speech recognition; names and numbers may be misheard."
+                : "Machine-generated captions; names and numbers may be misheard."}{" "}
             Each timestamp opens the video at that moment.
           </p>
           <div className="space-y-4">
             {m.blocks.map((b) => (
               <p key={b.t} id={`t-${b.t}`} className="scroll-mt-24 font-serif text-base leading-relaxed">
-                <Stamp id={m.id} t={b.t} />{" "}
+                <Stamp m={m} t={b.t} />{" "}
                 {b.text}
               </p>
             ))}

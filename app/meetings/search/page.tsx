@@ -85,7 +85,7 @@ export default async function MeetingSearchPage({ searchParams }: PageProps<"/me
                 {formatMeetingDate(h.date)}
               </Link>
               <span className="text-muted"> · at </span>
-              <a href={videoAt(h.id, h.t)} target="_blank" rel="noopener" className="font-mono text-xs text-crimson">
+              <a href={videoAt(h, h.t)} target="_blank" rel="noopener" className="font-mono text-xs text-crimson">
                 {fmtTime(h.t)} ↗
               </a>
             </p>
