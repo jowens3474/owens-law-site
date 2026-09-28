@@ -52,6 +52,14 @@ export default function Footer() {
               </li>
               <li>
                 <Link
+                  href="/meetings"
+                  className="font-sans text-sm hover:text-crimson"
+                >
+                  The Record
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/pro"
                   className="font-sans text-sm hover:text-crimson"
                 >

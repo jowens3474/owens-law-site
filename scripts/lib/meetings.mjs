@@ -28,14 +28,20 @@ export const SOURCES = [
     label: "City of Jackson PEG Network",
     handle: "@JacksonPEGNetwork",
     channelId: process.env.MEETINGS_JACKSON_PEG_CHANNEL || "",
+    // Titles seen on the channel: "Regular City Council Meeting Sep 8, 2026",
+    // "Special City Council Meeting Sep 3, 2026", "Budget Meeting Aug 25,
+    // 2026 Pt1", "1% Sales Tax Meeting Sep 9, 2026", "Press Conference
+    // July 7, 2026". Ribbon cuttings, PSAs, and films are skipped.
     bodies: [
-      [/budget\s*hearing|finance\s*committee/i, "Jackson City Council budget hearing"],
+      [/budget\s*(hearing|meeting)|finance\s*committee/i, "Jackson City Council budget hearing"],
+      [/1\s*%\s*sales\s*tax|sales\s*tax\s*(commission|meeting)/i, "Jackson 1% Sales Tax Commission"],
       [/special\s*(called\s*)?(city\s*)?council/i, "Jackson City Council special meeting"],
       [/work\s*session|planning\s*session/i, "Jackson City Council work session"],
       [/committee/i, "Jackson City Council committee"],
       [/city\s*council|council\s*meeting/i, "Jackson City Council"],
       [/zoning|planning\s*board/i, "Jackson Planning Board"],
       [/jxn\s*water/i, "JXN Water"],
+      [/press\s*conference/i, "City of Jackson press conference"],
     ],
   },
   {
@@ -131,7 +137,12 @@ function decodeXml(s) {
 // --- yt-dlp ------------------------------------------------------------------
 
 export function ytdlp(args, opts = {}) {
+  // YTDLP_ARGS: extra flags such as --extractor-args youtube:player_client=tv
+  // when YouTube's bot check blocks the runner's default client.
+  // YTDLP_COOKIES: path to a Netscape cookie file exported from a signed-in
+  // browser; the last resort for the "confirm you're not a bot" wall.
   const extra = (process.env.YTDLP_ARGS || "").split(" ").filter(Boolean);
+  if (process.env.YTDLP_COOKIES) extra.push("--cookies", process.env.YTDLP_COOKIES);
   return execFileSync("yt-dlp", [...extra, ...args], {
     encoding: "utf8",
     maxBuffer: 64 * 1024 * 1024,
@@ -320,4 +331,47 @@ export function renderHits(hits, q) {
     out.push(`  "${h.text.length > 600 ? h.text.slice(0, 600) + "…" : h.text}"`);
   }
   return out.join("\n");
+}
+
+// --- runner diagnostics ---------------------------------------------------------
+
+/**
+ * Try several yt-dlp client configurations against one video and report
+ * which can read metadata and captions. Used when YouTube blocks a runner
+ * with its "confirm you're not a bot" check; the winning flags go into
+ * the YTDLP_ARGS repository variable.
+ */
+export function probeYouTubeAccess(id, log = console.log) {
+  const configs = [
+    "",
+    "--extractor-args youtube:player_client=tv",
+    "--extractor-args youtube:player_client=tv_embedded",
+    "--extractor-args youtube:player_client=web_embedded",
+    "--extractor-args youtube:player_client=mweb",
+    "--extractor-args youtube:player_client=android",
+    "--extractor-args youtube:player_client=ios",
+    "--extractor-args youtube:player_client=android_vr",
+    "--extractor-args youtube:player_client=web_safari",
+    "--extractor-args youtube:player_client=tv,mweb",
+  ];
+  const results = [];
+  for (const cfg of configs) {
+    const saved = process.env.YTDLP_ARGS;
+    process.env.YTDLP_ARGS = cfg;
+    let line;
+    try {
+      const d = JSON.parse(ytdlp(["-J", "--skip-download", "--no-playlist", `https://www.youtube.com/watch?v=${id}`], { stdio: ["ignore", "pipe", "ignore"] }));
+      const auto = Object.keys(d.automatic_captions || {}).filter((k) => /^en/.test(k)).length;
+      const manual = Object.keys(d.subtitles || {}).filter((k) => /^en/.test(k)).length;
+      line = `OK   title="${(d.title || "").slice(0, 40)}" duration=${d.duration} manual_en=${manual} auto_en=${auto}`;
+    } catch (e) {
+      line = `FAIL ${String(e.stderr || e.message).trim().split("\n").filter((l) => /ERROR/.test(l)).pop()?.slice(0, 160) || e.message.slice(0, 160)}`;
+    } finally {
+      if (saved === undefined) delete process.env.YTDLP_ARGS;
+      else process.env.YTDLP_ARGS = saved;
+    }
+    log(`${(cfg || "(default)").padEnd(58)} ${line}`);
+    results.push({ cfg, line });
+  }
+  return results;
 }

@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { MEETINGS } from "@/lib/meetings";
 import { getAllPosts } from "@/lib/posts";
 import { categories } from "@/lib/site";
 import { absoluteUrl } from "@/lib/markdown";
@@ -42,6 +43,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "daily",
       priority: 0.9,
     },
+    {
+      url: absoluteUrl("/meetings"),
+      lastModified: latest,
+      changeFrequency: "daily",
+      priority: 0.8,
+    },
+    ...MEETINGS.map((m) => ({
+      url: absoluteUrl(`/meetings/${m.id}`),
+      lastModified: m.fetched ? new Date(m.fetched) : latest,
+      changeFrequency: "monthly" as const,
+      priority: 0.5,
+    })),
     {
       url: absoluteUrl("/data-centers"),
       lastModified: latest,

@@ -13,7 +13,7 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: "Blank to ingest; 'list' to print candidate videos only"
+        description: "Blank to ingest; 'list' prints candidate videos; 'ytprobe' tests YouTube access"
         required: false
         default: ""
       video:
@@ -61,11 +61,31 @@ jobs:
           node-version: "22"
           cache: "npm"
 
+      - name: Setup Deno (JavaScript runtime yt-dlp needs for YouTube)
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
       - name: Install dependencies
         run: |
           npm ci
           python3 -m pip install --quiet --upgrade yt-dlp
           yt-dlp --version
+
+      # Optional: a Netscape-format cookie file exported from a browser signed
+      # in to YouTube, stored as the YOUTUBE_COOKIES secret. Only needed if
+      # YouTube's bot check blocks every player client from the runner.
+      - name: Write YouTube cookies if configured
+        env:
+          YOUTUBE_COOKIES: ${{ secrets.YOUTUBE_COOKIES }}
+        run: |
+          if [ -n "$YOUTUBE_COOKIES" ]; then
+            printf '%s\n' "$YOUTUBE_COOKIES" > "$RUNNER_TEMP/youtube-cookies.txt"
+            echo "YTDLP_COOKIES=$RUNNER_TEMP/youtube-cookies.txt" >> "$GITHUB_ENV"
+            echo "Cookie file written."
+          else
+            echo "No YOUTUBE_COOKIES secret; using anonymous access."
+          fi
 
       - name: Archive meetings
         env:

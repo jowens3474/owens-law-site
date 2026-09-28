@@ -8,7 +8,8 @@
 // Env:
 //   DEEPSEEK_API_KEY  optional; without it transcripts are stored unindexed
 //                     and indexed on a later run
-//   MODE              "list" prints candidate videos and exits
+//   MODE              "list" prints candidate videos and exits;
+//                     "ytprobe" tests which yt-dlp client can read VIDEO
 //   VIDEO             comma-separated YouTube ids or URLs to ingest directly
 //   LIMIT             new videos to ingest per run (default 6)
 //   BACKFILL          list this many older uploads per channel via yt-dlp
@@ -36,6 +37,7 @@ import {
   indexWithModel,
   ytdlp,
   fmtTime,
+  probeYouTubeAccess,
 } from "./lib/meetings.mjs";
 
 const log = (m) => console.log(`[meetings] ${m}`);
@@ -169,6 +171,12 @@ async function main() {
   const jobs = [];
 
   const direct = parseVideoIds(process.env.VIDEO);
+  if (mode === "ytprobe") {
+    const id = direct[0] || "bfwlmLU0BAc"; // Regular City Council Meeting Sep 8, 2026
+    log(`probing YouTube access with ${id}${process.env.YTDLP_COOKIES ? " (cookies set)" : ""}`);
+    probeYouTubeAccess(id, log);
+    return;
+  }
   if (direct.length) {
     for (const id of direct) {
       const k = known.get(id);
