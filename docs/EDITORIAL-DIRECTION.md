@@ -99,6 +99,7 @@ Three feeds added after the first round, all keyless:
 | `bankruptcies` | CourtListener, S.D. Miss. bankruptcy court: every Chapter 11, plus Chapter 7 cases and adversary proceedings with a business name |
 | `public_notices` | City of Jackson's bid-opportunity posts: invitations for bids, RFPs, zoning publication ads (rezonings, use permits, variances), meeting notices |
 | `sales_tax_diversions` | Department of Revenue monthly diversions to cities, parsed from the PDF; feeds `/economy/sales-tax` |
+| `meeting_transcripts` | The Record: searchable transcripts of city meetings from the city's own video; see below |
 
 The statewide public-notice site run by the Mississippi Press Association
 refuses connections from GitHub's network, so county-level foreclosure and
@@ -119,6 +120,45 @@ Economy story from the parsed table alone. The tracker page at
 chart for Jackson, and the metro table with year-over-year and
 fiscal-year-to-date changes. Dispatch the workflow with `dry_run = 1` to
 refresh the data and preview the story without publishing.
+
+## The Record (meeting archive)
+
+`/meetings` is the searchable archive of what was said at public meetings.
+`scripts/meeting-archive.mjs` (workflow **Meeting Archive**, daily at
+10:00 UTC) lists new uploads on the governments' YouTube channels
+(`SOURCES` in `scripts/lib/meetings.mjs`; today the City of Jackson PEG
+Network, which carries council meetings, special meetings, budget
+hearings, the 1% Sales Tax Commission, and press conferences), pulls the
+captions with yt-dlp, merges them into timed blocks, and has DeepSeek
+index each meeting: a summary, topics with start times, people, dollar
+figures, and votes. Everything lands in `data/meetings/`: `index.json`
+(metadata and the index, imported by the pages) and one `<video id>.json`
+per meeting with the full transcript.
+
+- `/meetings/<id>` shows the index beside the transcript; every timestamp
+  opens the video at that moment.
+- `/meetings/search?q=` and `/api/meetings/search?q=` return the passages
+  containing every query term, newest meeting first.
+- The desk tool `meeting_transcripts` runs the same search for the
+  autopilot and Pro briefing, so stories can quote what an official said
+  rather than a TV station's paraphrase.
+
+Captions are usually machine-generated, so the pages say so and the tool
+tells the model to verify spellings. Videos that have no captions yet are
+retried on later runs (up to six times).
+
+Dispatch the workflow with `mode = list` to see what the channels hold,
+`video = <id>` plus `dry_run = 1` to preview one meeting's index, and
+`backfill = 40` to reach uploads older than the 15-item feed. If YouTube
+blocks the runner ("confirm you're not a bot"), run `mode = ytprobe` to
+see which player client works and put its flags in the `YTDLP_ARGS`
+repository variable; the `YOUTUBE_COOKIES` secret (a Netscape cookie file
+from a signed-in browser) is the fallback.
+
+Not yet archived: the city's own Swagit archive (jacksonms.swagit.com,
+which also holds committee meetings with agendas) and Hinds County's
+Lifesize recordings. Both would need audio transcription rather than
+captions.
 
 ## The Pipeline
 
