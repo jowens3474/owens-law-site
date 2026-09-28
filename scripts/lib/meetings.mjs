@@ -404,17 +404,28 @@ export function probeYouTubeAccess(id, log = console.log) {
 export const SWAGIT_BASE = "https://jacksonms.new.swagit.com";
 export const SWAGIT_VIEW = `${SWAGIT_BASE}/views/160`;
 
+// Titles as the archive uses them: "City Council", "Special City Council",
+// "Zoning Meeting" (the council's monthly zoning session), "Budget",
+// "Finance", "Planning", "Legislative", "Rules", "Public Hearing",
+// "Confirmation Hearing", "Water/Sewer Ad-Hoc", and so on.
 const SWAGIT_BODIES = [
   [/budget/i, "Jackson City Council budget hearing"],
-  [/special/i, "Jackson City Council special meeting"],
-  [/work\s*session/i, "Jackson City Council work session"],
+  [/zoning/i, "Jackson City Council zoning meeting"],
+  [/confirmation\s*hearing/i, "Jackson City Council confirmation hearing"],
+  [/public\s*hearing/i, "Jackson City Council public hearing"],
+  [/press\s*conference/i, "City of Jackson press conference"],
   [/finance/i, "Jackson City Council Finance Committee"],
   [/planning\s*(&|and)\s*economic/i, "Jackson City Council Planning & Economic Development Committee"],
+  [/^planning$/i, "Jackson City Council Planning Committee"],
+  [/economic\s*development/i, "Jackson City Council Economic Development Committee"],
+  [/legislative/i, "Jackson City Council Legislative Committee"],
   [/public\s*safety/i, "Jackson City Council Public Safety & Parks Committee"],
   [/public\s*works/i, "Jackson City Council Public Works Committee"],
-  [/rules|education|youth|housing|transportation|committee/i, "Jackson City Council committee"],
-  [/planning\s*board|zoning/i, "Jackson Planning Board"],
+  [/^rules$/i, "Jackson City Council Rules Committee"],
+  [/ad[\s-]*hoc|committee|internal\s*audit|government\s*operations|disaster/i, "Jackson City Council committee"],
+  [/planning\s*board/i, "Jackson Planning Board"],
   [/1\s*%\s*sales\s*tax|sales\s*tax/i, "Jackson 1% Sales Tax Commission"],
+  [/emergency|special/i, "Jackson City Council special meeting"],
   [/council|regular/i, "Jackson City Council"],
   [/hearing|meeting/i, "City of Jackson public meeting"],
 ];
@@ -483,15 +494,27 @@ export function findSwagitMedia(html) {
   const cands = [];
   for (const m of html.matchAll(/https?:\/\/[^"'\s<>]+\.(?:mp4|m3u8)(?:\?[^"'\s<>]*)?/gi)) cands.push(m[0]);
   for (const m of html.matchAll(/["'](\/\/[^"'\s<>]+\.(?:mp4|m3u8)(?:\?[^"'\s<>]*)?)["']/gi)) cands.push("https:" + m[1]);
-  // Prefer a direct mp4 over a playlist; ffmpeg reads either.
-  return cands.find((u) => /\.mp4/i.test(u)) || cands[0] || null;
+  // Prefer a plain mp4 file, then the HLS playlist; ffmpeg reads either.
+  // (The rtmp:// variant is excluded by the https requirement.)
+  return cands.find((u) => /\.mp4$/i.test(u)) || cands.find((u) => /\.m3u8/i.test(u)) || cands[0] || null;
 }
 
 export async function swagitVideoInfo(id) {
   const res = await fetch(`${SWAGIT_BASE}/videos/${id}`, { headers: { "User-Agent": UA, Accept: "text/html" } });
   if (!res.ok) throw new Error(`swagit video HTTP ${res.status}`);
   const html = await res.text();
-  const media = findSwagitMedia(html);
+  // The stream URL (an HLS playlist on archive-stream.granicus.com) is only
+  // in the embed page's player setup; the main page has the title, agenda,
+  // and a /download link that serves as the fallback.
+  let media = findSwagitMedia(html);
+  if (!media) {
+    try {
+      const emb = await fetch(`${SWAGIT_BASE}/videos/${id}/embed`, { headers: { "User-Agent": UA, Accept: "text/html" } });
+      if (emb.ok) media = findSwagitMedia(await emb.text());
+    } catch {
+      /* fall through to the download link */
+    }
+  }
   // <title>Sep 10, 2026 Public Safety &amp; Parks Committee Meeting - Jackson, MS</title>
   const rawTitle = strip(html.match(/<title>([^<]*)<\/title>/)?.[1] || "").replace(/\s*-\s*Jackson, MS\s*$/i, "");
   const date = parseSwagitDate(rawTitle);
