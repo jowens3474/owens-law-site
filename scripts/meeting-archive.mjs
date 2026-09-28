@@ -173,7 +173,7 @@ async function main() {
   const direct = parseVideoIds(process.env.VIDEO);
   if (mode === "ytprobe") {
     const id = direct[0] || "bfwlmLU0BAc"; // Regular City Council Meeting Sep 8, 2026
-    log(`probing YouTube access with ${id}${process.env.YTDLP_COOKIES ? " (cookies set)" : ""}`);
+    log(`probing YouTube access with ${id}${process.env.YTDLP_COOKIES ? " (cookies set)" : ""}${process.env.BGUTIL_SCRIPT ? " (PO token provider set)" : ""}`);
     probeYouTubeAccess(id, log);
     return;
   }

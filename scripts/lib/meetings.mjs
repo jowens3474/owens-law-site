@@ -141,7 +141,11 @@ export function ytdlp(args, opts = {}) {
   // when YouTube's bot check blocks the runner's default client.
   // YTDLP_COOKIES: path to a Netscape cookie file exported from a signed-in
   // browser; the last resort for the "confirm you're not a bot" wall.
+  // BGUTIL_SCRIPT: path to bgutil-ytdlp-pot-provider's generate_once.js.
+  // YouTube demands a proof-of-origin token from datacenter addresses such
+  // as GitHub runners; the provider plugin mints one on demand.
   const extra = (process.env.YTDLP_ARGS || "").split(" ").filter(Boolean);
+  if (process.env.BGUTIL_SCRIPT) extra.push("--extractor-args", `youtubepot-bgutilscript:script_path=${process.env.BGUTIL_SCRIPT}`);
   if (process.env.YTDLP_COOKIES) extra.push("--cookies", process.env.YTDLP_COOKIES);
   return execFileSync("yt-dlp", [...extra, ...args], {
     encoding: "utf8",
@@ -360,12 +364,13 @@ export function probeYouTubeAccess(id, log = console.log) {
     process.env.YTDLP_ARGS = cfg;
     let line;
     try {
-      const d = JSON.parse(ytdlp(["-J", "--skip-download", "--no-playlist", `https://www.youtube.com/watch?v=${id}`], { stdio: ["ignore", "pipe", "ignore"] }));
+      const d = JSON.parse(ytdlp(["-J", "--skip-download", "--no-playlist", `https://www.youtube.com/watch?v=${id}`]));
       const auto = Object.keys(d.automatic_captions || {}).filter((k) => /^en/.test(k)).length;
       const manual = Object.keys(d.subtitles || {}).filter((k) => /^en/.test(k)).length;
       line = `OK   title="${(d.title || "").slice(0, 40)}" duration=${d.duration} manual_en=${manual} auto_en=${auto}`;
     } catch (e) {
-      line = `FAIL ${String(e.stderr || e.message).trim().split("\n").filter((l) => /ERROR/.test(l)).pop()?.slice(0, 160) || e.message.slice(0, 160)}`;
+      const err = String(e.stderr || "").trim().split("\n").filter((l) => /ERROR|WARNING/.test(l));
+      line = `FAIL ${(err.slice(-2).join(" | ") || e.message).slice(0, 300)}`;
     } finally {
       if (saved === undefined) delete process.env.YTDLP_ARGS;
       else process.env.YTDLP_ARGS = saved;

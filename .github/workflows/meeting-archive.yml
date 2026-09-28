@@ -72,6 +72,20 @@ jobs:
           python3 -m pip install --quiet --upgrade yt-dlp
           yt-dlp --version
 
+      # YouTube requires a proof-of-origin token from datacenter addresses
+      # (GitHub runners), otherwise every request gets "confirm you're not a
+      # bot". bgutil-ytdlp-pot-provider mints the token; yt-dlp loads it as
+      # a plugin and calls the script through BGUTIL_SCRIPT (see lib).
+      - name: Install proof-of-origin token provider
+        run: |
+          python3 -m pip install --quiet bgutil-ytdlp-pot-provider
+          git clone --quiet --depth 1 https://github.com/Brainicism/bgutil-ytdlp-pot-provider.git "$RUNNER_TEMP/bgutil"
+          cd "$RUNNER_TEMP/bgutil/server"
+          npm ci --silent --no-audit --no-fund
+          npx tsc
+          echo "BGUTIL_SCRIPT=$RUNNER_TEMP/bgutil/server/build/generate_once.js" >> "$GITHUB_ENV"
+          yt-dlp -v --print title --skip-download "https://www.youtube.com/watch?v=bfwlmLU0BAc" 2>&1 | grep -i "pot\|Extracting\|plugin" | head -20 || true
+
       # Optional: a Netscape-format cookie file exported from a browser signed
       # in to YouTube, stored as the YOUTUBE_COOKIES secret. Only needed if
       # YouTube's bot check blocks every player client from the runner.
