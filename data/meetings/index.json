@@ -1,6 +1,4 @@
 {
  "updated": null,
- "meetings": [
-  {"id":"testvid0001","source":"jackson-peg","body":"Jackson City Council","title":"Test","date":"2026-09-08","duration":3600,"channel":"Test","url":"https://www.youtube.com/watch?v=testvid0001","captions":"auto","fetched":"2026-09-28T00:00:00.000Z","words":18,"indexed":true,"summary":"Test summary.","topics":[{"title":"Landfill fee","start":0,"note":"Discussed."}],"people":["A. Person"],"money":["$10 a ton"],"votes":[{"item":"Vieux Carre TIF","outcome":"passed","start":95}]}
- ]
+ "meetings": []
 }
