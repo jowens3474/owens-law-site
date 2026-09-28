@@ -50,6 +50,13 @@ if (only === "probe") {
       console.log(`links: ${links.length}`);
       for (const [h, t] of links.slice(0, filter ? 400 : 120)) console.log(`  ${t.slice(0, 80)} -> ${h}`);
       for (const fr of html.matchAll(/<(?:frame|iframe)\b[^>]*src=["']([^"']+)["']/gi)) console.log("frame:", fr[1]);
+      if (filter) {
+        // Raw-HTML matches too, for ids and media URLs that live in scripts
+        // rather than links (YouTube channel ids, mp4 sources, feed URLs).
+        const raw = [...new Set([...html.matchAll(new RegExp(filter.source, "gi"))].map((m) => m[0]))];
+        console.log(`--- raw html matches (${raw.length}) ---`);
+        for (const r of raw.slice(0, 40)) console.log("  " + r.slice(0, 200));
+      }
       if (links.length < 5) {
         console.log("--- raw html head ---");
         console.log(html.slice(0, 2500));
