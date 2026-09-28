@@ -125,40 +125,50 @@ refresh the data and preview the story without publishing.
 
 `/meetings` is the searchable archive of what was said at public meetings.
 `scripts/meeting-archive.mjs` (workflow **Meeting Archive**, daily at
-10:00 UTC) lists new uploads on the governments' YouTube channels
-(`SOURCES` in `scripts/lib/meetings.mjs`; today the City of Jackson PEG
-Network, which carries council meetings, special meetings, budget
-hearings, the 1% Sales Tax Commission, and press conferences), pulls the
-captions with yt-dlp, merges them into timed blocks, and has DeepSeek
-index each meeting: a summary, topics with start times, people, dollar
-figures, and votes. Everything lands in `data/meetings/`: `index.json`
-(metadata and the index, imported by the pages) and one `<video id>.json`
-per meeting with the full transcript.
+10:00 UTC) reads the city's own video archive at jacksonms.swagit.com
+(`listSwagitVideos` in `scripts/lib/meetings.mjs`), which carries every
+council meeting, committee meeting, budget hearing, and special meeting
+with its agenda PDF. For each new video it pulls the audio with ffmpeg,
+transcribes it (Groq's Whisper endpoint when `GROQ_API_KEY` is set,
+otherwise faster-whisper `small.en` on the runner's CPU, roughly a quarter
+of the meeting's length), merges the segments into timed blocks, and has
+DeepSeek index the meeting with the agenda text alongside: a summary,
+topics with start times, people, dollar figures, and votes. Everything
+lands in `data/meetings/`: `index.json` (metadata and the index, imported
+by the pages) and one `sw<video id>.json` per meeting with the full
+transcript.
 
 - `/meetings/<id>` shows the index beside the transcript; every timestamp
-  opens the video at that moment.
+  opens the city's player at that moment.
 - `/meetings/search?q=` and `/api/meetings/search?q=` return the passages
   containing every query term, newest meeting first.
 - The desk tool `meeting_transcripts` runs the same search for the
   autopilot and Pro briefing, so stories can quote what an official said
   rather than a TV station's paraphrase.
 
-Captions are usually machine-generated, so the pages say so and the tool
-tells the model to verify spellings. Videos that have no captions yet are
-retried on later runs (up to six times).
+Transcripts are speech recognition, so the pages say so and the tool
+tells the model to verify spellings. Each run ingests `limit` videos
+(default 2, newest first, skipping anything over `MAX_HOURS`), so the
+backlog fills in over successive days; the runner job has a five-hour
+limit.
 
-Dispatch the workflow with `mode = list` to see what the channels hold,
-`video = <id>` plus `dry_run = 1` to preview one meeting's index, and
-`backfill = 40` to reach uploads older than the 15-item feed. If YouTube
-blocks the runner ("confirm you're not a bot"), run `mode = ytprobe` to
-see which player client works and put its flags in the `YTDLP_ARGS`
-repository variable; the `YOUTUBE_COOKIES` secret (a Netscape cookie file
-from a signed-in browser) is the fallback.
+Dispatch the workflow with `mode = list` to see what the archive holds,
+`video = 400748` plus `dry_run = 1` to preview one meeting's transcript
+and index without writing, and `limit` to ingest more per run. Set the
+`GROQ_API_KEY` secret for faster, better transcription (its free tier
+covers hours of audio a day) and the `WHISPER_MODEL` variable to change
+the local model.
 
-Not yet archived: the city's own Swagit archive (jacksonms.swagit.com,
-which also holds committee meetings with agendas) and Hinds County's
-Lifesize recordings. Both would need audio transcription rather than
-captions.
+YouTube is a second source (`SOURCES` in the library: the City of Jackson
+PEG Network channel, which also carries the 1% Sales Tax Commission and
+press conferences) but YouTube refuses GitHub's addresses with its
+"confirm you're not a bot" check, even with a proof-of-origin token
+provider, so it is only tried when the `YOUTUBE_COOKIES` secret (a
+Netscape cookie file from a signed-in browser) is set or `YOUTUBE=1` is
+passed. `mode = ytprobe` reports which yt-dlp client can read a video.
+
+Not yet archived: Hinds County's Lifesize recordings (playback.lifesize.com
+links on the Board of Supervisors page).
 
 ## The Pipeline
 
