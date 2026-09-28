@@ -71,6 +71,10 @@ jobs:
         run: |
           npm ci
           python3 -m pip install --quiet --upgrade yt-dlp faster-whisper
+          # The hosted image does not ship ffmpeg; the audio extraction and
+          # the Groq chunking both need it.
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg > /dev/null
           yt-dlp --version
           ffmpeg -version | head -1
 
