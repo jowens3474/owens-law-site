@@ -246,16 +246,16 @@ export function fmtTime(sec) {
 }
 
 /**
- * Link to a moment in the video. YouTube takes &t=; the city's Swagit
- * player takes start_at=hh:mm:ss. `entry` is an index entry or {id, url}.
+ * Link to a moment in the video. YouTube takes &t=<s>s; the city's Swagit
+ * player takes ?ts=<seconds> (the format its own "Start video at" share
+ * box generates). `entry` is an index entry or {id, url}.
  */
 export function watchUrl(entry, t) {
   const url = entry.url || `https://www.youtube.com/watch?v=${entry.id}`;
   if (!t) return url;
-  if (/youtube\.com|youtu\.be/.test(url)) return `${url}${url.includes("?") ? "&" : "?"}t=${Math.floor(t)}s`;
-  const s = Math.floor(t);
-  const hms = `${String(Math.floor(s / 3600)).padStart(2, "0")}:${String(Math.floor((s % 3600) / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
-  return `${url}${url.includes("?") ? "&" : "?"}start_at=${hms}`;
+  const sep = url.includes("?") ? "&" : "?";
+  if (/youtube\.com|youtu\.be/.test(url)) return `${url}${sep}t=${Math.floor(t)}s`;
+  return `${url}${sep}ts=${Math.floor(t)}`;
 }
 
 export function videoUrl(id, t) {
