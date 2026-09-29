@@ -367,8 +367,9 @@ export function hindsIndexUrl(start, end, name = "") {
  */
 export function parseHindsIndex(html) {
   const rows = [];
-  const body = String(html || "").split(/<\/table/i)[0];
-  for (const chunk of body.split(/<tr\b/i).slice(1)) {
+  // Layout tables close before the results, so do not cut at </table;
+  // the date anchor below keeps footer text out of the last row.
+  for (const chunk of String(html || "").split(/<tr\b/i).slice(1)) {
     const cells = chunk.split(/<td\b/i).slice(1).map((c) => strip(c.replace(/^[^>]*>/, "")));
     // The date cell anchors the row; the four cells before it are grantor,
     // grantee, instrument, book-page, whatever padding surrounds them.
