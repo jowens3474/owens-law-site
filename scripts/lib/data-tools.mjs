@@ -8,6 +8,7 @@ import { fetchUrl } from "./fetch-url.mjs";
 import { listReports, readReport, mergeReport, renderMonthTable, loadDataset, monthLabel } from "./sales-tax.mjs";
 import { classifyNotice } from "../../lib/notice-kinds.mjs";
 import { searchTranscripts, renderHits } from "./meetings.mjs";
+import { COUNTY_TOOLS } from "./county-tools.mjs";
 
 const UA = "TheJacksonWire/1.0 (+https://www.thejacksonwire.com; capitolmain42@gmail.com)";
 const TIMEOUT_MS = 20000;
@@ -638,6 +639,9 @@ DATA_TOOLS.push({
   },
 });
 
+for (const t of COUNTY_TOOLS) DATA_TOOLS.push(t.spec);
+const COUNTY_RUNNERS = new Map(COUNTY_TOOLS.map((t) => [t.spec.function.name, t.run]));
+
 export const DATA_TOOL_NAMES = new Set(DATA_TOOLS.map((t) => t.function.name));
 
 /**
@@ -696,6 +700,10 @@ export async function runDataTool(name, args = {}, { prefix = "data", cl } = {})
         log(`"${args.query}" ${args.days ?? 365}d`);
         return renderHits(searchTranscripts(args.query || "", { days: Math.min(Math.max(args.days ?? 365, 7), 730), limit: 12 }), args.query || "");
       default:
+        if (COUNTY_RUNNERS.has(name)) {
+          log(JSON.stringify(args));
+          return await COUNTY_RUNNERS.get(name)(args);
+        }
         return null;
     }
   } catch (e) {
