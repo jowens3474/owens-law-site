@@ -360,24 +360,30 @@ export function hindsIndexUrl(start, end, name = "") {
 
 /**
  * Rows of a result page: [{grantor, grantee, type, book, date}] plus the
- * page count and the site's "more than N records" flag. The page is
- * classic ASP with no closing TD or TR tags (seen on the runner), so rows
- * and cells are split on their opening tags. Each instrument appears
- * twice (once per indexed party); the caller dedupes.
+ * page count and the site's "more than N records" flag. Seen on the runner:
+ * each row has three cells: grantor and grantee as two links separated by
+ * <br>, the instrument code and book-page separated by <br>, and the date.
+ * Each instrument appears twice (once per indexed party); the caller dedupes.
  */
 export function parseHindsIndex(html) {
   const rows = [];
-  // Layout tables close before the results, so do not cut at </table;
-  // the date anchor below keeps footer text out of the last row.
+  const lines = (cell) =>
+    cell
+      .replace(/^[^>]*>/, "")
+      .replace(/<br\s*\/?>/gi, "\n")
+      .split("\n")
+      .map((l) => strip(l))
+      .filter(Boolean);
   for (const chunk of String(html || "").split(/<tr\b/i).slice(1)) {
-    const cells = chunk.split(/<td\b/i).slice(1).map((c) => strip(c.replace(/^[^>]*>/, "")));
-    // The date cell anchors the row; the four cells before it are grantor,
-    // grantee, instrument, book-page, whatever padding surrounds them.
-    const di = cells.findIndex((c) => /^\d{2}-\d{2}-\d{4}\b/.test(c));
-    if (di < 4) continue;
-    const [grantor, grantee, type, book] = cells.slice(di - 4, di);
-    const [mm, dd, yyyy] = cells[di].slice(0, 10).split("-");
+    const cells = chunk.split(/<td\b/i).slice(1).map(lines);
+    // Find the cell whose first line is the date; the two cells before it
+    // hold the parties and the instrument.
+    const di = cells.findIndex((c) => /^\d{2}-\d{2}-\d{4}$/.test(c[0] || ""));
+    if (di < 2) continue;
+    const [grantor = "", grantee = ""] = cells[di - 2];
+    const [type = "", book = ""] = cells[di - 1];
     if (!grantor || !type || !book) continue;
+    const [mm, dd, yyyy] = cells[di][0].split("-");
     rows.push({ grantor, grantee, type: type.toUpperCase(), book, date: `${yyyy}-${mm}-${dd}` });
   }
   const pages = Number(html.match(/Page\s+\d+\s+of\s+(\d+)/i)?.[1] || 1);
