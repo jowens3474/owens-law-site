@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-28T00:50:26.463Z",
+ "updated": "2026-09-29T17:18:21.672Z",
  "meetings": [
   {
    "id": "sw402246",
@@ -140,6 +140,307 @@
      "item": "Order authorizing mayor to enter into memorandum of agreement with DEA for state and local law enforcement task force",
      "outcome": "passed",
      "start": 1429
+    }
+   ]
+  },
+  {
+   "id": "sw401947",
+   "source": "swagit",
+   "body": "Jackson City Council",
+   "title": "City Council",
+   "date": "2026-09-22",
+   "duration": 7204,
+   "channel": "City of Jackson video archive",
+   "url": "https://jacksonms.new.swagit.com/videos/401947",
+   "agenda": "https://jacksonms.new.swagit.com/videos/401947/agenda",
+   "captions": "transcribed",
+   "fetched": "2026-09-28T17:56:10.604Z",
+   "engine": "faster-whisper-small.en",
+   "words": 17021,
+   "indexed": true,
+   "summary": "The Jackson City Council approved a claims docket of $3.74 million, including $996,580 for street resurfacing and $965,638 for traffic signal work, and confirmed three mayoral appointments to the Planning Board. The council authorized a debt-collection agreement with Municipal Intercept Company to recover unpaid fines and fees through state tax intercepts, and approved a $560,747.50 correction to the Shaw Road Bridge contract despite one no vote over contractor delays. The council also discussed street resurfacing plans, Entergy lighting concerns, and Tennis Center South management, and heard public comments on a censure petition against Councilman Stokes, flooding, and housing conditions. A proclamation declared September Service Dog Month, and the council entered closed session for litigation with no action taken.",
+   "topics": [
+    {
+     "title": "Public comment: censure petition against Councilman Stokes",
+     "start": 269,
+     "note": "Norma Michael presented a petition signed by 90 citizens demanding formal censure, public reprimand, committee review, and a $500 penalty for Stokes over derogatory remarks at the Sept. 8 meeting."
+    },
+    {
+     "title": "Public comment: street flooding and paving",
+     "start": 390,
+     "note": "Diane Roby described five years of flooding on her street, saying the street is unlevel and needs paving; constituent services took her information."
+    },
+    {
+     "title": "Public comment: housing and code enforcement",
+     "start": 641,
+     "note": "Ricky Banks criticized the city's handling of dilapidated houses and unhoused residents, urging a study to help families repair homes."
+    },
+    {
+     "title": "Public comment: Dale Haven Manor conditions",
+     "start": 844,
+     "note": "Bobby Coleman described crime and poor conditions at a senior disability apartment complex and thanked officials for weekend water delivery."
+    },
+    {
+     "title": "Public comment: St. Andrews Drive repaving",
+     "start": 1032,
+     "note": "Charles Johnson urged prioritizing repaving of St. Andrews Drive west of Old Canton Road, noting it has not been repaved in over 40 years."
+    },
+    {
+     "title": "Public comment: street resurfacing and state match",
+     "start": 1257,
+     "note": "Virgil Payne said Hinds County has about $96,000 in leftover state allocation that could save the city 30% if used immediately for street work."
+    },
+    {
+     "title": "Public comment: tax sale property issues",
+     "start": 1396,
+     "note": "Victoria Jacob Branson raised concerns about tax sale property transfers and asked the city to help homeowners avoid losing property."
+    },
+    {
+     "title": "Public comment: neighborhood blight on Eminence and Newman",
+     "start": 1558,
+     "note": "Loretha Wales said two streets in Ward 3 look like a wasteland and that reported property owners have not cleaned up dumping."
+    },
+    {
+     "title": "Council president apology for decorum incident",
+     "start": 1813,
+     "note": "Council President Hartley apologized for a prior meeting incident and said steps will be taken to prevent similar behavior."
+    },
+    {
+     "title": "Consent agenda approved",
+     "start": 1920,
+     "note": "The consent agenda was approved 6-0 by one motion without separate discussion."
+    },
+    {
+     "title": "Solid waste disposal fee ordinance introduced",
+     "start": 1980,
+     "note": "An ordinance amending solid waste facility disposal fees was introduced."
+    },
+    {
+     "title": "Claims docket approved",
+     "start": 2018,
+     "note": "The council approved a claims docket of $3,741,384.90; largest claims included $996,580.16 for street resurfacing and $965,638.20 for traffic signals."
+    },
+    {
+     "title": "Payroll approved",
+     "start": 2377,
+     "note": "The council approved the gross payroll and deduction claims by a 7-0 vote."
+    },
+    {
+     "title": "Payment for 2525 Robinson Street",
+     "start": 2397,
+     "note": "The council approved September 2026 payment for the property at 2525 Robinson Street, a heavily used library, by a 5-0-1 vote."
+    },
+    {
+     "title": "Planning Board appointment: Vanessa Gray",
+     "start": 2521,
+     "note": "The council confirmed Vanessa Gray to the Planning Board representing Ward 4."
+    },
+    {
+     "title": "Planning Board appointment: Hosea Hines",
+     "start": 2821,
+     "note": "The council confirmed Hosea Hines to the Planning Board representing Ward 6."
+    },
+    {
+     "title": "Planning Board appointment: James Shoulders",
+     "start": 3021,
+     "note": "The council confirmed James Shoulders to the Planning Board representing Ward 4."
+    },
+    {
+     "title": "Landscaping contract with MS Yard Barber",
+     "start": 3325,
+     "note": "The council approved a contract with MS Yard Barber LLC for landscaping and ground maintenance, funded by a federal grant that requires a contractor."
+    },
+    {
+     "title": "MetLife insurance renewal",
+     "start": 3411,
+     "note": "The council approved a policy renewal with MetLife for group life and AD&D insurance for 2027 by a 5-1-1 vote."
+    },
+    {
+     "title": "3P Benefits Solutions cafeteria plan",
+     "start": 3458,
+     "note": "The council approved an administrative services agreement with 3P Benefits Solutions for a Section 125 cafeteria plan by a 5-1-1 vote."
+    },
+    {
+     "title": "Surplus property conveyance to Wil-Mat Investments",
+     "start": 3498,
+     "note": "The council approved conveying parcels 70-79, 110-24, and 110-25 to Wil-Mat Investments for residential development by a 6-0-1 vote."
+    },
+    {
+     "title": "Entergy power line raise for traffic signal project",
+     "start": 3633,
+     "note": "The council approved payment to Entergy Mississippi to raise a power line for the Traffic Signal Group B project by a 7-0 vote after discussion of citywide lighting issues."
+    },
+    {
+     "title": "Shaw Road Bridge contract correction",
+     "start": 4179,
+     "note": "The council approved amending the Hemphill Construction contract to $560,747.50 by a 6-1 vote; Stokes voted no over contractor delays."
+    },
+    {
+     "title": "Municipal Intercept Company debt collection",
+     "start": 4319,
+     "note": "The council approved a resolution supporting an agreement with Municipal Intercept Company to collect unpaid debts through state tax intercepts by a 5-1-1 vote."
+    },
+    {
+     "title": "Service Dog Month proclamation",
+     "start": 4890,
+     "note": "Mayor Horhn proclaimed September as Service Dog Month and presented the proclamation to Melanie Courtney and her service dog Navi."
+    },
+    {
+     "title": "Office of Publication relocation discussion",
+     "start": 5101,
+     "note": "CAO Peter Davidson asked that the Office of Publication relocation be referred to committee after a building fire; the item was referred to planning committee."
+    },
+    {
+     "title": "Neighborhood street resurfacing discussion",
+     "start": 5157,
+     "note": "Councilman Foote urged continuing the existing unit-cost paving contract without delay; the mayor said over 600 streets are being resurfaced and a $40 million bond package is moving forward."
+    },
+    {
+     "title": "Mary Jones Community Center discussion",
+     "start": 5460,
+     "note": "Councilman Stokes raised the poor condition of the center and a family thanked police for progress in the Tayshia Fortune case; ownership and repurposing were discussed."
+    },
+    {
+     "title": "Private police and armed group discussion",
+     "start": 5640,
+     "note": "Stokes raised concerns about armed groups walking through neighborhoods; Chief Brackney said open carry is legal and police coordinated with intelligence agencies."
+    },
+    {
+     "title": "City workforce utilization and accountability",
+     "start": 6197,
+     "note": "Councilman Hartley asked for metrics linking spending to services; CAO Davidson said KPIs have been sent to departments and data will start monthly review in late October."
+    },
+    {
+     "title": "Tennis Center South discussion",
+     "start": 6300,
+     "note": "Residents and tennis players asked for qualified management at Battlefield Park and Tennis Center South; officials said funding exists to hire a tennis pro and lighting for Battlefield is identified."
+    },
+    {
+     "title": "Closed session for litigation",
+     "start": 7146,
+     "note": "The council entered closed session to discuss litigation; afterward the president said no official action was taken."
+    }
+   ],
+   "people": [
+    "Dr. Glake Hill Jr.",
+    "Vernon Hartley",
+    "Kenneth Stokes",
+    "Brian Grizzell",
+    "Ashby Foote",
+    "Montyne \"Tina\" Clay",
+    "Lashia Brown-Thomas",
+    "Kevin Parkinson",
+    "John Horhn",
+    "Jillian Caldwell",
+    "Peter Davidson",
+    "Pieter Teeuwissen",
+    "Drew Martin",
+    "Angela Brown",
+    "Nathan Slater",
+    "Shanekia Jordan",
+    "Norma Michael",
+    "Diane Roby",
+    "Ricky Banks",
+    "Bobby Coleman",
+    "Charles Johnson",
+    "Virgil Payne",
+    "Victoria Jacob Branson",
+    "Loretha Wales",
+    "Vanessa Gray",
+    "Hosea Hines",
+    "James Shoulders",
+    "Melanie Courtney",
+    "Rishana Brown-Mitchell",
+    "Agnes Matlock",
+    "Chief RaShall Brackney",
+    "Vic Sexton",
+    "Michael Thomas",
+    "Pamela Junior",
+    "Dorothy Thompson"
+   ],
+   "money": [
+    "$3,741,384.90 claims docket",
+    "$996,580.16 to Camp Inc. for street resurfacing phase 1C",
+    "$965,638.20 to Lewis Electric Inc. for traffic signal project",
+    "$300,000 to Jones Walker LLP for Jackson Water litigation",
+    "$128,603 to Carol Warren and Parker for legal services",
+    "$560,747.50 corrected award to Hemphill Construction for Shaw Road Bridge",
+    "$500 out-of-pocket penalty requested in censure petition",
+    "$96,000 leftover state allocation from Hinds County for street work",
+    "$40 million bond issue for street resurfacing",
+    "$800,000 to $850,000 monthly Entergy light bill",
+    "$100,000 reimbursement from state for inmate litter control"
+   ],
+   "votes": [
+    {
+     "item": "Consent agenda",
+     "outcome": "passed",
+     "start": 1920
+    },
+    {
+     "item": "Claims docket of $3,741,384.90",
+     "outcome": "passed",
+     "start": 2018
+    },
+    {
+     "item": "Payroll",
+     "outcome": "passed",
+     "start": 2377
+    },
+    {
+     "item": "Payment for 2525 Robinson Street",
+     "outcome": "passed",
+     "start": 2397
+    },
+    {
+     "item": "Vanessa Gray Planning Board appointment",
+     "outcome": "passed",
+     "start": 2521
+    },
+    {
+     "item": "Hosea Hines Planning Board appointment",
+     "outcome": "passed",
+     "start": 2821
+    },
+    {
+     "item": "James Shoulders Planning Board appointment",
+     "outcome": "passed",
+     "start": 3021
+    },
+    {
+     "item": "MS Yard Barber landscaping contract",
+     "outcome": "passed",
+     "start": 3325
+    },
+    {
+     "item": "MetLife insurance renewal",
+     "outcome": "passed",
+     "start": 3411
+    },
+    {
+     "item": "3P Benefits Solutions cafeteria plan",
+     "outcome": "passed",
+     "start": 3458
+    },
+    {
+     "item": "Surplus property conveyance to Wil-Mat Investments",
+     "outcome": "passed",
+     "start": 3498
+    },
+    {
+     "item": "Entergy power line raise",
+     "outcome": "passed",
+     "start": 3633
+    },
+    {
+     "item": "Shaw Road Bridge contract correction",
+     "outcome": "passed",
+     "start": 4179
+    },
+    {
+     "item": "Municipal Intercept Company debt collection",
+     "outcome": "passed",
+     "start": 4319
     }
    ]
   },
@@ -298,6 +599,721 @@
      "item": "Extension of special exceptions and use permits for one year",
      "outcome": "passed",
      "start": 1260
+    }
+   ]
+  },
+  {
+   "id": "sw400748",
+   "source": "swagit",
+   "body": "Jackson City Council Public Safety & Parks Committee",
+   "title": "Public Safety & Parks Committee Meeting",
+   "date": "2026-09-10",
+   "duration": 5067,
+   "channel": "City of Jackson video archive",
+   "url": "https://jacksonms.new.swagit.com/videos/400748",
+   "agenda": "https://jacksonms.new.swagit.com/videos/400748/agenda",
+   "captions": "transcribed",
+   "fetched": "2026-09-28T18:12:11.885Z",
+   "engine": "faster-whisper-small.en",
+   "words": 13024,
+   "indexed": true,
+   "summary": "The Jackson City Council Public Safety and Parks Committee discussed police officer retention and recruitment with Chief Rochelle Brackney, who reported the department has about 208 sworn officers, with roughly 130 in patrol. She said an October academy class could bring in at least 33 recruits across agencies, with five already cleared and six more in testing. Brackney outlined recruitment and retention efforts including loan forgiveness, sign-on bonuses, specialty assignments, a health and wellness initiative, and a possible sergeant examination. The committee also discussed the Real-Time Command Center and camera system, with Brackney reporting many cameras are inoperable and that the center is understaffed. The committee agreed to pursue AI software and further review camera contracts, possibly in executive session.",
+   "topics": [
+    {
+     "title": "Officer retention and recruitment",
+     "start": 62,
+     "note": "Chief Brackney reported about 208 sworn officers, with an October academy class expecting at least 33 recruits across agencies."
+    },
+    {
+     "title": "Academy class and recruitment pipeline",
+     "start": 107,
+     "note": "Five recruits cleared paperwork, six passed physical fitness, and seven are testing; Alcorn State pipeline discussed."
+    },
+    {
+     "title": "Recruitment incentives",
+     "start": 266,
+     "note": "Brackney proposed loan forgiveness, sign-on bonuses, and specialty assignments to attract and retain officers."
+    },
+    {
+     "title": "Health and wellness initiative",
+     "start": 431,
+     "note": "Proposal to HR for a phased wellness program for police, fire, and public works, intended to be cost-neutral."
+    },
+    {
+     "title": "Drone program",
+     "start": 486,
+     "note": "City awarded a grant to purchase two unmanned aerial devices; officers could train as pilots."
+    },
+    {
+     "title": "Entry-level qualifications",
+     "start": 545,
+     "note": "Minimum requirements include high school education or GED, age 21 with waivers possible, physical fitness, background and psychological tests."
+    },
+    {
+     "title": "Civilian pathways in JPD",
+     "start": 679,
+     "note": "Brackney listed non-uniform roles such as animal control, criminalist, 911 operator, and detention officer."
+    },
+    {
+     "title": "Sworn officer count and resignations",
+     "start": 764,
+     "note": "Sworn officers down to about 208 from 212; recent resignations included officers under investigation."
+    },
+    {
+     "title": "Reasons for resignations",
+     "start": 856,
+     "note": "Brackney cited neglect of duty, incomplete reports, body camera issues, and possible criminal referrals to the DA."
+    },
+    {
+     "title": "Training and policy compliance",
+     "start": 1032,
+     "note": "Discussion on need for upscaling, lesson plans, and verifying officers understand policies."
+    },
+    {
+     "title": "Termination procedures and HR coordination",
+     "start": 1287,
+     "note": "Brackney said she works with HR and legal on standardized termination and performance improvement plans."
+    },
+    {
+     "title": "Performance evaluations",
+     "start": 1511,
+     "note": "Uncertainty about quarterly evaluations; Brackney asked supervisors to keep electronic folders on officers."
+    },
+    {
+     "title": "Sergeant examination",
+     "start": 1863,
+     "note": "Council approved an outside formal sergeant examination through civil service; no testing since 2020-2021."
+    },
+    {
+     "title": "Quality vs. quantity in hiring",
+     "start": 2020,
+     "note": "Brackney said she will not hire desperately and prefers 200 quality officers over 275 with integrity issues."
+    },
+    {
+     "title": "Patrol staffing levels",
+     "start": 2566,
+     "note": "About 130 patrol officers across four precincts and three shifts, averaging roughly 11 per precinct per shift."
+    },
+    {
+     "title": "Take-home vehicle policy",
+     "start": 3320,
+     "note": "Brackney clarified no new policy; city policy requires 24-hour employees and Hinds County residency unless approved."
+    },
+    {
+     "title": "Real-Time Command Center staffing",
+     "start": 3676,
+     "note": "Center should be staffed by civilians; currently down to two positions, with four allocated and interviews underway."
+    },
+    {
+     "title": "Camera system status",
+     "start": 3916,
+     "note": "Reported 88 operable and 84 inoperable city asset cameras; 58 operable and 20 inoperable LPR cameras; many donor cameras inoperable."
+    },
+    {
+     "title": "AI software for cameras",
+     "start": 4144,
+     "note": "Demonstration of AI integration to pull data from multiple systems and send alerts; council supportive of moving forward."
+    },
+    {
+     "title": "Camera costs and contracts",
+     "start": 4553,
+     "note": "JPD pays about $88 monthly for energy and $43 for AT&T per camera; CAO and chief reviewing contracts and grant funding."
+    },
+    {
+     "title": "Drones for streetlight mapping",
+     "start": 4810,
+     "note": "Brackney suggested using new drones to identify streetlights that are out and report to public works."
+    },
+    {
+     "title": "Future metrics and KPIs",
+     "start": 4916,
+     "note": "Committee will ask departments for metrics and key performance indicators after budget hearings."
+    }
+   ],
+   "people": [
+    "Rochelle Brackney",
+    "Toya Martin",
+    "Monica Clay",
+    "Drew Martin",
+    "Peter Taylor",
+    "Chief Thomas",
+    "Director Anderson",
+    "President Chelsea",
+    "Councilman Flipp",
+    "Councilman Hartley",
+    "Councilwoman Tina Clay"
+   ],
+   "money": [
+    "$4,500 per officer cost recouped from state for academy training",
+    "$1.4 million in overtime for JPD",
+    "$88 monthly energy cost per camera",
+    "$43 monthly AT&T connection cost per camera",
+    "$100 to $120 per camera monthly for some city-supported cameras"
+   ],
+   "votes": []
+  },
+  {
+   "id": "sw400197",
+   "source": "swagit",
+   "body": "Jackson City Council special meeting",
+   "title": "Special City Council",
+   "date": "2026-09-08",
+   "duration": 14209,
+   "channel": "City of Jackson video archive",
+   "url": "https://jacksonms.new.swagit.com/videos/400197",
+   "agenda": "https://jacksonms.new.swagit.com/videos/400197/agenda",
+   "captions": "transcribed",
+   "fetched": "2026-09-29T16:49:25.617Z",
+   "engine": "faster-whisper-small.en",
+   "words": 32655,
+   "indexed": true,
+   "summary": "The Jackson City Council continued deliberation on the FY2026-2027 municipal budget, which must be passed by September 15. The council approved several amendments shifting funds toward police and fire, including $438,000 more for JPD and $156,000 more for fire personnel, while reducing Public Works, Planning, Administration, General Government, and IT personnel lines. The total general fund budget stands at $113,250,961. The council did not vote on final passage, recessing until Friday at 10 a.m. to allow legal review of bond documents before potentially reducing the city's reserve to fund additional fire and police hires.",
+   "topics": [
+    {
+     "title": "Emergency addition: JPD FY2025-2026 budget revision",
+     "start": 64,
+     "note": "Council added an emergency item to revise JPD's current-year budget for a grant-funded transfer needed to purchase brass tracks; passed."
+    },
+    {
+     "title": "FY2026-2027 budget introduced",
+     "start": 290,
+     "note": "Resolution approving and adopting the municipal budget for FY2026-2027 was moved and seconded; deliberation began."
+    },
+    {
+     "title": "Budget deadline and total",
+     "start": 411,
+     "note": "CFO Caldwell said revenues are projected at about $113.5 million; total all-funds budget is $337,348,801, with general fund at $113,250,961."
+    },
+    {
+     "title": "Revenue actuals dispute",
+     "start": 600,
+     "note": "Councilwoman Clay questioned why FY2024-25 actuals were shown instead of FY2025-26; staff said only about $100 million collected so far with $10-12 million expected in September."
+    },
+    {
+     "title": "Parking fines and court revenue",
+     "start": 1077,
+     "note": "Councilman Foote questioned $20,000 vehicle parking fines and $100,000 misdemeanor fines; staff said these are court-collected estimates."
+    },
+    {
+     "title": "Sales tax projection",
+     "start": 1164,
+     "note": "Pro-rata state sales tax projected at $31,969,801 for FY2025-26; staff said $25.4 million collected through 11 months with $1.6 million expected in September."
+    },
+    {
+     "title": "Thalia Mara Hall rent zeroed out",
+     "start": 1216,
+     "note": "Councilman Foote objected to $0 rent projection for Thalia Mara Hall; CAO said revenue may go to a separate account under the Convention Center management agreement."
+    },
+    {
+     "title": "Interest income estimate",
+     "start": 1362,
+     "note": "Councilman Foote said $1.5 million interest estimate is too low given 2.6% rate and ~$85 million average balance; CAO defended conservative estimate."
+    },
+    {
+     "title": "Public Works funding streams",
+     "start": 2820,
+     "note": "Discussion that Public Works receives general fund, 1% sales tax, bond, modernization, and state/federal funds; general fund proposed at $19.7 million."
+    },
+    {
+     "title": "Amendment: shift $250,000 from Public Works to JPD",
+     "start": 5288,
+     "note": "Councilman Parkinson moved to reduce Public Works personnel services to $8,837,480 and increase JPD other services and charges to $1,728,262; passed 3-0-1."
+    },
+    {
+     "title": "Amendment: move $70,000 from CAO office to fire",
+     "start": 8018,
+     "note": "Motion to reduce general government personnel services to $5,362,934 and increase fire personnel services to $24,171,517; passed 4-0."
+    },
+    {
+     "title": "Proposed consolidation of HR, IT, constituent services, communications",
+     "start": 8138,
+     "note": "Councilman Foote proposed merging departments; motion withdrawn for lack of second, to be revisited after budget."
+    },
+    {
+     "title": "Amendment: shift $122,000 from Planning to police and fire",
+     "start": 10572,
+     "note": "Motion to reduce Planning personnel services to $3,982,870, increase JPD other services to $1,828,262, and fire personnel to $24,193,517; passed 3-0-1."
+    },
+    {
+     "title": "Amendment: shift $90,000 from Administration to fire and police",
+     "start": 11103,
+     "note": "Motion to reduce Administration personnel services to $3,156,433, increase fire personnel to $24,226,571, and JPD other services to $1,885,262; passed."
+    },
+    {
+     "title": "Amendment: eliminate IT BSA position, split savings",
+     "start": 12651,
+     "note": "Motion to reduce IT personnel services to $1,841,345, increase fire personnel to $24,257,571, and JPD other services to $1,916,262; passed 4-0."
+    },
+    {
+     "title": "Public Works wages and contracts",
+     "start": 12874,
+     "note": "Director Anderson said lowest Public Works salaries are $22,000; council asked him to review contracts for possible raises."
+    },
+    {
+     "title": "Thalia Mara Hall and zero revenue lines",
+     "start": 13024,
+     "note": "Council pressed CAO to review Thalia Mara Hall agreement and other zeroed revenue lines; CAO agreed to review."
+    },
+    {
+     "title": "Recess to next day",
+     "start": 13554,
+     "note": "Meeting recessed until the following day at 3 p.m. to continue budget deliberation."
+    },
+    {
+     "title": "Updated budget totals after amendments",
+     "start": 14148,
+     "note": "CFO Caldwell summarized amendments: JPD total $33,432,200; fire $25,529,736; Public Works $19,459,502; Planning $8,146,467; Administration $4,170,391; General Government $15,569,088; IT $1,882,759; general fund total $113,250,961."
+    },
+    {
+     "title": "Motion to move housing programs to Mayor's office",
+     "start": 15196,
+     "note": "Councilman Foote moved to move HUD-funded housing programs from Planning to Mayor's office; passed 6-0."
+    },
+    {
+     "title": "Fire department staffing and ISO rating",
+     "start": 15712,
+     "note": "Chief Thomas said 25 additional firefighters per year needed to reach 112 per shift for ISO rating; cost is about $1.6 million for 25 hires."
+    },
+    {
+     "title": "COPS grant eligibility discussion",
+     "start": 16148,
+     "note": "JPD grants manager said city cannot apply for COPS hiring grants unless budgeted officer positions are filled; past grant had repayment issues."
+    },
+    {
+     "title": "Reserve fund proposal for fire and police",
+     "start": 17314,
+     "note": "Councilman Stokes proposed reducing reserve from 7.5% to 5% to fund fire and police; CAO warned bond documents may require maintaining reserve level."
+    },
+    {
+     "title": "Legal review of bond documents",
+     "start": 18240,
+     "note": "City Attorney Moncure said legal will review bond documents by end of week to see if reserve reduction could trigger debt acceleration."
+    },
+    {
+     "title": "Contract review request",
+     "start": 19395,
+     "note": "Councilman Foote asked legal to review contracts including garbage, parking meters, Smith-Wills, and Thalia Mara for fair revenue terms."
+    },
+    {
+     "title": "Grand Gulf emergency planning funds",
+     "start": 20452,
+     "note": "Councilman Foote noted $600,410 in Grand Gulf emergency planning fund could be used for one-time expenses; CAO agreed."
+    },
+    {
+     "title": "Grove Park insurance proceeds",
+     "start": 20635,
+     "note": "Councilman Foote noted $2,499,508 in insurance proceeds from 2013 hail storm; CAO said funds are being spent on Grove Park improvements."
+    },
+    {
+     "title": "Recess until Friday",
+     "start": 21369,
+     "note": "Council recessed until Friday at 10 a.m. for final budget vote after legal review."
+    }
+   ],
+   "people": [
+    "Rochelle Brackney",
+    "Jillian Caldwell",
+    "Peter Tewis",
+    "Brandon Jackson",
+    "Councilman Parkinson",
+    "Councilwoman Clay",
+    "Councilman Foote",
+    "Peter Tablinson",
+    "Lorenzo Anderson",
+    "Sandra Moncure",
+    "Chief Thomas",
+    "Tanya Nord",
+    "Chief Jackson",
+    "Dr. Miriam Managhe",
+    "Mayor Horne",
+    "Councilman Stokes",
+    "Councilwoman Brown",
+    "Councilman Hartley",
+    "Mr. Martin",
+    "Nathan Slater",
+    "Ms. Carwell",
+    "Mr. Davidson"
+   ],
+   "money": [
+    "$107,000 grant award for JPD brass tracks",
+    "$113.5 million projected revenues for FY2027",
+    "$337,348,801 total all-funds budget",
+    "$113,250,961 total general fund budget",
+    "$20,000 vehicle parking fines estimate",
+    "$100,000 misdemeanor fines estimate",
+    "$31,969,801 pro-rata state sales tax projection",
+    "$1.5 million interest income estimate",
+    "$600,410 Grand Gulf emergency planning fund",
+    "$2,499,508 insurance proceeds from 2013 hail storm",
+    "$1.6 million needed for 25 additional firefighters",
+    "$63,000 annual cost per new police officer including fringe",
+    "$90,000 savings from liaison position in CFO office",
+    "$122,000 shifted from Planning to police and fire",
+    "$70,000 shifted from CAO office to fire",
+    "$62,000 savings from eliminating IT BSA position",
+    "$250,000 shifted from Public Works to JPD",
+    "$438,000 total increase to JPD other services and charges",
+    "$156,000 total increase to fire personnel services",
+    "$1.5 million additional needed for fire department this year",
+    "$34,047,409.73 needed for 255 police officers"
+   ],
+   "votes": [
+    {
+     "item": "Add emergency item revising JPD FY2025-2026 budget",
+     "outcome": "passed",
+     "start": 64
+    },
+    {
+     "item": "Amendment shifting $250,000 from Public Works personnel to JPD other services",
+     "outcome": "passed",
+     "start": 5288
+    },
+    {
+     "item": "Amendment shifting $70,000 from CAO office to fire personnel",
+     "outcome": "passed",
+     "start": 8018
+    },
+    {
+     "item": "Amendment shifting $122,000 from Planning to police and fire",
+     "outcome": "passed",
+     "start": 10572
+    },
+    {
+     "item": "Amendment shifting $90,000 from Administration to fire and police",
+     "outcome": "passed",
+     "start": 11103
+    },
+    {
+     "item": "Amendment eliminating IT BSA position and splitting savings between fire and police",
+     "outcome": "passed",
+     "start": 12651
+    },
+    {
+     "item": "Motion to move housing programs from Planning to Mayor's office",
+     "outcome": "passed",
+     "start": 15196
+    },
+    {
+     "item": "Motion to recess until Friday at 10 a.m.",
+     "outcome": "passed",
+     "start": 21369
+    }
+   ]
+  },
+  {
+   "id": "sw400130",
+   "source": "swagit",
+   "body": "Jackson City Council",
+   "title": "City Council",
+   "date": "2026-09-08",
+   "duration": 14411,
+   "channel": "City of Jackson video archive",
+   "url": "https://jacksonms.new.swagit.com/videos/400130",
+   "agenda": "https://jacksonms.new.swagit.com/videos/400130/agenda",
+   "captions": "transcribed",
+   "fetched": "2026-09-29T16:18:40.829Z",
+   "engine": "faster-whisper-small.en",
+   "words": 34761,
+   "indexed": true,
+   "summary": "The Jackson City Council approved the FY2027 budget on a 5-1 vote after adding about $600,000 for firefighter personnel by shifting money from a Grand Gulf emergency planning fund through JPD capital outlay. The council also passed a $1,001,962.88 C Spire contract for IT infrastructure and network modernization, and approved an MOU with ATF for a gun enforcement task force. A proposed ordinance to rename Wood Street to Dr. Roderick Demond Little Drive was amended to honorary status and then removed from the agenda after debate. The council discussed the Tasia Fortune hanging investigation, with the police chief saying the case is being investigated as a homicide and the medical examiner has not yet ruled. Public commenters raised concerns about JTRAN service, infrastructure, crime, and the condition of city streets.",
+   "topics": [
+    {
+     "title": "Call to order and invocation",
+     "start": 0,
+     "note": "Meeting called to order; invocation by Minister Jacqueline Bolden of Tabernacle Ministries; Pledge of Allegiance signed by students from Mississippi School for the Deaf and Blind."
+    },
+    {
+     "title": "Public comments on Wood Street renaming",
+     "start": 449,
+     "note": "Albert Donaldson and Christopher Cooper spoke against renaming Wood Street, citing infrastructure neglect and other priorities."
+    },
+    {
+     "title": "Public comment on JTRAN service",
+     "start": 900,
+     "note": "Sheila O'Flaherty described reduced bus service and problems since the strike ended, urging accountability from MV Transportation."
+    },
+    {
+     "title": "Public comment on crime and city services",
+     "start": 1076,
+     "note": "Shante Wallace, Leon Steuben Jr., Fran Bridges, Reverend Joe Washington, and Dr. Valerie McKnight spoke on crime, drainage, public works funding, and prayer."
+    },
+    {
+     "title": "Consent agenda approved",
+     "start": 2111,
+     "note": "Consent agenda approved 7-0, including minutes and routine items."
+    },
+    {
+     "title": "Ordinance establishing JPD K-9 community ambassador program",
+     "start": 2226,
+     "note": "Ordinance amending Chapter 74 to establish a JPD K-9 community ambassador program passed 7-0."
+    },
+    {
+     "title": "Wood Street renaming ordinance",
+     "start": 2273,
+     "note": "Ordinance to rename Wood Street to Dr. Roderick Demond Little Drive was amended to honorary renaming on a 4-3 vote, then removed from the agenda after a motion to table was withdrawn."
+    },
+    {
+     "title": "Claims docket",
+     "start": 3009,
+     "note": "Claims approved 6-0-1; largest claims included $155,811.60 to Metric Solutions, $75,000 to National Council for Community Development, $69,783.84 to Pennsylvania Manufacturers Association Insurance, and $49,800 to Jefferies Studio Restoration."
+    },
+    {
+     "title": "Payroll",
+     "start": 3115,
+     "note": "Payroll approved 7-0."
+    },
+    {
+     "title": "Grant management agreement with Sims Strategies",
+     "start": 3168,
+     "note": "Order to extend contract with Sims Strategies for grant consulting failed 3-4 after debate over cost and need."
+    },
+    {
+     "title": "C Spire IT infrastructure contract",
+     "start": 4569,
+     "note": "Order accepting C Spire's reduced bid of $1,001,962.88 for IT infrastructure and network modernization passed 6-1."
+    },
+    {
+     "title": "ATF gun enforcement task force MOU",
+     "start": 5055,
+     "note": "MOU with ATF for Evidence Direct Gun Enforcement Task Force passed 7-0."
+    },
+    {
+     "title": "Medical office space lease at 1860 Chadwick Drive",
+     "start": 5307,
+     "note": "Order ratifying continued lease and authorizing second amendment for medical office space passed 7-0."
+    },
+    {
+     "title": "Neighborhood street resurfacing supplemental agreement",
+     "start": 5669,
+     "note": "Supplemental agreement with EJES for Phase 2 resurfacing, limited to $550,000 for design and bidding, passed 7-0."
+    },
+    {
+     "title": "Emergency procurement for Hood Administration Building power restoration",
+     "start": 6947,
+     "note": "Order ratifying emergency procurement from Southern Electric Corporation passed 6-0-1."
+    },
+    {
+     "title": "Medgar Evers Boulevard RAISE grant supplemental agreement",
+     "start": 7064,
+     "note": "Supplemental agreement No. 3 with Neel-Schaffer for $19,800 passed 6-0-1."
+    },
+    {
+     "title": "MV Contract Transportation operation and maintenance amendment",
+     "start": 7199,
+     "note": "Amendment to O&M contract with MV Contract Transportation passed 6-1; mayor noted $105,000 spent to help settle strike."
+    },
+    {
+     "title": "Hawkins Law contract extension",
+     "start": 7517,
+     "note": "Contract extension with Hawkins Law for civil actions passed 5-1-1; city attorney reported Fifth Circuit en banc ruling in city's favor on federal claims."
+    },
+    {
+     "title": "Walton v. City of Jackson settlement",
+     "start": 7960,
+     "note": "Order authorizing full and final settlement in Walton v. City of Jackson passed 5-0-2."
+    },
+    {
+     "title": "Airport improvement grant acceptance",
+     "start": 8023,
+     "note": "Resolution authorizing Jackson Municipal Airport Authority to accept airport improvement grant passed 7-0; amount listed as not to exceed $200,000 but parenthetical $43,929."
+    },
+    {
+     "title": "Discussion: Cleaning 'Timothy White'",
+     "start": 8102,
+     "note": "Councilwoman Clay praised Timothy White's cleanup efforts and suggested city support and recognition."
+    },
+    {
+     "title": "Discussion: Tasia Fortune's hanging",
+     "start": 8290,
+     "note": "Councilman Stokes read a letter from Tasia Fortune's mother; Police Chief Brackney said the case is being investigated as a homicide and the medical examiner has not yet ruled."
+    },
+    {
+     "title": "Discussion: Legal matters",
+     "start": 8742,
+     "note": "City Attorney Drew Martin reported no legal matters and no executive session."
+    },
+    {
+     "title": "Monthly privilege tax report",
+     "start": 8878,
+     "note": "Council members confirmed receipt of the monthly report of privilege taxes."
+    },
+    {
+     "title": "Special meeting on budget deliberations",
+     "start": 8920,
+     "note": "Council reconvened for budget deliberations; discussed reserve policy, fund balance, and public safety funding."
+    },
+    {
+     "title": "Budget amendment for public works personnel",
+     "start": 10980,
+     "note": "Amendment to move $500,000 from public works capital outlay to personnel services passed with one abstention."
+    },
+    {
+     "title": "Budget amendment for firefighter personnel",
+     "start": 12360,
+     "note": "Amendment to move $600,000 from Grand Gulf emergency planning fund to JPD capital outlay, then $600,000 from JPD capital outlay to fire personnel, passed."
+    },
+    {
+     "title": "FY2027 budget approval",
+     "start": 14340,
+     "note": "Budget approved 5-1 after amendments; council members noted need to find more money for fire and police during the year."
+    }
+   ],
+   "people": [
+    "Jacqueline Bolden",
+    "John Horhn",
+    "Gail Horhn",
+    "President Hartley",
+    "Ashby Foote",
+    "Tina Clay",
+    "Kenneth Stokes",
+    "Brian Grizzell",
+    "Leche Brown Thomas",
+    "Kevin Parkinson",
+    "Albert Donaldson",
+    "Christopher Cooper",
+    "Sheila O'Flaherty",
+    "Shante Wallace",
+    "Leon Steuben Jr.",
+    "Fran Bridges",
+    "Reverend Joe Washington",
+    "Dr. Valerie McKnight",
+    "Drew Martin",
+    "Jillian Caldwell",
+    "Ray Sims",
+    "Lorenzo Anderson",
+    "Nathan Slater",
+    "Chief Shelton Brackney",
+    "Peter Tewison",
+    "Brandon Jackson",
+    "Chief Thomas",
+    "Tanya Norwood",
+    "Kristi Spivey",
+    "Roderick Demond Little",
+    "Elise Morgan",
+    "Cassandra Folks Wilson",
+    "Ali B. Jackson Sr.",
+    "Willie Corbett Jr.",
+    "Bertha Mae Williams"
+   ],
+   "money": [
+    "$1,001,962.88 C Spire reduced bid for IT infrastructure and network modernization",
+    "$155,811.60 claim to Metric Solutions for annual billing from Technology Fund",
+    "$75,000 claim to National Council for Community Development for educational and training services",
+    "$69,783.84 claim to Pennsylvania Manufacturers Association Insurance for September 2026 premiums",
+    "$49,800 claim to Jefferies Studio Restoration for building repairs from CDBG COVID Cares Fund",
+    "$550,000 funding from 1% sales tax commission for EJES design and bidding on street resurfacing",
+    "$19,800 supplemental agreement with Neel-Schaffer for Medgar Evers Boulevard RAISE grant project",
+    "$105,000 city contribution to help settle JTRAN strike",
+    "$600,000 moved from Grand Gulf emergency planning fund to JPD capital outlay, then to fire personnel",
+    "$500,000 moved from public works capital outlay to personnel services",
+    "$200,000 not to exceed amount for airport improvement grant (parenthetical $43,929)",
+    "$2.499 million insurance settlement reserved for Grove Park",
+    "$600,000 Grand Gulf emergency planning fund balance",
+    "$7.4 million unassigned fund balance for FY2024 (preliminary)",
+    "$27.6 million total fund balance for FY2024 (preliminary)",
+    "$29.1 million unassigned fund balance for FY2023",
+    "$9.157 million required reserve for FY2023 at 7.5% policy"
+   ],
+   "votes": [
+    {
+     "item": "Consent agenda",
+     "outcome": "passed",
+     "start": 2111
+    },
+    {
+     "item": "Ordinance establishing JPD K-9 community ambassador program",
+     "outcome": "passed",
+     "start": 2226
+    },
+    {
+     "item": "Amendment to make Wood Street renaming honorary",
+     "outcome": "passed",
+     "start": 2555
+    },
+    {
+     "item": "Wood Street renaming ordinance as amended",
+     "outcome": "removed from agenda",
+     "start": 3009
+    },
+    {
+     "item": "Claims docket",
+     "outcome": "passed",
+     "start": 3009
+    },
+    {
+     "item": "Payroll",
+     "outcome": "passed",
+     "start": 3115
+    },
+    {
+     "item": "Grant management agreement with Sims Strategies",
+     "outcome": "failed",
+     "start": 4569
+    },
+    {
+     "item": "C Spire IT infrastructure contract",
+     "outcome": "passed",
+     "start": 4569
+    },
+    {
+     "item": "ATF gun enforcement task force MOU",
+     "outcome": "passed",
+     "start": 5055
+    },
+    {
+     "item": "Medical office space lease at 1860 Chadwick Drive",
+     "outcome": "passed",
+     "start": 5307
+    },
+    {
+     "item": "Neighborhood street resurfacing supplemental agreement with EJES",
+     "outcome": "passed",
+     "start": 5669
+    },
+    {
+     "item": "Emergency procurement for Hood Administration Building power restoration",
+     "outcome": "passed",
+     "start": 6947
+    },
+    {
+     "item": "Medgar Evers Boulevard RAISE grant supplemental agreement",
+     "outcome": "passed",
+     "start": 7064
+    },
+    {
+     "item": "MV Contract Transportation O&M amendment",
+     "outcome": "passed",
+     "start": 7199
+    },
+    {
+     "item": "Hawkins Law contract extension",
+     "outcome": "passed",
+     "start": 7517
+    },
+    {
+     "item": "Walton v. City of Jackson settlement",
+     "outcome": "passed",
+     "start": 7960
+    },
+    {
+     "item": "Airport improvement grant acceptance",
+     "outcome": "passed",
+     "start": 8023
+    },
+    {
+     "item": "Budget amendment for public works personnel",
+     "outcome": "passed",
+     "start": 10980
+    },
+    {
+     "item": "Budget amendment for firefighter personnel",
+     "outcome": "passed",
+     "start": 12360
+    },
+    {
+     "item": "FY2027 budget",
+     "outcome": "passed",
+     "start": 14340
     }
    ]
   },
