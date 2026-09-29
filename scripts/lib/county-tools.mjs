@@ -224,9 +224,9 @@ export async function rankinSupervisors({ limit = 8 } = {}) {
   let newest = null;
   for (const e of events) {
     const date = String(e.startDateTime || "").slice(0, 10);
-    const files = (e.publishedFiles || []).slice(0, 6).map((f) => ({ name: cut(f.name || f.fileName || `file ${f.fileId}`, 40), id: f.fileId ?? f.id }));
+    const files = (e.publishedFiles || []).slice(0, 4).map((f) => ({ name: cut(f.name || f.fileName || `file ${f.fileId}`, 40), id: f.fileId ?? f.id }));
     const fileText = files.map((f) => `${f.name}: ${rankinFileUrl(f.id)}`).join("; ");
-    out.push(cut(`- ${date} | ${String(e.eventName || e.categoryName || "").trim()}${fileText ? ` | ${fileText}` : ""}`, 600));
+    out.push(`- ${date} | ${cut(String(e.eventName || e.categoryName || "").trim(), 80)}${fileText ? ` | ${fileText}` : ""}`);
     if (!newest) {
       const agenda = files.find((f) => /^agenda$/i.test(f.name)) || files.find((f) => /agenda/i.test(f.name)) || files[0];
       if (agenda) newest = { date, name: String(e.eventName || "").trim(), file: agenda };
@@ -277,7 +277,7 @@ export async function mdeqPermits({ county = "", limit = 30 } = {}) {
   const want = county ? new RegExp(`^${escapeRe(county.trim())}$`, "i") : null;
   const hits = rows.filter((r) => (want ? want.test(r.county) || want.test(r.city) : METRO_COUNTIES.test(r.county))).slice(0, n);
   const out = [`MDEQ recently issued permits and certifications (${MDEQ_REPORT}), ${rows.length} statewide, ${hits.length} in ${county || "Hinds, Madison, and Rankin counties"}:`];
-  for (const r of hits) out.push(cut(`- ${r.facility} | ${r.type} | ${r.action} | ${r.city} | ${r.county} | ${r.link}`, 250));
+  for (const r of hits) out.push(`- ${cut(r.facility, 90)} | ${cut(r.type, 50)} | ${cut(r.action, 40)} | ${cut(r.city, 30)} | ${cut(r.county, 20)} | ${r.link}`);
   if (!hits.length) out.push("(none on the current report)");
   out.push("", "Water permits (NPDES, stormwater, pretreatment) precede subdivisions and plants; air construction permits precede industrial expansions; solid waste permits cover landfills. Open the facility link for the permit history.");
   return out.join("\n");
@@ -377,8 +377,8 @@ export function parseHindsIndex(html) {
   return { rows, pages, more, noRecords };
 }
 
-export async function hindsLandRecords({ days = 7, types = "WD,QCD", business_only = true, pages: maxPages = 6, name = "" } = {}) {
-  const span = clampInt(days, 1, 60, 7);
+export async function hindsLandRecords({ days = 3, types = "WD,QCD", business_only = true, pages: maxPages = 6, name = "" } = {}) {
+  const span = clampInt(days, 1, 60, 3);
   const cap = clampInt(maxPages, 1, 20, 6);
   const iso = (d) => d.toISOString().slice(0, 10);
   const start = iso(new Date(Date.now() - span * 86400000));
@@ -406,13 +406,14 @@ export async function hindsLandRecords({ days = 7, types = "WD,QCD", business_on
   }
   take(parsed);
   const pages = parsed.pages;
+  const more = parsed.more; // the site's own truncation flag, printed on page 1
   for (let page = 2; page <= Math.min(pages, cap) && parsed.rows.length; page++) {
     parsed = parseHindsIndex(await request(`${HINDS_GINDEX}?SS1=1&ScrollAction=${encodeURIComponent(`Page ${page}`)}`, { jar }));
     take(parsed);
   }
 
   const picked = all.filter((r) => (!wanted.size || wanted.has(r.type)) && (!business_only || BUSINESS.test(r.grantor) || BUSINESS.test(r.grantee)));
-  const partial = pages > cap || parsed.more;
+  const partial = pages > cap || more;
   const out = [
     `Hinds County land records, ${start} to ${end}${who ? `, party "${who}"` : ""} (${HINDS_GINDEX}): ${all.length} instruments read from ${Math.min(pages, cap)} of ${pages} pages, ${picked.length} shown${wanted.size ? ` of type ${[...wanted].join("/")}` : ""}${business_only ? ", business party only" : ""}.${partial ? " PARTIAL: the index holds more pages than were read; narrow the window or set a name." : ""}`,
   ];
@@ -452,11 +453,12 @@ export const COUNTY_TOOLS = [
       function: {
         name: "hinds_land_records",
         description:
-          "Instruments recorded with the Hinds County chancery clerk in the last N days, from the general index: warranty deeds (WD), quitclaim deeds (QCD), deeds of trust (DT), releases (REL), lis pendens. Default keeps deeds with a business, trust, bank, or government party, which is how land assemblies surface before permits. A week is several hundred instruments over dozens of pages, so use a short window or a name. Cite as 'Hinds County land records'.",
+          "Instruments recorded with the Hinds County chancery clerk in the last N days, from the general index: warranty deeds (WD), quitclaim deeds (QCD), deeds of trust (DT), releases (REL), lis pendens. Default keeps deeds with a business, trust, bank, or government party, which is how land assemblies surface before permits. A week is several hundred instruments over dozens of pages, so keep the window short, raise pages, or set a name. Cite as 'Hinds County land records'.",
         parameters: {
           type: "object",
           properties: {
-            days: { type: "integer", minimum: 1, maximum: 60, description: "Lookback window (default 7)." },
+            days: { type: "integer", minimum: 1, maximum: 60, description: "Lookback window (default 3; a week runs to about 34 pages)." },
+            pages: { type: "integer", minimum: 1, maximum: 20, description: "Result pages to read, about 15 instruments each (default 6)." },
             types: { type: "string", description: "Comma-separated codes to keep: WD, QCD, DT, REL, LIS PENS (default 'WD,QCD'; '' for all)." },
             business_only: { type: "boolean", description: "Keep only instruments with a business-looking party (default true)." },
             name: { type: "string", description: "Optional party name to search instead of the whole window, e.g. 'STATE STREET'." },
@@ -464,7 +466,7 @@ export const COUNTY_TOOLS = [
         },
       },
     },
-    run: (args) => hindsLandRecords({ days: args.days, types: args.types ?? "WD,QCD", business_only: args.business_only ?? true, name: args.name || "" }),
+    run: (args) => hindsLandRecords({ days: args.days, pages: args.pages, types: args.types ?? "WD,QCD", business_only: args.business_only ?? true, name: args.name || "" }),
   },
   {
     spec: {
