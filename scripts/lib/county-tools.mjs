@@ -7,7 +7,6 @@ import { fetchUrl } from "./fetch-url.mjs";
 
 const UA = "TheJacksonWire/1.0 (+https://www.thejacksonwire.com; capitolmain42@gmail.com)";
 const TIMEOUT_MS = 20000;
-const METRO = /\b(hinds|madison|rankin|jackson|ridgeland|madison|canton|flowood|pearl|brandon|clinton|byram|richland|gluckstadt|raymond)\b/i;
 
 async function getText(url) {
   const c = new AbortController();
@@ -68,6 +67,8 @@ export function parseHindsBoardroom(html) {
     const minutes = c.match(/href="([^"]*\/BoardMinutes\/docs\/[^"]+\.pdf)"/i)?.[1] || null;
     const videos = [...c.matchAll(/href="(https:\/\/playback\.lifesize\.com\/[^"]+)"/gi)].map((m) => m[1]);
     const type = text.replace(/^.*?\d{4}\s*/, "").replace(/\b(View Video \d|No Video|No Minutes)\b.*$/i, "").trim() || "Meeting";
+    // The page footer carries today's date; it has no documents and no video.
+    if (!agenda && !minutes && !videos.length) continue;
     rows.push({ date, type, agenda: agenda ? encodeURI(decodeURI(agenda)) : null, minutes: minutes ? encodeURI(decodeURI(minutes)) : null, videos });
   }
   // Newest first, unique by date+type.
@@ -85,15 +86,21 @@ export async function hindsSupervisors({ limit = 8, read = "agenda" } = {}) {
   for (const r of rows) {
     out.push(`- ${r.date} | ${r.type}${r.agenda ? ` | agenda: ${r.agenda}` : ""}${r.minutes ? ` | minutes: ${r.minutes}` : ""}${r.videos.length ? ` | video: ${r.videos[0]}` : ""}`);
   }
-  // Read the newest document of the requested kind so the model sees the items.
+  // Read the newest document of the requested kind so the model sees the
+  // items. Some agendas are scanned images with no text layer; move on to
+  // the next one rather than returning page markers.
   const want = read === "minutes" ? "minutes" : "agenda";
-  const doc = rows.find((r) => r[want]);
-  if (doc) {
+  for (const doc of rows.filter((r) => r[want]).slice(0, 3)) {
     try {
-      const text = await pdfText(doc[want], 9000);
-      out.push("", `Newest ${want} (${doc.date} ${doc.type}), text:`, text || "(no text layer)");
+      const text = (await pdfText(doc[want], 9000)).replace(/--- page \d+ ---\s*/g, "").trim();
+      if (text.length < 200) {
+        out.push("", `${doc.date} ${doc.type} ${want} is a scanned image with no text layer (${doc[want]}).`);
+        continue;
+      }
+      out.push("", `Newest readable ${want} (${doc.date} ${doc.type}), text:`, text);
+      break;
     } catch (e) {
-      out.push("", `Could not read the newest ${want}: ${e.message}`);
+      out.push("", `Could not read the ${doc.date} ${want}: ${e.message}`);
     }
   }
   out.push("", "Agendas list claims, contracts, tax matters, and resolutions; minutes record the votes. Fetch any other PDF above with fetch_url. Meeting video is on Lifesize and is not transcribed.");
@@ -170,14 +177,22 @@ export function parseMdeqReport(html) {
   return rows;
 }
 
+const METRO_COUNTIES = /^(hinds|madison|rankin)$/i;
+
 export async function mdeqPermits({ county = "", limit = 30 } = {}) {
   const html = await getText(MDEQ_REPORT);
-  const rows = parseMdeqReport(html);
+  const rows = parseMdeqReport(html).map((r) => ({ ...r, cells: r.cells.filter(Boolean) }));
   if (!rows.length) return "mdeq_permits unavailable: no rows parsed from the enSearch report.";
-  const re = county ? new RegExp(`\\b${county}\\b`, "i") : METRO;
-  const hits = rows.filter((r) => re.test(r.cells.join(" "))).slice(0, Math.min(Math.max(limit, 5), 60));
+  // Columns: facility, permit type, action, city, county. Match on the
+  // county cell (Jackson County on the coast is not the city of Jackson);
+  // a city name filter matches the city cell.
+  const cty = (r) => r.cells[r.cells.length - 1] || "";
+  const city = (r) => r.cells[r.cells.length - 2] || "";
+  const hits = rows
+    .filter((r) => (county ? new RegExp(`^${county.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}$`, "i").test(cty(r)) || new RegExp(`^${county.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}$`, "i").test(city(r)) : METRO_COUNTIES.test(cty(r))))
+    .slice(0, Math.min(Math.max(limit, 5), 60));
   const out = [
-    `MDEQ recently issued permits and certifications (${MDEQ_REPORT}), ${rows.length} statewide, ${hits.length} in ${county || "the Jackson metro"}:`,
+    `MDEQ recently issued permits and certifications (${MDEQ_REPORT}), ${rows.length} statewide, ${hits.length} in ${county || "Hinds, Madison, and Rankin counties"}:`,
   ];
   for (const r of hits) out.push(`- ${r.cells.join(" | ")} | ${r.link}`);
   if (!hits.length) out.push("(none in the metro on the current report)");
@@ -208,14 +223,17 @@ export async function pscDockets({ keyword = "" } = {}) {
   const kw = keyword ? new RegExp(keyword.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i") : /entergy|jackson|hinds|madison|rankin|data center|prado|atmos|jxn|ridgeland|canton|byram|clinton|pearl|flowood|brandon/i;
   for (const u of links.slice(0, 2)) {
     try {
-      const text = await pdfText(u, 60000);
-      const lines = text.split("\n").map((l) => l.trim()).filter(Boolean);
-      const hits = [];
-      lines.forEach((l, i) => {
-        if (kw.test(l)) hits.push(lines.slice(Math.max(0, i - 1), i + 2).join(" "));
-      });
-      out.push(`${u.split("/").pop()}: ${lines.length} lines, ${hits.length} matching ${keyword || "metro utilities"}:`);
-      for (const h of [...new Set(hits)].slice(0, 25)) out.push(`  - ${h.slice(0, 300)}`);
+      // The PDF text comes out one page per line; docket numbers
+      // (2026-UA-26, 2025-AD-61) mark where each item starts.
+      const text = (await pdfText(u, 80000)).replace(/--- page \d+ ---/g, " ");
+      const items = text
+        .replace(/(\d{4}-[A-Z]{2}-\d{1,4})/g, "\n$1")
+        .split("\n")
+        .map((l) => l.replace(/\s+/g, " ").trim())
+        .filter((l) => /^\d{4}-[A-Z]{2}-\d{1,4}/.test(l));
+      const hits = [...new Set(items.filter((l) => kw.test(l)))];
+      out.push(`${u.split("/").pop()}: ${items.length} docket items, ${hits.length} matching ${keyword || "metro utilities"}:`);
+      for (const h of hits.slice(0, 25)) out.push(`  - ${h.slice(0, 400)}`);
       out.push("");
     } catch (e) {
       out.push(`Could not read ${u}: ${e.message}`, "");
