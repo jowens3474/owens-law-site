@@ -347,7 +347,11 @@ async function getTextWithCookies(url, cookie) {
   const c = new AbortController();
   const t = setTimeout(() => c.abort(), TIMEOUT_MS);
   try {
-    const res = await fetch(url, { headers: { "User-Agent": UA, Accept: "text/html,*/*", ...(cookie ? { Cookie: cookie } : {}) }, signal: c.signal, redirect: "follow" });
+    const res = await fetch(url, {
+      headers: { "User-Agent": `Mozilla/5.0 (X11; Linux x86_64) ${UA}`, Accept: "text/html,*/*", "Accept-Language": "en-US,en;q=0.9", ...(cookie ? { Cookie: cookie } : {}) },
+      signal: c.signal,
+      redirect: "follow",
+    });
     const text = await res.text();
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${text.slice(0, 120)}`);
     const setCookie = typeof res.headers.getSetCookie === "function" ? res.headers.getSetCookie() : [res.headers.get("set-cookie")].filter(Boolean);
@@ -364,9 +368,11 @@ export function parseHindsIndex(html) {
   const seen = new Set();
   for (const m of html.matchAll(/<tr[^>]*>([\s\S]*?)<\/tr>/gi)) {
     const cells = [...m[1].matchAll(/<td[^>]*>([\s\S]*?)<\/td>/gi)].map((c) => strip(c[1]));
-    if (cells.length < 5) continue;
-    const [grantor, grantee, type, book, date] = cells;
-    if (!/^\d{2}-\d{2}-\d{4}$/.test(date || "")) continue;
+    // The date is the anchor: the four cells before it are grantor,
+    // grantee, instrument, book-page, whatever padding cells surround them.
+    const di = cells.findIndex((c) => /^\d{2}-\d{2}-\d{4}$/.test(c));
+    if (di < 4) continue;
+    const [grantor, grantee, type, book, date] = cells.slice(di - 4, di + 1);
     const key = [grantor, grantee, type, book].join("|");
     if (seen.has(key)) continue;
     seen.add(key);
