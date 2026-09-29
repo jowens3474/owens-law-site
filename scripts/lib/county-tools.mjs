@@ -331,11 +331,31 @@ export const INSTRUMENT_LABELS = {
 
 const BUSINESS = /\b(LLC|L\.L\.C|INC|CORP|CORPORATION|LP|LLP|LTD|HOLDINGS|PROPERTIES|PARTNERS|DEVELOPMENT|INVESTMENTS?|VENTURES|GROUP|COMPANY|CO\b|ENTERPRISES|REALTY|CAPITAL|TRUST\b|CHURCH|AUTHORITY|CITY OF|COUNTY|STATE OF|BANK|MORTGAGE|UNIVERSITY|HOSPITAL|FOUNDATION)\b/i;
 
-export function hindsIndexUrl(start, end, page) {
+export function hindsIndexUrl(start, end, name = "") {
   const [sy, sm, sd] = start.split("-");
   const [ey, em, ed] = end.split("-");
-  const q = `sn0=&sn1=3&sn2=3&Start_Date_m=${sm}&Start_Date_d=${sd}&Start_Date_y=${sy}&End_Date_m=${em}&End_Date_d=${ed}&End_Date_y=${ey}`;
-  return `${HINDS_GINDEX}?${q}${page && page > 1 ? `&page=${page}` : ""}`;
+  const q = `sn0=${encodeURIComponent(name)}&sn1=3&sn2=3&Start_Date_m=${sm}&Start_Date_d=${sd}&Start_Date_y=${sy}&End_Date_m=${em}&End_Date_d=${ed}&End_Date_y=${ey}`;
+  return `${HINDS_GINDEX}?${q}`;
+}
+
+/**
+ * The index pages its results through the classic-ASP session: page 1 is
+ * the query, later pages are gindex_list.asp?SS1=1&ScrollAction=Page+N
+ * with the session cookie from the first response.
+ */
+async function getTextWithCookies(url, cookie) {
+  const c = new AbortController();
+  const t = setTimeout(() => c.abort(), TIMEOUT_MS);
+  try {
+    const res = await fetch(url, { headers: { "User-Agent": UA, Accept: "text/html,*/*", ...(cookie ? { Cookie: cookie } : {}) }, signal: c.signal, redirect: "follow" });
+    const text = await res.text();
+    if (!res.ok) throw new Error(`HTTP ${res.status}: ${text.slice(0, 120)}`);
+    const setCookie = typeof res.headers.getSetCookie === "function" ? res.headers.getSetCookie() : [res.headers.get("set-cookie")].filter(Boolean);
+    const jar = setCookie.map((v) => v.split(";")[0]).join("; ") || cookie;
+    return { text, cookie: jar };
+  } finally {
+    clearTimeout(t);
+  }
 }
 
 /** Rows of a general-index result page: [{grantor, grantee, type, book, date}], deduplicated. */
@@ -364,19 +384,22 @@ export async function hindsLandRecords({ days = 7, types = "WD,QCD", business_on
   const iso = (d) => d.toISOString().slice(0, 10);
   const wanted = new Set(String(types || "").toUpperCase().split(",").map((t) => t.trim()).filter(Boolean));
   const all = [];
-  let pages = 1;
-  for (let page = 1; page <= Math.min(pages, Math.min(Math.max(maxPages, 1), 20)); page++) {
-    let url = hindsIndexUrl(iso(start), iso(end), page);
-    if (name) url = url.replace("sn0=", `sn0=${encodeURIComponent(name)}`);
-    const parsed = parseHindsIndex(await getText(url));
-    if (page === 1) pages = parsed.pages;
+  const cap = Math.min(Math.max(maxPages, 1), 20);
+  const first = await getTextWithCookies(hindsIndexUrl(iso(start), iso(end), name));
+  let parsed = parseHindsIndex(first.text);
+  const pages = parsed.pages;
+  all.push(...parsed.rows);
+  let cookie = first.cookie;
+  for (let page = 2; page <= Math.min(pages, cap) && parsed.rows.length; page++) {
+    const next = await getTextWithCookies(`${HINDS_GINDEX}?SS1=1&ScrollAction=${encodeURIComponent(`Page ${page}`)}`, cookie);
+    cookie = next.cookie || cookie;
+    parsed = parseHindsIndex(next.text);
     all.push(...parsed.rows);
-    if (!parsed.rows.length) break;
   }
-  if (!all.length) return `hinds_land_records: no instruments found for ${iso(start)} to ${iso(end)} (${hindsIndexUrl(iso(start), iso(end))}).`;
+  if (!all.length) return `hinds_land_records: no instruments found for ${iso(start)} to ${iso(end)} (${hindsIndexUrl(iso(start), iso(end), name)}).`;
   const picked = all.filter((r) => (!wanted.size || wanted.has(r.type)) && (!business_only || BUSINESS.test(r.grantor) || BUSINESS.test(r.grantee)));
   const out = [
-    `Hinds County land records, ${iso(start)} to ${iso(end)} (${HINDS_GINDEX}; ${all.length} instruments read from ${Math.min(pages, maxPages)} of ${pages} pages, ${picked.length} shown${wanted.size ? ` of type ${[...wanted].join("/")}` : ""}${business_only ? ", business party only" : ""}):`,
+    `Hinds County land records, ${iso(start)} to ${iso(end)} (${HINDS_GINDEX}; ${all.length} instruments read from ${Math.min(pages, cap)} of ${pages} pages, ${picked.length} shown${wanted.size ? ` of type ${[...wanted].join("/")}` : ""}${business_only ? ", business party only" : ""}):`,
   ];
   for (const r of picked.slice(0, 80)) out.push(`- ${r.date} | ${INSTRUMENT_LABELS[r.type] || r.type} | ${r.grantor} → ${r.grantee} | book-page ${r.book}`);
   if (picked.length > 80) out.push(`(${picked.length - 80} more not shown; narrow with types or name)`);
