@@ -411,7 +411,8 @@ export async function hindsLandRecords({ days = 3, types = "WD,QCD", business_on
   let parsed = parseHindsIndex(firstHtml);
   if (!parsed.rows.length) {
     if (parsed.noRecords) return `hinds_land_records: no instruments recorded for ${start} to ${end}${who ? ` matching "${who}"` : ""}.`;
-    return `hinds_land_records unavailable: the index answered but no rows parsed (${hindsIndexUrl(start, end, who)}).`;
+    const peek = strip(firstHtml).replace(/^.*?General Index/i, "").slice(0, 300);
+    return `hinds_land_records unavailable: the index answered but no rows parsed (${hindsIndexUrl(start, end, who)}). Page said: "${peek}"`;
   }
   take(parsed);
   const pages = parsed.pages;
