@@ -307,6 +307,86 @@ export async function rankinSupervisors({ limit = 8 } = {}) {
   return out.join("\n");
 }
 
+// --- Hinds County land records (general index) ------------------------------------------
+//
+// The chancery clerk's general index at co.hinds.ms.us lists every recorded
+// instrument. Queried with an empty name and a date range it returns the
+// whole window: grantor, grantee, instrument type, book-page, and date.
+// A warranty deed to an LLC is the earliest public sign of a project.
+
+export const HINDS_GINDEX = "https://www.co.hinds.ms.us/pgs/apps/gindex_list.asp";
+
+export const INSTRUMENT_LABELS = {
+  WD: "warranty deed",
+  QCD: "quitclaim deed",
+  DT: "deed of trust",
+  REL: "release",
+  "LIS PENS": "lis pendens",
+  "TR AGREE": "trust agreement",
+  ASSIGN: "assignment",
+  LEASE: "lease",
+  EASE: "easement",
+  PLAT: "plat",
+};
+
+const BUSINESS = /\b(LLC|L\.L\.C|INC|CORP|CORPORATION|LP|LLP|LTD|HOLDINGS|PROPERTIES|PARTNERS|DEVELOPMENT|INVESTMENTS?|VENTURES|GROUP|COMPANY|CO\b|ENTERPRISES|REALTY|CAPITAL|TRUST\b|CHURCH|AUTHORITY|CITY OF|COUNTY|STATE OF|BANK|MORTGAGE|UNIVERSITY|HOSPITAL|FOUNDATION)\b/i;
+
+export function hindsIndexUrl(start, end, page) {
+  const [sy, sm, sd] = start.split("-");
+  const [ey, em, ed] = end.split("-");
+  const q = `sn0=&sn1=3&sn2=3&Start_Date_m=${sm}&Start_Date_d=${sd}&Start_Date_y=${sy}&End_Date_m=${em}&End_Date_d=${ed}&End_Date_y=${ey}`;
+  return `${HINDS_GINDEX}?${q}${page && page > 1 ? `&page=${page}` : ""}`;
+}
+
+/** Rows of a general-index result page: [{grantor, grantee, type, book, date}], deduplicated. */
+export function parseHindsIndex(html) {
+  const rows = [];
+  const seen = new Set();
+  for (const m of html.matchAll(/<tr[^>]*>([\s\S]*?)<\/tr>/gi)) {
+    const cells = [...m[1].matchAll(/<td[^>]*>([\s\S]*?)<\/td>/gi)].map((c) => strip(c[1]));
+    if (cells.length < 5) continue;
+    const [grantor, grantee, type, book, date] = cells;
+    if (!/^\d{2}-\d{2}-\d{4}$/.test(date || "")) continue;
+    const key = [grantor, grantee, type, book].join("|");
+    if (seen.has(key)) continue;
+    seen.add(key);
+    const [mm, dd, yyyy] = date.split("-");
+    rows.push({ grantor, grantee, type: type.toUpperCase(), book, date: `${yyyy}-${mm}-${dd}` });
+  }
+  const pages = Number(html.match(/Page\s+\d+\s+of\s+(\d+)/i)?.[1] || 1);
+  const more = /more than \d+ records/i.test(html);
+  return { rows, pages, more };
+}
+
+export async function hindsLandRecords({ days = 7, types = "WD,QCD", business_only = true, pages: maxPages = 6, name = "" } = {}) {
+  const end = new Date();
+  const start = new Date(Date.now() - Math.min(Math.max(days, 1), 60) * 86400000);
+  const iso = (d) => d.toISOString().slice(0, 10);
+  const wanted = new Set(String(types || "").toUpperCase().split(",").map((t) => t.trim()).filter(Boolean));
+  const all = [];
+  let pages = 1;
+  for (let page = 1; page <= Math.min(pages, Math.min(Math.max(maxPages, 1), 20)); page++) {
+    let url = hindsIndexUrl(iso(start), iso(end), page);
+    if (name) url = url.replace("sn0=", `sn0=${encodeURIComponent(name)}`);
+    const parsed = parseHindsIndex(await getText(url));
+    if (page === 1) pages = parsed.pages;
+    all.push(...parsed.rows);
+    if (!parsed.rows.length) break;
+  }
+  if (!all.length) return `hinds_land_records: no instruments found for ${iso(start)} to ${iso(end)} (${hindsIndexUrl(iso(start), iso(end))}).`;
+  const picked = all.filter((r) => (!wanted.size || wanted.has(r.type)) && (!business_only || BUSINESS.test(r.grantor) || BUSINESS.test(r.grantee)));
+  const out = [
+    `Hinds County land records, ${iso(start)} to ${iso(end)} (${HINDS_GINDEX}; ${all.length} instruments read from ${Math.min(pages, maxPages)} of ${pages} pages, ${picked.length} shown${wanted.size ? ` of type ${[...wanted].join("/")}` : ""}${business_only ? ", business party only" : ""}):`,
+  ];
+  for (const r of picked.slice(0, 80)) out.push(`- ${r.date} | ${INSTRUMENT_LABELS[r.type] || r.type} | ${r.grantor} → ${r.grantee} | book-page ${r.book}`);
+  if (picked.length > 80) out.push(`(${picked.length - 80} more not shown; narrow with types or name)`);
+  out.push(
+    "",
+    "WD/QCD = ownership changed (grantor sold to grantee); DT = the grantee lent against the property; REL = a loan was paid off. A deed to a newly formed LLC, or the same buyer taking several parcels, is a development signal: look the parties up in the Record, the Secretary of State, and the Pipeline. Amounts and parcels are not in the index; the book-page locates the instrument at the chancery clerk.",
+  );
+  return out.join("\n");
+}
+
 // --- registration ---------------------------------------------------------------------
 
 export const COUNTY_TOOLS = [
@@ -327,6 +407,26 @@ export const COUNTY_TOOLS = [
       },
     },
     run: (args) => hindsSupervisors({ read: args.read, limit: args.limit }),
+  },
+  {
+    spec: {
+      type: "function",
+      function: {
+        name: "hinds_land_records",
+        description:
+          "Instruments recorded with the Hinds County chancery clerk in the last N days from the general index: warranty and quitclaim deeds (ownership changes), deeds of trust (loans), releases, lis pendens. Default shows deeds where a party is a business, which is how land assemblies and new projects surface months before permits. Use the name filter to trace one buyer. Cite as 'Hinds County land records'.",
+        parameters: {
+          type: "object",
+          properties: {
+            days: { type: "integer", minimum: 1, maximum: 60, description: "Lookback window (default 7)." },
+            types: { type: "string", description: "Comma-separated instrument codes to keep, e.g. 'WD,QCD' (default), 'DT', or '' for all." },
+            business_only: { type: "boolean", description: "Keep only instruments with a business, trust, bank, or government party (default true)." },
+            name: { type: "string", description: "Optional party name to search instead of the whole window, e.g. 'STATE STREET' or 'VIEUX CARRE'." },
+          },
+        },
+      },
+    },
+    run: (args) => hindsLandRecords({ days: args.days, types: args.types ?? "WD,QCD", business_only: args.business_only ?? true, name: args.name || "" }),
   },
   {
     spec: {
