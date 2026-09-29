@@ -358,17 +358,25 @@ export function hindsIndexUrl(start, end, name = "") {
   return `${HINDS_GINDEX}?sn0=${encodeURIComponent(name)}&sn1=3&sn2=3&Start_Date_m=${sm}&Start_Date_d=${sd}&Start_Date_y=${sy}&End_Date_m=${em}&End_Date_d=${ed}&End_Date_y=${ey}`;
 }
 
-/** Rows of a result page: [{grantor, grantee, type, book, date}] plus the page count and the site's "more than N records" flag. */
+/**
+ * Rows of a result page: [{grantor, grantee, type, book, date}] plus the
+ * page count and the site's "more than N records" flag. The page is
+ * classic ASP with no closing TD or TR tags (seen on the runner), so rows
+ * and cells are split on their opening tags. Each instrument appears
+ * twice (once per indexed party); the caller dedupes.
+ */
 export function parseHindsIndex(html) {
   const rows = [];
-  for (const m of html.matchAll(/<tr[^>]*>([\s\S]*?)<\/tr>/gi)) {
-    const cells = [...m[1].matchAll(/<td[^>]*>([\s\S]*?)<\/td>/gi)].map((c) => strip(c[1]));
+  const body = String(html || "").split(/<\/table/i)[0];
+  for (const chunk of body.split(/<tr\b/i).slice(1)) {
+    const cells = chunk.split(/<td\b/i).slice(1).map((c) => strip(c.replace(/^[^>]*>/, "")));
     // The date cell anchors the row; the four cells before it are grantor,
     // grantee, instrument, book-page, whatever padding surrounds them.
-    const di = cells.findIndex((c) => /^\d{2}-\d{2}-\d{4}$/.test(c));
+    const di = cells.findIndex((c) => /^\d{2}-\d{2}-\d{4}\b/.test(c));
     if (di < 4) continue;
-    const [grantor, grantee, type, book, date] = cells.slice(di - 4, di + 1);
-    const [mm, dd, yyyy] = date.split("-");
+    const [grantor, grantee, type, book] = cells.slice(di - 4, di);
+    const [mm, dd, yyyy] = cells[di].slice(0, 10).split("-");
+    if (!grantor || !type || !book) continue;
     rows.push({ grantor, grantee, type: type.toUpperCase(), book, date: `${yyyy}-${mm}-${dd}` });
   }
   const pages = Number(html.match(/Page\s+\d+\s+of\s+(\d+)/i)?.[1] || 1);
@@ -453,12 +461,12 @@ export const COUNTY_TOOLS = [
       function: {
         name: "hinds_land_records",
         description:
-          "Instruments recorded with the Hinds County chancery clerk in the last N days, from the general index: warranty deeds (WD), quitclaim deeds (QCD), deeds of trust (DT), releases (REL), lis pendens. Default keeps deeds with a business, trust, bank, or government party, which is how land assemblies surface before permits. A week is several hundred instruments over dozens of pages, so keep the window short, raise pages, or set a name. Cite as 'Hinds County land records'.",
+          "Instruments recorded with the Hinds County chancery clerk in the last N days, from the general index: warranty deeds (WD), quitclaim deeds (QCD), deeds of trust (DT), releases (REL), lis pendens. Default keeps deeds with a business, trust, bank, or government party, which is how land assemblies surface before permits. A week runs to about 34 pages, so keep the window short, raise pages, or set a name. Cite as 'Hinds County land records'.",
         parameters: {
           type: "object",
           properties: {
             days: { type: "integer", minimum: 1, maximum: 60, description: "Lookback window (default 3; a week runs to about 34 pages)." },
-            pages: { type: "integer", minimum: 1, maximum: 20, description: "Result pages to read, about 15 instruments each (default 6)." },
+            pages: { type: "integer", minimum: 1, maximum: 20, description: "Result pages to read (default 6). A page holds about 15 rows, each instrument listed twice, so about 8 instruments." },
             types: { type: "string", description: "Comma-separated codes to keep: WD, QCD, DT, REL, LIS PENS (default 'WD,QCD'; '' for all)." },
             business_only: { type: "boolean", description: "Keep only instruments with a business-looking party (default true)." },
             name: { type: "string", description: "Optional party name to search instead of the whole window, e.g. 'STATE STREET'." },
