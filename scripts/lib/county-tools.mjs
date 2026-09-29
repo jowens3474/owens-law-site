@@ -89,21 +89,28 @@ export async function hindsSupervisors({ limit = 8, read = "agenda" } = {}) {
   // Read the newest document of the requested kind so the model sees the
   // items. Some agendas are scanned images with no text layer; move on to
   // the next one rather than returning page markers.
-  const want = read === "minutes" ? "minutes" : "agenda";
-  for (const doc of rows.filter((r) => r[want]).slice(0, 3)) {
-    try {
-      const text = (await pdfText(doc[want], 9000)).replace(/--- page \d+ ---\s*/g, "").trim();
-      if (text.length < 200) {
-        out.push("", `${doc.date} ${doc.type} ${want} is a scanned image with no text layer (${doc[want]}).`);
-        continue;
+  // The county scans its agendas, so they usually have no text layer;
+  // the typed minutes do. Try the requested kind, then the other.
+  const order = read === "minutes" ? ["minutes", "agenda"] : ["agenda", "minutes"];
+  let shown = false;
+  for (const want of order) {
+    for (const doc of rows.filter((r) => r[want]).slice(0, 3)) {
+      try {
+        const text = (await pdfText(doc[want], 9000)).replace(/--- page \d+ ---\s*/g, "").trim();
+        if (text.length < 200) {
+          out.push("", `${doc.date} ${doc.type} ${want} is a scanned image with no text layer (${doc[want]}).`);
+          continue;
+        }
+        out.push("", `Newest readable ${want} (${doc.date} ${doc.type}), text:`, text);
+        shown = true;
+        break;
+      } catch (e) {
+        out.push("", `Could not read the ${doc.date} ${want}: ${e.message}`);
       }
-      out.push("", `Newest readable ${want} (${doc.date} ${doc.type}), text:`, text);
-      break;
-    } catch (e) {
-      out.push("", `Could not read the ${doc.date} ${want}: ${e.message}`);
     }
+    if (shown) break;
   }
-  out.push("", "Agendas list claims, contracts, tax matters, and resolutions; minutes record the votes. Fetch any other PDF above with fetch_url. Meeting video is on Lifesize and is not transcribed.");
+  out.push("", "Agendas list claims, contracts, tax matters, and resolutions; minutes record the votes. Agendas are usually scanned images, so read the minutes for text. Fetch any other PDF above with fetch_url. Meeting video is on Lifesize and is not transcribed.");
   return out.join("\n");
 }
 
