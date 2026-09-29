@@ -100,11 +100,12 @@ Three feeds added after the first round, all keyless:
 | `public_notices` | City of Jackson's bid-opportunity posts: invitations for bids, RFPs, zoning publication ads (rezonings, use permits, variances), meeting notices |
 | `sales_tax_diversions` | Department of Revenue monthly diversions to cities, parsed from the PDF; feeds `/economy/sales-tax` |
 | `meeting_transcripts` | The Record: searchable transcripts of city meetings from the city's own video; see below |
-| `hinds_supervisors` | Hinds County Boardroom listing (co.hinds.ms.us): agenda and minutes PDFs by meeting, newest readable document in full |
-| `madison_supervisors` | Madison County's printed upcoming agenda (tools.madison-co.net) and minutes links |
-| `rankin_supervisors` | Rankin County's CivicClerk API: meetings with agenda, packet, and minutes files, newest agenda in full |
-| `mdeq_permits` | MDEQ enSearch "recently issued permits" report, filtered to Hinds, Madison, and Rankin |
-| `psc_dockets` | Public Service Commission monthly Utility and Consent docket PDFs, items mentioning metro utilities |
+| `hinds_supervisors` | Hinds County Boardroom listing (co.hinds.ms.us): agenda and minutes PDFs by meeting, first 9,000 characters of the newest readable minutes |
+| `hinds_land_records` | Hinds County chancery clerk general index: every instrument recorded in a date window (deeds, deeds of trust, releases, lis pendens), business parties by default |
+| `madison_supervisors` | Madison County's printed upcoming agenda (tools.madison-co.net, first 9,000 characters) and where the minutes are |
+| `rankin_supervisors` | Rankin County's CivicClerk API: meetings with agenda, packet, and minutes files, first 9,000 characters of the newest agenda |
+| `mdeq_permits` | MDEQ enSearch "recently issued permits" report, filtered by county column to Hinds, Madison, and Rankin |
+| `psc_dockets` | Public Service Commission monthly Utility and Consent docket PDFs, split into docket items, those mentioning metro utilities |
 
 The statewide public-notice site run by the Mississippi Press Association
 refuses connections from GitHub's network, so county-level foreclosure and
@@ -133,12 +134,15 @@ Probed from a GitHub runner on Sept. 29, 2026 (`scripts/lib/county-tools.mjs`):
   county column.
 - **PSC**: the dockets page links monthly PDFs; the document portal
   (ctsportal.psc.ms.gov) refuses the runner.
+- **Hinds County land records**: the general index answers a date-range
+  query with no name once both radio parameters are sent (`sn1=3&sn2=3`);
+  a week is "more than 100 records" over about 34 pages, paged through the
+  ASP session cookie. The tool reads up to six pages and says when the
+  window is partial.
 - **Not reachable**: the Secretary of State business search (Akamai
-  "Access Denied"), Hinds County's land-records index (the query pages
-  load but list queries return HTTP 500 from the runner), and the liquor
-  permit search (interactive only). Layoff notices exist only as quarterly
-  PDFs with unstable names. These need a residential connection or a
-  records request.
+  "Access Denied") and the liquor permit search (interactive only). Layoff
+  notices exist only as quarterly PDFs with unstable names. These need a
+  residential connection or a records request.
 
 ## Sales tax series
 
