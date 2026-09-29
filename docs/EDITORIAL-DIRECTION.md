@@ -100,6 +100,12 @@ Three feeds added after the first round, all keyless:
 | `public_notices` | City of Jackson's bid-opportunity posts: invitations for bids, RFPs, zoning publication ads (rezonings, use permits, variances), meeting notices |
 | `sales_tax_diversions` | Department of Revenue monthly diversions to cities, parsed from the PDF; feeds `/economy/sales-tax` |
 | `meeting_transcripts` | The Record: searchable transcripts of city meetings from the city's own video; see below |
+| `hinds_supervisors` | Hinds County Boardroom listing (co.hinds.ms.us): agenda and minutes PDFs by meeting, first 9,000 characters of the newest readable minutes |
+| `hinds_land_records` | Hinds County chancery clerk general index: every instrument recorded in a date window (deeds, deeds of trust, releases, lis pendens), business parties by default |
+| `madison_supervisors` | Madison County's printed upcoming agenda (tools.madison-co.net, first 9,000 characters) and where the minutes are |
+| `rankin_supervisors` | Rankin County's CivicClerk API: meetings with agenda, packet, and minutes files, first 9,000 characters of the newest agenda |
+| `mdeq_permits` | MDEQ enSearch "recently issued permits" report, filtered by county column to Hinds, Madison, and Rankin |
+| `psc_dockets` | Public Service Commission monthly Utility and Consent docket PDFs, split into docket items, those mentioning metro utilities |
 
 The statewide public-notice site run by the Mississippi Press Association
 refuses connections from GitHub's network, so county-level foreclosure and
@@ -108,6 +114,35 @@ bond-validation notices are not yet automated.
 Run the **Data Check** workflow (Actions, workflow_dispatch) to see every
 tool's live output from a runner. It runs on the branch it is dispatched
 from, so a change to the module can be tested before merge.
+
+## County and state sources: what is automated and what is not
+
+Probed from a GitHub runner on Sept. 29, 2026 (`scripts/lib/county-tools.mjs`):
+
+- **Hinds County supervisors**: agendas are scanned images with no text
+  layer, so the tool reads the typed minutes instead; the video is on
+  Lifesize, a JavaScript player with no discoverable media URL, so the
+  county is not in the Record.
+- **Madison County**: the upcoming agenda prints as plain text. The
+  minutes archive page lists site-wide PDFs; minutes are reachable through
+  the county's search pages, which the tool points to.
+- **Rankin County**: CivicClerk's OData API is open; agenda packets and
+  minutes stream by file id. Meetings are pre-scheduled a year out, so the
+  tool only looks a week ahead.
+- **MDEQ**: the recently issued permits report is a plain table. Jackson
+  County on the coast shares the city's name, so the tool filters on the
+  county column.
+- **PSC**: the dockets page links monthly PDFs; the document portal
+  (ctsportal.psc.ms.gov) refuses the runner.
+- **Hinds County land records**: the general index answers a date-range
+  query with no name once both radio parameters are sent (`sn1=3&sn2=3`);
+  a week is "more than 100 records" over about 34 pages, paged through the
+  ASP session cookie. The tool reads up to six pages and says when the
+  window is partial.
+- **Not reachable**: the Secretary of State business search (Akamai
+  "Access Denied") and the liquor permit search (interactive only). Layoff
+  notices exist only as quarterly PDFs with unstable names. These need a
+  residential connection or a records request.
 
 ## Sales tax series
 

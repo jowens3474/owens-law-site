@@ -55,7 +55,7 @@ if (only === "probe") {
         // rather than links (YouTube channel ids, mp4 sources, feed URLs).
         const raw = [...new Set([...html.matchAll(new RegExp(filter.source, "gi"))].map((m) => m[0]))];
         console.log(`--- raw html matches (${raw.length}) ---`);
-        for (const r of raw.slice(0, 40)) console.log("  " + r.slice(0, 200));
+        for (const r of raw.slice(0, 40)) console.log("  " + r.slice(0, 1500));
       }
       if (links.length < 5) {
         console.log("--- raw html head ---");
