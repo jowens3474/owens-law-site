@@ -132,9 +132,16 @@ export async function madisonSupervisors() {
     errors.push(`agenda: ${e.message}`);
   }
   try {
+    // The page carries every county PDF in its sidebar; keep only the
+    // minutes themselves (hosted under tools.madison-co.net or named as such).
     const html = await getText(MADISON_MINUTES);
-    const pdfs = [...new Set([...html.matchAll(/href="([^"]+\.pdf)"/gi)].map((m) => new URL(m[1], MADISON_MINUTES).href))].slice(0, 8);
+    const pdfs = [...new Set(
+      [...html.matchAll(/<a[^>]+href="([^"]+\.pdf)"[^>]*>([^<]*)<\/a>/gi)]
+        .filter((m) => /minute/i.test(m[1] + " " + m[2]) || /tools\.madison-co\.net/i.test(m[1]))
+        .map((m) => new URL(m[1], MADISON_MINUTES).href),
+    )].slice(0, 8);
     if (pdfs.length) out.push("Recent minutes PDFs (madison-co.com):", ...pdfs.map((u) => `- ${u}`), "");
+    else out.push(`Minutes are searchable by date and keyword at ${MADISON_MINUTES} (fetch_url the search result pages).`, "");
   } catch (e) {
     errors.push(`minutes: ${e.message}`);
   }
@@ -218,6 +225,63 @@ export async function pscDockets({ keyword = "" } = {}) {
   return out.join("\n");
 }
 
+// --- Rankin County Board of Supervisors (CivicClerk) -----------------------------------
+//
+// rankincoms.portal.civicclerk.com is a JavaScript app over an OData API
+// that is open to anyone. Events are pre-scheduled a year out, so only
+// meetings up to a week ahead are useful; published files are the agenda
+// packet and minutes, streamed by file id.
+
+export const RANKIN_API = "https://rankincoms.api.civicclerk.com/v1";
+export const RANKIN_PORTAL = "https://rankincoms.portal.civicclerk.com";
+
+async function getJson(url) {
+  const c = new AbortController();
+  const t = setTimeout(() => c.abort(), TIMEOUT_MS);
+  try {
+    const res = await fetch(url, { headers: { "User-Agent": UA, Accept: "application/json" }, signal: c.signal });
+    const text = await res.text();
+    if (!res.ok) throw new Error(`HTTP ${res.status}: ${text.slice(0, 120)}`);
+    return JSON.parse(text);
+  } finally {
+    clearTimeout(t);
+  }
+}
+
+export function rankinFileUrl(fileId, plainText = false) {
+  return `${RANKIN_API}/Meetings/GetMeetingFileStream(fileId=${fileId},plainText=${plainText})`;
+}
+
+export async function rankinSupervisors({ limit = 8 } = {}) {
+  const horizon = new Date(Date.now() + 7 * 86400000).toISOString();
+  const url = `${RANKIN_API}/Events?$filter=startDateTime le ${horizon}&$orderby=startDateTime desc&$top=${Math.min(Math.max(limit, 3), 20)}`;
+  const data = await getJson(url);
+  const events = Array.isArray(data.value) ? data.value : [];
+  if (!events.length) return "rankin_supervisors unavailable: the CivicClerk API returned no events.";
+  const out = [`Rankin County meetings from CivicClerk (${RANKIN_PORTAL}), newest first:`];
+  let newestAgenda = null;
+  for (const e of events) {
+    const date = String(e.startDateTime || "").slice(0, 10);
+    const files = (e.publishedFiles || []).map((f) => ({ name: f.name || f.fileName || `file ${f.fileId}`, id: f.fileId ?? f.id, type: f.type || "" }));
+    const fileText = files.map((f) => `${f.name} (${rankinFileUrl(f.id)})`).join("; ");
+    out.push(`- ${date} | ${String(e.eventName || e.categoryName || "").trim()}${e.youtubeVideoId ? ` | video: https://www.youtube.com/watch?v=${e.youtubeVideoId}` : ""}${fileText ? ` | files: ${fileText}` : ""}`);
+    if (!newestAgenda) {
+      const agenda = files.find((f) => /agenda/i.test(f.name)) || files[0];
+      if (agenda) newestAgenda = { date, name: String(e.eventName || "").trim(), file: agenda };
+    }
+  }
+  if (newestAgenda) {
+    try {
+      const text = await pdfText(rankinFileUrl(newestAgenda.file.id), 9000);
+      out.push("", `Newest file (${newestAgenda.date} ${newestAgenda.name}, ${newestAgenda.file.name}), text:`, text || "(no text layer)");
+    } catch (e) {
+      out.push("", `Could not read the newest agenda: ${e.message}`);
+    }
+  }
+  out.push("", "Rankin County hosts Flowood, Pearl, Brandon, and the airport corridor; watch for tax abatements, industrial park deals, and road agreements. Fetch any file URL above with fetch_url.");
+  return out.join("\n");
+}
+
 // --- registration ---------------------------------------------------------------------
 
 export const COUNTY_TOOLS = [
@@ -250,6 +314,18 @@ export const COUNTY_TOOLS = [
       },
     },
     run: () => madisonSupervisors(),
+  },
+  {
+    spec: {
+      type: "function",
+      function: {
+        name: "rankin_supervisors",
+        description:
+          "Rankin County Board of Supervisors and other county boards from the county's CivicClerk agenda system: recent and upcoming meetings with agenda packets and minutes, plus the text of the newest agenda. Rankin hosts Flowood, Pearl, Brandon, and the airport corridor. Call for Development or Economy runs.",
+        parameters: { type: "object", properties: { limit: { type: "integer", minimum: 3, maximum: 20, description: "Meetings to list (default 8)." } } },
+      },
+    },
+    run: (args) => rankinSupervisors({ limit: args.limit }),
   },
   {
     spec: {
