@@ -66,6 +66,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-10-01",
+    title: "Morning Brief: Oct 1 · Horhn Swaps Out Two Deputies as the $23M Budget Hole Comes Due",
+    dek: "Jackson's chief administrative officer and its human and cultural services director are out on the first day of the fiscal year, and the mayor has named interim replacements.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-10-01",
+    views: 0,
+    body: [
+      "Horhn names interim leaders after two departures: Jackson Mayor John Horhn named interim replacements Wednesday after Chief Administrative Officer Pieter Teeuwissen and Human and Cultural Services Director Pamela Junior stepped down, WLBT reported. Kahrna Stimley, who has worked across several city departments, takes the human services post on an interim basis, the Clarion-Ledger reported. Teeuwissen had been Horhn's right hand through the city's budget crisis, including a shortfall that at one point was pegged above $25 million. The exits land on Oct. 1, the first day of the fiscal year, with the council's roughly $340 million FY27 budget now in force and a gap still to close. Permanent hires have not been announced.",
+      "Regions gives UMMC its largest gift ever: Regions Bank committed $2.5 million Wednesday toward construction of the University of Mississippi Medical Center's next Cancer Center and Research Institute, the bank said. Regions called it the largest charitable contribution in its nearly 200-year history. UMMC is pursuing National Cancer Institute designation for the institute, a first for Mississippi, and has been stacking major gifts toward the campaign. Dr. LouAnn Woodward, the medical center's vice chancellor for health affairs, said the money supports advanced treatment and research in-state. Leroy Abrahams, Regions' head of community and market engagement, framed the gift around Mississippi families. The bank is headquartered in Birmingham but runs a large Jackson operation.",
+      "Jackson sales tax take up 9.5 percent: Jackson collected $2,612,443 in sales tax diversions in August, up 9.5 percent from $2,385,899 a year earlier, according to Department of Revenue diversion reports. Fiscal-year-to-date, the city is at $5,328,637, up 6.0 percent. The metro split is uneven. Ridgeland jumped 23.7 percent for the month, to $1,611,884, and Byram rose 20.9 percent. Pearl fell 8.6 percent, to $1,166,022, and is down 10.5 percent fiscal-year-to-date, the steepest decline among the larger suburbs. Canton slipped 2.1 percent. Diversions are the closest thing to a monthly economic readout for each city, and they feed directly into the budgets now taking effect.",
+      "ERP bids close Monday with no budget set: Vendors have until Oct. 6 to answer Jackson's request for proposals on a replacement enterprise resource planning system, the city's bid site shows. The city posted Addendum No. 1, a vendor question-and-answer document, on Sept. 30, and an appendix matrix the same day. The procurement is the city's attempt to retire permitting and financial software that officials have described as roughly 15 years old. The Wire reported last week that the city still has no identified funding line for the purchase. The RFP number is 20477-092226. Proposals go to the City Clerk's office or through the city's procurement portal.",
+      "State Fair opens Oct. 8 with new security: The 167th Mississippi State Fair runs Oct. 8 through 18 at the Jackson fairgrounds, and Agriculture Commissioner Andy Gipson outlined expanded security Tuesday, WLBT reported. This year's theme, Let Freedom Ring, marks America's 250th anniversary and adds veteran perks. Security will draw on the Bureau of Narcotics, the Hinds County Sheriff's Office, Jackson Police, the State Fire Marshal, Homeland Security, Pearl Police and private contractors. The fair is one of the largest annual events in Mississippi and a concentrated 11-day revenue window for downtown Jackson vendors, hotels and the fairgrounds complex, which hosts more than 700 events a year.",
+    ],
+  },
+  {
     slug: "jackson-erp-rfp-permitting-software-bids-due-october-6",
     title: "Jackson's Permitting Software Is 15 Years Old. Bids on Its Replacement Are Due Oct. 6, and the City Still Has No Budget.",
     dek: "The city's own RFP says its legacy permitting system is hard to maintain, unintegrated with GIS, and still accepts paper. It also says a formal project budget has not been established, and that vendors' cost proposals will set it.",
