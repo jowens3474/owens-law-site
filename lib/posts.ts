@@ -66,6 +66,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-10-02",
+    title: "Morning Brief: Oct 2 · Amazon's CEO Makes Mississippi His Case for Data Centers",
+    dek: "Amazon Web Services chief Matt Garman used Mississippi as his national exhibit that data centers pay off, as the capital's own data center ban runs toward a January expiration with no replacement ordinance in place.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-10-02",
+    views: 0,
+    body: [
+      "Amazon CEO makes Mississippi his data center case: Matt Garman, chief executive of Amazon Web Services, published an op-ed Friday arguing the AI buildout is the largest American infrastructure project since the Interstate Highway System, and he pointed to Madison County as proof it pays. The Clarion Ledger reported Amazon now projects more than $20 billion in Mississippi data center investment, with 2,300 construction workers on site and 1,700 permanent jobs expected. Amazon also announced a \"Built Together\" pledge of $1 billion over five years for workforce and community programs, and said it will stop signing nondisclosure agreements with local governments. The timing matters here: Jackson's 183-day data center moratorium, passed 5-2 in July, expires Jan. 23 and the replacement ordinance is still a draft.",
+      "Madison County's $48M conference center moves toward bonds: Supervisors voted 3-2 on Sept. 8 to issue up to $48 million in urban renewal revenue bonds for the Madison County Conference Center in Ridgeland, the Clarion Ledger reported. The roughly 50,000-square-foot center anchors Gabriel Prado's 77-acre Prado Vista development behind Topgolf, and Prado told the board a $67 million Wyndham hotel will rise next door. Supervisors Trey Baxter and Casey Brannon objected that they had seen the terms only that weekend; board president Gerald Steen said there had been \"ample opportunity\" to ask questions. Repayment is projected from conference revenue and tourism tax rebates, with Prado directing rebate proceeds toward the public debt.",
+      "Jackson sales tax collections up 9.5% in August: The Department of Revenue's newest diversion report shows Jackson received $2,612,443 in August, up 9.5% from $2,385,899 a year earlier, with fiscal-year-to-date collections of $5,328,637, up 6.0%. The metro picture is uneven. Ridgeland led the region at $1,611,884, up 23.7%, and Byram rose 20.9%, while Pearl fell 8.6% to $1,166,022 and Canton slipped 2.1%. For a city that just adopted a $337 million budget with no tax increase and a $23 million hole, the sales tax line is the closest thing to a monthly revenue pulse. Jackson's gain outpaces its own fiscal-year trend, which is worth watching as the new budget year begins.",
+      "City ERP bids close Monday at 3:30 p.m.: Proposals for Jackson's Enterprise Resource Planning system, RFP No. 20477-092226, are due Oct. 6 at 3:30 p.m. Central, per the city's bid portal, after an addendum posted Sept. 30 answered vendor questions. The city's procurement site lists the project as accepting bids through the portal at jacksonmsbids.com. Bid documents describe an anticipated project start and go-live of Oct. 1, 2027, covering stormwater management, project tracking, grant management and financial oversight, with FedRAMP and NIST SP 800-53 security requirements. The Wire reported Sept. 30 that the city's current permitting software is roughly 15 years old, making this replacement a test of whether Jackson can modernize core systems while its budget is tight.",
+      "Hinds County board meets Monday with bids on the table: The Hinds County Board of Supervisors holds its regular meeting Monday, Oct. 5 at 9 a.m., and the agenda lists a bid opening and bid approvals alongside a run of elected-official personnel orders. Circuit judges Damon Stevenson, Winston Kidd and Debra Gibbs each have orders setting salaries for court administrators, law clerks and support staff, according to the posted agenda. The board also opens the meeting in honor of National Breast Cancer Awareness Month and Chancery Clerk Eddie Jean Carr. The agenda is a scanned document, so the dollar figures behind the bid items will not be public until the meeting itself.",
+    ],
+  },
+  {
     slug: "jackson-data-center-moratorium-expires-jan-23-ordinance-still-in-draft",
     title: "Jackson's Data Center Ban Expires Jan. 23. The Ordinance That Replaces It Is Still a Draft.",
     dek: "The 183-day moratorium the council passed July 14 runs out in about 16 weeks, and the city attorney told the council in August there is no new draft ready. A 230-acre rezoning request in northwest Jackson is waiting on it.",
