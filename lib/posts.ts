@@ -66,6 +66,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-10-03",
+    title: "Morning Brief: Oct 3 · Rubbish Fees, a $486K Midtown Grant, and a 9.5% Sales Tax Bump",
+    dek: "Jackson's council takes up a new per-ton rubbish fee Tuesday that would end visual estimates at the Byram landfill and charge residents $10 a ton for their first 12 visits.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-10-03",
+    views: 0,
+    body: [
+      "Rubbish fee vote lands Tuesday: The Jackson City Council is set to vote Oct. 6 at 10 a.m. on an ordinance that would scrap visual estimates at the city's Byram rubbish facility and weigh loads instead, the council packet and the Jackson Association of Neighborhoods summary show. Residents would pay $10 per ton with no minimum for up to 12 visits a year, then the nonresident rate of $20 per ton with a one-ton minimum. Nonresidents pay $20 per ton on every visit, and tires run $1 to $5 each. The ordinance was introduced Sept. 22 with no vote. It arrives as the city reports recovering only about $12,000 of hundreds of thousands of dollars in code enforcement costs billed to property owners.",
+      "Midtown Partners lands $486,000 federal grant: The U.S. Department of Health and Human Services awarded $486,000 to Midtown Partners Inc. through the Administration for Children and Families' Community Economic Development program, Congressman Bennie Thompson announced Oct. 1. The grant period runs Sept. 30, 2026 through Sept. 29, 2029, per the award record, and funds the Midtown Enterprise Development Initiative, which the award abstract says will expand three existing enterprises. Midtown Partners runs The Hatch, a 10,000-square-foot incubator housing Mississippi Cold Drip Coffee and Tea Co. and Nick Wallace Culinary, and has partnered with Millsaps College's ELSEWORKS program on a culinary center. It is the kind of neighborhood-scale capital that rarely shows up in the city's incentive tallies.",
+      "Jackson sales tax take up 9.5 percent: The Department of Revenue's August diversion report shows Jackson received $2,612,443, up 9.5 percent from $2,385,899 a year earlier, with fiscal-year-to-date collections at $5,328,637, up 6.0 percent. The metro split is uneven. Ridgeland jumped 23.7 percent to $1,611,884 and Byram rose 20.9 percent, while Pearl fell 8.6 percent to $1,166,022 and Canton slipped 2.1 percent. Pearl's fiscal-year-to-date total is down 10.5 percent, the steepest decline among the larger metro cities. For a city budgeting against a $23 million hole, the Jackson figure is the one that matters, and it is running ahead of last year.",
+      "Ridgeland conference center moves toward bonds: Madison County supervisors have advanced a roughly $48 million, 50,000-square-foot conference center inside the Prado Vista at Ridgeland development, with the county expected to issue $40 million to $43 million in bonds, WLBT and the Clarion-Ledger reported. Developer Gabriel Prado, who brought Topgolf to the metro, plans a 250-room luxury hotel with four restaurants next door. The Madison County Business League, the county economic development authority, MDA and the City of Ridgeland have all backed it. Officials have pitched it as capturing conventions that currently skip the Jackson area for lack of modern meeting space tied to a large hotel.",
+      "State Fair opens Thursday with an 11-day window: The Mississippi State Fair runs Oct. 8 through 18 at the 105-acre Fairgrounds Complex on Mississippi Street, an 11-day stretch that concentrates spending in downtown hotels, restaurants and vendors. The complex hosts more than 700 events a year, per the Mississippi Fairgrounds, and the fair is its largest. Flo Rida plays Oct. 15, with fair admission included in the concert ticket. For downtown operators still working around the city's budget squeeze, the fair is the single biggest revenue window before the holiday season, and it starts in five days.",
+    ],
+  },
+  {
     slug: "mda-waldrop-jackson-metro-incentives",
     title: "MDA Has a New Director as of Oct. 1. The Agency He Runs Spends $400 Million a Year, and Jackson Metro Is in Line for It.",
     dek: "PJ Waldrop took over the Mississippi Development Authority on Oct. 1 after Bill Cork's retirement, inheriting 12 divisions and roughly $400 million in annual spending. The metro's biggest projects, from Amazon's Madison County campuses to Jackson's own incentive pipeline, run through the agency he now leads.",
