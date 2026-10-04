@@ -105,11 +105,11 @@ export const PROJECTS: Project[] = [
   {
     name: "UMMC Cancer Center and Research Institute",
     developer: "University of Mississippi Medical Center",
-    location: "State Street across from the UMMC campus, Jackson (per the campaign site, as quoted by Mississippi Today; parcel not announced)",
+    location: "State Street across from the UMMC campus, Jackson (per Mississippi Today; parcel not announced)",
     investment: "$250M: $100M state capital funds, $125M private campaign (80% raised), UMMC bonds for the balance",
     stage: "approved",
     status:
-      "The Legislature appropriated $100 million in the FY2027 budget signed in April 2026; private gifts passed 80 percent of the $125 million goal with Regions Bank's $2.5 million this week. A five-story, 250,000-plus-square-foot building aimed at a National Cancer Institute designation, with clinics, infusion suites, clinical trial space, and research labs. No retail component in any plan. WJTV reported construction starts in late October and the complex opens in about four years.",
+      "The Legislature appropriated $100 million in the FY2027 budget signed in April 2026; private gifts passed 80 percent of the $125 million goal with Regions Bank's $2.5 million this week. A five-story, 250,000-plus-square-foot building aimed at a National Cancer Institute designation, with clinics, infusion suites, clinical trial space, and research labs. No retail component in any plan the Wire found. WJTV reported construction starts in late October and the complex opens in about four years.",
     next: "Groundbreaking in late October, with the first public site plan.",
     slugs: ["ummc-cancer-center-state-street-site-retail-stadium", "dps-tower-implosion-woodrow-wilson-what-comes-next"],
   },
@@ -266,7 +266,7 @@ export const MILESTONES: Milestone[] = [
     slug: "dps-tower-implosion-woodrow-wilson-what-comes-next",
   },
   {
-    date: "2026-10-28",
+    date: "2026-10-31",
     approx: true,
     kind: "groundbreaking",
     text: "UMMC expects to break ground on its $250 million Cancer Center and Research Institute; WJTV reported construction starts in late October.",
@@ -314,7 +314,7 @@ export const MILESTONES: Milestone[] = [
     slug: "vieux-carre-tif-north-jackson-28-million",
   },
   {
-    date: "2030-10-01",
+    date: "2030-10-31",
     approx: true,
     kind: "opening",
     text: "UMMC Cancer Center and Research Institute due to open if WJTV's reported four-year construction schedule from a late-October 2026 start holds.",
