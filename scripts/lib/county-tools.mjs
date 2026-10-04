@@ -511,7 +511,8 @@ function sosTflRow(a, centroid) {
 }
 
 export async function sosTaxForfeited({ area = "", bbox = "", street = "", zip = "", owner = "", min_value = 0, blighted, sort = "value", limit = 60, format = "text" } = {}) {
-  const cap = clampInt(limit, 1, 400, 60);
+  // csv/json exports may take the whole county; the layer pages at 2,000.
+  const cap = clampInt(limit, 1, format === "text" ? 400 : 5000, 60);
   const key = String(area || "").trim().toLowerCase();
   let env = null;
   let envNote = "";
@@ -537,7 +538,16 @@ export async function sosTaxForfeited({ area = "", bbox = "", street = "", zip =
     [total, countAll, rows] = await Promise.all([
       sosTflQuery({ where, ...geo, returnCountOnly: "true" }).then((d) => d.count),
       sosTflQuery({ where: "1=1", returnCountOnly: "true" }).then((d) => d.count),
-      sosTflQuery({ where, ...geo, orderByFields: orderBy, resultRecordCount: String(cap) }).then((d) => d.features || []),
+      (async () => {
+        const out = [];
+        for (let offset = 0; out.length < cap; offset += 1000) {
+          const d = await sosTflQuery({ where, ...geo, orderByFields: `${orderBy}, objectid ASC`, resultRecordCount: String(Math.min(1000, cap - out.length)), resultOffset: String(offset) });
+          const feats = d.features || [];
+          out.push(...feats);
+          if (feats.length < 1000 || !d.exceededTransferLimit) break;
+        }
+        return out;
+      })(),
     ]);
     // The export carries a few parcels twice; keep the first.
     const seen = new Set();
@@ -560,6 +570,16 @@ export async function sosTaxForfeited({ area = "", bbox = "", street = "", zip =
     "Tax sale date is when the county sold the lien; the owner's two-year redemption ran out and the land matured to the State. " +
     "Anyone may apply to buy through the SOS Tax-Forfeited Land Search (Public Lands Division, 601-359-6393); the city or county can also request a parcel. " +
     "Addresses come from the chancery clerk's certificate and can be a street name only. Cite as 'Secretary of State tax-forfeited inventory'.";
+  if (format === "csv") {
+    const cols = ["parcel_id", "parcel_no_", "property_address", "municipality", "market_value", "acres_1", "dimension", "sale_date", "assessed_owner", "subdivision", "lot", "block", "blighted", "bid_property", "legal_description", "SHAPE__Area", "lat", "lon"];
+    const esc = (v) => (v == null ? "" : /[",\n]/.test(String(v)) ? `"${String(v).replace(/"/g, '""').replace(/\s+/g, " ")}"` : String(v).replace(/\s+/g, " "));
+    const lines = [cols.join(",")];
+    for (const f of rows) {
+      const a = { ...f.attributes, lat: f.centroid?.y?.toFixed(6) ?? "", lon: f.centroid?.x?.toFixed(6) ?? "" };
+      lines.push(cols.map((c) => esc(a[c])).join(","));
+    }
+    return `# ${total} match; ${rows.length} rows; export ${SOS_TFL_LAYER} dated 2026-05-12\n${lines.join("\n")}`;
+  }
   if (format === "json") {
     // Raw rows for a spreadsheet or map: attributes plus the WGS84 centroid.
     return JSON.stringify({ source: SOS_TFL_LAYER, exported: "2026-05-12", total, filters, rows: rows.map((f) => ({ ...f.attributes, lat: f.centroid?.y ?? null, lon: f.centroid?.x ?? null })) }, null, 1);
@@ -588,7 +608,7 @@ export const COUNTY_TOOLS = [
             blighted: { type: "boolean", description: "true for parcels the city flagged as blighted, false to exclude them." },
             sort: { type: "string", enum: ["value", "address", "sale"], description: "Order: market value high to low (default), address, or oldest tax sale first." },
             limit: { type: "integer", minimum: 1, maximum: 400, description: "Rows to return (default 60)." },
-            format: { type: "string", enum: ["text", "json"], description: "text (default) or json for raw rows with centroids." },
+            format: { type: "string", enum: ["text", "json", "csv"], description: "text (default), json for raw rows with centroids, or csv for a spreadsheet export (limit up to 5000)." },
           },
         },
       },

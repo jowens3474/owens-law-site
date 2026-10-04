@@ -121,7 +121,7 @@ if (only && query && query.startsWith("{")) {
     console.log(`QUERY is not valid JSON (${e.message}); using defaults.`);
   }
 }
-const CAP = only ? 400000 : 3500;
+const CAP = only ? 8000000 : 3500;
 
 let failures = 0;
 for (const t of DATA_TOOLS) {
