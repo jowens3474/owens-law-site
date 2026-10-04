@@ -461,7 +461,8 @@ const SOS_TFL_APP = "https://tflgis.sos.ms.gov/";
 const HINDS_LANDROLL_DETAIL = "https://www.co.hinds.ms.us/pgs/apps/landroll_detail.asp?ID=";
 // Rough neighborhood envelopes (west, south, east, north), WGS84.
 const SOS_TFL_AREAS = {
-  fondren: { bbox: [-90.19, 32.326, -90.158, 32.356], note: "Woodrow Wilson to Northside Drive, the rail line to I-55" },
+  fondren: { bbox: [-90.185, 32.326, -90.158, 32.356], note: "Woodrow Wilson to Northside Drive, North West Street to I-55" },
+  virden: { bbox: [-90.21, 32.33, -90.185, 32.356], note: "Virden Addition, Cottage Grove, and Lexington Heights, west of North West Street" },
   belhaven: { bbox: [-90.185, 32.308, -90.165, 32.328], note: "Fortification to Woodrow Wilson, Jefferson St to I-55" },
   midtown: { bbox: [-90.196, 32.316, -90.184, 32.33], note: "Fortification to Woodrow Wilson, west of the rail line" },
   downtown: { bbox: [-90.195, 32.29, -90.17, 32.31], note: "Pearl River to Fortification" },
@@ -481,7 +482,7 @@ function sosTflWhere({ street, zip, owner, min_value, blighted }) {
 }
 
 async function sosTflQuery(params) {
-  const q = new URLSearchParams({ f: "json", outFields: "*", returnGeometry: "false", ...params });
+  const q = new URLSearchParams({ f: "json", outFields: "*", returnGeometry: "false", returnCentroid: "true", outSR: "4326", ...params });
   const url = `${SOS_TFL_LAYER}/query?${q}`;
   const data = await request(url, { json: true });
   if (data.error) throw new Error(`ArcGIS ${data.error.code}: ${data.error.message}`);
@@ -492,17 +493,20 @@ function money(n) {
   return n == null || Number.isNaN(Number(n)) ? "n/a" : `$${Number(n).toLocaleString("en-US")}`;
 }
 
-function sosTflRow(a) {
+function sosTflRow(a, centroid) {
   const addr = (a.property_address || "").replace(/\s+/g, " ").trim() || "(no address on file)";
   const owner = (a.assessed_owner || "").replace(/\s+/g, " ").trim();
   const sub = [a.subdivision, a.lot ? `lot ${a.lot}` : "", a.block && a.block !== "-" ? `blk ${a.block}` : ""].filter(Boolean).join(" ");
-  const size = a.acres_1 && Number(a.acres_1) > 0 ? `${a.acres_1} ac` : a.dimension || "";
+  // acres_1 holds square feet on some rows (a 0.1-acre lot shows as 4275).
+  const ac = Number(a.acres_1) || 0;
+  const size = ac > 100 ? `${ac.toLocaleString("en-US")} sq ft` : ac > 0 ? `${ac} ac` : a.dimension || "";
   const flags = [a.blighted === "TRUE" ? "blighted" : "", a.bid_property === "TRUE" ? "bid property" : "", a.web === "FALSE" ? "not on web" : ""].filter(Boolean).join(", ");
   const link = a.link ? `https://${String(a.link).replace(/^https?:\/\//, "")}` : `${SOS_TFL_APP} (search PPIN ${a.ppin})`;
+  const map = centroid && Number.isFinite(centroid.y) ? ` | map https://www.google.com/maps?q=${centroid.y.toFixed(5)},${centroid.x.toFixed(5)}` : "";
   return [
     `- ${addr} | ${money(a.market_value)} | ${size || "size n/a"} | tax sale ${a.sale_date || "n/a"} | last owner ${owner || "n/a"}`,
     `  ${sub || a.legal_description || ""}${flags ? ` | ${flags}` : ""}`,
-    `  Hinds parcel ${a.parcel_no_ || "n/a"}${a.parcel_no_ ? ` (${HINDS_LANDROLL_DETAIL}${encodeURIComponent(a.parcel_no_)})` : ""} | SOS id ${a.parcel_id} | ${link}`,
+    `  Hinds parcel ${a.parcel_no_ || "n/a"}${a.parcel_no_ ? ` (${HINDS_LANDROLL_DETAIL}${encodeURIComponent(a.parcel_no_)})` : ""} | SOS id ${a.parcel_id} | ${link}${map}`,
   ].join("\n");
 }
 
@@ -535,6 +539,14 @@ export async function sosTaxForfeited({ area = "", bbox = "", street = "", zip =
       sosTflQuery({ where: "1=1", returnCountOnly: "true" }).then((d) => d.count),
       sosTflQuery({ where, ...geo, orderByFields: orderBy, resultRecordCount: String(cap) }).then((d) => d.features || []),
     ]);
+    // The export carries a few parcels twice; keep the first.
+    const seen = new Set();
+    rows = rows.filter((f) => {
+      const k = f.attributes?.parcel_id ?? f.attributes?.objectid;
+      if (seen.has(k)) return false;
+      seen.add(k);
+      return true;
+    });
   } catch (e) {
     return `sos_tax_forfeited unavailable: ${e.message} (${SOS_TFL_LAYER})`;
   }
@@ -549,7 +561,7 @@ export async function sosTaxForfeited({ area = "", bbox = "", street = "", zip =
     "Anyone may apply to buy through the SOS Tax-Forfeited Land Search (Public Lands Division, 601-359-6393); the city or county can also request a parcel. " +
     "Addresses come from the chancery clerk's certificate and can be a street name only. Cite as 'Secretary of State tax-forfeited inventory'.";
   if (!rows.length) return `${head}\n\n${notes}`;
-  return `${head}\n\n${rows.map((f) => sosTflRow(f.attributes)).join("\n")}\n\n${notes}`;
+  return `${head}\n\n${rows.map((f) => sosTflRow(f.attributes, f.centroid)).join("\n")}\n\n${notes}`;
 }
 
 export const COUNTY_TOOLS = [
@@ -563,7 +575,7 @@ export const COUNTY_TOOLS = [
         parameters: {
           type: "object",
           properties: {
-            area: { type: "string", description: "Neighborhood preset: fondren, belhaven, midtown, downtown, or eastover." },
+            area: { type: "string", description: "Neighborhood preset: fondren, virden, belhaven, midtown, downtown, or eastover." },
             bbox: { type: "string", description: "Custom envelope 'west,south,east,north' in decimal degrees; overrides area." },
             street: { type: "string", description: "Street name fragment matched against the address and legal description, e.g. 'DULING'." },
             zip: { type: "string", description: "ZIP code fragment, e.g. '39216'." },
