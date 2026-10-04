@@ -530,7 +530,8 @@ export async function sosTaxForfeited({ area = "", bbox = "", street = "", zip =
   const geo = env
     ? { geometry: env.join(","), geometryType: "esriGeometryEnvelope", inSR: "4326", spatialRel: "esriSpatialRelIntersects" }
     : {};
-  const orderBy = sort === "address" ? "property_address ASC" : sort === "sale" ? "sale_date ASC" : "market_value DESC";
+  // "id" pages deterministically for whole-county exports; value sorting puts null values in an unstable order across pages.
+  const orderBy = sort === "address" ? "property_address ASC" : sort === "sale" ? "sale_date ASC" : sort === "id" ? "objectid ASC" : "market_value DESC";
   let total;
   let countAll;
   let rows;
@@ -606,7 +607,7 @@ export const COUNTY_TOOLS = [
             owner: { type: "string", description: "Last assessed owner fragment." },
             min_value: { type: "integer", description: "Minimum assessor market value in dollars." },
             blighted: { type: "boolean", description: "true for parcels the city flagged as blighted, false to exclude them." },
-            sort: { type: "string", enum: ["value", "address", "sale"], description: "Order: market value high to low (default), address, or oldest tax sale first." },
+            sort: { type: "string", enum: ["value", "address", "sale", "id"], description: "Order: market value high to low (default), address, oldest tax sale first, or id (use for full exports)." },
             limit: { type: "integer", minimum: 1, maximum: 400, description: "Rows to return (default 60)." },
             format: { type: "string", enum: ["text", "json", "csv"], description: "text (default), json for raw rows with centroids, or csv for a spreadsheet export (limit up to 5000)." },
           },
