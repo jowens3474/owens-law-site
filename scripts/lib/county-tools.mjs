@@ -510,7 +510,7 @@ function sosTflRow(a, centroid) {
   ].join("\n");
 }
 
-export async function sosTaxForfeited({ area = "", bbox = "", street = "", zip = "", owner = "", min_value = 0, blighted, sort = "value", limit = 60 } = {}) {
+export async function sosTaxForfeited({ area = "", bbox = "", street = "", zip = "", owner = "", min_value = 0, blighted, sort = "value", limit = 60, format = "text" } = {}) {
   const cap = clampInt(limit, 1, 400, 60);
   const key = String(area || "").trim().toLowerCase();
   let env = null;
@@ -560,6 +560,10 @@ export async function sosTaxForfeited({ area = "", bbox = "", street = "", zip =
     "Tax sale date is when the county sold the lien; the owner's two-year redemption ran out and the land matured to the State. " +
     "Anyone may apply to buy through the SOS Tax-Forfeited Land Search (Public Lands Division, 601-359-6393); the city or county can also request a parcel. " +
     "Addresses come from the chancery clerk's certificate and can be a street name only. Cite as 'Secretary of State tax-forfeited inventory'.";
+  if (format === "json") {
+    // Raw rows for a spreadsheet or map: attributes plus the WGS84 centroid.
+    return JSON.stringify({ source: SOS_TFL_LAYER, exported: "2026-05-12", total, filters, rows: rows.map((f) => ({ ...f.attributes, lat: f.centroid?.y ?? null, lon: f.centroid?.x ?? null })) }, null, 1);
+  }
   if (!rows.length) return `${head}\n\n${notes}`;
   return `${head}\n\n${rows.map((f) => sosTflRow(f.attributes, f.centroid)).join("\n")}\n\n${notes}`;
 }
@@ -584,6 +588,7 @@ export const COUNTY_TOOLS = [
             blighted: { type: "boolean", description: "true for parcels the city flagged as blighted, false to exclude them." },
             sort: { type: "string", enum: ["value", "address", "sale"], description: "Order: market value high to low (default), address, or oldest tax sale first." },
             limit: { type: "integer", minimum: 1, maximum: 400, description: "Rows to return (default 60)." },
+            format: { type: "string", enum: ["text", "json"], description: "text (default) or json for raw rows with centroids." },
           },
         },
       },
