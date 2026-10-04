@@ -66,6 +66,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-10-04",
+    title: "Morning Brief: Oct 4 · City's ERP Bid Closes Tuesday; Hinds Budget Lands Monday",
+    dek: "Jackson's search for a new citywide ERP system closes Tuesday at 3:30 p.m., the same week Hinds County supervisors take up court salaries and the DPS tower comes down.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-10-04",
+    views: 0,
+    body: [
+      "City ERP bids close Tuesday afternoon: The City of Jackson's request for proposals for a new Enterprise Resource Planning system, RFP No. 20477-092226, closes Tuesday, Oct. 6 at 3:30 p.m., with sealed proposals due to the City Clerk's office at 219 South President Street. The city's own procurement documents describe a Software-as-a-Service subscription covering stormwater management, project tracking, grant management and financial oversight, with an anticipated project start and go-live date of Oct. 1, 2027. An addendum posted Sept. 30 answers vendor questions and requires compliance with FedRAMP and NIST SP 800-53 security standards. The city encourages MBE/WBE proposals and will weigh diversity commitments as a qualitative factor. It is the largest software procurement on the city's fall calendar.",
+      "Hinds supervisors take up court salaries Monday: The Hinds County Board of Supervisors meets Monday, Oct. 5 at 9 a.m. in the Chancery Court Building, and the agenda is heavy with judicial payroll. Circuit Judge Damon Stevenson asks for an order setting the salary of Court Administrator Debra F. Johnson and for office space; Senior Circuit Judge Winston Kidd seeks an order increasing compensation for Court Administrator Evelyn Hunter and appointing law clerk Damion D. Richardson; Circuit Judge Debra Gibbs asks to set the salary of Deputy Court Administrator Annette Qualls. The board also takes up bid openings and bid approvals, the claims docket, and a year-end closeout carried over from Sept. 30.",
+      "JXN Water signals another rate hike in 2027: A 30-page financial management plan JXN Water filed in August in U.S. District Court outlines a 10% rate increase planned for spring 2027, the Clarion Ledger reported, following the roughly 12% increase that took effect in March 2026 and raised the average residential bill by about $9, from roughly $76 to $85. The plan states the March increase 'improved the system's finances but does not eliminate the need for continued annual increases.' Collections have climbed from 60% in 2023 to 82% in the first half of 2026, with JXN Water collecting $46.2 million of $56.4 million billed. The utility is targeting an 85% collection rate by year's end.",
+      "Sales tax diversions split the metro: August sales tax diversions, the closest thing to a monthly economic read for each city, show Jackson receiving $2,612,443, up 9.5% from $2,385,899 a year earlier, according to Department of Revenue diversion reports. Ridgeland posted the metro's sharpest gain at $1,611,884, up 23.7%, and Byram rose 20.9%. Pearl was the outlier, down 8.6% to $1,166,022, with its fiscal-year-to-date total off 10.5%. Flowood rose 9.8% and Madison 11.4%. Jackson's fiscal-year-to-date total is $5,328,637, up 6.0%, a slower pace than several smaller neighbors, a gap worth watching as the city spends its newly adopted $113 million general fund budget.",
+      "DPS tower comes down this morning: The former Mississippi Department of Public Safety administration tower off Woodrow Wilson Avenue is scheduled for implosion Sunday at 8 a.m., with I-55 southbound at Lakeland Drive and northbound at Fortification Street closing around 7:45 a.m. for roughly 30 minutes, per the Governor's office. DPS Commissioner Sean Tindell said crews are using explosives because the tower's construction ruled out standard equipment. The Mississippi Department of Finance and Administration and the Bureau of Buildings will decide the property's future use, leaving the corner's fate open even as the skyline changes. Hinds County voters also pick a new district attorney Nov. 3.",
+    ],
+  },
+  {
     slug: "ummc-cancer-center-state-street-site-retail-stadium",
     title: "UMMC's $250 Million Cancer Center Is Expected to Break Ground This Month. Nothing on the Record Says the Stadium Has to Go First.",
     dek: "Mississippi Today has described the five-story Cancer Center and Research Institute as located on State Street across from the medical center, with construction starting in late October and an opening about four years out. No plan the Wire could find includes retail. Here is everything on the record about the building, the money, and the land.",
