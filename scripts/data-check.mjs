@@ -111,16 +111,28 @@ const DEFAULT_ARGS = {
   sales_tax_diversions: {},
 };
 
+// With TOOL set, QUERY may be a JSON object of arguments for that one tool
+// (QUERY='{"area":"fondren"}'), and the full result is printed.
+let jsonArgs = null;
+if (only && query && query.startsWith("{")) {
+  try {
+    jsonArgs = JSON.parse(query);
+  } catch (e) {
+    console.log(`QUERY is not valid JSON (${e.message}); using defaults.`);
+  }
+}
+const CAP = only ? 60000 : 3500;
+
 let failures = 0;
 for (const t of DATA_TOOLS) {
   const name = t.function.name;
   if (only && only !== name) continue;
   const started = Date.now();
-  const out = await runDataTool(name, DEFAULT_ARGS[name] || {}, { prefix: "data-check", cl });
+  const out = await runDataTool(name, jsonArgs || DEFAULT_ARGS[name] || {}, { prefix: "data-check", cl });
   const ms = Date.now() - started;
   const bad = /unavailable|failed/i.test(out.split("\n")[0]);
   if (bad) failures++;
   console.log(`\n===== ${name} (${ms} ms) ${bad ? "FAIL" : "OK"} =====`);
-  console.log(out.length > 3500 ? out.slice(0, 3500) + "\n[truncated]" : out);
+  console.log(out.length > CAP ? out.slice(0, CAP) + "\n[truncated]" : out);
 }
 console.log(`\n[data-check] ${failures} tool(s) unavailable.`);

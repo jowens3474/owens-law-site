@@ -444,7 +444,141 @@ export async function hindsLandRecords({ days = 3, types = "WD,QCD", business_on
 
 // --- registration ---------------------------------------------------------------------
 
+// ---------------------------------------------------------------------------
+// Secretary of State tax-forfeited land inventory (Hinds County)
+//
+// Land that went to the county tax sale, was never redeemed, and matured to
+// the State is sold by the Secretary of State's Public Lands Division. The
+// public inventory app (tflgis.sos.ms.gov) draws from hosted ArcGIS layers on
+// the state GIS server; the statewide web map is private, but the Hinds
+// County export is a public feature service with one polygon per active
+// parcel, joined to the county landroll. Query it by bounding box, street,
+// zip, or owner, and link each hit to the SOS parcel page and application.
+// ---------------------------------------------------------------------------
+const SOS_TFL_LAYER =
+  "https://gisserver.its.ms.gov/arcgis/rest/services/Hosted/Hinds_Tax_Forfeit_Properties_May_2026/FeatureServer/0";
+const SOS_TFL_APP = "https://tflgis.sos.ms.gov/";
+const HINDS_LANDROLL_DETAIL = "https://www.co.hinds.ms.us/pgs/apps/landroll_detail.asp?ID=";
+// Rough neighborhood envelopes (west, south, east, north), WGS84.
+const SOS_TFL_AREAS = {
+  fondren: { bbox: [-90.19, 32.326, -90.158, 32.356], note: "Woodrow Wilson to Northside Drive, the rail line to I-55" },
+  belhaven: { bbox: [-90.185, 32.308, -90.165, 32.328], note: "Fortification to Woodrow Wilson, Jefferson St to I-55" },
+  midtown: { bbox: [-90.196, 32.316, -90.184, 32.33], note: "Fortification to Woodrow Wilson, west of the rail line" },
+  downtown: { bbox: [-90.195, 32.29, -90.17, 32.31], note: "Pearl River to Fortification" },
+  eastover: { bbox: [-90.158, 32.33, -90.13, 32.356], note: "I-55 to Ridgewood Road, Lakeland to Northside" },
+};
+
+function sosTflWhere({ street, zip, owner, min_value, blighted }) {
+  const parts = ["status = 'Active'"];
+  const lit = (v) => String(v).replace(/'/g, "''").toUpperCase();
+  if (street) parts.push(`(UPPER(property_address) LIKE '%${lit(street)}%' OR UPPER(legal_description) LIKE '%${lit(street)}%')`);
+  if (zip) parts.push(`property_address LIKE '%${String(zip).replace(/\D/g, "")}%'`);
+  if (owner) parts.push(`UPPER(assessed_owner) LIKE '%${lit(owner)}%'`);
+  if (min_value) parts.push(`market_value >= ${clampInt(min_value, 0, 100000000, 0)}`);
+  if (blighted === true) parts.push("blighted = 'TRUE'");
+  if (blighted === false) parts.push("blighted = 'FALSE'");
+  return parts.join(" AND ");
+}
+
+async function sosTflQuery(params) {
+  const q = new URLSearchParams({ f: "json", outFields: "*", returnGeometry: "false", ...params });
+  const url = `${SOS_TFL_LAYER}/query?${q}`;
+  const { text } = await request(url, { accept: "application/json", json: true });
+  const data = JSON.parse(text);
+  if (data.error) throw new Error(`ArcGIS ${data.error.code}: ${data.error.message}`);
+  return data;
+}
+
+function money(n) {
+  return n == null || Number.isNaN(Number(n)) ? "n/a" : `$${Number(n).toLocaleString("en-US")}`;
+}
+
+function sosTflRow(a) {
+  const addr = (a.property_address || "").replace(/\s+/g, " ").trim() || "(no address on file)";
+  const owner = (a.assessed_owner || "").replace(/\s+/g, " ").trim();
+  const sub = [a.subdivision, a.lot ? `lot ${a.lot}` : "", a.block && a.block !== "-" ? `blk ${a.block}` : ""].filter(Boolean).join(" ");
+  const size = a.acres_1 && Number(a.acres_1) > 0 ? `${a.acres_1} ac` : a.dimension || "";
+  const flags = [a.blighted === "TRUE" ? "blighted" : "", a.bid_property === "TRUE" ? "bid property" : "", a.web === "FALSE" ? "not on web" : ""].filter(Boolean).join(", ");
+  const link = a.link ? `https://${String(a.link).replace(/^https?:\/\//, "")}` : `${SOS_TFL_APP} (search PPIN ${a.ppin})`;
+  return [
+    `- ${addr} | ${money(a.market_value)} | ${size || "size n/a"} | tax sale ${a.sale_date || "n/a"} | last owner ${owner || "n/a"}`,
+    `  ${sub || a.legal_description || ""}${flags ? ` | ${flags}` : ""}`,
+    `  Hinds parcel ${a.parcel_no_ || "n/a"}${a.parcel_no_ ? ` (${HINDS_LANDROLL_DETAIL}${encodeURIComponent(a.parcel_no_)})` : ""} | SOS id ${a.parcel_id} | ${link}`,
+  ].join("\n");
+}
+
+export async function sosTaxForfeited({ area = "", bbox = "", street = "", zip = "", owner = "", min_value = 0, blighted, sort = "value", limit = 60 } = {}) {
+  const cap = clampInt(limit, 1, 400, 60);
+  const key = String(area || "").trim().toLowerCase();
+  let env = null;
+  let envNote = "";
+  if (bbox) {
+    const nums = String(bbox).split(",").map((x) => Number(x.trim()));
+    if (nums.length !== 4 || nums.some((n) => Number.isNaN(n))) return "sos_tax_forfeited unavailable: bbox must be 'west,south,east,north' in decimal degrees.";
+    env = nums;
+    envNote = `bbox ${nums.join(",")}`;
+  } else if (key) {
+    if (!SOS_TFL_AREAS[key]) return `sos_tax_forfeited unavailable: unknown area "${area}". Known areas: ${Object.keys(SOS_TFL_AREAS).join(", ")}; or pass bbox.`;
+    env = SOS_TFL_AREAS[key].bbox;
+    envNote = `${key} (${SOS_TFL_AREAS[key].note})`;
+  }
+  const where = sosTflWhere({ street, zip, owner, min_value, blighted });
+  const geo = env
+    ? { geometry: env.join(","), geometryType: "esriGeometryEnvelope", inSR: "4326", spatialRel: "esriSpatialRelIntersects" }
+    : {};
+  const orderBy = sort === "address" ? "property_address ASC" : sort === "sale" ? "sale_date ASC" : "market_value DESC";
+  let total;
+  let countAll;
+  let rows;
+  try {
+    [total, countAll, rows] = await Promise.all([
+      sosTflQuery({ where, ...geo, returnCountOnly: "true" }).then((d) => d.count),
+      sosTflQuery({ where: "1=1", returnCountOnly: "true" }).then((d) => d.count),
+      sosTflQuery({ where, ...geo, orderByFields: orderBy, resultRecordCount: String(cap) }).then((d) => d.features || []),
+    ]);
+  } catch (e) {
+    return `sos_tax_forfeited unavailable: ${e.message} (${SOS_TFL_LAYER})`;
+  }
+  const filters = [envNote, street ? `street "${street}"` : "", zip ? `zip ${zip}` : "", owner ? `owner "${owner}"` : "", min_value ? `value >= ${money(min_value)}` : "", blighted === true ? "blighted only" : blighted === false ? "not blighted" : ""].filter(Boolean);
+  const head =
+    `Mississippi Secretary of State tax-forfeited inventory, Hinds County (${countAll} active parcels statewide layer export dated May 12, 2026; source ${SOS_TFL_LAYER}). ` +
+    `${total} match${filters.length ? ` ${filters.join(", ")}` : ""}; ${Math.min(total, rows.length)} shown, sorted by ${sort === "address" ? "address" : sort === "sale" ? "oldest tax sale" : "market value, highest first"}.` +
+    (total > rows.length ? ` PARTIAL: raise limit (max 400) or narrow the filter.` : "");
+  const notes =
+    "Market value is the county assessor's figure carried in the SOS export, not an asking price; the SOS sets its own price after an application and appraisal. " +
+    "Tax sale date is when the county sold the lien; the owner's two-year redemption ran out and the land matured to the State. " +
+    "Anyone may apply to buy through the SOS Tax-Forfeited Land Search (Public Lands Division, 601-359-6393); the city or county can also request a parcel. " +
+    "Addresses come from the chancery clerk's certificate and can be a street name only. Cite as 'Secretary of State tax-forfeited inventory'.";
+  if (!rows.length) return `${head}\n\n${notes}`;
+  return `${head}\n\n${rows.map((f) => sosTflRow(f.attributes)).join("\n")}\n\n${notes}`;
+}
+
 export const COUNTY_TOOLS = [
+  {
+    spec: {
+      type: "function",
+      function: {
+        name: "sos_tax_forfeited",
+        description:
+          "Mississippi Secretary of State inventory of tax-forfeited land in Hinds County: parcels sold at the county tax sale, never redeemed, and matured to the State, now for sale by the Public Lands Division. One row per active parcel with address, assessor market value, lot size, tax sale date, last owner, blight flag, Hinds parcel number, and the SOS parcel link. Filter by neighborhood preset (fondren, belhaven, midtown, downtown, eastover), a bbox, street, zip, or owner. Cite as 'Secretary of State tax-forfeited inventory'.",
+        parameters: {
+          type: "object",
+          properties: {
+            area: { type: "string", description: "Neighborhood preset: fondren, belhaven, midtown, downtown, or eastover." },
+            bbox: { type: "string", description: "Custom envelope 'west,south,east,north' in decimal degrees; overrides area." },
+            street: { type: "string", description: "Street name fragment matched against the address and legal description, e.g. 'DULING'." },
+            zip: { type: "string", description: "ZIP code fragment, e.g. '39216'." },
+            owner: { type: "string", description: "Last assessed owner fragment." },
+            min_value: { type: "integer", description: "Minimum assessor market value in dollars." },
+            blighted: { type: "boolean", description: "true for parcels the city flagged as blighted, false to exclude them." },
+            sort: { type: "string", enum: ["value", "address", "sale"], description: "Order: market value high to low (default), address, or oldest tax sale first." },
+            limit: { type: "integer", minimum: 1, maximum: 400, description: "Rows to return (default 60)." },
+          },
+        },
+      },
+    },
+    run: (args) => sosTaxForfeited(args),
+  },
   {
     spec: {
       type: "function",
