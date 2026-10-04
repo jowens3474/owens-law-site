@@ -483,8 +483,7 @@ function sosTflWhere({ street, zip, owner, min_value, blighted }) {
 async function sosTflQuery(params) {
   const q = new URLSearchParams({ f: "json", outFields: "*", returnGeometry: "false", ...params });
   const url = `${SOS_TFL_LAYER}/query?${q}`;
-  const { text } = await request(url, { accept: "application/json", json: true });
-  const data = JSON.parse(text);
+  const data = await request(url, { json: true });
   if (data.error) throw new Error(`ArcGIS ${data.error.code}: ${data.error.message}`);
   return data;
 }
