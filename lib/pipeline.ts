@@ -11,6 +11,7 @@ import { todayLocalIso } from "./posts";
 
 export type Stage =
   | "proposed"
+  | "undecided"
   | "approved"
   | "under-construction"
   | "opening"
@@ -21,6 +22,7 @@ export const STAGE_LABEL: Record<Stage, string> = {
   approved: "Approved",
   "under-construction": "Under construction",
   opening: "Opening soon",
+  undecided: "Undecided",
   stalled: "Stalled",
 };
 
@@ -29,6 +31,7 @@ export const STAGE_ORDER: Stage[] = [
   "opening",
   "approved",
   "proposed",
+  "undecided",
   "stalled",
 ];
 
@@ -46,6 +49,7 @@ export interface Project {
 export type MilestoneKind =
   | "vote"
   | "groundbreaking"
+  | "demolition"
   | "deadline"
   | "election"
   | "opening"
@@ -101,7 +105,7 @@ export const PROJECTS: Project[] = [
   {
     name: "UMMC Cancer Center and Research Institute",
     developer: "University of Mississippi Medical Center",
-    location: "UMMC campus, Woodrow Wilson Avenue and North State Street, Jackson",
+    location: "UMMC campus, Jackson",
     investment: "$250M: $100M state capital funds, $125M private campaign (80% raised)",
     stage: "approved",
     status:
@@ -113,9 +117,9 @@ export const PROJECTS: Project[] = [
     name: "Former Department of Public Safety headquarters site",
     developer: "State of Mississippi (Department of Finance and Administration)",
     location: "1900 East Woodrow Wilson Avenue at I-55, Jackson",
-    stage: "proposed",
+    stage: "undecided",
     status:
-      "The 1976 tower was imploded Oct. 4, 2026 after DPS moved to a $70 million headquarters in Pearl. Commissioner Sean Tindell floated a hotel or mixed-use project serving the hospital district; the Department of Finance and Administration will decide, and no process has been announced.",
+      "The 1976 tower was imploded Oct. 4, 2026 after DPS moved to a $70 million headquarters in Pearl. Commissioner Sean Tindell floated a hotel or mixed-use project serving the hospital district; the Department of Finance and Administration will decide, and no proposal has been announced.",
     next: "A Bureau of Buildings appraisal, notice, or legislative authorization for the land.",
     slugs: ["dps-tower-implosion-woodrow-wilson-what-comes-next"],
   },
@@ -257,8 +261,8 @@ export const MILESTONES: Milestone[] = [
   },
   {
     date: "2026-10-04",
-    kind: "deadline",
-    text: "The former Department of Public Safety tower at I-55 and Woodrow Wilson Avenue is imploded; the state has no plan for the land.",
+    kind: "demolition",
+    text: "The former Department of Public Safety tower at I-55 and Woodrow Wilson Avenue is imploded; no plan for the land has been announced.",
     slug: "dps-tower-implosion-woodrow-wilson-what-comes-next",
   },
   {
