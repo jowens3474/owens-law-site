@@ -44,6 +44,16 @@ if (only === "probe") {
         const { text } = await fetchUrl(url).catch((e) => ({ text: `fetchUrl failed: ${e.message}` }));
         console.log(`--- pdf text (${text.length} chars) ---`);
         console.log(text.slice(0, 5000));
+        if (filter) {
+          // "url#regex" on a PDF prints the passages that match, as for HTML.
+          const paras = text.split(/\n+|(?<=\.)\s{2,}/).map((l) => l.trim()).filter(Boolean);
+          const hits = [];
+          paras.forEach((p, i) => {
+            if (filter.test(p)) hits.push(paras.slice(Math.max(0, i - 1), i + 2).join("\n"));
+          });
+          console.log(`--- pdf passages matching ${filter} (${hits.length}) ---`);
+          console.log([...new Set(hits)].join("\n…\n").slice(0, 12000));
+        }
         continue;
       }
       if (/json/.test(ct)) {
