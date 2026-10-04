@@ -106,6 +106,13 @@ Three feeds added after the first round, all keyless:
 | `rankin_supervisors` | Rankin County's CivicClerk API: meetings with agenda, packet, and minutes files, first 9,000 characters of the newest agenda |
 | `mdeq_permits` | MDEQ enSearch "recently issued permits" report, filtered by county column to Hinds, Madison, and Rankin |
 | `psc_dockets` | Public Service Commission monthly Utility and Consent docket PDFs, split into docket items, those mentioning metro utilities |
+| `sos_tax_forfeited` | Secretary of State tax-forfeited land inventory for Hinds County: the public hosted ArcGIS layer behind tflgis.sos.ms.gov (export dated May 12, 2026, about 2,450 active parcels), queried by neighborhood preset, bbox, street, zip, or owner; rows carry address, assessor value, size, tax sale date, last owner, blight flag, Hinds parcel number, SOS parcel link, and a map pin |
+
+The Secretary of State's main site (sos.ms.gov) sits behind Akamai and
+answers a browser-like user agent with 403, but a plain agent gets through;
+its statewide tax-forfeited web map is private, while the Hinds County and
+City of Jackson exports on the state GIS server (gisserver.its.ms.gov) are
+public feature services, which is what `sos_tax_forfeited` reads.
 
 The statewide public-notice site run by the Mississippi Press Association
 refuses connections from GitHub's network, so county-level foreclosure and
