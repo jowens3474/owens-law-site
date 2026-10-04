@@ -11,6 +11,7 @@ import { todayLocalIso } from "./posts";
 
 export type Stage =
   | "proposed"
+  | "undecided"
   | "approved"
   | "under-construction"
   | "opening"
@@ -21,6 +22,7 @@ export const STAGE_LABEL: Record<Stage, string> = {
   approved: "Approved",
   "under-construction": "Under construction",
   opening: "Opening soon",
+  undecided: "Undecided",
   stalled: "Stalled",
 };
 
@@ -29,6 +31,7 @@ export const STAGE_ORDER: Stage[] = [
   "opening",
   "approved",
   "proposed",
+  "undecided",
   "stalled",
 ];
 
@@ -45,6 +48,8 @@ export interface Project {
 
 export type MilestoneKind =
   | "vote"
+  | "groundbreaking"
+  | "demolition"
   | "deadline"
   | "election"
   | "opening"
@@ -96,6 +101,27 @@ export const PROJECTS: Project[] = [
       "Ground broke in April 2026. Average rents are planned near $2,100 a month, about twice the city's median.",
     next: "Delivery in fall 2027.",
     slugs: ["flats-at-fondren-rent-double-jackson-median"],
+  },
+  {
+    name: "UMMC Cancer Center and Research Institute",
+    developer: "University of Mississippi Medical Center",
+    location: "UMMC campus, Jackson",
+    investment: "$250M: $100M state capital funds, $125M private campaign (80% raised)",
+    stage: "approved",
+    status:
+      "The Legislature appropriated $100 million in the FY2027 budget signed in April 2026; private gifts passed 80 percent of the $125 million goal with Regions Bank's $2.5 million on Oct. 1. A five-story, 250,000-square-foot building aimed at a National Cancer Institute designation.",
+    next: "Groundbreaking, which WLBT reported is expected within a month of Oct. 1.",
+    slugs: ["dps-tower-implosion-woodrow-wilson-what-comes-next"],
+  },
+  {
+    name: "Former Department of Public Safety headquarters site",
+    developer: "State of Mississippi (Department of Finance and Administration)",
+    location: "1900 East Woodrow Wilson Avenue at I-55, Jackson",
+    stage: "undecided",
+    status:
+      "The 1976 tower was imploded Oct. 4, 2026 after DPS moved to a $70 million headquarters in Pearl. Commissioner Sean Tindell floated a hotel or mixed-use project serving the hospital district; the Department of Finance and Administration will decide, and no proposal has been announced.",
+    next: "A Bureau of Buildings appraisal, notice, or legislative authorization for the land.",
+    slugs: ["dps-tower-implosion-woodrow-wilson-what-comes-next"],
   },
   {
     name: "Vieux Carre expansion and medical office building",
@@ -232,6 +258,19 @@ export const MILESTONES: Milestone[] = [
     kind: "vote",
     text: "Jackson City Council can take up the landfill fee ordinance ($10 a ton residents, $20 commercial) for adoption at a regular meeting in October.",
     slug: "jackson-landfill-reopening-10-dollars-a-ton-too-cheap-economics",
+  },
+  {
+    date: "2026-10-04",
+    kind: "demolition",
+    text: "The former Department of Public Safety tower at I-55 and Woodrow Wilson Avenue is imploded; no plan for the land has been announced.",
+    slug: "dps-tower-implosion-woodrow-wilson-what-comes-next",
+  },
+  {
+    date: "2026-11-01",
+    approx: true,
+    kind: "groundbreaking",
+    text: "UMMC expects to break ground on its $250 million Cancer Center and Research Institute.",
+    slug: "dps-tower-implosion-woodrow-wilson-what-comes-next",
   },
   {
     date: "2026-11-03",

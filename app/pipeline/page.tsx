@@ -51,6 +51,8 @@ function SectionHeading({ children }: { children: React.ReactNode }) {
 
 const KIND_LABEL: Record<string, string> = {
   vote: "Vote",
+  groundbreaking: "Groundbreaking",
+  demolition: "Demolition",
   deadline: "Deadline",
   election: "Election",
   opening: "Opening",
