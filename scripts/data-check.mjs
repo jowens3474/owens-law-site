@@ -18,7 +18,16 @@ if (only === "probe") {
     // which separates URLs in QUERY.
     const hash = spec.indexOf("#");
     const url = hash > 0 ? spec.slice(0, hash) : spec;
-    const filter = hash > 0 ? new RegExp(spec.slice(hash + 1), "i") : null;
+    let filter = null;
+    if (hash > 0) {
+      // A bad pattern (an unbalanced group, an inline flag JavaScript lacks)
+      // must not abort the whole run; report it and probe the URL unfiltered.
+      try {
+        filter = new RegExp(spec.slice(hash + 1), "i");
+      } catch (e) {
+        console.log(`\n===== PROBE ${url}: bad regex ${JSON.stringify(spec.slice(hash + 1))} (${e.message}); probing unfiltered =====`);
+      }
+    }
     console.log(`\n===== PROBE ${url}${filter ? ` (links matching ${filter})` : ""} =====`);
     try {
       // A browser-like agent: some state sites answer bots with a 404 page.
