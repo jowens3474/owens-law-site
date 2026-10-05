@@ -66,6 +66,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-10-05",
+    title: "Morning Brief: Oct 5 · Council's Tuesday Agenda Packs a Fee Hike, a Settlement, and Chicago Flights",
+    dek: "Jackson's Council meets Tuesday with a solid waste fee ordinance, a federal air service grant for Chicago, and a downtown tax district hearing all on one agenda, while a $38.5 million South Jackson sports complex gets a spring groundbreaking date.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-10-05",
+    views: 0,
+    body: [
+      "Council agenda carries fee hike and settlement: Tuesday's 10 a.m. Council meeting opens with an ordinance amending solid waste facility disposal fees, Section 106-148 of the city code, sponsored by Anderson and Horhn, the agenda shows. The same agenda lists an order authorizing full and final settlement in Jessica Mason v. City of Jackson, Civil Action No. 3:25-cv-352, in federal court in the Southern District. Also up: an order declaring three parcels near the Pearl River off Highway 55 surplus and letting the mayor negotiate a sale option. The meeting is noticed as a teleconference. The fee ordinance is the item to watch for anyone with a commercial disposal contract.",
+      "Athletic center sets spring groundbreaking: Former NBA player Erick Dampier expects to break ground next spring on the Mississippi Athletic Center at the former Jackson Square Promenade, the Clarion Ledger reported Monday. The $38.5 million project would put a 200,000-square-foot indoor facility on a vacant 33-acre site, with basketball and volleyball courts, health clinics, tenant space and a hotel. A feasibility study projects $20 million to $30 million in annual economic activity for South Jackson. Dampier and partner Karla McCullough said they are still sourcing additional funding. The project was first announced three years ago and originally slated to start earlier this year.",
+      "Airport grant for Chicago flights on the table: The Council will take up a resolution authorizing the Jackson Municipal Airport Authority to accept a U.S. Department of Transportation grant under the Small Community Air Service Development Program, FAIN 69A34524400070027, to support restoring service between Jackson-Medgar Wiley Evers International and Chicago O'Hare. The item is sponsored by D. Martin and Horhn. It lands as the airport pursues a route it lost years ago. Separately, the agenda includes an order setting a public hearing on the district plan for the Downtown Jackson Business Improvement District under the BID Act, a step toward formalizing the downtown assessment district.",
+      "Sales tax diversions show metro split: August sales tax diversions, the closest thing to a monthly economic read for each city, show Jackson at $2,612,443, up 9.5 percent from $2,385,899 a year earlier, per Department of Revenue reports. Ridgeland led the metro at plus 23.7 percent, to $1,611,884. Flowood rose 9.8 percent and Madison 11.4 percent. Pearl fell 8.6 percent, to $1,166,022, and Canton slipped 2.1 percent. Fiscal-year-to-date, Jackson is up 6.0 percent. The spread matters for budget writers: the suburbs are pulling away from the core on the same regional economy.",
+      "Farish Street Green opens as redevelopment clock runs: The Farish Street Green opened Monday morning on the historic Black commercial corridor, bringing green infrastructure and cooling to a district that has waited decades for momentum, the Mississippi Free Press reported. The Jackson Redevelopment Authority put out a call for community input on Sept. 1 and is soliciting proposals for the acquisition and redevelopment of JRA-owned properties in the 200 and 300 blocks of North Farish Street. Responses are due Oct. 30 at 4 p.m. Central. A bookstore is expected nearby, murals are planned, and a residential building is under construction on the street.",
+    ],
+  },
+  {
     slug: "jackson-council-oct-6-airport-chicago-grant-bid-hearing",
     title: "Jackson's Council Votes Tuesday on a $1 Million Grant to Win Back Chicago Flights, and Sets a Hearing on a New Downtown Tax District",
     dek: "The Oct. 6 agenda asks the council to accept a federal Small Community Air Service Development grant for Jackson-Medgar Wiley Evers and to schedule a public hearing on the Downtown Jackson Business Improvement District's district plan. Both are money decisions with named payers.",
