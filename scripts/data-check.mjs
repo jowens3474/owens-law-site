@@ -9,6 +9,24 @@ import { fetchUrl } from "./lib/fetch-url.mjs";
 const only = process.env.TOOL?.trim();
 const query = process.env.QUERY?.trim();
 
+// TOOL=fetch QUERY="url1|url2": print each response body in full (up to 6 MB),
+// for pulling a data file (GeoJSON, CSV) off a runner that can reach it.
+if (only === "fetch") {
+  for (const url of (query || "").split("|").map((u) => u.trim()).filter(Boolean)) {
+    console.log(`\n===== FETCH ${url} =====`);
+    try {
+      const res = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) TheJacksonWire/1.0", Accept: "*/*" } });
+      const body = await res.text();
+      console.log(`HTTP ${res.status} ${res.headers.get("content-type") || ""} length=${body.length}`);
+      console.log(body.slice(0, 6_000_000));
+      console.log("===== END FETCH =====");
+    } catch (e) {
+      console.log(`fetch failed: ${e.message}`);
+    }
+  }
+  process.exit(0);
+}
+
 // TOOL=probe QUERY="url1|url2": print each page's links and a text excerpt
 // so a new source can be understood from a runner before a tool is written.
 if (only === "probe") {
