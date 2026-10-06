@@ -207,6 +207,17 @@ export const PROJECTS: Project[] = [
     next: "A site decision by the council.",
     slugs: ["jacksons-4-million-library-grant-clock-ticking"],
   },
+  {
+    name: "Museum Trail: downtown connector, Lakeland Drive bridge, extension to Jackson State",
+    developer: "Jackson Heart Foundation, Greater Belhaven Neighborhood Foundation, Great City Mississippi Foundation, City of Jackson, MDOT",
+    location: "GM&O Depot on East Pearl Street north to LeFleur's Bluff; planned west to Jackson State",
+    investment: "About $10M identified: $1.6M original trail, $213K Eastover leg, $588K federal planning grant, $8M bridge ($5M federal)",
+    stage: "under-construction",
+    status:
+      "The Capitol Green Connector downtown is expected to finish construction in October 2026 after slipping from a spring target, and the $8 million pedestrian bridge over Lakeland Drive broke ground Aug. 19, 2026. The 2.5-mile western extension to Jackson State has a planning grant but no construction money.",
+    next: "Opening of the downtown connector, then a construction funding source for the leg to Jackson State.",
+    slugs: ["museum-trail-downtown-connector-lakeland-bridge-eastover-beltline"],
+  },
 ];
 
 export const MILESTONES: Milestone[] = [
@@ -273,6 +284,13 @@ export const MILESTONES: Milestone[] = [
     slug: "ummc-cancer-center-state-street-site-retail-stadium",
   },
   {
+    date: "2026-10-31",
+    approx: true,
+    kind: "opening",
+    text: "Capitol Green Connector, the Museum Trail's downtown entrance between the GM&O Depot and Hal & Mal's, expected to finish construction in October per WLBT.",
+    slug: "museum-trail-downtown-connector-lakeland-bridge-eastover-beltline",
+  },
+  {
     date: "2026-11-03",
     kind: "election",
     text: "Jackson voters decide a 0.5% prepared-food tax increase and a 1% lodging tax increase for Visit Jackson, the first change since 1983.",
@@ -298,6 +316,13 @@ export const MILESTONES: Milestone[] = [
     kind: "rate",
     text: "JXN Water's financial plan projects a 10% rate increase in spring 2027, with further hikes in 2028 and 2029.",
     slug: "jxn-water-files-plan-another-10-percent-rate-hike-spring-2027",
+  },
+  {
+    date: "2027-06-30",
+    approx: true,
+    kind: "opening",
+    text: "Lakeland Drive pedestrian bridge linking the Museum Trail and LeFleur East Trail due 'sometime next year' per officials at the Aug. 19, 2026 groundbreaking.",
+    slug: "museum-trail-downtown-connector-lakeland-bridge-eastover-beltline",
   },
   {
     date: "2027-10-01",
