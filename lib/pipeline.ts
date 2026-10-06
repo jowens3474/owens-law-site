@@ -211,10 +211,10 @@ export const PROJECTS: Project[] = [
     name: "Museum Trail: downtown connector, Lakeland Drive bridge, extension to Jackson State",
     developer: "Jackson Heart Foundation, Greater Belhaven Neighborhood Foundation, Great City Mississippi Foundation, City of Jackson, MDOT",
     location: "GM&O Depot on East Pearl Street north to LeFleur's Bluff; planned west to Jackson State",
-    investment: "About $10M identified: $1.6M original trail, $213K Eastover leg, $588K federal planning grant, $8M bridge ($5M federal)",
+    investment: "About $10M identified: $1.6M original trail, $213K Eastover leg, $588K federal planning grant, $8M bridge ($5M federal); excludes the downtown connector, whose cost is unconfirmed",
     stage: "under-construction",
     status:
-      "The Capitol Green Connector downtown is expected to finish construction in October 2026 after slipping from a spring target, and the $8 million pedestrian bridge over Lakeland Drive broke ground Aug. 19, 2026. The 2.5-mile western extension to Jackson State has a planning grant but no construction money.",
+      "The Capitol Green Connector downtown is expected to finish construction in October 2026 after an earlier spring-or-summer target, and the $8 million pedestrian bridge over Lakeland Drive broke ground Aug. 19, 2026. The 2.5-mile western extension to Jackson State has a planning grant, and the Wire found no construction money on the record.",
     next: "Opening of the downtown connector, then a construction funding source for the leg to Jackson State.",
     slugs: ["museum-trail-downtown-connector-lakeland-bridge-eastover-beltline"],
   },
@@ -287,7 +287,7 @@ export const MILESTONES: Milestone[] = [
     date: "2026-10-31",
     approx: true,
     kind: "opening",
-    text: "Capitol Green Connector, the Museum Trail's downtown entrance between the GM&O Depot and Hal & Mal's, expected to finish construction in October per WLBT.",
+    text: "Capitol Green Connector, the Museum Trail's downtown entrance between the GM&O Depot and Hal & Mal's, expected to open after construction finishes in October, per WLBT.",
     slug: "museum-trail-downtown-connector-lakeland-bridge-eastover-beltline",
   },
   {
@@ -321,7 +321,7 @@ export const MILESTONES: Milestone[] = [
     date: "2027-06-30",
     approx: true,
     kind: "opening",
-    text: "Lakeland Drive pedestrian bridge linking the Museum Trail and LeFleur East Trail due 'sometime next year' per officials at the Aug. 19, 2026 groundbreaking.",
+    text: "Lakeland Drive pedestrian bridge linking the Museum Trail and LeFleur East Trail due 'sometime next year,' per WLBT's report on the Aug. 19, 2026 groundbreaking.",
     slug: "museum-trail-downtown-connector-lakeland-bridge-eastover-beltline",
   },
   {
