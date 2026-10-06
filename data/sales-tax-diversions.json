@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05",
+  "updated": "2026-10-06",
   "cities": [
     "Jackson",
     "Ridgeland",
@@ -19,6 +19,864 @@
     "Pelahatchie"
   ],
   "months": {
+    "2010-05": {
+      "Jackson": {
+        "amount": 2454579.52,
+        "fytd": 27754685.18
+      },
+      "Ridgeland": {
+        "amount": 867155.96,
+        "fytd": 10340694.23
+      },
+      "Madison": {
+        "amount": 374585.67,
+        "fytd": 4110622.08
+      },
+      "Flowood": {
+        "amount": 751365.46,
+        "fytd": 8282062.6
+      },
+      "Pearl": {
+        "amount": 642295.94,
+        "fytd": 6753876.97
+      },
+      "Brandon": {
+        "amount": 389598.94,
+        "fytd": 4054393.57
+      },
+      "Clinton": {
+        "amount": 349278.53,
+        "fytd": 3753722.06
+      },
+      "Byram": {
+        "amount": 119220.23,
+        "fytd": 1128098.33
+      },
+      "Canton": {
+        "amount": 185555.45,
+        "fytd": 1839978.22
+      },
+      "Richland": {
+        "amount": 328449.39,
+        "fytd": 3445270.39
+      },
+      "Florence": {
+        "amount": 54861.48,
+        "fytd": 541762.77
+      },
+      "Raymond": {
+        "amount": 16082.52,
+        "fytd": 191041.95
+      },
+      "Terry": {
+        "amount": 20196.48,
+        "fytd": 245454.83
+      },
+      "Edwards": {
+        "amount": 5097.58,
+        "fytd": 59412.09
+      },
+      "Bolton": {
+        "amount": 9598.39,
+        "fytd": 100041.64
+      },
+      "Pelahatchie": {
+        "amount": 27048.47,
+        "fytd": 262838.47
+      }
+    },
+    "2010-06": {
+      "Jackson": {
+        "amount": 2556879.8,
+        "fytd": 30311564.98
+      },
+      "Ridgeland": {
+        "amount": 947247.55,
+        "fytd": 11287941.78
+      },
+      "Madison": {
+        "amount": 415711.17,
+        "fytd": 4526333.25
+      },
+      "Flowood": {
+        "amount": 807770.42,
+        "fytd": 9089833.02
+      },
+      "Pearl": {
+        "amount": 643346.31,
+        "fytd": 7397223.28
+      },
+      "Brandon": {
+        "amount": 395588.74,
+        "fytd": 4449982.31
+      },
+      "Clinton": {
+        "amount": 338928.59,
+        "fytd": 4092650.65
+      },
+      "Byram": {
+        "amount": 123089.54,
+        "fytd": 1251187.87
+      },
+      "Canton": {
+        "amount": 197777.91,
+        "fytd": 2037756.13
+      },
+      "Richland": {
+        "amount": 363051.25,
+        "fytd": 3808321.64
+      },
+      "Florence": {
+        "amount": 50922.22,
+        "fytd": 592684.99
+      },
+      "Raymond": {
+        "amount": 26482.88,
+        "fytd": 217524.83
+      },
+      "Terry": {
+        "amount": 23717.18,
+        "fytd": 269172.01
+      },
+      "Edwards": {
+        "amount": 5372.3,
+        "fytd": 64784.39
+      },
+      "Bolton": {
+        "amount": 9403.2,
+        "fytd": 109444.84
+      },
+      "Pelahatchie": {
+        "amount": 25973.5,
+        "fytd": 288811.97
+      }
+    },
+    "2010-08": {
+      "Jackson": {
+        "amount": 2494540.63,
+        "fytd": 5097642.58
+      },
+      "Ridgeland": {
+        "amount": 895820.92,
+        "fytd": 1839006.52
+      },
+      "Madison": {
+        "amount": 413259.26,
+        "fytd": 805494.44
+      },
+      "Flowood": {
+        "amount": 747949.09,
+        "fytd": 1542220.86
+      },
+      "Pearl": {
+        "amount": 662449.1,
+        "fytd": 1321232.69
+      },
+      "Brandon": {
+        "amount": 407993.28,
+        "fytd": 799955.81
+      },
+      "Clinton": {
+        "amount": 344492.45,
+        "fytd": 682007.07
+      },
+      "Byram": {
+        "amount": 119040.57,
+        "fytd": 242086
+      },
+      "Canton": {
+        "amount": 185450.07,
+        "fytd": 370476.87
+      },
+      "Richland": {
+        "amount": 358450.4,
+        "fytd": 692264.28
+      },
+      "Florence": {
+        "amount": 53382.33,
+        "fytd": 110853.55
+      },
+      "Raymond": {
+        "amount": 16535.63,
+        "fytd": 33067.73
+      },
+      "Terry": {
+        "amount": 21165.05,
+        "fytd": 39838.11
+      },
+      "Edwards": {
+        "amount": 5092.89,
+        "fytd": 10768.96
+      },
+      "Bolton": {
+        "amount": 9919.6,
+        "fytd": 19400.85
+      },
+      "Pelahatchie": {
+        "amount": 32966.62,
+        "fytd": 60986.93
+      }
+    },
+    "2010-09": {
+      "Jackson": {
+        "amount": 2426566.39,
+        "fytd": 7524208.97
+      },
+      "Ridgeland": {
+        "amount": 897918.79,
+        "fytd": 2736925.31
+      },
+      "Madison": {
+        "amount": 388629.6,
+        "fytd": 1194124.04
+      },
+      "Flowood": {
+        "amount": 773308.4,
+        "fytd": 2315529.26
+      },
+      "Pearl": {
+        "amount": 659862.52,
+        "fytd": 1981095.21
+      },
+      "Brandon": {
+        "amount": 389564.02,
+        "fytd": 1189519.83
+      },
+      "Clinton": {
+        "amount": 316170.01,
+        "fytd": 998177.08
+      },
+      "Byram": {
+        "amount": 109452.92,
+        "fytd": 351538.92
+      },
+      "Canton": {
+        "amount": 169376.45,
+        "fytd": 539853.32
+      },
+      "Richland": {
+        "amount": 326767.68,
+        "fytd": 1019031.96
+      },
+      "Florence": {
+        "amount": 55588.19,
+        "fytd": 166441.74
+      },
+      "Raymond": {
+        "amount": 15564.95,
+        "fytd": 48632.68
+      },
+      "Terry": {
+        "amount": 23626.25,
+        "fytd": 63464.36
+      },
+      "Edwards": {
+        "amount": 4603.2,
+        "fytd": 15372.16
+      },
+      "Bolton": {
+        "amount": 9119.38,
+        "fytd": 28520.23
+      },
+      "Pelahatchie": {
+        "amount": 27847.29,
+        "fytd": 88834.22
+      }
+    },
+    "2010-10": {
+      "Jackson": {
+        "amount": 2534382.26,
+        "fytd": 10058591.23
+      },
+      "Ridgeland": {
+        "amount": 921354.33,
+        "fytd": 3658279.64
+      },
+      "Madison": {
+        "amount": 332317.62,
+        "fytd": 1526441.66
+      },
+      "Flowood": {
+        "amount": 758085.51,
+        "fytd": 3073614.77
+      },
+      "Pearl": {
+        "amount": 614920.33,
+        "fytd": 2596015.54
+      },
+      "Brandon": {
+        "amount": 384846.52,
+        "fytd": 1574366.35
+      },
+      "Clinton": {
+        "amount": 319880.65,
+        "fytd": 1318057.73
+      },
+      "Byram": {
+        "amount": 125169.27,
+        "fytd": 476708.19
+      },
+      "Canton": {
+        "amount": 238585.73,
+        "fytd": 778439.05
+      },
+      "Richland": {
+        "amount": 317752,
+        "fytd": 1336783.96
+      },
+      "Florence": {
+        "amount": 50859.35,
+        "fytd": 217301.09
+      },
+      "Raymond": {
+        "amount": 18357.74,
+        "fytd": 66990.42
+      },
+      "Terry": {
+        "amount": 21393.79,
+        "fytd": 84858.15
+      },
+      "Edwards": {
+        "amount": 5881.92,
+        "fytd": 21254.08
+      },
+      "Bolton": {
+        "amount": 9609.84,
+        "fytd": 38130.07
+      },
+      "Pelahatchie": {
+        "amount": 27158.64,
+        "fytd": 115992.86
+      }
+    },
+    "2010-11": {
+      "Jackson": {
+        "amount": 2459471.01,
+        "fytd": 12518062.24
+      },
+      "Ridgeland": {
+        "amount": 887520.11,
+        "fytd": 4545799.75
+      },
+      "Madison": {
+        "amount": 394570.55,
+        "fytd": 1921012.21
+      },
+      "Flowood": {
+        "amount": 743714.33,
+        "fytd": 3817329.1
+      },
+      "Pearl": {
+        "amount": 602497.44,
+        "fytd": 3198512.98
+      },
+      "Brandon": {
+        "amount": 369876.3,
+        "fytd": 1944242.65
+      },
+      "Clinton": {
+        "amount": 323950.39,
+        "fytd": 1642008.12
+      },
+      "Byram": {
+        "amount": 115290.71,
+        "fytd": 591998.9
+      },
+      "Canton": {
+        "amount": 177864.09,
+        "fytd": 956303.14
+      },
+      "Richland": {
+        "amount": 340275.55,
+        "fytd": 1677059.51
+      },
+      "Florence": {
+        "amount": 52276.83,
+        "fytd": 269577.92
+      },
+      "Raymond": {
+        "amount": 18869.83,
+        "fytd": 85860.25
+      },
+      "Terry": {
+        "amount": 23334.82,
+        "fytd": 108192.97
+      },
+      "Edwards": {
+        "amount": 5540.22,
+        "fytd": 26794.3
+      },
+      "Bolton": {
+        "amount": 9613.27,
+        "fytd": 47743.34
+      },
+      "Pelahatchie": {
+        "amount": 26545.14,
+        "fytd": 142538
+      }
+    },
+    "2010-12": {
+      "Jackson": {
+        "amount": 2429877.81,
+        "fytd": 14947940.05
+      },
+      "Ridgeland": {
+        "amount": 925848.86,
+        "fytd": 5471648.61
+      },
+      "Madison": {
+        "amount": 397473.91,
+        "fytd": 2318486.12
+      },
+      "Flowood": {
+        "amount": 828600.12,
+        "fytd": 4645929.22
+      },
+      "Pearl": {
+        "amount": 595272.87,
+        "fytd": 3793785.85
+      },
+      "Brandon": {
+        "amount": 311988.31,
+        "fytd": 2256230.96
+      },
+      "Clinton": {
+        "amount": 301431.06,
+        "fytd": 1943439.18
+      },
+      "Byram": {
+        "amount": 110676.39,
+        "fytd": 702675.29
+      },
+      "Canton": {
+        "amount": 156253.24,
+        "fytd": 1112556.38
+      },
+      "Richland": {
+        "amount": 321775.55,
+        "fytd": 1998835.06
+      },
+      "Florence": {
+        "amount": 51458.23,
+        "fytd": 321036.15
+      },
+      "Raymond": {
+        "amount": 14071.11,
+        "fytd": 99931.36
+      },
+      "Terry": {
+        "amount": 21645.83,
+        "fytd": 129838.8
+      },
+      "Edwards": {
+        "amount": 4162.08,
+        "fytd": 30956.38
+      },
+      "Bolton": {
+        "amount": 6494.23,
+        "fytd": 54237.57
+      },
+      "Pelahatchie": {
+        "amount": 23116.46,
+        "fytd": 165654.46
+      }
+    },
+    "2011-01": {
+      "Jackson": {
+        "amount": 2995363.15,
+        "fytd": 17943303.2
+      },
+      "Ridgeland": {
+        "amount": 1300243.46,
+        "fytd": 6771892.07
+      },
+      "Madison": {
+        "amount": 622339.82,
+        "fytd": 2940825.94
+      },
+      "Flowood": {
+        "amount": 1136938.84,
+        "fytd": 5782868.06
+      },
+      "Pearl": {
+        "amount": 739387.13,
+        "fytd": 4533172.98
+      },
+      "Brandon": {
+        "amount": 493463.64,
+        "fytd": 2749694.6
+      },
+      "Clinton": {
+        "amount": 442080.68,
+        "fytd": 2385519.86
+      },
+      "Byram": {
+        "amount": 147834.99,
+        "fytd": 850510.28
+      },
+      "Canton": {
+        "amount": 187780.56,
+        "fytd": 1300336.94
+      },
+      "Richland": {
+        "amount": 369042.53,
+        "fytd": 2367877.59
+      },
+      "Florence": {
+        "amount": 59158.95,
+        "fytd": 380195.1
+      },
+      "Raymond": {
+        "amount": 18766.23,
+        "fytd": 118697.59
+      },
+      "Terry": {
+        "amount": 25071.29,
+        "fytd": 154910.09
+      },
+      "Edwards": {
+        "amount": 5871.45,
+        "fytd": 36827.83
+      },
+      "Bolton": {
+        "amount": 8162.83,
+        "fytd": 62400.4
+      },
+      "Pelahatchie": {
+        "amount": 26910.05,
+        "fytd": 192564.51
+      }
+    },
+    "2011-02": {
+      "Jackson": {
+        "amount": 2251569.27,
+        "fytd": 20194872.47
+      },
+      "Ridgeland": {
+        "amount": 790473.61,
+        "fytd": 7562365.68
+      },
+      "Madison": {
+        "amount": 374480.29,
+        "fytd": 3315306.23
+      },
+      "Flowood": {
+        "amount": 640510.53,
+        "fytd": 6423378.59
+      },
+      "Pearl": {
+        "amount": 565178.98,
+        "fytd": 5098351.96
+      },
+      "Brandon": {
+        "amount": 343415.44,
+        "fytd": 3093110.04
+      },
+      "Clinton": {
+        "amount": 301668.05,
+        "fytd": 2687187.91
+      },
+      "Byram": {
+        "amount": 116155.82,
+        "fytd": 966666.1
+      },
+      "Canton": {
+        "amount": 144191.93,
+        "fytd": 1444528.87
+      },
+      "Richland": {
+        "amount": 277030.85,
+        "fytd": 2644908.44
+      },
+      "Florence": {
+        "amount": 50971.19,
+        "fytd": 431166.29
+      },
+      "Raymond": {
+        "amount": 14786.11,
+        "fytd": 133483.7
+      },
+      "Terry": {
+        "amount": 21373.42,
+        "fytd": 176283.51
+      },
+      "Edwards": {
+        "amount": 5299.19,
+        "fytd": 42127.02
+      },
+      "Bolton": {
+        "amount": 6675.39,
+        "fytd": 69075.79
+      },
+      "Pelahatchie": {
+        "amount": 23976.33,
+        "fytd": 216540.84
+      }
+    },
+    "2011-04": {
+      "Jackson": {
+        "amount": 2738616.64,
+        "fytd": 25523239.11
+      },
+      "Ridgeland": {
+        "amount": 976488.02,
+        "fytd": 9433071.24
+      },
+      "Madison": {
+        "amount": 421250.61,
+        "fytd": 4124140.66
+      },
+      "Flowood": {
+        "amount": 869370.02,
+        "fytd": 8038497.66
+      },
+      "Pearl": {
+        "amount": 673251.34,
+        "fytd": 6403660.02
+      },
+      "Brandon": {
+        "amount": 404501.27,
+        "fytd": 3854607.02
+      },
+      "Clinton": {
+        "amount": 343464.92,
+        "fytd": 3366493.98
+      },
+      "Byram": {
+        "amount": 134309.98,
+        "fytd": 1223386.46
+      },
+      "Canton": {
+        "amount": 200382.4,
+        "fytd": 1814228.65
+      },
+      "Richland": {
+        "amount": 354140.48,
+        "fytd": 3320442.8
+      },
+      "Florence": {
+        "amount": 60459.23,
+        "fytd": 546638.73
+      },
+      "Raymond": {
+        "amount": 17010.09,
+        "fytd": 164770.14
+      },
+      "Terry": {
+        "amount": 24911.58,
+        "fytd": 222037.56
+      },
+      "Edwards": {
+        "amount": 5779.8,
+        "fytd": 51658.65
+      },
+      "Bolton": {
+        "amount": 10327.35,
+        "fytd": 87068.16
+      },
+      "Pelahatchie": {
+        "amount": 28391.35,
+        "fytd": 268820.44
+      }
+    },
+    "2011-05": {
+      "Jackson": {
+        "amount": 2477810.18,
+        "fytd": 28001049.29
+      },
+      "Ridgeland": {
+        "amount": 941961.31,
+        "fytd": 10375032.55
+      },
+      "Madison": {
+        "amount": 433336.85,
+        "fytd": 4557477.51
+      },
+      "Flowood": {
+        "amount": 790159.43,
+        "fytd": 8828657.09
+      },
+      "Pearl": {
+        "amount": 675823.56,
+        "fytd": 7079483.58
+      },
+      "Brandon": {
+        "amount": 416093.22,
+        "fytd": 4270700.24
+      },
+      "Clinton": {
+        "amount": 340060.02,
+        "fytd": 3706554
+      },
+      "Byram": {
+        "amount": 138676.35,
+        "fytd": 1362062.81
+      },
+      "Canton": {
+        "amount": 196615.38,
+        "fytd": 2010844.03
+      },
+      "Richland": {
+        "amount": 334411.3,
+        "fytd": 3654854.1
+      },
+      "Florence": {
+        "amount": 61320.13,
+        "fytd": 607958.86
+      },
+      "Raymond": {
+        "amount": 18186.35,
+        "fytd": 182956.49
+      },
+      "Terry": {
+        "amount": 23548.78,
+        "fytd": 245586.34
+      },
+      "Edwards": {
+        "amount": 5619.83,
+        "fytd": 57278.48
+      },
+      "Bolton": {
+        "amount": 10846.89,
+        "fytd": 97915.05
+      },
+      "Pelahatchie": {
+        "amount": 30188.69,
+        "fytd": 299009.13
+      }
+    },
+    "2011-06": {
+      "Jackson": {
+        "amount": 2525532.68,
+        "fytd": 30526581.97
+      },
+      "Ridgeland": {
+        "amount": 958040.51,
+        "fytd": 11333073.06
+      },
+      "Madison": {
+        "amount": 435632.09,
+        "fytd": 4993109.6
+      },
+      "Flowood": {
+        "amount": 785359.29,
+        "fytd": 9614016.38
+      },
+      "Pearl": {
+        "amount": 647549.4,
+        "fytd": 7727032.98
+      },
+      "Brandon": {
+        "amount": 414038.71,
+        "fytd": 4684738.95
+      },
+      "Clinton": {
+        "amount": 354287.81,
+        "fytd": 4060841.81
+      },
+      "Byram": {
+        "amount": 134362.76,
+        "fytd": 1496425.57
+      },
+      "Canton": {
+        "amount": 180440.16,
+        "fytd": 2191284.19
+      },
+      "Richland": {
+        "amount": 356532.85,
+        "fytd": 4011386.95
+      },
+      "Florence": {
+        "amount": 56966.44,
+        "fytd": 664925.3
+      },
+      "Raymond": {
+        "amount": 16702.71,
+        "fytd": 199659.2
+      },
+      "Terry": {
+        "amount": 22913.52,
+        "fytd": 268499.86
+      },
+      "Edwards": {
+        "amount": 5315.26,
+        "fytd": 62593.74
+      },
+      "Bolton": {
+        "amount": 10328.41,
+        "fytd": 108243.46
+      },
+      "Pelahatchie": {
+        "amount": 27707.2,
+        "fytd": 326716.33
+      }
+    },
+    "2011-07": {
+      "Jackson": {
+        "amount": 2770739.94,
+        "fytd": 2770739.94
+      },
+      "Ridgeland": {
+        "amount": 945980.69,
+        "fytd": 945980.69
+      },
+      "Madison": {
+        "amount": 437415.75,
+        "fytd": 437415.75
+      },
+      "Flowood": {
+        "amount": 821052.7,
+        "fytd": 821052.7
+      },
+      "Pearl": {
+        "amount": 675380.2,
+        "fytd": 675380.2
+      },
+      "Brandon": {
+        "amount": 403950.56,
+        "fytd": 403950.56
+      },
+      "Clinton": {
+        "amount": 329653.18,
+        "fytd": 329653.18
+      },
+      "Byram": {
+        "amount": 135884.07,
+        "fytd": 135884.07
+      },
+      "Canton": {
+        "amount": 184582.9,
+        "fytd": 184582.9
+      },
+      "Richland": {
+        "amount": 357067.54,
+        "fytd": 357067.54
+      },
+      "Florence": {
+        "amount": 65082.14,
+        "fytd": 65082.14
+      },
+      "Raymond": {
+        "amount": 18675.38,
+        "fytd": 18675.38
+      },
+      "Terry": {
+        "amount": 24450.3,
+        "fytd": 24450.3
+      },
+      "Edwards": {
+        "amount": 4478.93,
+        "fytd": 4478.93
+      },
+      "Bolton": {
+        "amount": 11768.73,
+        "fytd": 11768.73
+      },
+      "Pelahatchie": {
+        "amount": 28625.72,
+        "fytd": 28625.72
+      }
+    },
     "2011-08": {
       "Jackson": {
         "amount": 2455761.03,
@@ -413,6 +1271,72 @@
       "Pelahatchie": {
         "amount": 23374.45,
         "fytd": 173540.87
+      }
+    },
+    "2012-02": {
+      "Jackson": {
+        "amount": 2324049.82,
+        "fytd": 20725892.55
+      },
+      "Ridgeland": {
+        "amount": 811972.5,
+        "fytd": 7624572.75
+      },
+      "Madison": {
+        "amount": 405934.55,
+        "fytd": 3584507.28
+      },
+      "Flowood": {
+        "amount": 724125.6,
+        "fytd": 6735004.38
+      },
+      "Pearl": {
+        "amount": 600096,
+        "fytd": 5301453.67
+      },
+      "Brandon": {
+        "amount": 354287.78,
+        "fytd": 3214442.85
+      },
+      "Clinton": {
+        "amount": 303910.35,
+        "fytd": 2748297.49
+      },
+      "Byram": {
+        "amount": 129545.47,
+        "fytd": 1105763.08
+      },
+      "Canton": {
+        "amount": 158910,
+        "fytd": 1434118.19
+      },
+      "Richland": {
+        "amount": 306683.24,
+        "fytd": 2781525.12
+      },
+      "Florence": {
+        "amount": 50763.71,
+        "fytd": 447900.55
+      },
+      "Raymond": {
+        "amount": 15510.05,
+        "fytd": 133762.72
+      },
+      "Terry": {
+        "amount": 22545.79,
+        "fytd": 197943.95
+      },
+      "Edwards": {
+        "amount": 6025.81,
+        "fytd": 42489.87
+      },
+      "Bolton": {
+        "amount": 6549.05,
+        "fytd": 72851.27
+      },
+      "Pelahatchie": {
+        "amount": 22136.62,
+        "fytd": 195677.49
       }
     },
     "2012-03": {
@@ -11901,6 +12825,71 @@
     }
   },
   "reports": {
+    "2011-05": {
+      "url": "https://www.dor.ms.gov/sites/default/files/statistics/diversions-to-cities-from-sales-tax-collections/stats_div0511.pdf",
+      "fetched": "2026-10-06",
+      "revised": false
+    },
+    "2011-06": {
+      "url": "https://www.dor.ms.gov/sites/default/files/statistics/diversions-to-cities-from-sales-tax-collections/stats_div0611.pdf",
+      "fetched": "2026-10-06",
+      "revised": false
+    },
+    "2011-08": {
+      "url": "https://www.dor.ms.gov/sites/default/files/statistics/diversions-to-cities-from-sales-tax-collections/stats_div0811.pdf",
+      "fetched": "2026-10-06",
+      "revised": false
+    },
+    "2011-09": {
+      "url": "https://www.dor.ms.gov/sites/default/files/statistics/diversions-to-cities-from-sales-tax-collections/stats_div0911.pdf",
+      "fetched": "2026-10-06",
+      "revised": false
+    },
+    "2011-10": {
+      "url": "https://www.dor.ms.gov/sites/default/files/statistics/diversions-to-cities-from-sales-tax-collections/stats_div1011.pdf",
+      "fetched": "2026-10-06",
+      "revised": false
+    },
+    "2011-11": {
+      "url": "https://www.dor.ms.gov/sites/default/files/statistics/diversions-to-cities-from-sales-tax-collections/stats_div1111.pdf",
+      "fetched": "2026-10-06",
+      "revised": false
+    },
+    "2011-12": {
+      "url": "https://www.dor.ms.gov/sites/default/files/statistics/diversions-to-cities-from-sales-tax-collections/stats_div1211.pdf",
+      "fetched": "2026-10-06",
+      "revised": false
+    },
+    "2012-01": {
+      "url": "https://www.dor.ms.gov/sites/default/files/statistics/diversions-to-cities-from-sales-tax-collections/stats_div0112.pdf",
+      "fetched": "2026-10-06",
+      "revised": false
+    },
+    "2012-02": {
+      "url": "https://www.dor.ms.gov/sites/default/files/statistics/diversions-to-cities-from-sales-tax-collections/stats_div0212.pdf",
+      "fetched": "2026-10-06",
+      "revised": false
+    },
+    "2012-04": {
+      "url": "https://www.dor.ms.gov/sites/default/files/statistics/diversions-to-cities-from-sales-tax-collections/stats_div0412.pdf",
+      "fetched": "2026-10-06",
+      "revised": false
+    },
+    "2012-05": {
+      "url": "https://www.dor.ms.gov/sites/default/files/statistics/diversions-to-cities-from-sales-tax-collections/stats_div0512.pdf",
+      "fetched": "2026-10-06",
+      "revised": false
+    },
+    "2012-06": {
+      "url": "https://www.dor.ms.gov/sites/default/files/statistics/diversions-to-cities-from-sales-tax-collections/stats_div0612.pdf",
+      "fetched": "2026-10-06",
+      "revised": false
+    },
+    "2012-07": {
+      "url": "https://www.dor.ms.gov/sites/default/files/statistics/diversions-to-cities-from-sales-tax-collections/stats_div0712.pdf",
+      "fetched": "2026-10-06",
+      "revised": false
+    },
     "2012-08": {
       "url": "https://www.dor.ms.gov/sites/default/files/statistics/diversions-to-cities-from-sales-tax-collections/stats_div0812.pdf",
       "fetched": "2026-10-05",
@@ -11930,6 +12919,11 @@
       "url": "https://www.dor.ms.gov/sites/default/files/statistics/diversions-to-cities-from-sales-tax-collections/stats_div0113revised.pdf",
       "fetched": "2026-10-05",
       "revised": true
+    },
+    "2013-02": {
+      "url": "https://www.dor.ms.gov/sites/default/files/statistics/diversions-to-cities-from-sales-tax-collections/stats_div0213.pdf",
+      "fetched": "2026-10-06",
+      "revised": false
     },
     "2013-03": {
       "url": "https://www.dor.ms.gov/sites/default/files/statistics/diversions-to-cities-from-sales-tax-collections/stats_div0313.pdf",
