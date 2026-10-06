@@ -215,7 +215,7 @@ export const PROJECTS: Project[] = [
     stage: "under-construction",
     status:
       "The Capitol Green Connector downtown is expected to finish construction in October 2026 after an earlier spring-or-summer target, and the $8 million pedestrian bridge over Lakeland Drive broke ground Aug. 19, 2026. The 2.5-mile western extension to Jackson State has a planning grant, and the Wire found no construction money on the record.",
-    next: "Opening of the downtown connector, then a construction funding source for the leg to Jackson State.",
+    next: "Completion of construction on the downtown connector, then a construction funding source for the leg to Jackson State.",
     slugs: ["museum-trail-downtown-connector-lakeland-bridge-eastover-beltline"],
   },
 ];
@@ -286,8 +286,8 @@ export const MILESTONES: Milestone[] = [
   {
     date: "2026-10-31",
     approx: true,
-    kind: "opening",
-    text: "Capitol Green Connector, the Museum Trail's downtown entrance between the GM&O Depot and Hal & Mal's, expected to open after construction finishes in October, per WLBT.",
+    kind: "deadline",
+    text: "Capitol Green Connector, the Museum Trail's downtown entrance between the GM&O Depot and Hal & Mal's, expected to finish construction in October, per WLBT.",
     slug: "museum-trail-downtown-connector-lakeland-bridge-eastover-beltline",
   },
   {
