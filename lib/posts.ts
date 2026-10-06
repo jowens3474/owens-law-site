@@ -66,6 +66,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-10-06",
+    title: "Morning Brief: Oct 6 · Landfill Fee Hike Lands as Refinery Lands $502M",
+    dek: "Jackson's council takes up a new per-ton rubbish landfill fee schedule today, the first rate change since the Byram facility closed in 2024, while Westwin Elements commits $502 million and 134 jobs to a Natchez nickel refinery.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-10-06",
+    views: 0,
+    body: [
+      "Landfill fee shift goes to council: Jackson's council takes up an ordinance today rewriting the solid waste disposal fees at Section 106-148 of the city code, the first change since the Byram rubbish landfill closed in 2024. Under the schedule WLBT reported Sept. 22, residents would pay $10 per ton and commercial haulers and out-of-city users $20 per ton, replacing flat per-cubic-yard charges of $5 for construction debris and $1 to $5 per tire. The city has installed a new weigh scale, so billing moves from estimated volumes to actual weight. The structure follows a Neel-Schaffer Engineering recommendation. Because the item is an introduction, a vote may not come today.",
+      "Westwin picks Natchez for $502 million refinery: Westwin Elements announced Monday it will invest $502 million over five years to build a commercial-scale Class 1 nickel refinery at the Belwood Industrial Site in Natchez, creating 134 full-time jobs, the Natchez Democrat and Magnolia Tribune reported. The company said it has completed a bankable feasibility study, secured a long-term lease, and holds binding feedstock and offtake agreements. First-phase output is targeted at 18,000 tonnes of Class 1 nickel a year, with commissioning targeted for 2029. The project still depends on financing and permits. High-purity Class 1 nickel feeds defense, aerospace, and specialty alloys, and the site choice follows a competition Georgia's Bryan County lost.",
+      "Jackson sales tax diversions up 9.5 percent: Jackson collected $2,612,443 in sales tax diversions in August, up 9.5 percent from $2,385,899 a year earlier, and is up 6.0 percent fiscal-year-to-date, according to Department of Revenue diversion reports. The metro's sharpest mover is Ridgeland, at $1,611,884, up 23.7 percent, with Byram up 20.9 percent and Madison up 11.4 percent. Pearl is the outlier, down 8.6 percent for the month and 10.5 percent fiscal-year-to-date. The spread matters for budget season: Ridgeland's August check was 62 percent of Jackson's despite a fraction of the population, and Pearl's decline is now two months deep.",
+      "JXN Water agrees to take $200,000 of $423,000: A receiver filed a motion Friday to settle JXN Water's suit against Blossom Apartments LLC, saying the utility will accept $200,000 of the more than $423,000 in back payments it initially claimed, WLBT reported. Derek Henderson, appointed receiver over the Woodbine Street property at the behest of lender Relyance Bank, filed the motion. The dispute turns on whether the judgment counts as a receivership cost, with JXN Water arguing it does and the bank disputing it. A federal judge blocked three courts from restoring or demolishing the complex in April. The settlement, if approved, closes a case that has run more than a year.",
+      "Council's quieter money items stack up: Beyond the landfill ordinance, today's 10 a.m. agenda carries a full-and-final settlement in Jessica Mason v. City of Jackson (Civil Action 3:25-cv-352), an order declaring three parcels near the Pearl River off Highway 55 surplus and authorizing the mayor to negotiate a sale option, and a hearing-setting order for the Downtown Jackson Business Improvement District plan. The council also weighs $2,465,111 in new federal grant applications, including $1.3 million for opioid and substance use programs and $650,000 for crisis response training. The State of the City address is set for Oct. 13 at the Convention Complex at no cost to the city.",
+    ],
+  },
+  {
     slug: "farish-street-phase-ii-rfp-october-30-jra-properties",
     title: "JRA's Farish Street Phase II Deadline Is Oct. 30. The 200 and 300 Blocks Are on the Table, and the Asking Prices Are Public.",
     dek: "The Jackson Redevelopment Authority is taking proposals through Oct. 30 at 4 p.m. on JRA-owned parcels in the 200 and 300 blocks of North Farish Street. Its own property list prices the largest of them at $440,320, and the whole Farish Street inventory at roughly $1.9 million.",
