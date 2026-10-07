@@ -66,6 +66,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-10-07",
+    title: "Morning Brief: Oct 7 · Council Tables Pearl River Casino Land Deal",
+    dek: "Jackson's council balked at selling 93 acres on the Pearl for $111,000 to a group pitching a nearly billion-dollar resort and casino, leaving a $24 million-a-year revenue promise in limbo.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-10-07",
+    views: 0,
+    body: [
+      "Council tables Pearl River casino land deal: The Jackson City Council on Tuesday tabled Mayor John Horhn's request to declare roughly 93 acres along the Pearl River surplus and option it to LeFleur Development LLC for about $111,000, WLBT reported. LeFleur's William Richardson told the council the resort and casino concept could generate up to $24 million a year in sales and property taxes and 2,600 direct jobs, against a city that cut about $26 million from its 2026 budget. Ward 1 Councilman Ashby Foote objected that the land could be worth 10 to 20 times the price if a casino is approved. Two March appraisals put the wooded, flood-prone parcel at $110,000 to $112,000. No return date was set.",
+      "Jackson sales tax take up 9.5 percent: The city's August sales tax diversion came to $2,612,443, up 9.5 percent from $2,385,899 a year earlier, and fiscal-year-to-date collections are running 6.0 percent ahead, according to Department of Revenue diversion reports. The metro split is uneven: Ridgeland jumped 23.7 percent to $1,611,884 and Byram rose 20.9 percent, while Pearl fell 8.6 percent to $1,166,022 and Canton slipped 2.1 percent. For a city that just trimmed its budget on revenue shortfalls, the August figure is the strongest monthly signal yet that the sales tax base is stabilizing, though one month does not reverse a fiscal year.",
+      "Fifteen new restaurant permits approved: Mississippi Department of Health officials cleared permits for 15 new restaurants and dining spots in the Jackson area, the Clarion-Ledger reported, including a remake of a classic location. The approvals follow roughly 20 dining permits in August, led by an Oregon-based Dutch Bros Coffee at 411 West Pineview Drive in Flowood, and continue a run of food-service investment across Hinds, Madison and Rankin counties. Restaurant permits are a leading indicator: they land before a lease is signed off on and before payroll shows up in the diversion numbers. Watch whether the new openings cluster in Fondren, Flowood and Madison, where the spending already is.",
+      "State Fair opens Thursday with $35M target: The 166th Mississippi State Fair opens Thursday, Oct. 8, and runs through Oct. 18 at the fairgrounds in downtown Jackson, with Agriculture Commissioner Andy Gipson telling MPB officials hope it clears at least $35 million in economic impact. Last year's attendance ran about 20,000 below the prior year, and organizers are leaning on the America 250 patriotic theme plus Jackson State homecoming traffic to lift the gate. For downtown hotels, restaurants and vendors, the 11-day run is the single biggest revenue window of the fall. The fair's opening also puts Hinds County's mounted unit on patrol, WAPT reported.",
+      "Hinds CC cuts ribbon on $64M health complex: Hinds Community College holds a ribbon-cutting today, Oct. 7, for its new $64 million, 160,000-square-foot Health Sciences Complex on the Rankin Campus, a facility that opened for classes in August and consolidates nursing and allied health programs once scattered across campuses. Rankin Campus enrollment is up 5 percent, from 1,286 to 1,354 students, and the college expects to add 480 health sciences students over three years, including 248 in short-term workforce training. The building was funded with local, state and federal money, and the longtime Nursing and Allied Health Center in Jackson has closed, moving that training capacity out of the capital.",
+    ],
+  },
+  {
     slug: "museum-trail-downtown-connector-lakeland-bridge-eastover-beltline",
     title: "The Museum Trail Is About to Reach Downtown. Here Is What Six Miles of Path Could Mean for Jackson Property, and Why It Is Not Atlanta's BeltLine.",
     dek: "The Capitol Green Connector between the GM&O Depot and Hal & Mal's is expected to finish construction this month, an $8 million bridge over Lakeland Drive broke ground in August, and planners want the trail to run from Jackson State to LeFleur's Bluff. The identified money so far is roughly $10 million, not counting the connector. A May 2026 study counted $14.2 billion in private investment along Atlanta's BeltLine.",
