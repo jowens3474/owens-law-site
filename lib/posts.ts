@@ -66,6 +66,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-10-08",
+    title: "Morning Brief: Oct 8 · Gas Tax Pause Talk Meets a $5.89 Diesel Price",
+    dek: "Mississippi lawmakers are weighing a suspension of the state's 24-cent fuel tax as diesel hits $5.89 a gallon in Jackson, a fight that could reach a special session and reshape road money.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-10-08",
+    views: 0,
+    body: [
+      "Fuel tax pause talk meets a $5.89 diesel price: Mississippi's 24-cent-per-gallon gas tax is now the center of a fight at the Capitol, with Agriculture Commissioner Andy Gipson posting on X that most neighboring states have suspended fuel taxes and that legislators tell him they are ready to act in a special session. WLBT reported Monday that transportation officials outlined the cost of a break, warning that instead of canceling a letting they would have to cut projects. AAA puts Mississippi diesel at $5.8888 a gallon today, off the Sept. 23 record of $6.0626 but still up from $3.2772 a year ago. Regular gas sits at $3.9414.",
+      "Hinds CC dedicates $64 million health complex: Hinds Community College dedicated its new Health Sciences Complex on the Rankin Campus in Pearl on Oct. 7, a 160,000-square-foot, four-story building the college calls its largest construction project ever. The $64 million facility consolidates nursing and allied health programs that had been spread across campuses, with high-fidelity simulation labs and mock hospital rooms, and it has been in use since classes began Aug. 10. The longtime Nursing and Allied Health campus in Jackson is now closed. Local, state, and federal money funded it. A 175-bed residence hall, The Commons, is under construction and slated to open next fall.",
+      "Jackson sales tax take up 9.5 percent: Department of Revenue diversion reports show Jackson received $2,612,443 in August 2026, up 9.5 percent from $2,385,899 a year earlier, with fiscal-year-to-date collections at $5,328,637, up 6.0 percent. The metro split is uneven. Ridgeland jumped 23.7 percent to $1,611,884, Byram rose 20.9 percent, and Madison gained 11.4 percent, while Pearl fell 8.6 percent to $1,166,022 and Canton slipped 2.1 percent. Pearl's fiscal-year-to-date total is down 10.5 percent, the steepest decline in the metro. The figures are the closest thing to a monthly economic read on each city.",
+      "Entergy plant permit vote lands Oct. 13: Entergy Mississippi's $1 billion Traceview Advanced Power Station in Madison County goes to the state Permit Board on Oct. 13, and the public comment record already runs 88 pages. The 754-megawatt gas plant has cleared construction coverage under MDEQ general permit MSR109942, effective Aug. 24 through Jan. 31, 2027, and a modification naming the Green Acres Substation. The water side is not settled: MDEQ's record for Agency Interest No. 89056 shows a pretreatment application, MSP092492, still in draft as of July 23. The air vote is not the last regulatory gate.",
+      "Ridgeland restores fluoride for $71,835: Ridgeland's Board of Aldermen voted 5-4 on Oct. 6 to restore sodium fluoride to the city water supply, approving a $71,835.60 bid from Capchlor to install the equipment, the Madison County Journal reported. Alderman-at-Large D.I. Smith raised sourcing concerns, and some members wanted the item tabled for more testing. Public Works Director Alan Hart said the money would restart a system the city had moved to discontinue. Officials have not set a date for when fluoridation resumes, and annual maintenance is estimated at $60,000 to $100,000.",
+    ],
+  },
+  {
     slug: "jackson-cityworks-renewal-erp-replacement-october-2026",
     title: "Jackson Just Renewed the 311 Software It Is About to Replace. The ERP Addendum Sets a 2027 Start.",
     dek: "The council ratified a 12-month Cityworks renewal on Oct. 6, the same week bids closed on an ERP system whose own addendum names Cityworks as a system to be integrated or replaced. The new software is not scheduled to start until Oct. 1, 2027.",
