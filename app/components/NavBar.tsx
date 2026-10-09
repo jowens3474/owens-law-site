@@ -65,9 +65,12 @@ export default function NavBar() {
     { name: "Home", href: "/" },
     ...categories.map((c) => ({ name: c.name, href: `/category/${c.slug}` })),
     { name: "Pipeline", href: "/pipeline" },
+    { name: "Laws", href: "/laws" },
     { name: "Pro", href: "/pro" },
     { name: "About", href: "/about" },
   ];
+  // At xl the scrolled wordmark leads home, so "Home" leaves the row to
+  // keep ten links fitting; below xl the wordmark is hidden, so Home stays.
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
@@ -101,7 +104,7 @@ export default function NavBar() {
             {links.map((l) => {
               const active = isActive(l.href);
               return (
-                <li key={l.href}>
+                <li key={l.href} className={l.href === "/" ? "xl:hidden" : undefined}>
                   <Link
                     href={l.href}
                     aria-current={active ? "page" : undefined}

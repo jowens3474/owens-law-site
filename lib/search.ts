@@ -1,8 +1,10 @@
-// Full-text search over published articles. Everything is in memory (a few
-// hundred posts), so a query is a linear scan: cheap, and no index to keep
-// in sync. Every term must appear somewhere in the story; matches in the
-// headline count most, then the dek and tags, then the body.
+// Full-text search over published articles and law explainers. Everything
+// is in memory (a few hundred posts, a few dozen laws), so a query is a
+// linear scan: cheap, and no index to keep in sync. Every term must appear
+// somewhere in the entry; matches in the headline count most, then the dek
+// and tags, then the body.
 import { getAllPosts, type Post } from "./posts";
+import { getAllLaws, type Law } from "./laws";
 import { norm, termPattern } from "./search-terms";
 
 export interface SearchHit {
@@ -35,15 +37,18 @@ const EDGE_PUNCT = new RegExp("^[^\\p{L}\\p{N}$]+|[^\\p{L}\\p{N}%]+$", "gu");
 // are dropped. Numbers and dollar figures are kept as typed.
 export function queryTerms(q: string): string[] {
   const phrases: string[] = [];
-  const rest = norm(q).replace(/"([^"]{2,80})"/g, (_m, p: string) => {
-    const t = p.trim().replace(/\s+/g, " ");
-    if (t) phrases.push(t);
-    return " ";
-  });
+  const rest = norm(q)
+    .replace(/"([^"]{2,80})"/g, (_m, p: string) => {
+      const t = p.trim().replace(/\s+/g, " ");
+      if (t) phrases.push(t);
+      return " ";
+    })
+    // "SB2588" and "sb 2588" should find the same bill.
+    .replace(/\b(hb|sb|hc|sc)(\d+)\b/g, "$1 $2");
   const words = rest
     .split(/\s+/)
     .map((w) => w.replace(EDGE_PUNCT, ""))
-    .filter((w) => w.length >= 2 && (/\d/.test(w) || !STOP.has(w)));
+    .filter((w) => (w.length >= 2 || /^\d$/.test(w)) && (/\d/.test(w) || !STOP.has(w)));
   return [...new Set([...phrases, ...words])].slice(0, MAX_TERMS);
 }
 
@@ -159,4 +164,74 @@ export function searchPosts(
     (a, b) => b.score - a.score || b.post.date.localeCompare(a.post.date),
   );
   return { terms, hits: hits.slice(0, limit) };
+}
+
+// Laws, searched the same way (every term must match; headline first).
+
+export function searchLaws(
+  q: string,
+  { limit = 5 }: { limit?: number } = {},
+): { terms: string[]; hits: Law[] } {
+  const terms = queryTerms(q);
+  if (terms.length === 0) return { terms, hits: [] };
+  const ms = matchers(terms);
+  const scored: { law: Law; score: number }[] = [];
+  for (const law of getAllLaws()) {
+    const head = norm(`${law.bill} ${law.title} ${law.officialTitle ?? ""}`);
+    const summary = norm(`${law.oneSentence} ${law.topics.join(" ")}`);
+    const body = norm(
+      [
+        ...law.whatItDoes,
+        ...law.whyItHappened,
+        ...law.whatsBehindIt,
+        ...law.whatItCosts,
+        ...law.whatChangesForYou,
+        ...(law.jackson ?? []),
+        ...law.watchFor,
+      ].join(" "),
+    );
+    let score = 0;
+    let everyTermFound = true;
+    for (const m of ms) {
+      let s = 0;
+      if (m.once.test(head)) s += 10;
+      if (m.once.test(summary)) s += 5;
+      s += countMatches(body, m.every, MAX_BODY_HITS);
+      if (s === 0) {
+        everyTermFound = false;
+        break;
+      }
+      score += s;
+    }
+    if (everyTermFound) scored.push({ law, score });
+  }
+  scored.sort(
+    (a, b) => b.score - a.score || b.law.date.localeCompare(a.law.date),
+  );
+  return { terms, hits: scored.slice(0, limit).map((s) => s.law) };
+}
+
+// True when every usable term in `q` appears somewhere in the law, with the
+// same word-boundary rules as search results. A query with no usable terms
+// (stop words only) is treated as no filter. Used by the /laws filter box.
+export function lawMatches(law: Law, q: string): boolean {
+  const terms = queryTerms(q);
+  if (terms.length === 0) return true;
+  const hay = norm(
+    [
+      law.bill,
+      law.title,
+      law.officialTitle ?? "",
+      law.oneSentence,
+      ...law.topics,
+      ...law.whatItDoes,
+      ...law.whyItHappened,
+      ...law.whatsBehindIt,
+      ...law.whatItCosts,
+      ...law.whatChangesForYou,
+      ...(law.jackson ?? []),
+      ...law.watchFor,
+    ].join(" "),
+  );
+  return matchers(terms).every((m) => m.once.test(hay));
 }

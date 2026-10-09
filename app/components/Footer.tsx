@@ -52,6 +52,14 @@ export default function Footer() {
               </li>
               <li>
                 <Link
+                  href="/laws"
+                  className="font-sans text-sm hover:text-crimson"
+                >
+                  What Passed: new laws
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/meetings"
                   className="font-sans text-sm hover:text-crimson"
                 >
