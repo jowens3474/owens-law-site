@@ -9,6 +9,7 @@ import { listReports, readReport, mergeReport, renderMonthTable, loadDataset, mo
 import { classifyNotice } from "../../lib/notice-kinds.mjs";
 import { searchTranscripts, renderHits } from "./meetings.mjs";
 import { COUNTY_TOOLS } from "./county-tools.mjs";
+import { localFeeds, LOCAL_FEEDS_SPEC } from "./local-feeds.mjs";
 
 const UA = "TheJacksonWire/1.0 (+https://www.thejacksonwire.com; capitolmain42@gmail.com)";
 const TIMEOUT_MS = 20000;
@@ -493,6 +494,7 @@ export const DATA_TOOLS = [
       },
     },
   },
+  LOCAL_FEEDS_SPEC,
   {
     type: "function",
     function: {
@@ -655,6 +657,9 @@ export async function runDataTool(name, args = {}, { prefix = "data", cl } = {})
       case "news_feed":
         log(`"${args.query}" ${args.hours ?? 24}h`);
         return await newsFeed({ query: args.query, hours: Math.min(Math.max(args.hours ?? 24, 1), 168) });
+      case "local_feeds":
+        log(`${args.group || "news"}${args.query ? ` "${args.query}"` : ""} ${args.hours ?? 48}h`);
+        return await localFeeds({ group: args.group, query: args.query, hours: args.hours, limit: args.limit });
       case "jackson_meetings":
         log("fetch");
         return await jacksonMeetings({ limit: args.limit ?? 15 });

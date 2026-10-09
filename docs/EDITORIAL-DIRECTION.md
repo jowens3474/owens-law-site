@@ -94,13 +94,14 @@ module can be tested before it is merged.
 
 ## Real-time data tools
 
-`scripts/lib/data-tools.mjs` gives both scripts eight primary-source tools
-that need no search quota. The prompts tell the model to open every run
-with the first two.
+`scripts/lib/data-tools.mjs` gives both scripts the primary-source tools below,
+none of which need a search quota. The prompts tell the model to open every
+run with `local_feeds`, `news_feed`, `jackson_meetings`, and `public_notices`.
 
 | Tool | Source | Key |
 | --- | --- | --- |
 | `news_feed` | Google News RSS and GDELT, newest first | none |
+| `local_feeds` | Thirty-nine local RSS feeds read directly (newsrooms, Mississippi Today reprints, JXN Water, the airport, suburbs, state officials, campuses, civic groups), by group, deduplicated, newest first, direct links; see the local source map below | none |
 | `jackson_meetings` | jacksonms.gov agenda post type and news posts; Hinds County board page | none |
 | `federal_awards` | USASpending contracts and grants by place of performance (Hinds, Madison, Rankin) | none |
 | `bls_series` | BLS Jackson MSA unemployment, employment, nonfarm jobs; Mississippi unemployment | `BLS_API_KEY` optional |
@@ -138,6 +139,55 @@ bond-validation notices are not yet automated.
 Run the **Data Check** workflow (Actions, workflow_dispatch) to see every
 tool's live output from a runner. It runs on the branch it is dispatched
 from, so a change to the module can be tested before merge.
+
+## Local source map
+
+Probed from a GitHub runner on Oct. 9, 2026 with the Data Check workflow's
+`feeds` mode (`TOOL=feeds`, no query probes every candidate in
+`scripts/lib/local-feeds.mjs`; `QUERY="name=url|..."` probes a list). The
+registry in that file holds only feeds that read cleanly. Re-run the probe
+before adding a feed, and again if a group starts reporting it unreachable.
+
+Readable, by `local_feeds` group:
+
+| Group | Feeds |
+| --- | --- |
+| `news` | WLBT (news section and Hinds County section), WJTV (local, politics, bribery case), WAPT, Mississippi Today, Mississippi Free Press, Jackson Advocate, Mississippi Link, SuperTalk, Magnolia Tribune (all and business), Jackson Jambalaya, Mississippi Business Journal, Clinton Courier |
+| `syndication` | DeSoto County News, Tippah News, and Our Tupelo, which reprint Mississippi Today in full; Beat of the Capital, which reprints WJTV. When a story also arrives from the original outlet's feed, the tool keeps the original and drops the reprint |
+| `government` | JXN Water, Jackson Municipal Airport Authority, Jackson Redevelopment Authority (stale since 2021) |
+| `metro` | Ridgeland, Pearl, Brandon, Clinton |
+| `state` | Governor, Attorney General, Treasurer, MDEQ, State Department of Health (weekly certificate-of-need report) |
+| `campus` | Millsaps, Mississippi College, Hinds Community College, Jackson State (new site, empty so far) |
+| `civic` | Jackson Association of Neighborhoods, Innovate Mississippi, Community Foundation for Mississippi |
+
+Mississippi Today's feed reads from a runner even though its article pages
+answer 403; the syndication copies carry the full text, which is how the desk
+reads a Mississippi Today story end to end.
+
+Not readable from a runner, and the workaround where one exists:
+
+- **Clarion Ledger**: every feed path answers 404 or 406. Use
+  `news_feed("site:clarionledger.com ...")`, which goes through Google News.
+- **Northside Sun**: 403 on every path (bot wall). **MPB**: no feed at any
+  path. **Darkhorse Press**: feed paths return HTML. **Madison County
+  Journal, Rankin County News**: connection refused.
+- **City of Jackson**: `/feed/` is empty; `jackson_meetings` reads the news
+  and agenda post types through the site's JSON API instead.
+- **Hinds County** (hindscountyms.com) times out; the boardroom listing on
+  co.hinds.ms.us is read by `hinds_supervisors`. **Hinds County Sheriff,
+  Jackson Public Schools**: unreachable or no feed.
+- **State Auditor**: `rss.xml` is empty and the Drupal news page is HTML only.
+  **MDA, MDOT, PSC, PEER, Department of Revenue, MDES, Secretary of State,
+  Ethics Commission**: no feed; `psc_dockets` and `mdeq_permits` cover the
+  two with structured documents.
+- **Legislature** (billstatus.ls.state.ms.us, legislature.ms.gov):
+  connection refused from GitHub's network.
+- **U.S. Attorney S.D. Miss., FBI Jackson**: no feed, or 403.
+- **UMMC, Belhaven, Mississippi State**: no feed found. **Downtown Jackson
+  Partners, Greater Jackson Partnership, Visit Jackson, Fondren Renaissance,
+  Great City Mississippi, Mississippi Economic Council, Entergy newsroom**:
+  no feed or unreachable. **Madison, Flowood, Byram, Canton, Madison County,
+  Rankin County**: unreachable or no feed.
 
 ## County and state sources: what is automated and what is not
 
