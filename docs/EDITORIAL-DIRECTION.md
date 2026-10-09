@@ -51,9 +51,10 @@ Oct. 9, 2026:
 | Dek | One or two sentences, under 40 words | 2 sentences |
 
 Lead with the finding, keep one source line per fact, and cut background the
-reader can get from a link to an earlier Wire story. Detailed sourcing belongs
-in the reporting note, not the body. Morning Briefs keep their own five-item
-format. The autopilot carries the same limits in `scripts/autopilot.mjs`.
+reader can get from a link to an earlier Wire story. In hand-written articles,
+detailed sourcing belongs in the reporting note, not the body. Morning Briefs
+and the monthly sales tax report keep their own formats. The autopilot carries
+the same limits in `scripts/autopilot.mjs`.
 
 ## Sources the desk works from
 

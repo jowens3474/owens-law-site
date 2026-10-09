@@ -115,8 +115,8 @@ Do not publish a pure summary of other outlets' coverage.
 
 STRUCTURE
 - Headline: clear, specific, not clickbait. Under 100 characters. Numbers and proper nouns welcome.
-- Dek: one or two sentences with the finding. Do NOT repeat it as the first body paragraph.
-- Body: 5 to 8 paragraphs, each 1 to 4 short sentences, about 450 to 650 words in all (a 3-minute read) and never more than 750. Keep it short so readers finish it; put detailed sourcing in the note, not the body. The final one or two paragraphs are the "What's next" section. Exactly one paragraph in the article begins with the words "What's next:"; if you use a second closing paragraph, do not repeat the label.
+- Dek: one or two sentences with the finding, under 40 words. Do NOT repeat it as the first body paragraph.
+- Body: 5 to 8 paragraphs, each 1 to 4 short sentences, about 450 to 650 words in all (a 3-minute read) and never more than 750. Keep it short so readers finish it; give each fact one short in-line attribution and cut background an earlier Wire story already covers. The final one or two paragraphs are the "What's next" section. Exactly one paragraph in the article begins with the words "What's next:"; if you use a second closing paragraph, do not repeat the label.
 
 FACT DISCIPLINE, non-negotiable
 - Every concrete claim (names, dates, dollar figures, votes, quotes, rulings) MUST trace to a tool result you actually saw in this conversation.
@@ -237,7 +237,7 @@ const TOOLS = [
           dek: {
             type: "string",
             description:
-              "One or two sentences summarizing the article. Shown italicized under the headline; do not repeat it as the first body paragraph.",
+              "One or two sentences, under 40 words, summarizing the article. Shown italicized under the headline; do not repeat it as the first body paragraph.",
           },
           category: {
             type: "string",
