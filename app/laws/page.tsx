@@ -93,11 +93,7 @@ export default async function LawsPage({ searchParams }: PageProps<"/laws">) {
           {DEK}
         </p>
         <p className="mt-2 font-sans text-sm text-muted">
-          {all.length} {all.length === 1 ? "law" : "laws"} explained so far,
-          with more on the way. Each entry is built from the bill&apos;s
-          summary and history, the Legislature&apos;s cost estimate when the
-          Wire can find one, and news reports; the reporting note at the end
-          of each entry says what was and was not read.
+          {`${all.length} ${all.length === 1 ? "law" : "laws"} explained so far, with more on the way. Each entry is built from the bill's summary and history, the Legislature's cost estimate when the Wire can find one, and news reports; the reporting note at the end of each entry says what was and was not read.`}
         </p>
 
         <form action="/laws" method="get" role="search" aria-label="Search laws" className="mt-5 flex max-w-xl gap-2">

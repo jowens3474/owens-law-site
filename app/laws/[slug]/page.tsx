@@ -205,7 +205,7 @@ export default async function LawPage({ params }: PageProps<"/laws/[slug]">) {
                 rel="noopener noreferrer"
                 className="font-semibold text-ink hover:text-crimson"
               >
-                {law.bill} on the Legislature&apos;s website ↗
+                {`${law.bill} on the Legislature's website ↗`}
               </a>
             </li>
             {law.sources.map((s) => (
