@@ -162,9 +162,7 @@ export default async function LawsPage({ searchParams }: PageProps<"/laws">) {
 
       {all.length > 0 && filtering && (
         <p className="mt-6 font-sans text-sm text-muted">
-          {filtered.length === 0
-            ? "Nothing matches that yet."
-            : `${filtered.length} ${filtered.length === 1 ? "law" : "laws"}`}
+          {filtered.length === 0 ? "No law matches that yet" : `${filtered.length} ${filtered.length === 1 ? "law" : "laws"}`}
           {topic && (
             <>
               {" "}in <strong className="text-ink">{topic}</strong>
