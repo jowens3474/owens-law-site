@@ -337,12 +337,13 @@ pleasant to read:
 
 ## What Passed (laws, plainly)
 
-`/laws` explains every bill that became law in plain words, one entry per
-law, so a reader can keep up without reading the text or connecting the
-dots alone. The data lives in `lib/laws.ts`; `scripts/laws-desk.mjs`
-drafts new entries (one per run) from a bill number and sources, and
+`/laws` explains the bills that became law in plain words, one entry per
+law, starting with the ones that matter most to Jackson, so a reader can
+keep up without reading the text or connecting the dots alone. The data
+lives in `lib/laws.ts`; `scripts/laws-desk.mjs` drafts new entries (one
+per run) from a bill number and sources, and
 `.github/workflows/laws-desk.yml` works through `data/laws-queue.json`
-daily. Each entry gets `/laws/<slug>`, the sitemap, `llms.txt`, and the
+five days a week (Tuesday through Saturday). Each entry gets `/laws/<slug>`, the sitemap, `llms.txt`, and the
 "What passed" rail on the front page.
 
 **Reading level.** A bright 12-year-old. Short sentences, one idea each,
@@ -357,7 +358,8 @@ that says the whole law; what it does; why it happened; what's behind it
 what it costs and who pays; what changes for you; what it means for
 Jackson (only when there is something to say); watch for; sources; a
 reporting note. 450 to 800 words in all. Analysis only in a sentence that
-begins "The Wire's read:".
+begins "The Wire's read:". Ranges are written "5 to 15 years", never with
+a dash. The reporting note is plain text; the page adds the label.
 
 **Sourcing.** The bill as enacted comes first (the Legislature's bill
 history page is linked automatically from the bill number), then the

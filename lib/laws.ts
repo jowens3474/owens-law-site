@@ -5,7 +5,8 @@
 //
 // Write for a bright 12-year-old: short sentences, no jargon without a
 // one-line definition, and dollar figures a household can picture. Every
-// number traces to a source listed in `sources`. The desk script
+// number, name, date and quote should trace to a source listed in
+// `sources`; where it cannot, the entry says so. The desk script
 // (scripts/laws-desk.mjs) inserts new entries at the top of LAWS.
 import { cache } from "react";
 import { todayLocalIso } from "./posts";
@@ -63,42 +64,42 @@ export const LAWS: Law[] = [
   {
     slug: "voter-citizenship-checks-shield-act",
     bill: "SB 2588",
-    title: "Mississippi now checks voters' citizenship against a federal immigration database",
+    title: "New law requires citizenship checks of Mississippi voters against a federal database",
     officialTitle: "SHIELD Act",
     session: "2026 Regular Session",
     becameLaw: "signed",
     signedOn: "2026-04-01",
     effective: "2026-07-01",
-    effectiveNote: "A federal court order from June 2026 limits the federal database the law relies on.",
+    effectiveNote: "A federal court order issued before the law took effect limits the federal database it relies on.",
     topics: ["Elections"],
     oneSentence: "When you register to vote, and once a year after that, the state can run your name through a federal immigration database and make you prove you are a citizen if it flags you.",
     whatItDoes: [
-      "Before this law, a county registrar took your voter registration form, checked it against driver's license records and signed you up. Now, if those records say you are not a citizen, or you gave no license number and the state cannot find one, the registrar must run you through SAVE. SAVE is a federal immigration database kept by the Department of Homeland Security.",
-      "If both checks say you are not a citizen, the registrar mails you a notice. You have 30 days to send proof: a birth certificate, a U.S. passport or naturalization papers. If you do not, your registration sits in 'pending' status. You can still vote by affidavit ballot, but it counts only if you bring proof within five days, according to the bill summary the Wire read.",
-      "The secretary of state must also run the whole voter roll through SAVE once a year, at least 180 days before a federal election. Flagged voters get the same notice. A SAVE match alone cannot remove anyone, and no one can be removed in the 90 days before a federal election.",
+      "When you apply to register, the registrar checks your information against driver's license records. If those records say you are not a citizen, or you gave no license number and the state cannot find one, you count as a possible noncitizen, and the registrar must run you through SAVE. SAVE is a federal immigration database kept by the Department of Homeland Security, according to the bill summary the Wire read.",
+      "If both checks say you are not a citizen, the registrar mails you a notice. You have 30 days to send proof: a birth certificate, a U.S. passport or naturalization papers, the documents an immigrant receives on becoming a citizen. If you do not, your registration sits in 'pending' status. You can still vote by affidavit ballot, a ballot set aside until your registration is sorted out, but it counts only if you bring proof within five days.",
+      "The secretary of state must also run the whole voter roll through SAVE once a year, at least 180 days before a federal election. Flagged voters get the same notice. A SAVE match alone cannot remove anyone, and no one can be removed because of a SAVE match in the 90 days before a federal election.",
     ],
     whyItHappened: [
-      "Supporters said voters do not trust that only citizens vote, and a check would settle it. 'If we ever do catch a voter that's on our rolls that is not a U.S. citizen and we are able to purge them from the rolls, that's going to give the people in Mississippi more confidence in our elections,' the sponsor, Sen. Jeremy England, a Republican from Vancleave, said during Senate debate, Magnolia Tribune reported.",
-      "The numbers behind it are small. England told the Senate that about 1.7 million Mississippians were registered in the last election and about 15 noncitizens were found on the rolls, Magnolia Tribune reported. Sen. Johnny DuPree, a Democrat, asked why so much attention was going to 15 people, some of whom may have checked a box by mistake.",
+      "Supporters said voters do not trust that only citizens vote, and a check would settle it. 'If we ever do catch a voter that's on our rolls that is not a U.S. citizen and we are able to purge them from the rolls, that's going to give the people in Mississippi more confidence in our elections, I believe,' the sponsor, Sen. Jeremy England, a Republican, said during Senate debate, Magnolia Tribune reported.",
+      "The Wire's read: the numbers behind it are small. England told the Senate that about 1.7 million Mississippians were registered in the last election and about 15 noncitizens were found on the rolls, Magnolia Tribune reported. Sen. Johnny DuPree, a Democrat, asked why so much attention was going to 15 people, some of whom may have checked a box by mistake.",
     ],
     whatsBehindIt: [
       "The bill passed the House 80 to 41 on March 4, with 77 Republicans, two Democrats and one independent in favor, and the Senate 31 to 16 on party lines, according to Ballotpedia. Gov. Tate Reeves signed it April 1 and called it 'another win for election integrity.'",
-      "The ACLU of Mississippi and other voting rights groups argued the checks will catch citizens whose records do not match: people who changed a name after marriage, naturalized citizens and college students registered away from home. Lydia Grizzell of the ACLU urged Mississippians to keep their records current and watch the mail for notices, MPB reported.",
+      "Civil rights groups argued the checks could disenfranchise eligible voters, MPB reported: naturalized citizens, people who changed a name after marriage, and people with discrepancies in government records. The Mississippi Independent added students who register to vote while attending college in Mississippi. Lydia Grizzell of the ACLU of Mississippi urged Mississippians to keep their records current and watch the mail for notices, MPB reported.",
     ],
     whatItCosts: [
-      "The Wire could not find a published cost estimate for the checks. SAVE is a federal system, so the state's cost is staff time in 82 county registrar offices and the secretary of state's office, plus the mailed notices.",
+      "The Wire could not find a published cost estimate for the checks. The Wire's read: SAVE is a federal system, so the state's cost is staff time in county registrar offices and the secretary of state's office, plus the mailed notices.",
       "For a flagged voter, the cost is paperwork: finding a birth certificate, passport or naturalization papers and getting them to the registrar within 30 days.",
     ],
     whatChangesForYou: [
       "Most voters will notice nothing. The checks run in the background, and only a mismatch triggers a letter. If you get one, you have 30 days, and the registrar must accept a birth certificate, a passport or naturalization papers.",
-      "If you are a naturalized citizen or you changed your name, check your registration before the Nov. 3 election. Jade Craig, a University of Mississippi law professor, told MPB to confirm your status and mailing address with the county registrar well before Election Day so a notice does not go astray.",
+      "If you are a naturalized citizen or you changed your name, check your registration before the Nov. 3 election. Jade Craig, an assistant professor at the University of Mississippi School of Law, told MPB to confirm your status and mailing address with the county registrar well before Election Day so a notice does not go astray.",
     ],
     jackson: [
-      "In Hinds County the registrar is the circuit clerk's office, which would send the notices here. The two groups critics worry about most, naturalized citizens and students registered at a college address, are both concentrated in Jackson, home to Jackson State, Millsaps and Belhaven.",
+      "In Hinds County, as everywhere else, the notices would come from the county registrar. The Wire could not find how many Hinds County voters, if any, have been flagged.",
     ],
     watchFor: [
-      "A federal judge in Washington, Sparkle Sooknanan, ruled in June that the expanded SAVE system is unlawful in its current form and cannot be used for voter checks while the case continues, the Associated Press reported. England says the law still works because it refers to SAVE 'or any successor system.' The ruling is expected to be appealed.",
-      "The yearly roll check must come at least 180 days before a federal general election. For Nov. 3, that date passed in May, before the law took effect, so the first required sweep may not come until 2028. The Wire could not find a statement from Secretary of State Michael Watson on when the first sweep will run. The law also requires annual reports counting voters flagged and removed; the first will show how many Mississippians got letters.",
+      "A federal judge, Sparkle L. Sooknanan, ruled before the law took effect that the expanded SAVE system is unlawful in its current form and cannot be used for voter checks while the case continues, the Associated Press reported. England told MPB the ruling does not necessarily stop the state from carrying out the law, because the legislation refers to the existing SAVE database or any successor system. MPB reported an appeal was expected; the Wire found no later reporting.",
+      "The yearly roll check must come at least 180 days before a federal general election. The Wire's read: for Nov. 3, that date passed in May, before the law took effect, so the first required sweep may not come until 2028. The Wire could not find a statement from Secretary of State Michael Watson on when the first sweep will run. The law also requires annual reports counting voters flagged and removed.",
     ],
     sources: [
       { name: "SB 2588 summary and history (PolicyRisk bill tracker)", url: "https://policyrisk.com/state-bill/MS-SB2588-2026" },
@@ -106,11 +107,12 @@ export const LAWS: Law[] = [
       { name: "Magnolia Tribune: New Mississippi laws aimed at curbing illegal immigration could face challenges from ACLU (via the Star-Herald)", url: "https://www.starherald.net/new-mississippi-laws-aimed-curbing-illegal-immigration-could-face-challenges-aclu-69e03b22eb06b" },
       { name: "MPB: Federal judge blocks Mississippi plan to verify voter citizenship before 2026 elections", url: "https://www.mpbonline.org/blogs/news/federal-judge-blocks-mississippi-plan-to-verify-voter-citizenship-before-2026-elections/" },
       { name: "Mississippi Free Press (AP): States can't use SAVE to check voter citizenship, judge rules", url: "https://www.mississippifreepress.org/states-cant-use-save-to-check-voter-citizenship-judge-rules/" },
+      { name: "The Mississippi Independent: These new state laws take effect on July 1", url: "https://msindy.org/p/new-state-laws-taking-effect" },
       { name: "WLOX: July 1: New Mississippi laws take effect today", url: "https://www.wlox.com/2026/07/01/july-1-new-mississippi-laws-take-effect-today/" },
     ],
     author: "Jackson Wire Staff",
     date: "2026-10-09",
-    note: "Reporting note: The Wire read the bill's section-by-section summary and history on PolicyRisk, a commercial bill tracker, because the Legislature's own site and LegiScan refuse automated readers. Vote counts and the signing date are from Ballotpedia and the tracker. Quotes are from Magnolia Tribune's report as published by the Star-Herald, from MPB, and from the Associated Press as published by the Mississippi Free Press. The Wire did not contact Sen. England, the secretary of state's office or the ACLU before publication.",
+    note: "The Wire read the bill's section-by-section summary and history on PolicyRisk, a commercial bill tracker, because the Legislature's own site and LegiScan refuse automated readers. Vote counts and the signing date are from Ballotpedia and the tracker. Quotes are from Magnolia Tribune's report as published by the Star-Herald, from MPB, and from the Associated Press as published by the Mississippi Free Press; the Wire's copy of the AP report carries no date. The Wire did not contact Sen. England, the secretary of state's office or the ACLU before publication.",
   },
   {
     slug: "teens-with-guns-tried-as-adults",
@@ -121,34 +123,34 @@ export const LAWS: Law[] = [
     signedOn: "2026-04-08",
     effective: "2026-07-01",
     topics: ["Public safety", "Courts and families"],
-    oneSentence: "A 13- to 17-year-old who has a gun during a violent crime is charged as an adult in circuit court, and adults who put stolen guns in kids' hands face long prison terms.",
+    oneSentence: "A teenager who has a gun during a violent crime is charged as an adult in circuit court, and adults who put stolen guns in kids' hands face long prison terms.",
     whatItDoes: [
-      "Before this law, a child's case started in youth court, and only a youth court judge could send it to circuit court to be tried as an adult. Now circuit court takes the case from the start when a child's act is punishable by life or death, involves a deadly weapon, or is a crime of violence while the child has a firearm, according to the bill summary the Wire read. Children under 13 cannot be prosecuted at all under the law, though their parents can be sued.",
-      "It creates a new felony for shooting into a group of two or more people: 5 to 15 years in prison, 5 to 20 at a church, courthouse, school, playground or park, 5 to 30 if anyone in the group is under 18, and 10 to 30 for a gang member.",
-      "Stolen guns get their own ladder. Knowingly keeping or selling one is 5 years. Selling or giving one to a child is 10 to 20 years. If the gun is later used in a violent crime, 10 to 30; in a murder, 10 to 40. Schools must also tell the youth court when they expel a student and why.",
+      "Most children's cases start in youth court. Before this law, a case went to circuit court, the adult court, automatically only under a narrower rule limited to crimes punishable by life or death, WLBT reported; otherwise a youth court judge had to transfer it, MPB reported. Now circuit court takes the case from the start when a child's act is punishable by life or death, involves a deadly weapon, or is a crime of violence while the child has a firearm, according to the bill summary the Wire read. The summary says children under 13 cannot be prosecuted, though their parents can be sued.",
+      "It creates a new felony for shooting into a group of two or more people. The base penalty is 5 to 15 years in prison. At a church, courthouse, school, playground or park it is 5 to 20 years, and 5 to 30 if anyone in the group is under 18. For a gang member it is 10 to 30.",
+      "Stolen guns get their own ladder. Knowingly keeping or selling one is 5 years for a first conviction, and a second conviction, or a case with two or more stolen guns, counts as trafficking at 15 years or more. Selling or giving one to a child is 10 to 20 years, rising to 10 to 30 if the gun is later used in a violent crime and 10 to 40 if it is used in a murder. Schools must also tell the youth court when they expel a student and why.",
     ],
     whyItHappened: [
       "Attorney General Lynn Fitch asked lawmakers for the bill and called it a way to ease the strain on the state's troubled youth court system, MPB reported. Supporters, including Fitch, said it answers rising youth gun violence and repeat gun offenses, the Mississippi Independent reported.",
-      "Police chiefs backed it. 'It's only going to affect people who are involved in violent crimes, and it's going to affect people who are passing firearms down to juveniles,' Ken Winter, executive director of the Mississippi Association of Chiefs of Police, told MPB.",
+      "The state's police chiefs' association backed it. 'It's only going to affect people who are involved in violent crimes, and it's going to affect people who are passing firearms down to juveniles,' Ken Winter, executive director of the Mississippi Association of Chiefs of Police, told MPB.",
     ],
     whatsBehindIt: [
-      "Sen. Joey Fillingane, a Sumrall Republican, sponsored it. The House and Senate passed different versions and settled them in a conference committee on March 31; Gov. Tate Reeves signed the bill April 8, according to the bill history.",
-      "Democrats raised the sharpest objections, pointing out that the gun only has to be present, not used, MPB reported. Rep. Kabir Karriem, who leads the Legislative Black Caucus, said parents, coaches and mentors now have to explain to kids that 'decisions have life-changing consequences.' Keisha Coleman of the Office of Neighborhood Safety and Engagement told MPB that prevention should be funded at the same level as enforcement.",
+      "Sen. Joey Fillingane, a Republican, sponsored it. The House and Senate passed different versions and settled them in a conference committee, a small group from both chambers that works out one version, on March 31; Gov. Tate Reeves signed the bill April 8, according to the bill history.",
+      "The bill faced opposition from Democrats worried about minors' rights, MPB reported, and some pointed out that the gun only has to be present, not used. The chairman of the Legislative Black Caucus said parents, coaches and mentors now have to explain to kids that 'decisions have life-changing consequences.' Keisha Coleman of the Office of Neighborhood Safety and Engagement told MPB that prevention should be funded at the same level as enforcement.",
     ],
     whatItCosts: [
-      "The Wire could not find a fiscal note. The costs fall on county jails and the Department of Corrections, which hold adults, and on circuit courts and district attorneys, who now take cases youth courts used to handle. Longer sentences for stolen-gun crimes mean more prison years to pay for; the state has not published an estimate the Wire could find.",
-      "For a family, the cost is the difference between the two systems. Youth court is built around services and sealed records; circuit court is built around punishment and public records.",
+      "The Wire could not find a fiscal note, the Legislature's own estimate of what a bill will cost. The Wire's read: the costs fall on county jails and the Department of Corrections, which hold adults, and on circuit courts and district attorneys, which now take cases youth courts used to handle, and longer sentences for stolen-gun crimes mean more prison years to pay for. The Wire found no published estimate.",
+      "For a family, the cost is the difference between the two systems. Youth court is 'uniquely designed to address behavioral challenges and provide resources to that child and to that family,' Hinds County Youth Court Judge Carlyn Hicks told WLBT, and those resources are not available in the adult system, she said.",
     ],
     whatChangesForYou: [
-      "If your teenager is near a gun during a burglary, a robbery or a fight that turns violent, the case starts in adult court. 'Sometimes just being there is enough. And that's scary,' Hinds County Youth Court Judge Carlyn Hicks told WLBT.",
+      "If your teenager has a gun during a crime of violence, the case starts in adult court. Judge Hicks gave WLBT the example of a teen caught burglarizing a home who comes into possession of a firearm. 'Sometimes just being there is enough. And that's scary,' she said.",
       "If you sell or hand off a gun, make sure it is not stolen. Transferring a stolen gun to anyone is now a felony, and to a child it is 10 to 20 years.",
     ],
     jackson: [
-      "Hinds County Youth Court will lose a slice of its cases to the circuit court downtown. Judge Hicks urged parents to 'know where your children are' and who their friends are, telling WLBT that the resources youth court offers a family 'are no longer available in the adult system.'",
+      "Hinds County Youth Court will lose a slice of its cases to the circuit court. Judge Hicks urged parents to 'know where your children are' and who their friends are, telling WLBT that the resources youth court offers a family 'are no longer available... in the adult system.'",
     ],
     watchFor: [
       "How the Hinds County district attorney's office uses its new power to file directly in circuit court, and whether youth court caseloads drop as the attorney general predicted.",
-      "Critics expect the question of a gun that is present but not used to reach the appeals courts. The Wire found no lawsuit filed as of publication.",
+      "Whether the rule that a gun need only be present, not used, draws a court challenge. The Wire did not search court dockets for one.",
     ],
     sources: [
       { name: "SB 2710 summary and history (PolicyRisk bill tracker)", url: "https://policyrisk.com/state-bill/MS-SB2710-2026" },
@@ -159,7 +161,7 @@ export const LAWS: Law[] = [
     ],
     author: "Jackson Wire Staff",
     date: "2026-10-09",
-    note: "Reporting note: The penalty ranges and the under-13 rule are from the bill summary on PolicyRisk, a commercial bill tracker, which the Wire used because the Legislature's site and LegiScan refuse automated readers. Reports differ on the age floor: MPB says the law applies to minors 13 and older, while the Mississippi Independent reported children as young as 10 could be transferred. The Wire went with the tracker's reading, which matches MPB, and will correct this entry if the bill text shows otherwise. Quotes are from MPB and WLBT. The Wire did not contact the attorney general's office or Sen. Fillingane before publication.",
+    note: "The penalty ranges and the under-13 rule are from the bill summary on PolicyRisk, a commercial bill tracker, which the Wire used because the Legislature's site and LegiScan refuse automated readers. Reports differ on the age floor: MPB says the law applies to minors 13 and older, WLOX wrote 18 and under, and the Mississippi Independent reported children as young as 10 could be transferred. The Wire followed the tracker, which matches MPB, and will correct this entry if the bill text shows otherwise. The Wire left the Legislative Black Caucus chairman unnamed because MPB's report and the Legislature's roster spell his name differently and the Wire could not read the roster. Quotes are from MPB and WLBT. The Wire did not contact the attorney general's office or Sen. Fillingane before publication.",
   },
   {
     slug: "joint-custody-is-now-the-starting-point-in-divorce",
@@ -172,27 +174,27 @@ export const LAWS: Law[] = [
     topics: ["Courts and families"],
     oneSentence: "In new custody cases, judges begin by presuming both parents get equal time and an equal say, and a parent who wants more must prove why.",
     whatItDoes: [
-      "For more than 40 years, Mississippi judges decided custody with a list of factors from a 1983 case called Albright, with no thumb on the scale for either parent. Now, in any custody case filed after July 1, 2026, the law presumes that joint custody and equal parenting time are best for the child, according to the bill summary the Wire read.",
-      "A parent can overcome that presumption with a preponderance of the evidence, meaning more likely than not. The law lists reasons: a parent's absence, mental illness, substance abuse, sex offender status or prison. If the judge departs from 50-50, the order must explain why. If both parents agree on joint custody, the court presumes that is best.",
-      "Where parents share time equally, child support is figured for each parent and the higher earner pays the difference. A parent with a history of family violence is presumed unfit for custody, and a parent who makes a completely unfounded violence claim pays the other side's court costs and lawyer fees.",
+      "Before this law, judges began with no presumption for either parent and decided custody case by case. The law 'shifts the starting point for judges,' as the Mississippi Independent put it. In cases where the first temporary or first final custody order is entered after July 1, 2026, the court presumes that joint custody and equal parenting time are best for the child, according to the bill summary the Wire read.",
+      "A parent can overcome that presumption with a preponderance of the evidence, meaning more likely than not. The law gives reasons such as a parent's absence, mental illness, substance abuse, sex offender status, prison or other serious facts. If the judge departs from 50-50, the order must explain why. If both parents agree on joint custody, the court presumes that is best.",
+      "Where parents share time equally, child support is figured for each parent and the higher earner pays the difference. Courts presume it harms a child to give any custody to a parent with a history of family violence, and a parent who makes a completely unfounded violence claim pays the other side's court costs and lawyer fees.",
     ],
     whyItHappened: [
-      "Supporters said the old system pushed one parent, usually the father, to every other weekend and turned custody into a fight with a winner and a loser. Equal time, they argued, keeps both parents in a child's life. The Mississippi Independent called it one of the most significant changes to the state's custody law in decades.",
+      "Supporters say the change encourages both parents to remain actively involved in their children's lives, the Mississippi Independent reported. The Independent called it one of the most significant changes to Mississippi custody law in decades.",
     ],
     whatsBehindIt: [
-      "The House and Senate passed different versions and sent the bill to a conference committee; both chambers adopted the compromise on March 31 and April 1, and Gov. Tate Reeves signed it April 8, according to the bill history. The Wire could not find the final vote counts in the reporting it reviewed.",
-      "Family lawyers and domestic violence advocates asked how a 50-50 default handles complicated families: parents in different towns, parents who work nights, parents who cannot be in a room together. The law answers part of that with the violence rules and the written-findings requirement. Critics told the Mississippi Independent they doubt a default framework can account for every hard case.",
+      "The House and Senate passed different versions and sent the bill to a conference committee, a small group from both chambers that works out one version; both chambers adopted the compromise on March 31 and April 1, and Gov. Tate Reeves signed it April 8, according to the bill history. The Wire could not find the final vote counts in the reporting it reviewed.",
+      "Critics question whether a default 50-50 framework adequately accounts for complicated family situations and whether it could create unintended consequences in difficult custody disputes, the Independent reported. The Wire's read: the family violence rules and the written-findings requirement answer part of that.",
     ],
     whatItCosts: [
-      "The state pays little; the change is in what judges presume, not in any program. For parents, the money moves through child support. Under the equal-time formula, the parent who earns more pays the difference between the two guideline amounts, so a higher earner who used to pay full guideline support may pay less, and a lower earner may receive less than before. Each family's numbers depend on income.",
-      "Lawyer fees could go either way. A parent who wants more than half must now build a case; a parent who accepts 50-50 may settle faster. The Wire found no published estimate.",
+      "The Wire's read: the state pays little, because the change is in what judges presume, not in any program. For parents, the money moves through child support. Under the equal-time formula the parent who earns more pays the difference between the two guideline amounts, so a higher earner who used to pay full guideline support may pay less, and a lower earner may receive less than before. Each family's numbers depend on income.",
+      "The Wire found no published estimate of the effect on lawyer fees.",
     ],
     whatChangesForYou: [
-      "If you file for divorce or custody after July 1, 2026, expect the judge to start at equal time. If you want primary custody, gather evidence on the listed grounds. If you already have a custody order, nothing changes until someone asks the court to modify it; the presumption applies only to the first temporary and first final orders entered after July 1, 2026, according to the summary.",
+      "If your first custody order comes after July 1, 2026, expect the judge to start at equal time. If you want primary custody, gather evidence on grounds such as the ones the law names. If you already have a custody order, nothing about it changes, and the presumption does not apply to later changes to that order, according to the summary.",
       "Schools and doctors must give both parents access to a child's records. A parent cannot be refused because they are not the 'custodial' parent.",
     ],
     watchFor: [
-      "The Mississippi Supreme Court and Court of Appeals will decide what counts as enough evidence to overcome the presumption. The first appeals from orders entered after July 1 are the ones to watch.",
+      "The Wire's read: the Mississippi Supreme Court and Court of Appeals will decide what counts as enough evidence to overcome the presumption, and the first appeals from orders entered after July 1 are the ones to watch.",
       "The Wire will update this entry when the enrolled bill text and the final vote counts can be read.",
     ],
     sources: [
@@ -203,7 +205,7 @@ export const LAWS: Law[] = [
     ],
     author: "Jackson Wire Staff",
     date: "2026-10-09",
-    note: "Reporting note: The section-by-section description comes from PolicyRisk, a commercial bill tracker, checked against the Mississippi Independent, Magnolia Tribune and WLBT; the Wire did not read the enrolled bill, because the Legislature's site and LegiScan refuse automated readers. The description of the old Albright standard is background the Wire did not independently source for this entry. The Wire did not contact any lawmaker, family lawyer or advocacy group before publication.",
+    note: "The section-by-section description comes from PolicyRisk, a commercial bill tracker, checked against the Mississippi Independent, Magnolia Tribune and WLBT; the Wire did not read the enrolled bill, because the Legislature's site and LegiScan refuse automated readers. The Wire did not contact any lawmaker, family lawyer or advocacy group before publication.",
   },
   {
     slug: "hospitals-can-spend-more-before-asking-the-state",
@@ -217,28 +219,28 @@ export const LAWS: Law[] = [
     topics: ["Health care", "Business and jobs"],
     oneSentence: "Health care providers can spend up to twice as much on improvements without a state permit, and UMMC's exemption from the permit rule now applies only in a defined area of Jackson.",
     whatItDoes: [
-      "Mississippi makes hospitals, nursing homes and clinics get a certificate of need before building, adding services or buying big equipment. A certificate of need is a state permit that says the project is needed; the Department of Health grants or denies it, and competitors can object. The law doubles the spending thresholds that trigger the permit, the law firm Bradley wrote in its session recap; for clinical projects other than major equipment, the trigger rises from $5 million to $10 million, Mississippi Today reported. Major medical equipment now needs a permit above $3 million, according to the bill summary the Wire read.",
-      "It narrows the University of Mississippi Medical Center's exemption. UMMC did not need a permit for facilities or equipment used for teaching. Now that exemption applies only within a defined area around the main campus and the Jackson Medical Mall, and the state health officer must find the project serves 'a substantial and meaningful academic function,' SuperTalk reported from the bill text. Anything UMMC moves after Feb. 4, 2026 loses its old exemption, according to Department of Health rules cited by Mississippi Today.",
+      "Mississippi makes hospitals, nursing homes and clinics get a certificate of need before building, adding services or buying big equipment. A certificate of need is a state permit that says the project is needed; the Department of Health grants or denies it, and competitors can object. The law doubles the spending thresholds that trigger the permit: for clinical improvements other than major medical equipment, from $5 million to $10 million, Mississippi Today reported. Major medical equipment now needs a permit above $3 million, according to the bill summary the Wire read.",
+      "It narrows the University of Mississippi Medical Center's exemption. For years UMMC did not need a permit for facilities or equipment used for education, and the law limits that exemption to the area around UMMC's main campus and the Jackson Medical Mall, Mississippi Today reported. If UMMC seeks to make a capital improvement or open a new facility outside the Jackson area, the Department of Health must determine that the expense fulfills 'a substantial and meaningful academic function,' SuperTalk reported from the bill text. The HB 1622 bill summary the Wire read says UMMC keeps its exemption for existing approved facilities as long as they are not moved.",
       "The Department of Health must also study whether small hospitals should be exempt for dialysis units and geriatric psychiatric units.",
     ],
     whyItHappened: [
-      "The same bill reached Gov. Tate Reeves in 2025 and he vetoed it over a late amendment that would have let Texas-based Oceans Healthcare provide psychiatric care at St. Dominic Hospital in Jackson, a dispute tied to a lawsuit by Merit Health, SuperTalk and Mississippi Today reported. He said he would sign it without that language; this year's version left it out.",
-      "A federal court ruled in January 2026 that the state's decades-long moratorium on permits for new health care facilities was unconstitutional, Bradley noted, which added pressure to loosen the rules.",
+      "A similar bill reached Gov. Tate Reeves in 2025 and he vetoed it over a provision tied to a legal dispute between Texas-based Oceans Healthcare and St. Dominic Hospital, SuperTalk reported. This year's bill removed the provision that led to the veto, Mississippi Today reported.",
+      "A federal court ruled in January 2026 that the state's decades-long moratorium, a freeze on permits for new health care facilities, was unconstitutional, and the reforms came on the heels of that ruling, the law firm Bradley wrote in its session recap.",
     ],
     whatsBehindIt: [
-      "Rep. Sam Creekmore, the New Albany Republican who chairs the House Public Health and Human Services Committee, wrote the bill, and it passed both chambers unanimously, SuperTalk reported. State Health Officer Dr. Dan Edney wanted the thresholds eliminated, not doubled: 'If you go by the threshold, you have to get a CON to spend the money, which is, in my opinion, ridiculous,' he told SuperTalk.",
-      "The UMMC limit is about competition. Hospitals outside Jackson complained the academic medical center could open clinics anywhere in the state without a permit while they could not. Supporters of certificate-of-need laws say they stop hospitals from duplicating services and protect care that loses money; opponents say they block competition, Bradley's recap noted.",
+      "Rep. Sam Creekmore, the New Albany Republican who chairs the House Public Health and Human Services Committee, wrote the bill, and it passed both chambers unanimously, SuperTalk reported. State Health Officer Dr. Dan Edney told SuperTalk the thresholds themselves are 'in my opinion, ridiculous,' and that the Board of Health and the health department had recommended eliminating them. 'They chose to double them, which is a good move,' he said.",
+      "The UMMC limit is about competition: the bill seeks to level the playing field between UMMC and other health care providers, Mississippi Today reported. Critics of certificate-of-need laws argue they stifle competition and fail to lower costs; advocates say they ensure communities have access to services that are not profitable, Mississippi Today reported. With more than half of Mississippi's rural hospitals at risk of closing, some argue the laws keep struggling hospitals from opening profitable services, the report said.",
     ],
     whatItCosts: [
-      "No direct cost to the state; applicants pay the permit fees. For a hospital, the saving is time and legal fees on projects between $5 million and $10 million, which no longer need an application or a hearing. The Wire could not find a dollar estimate of the fees saved.",
-      "Whether patients pay less is the open question. Permit laws were meant to hold costs down. The Wire's read: the state Board of Health recommended ending the thresholds altogether, which suggests the people who run the process did not think those thresholds were doing that job.",
+      "The Wire could not find a state cost estimate, a fee schedule or an estimate of what hospitals will save. The Wire's read: a project that falls between the old threshold and the new one no longer goes through the state's review, and the time that saves is the point of the law.",
+      "Whether patients pay less is the open question. Stakeholders are divided on whether the permit law lowers costs, Mississippi Today reported.",
     ],
     whatChangesForYou: [
-      "You may see hospitals renovate, add imaging and expand units faster, because fewer projects go through the permit process and the objections that come with it.",
-      "If you use UMMC's clinics outside Jackson, new ones will need a permit or a finding that they serve teaching. Inside the Jackson area, nothing changes for UMMC.",
+      "The Wire's read: hospitals may renovate, add imaging and expand units faster, because fewer projects go through the permit process and the objections that come with it.",
+      "If you use UMMC's clinics outside the Jackson area, a new one will need the Department of Health to find that it serves a meaningful academic function, SuperTalk reported.",
     ],
     jackson: [
-      "The law draws a line around UMMC's home turf: a defined area around the main campus on North State Street and the Jackson Medical Mall. Inside it, UMMC keeps its academic exemption; outside it, UMMC needs a permit like everyone else. A companion law, HB 1622, also lets UMMC build clinical research units in Jackson without a permit, according to that bill's summary.",
+      "The law draws a line around UMMC's home turf: the area around its main campus and the Jackson Medical Mall, Mississippi Today reported. The HB 1622 summary says UMMC can also plan and build clinical research units in Jackson without a permit.",
     ],
     watchFor: [
       "The Department of Health's feasibility study on exempting small hospitals' dialysis and geriatric psychiatric units. The Wire could not find a due date in its sources.",
@@ -253,12 +255,12 @@ export const LAWS: Law[] = [
     ],
     author: "Jackson Wire Staff",
     date: "2026-10-09",
-    note: "Reporting note: The Wire read SuperTalk's report, Bradley's recap and the bill summaries on PolicyRisk, a commercial bill tracker; Mississippi Today's Feb. 5 report was read through its syndication copy on OurTupelo. The Legislature's site and LegiScan refuse automated readers, so the Wire did not read the enrolled bill. The Wire did not contact UMMC, the Department of Health or Rep. Creekmore before publication.",
+    note: "The Wire read SuperTalk's report, Bradley's recap and the bill summaries on PolicyRisk, a commercial bill tracker; Mississippi Today's Feb. 5 report was read through its syndication copy on OurTupelo, which carries no byline in the copy the Wire read. The Legislature's site and LegiScan refuse automated readers, so the Wire did not read the enrolled bill. The Wire did not contact UMMC, the Department of Health or Rep. Creekmore before publication.",
   },
   {
     slug: "casinos-take-child-support-out-of-big-wins",
     bill: "SB 2369",
-    title: "Win $2,000 at a casino while owing child support, and the casino keeps what you owe",
+    title: "Win $2,000 at a casino while owing child support, and the state takes what you owe",
     session: "2026 Regular Session",
     becameLaw: "signed",
     signedOn: "2026-03-19",
@@ -267,30 +269,30 @@ export const LAWS: Law[] = [
     topics: ["Courts and families", "Business and jobs"],
     oneSentence: "Casinos must check big winners against a state list of parents behind on child support and send the money they owe to the state before paying them.",
     whatItDoes: [
-      "The Department of Human Services will send casinos a daily list of parents who owe back child support. When a win is big enough to need a federal tax form, which is $2,000 or more at a slot machine or a sportsbook, the casino checks the list, WLOX reported. If the winner is on it, the casino takes what is owed, sends it to MDHS within seven days and pays out whatever is left. Card and table games such as poker and craps are exempt, SuperTalk reported.",
-      "MDHS holds the money for 30 days. The parent can ask for a hearing in that window, but only about a mistaken identity or a wrong amount, not about the support order itself. Casinos may keep a $35 fee per payment and cannot be sued for following the list, according to the bill summary the Wire read.",
+      "The Department of Human Services, or MDHS, will send casinos a daily list of parents who owe back child support. The check applies to a win of $2,000 or more at a slot machine or a sportsbook, Bradley and SuperTalk reported; WLOX put it at more than $2,000, and the bill summary the Wire read says the rule covers winnings that require a federal tax form. If the winner is on the list, the casino withholds what is owed, sends it to MDHS within seven days and pays out whatever is left. Card and table games such as poker and craps are exempt, SuperTalk reported.",
+      "MDHS holds the money for 30 days. The parent can ask for a hearing in that window, but only about a mistaken identity or a wrong amount, not about the support order itself. Casinos may keep a fee of up to $35 per payment, starting with the second payment for annuities, and cannot be sued for following the list, according to the bill summary.",
     ],
     whyItHappened: [
-      "About 170,000 of Mississippi's roughly 200,000 child support cases have an arrearage, meaning someone is behind, according to MDHS figures reported by WLOX. Mississippi collected 53% of court-ordered child support in 2024, against a 65% national rate, and 153,964 children are owed $1.7 billion in past-due support, Senate Gaming Chairman David Blount, a Jackson Democrat, said, according to DeSoto County News. The state already intercepts tax refunds; casino jackpots were a gap.",
-      "MDHS had pushed for the policy for four years, spokesperson Mark Jones said. Louisiana's version intercepted an average of nearly $1 million a year in its first nine years, the National Child Support Engagement Association reported, according to DeSoto County News.",
+      "About 170,000 of Mississippi's roughly 200,000 child support cases have an arrearage, meaning someone is behind, according to MDHS figures reported by WLOX. Federal data show Mississippi collected 53% of court-ordered child support in 2024, against a 65% national rate, DeSoto County News reported, and Senate Gaming Chairman David Blount, a Jackson Democrat, cited state data showing 153,964 children are owed $1.7 billion in past-due support.",
+      "MDHS had pushed for the policy for four years, spokesperson Mark Jones said, according to DeSoto County News. Louisiana's version intercepted an average of nearly $1 million a year in its first nine years, the National Child Support Engagement Association reported, according to the same story.",
     ],
     whatsBehindIt: [
       "Similar bills had failed in past sessions, SuperTalk reported. This time Sen. Walter Michel, a Ridgeland Republican, wrote the bill; the House passed it 92 to 22 on March 10 and Gov. Tate Reeves signed it March 19, according to DeSoto County News and the bill history. The Wire could not find who cast the 22 no votes or why. Michel said the bill aims mainly at slot payouts reported to the IRS, chiefly wins over $2,000, and explicitly covers slot annuities and sports bets.",
-      "The casino industry's concern was the burden at the cashier's window; the $2,000 floor, the $35 fee and the rule that a casino need not re-check the same person for 24 hours address it.",
+      "MDHS thanked the Gaming Commission, the attorney general and the gaming industry for collaborating on the bill, Jones said, according to DeSoto County News.",
     ],
     whatItCosts: [
-      "The Wire could not find an official estimate of how much the state expects to collect; Louisiana's program, cited by supporters, averaged nearly $1 million a year. The $35 fee means a parent who owes $500 and wins $2,000 would see $535 taken and $1,465 paid out, by the Wire's arithmetic from the bill summary. Someone who owes more than the jackpot gets nothing.",
+      "The Wire could not find an official estimate of how much the state expects to collect; Louisiana's program, cited by supporters, averaged nearly $1 million a year. The bill summary allows casinos a fee of up to $35 per payment, and the Wire could not tell from the summary whether the fee comes out of the winner's money or the state's. Someone who owes more than the jackpot gets nothing.",
       "The state's cost is building the daily list and the hearing process at MDHS, both due by Jan. 1, 2027.",
     ],
     whatChangesForYou: [
-      "If you owe back child support and hit a $2,000 jackpot, the casino will keep what you owe. If you are owed support, the money arrives after a 30-day hold unless the other parent asks for a hearing.",
-      "Everyday play is not affected. The rules cover only wins large enough for a tax form, and casinos do not have to re-check the same person for 24 hours.",
+      "If you owe back child support and hit a $2,000 jackpot, the casino must withhold what you owe and send it to the state. If you are owed support, the money arrives after a 30-day hold unless the other parent asks for a hearing.",
+      "The Wire's read: everyday play is not affected, because the rules cover only wins large enough for a tax form, and casinos do not have to re-check the same person for 24 hours.",
     ],
     jackson: [
-      "The sponsor, Sen. Walter Michel, represents Ridgeland and part of the Jackson metro. There is no casino in Hinds County; the nearest ones are in Vicksburg.",
+      "The sponsor, Sen. Walter Michel, is a Ridgeland Republican, DeSoto County News reported, and Senate Gaming Chairman David Blount, who backed the bill, represents Jackson.",
     ],
     watchFor: [
-      "Jan. 1, 2027: the deadline for the Gaming Commission and MDHS to have the list, the fees and the hearing process in place. Until then the law is on the books but the plumbing is not.",
+      "Jan. 1, 2027: the deadline for the Gaming Commission and MDHS to have the list, the fees and the hearing process in place. The Wire's read: until then the law is on the books but the system to run it is not.",
       "The first annual numbers from MDHS on how much was intercepted.",
     ],
     sources: [
@@ -302,7 +304,7 @@ export const LAWS: Law[] = [
     ],
     author: "Jackson Wire Staff",
     date: "2026-10-09",
-    note: "Reporting note: The hold, hearing and fee details are from the bill summary on PolicyRisk, a commercial bill tracker, which the Wire used because the Legislature's site and LegiScan refuse automated readers. The caseload figure is from WLOX; the vote, the collection rates and the MDHS and Louisiana figures are from DeSoto County News. The Wire did not contact Sen. Michel, MDHS or the Gaming Commission before publication.",
+    note: "The hold, hearing and fee details are from the bill summary on PolicyRisk, a commercial bill tracker, which the Wire used because the Legislature's site and LegiScan refuse automated readers. The caseload figure is from WLOX; the vote, the collection rates and the MDHS and Louisiana figures are from DeSoto County News, whose story carries no byline in the copy the Wire read. Sources differ on whether the threshold is $2,000 or more than $2,000. The Wire did not contact Sen. Michel, MDHS or the Gaming Commission before publication.",
   },
   {
     slug: "insurers-must-cover-cancer-biomarker-tests",
@@ -318,30 +320,27 @@ export const LAWS: Law[] = [
     oneSentence: "State-regulated health plans, Medicaid and the state employee plan must cover biomarker testing for cancer, Alzheimer's and other diseases when solid medical evidence supports it.",
     whatItDoes: [
       "A biomarker is a measurable sign in your blood, tissue or genes that shows a disease is there or which treatment is likely to work. Biomarker testing is how a cancer doctor learns whether a tumor will respond to a targeted drug before prescribing it. The law requires health plans regulated by the Mississippi Insurance Department, Medicaid and the State and School Employees' Health Insurance Plan to cover the tests for diagnosis, treatment, management or monitoring when the evidence supports it, such as FDA labeling, Medicare coverage decisions or national clinical guidelines, according to the bill summary the Wire read.",
-      "Plans must post their biomarker policies online, give a detailed written reason for any denial, decide prior authorization requests within state time limits and offer an easy way to appeal. Coverage has to be arranged to avoid repeat biopsies. Medicaid had 60 days from July 1 to add the billing codes.",
+      "Plans must post their biomarker policies online and give a detailed written reason for any denial. Prior authorization, a plan's advance approval of a test, must be decided within state time limits. Plans must offer an easy way to appeal, and coverage has to be arranged to avoid repeat biopsies. Medicaid had 60 days from July 1 to add the billing codes.",
     ],
     whyItHappened: [
-      "The bill is named for Jill Eure, who died at 48 in 2025 after a battle with multiple myeloma. Her husband, Rep. Casey Eure, a Republican who represents part of Harrison County, sponsored it, WLOX reported.",
-      "Mississippi's cancer death rate is 23% higher than the national average, according to Centers for Disease Control and Prevention figures cited by Bradley. With this law Mississippi became the 23rd state to require the coverage, SuperTalk reported.",
+      "The bill is named for Jill Eure, who died at 48 in 2025 after a battle with multiple myeloma; her husband, Rep. Casey Eure, represents part of Harrison County, WLOX reported.",
+      "Mississippi's cancer death rate is 23% higher than the national average, according to Centers for Disease Control and Prevention figures cited by the law firm Bradley. With this law Mississippi became the 23rd state to require the coverage, SuperTalk reported.",
     ],
     whatsBehindIt: [
-      "The bill moved without a fight the Wire could find: it cleared the House in February, passed the Senate unanimously on March 4, and Gov. Tate Reeves signed it March 16, according to WLOX and the bill history. Supporters said the change removes obstacles to an accurate diagnosis. 'Biomarker testing can help doctors detect Alzheimer's earlier and make a more accurate diagnosis,' Blair Ewing of the Alzheimer's Association Mississippi Chapter told WLOX.",
-      "The usual objection to coverage mandates is cost to insurers and employers; the Wire found no organized opposition in the reporting it reviewed. Self-funded employer plans governed by federal ERISA law are generally outside state mandates, so workers at large self-insured companies may not see the change.",
+      "The bill moved without a fight the Wire could find: it passed the House, passed the Senate unanimously on March 4, and Gov. Tate Reeves signed it March 16, according to WLOX and the bill history. Supporters said the change removes obstacles to an accurate diagnosis. 'Biomarker testing can help doctors detect Alzheimer's earlier and make a more accurate diagnosis,' Blair Ewing of the Alzheimer's Association Mississippi Chapter told WLOX.",
+      "The Wire's read: the usual objection to coverage mandates is their cost to insurers and employers, and the Wire found no organized opposition in the reporting it reviewed. Self-insured plans, where a large employer pays claims itself instead of buying insurance, follow federal law rather than state mandates, so workers in those plans may not see the change; that is general insurance law, not something the Wire found in Mississippi reporting on this bill.",
     ],
     whatItCosts: [
-      "The Wire could not find a fiscal note. For Medicaid and the state employee plan, the state pays for more tests; for private plans, the cost spreads across premiums. Supporters argue that matching treatment to the tumor avoids paying for drugs that will not work; the Wire found no Mississippi estimate of the net cost either way.",
+      "The Wire could not find a fiscal note, the Legislature's own estimate of what a bill will cost. The Wire's read: for Medicaid and the state employee plan, the state pays for more tests, and for private plans the cost spreads across premiums. Supporters argue that matching treatment to the tumor avoids paying for drugs that will not work; the Wire found no Mississippi estimate of the net cost either way.",
       "For a patient, the change is a covered claim instead of an out-of-pocket bill or a skipped test.",
     ],
     whatChangesForYou: [
       "If you or a family member is diagnosed with cancer after your plan renews on or after July 1, 2026, ask the oncologist about biomarker testing and expect the plan to cover it when guidelines support it. If a plan says no, it must tell you why in writing and how to appeal.",
       "Check who runs your plan. A fully insured plan through a Mississippi employer, Medicaid or the state employee plan is covered. A large employer's self-insured plan may not be.",
     ],
-    jackson: [
-      "Jackson is home to UMMC's Cancer Center and Research Institute, which will get a new $100 million state-funded building on State Street; the Wire explains that appropriation in a separate entry.",
-    ],
     watchFor: [
       "Plans had to post their policies within 60 days of enactment and must post changes 30 days ahead. The Insurance Department can audit compliance; watch for its first enforcement actions.",
-      "Denials and appeals in the first renewal cycle will show whether the evidence standard is read broadly or narrowly.",
+      "The Wire's read: denials and appeals in the first renewal cycle will show whether the evidence standard is read broadly or narrowly.",
     ],
     sources: [
       { name: "HB 565 summary and history (PolicyRisk bill tracker)", url: "https://policyrisk.com/state-bill/MS-HB565-2026" },
@@ -352,7 +351,7 @@ export const LAWS: Law[] = [
     ],
     author: "Jackson Wire Staff",
     date: "2026-10-09",
-    note: "Reporting note: Coverage rules, deadlines and the signing date are from the bill summary and history on PolicyRisk, a commercial bill tracker, which the Wire used because the Legislature's site and LegiScan refuse automated readers. Background on Jill Eure and the bill's purpose is from WLOX. The ERISA point is general insurance law, not something the Wire found in Mississippi reporting on this bill. The Wire did not contact Rep. Eure, the Insurance Department or any insurer before publication.",
+    note: "Coverage rules, deadlines and the signing date are from the bill summary and history on PolicyRisk, a commercial bill tracker, which the Wire used because the Legislature's site and LegiScan refuse automated readers; the tracker's page lists no sponsor, and the Wire could not confirm who sponsored the bill. Background on Jill Eure and the bill's purpose is from WLOX. The Wire did not contact Rep. Eure, the Insurance Department or any insurer before publication.",
   },
   {
     slug: "new-state-hires-can-retire-after-30-years-again",
@@ -365,28 +364,25 @@ export const LAWS: Law[] = [
     topics: ["Business and jobs", "Taxes and budget"],
     oneSentence: "The law softens last year's pension cuts for new hires, lets retirees return to state jobs after 30 days at 80% pay, and creates a state-run retirement account for private workers.",
     whatItDoes: [
-      "In 2025 the Legislature created Tier 5, a leaner pension for anyone hired after March 1, 2026, with 35 years of service for full benefits and a hybrid plan that mixes a pension with a 401(k)-style account. This law cuts the service requirement back to 30 years and bases benefits on an employee's highest four years of pay instead of eight, Mississippi Today reported.",
-      "Retirees can return to a state job after a 30-day break instead of 90, earning up to 80% of the job's salary with no new benefits and no raises, through July 1, 2036. Elected officials, school superintendents and college administrators are excluded, according to the bill summary the Wire read. Retired teachers get their own path: back after 30 days, for up to five years, paid on a 125% schedule where half goes to the teacher and half to PERS.",
-      "It also creates Mississippi Work and Save, a voluntary payroll-deduction Roth IRA run by the state treasurer for private workers whose employers offer no plan, with contributions starting by Aug. 1, 2028 and fees capped at 0.75% a year.",
+      "PERS, the Public Employees' Retirement System, is the pension plan for state, school, city and county workers. In 2025 the Legislature created Tier 5 for anyone hired after March 1, 2026: 35 years of service for full benefits, and a hybrid plan that pays a smaller pension alongside a savings account instead of a traditional pension, Mississippi Today reported. This law cuts the service requirement back to 30 years and bases benefits on an employee's highest four years of pay instead of eight, Mississippi Today reported.",
+      "Retirees can return to a state job after a 30-day break instead of 90, earning up to 80% of the job's salary with no new benefits and no raises, through July 1, 2036. Elected officials, school superintendents and college administrators are excluded, according to the bill summary the Wire read. Retired teachers get their own path: back after 30 days, for up to five years, paid at up to 125% of the state salary schedule, with no more than half going to the teacher and the rest to PERS.",
+      "It also creates Mississippi Work and Save, a voluntary retirement account run by the state treasurer. Employers may offer it and enroll workers automatically, workers can opt out, and the self-employed can join; money comes out of paychecks into a Roth IRA, a retirement account funded with after-tax dollars. Contributions start by Aug. 1, 2028, and fees are capped at 0.75% a year after a three-year start-up period, according to the summary.",
     ],
     whyItHappened: [
-      "PERS has about $26 billion in unfunded liabilities, the gap between what it has promised retirees and what it holds, Mississippi Today reported. Last year's cuts were meant to stop the gap from growing, but police chiefs, firefighters and teachers said a 35-year career would scare off recruits. First responders asked for 25 years and got 30, WDAM reported.",
-      "'If they're still willing to sit out for 30 days and come back making 80% of what they were formerly making and still be of service in their field, then we think that's a huge win,' Sen. Joey Fillingane, a Sumrall Republican, told WDAM, pointing to the teacher shortage.",
+      "PERS has about $26 billion in unfunded liabilities, the gap between what it has promised retirees and what it holds, Mississippi Today reported. Last year's cuts were meant to stop the gap from growing, but opponents said they would make hiring and keeping state employees such as teachers and first responders harder, Mississippi Today reported. First responders asked for 25 years and got 30, WDAM reported.",
+      "'If they're still willing to sit out for 30 days and come back making 80% of what they were formerly making and still be of service in their field, then we think that's a huge win,' Sen. Joey Fillingane, a Republican, told WDAM, pointing to the teacher shortage.",
     ],
     whatsBehindIt: [
-      "Rep. Jody Steverson, a Ripley Republican, sponsored the bill. The House and Senate adopted a conference committee's compromise on March 29, nearly unanimously, Mississippi Today reported, and Gov. Tate Reeves signed it April 8.",
-      "What did not pass matters as much. The Senate's plan to put $1 billion into PERS over a decade died, as did the House's idea to tie a $600 million transfer to legalizing mobile sports betting, Mississippi Today reported. The Wire's read: the pension's hole is unchanged, and this law makes the promises slightly larger without adding money to keep them.",
+      "Rep. Jody Steverson, a Republican, sponsored the bill. The House and Senate adopted a conference committee's compromise on March 29; a conference committee is a small group from both chambers that works out one version of a bill. The vote was nearly unanimous, Mississippi Today reported, and Gov. Tate Reeves signed it April 8.",
+      "The Wire's read: what did not pass matters as much. The Senate's plan to put $1 billion into PERS over a decade died, as did the House's idea to tie a $600 million transfer to legalizing mobile sports betting, Mississippi Today reported. The pension's hole is unchanged, and this law makes the promises slightly larger without adding money to keep them.",
     ],
     whatItCosts: [
-      "The Wire could not find the actuary's cost estimate for the Tier 5 changes. Shorter careers and a four-year pay average mean higher benefits per retiree than last year's plan, which the system must fund, and the Legislature added no new money this session.",
+      "The Wire could not find the actuary's cost estimate for the Tier 5 changes, and found no new PERS funding in the reporting it read. The Wire's read: shorter careers and a four-year pay average mean higher benefits per retiree than last year's plan, which the system must fund.",
       "For a new teacher or officer hired after March 1, 2026, the change is worth five years of working life. For a retiree who comes back, 80% of a $50,000 job is $40,000 on top of a pension.",
     ],
     whatChangesForYou: [
       "Hired by the state, a school district, a city or a county after March 1, 2026: you are in Tier 5, and you can now retire with full benefits after 30 years.",
-      "Already retired: you can take a state job 30 days after you leave, at up to 80% of its pay, and keep your pension. Working for a private employer with no retirement plan: watch for Work and Save sign-ups by 2028.",
-    ],
-    jackson: [
-      "The City of Jackson, Hinds County and Jackson Public Schools all hire into PERS, so the 30-year rule and the 30-day return apply to the city's officers, firefighters and teachers.",
+      "Already retired: you can take a state job 30 days after you leave, at up to 80% of its pay, and keep your pension. Working for a private employer: watch for Work and Save sign-ups by 2028.",
     ],
     watchFor: [
       "The PERS board can set a later date than 30 days for returns; watch its rules. Work and Save must be running by Aug. 1, 2028.",
@@ -401,7 +397,7 @@ export const LAWS: Law[] = [
     ],
     author: "Jackson Wire Staff",
     date: "2026-10-09",
-    note: "Reporting note: The return-to-work rules, the Work and Save program and the signing date are from the bill summary and history on PolicyRisk, a commercial bill tracker, which the Wire used because the Legislature's site and LegiScan refuse automated readers. That tracker's summary describes the Tier 5 pay average as the highest eight years; Mississippi Today, Bradley and Magnolia Tribune all report the law changed it to four, and the Wire went with the news reports. The Wire did not contact PERS, Rep. Steverson or Sen. Fillingane before publication.",
+    note: "The return-to-work rules, the Work and Save program and the signing date are from the bill summary and history on PolicyRisk, a commercial bill tracker, which the Wire used because the Legislature's site and LegiScan refuse automated readers. That tracker's summary describes the Tier 5 pay average as the highest eight years; Mississippi Today, Bradley and Magnolia Tribune all report the law changed it to four, and the Wire went with the news reports. The Wire did not contact PERS, Rep. Steverson or Sen. Fillingane before publication.",
   },
   {
     slug: "teachers-get-a-2000-raise-and-a-new-attendance-law",
@@ -414,31 +410,28 @@ export const LAWS: Law[] = [
     topics: ["Schools", "Taxes and budget"],
     oneSentence: "Every public school teacher's minimum salary rises by $2,000 this school year, special education teachers get $4,000, and the same law rewrites the rules on absences.",
     whatItDoes: [
-      "The minimum salary schedule, the floor the state pays teachers by license and years of experience, goes up $2,000 at every step starting with the 2026-27 school year, Mississippi First reported. Special education teachers get an extra $2,000 supplement on top, for $4,000; assistant teachers, school psychologists, occupational therapists and career-tech instructors get $2,000; school resource officers get $5,000, WLOX reported. The money is in a separate bill, HB 1935, the Department of Education's budget, which Gov. Tate Reeves signed the same day.",
+      "The minimum salary schedule, the floor the state pays teachers by license and years of experience, rises for the 2026-27 school year with higher minimums across license levels and steps, according to the bill summary the Wire read; the raise is $2,000 for teachers and assistant teachers, Mississippi First reported. Special education teachers get an extra $2,000 supplement, for $4,000, and school psychologists and occupational therapists get $2,000, while school resource officers get $5,000, WLOX reported. Career-tech instructors also get $2,000, Magnolia Tribune reported. The money is in a separate bill, HB 1935, the Department of Education's budget, which Gov. Tate Reeves also signed April 8.",
       "The law also raises the base amount the state sends districts per student to $7,201.77 from $6,845, Magnolia Tribune reported, and sets assistant teachers' minimum pay at $19,000.",
-      "Attendance rules change too. A student counts as present for the day at about two-thirds of the school day, missing 10% of school days makes a child chronically absent, schools must contact families after three absences, and eight unlawful absences build a legal case against the parent, according to the bill summary the Wire read. Students at school-sanctioned activities are not counted absent.",
+      "Attendance rules change too. A student counts as present for the day at 66% of the school day, according to the bill summary; Magnolia Tribune reported the figure as 60%. Missing 10% of school days makes a child chronically absent, schools must contact families after three absences, and eight unlawful absences build a legal case against the parent. Students at school-sanctioned activities are not counted absent.",
     ],
     whyItHappened: [
       "Mississippi's average teacher salary will be $55,704 after the raise, still last in the country, according to National Education Association figures reported by WLOX. The House wanted $5,000; the Senate offered $2,000, then $6,000 spread over three years; the chambers landed on $2,000, Mississippi Today reported.",
-      "The raise came out of the session's school choice fight. After the Senate killed the House's nearly 500-page education package, both chambers turned to teacher pay as the thing they could agree on, Mississippi Today reported.",
+      "After the haggling over school choice subsided, lawmakers in both chambers shifted their focus to a teacher pay raise, Mississippi Today reported.",
     ],
     whatsBehindIt: [
-      "Sen. Angela Burks Hill, a Picayune Republican, sponsored the policy bill; Rep. Karl Oliver, a Winona Republican, carried the budget bill. Both went to conference committees, both were adopted at the start of April, and both were signed April 8, according to the bill histories.",
+      "Sen. Angela Burks Hill, a Republican, sponsored the policy bill; Rep. Karl Oliver, a Republican, is listed as the sponsor of the budget bill. Both went to conference committees, small groups from both chambers that settle one version of a bill. HB 1935's compromise was adopted March 29 and 30 and SB 2103's on April 1, and both were signed April 8, according to the bill histories.",
       "The Mississippi Association of Educators said the raise is appreciated and every bit helps, but is somewhat canceled out by rising insurance costs and the cost of living, WMC reported.",
     ],
     whatItCosts: [
-      "The Wire could not find the Legislature's cost figure for the raise. The education budget bill sets $2.81 billion for the student funding formula for the year that began July 1, 2026, according to the bill summary the Wire read; the raise is inside that number. For a teacher, $2,000 a year is about $167 a month before taxes.",
+      "The Wire could not find the Legislature's cost figure for the raise. The education budget bill sets $2.81 billion for the student funding formula for the year that began July 1, 2026, according to the bill summary the Wire read, and the Wire could not tell from the summary how much of that is the raise. For a teacher, $2,000 a year is about $167 a month before taxes.",
     ],
     whatChangesForYou: [
       "Teachers and the listed staff see the raise in paychecks for the 2026-27 school year. Parents see new absence rules: after three absences the school must contact you, five excused absences per semester is the limit without the superintendent's approval, and after the third illness absence the school needs a doctor's note.",
-      "Retired teachers who came back under the old return-to-work law lose that option after July 2, 2026; the new path runs through the PERS law, HB 4073.",
-    ],
-    jackson: [
-      "Jackson Public Schools pays on the state schedule, so every JPS teacher gets at least the $2,000. A district cannot cut a teacher's local supplement below last year's amount and still receive the state money, according to the summary.",
+      "Retired teachers who came back under the old return-to-work law lose that option after July 2, 2026; the new path runs through the PERS law, HB 4073. PERS is the state retirement system.",
     ],
     watchFor: [
       "Nov. 1, 2026: the deadline for districts' written policies on excuse documents and family outreach; the state's model policy was due Aug. 15. Districts must publish chronic absenteeism data every year; watch for the first reports.",
-      "The 2027 session: the House has not given up on $5,000.",
+      "The 2027 session. The House's $5,000 bill, HB 1126, died this year, Mississippi First reported, and the Wire found no statement about next year's plans.",
     ],
     sources: [
       { name: "SB 2103 summary and history (PolicyRisk bill tracker)", url: "https://policyrisk.com/state-bill/MS-SB2103-2026" },
@@ -451,7 +444,7 @@ export const LAWS: Law[] = [
     ],
     author: "Jackson Wire Staff",
     date: "2026-10-09",
-    note: "Reporting note: The salary schedule, attendance rules and signing dates are from the bill summaries and histories on PolicyRisk, a commercial bill tracker, which the Wire used because the Legislature's site and LegiScan refuse automated readers. The tracker says a student counts present at 66% of the day; Magnolia Tribune reported 60%. The Wire wrote 'about two-thirds' and will correct this when the bill text can be read. The Wire did not contact Sen. Hill, Rep. Oliver, the Department of Education or the Mississippi Association of Educators before publication.",
+    note: "The salary schedule, attendance rules and signing dates are from the bill summaries and histories on PolicyRisk, a commercial bill tracker, which the Wire used because the Legislature's site and LegiScan refuse automated readers; the tracker's HB 1935 page lists Karl Oliver in its header and William Tracy Arnold below it, and the Wire could not confirm which is the sponsor. The tracker says a student counts present at 66% of the day; Magnolia Tribune reported 60%. The Wire did not contact Sen. Hill, Rep. Oliver, the Department of Education or the Mississippi Association of Educators before publication.",
   },
   {
     slug: "absentee-ballots-go-straight-into-the-machine",
@@ -469,22 +462,22 @@ export const LAWS: Law[] = [
       "Mailed absentee ballots still arrive in envelopes, stay locked at the registrar's office and are counted when the polls close. Ballots that scanners reject go to a trained resolution board of at least three people, which can make a duplicate the scanner will read. Every county must record each absentee application and ballot in the Statewide Election Management System.",
     ],
     whyItHappened: [
-      "'We got rid of the envelope this year,' Sen. Jeremy England, a Vancleave Republican, told SuperTalk. 'At 7 p.m. on Election Day, those votes are going to be tallied just like everybody else's.' Under the old system, absentee envelopes were opened last, which dragged out results, especially in rural counties, SuperTalk reported.",
-      "Supporters also said the envelope system discouraged voters who feared someone could see their vote, and that feeding the ballot into a machine cuts the risk of a ballot being disqualified, WLOX reported. England pointed to a University of California San Diego survey in which 40% of respondents doubted votes would be counted accurately in 2026.",
+      "'We got rid of the envelope this year,' Sen. Jeremy England, a Vancleave Republican, told SuperTalk. 'At 7 p.m. on Election Day, those votes are going to be tallied just like everybody else's.' Under the old system, absentee ballots were not counted until after the polls closed, which often led to long waits for results, particularly in rural areas, SuperTalk reported.",
+      "Supporters said feeding the ballot into a machine reduces the risk of a ballot being disqualified, WLOX reported. SuperTalk tied the law to distrust of elections, citing a University of California San Diego survey in which 40% of respondents nationwide doubted votes would be counted accurately in 2026.",
     ],
     whatsBehindIt: [
-      "Rep. Noah Sanford, a Collins Republican, sponsored the bill. It passed with a single dissenting vote, SuperTalk reported, and Gov. Tate Reeves signed it March 19, according to the bill history. It was one of eight election bills enacted in 2026, Ballotpedia reported.",
-      "A companion law, HB 858, bars any ballot scanner that can make a wireless connection from being used in an election, Ballotpedia reported, answering a worry that machines could be reached over the air.",
+      "Rep. Noah Sanford, a Republican, sponsored the bill. It passed with a single dissenting vote, SuperTalk reported, and Gov. Tate Reeves signed it March 19, according to the bill history. It was one of eight election bills enacted in 2026, Ballotpedia reported.",
+      "A companion law, HB 858, bars any ballot scanner that can make a wireless connection from being used in an election, Ballotpedia reported.",
     ],
     whatItCosts: [
-      "Counties may buy or rent scanners that meet state standards, and county supervisors pay for the seals, according to the bill summary. Most counties already own scanners for Election Day. The Wire could not find a statewide cost estimate or a figure for Hinds County.",
+      "Counties and cities may buy or rent scanners that meet state standards, and county supervisors pay for the seals, according to the bill summary. The Wire could not find a statewide cost estimate or a figure for Hinds County.",
     ],
     whatChangesForYou: [
       "If you vote absentee in person for the Nov. 3 election, the window runs Sept. 21 through noon on Saturday, Oct. 31, SuperTalk reported. Bring your ID, fill out the application, sign the certificate, mark the printed ballot and feed it into the scanner yourself.",
       "Once you cast an absentee ballot, by mail or in person, it is final; you cannot also vote at your precinct.",
     ],
     jackson: [
-      "For Jackson voters the change applies at the Hinds County circuit clerk's office. Hinds has more registered voters than any other county, so its absentee pile is the biggest single batch that will now be counted at 7 p.m. instead of after the polls close.",
+      "For Jackson voters the change applies at the Hinds County circuit clerk's office. The Wire could not find how many in-person absentee ballots Hinds County expects.",
     ],
     watchFor: [
       "Election night, Nov. 3: whether Hinds County and the state report results faster than in past years.",
@@ -499,10 +492,10 @@ export const LAWS: Law[] = [
     ],
     author: "Jackson Wire Staff",
     date: "2026-10-09",
-    note: "Reporting note: The procedures, deadlines and signing date are from the bill summary and history on PolicyRisk, a commercial bill tracker, which the Wire used because the Legislature's site and LegiScan refuse automated readers. Quotes and the voting window are from SuperTalk. The Wire did not contact the Hinds County circuit clerk, Rep. Sanford or the secretary of state's office before publication.",
+    note: "The procedures, deadlines and signing date are from the bill summary and history on PolicyRisk, a commercial bill tracker, which the Wire used because the Legislature's site and LegiScan refuse automated readers. Quotes, the sponsor's hometown and the voting window are from SuperTalk. The Wire did not contact the Hinds County circuit clerk, Rep. Sanford or the secretary of state's office before publication.",
   },
   {
-    slug: "illegal-entry-is-now-a-state-crime-and-jails-must-work-with-ice",
+    slug: "illegal-entry-state-crime-jails-ice",
     bill: "SB 2114",
     title: "Mississippi makes illegal entry a state crime and orders county jails to work with ICE",
     session: "2026 Regular Session",
@@ -511,34 +504,34 @@ export const LAWS: Law[] = [
     effective: "2026-07-01",
     effectiveNote: "The law repeals itself on July 1, 2028 unless lawmakers renew it.",
     topics: ["Public safety", "Local government"],
-    oneSentence: "A person caught entering Mississippi illegally from another country faces at least six months in jail, every county jail had to seek an ICE agreement by Oct. 1, 2026, and state police get an immigration unit.",
+    oneSentence: "A person caught entering Mississippi illegally faces at least six months in prison, county jails had to seek ICE agreements by Oct. 1, and state police must assign immigration agents.",
     whatItDoes: [
-      "The law creates a state crime: a person found to be in the country illegally who is caught entering Mississippi from a foreign nation outside a lawful port commits a misdemeanor with a minimum six months in prison, according to the bill summary the Wire read. It also adds time for people in the country illegally who are convicted of other crimes: at least two years on top of a nonviolent conviction, and three to five years on top of a violent or sex offense. Asylum, a federal grant of lawful presence, and DACA approvals from 2012 to 2021 are defenses. No expungement is allowed.",
-      "Every county that runs a jail had to make a reasonable attempt to sign a 287(g) agreement with U.S. Immigration and Customs Enforcement by Oct. 1, 2026. A 287(g) agreement lets local officers perform some immigration enforcement under ICE supervision. Counties that have not signed must report to the Department of Public Safety every three months on why, and the attorney general can sue to force compliance.",
-      "DPS gets agents assigned to immigration enforcement, must keep count of people living in the state without authorization, and had 120 days from July 1 to seek its own 287(g) agreement. Two companion laws passed the same day: HB 538 requires every state and local agency and public college to honor ICE detainers and voids any sanctuary policy, and SB 2322 makes out-of-state driver's licenses issued without proof of lawful presence invalid in Mississippi, with officers told to cite the driver and refer them to ICE.",
+      "The law creates a state crime: a person in the country illegally who is caught entering Mississippi from a foreign nation outside a lawful port of entry commits a misdemeanor, a lower-level crime, with a minimum six months in prison, according to the bill summary the Wire read. It adds time for people in the country illegally who are convicted of other state crimes that carry a possible sentence of 12 months or more: at least two years on top of a nonviolent conviction, and three to five years on top of a violent or sex offense, by the summary's account. Magnolia Tribune reported the violent-crime add-on as at least five years. Asylum, a federal grant of lawful presence, and DACA approvals from 2012 to 2021 are defenses, and no expungement, the court process that erases a record, is allowed.",
+      "Every county that runs a jail had to make a reasonable attempt to sign a 287(g) agreement with U.S. Immigration and Customs Enforcement, or ICE, by Oct. 1, 2026. A 287(g) agreement lets local officers perform some immigration enforcement under ICE supervision. Counties that have not signed must report to the Department of Public Safety every three months on why, and the attorney general can sue to force compliance.",
+      "The Department of Public Safety must assign agents to immigration enforcement, keep count of people living in the state without authorization, and seek its own 287(g) agreement within 120 days of July 1. Two companion laws passed the same day. HB 538 requires every state and local agency and public college to honor ICE detainers, requests to hold a person for immigration agents, and voids any sanctuary policy. SB 2322 makes out-of-state driver's licenses issued without proof of lawful presence invalid in Mississippi, and officers must cite the driver and refer them to ICE.",
     ],
     whyItHappened: [
-      "Republican sponsors said the state was 'putting some teeth' in immigration law, in the words of Sen. Angela Burks Hill, a Picayune Republican who sponsored two of the three bills, Magnolia Tribune reported. When the bills were introduced in February, fewer than ten Mississippi localities had 287(g) agreements; by the end of the session there were nearly 30, the Tribune reported.",
-      "Mississippi banned sanctuary cities in 2017; the new laws extend the ban to law enforcement agencies and public colleges. 'If federal agents are here to enforce federal law, let them do their work and do that properly,' Sen. Jeremy England, a Vancleave Republican, said during debate, the Tribune reported.",
+      "Republican sponsors said the state was 'putting some teeth' in immigration law, in the words of Sen. Angela Burks Hill, a Republican who sponsored two of the three bills, Magnolia Tribune reported. When the ICE cooperation bill was introduced in mid-February, fewer than ten Mississippi localities had 287(g) agreements; by the time the Tribune wrote, there were nearly 30.",
+      "HB 538 updated Mississippi's existing ban on cities and counties adopting sanctuary policies to cover law enforcement agencies too, the Tribune reported. 'If federal agents are here to enforce federal law, let them do their work and do that properly,' Sen. Jeremy England, a Republican, said during debate.",
     ],
     whatsBehindIt: [
-      "Sen. Hill and Sen. Joseph Seymour sponsored SB 2114; Rep. Lee Yancey, a Brandon Republican, sponsored HB 538. All three bills went through conference committees and Gov. Tate Reeves signed them April 8, according to the bill histories. Democrats opposed each one, and several Republicans questioned the reason and intent of some measures, the Tribune reported.",
-      "Senate Minority Leader Derrick Simmons, a Greenville Democrat, said the state would do better to fund schools and health care and restore voting rights. Sen. David Blount, a Jackson Democrat, called the license bill 'a bad bill on so many fronts,' saying a driver who is legal in one state could be criminalized in Mississippi. The ACLU of Mississippi argued the entry crime sets no probable cause standard and will lead to profiling of citizens; its policy manager, Lydia Grizzell, said she could not confirm or deny whether the group would sue.",
+      "Hill and Sen. Joseph Seymour sponsored SB 2114; Rep. Lee Yancey, a Republican, sponsored HB 538. All three bills went through conference committees, small groups from both chambers that settle one version of a bill, and Gov. Tate Reeves signed them April 8, according to the bill histories. Democrats, by and large, opposed each bill, and several Republicans questioned the reason and intent of some measures, the Tribune reported.",
+      "Senate Minority Leader Derrick Simmons, a Democrat, said the state would do better to fund schools and health care and restore voting rights. Sen. David Blount, a Democrat, called the license bill 'a bad bill on so many fronts,' saying a driver who is legal in one state could be criminalized in Mississippi. The ACLU of Mississippi argued, when the bill was in its original form, that it set no probable cause standard for an arrest and would lead to profiling of citizens; its policy and advocacy manager, Lydia Grizzell, told the Tribune she could not confirm or deny whether the group would sue.",
     ],
     whatItCosts: [
-      "The Wire could not find a fiscal note for any of the three bills. Democrats argued the plan leaves counties on the hook for jailing people held for immigration violations, Mississippi Today reported, and the new sentences add prison years the state must pay for. DPS's immigration unit is a new line item with no published price.",
+      "The Wire could not find a fiscal note, the Legislature's own estimate of what a bill will cost, for any of the three bills. Democrats argued the plan leaves counties on the hook for jailing people held for immigration violations, Mississippi Today reported, and the new sentences add prison years. The Wire could not find a published price for the DPS agents.",
       "For an immigrant family, the cost is risk: a traffic stop that becomes an ICE referral, as the ACLU put it, and a license that may no longer be valid here.",
     ],
     whatChangesForYou: [
-      "If you are a citizen, little changes on the surface. If you drive on an out-of-state license issued without proof of lawful presence, it is no longer valid in Mississippi; you can be cited for driving without a license and referred to ICE.",
+      "The Wire's read: if you are a citizen, little changes on the surface, though the ACLU argues profiling will reach citizens too. If you drive on an out-of-state license issued without proof of lawful presence, it is no longer valid in Mississippi; you can be cited for driving without a license and referred to ICE.",
       "If you work for a city, a county, a public college or the state, your agency must cooperate with ICE requests, and the attorney general can take it to court if it does not.",
     ],
     jackson: [
-      "The Hinds County Sheriff's Office runs the county jail, so the Oct. 1 deadline to seek a 287(g) agreement applied to it. The Wire could not find whether Hinds County signed one or filed the quarterly report the law requires. Jackson's police department, Hinds County government and Jackson State University all fall under the cooperation rules in HB 538.",
+      "The law covers every county that runs a jail, so the Oct. 1 deadline applied in Hinds County. The Wire could not find whether Hinds County sought an agreement or filed the quarterly report the law requires. Jackson's police department, Hinds County government and Jackson State University, a public university, all fall under the cooperation rules in HB 538.",
     ],
     watchFor: [
-      "The quarterly reports counties owe DPS, which will show who signed with ICE and who did not. DPS's own 287(g) agreement was due within 120 days of July 1, which is the end of October.",
-      "A lawsuit. The ACLU of Mississippi has not ruled one out. And July 1, 2028, when SB 2114 repeals itself unless the Legislature renews it.",
+      "The quarterly reports counties owe DPS, which will show who signed with ICE and who did not. DPS's own 287(g) agreement is due within 120 days of July 1, which falls at the end of October.",
+      "A lawsuit: in April the ACLU said it could not confirm or deny one, and the Wire did not search for later filings. And July 1, 2028, when SB 2114 repeals itself unless the Legislature renews it.",
     ],
     sources: [
       { name: "SB 2114 summary and history (PolicyRisk bill tracker)", url: "https://policyrisk.com/state-bill/MS-SB2114-2026" },
@@ -550,7 +543,7 @@ export const LAWS: Law[] = [
     ],
     author: "Jackson Wire Staff",
     date: "2026-10-09",
-    note: "Reporting note: The penalties, deadlines and sunset date are from the bill summaries and histories on PolicyRisk, a commercial bill tracker, which the Wire used because the Legislature's site and LegiScan refuse automated readers. Quotes are from Magnolia Tribune's report as published by the Star-Herald. The ACLU's tracker says the two anti-sanctuary bills ended up with nearly identical language, with SB 2114 carrying the stronger enforcement provisions; the Wire has not read the enrolled texts to compare them. The 2017 sanctuary ban is background the Wire did not independently source for this entry. The Wire did not contact the Hinds County Sheriff's Office, DPS, the sponsors or the ACLU before publication.",
+    note: "The penalties, deadlines and sunset date are from the bill summaries and histories on PolicyRisk, a commercial bill tracker, which the Wire used because the Legislature's site and LegiScan refuse automated readers. Quotes are from Magnolia Tribune's report as published by the Star-Herald. The ACLU of Mississippi's page on SB 2114 is an early-session update that calls the entry offense a felony and describes the bill before the conference committee; the tracker and the Tribune call it a misdemeanor, and the Wire has not read the enrolled text. The Wire did not contact the Hinds County Sheriff's Office, DPS, the sponsors or the ACLU before publication.",
   },
   {
     slug: "100-million-for-a-cancer-center-in-jackson",
@@ -560,34 +553,35 @@ export const LAWS: Law[] = [
     becameLaw: "signed",
     signedOn: "2026-04-13",
     effective: "2026-04-13",
-    effectiveNote: "The money moves into a state fund at signing; it can be spent once the Legislature appropriates it.",
+    effectiveNote: "The transfer takes effect with the law; the tracker's summary says the money can be spent once the Legislature appropriates it.",
     topics: ["Health care", "Taxes and budget", "Local government"],
     oneSentence: "A budget-transfer law sends $100 million to UMMC's planned cancer center on State Street, and the same law carries $253 million for lawmakers' local projects and $150 million for highways.",
     whatItDoes: [
-      "The law creates a Cancer Center Fund and moves $100 million into it to help the University of Mississippi Medical Center build and equip a Cancer Center and Research Institute, according to the bill summary the Wire read. Finance and Administration can spend the money only after the Legislature appropriates it, and interest goes to the general fund.",
-      "The same bill moves money into more than a dozen other funds: $233 million now and $20 million on July 1 into a 2026 Local Improvements Projects Fund, the 'Christmas tree' of lawmakers' district projects that Mississippi Today put at $253 million; $150 million for Department of Transportation capacity projects; $75.1 million for university buildings and $40 million for community colleges; $30 million for a science research building at Southern Miss; $32 million for Mississippi State's veterinary school; $30 million for Vicksburg National Military Park's visitor center; $43.5 million for industrial site grants; and $15 million for the Outdoor Stewardship Trust Fund.",
+      "The law creates a Cancer Center Fund and moves $100 million into it to help the University of Mississippi Medical Center build and equip a Cancer Center and Research Institute, according to the bill summary the Wire read. The summary says Finance and Administration can spend the money only after the Legislature appropriates it, meaning passes a bill releasing it, and that interest goes to the general fund, the state's main account. UMMC, Mississippi Today and SuperTalk all describe the $100 million as an appropriation already made; the Wire could not resolve that difference from its sources.",
+      "The same bill moves money into more than a dozen other funds. The biggest is a 2026 Local Improvements Projects Fund, the 'Christmas tree' of lawmakers' district projects, which gets $233 million now and $20 million on July 1; Mississippi Today put the total at $253 million. Transportation gets $150 million for capacity projects.",
+      "Universities get $75.1 million for buildings and community colleges $40 million. Southern Miss gets $30 million for a science research building and Mississippi State $32 million for its veterinary school. Vicksburg National Military Park's visitor center gets $30 million, industrial site grants $43.5 million, and the Outdoor Stewardship Trust Fund $15 million.",
     ],
     whyItHappened: [
-      "Mississippi has the highest cancer death rate in the nation, 23% above the national average, according to Centers for Disease Control and Prevention figures reported by Mississippi Today. About 16,000 Mississippians are diagnosed each year and roughly 6,500 die, SuperTalk reported. There are 73 National Cancer Institute-designated centers in the country and none in Mississippi, Louisiana or Arkansas; patients who want one travel to Alabama, Tennessee or Texas.",
-      "UMMC says a new building is the key to earning that designation, which brings federal support and access to early clinical trials. 'It's either us, or it doesn't happen,' Dr. LouAnn Woodward, the vice chancellor for health affairs, told the Senate Appropriations Committee in January, Mississippi Today reported.",
+      "Mississippi's cancer death rate is 23% higher than the national average, according to Centers for Disease Control and Prevention figures reported by Mississippi Today, and Dr. LouAnn Woodward, UMMC's vice chancellor for health affairs, calls it the highest cancer mortality in the nation. About 16,000 Mississippians are diagnosed each year and roughly 6,500 die, SuperTalk reported. There are 73 National Cancer Institute-designated centers in the country and none in Mississippi, Louisiana or Arkansas; patients who want one travel to Alabama, Tennessee or Texas, Mississippi Today reported.",
+      "UMMC says a new building is the key to earning that designation, which brings federal support and access to early clinical trials. 'It's either us, or it doesn't happen,' Woodward told the Senate Appropriations Committee in January, Mississippi Today reported.",
     ],
     whatsBehindIt: [
-      "UMMC asked for $100 million after raising $100 million of its $125 million private campaign in a little over a year, including $25 million from Sandy and John Black, $10 million each from the Gertrude C. Ford Foundation and the Bower Foundation, and $5 million from C Spire, SuperTalk reported. 'UMMC didn't just show up with their hand out,' Sen. Daniel Sparks, a Belmont Republican, told SuperTalk. 'If you want to talk about skin in the game, they have it.'",
-      "The House and Senate settled the bill in a conference committee adopted April 2, and Gov. Tate Reeves signed it April 13, according to the bill history. Senate Appropriations Chairman Briggs Hopson of Vicksburg and Finance Chairman Josh Harkins of Flowood had signaled 'significant' funding weeks earlier, SuperTalk reported.",
+      "Woodward asked the Senate Appropriations Committee for the money in January, Mississippi Today reported. By March 30 UMMC's campaign had raised $100 million of its $125 million goal, including $25 million from Sandy and John Black, $10 million each from the Gertrude C. Ford Foundation and the Bower Foundation, and $5 million from C Spire, SuperTalk reported. 'UMMC didn't just show up with their hand out,' Sen. Daniel Sparks, a Belmont Republican, told SuperTalk. 'If you want to talk about skin in the game, they have it.'",
+      "The House and Senate settled the bill in a conference committee, a small group from both chambers that works out one version, adopted April 2, and Gov. Tate Reeves signed it April 13, according to the bill history. Senate Appropriations Chairman Briggs Hopson of Vicksburg and Finance Chairman Josh Harkins of Flowood had previously confirmed 'significant' funding, SuperTalk reported.",
     ],
     whatItCosts: [
-      "The $100 million comes from the state's capital expense funds, money set aside from past surpluses, rather than new taxes or bonds, SuperTalk reported. The whole building is estimated at $250 million; UMMC's campaign, the state money and $8.5 million in federal site-preparation funds cover most of it, Mississippi Today reported. The state also kept the center's annual operating appropriation at $9 million, a level set in 2024.",
-      "The Wire's read: for a reader, the money is already spent in the sense that it sits in a fund, but the hospital still has to earn the designation, which UMMC's cancer center director said could take up to a decade.",
+      "The $100 million comes from the state's capital expenditure funds, SuperTalk reported; those are state accounts for one-time projects such as buildings. The whole building is estimated at $250 million, Mississippi Today reported. UMMC's campaign has raised $100 million toward $125 million, the state is adding $100 million, and the federal government gave $8.5 million for site preparation; by the Wire's arithmetic that is about $208 million so far. The state also kept the center's annual operating appropriation at $9 million, a level set in 2024, Mississippi Today reported.",
+      "The money is set aside but not yet spent, and UMMC still has to earn the designation, which Dr. Rod Rocconi, the cancer center's director, told Mississippi Today could take up to a decade.",
     ],
     whatChangesForYou: [
-      "Nothing changes at the clinic this year. Groundbreaking was planned for later in 2026, with construction to follow. Once open, UMMC says patients will get advanced therapies and clinical trials in Jackson instead of out of state.",
+      "The Wire's read: nothing changes at the clinic this year. UMMC planned to break ground later in 2026, Mississippi Today reported. Once open, UMMC says patients will get advanced therapies and clinical trials in Jackson instead of out of state.",
       "If your town or county was in the local projects list, that money is in the same law. The Wire has not yet read the list.",
     ],
     jackson: [
-      "The five-story, 250,000-square-foot building will sit on State Street across from the medical center, next to the American Cancer Society's Hope Lodge, Mississippi Today reported. It is the largest state investment in a single Jackson building this session that the Wire found.",
+      "The five-story, 250,000-square-foot building will sit on State Street across from the medical center, next to the American Cancer Society's Hope Lodge, Mississippi Today reported.",
     ],
     watchFor: [
-      "The groundbreaking, which UMMC's vice chancellor said would come later in 2026 with site work funded by the federal $8.5 million. The Wire has not confirmed a date.",
+      "The groundbreaking, which UMMC said would come later in 2026 with site work funded by the federal $8.5 million. The Wire has not confirmed a date.",
       "The project list for the $253 million local improvements fund, and whether any Jackson or Hinds County projects are in it. Recipients must report quarterly, and Finance and Administration must report twice a year.",
     ],
     sources: [
@@ -600,7 +594,7 @@ export const LAWS: Law[] = [
     ],
     author: "Jackson Wire Staff",
     date: "2026-10-09",
-    note: "Reporting note: The fund list and the signing date are from the bill summary and history on PolicyRisk, a commercial bill tracker, which the Wire used because the Legislature's site and LegiScan refuse automated readers; the Wire has not read the enrolled bill or the local projects list. Mississippi Today's reports were read through DeSoto County News. Mississippi Today discloses that it receives funding from the Bower Foundation, one of the donors named here. The Wire did not contact UMMC or any lawmaker before publication.",
+    note: "The fund list and the signing date are from the bill summary and history on PolicyRisk, a commercial bill tracker, which the Wire used because the Legislature's site and LegiScan refuse automated readers; the Wire has not read the enrolled bill or the local projects list. The tracker says the fund can be spent only after a further appropriation, while UMMC, Mississippi Today and SuperTalk call the $100 million an appropriation; the Wire could not resolve that. Mississippi Today's reports were read through DeSoto County News, and Mississippi Today discloses that it receives funding from the Bower Foundation, one of the donors named here. The Wire did not contact UMMC or any lawmaker before publication.",
   },
 ];
 
@@ -616,6 +610,7 @@ function smartenLaw(law: Law): Law {
   const out: Law = {
     ...law,
     title: smarten(law.title),
+    ...(law.officialTitle ? { officialTitle: smarten(law.officialTitle) } : {}),
     oneSentence: smarten(law.oneSentence),
     whatItDoes: law.whatItDoes.map(smarten),
     whyItHappened: law.whyItHappened.map(smarten),
@@ -644,10 +639,6 @@ export const getLawBySlug = cache((slug: string): Law | undefined => {
   return law && isPublished(law) ? smartenLaw(law) : undefined;
 });
 
-export function getLawsByTopic(topic: string): Law[] {
-  return getAllLaws().filter((l) => (l.topics as string[]).includes(topic));
-}
-
 export function getRelatedLaws(law: Law, limit = 3): Law[] {
   const all = getAllLaws().filter((l) => l.slug !== law.slug);
   const shared = all.filter((l) => l.topics.some((t) => law.topics.includes(t)));
@@ -663,14 +654,15 @@ export function isInEffect(law: Law): boolean {
   return law.effective <= todayLocalIso();
 }
 
-// The Legislature's own bill history page, which links the text, the votes,
-// and the governor's action.
+// The Legislature's own bill history page. The site refuses automated
+// readers, so this pattern (four-digit bill numbers, e.g. HB0003.xml) is
+// from the Wire's records of the site's URLs rather than a live fetch.
 export function billHistoryUrl(law: Law): string {
   const m = law.bill.match(/^(HB|SB|HC|SC)\s*(\d+)$/i);
   const year = law.session.match(/\d{4}/)?.[0] ?? "2026";
   if (!m) return `https://billstatus.ls.state.ms.us/${year}/pdf/all_measures/allmsrs.xml`;
   const prefix = m[1].toUpperCase();
-  return `https://billstatus.ls.state.ms.us/${year}/pdf/history/${prefix}/${prefix}${m[2]}.xml`;
+  return `https://billstatus.ls.state.ms.us/${year}/pdf/history/${prefix}/${prefix}${m[2].padStart(4, "0")}.xml`;
 }
 
 export function becameLawLabel(law: Law): string {

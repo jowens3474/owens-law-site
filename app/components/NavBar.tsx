@@ -69,9 +69,8 @@ export default function NavBar() {
     { name: "Pro", href: "/pro" },
     { name: "About", href: "/about" },
   ];
-  // The masthead and the scrolled wordmark already lead home, so the
-  // desktop row skips "Home" to keep ten links fitting at xl.
-  const desktopLinks = links.filter((l) => l.href !== "/");
+  // At xl the scrolled wordmark leads home, so "Home" leaves the row to
+  // keep ten links fitting; below xl the wordmark is hidden, so Home stays.
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
@@ -102,10 +101,10 @@ export default function NavBar() {
             </Link>
           </div>
           <ul className="flex min-w-0 flex-1 items-center justify-center">
-            {desktopLinks.map((l) => {
+            {links.map((l) => {
               const active = isActive(l.href);
               return (
-                <li key={l.href}>
+                <li key={l.href} className={l.href === "/" ? "xl:hidden" : undefined}>
                   <Link
                     href={l.href}
                     aria-current={active ? "page" : undefined}

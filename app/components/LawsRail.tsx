@@ -9,7 +9,7 @@ export default function LawsRail({ limit = 3 }: { limit?: number }) {
   return (
     <section>
       <h2 className="border-b border-ink pb-1 font-sans text-xs font-bold uppercase tracking-widest text-ink">
-        What passed
+        What Passed
       </h2>
       <p className="mt-2 font-sans text-xs text-muted">
         New laws, explained in plain words.
@@ -30,7 +30,7 @@ export default function LawsRail({ limit = 3 }: { limit?: number }) {
         href="/laws"
         className="mt-3 inline-block font-sans text-xs font-bold uppercase tracking-wide text-crimson hover:text-crimson-bright"
       >
-        Every law, explained →
+        More new laws, explained →
       </Link>
     </section>
   );

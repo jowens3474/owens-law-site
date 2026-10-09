@@ -4,10 +4,10 @@ import { getAllLaws, isInEffect, LAW_TOPICS, type Law } from "@/lib/laws";
 import { formatDate } from "@/lib/posts";
 import { site } from "@/lib/site";
 import { absoluteUrl } from "@/lib/markdown";
-import { norm } from "@/lib/search-terms";
+import { lawMatches } from "@/lib/search";
 
 const DEK =
-  "Every bill that became law, explained so a seventh grader could follow it: what it does, why it happened, what it costs, and what changes for you.";
+  "The new laws that matter most to Jackson, explained so a seventh grader could follow them: what each does, why it happened, what it costs, and what changes for you.";
 
 export const metadata: Metadata = {
   title: "What Passed: new laws, explained",
@@ -15,14 +15,14 @@ export const metadata: Metadata = {
   alternates: { canonical: "/laws" },
   openGraph: {
     type: "website",
-    title: `What Passed — ${site.name}`,
+    title: `What Passed: ${site.name}`,
     description: DEK,
     url: absoluteUrl("/laws"),
     siteName: site.name,
   },
   twitter: {
     card: "summary_large_image",
-    title: `What Passed — ${site.name}`,
+    title: `What Passed: ${site.name}`,
     description: DEK,
   },
 };
@@ -31,24 +31,6 @@ const chip =
   "inline-block border px-3 py-1.5 font-sans text-xs font-bold uppercase tracking-wider transition-colors";
 const chipOff = `${chip} border-rule text-ink hover:border-ink hover:text-crimson`;
 const chipOn = `${chip} border-ink bg-ink text-newsprint`;
-
-function matches(law: Law, q: string): boolean {
-  const hay = norm(
-    [
-      law.bill,
-      law.title,
-      law.officialTitle ?? "",
-      law.oneSentence,
-      ...law.topics,
-      ...law.whatItDoes,
-      ...law.whatChangesForYou,
-    ].join(" "),
-  );
-  return norm(q)
-    .split(/\s+/)
-    .filter(Boolean)
-    .every((t) => hay.includes(t));
-}
 
 function LawCard({ law }: { law: Law }) {
   const live = isInEffect(law);
@@ -90,7 +72,7 @@ export default async function LawsPage({ searchParams }: PageProps<"/laws">) {
   for (const l of all) for (const t of l.topics) counts.set(t, (counts.get(t) ?? 0) + 1);
 
   const filtered = all.filter(
-    (l) => (!topic || (l.topics as string[]).includes(topic)) && (!q || matches(l, q)),
+    (l) => (!topic || (l.topics as string[]).includes(topic)) && (!q || lawMatches(l, q)),
   );
   const inEffect = filtered.filter(isInEffect);
   const upcoming = filtered
@@ -111,9 +93,11 @@ export default async function LawsPage({ searchParams }: PageProps<"/laws">) {
           {DEK}
         </p>
         <p className="mt-2 font-sans text-sm text-muted">
-          {all.length} {all.length === 1 ? "law" : "laws"} explained so far.
-          Each one is checked against the bill text and the Legislature&apos;s
-          own cost estimates; the sources sit at the end of every entry.
+          {all.length} {all.length === 1 ? "law" : "laws"} explained so far,
+          with more on the way. Each entry is built from the bill&apos;s
+          summary and history, the Legislature&apos;s cost estimate when the
+          Wire can find one, and news reports; the reporting note at the end
+          of each entry says what was and was not read.
         </p>
 
         <form action="/laws" method="get" role="search" aria-label="Search laws" className="mt-5 flex max-w-xl gap-2">
@@ -211,12 +195,14 @@ export default async function LawsPage({ searchParams }: PageProps<"/laws">) {
           How this section is made
         </h2>
         <p className="mt-2 font-sans text-sm leading-relaxed text-muted">
-          The Wire reads the bill as enacted, the Legislature&apos;s own cost
-          estimate when one exists, the votes, and the reporting around it,
-          then writes the result in plain words. We say what the law does,
-          who wanted it and who fought it, what it costs and who pays, and
-          what changes for an ordinary household. Where the Wire adds its own
-          reading, it says so. Spot an error? Write to{" "}
+          The Wire reads the bill&apos;s summary and history, the
+          Legislature&apos;s cost estimate when it can find one, the votes,
+          and the reporting around it, then writes the result in plain
+          words. We say what the law does, who wanted it and who fought it,
+          what it costs and who pays, and what changes for an ordinary
+          household. Where the Wire adds its own reading, the sentence
+          begins &ldquo;The Wire&apos;s read.&rdquo; Spot an error? Write
+          to{" "}
           <a href={`mailto:${site.email}`} className="font-semibold text-crimson">
             {site.email}
           </a>

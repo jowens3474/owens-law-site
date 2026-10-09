@@ -205,7 +205,7 @@ export default async function LawPage({ params }: PageProps<"/laws/[slug]">) {
                 rel="noopener noreferrer"
                 className="font-semibold text-ink hover:text-crimson"
               >
-                {law.bill} on the Legislature&apos;s site: text, votes, and the governor&apos;s action ↗
+                {law.bill} on the Legislature&apos;s website ↗
               </a>
             </li>
             {law.sources.map((s) => (
@@ -224,9 +224,12 @@ export default async function LawPage({ params }: PageProps<"/laws/[slug]">) {
         </aside>
 
         {law.note && (
-          <p className="mt-6 border-t border-rule pt-4 font-sans text-sm text-muted">
-            {law.note}
-          </p>
+          <aside className="mt-6 border-t border-rule pt-4">
+            <p className="font-sans text-xs font-bold uppercase tracking-widest text-crimson">
+              Reporting note
+            </p>
+            <p className="mt-2 font-sans text-sm text-muted">{law.note}</p>
+          </aside>
         )}
 
         <footer className="mt-10 border-t border-rule pt-5">
