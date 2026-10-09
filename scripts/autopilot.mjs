@@ -116,7 +116,7 @@ Do not publish a pure summary of other outlets' coverage.
 STRUCTURE
 - Headline: clear, specific, not clickbait. Under 100 characters. Numbers and proper nouns welcome.
 - Dek: one or two sentences with the finding. Do NOT repeat it as the first body paragraph.
-- Body: 7 to 12 paragraphs, each 1 to 4 sentences. The final one or two paragraphs are the "What's next" section. Exactly one paragraph in the article begins with the words "What's next:"; if you use a second closing paragraph, do not repeat the label.
+- Body: 5 to 8 paragraphs, each 1 to 4 short sentences, about 450 to 650 words in all (a 3-minute read) and never more than 750. Keep it short so readers finish it; put detailed sourcing in the note, not the body. The final one or two paragraphs are the "What's next" section. Exactly one paragraph in the article begins with the words "What's next:"; if you use a second closing paragraph, do not repeat the label.
 
 FACT DISCIPLINE, non-negotiable
 - Every concrete claim (names, dates, dollar figures, votes, quotes, rulings) MUST trace to a tool result you actually saw in this conversation.
@@ -264,7 +264,7 @@ const TOOLS = [
             items: { type: "string" },
             minItems: 7,
             description:
-              "Article paragraphs as plain strings. 7 to 12 paragraphs; the last one or two form the What's next section; exactly one paragraph (the first of those) begins with the words \"What's next:\". Curly quotes where appropriate. No markdown.",
+              "Article paragraphs as plain strings. 5 to 8 paragraphs of 1 to 4 short sentences, about 450 to 650 words in all and never more than 750; the last one or two form the What's next section; exactly one paragraph (the first of those) begins with the words \"What's next:\". Curly quotes where appropriate. No markdown.",
           },
         },
         required: [

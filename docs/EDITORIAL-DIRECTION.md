@@ -39,6 +39,22 @@ Every article ends with a **What's next** section that names the next date,
 the decision-maker, and what to watch. Every article carries at least one
 number the Wire computed or pulled from a document.
 
+## Length
+
+Keep articles short so readers finish them. The publisher's standard, set
+Oct. 9, 2026:
+
+| | Target | Ceiling |
+| --- | --- | --- |
+| Words | 450 to 650, about a 3-minute read | 750 |
+| Paragraphs | 5 to 8, each 1 to 4 short sentences | 8 |
+| Dek | One or two sentences, under 40 words | 2 sentences |
+
+Lead with the finding, keep one source line per fact, and cut background the
+reader can get from a link to an earlier Wire story. Detailed sourcing belongs
+in the reporting note, not the body. Morning Briefs keep their own five-item
+format. The autopilot carries the same limits in `scripts/autopilot.mjs`.
+
 ## Sources the desk works from
 
 Money and business: Secretary of State business filings (sos.ms.gov), MDA
