@@ -1,5 +1,6 @@
 import Link from "next/link";
 import {
+  type Post,
   getAllPosts,
   getFeaturedPost,
   getTodaysBrief,
@@ -21,6 +22,25 @@ function SectionHeading({ children }: { children: React.ReactNode }) {
     <h2 className="mb-5 border-b border-ink pb-1 font-sans text-xs font-bold uppercase tracking-widest text-ink">
       {children}
     </h2>
+  );
+}
+
+function LatestList({ posts }: { posts: Post[] }) {
+  return (
+    <div className="divide-y divide-rule">
+      {posts.map((post) => (
+        <article key={post.slug} className="py-4 first:pt-0">
+          <h3 className="font-serif text-lg font-bold leading-tight">
+            <Link href={`/article/${post.slug}`} className="headline-link">
+              {post.title}
+            </Link>
+          </h3>
+          <p className="mt-1.5 font-sans text-[0.7rem] uppercase tracking-wider text-muted">
+            {formatDate(post.date)}
+          </p>
+        </article>
+      ))}
+    </div>
   );
 }
 
@@ -93,7 +113,7 @@ export default function Home() {
         <div className="lg:col-span-8">
           <article>
             <CategoryTag category={lead.category} />
-            <h1 className="mt-1 font-serif text-4xl font-bold leading-[1.05] text-ink sm:text-5xl lg:text-[3.25rem]">
+            <h1 className="mt-1 text-balance font-serif text-4xl font-bold leading-[1.05] text-ink sm:text-5xl lg:text-[3.25rem]">
               <Link href={`/article/${lead.slug}`} className="headline-link">
                 {lead.title}
               </Link>
@@ -122,6 +142,16 @@ export default function Home() {
               </Link>
             )}
           </article>
+
+          {/* On phones the rail stacks below this column, which buried the
+              newest stories under eight older ones. Show them here first;
+              the rail's copy appears once the two-column layout kicks in. */}
+          {railItems.length > 0 && (
+            <section className="mt-10 lg:hidden">
+              <SectionHeading>Latest</SectionHeading>
+              <LatestList posts={railItems} />
+            </section>
+          )}
 
           {/* Full-width double rule before "More coverage" */}
           {moreItems.length > 0 && (
@@ -172,22 +202,9 @@ export default function Home() {
         {/* Right rail */}
         <div className="lg:col-span-4 lg:border-l lg:border-rule lg:pl-6">
           {railItems.length > 0 && (
-            <section>
+            <section className="hidden lg:block">
               <SectionHeading>Latest</SectionHeading>
-              <div className="divide-y divide-rule">
-                {railItems.map((post) => (
-                  <article key={post.slug} className="py-4 first:pt-0">
-                    <h3 className="font-serif text-lg font-bold leading-tight">
-                      <Link href={`/article/${post.slug}`} className="headline-link">
-                        {post.title}
-                      </Link>
-                    </h3>
-                    <p className="mt-1.5 font-sans text-[0.7rem] uppercase tracking-wider text-muted">
-                      {formatDate(post.date)}
-                    </p>
-                  </article>
-                ))}
-              </div>
+              <LatestList posts={railItems} />
             </section>
           )}
 

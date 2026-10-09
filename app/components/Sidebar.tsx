@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { getMostRead } from "@/lib/posts";
+import { getFromTheArchive, formatDate } from "@/lib/posts";
 import { categories, site } from "@/lib/site";
 import { pro } from "@/lib/pro";
 import NewsletterSignup from "./NewsletterSignup";
@@ -19,7 +19,7 @@ const orderHref = `mailto:${site.email}?subject=${encodeURIComponent(
 )}&body=${encodeURIComponent(orderBody)}`;
 
 export default function Sidebar() {
-  const mostRead = getMostRead(5);
+  const archive = getFromTheArchive(5);
 
   return (
     <aside className="space-y-8">
@@ -42,26 +42,35 @@ export default function Sidebar() {
         </Link>
       </section>
 
-      {mostRead.length > 0 && (
+      {archive.length > 0 && (
         <section>
           <h2 className="border-b border-ink pb-1 font-sans text-xs font-bold uppercase tracking-widest text-ink">
-            Most Read
+            From the Archive
           </h2>
-          <ol className="mt-3 divide-y divide-rule">
-            {mostRead.map((post, i) => (
-              <li key={post.slug} className="flex gap-3 py-3 first:pt-0">
-                <span className="font-serif text-2xl font-black leading-none text-muted">
-                  {i + 1}
-                </span>
+          <p className="mt-2 font-sans text-xs text-muted">
+            Stories worth a second read. A new set every day.
+          </p>
+          <ul className="mt-1 divide-y divide-rule">
+            {archive.map((post) => (
+              <li key={post.slug} className="py-3">
                 <Link
                   href={`/article/${post.slug}`}
                   className="font-serif font-semibold leading-snug hover:text-crimson"
                 >
                   {post.title}
                 </Link>
+                <p className="mt-1 font-sans text-[0.7rem] uppercase tracking-wider text-muted">
+                  {formatDate(post.date)}
+                </p>
               </li>
             ))}
-          </ol>
+          </ul>
+          <Link
+            href="/archive"
+            className="mt-3 inline-block font-sans text-xs font-bold uppercase tracking-wide text-crimson hover:text-crimson-bright"
+          >
+            Every article →
+          </Link>
         </section>
       )}
 

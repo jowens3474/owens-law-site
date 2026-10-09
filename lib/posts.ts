@@ -1,4 +1,5 @@
 import { cache } from "react";
+import { smartenPost } from "./typography";
 
 export interface TimelineEntry {
   date: string;
@@ -4783,12 +4784,12 @@ export function isBrief(p: Post): boolean {
 }
 
 export const getAllPosts = cache((): Post[] =>
-  POSTS.filter(isPublished).sort(sortByDateDesc),
+  POSTS.filter(isPublished).sort(sortByDateDesc).map(smartenPost),
 );
 
 export const getPostBySlug = cache((slug: string): Post | undefined => {
   const post = POSTS.find((p) => p.slug === slug);
-  return post && isPublished(post) ? post : undefined;
+  return post && isPublished(post) ? smartenPost(post) : undefined;
 });
 
 // How long a `lead: true` pin holds the homepage lead, counted from the
@@ -4846,7 +4847,31 @@ export function getTodaysBrief(): Post | undefined {
 export function getMostRead(limit = 5): Post[] {
   return POSTS.filter(isPublished)
     .sort((a, b) => b.views - a.views)
-    .slice(0, limit);
+    .slice(0, limit)
+    .map(smartenPost);
+}
+
+// A small daily rotation of older original stories for the rail, so the back
+// catalog keeps getting read. The picks are fixed for a calendar day (Chicago
+// time), so every render that day shows the same set.
+export function getFromTheArchive(limit = 5, minAgeDays = 14): Post[] {
+  const pool = getAllPosts().filter(
+    (p) => !isBrief(p) && daysSincePublished(p) >= minAgeDays,
+  );
+  const day = Math.floor(Date.parse(`${todayLocalIso()}T00:00:00Z`) / 86400000);
+  return pool
+    .map((p, i) => ({ p, key: hashInt(day * 7919 + i) }))
+    .sort((a, b) => a.key - b.key)
+    .slice(0, limit)
+    .map((x) => x.p);
+}
+
+// Small integer hash (one mulberry32 step) for stable daily shuffles.
+function hashInt(n: number): number {
+  let t = (n + 0x6d2b79f5) | 0;
+  t = Math.imul(t ^ (t >>> 15), t | 1);
+  t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+  return (t ^ (t >>> 14)) >>> 0;
 }
 
 export function getRelatedPosts(post: Post, limit = 3): Post[] {

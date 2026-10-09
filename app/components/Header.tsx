@@ -1,21 +1,15 @@
 import Link from "next/link";
 import { site } from "@/lib/site";
-import NavBar from "./NavBar";
+import { editionDate } from "@/lib/edition";
+import EditionDate from "./EditionDate";
 
 export default function Header() {
-  const edition = new Date().toLocaleDateString("en-US", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-
   return (
     <header className="bg-newsprint">
       {/* Utility bar */}
       <div className="border-b border-rule">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-1.5 font-sans text-[0.68rem] font-medium uppercase tracking-wider text-muted">
-          <span>{edition}</span>
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-1.5 font-sans text-[0.7rem] font-medium uppercase tracking-wider text-muted">
+          <EditionDate initial={editionDate()} />
           <span className="hidden sm:inline">{site.city}</span>
           <Link href="/about" className="hover:text-crimson">
             Got a tip?
@@ -23,12 +17,13 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Masthead */}
-      <div className="mx-auto max-w-6xl px-4 py-8 text-center sm:py-10">
-        <Link href="/" className="inline-block">
-          <h1 className="font-serif text-5xl font-black leading-none tracking-tight text-ink sm:text-6xl md:text-7xl">
+      {/* Masthead. Not a heading: each page has its own h1, and a second one
+          here would outrank it for screen readers and search engines. */}
+      <div className="mx-auto max-w-6xl px-4 py-6 text-center sm:py-10">
+        <Link href="/" className="inline-block" aria-label={`${site.name} home`}>
+          <span className="block font-serif text-5xl font-black leading-none tracking-tight text-ink sm:text-6xl md:text-7xl">
             {site.name}
-          </h1>
+          </span>
         </Link>
         <p className="mt-3 font-sans text-xs font-semibold tracking-[0.2em] text-muted uppercase">
           {site.tagline}
@@ -37,8 +32,6 @@ export default function Header() {
 
       {/* Thin double rule under the masthead */}
       <div className="mx-auto max-w-6xl border-b-4 border-double border-ink px-4" />
-
-      <NavBar />
     </header>
   );
 }

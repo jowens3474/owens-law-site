@@ -16,6 +16,8 @@ import Timeline from "@/app/components/Timeline";
 import CategoryTag from "@/app/components/CategoryTag";
 import ArticleCard from "@/app/components/ArticleCard";
 import NewsletterSignup from "@/app/components/NewsletterSignup";
+import ReadingProgress from "@/app/components/ReadingProgress";
+import ShareBar from "@/app/components/ShareBar";
 import { extractCitations } from "@/lib/citations";
 
 // Refresh every 10 minutes so scheduled articles render on schedule.
@@ -155,6 +157,7 @@ export default async function ArticlePage({
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-8">
+      <ReadingProgress targetId="story" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
@@ -171,9 +174,9 @@ export default async function ArticlePage({
         <CategoryTag category={post.category} className="align-baseline" />
       </nav>
 
-      <article>
+      <article id="story">
         <header>
-          <h1 className="font-serif text-4xl font-bold leading-[1.05] tracking-tight text-ink sm:text-5xl md:text-[3.4rem]">
+          <h1 className="text-balance font-serif text-4xl font-bold leading-[1.05] tracking-tight text-ink sm:text-5xl md:text-[3.4rem]">
             {post.title}
           </h1>
           <p className="mt-4 font-sans text-lg leading-relaxed text-muted sm:text-[19px]">
@@ -333,7 +336,11 @@ export default async function ArticlePage({
         })()}
 
         <footer className="mt-10 border-t border-rule pt-5">
-          <p className="font-sans text-sm text-muted">
+          <ShareBar
+            url={absoluteUrl(`/article/${post.slug}`)}
+            title={post.title}
+          />
+          <p className="mt-5 font-sans text-sm text-muted">
             Have something to add to this story? Documents, corrections, or a
             tip?{" "}
             <a
