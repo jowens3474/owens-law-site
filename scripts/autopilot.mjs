@@ -47,12 +47,12 @@ WHAT COUNTS AS A WIRE STORY, in order of value
 
 REAL-TIME DATA TOOLS, use before web_search
 These read primary sources directly, cost nothing, and have no quota. Start every run with them:
-1. news_feed("Jackson Mississippi", 24), jackson_meetings(), and public_notices(): what happened overnight, what is on the calendar this week, and every bid, RFP, and zoning ad the city has posted, with links to fetch_url.
+1. local_feeds("news"), news_feed("Jackson Mississippi", 24), jackson_meetings(), and public_notices(): what the local newsrooms published (direct links), what happened overnight, what is on the calendar this week, and every bid, RFP, and zoning ad the city has posted, with links to fetch_url.
 2. Then pick by beat: federal_awards (money arriving in Hinds, Madison, or Rankin County before it is announced), court_search (new suits and contract fights in S.D. Miss.), bankruptcies (Chapter 11s and business Chapter 7s in the S.D. Miss. bankruptcy court), sec_filings (Cal-Maine, Trustmark, Cadence Bank, Entergy Mississippi, Atmos, or "Jackson, Mississippi"), federal_register (EPA, HUD, DOT, and FEMA actions naming Mississippi or Jackson), bls_series (jobs and unemployment for a By-the-Numbers piece), eia_fuel_prices (any fuel, trucking, or farm-cost story).
 3. A result from one of these tools is a primary source. Cite it as such ("according to USASpending.gov records", "a Sept. 19 8-K filed with the SEC", "the BLS series for the Jackson metro").
 
 RESEARCH ORDER
-1. Start with the real-time data tools above (news_feed, jackson_meetings, then the beat tools). Then run web_search queries aimed at primary sources: agendas, minutes, permits, bond resolutions, PSC dockets, Secretary of State filings, MDA announcements, WARN notices, sales-tax reports, federal awards, court dockets. Use site: filters (for example "site:jacksonms.gov agenda", "site:sos.ms.gov", "site:mdes.ms.gov WARN", "site:emma.msrb.org Jackson Mississippi").
+1. Start with the real-time data tools above (local_feeds, news_feed, jackson_meetings, then the beat tools). local_feeds by group reads the city, suburbs, state agencies, universities, and civic groups directly; "syndication" carries Mississippi Today stories in full when its own pages will not load. Then run web_search queries aimed at primary sources: agendas, minutes, permits, bond resolutions, PSC dockets, Secretary of State filings, MDA announcements, WARN notices, sales-tax reports, federal awards, court dockets. Use site: filters (for example "site:jacksonms.gov agenda", "site:sos.ms.gov", "site:mdes.ms.gov WARN", "site:emma.msrb.org Jackson Mississippi").
 2. When a search turns up a document, fetch_url it and read it. Quote it. Cite the URL. fetch_url works on PDFs.
 3. Call get_owens_case_docket once. Write about it only if a substantive order, ruling, or sentencing filing landed in the last 7 days AND the rotation rule permits. Otherwise note it and move on.
 4. Cross-check with news coverage for context and attribution, but never let another outlet's story be the spine of yours.
@@ -363,7 +363,7 @@ ${recentTitles.map((t, i) => `${i + 1}. [${recentCategories[i] || "?"}] ${t}`).j
 
 ${beatLine}
 
-REMINDER: call news_feed("Jackson Mississippi"), jackson_meetings(), and public_notices() first, then the beat data tools (federal_awards, court_search, bankruptcies, sec_filings, federal_register, bls_series, eia_fuel_prices), then document-oriented web_search queries on the money beat (agendas, bond documents, permits, filings, WARN notices, rate cases), fetch_url the best document, and build the story from it. Check get_owens_case_docket once; it only wins the day with a substantive new filing and only if the rules above allow it. End the article with a "What's next:" section.
+REMINDER: call local_feeds("news"), news_feed("Jackson Mississippi"), jackson_meetings(), and public_notices() first, then the beat data tools (federal_awards, court_search, bankruptcies, sec_filings, federal_register, bls_series, eia_fuel_prices), then document-oriented web_search queries on the money beat (agendas, bond documents, permits, filings, WARN notices, rate cases), fetch_url the best document, and build the story from it. Check get_owens_case_docket once; it only wins the day with a substantive new filing and only if the rules above allow it. End the article with a "What's next:" section.
 Use date "${today}". Pick a category from: ${CATEGORIES.join(", ")}.`;
 
   console.log(

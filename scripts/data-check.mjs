@@ -149,6 +149,7 @@ const cl = createCourtListener({ prefix: "data-check" });
 
 const DEFAULT_ARGS = {
   news_feed: { query: query || "Jackson Mississippi", hours: 48 },
+  local_feeds: { group: "news", query: query || "", hours: 48, limit: 25 },
   jackson_meetings: { limit: 10 },
   federal_awards: { county: "hinds", days: 45, keyword: query || "" },
   bls_series: {},

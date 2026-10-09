@@ -286,3 +286,150 @@ export const CANDIDATE_FEEDS = [
   { group: "civic", name: "Community Foundation for MS", url: "https://formississippi.org/feed/" },
   { group: "civic", name: "Jackson Chamber", url: "https://www.jacksonchamber.com/" },
 ];
+
+// ---------------------------------------------------------------------------
+// The registry and the desk tool.
+//
+// FEEDS lists feeds that the Data Check `feeds` probe read successfully from
+// a GitHub runner. Keep the probe date in the editorial guide's local source
+// map; re-probe before adding anything here.
+//
+// Groups: news (local newsrooms), syndication (outlets that reprint
+// Mississippi Today in full), government (city, county, authorities),
+// metro (suburbs), state (agencies and officials), campus, civic.
+
+export const FEEDS = [
+  // Local newsrooms (probed Oct. 9, 2026)
+  { group: "news", name: "WLBT", url: "https://www.wlbt.com/arc/outboundfeeds/rss/category/news/?outputType=xml" },
+  { group: "news", name: "WLBT Hinds County", url: "https://www.wlbt.com/arc/outboundfeeds/rss/category/news/hinds-county/?outputType=xml" },
+  { group: "news", name: "WJTV", url: "https://www.wjtv.com/news/local-news/feed/" },
+  { group: "news", name: "WJTV politics", url: "https://www.wjtv.com/news/politics/feed/" },
+  { group: "news", name: "WJTV bribery case", url: "https://www.wjtv.com/news/jackson-bribery-scandal/feed/" },
+  { group: "news", name: "WAPT", url: "https://www.wapt.com/topstories-rss" },
+  { group: "news", name: "Mississippi Today", url: "https://mississippitoday.org/feed/", note: "feed reads from a runner; article pages do not" },
+  { group: "news", name: "Mississippi Free Press", url: "https://www.mississippifreepress.org/feed/" },
+  { group: "news", name: "Jackson Advocate", url: "https://jacksonadvocateonline.com/feed/" },
+  { group: "news", name: "Mississippi Link", url: "https://themississippilink.com/feed/" },
+  { group: "news", name: "SuperTalk", url: "https://www.supertalk.fm/feed/" },
+  { group: "news", name: "Magnolia Tribune", url: "https://magnoliatribune.com/feed/" },
+  { group: "news", name: "Magnolia Tribune business", url: "https://magnoliatribune.com/category/business/feed/" },
+  { group: "news", name: "Jackson Jambalaya", url: "https://kingfish1935.blogspot.com/feeds/posts/default?alt=rss" },
+  { group: "news", name: "Mississippi Business Journal", url: "https://msbusiness.com/feed/" },
+  { group: "news", name: "Clinton Courier", url: "https://www.theclintoncourier.net/feed/" },
+  // Outlets that reprint Mississippi Today or WJTV in full
+  { group: "syndication", name: "Mississippi Today via DeSoto County News", url: "https://desotocountynews.com/category/mississippi-news/feed/" },
+  { group: "syndication", name: "Mississippi Today via Tippah News", url: "https://tippahnews.com/category/mississippi-news/feed/" },
+  { group: "syndication", name: "Mississippi Today via Our Tupelo", url: "https://ourtupelo.com/feed/" },
+  { group: "syndication", name: "WJTV via Beat of the Capital", url: "https://thebeatofthecapital.com/feed/" },
+  { group: "syndication", name: "States Newsroom", url: "https://www.newsfromthestates.com/rss.xml" },
+  // City, authorities, utilities
+  { group: "government", name: "JXN Water", url: "https://jxnwater.com/feed/" },
+  { group: "government", name: "Jackson Municipal Airport Authority", url: "https://jmaa.com/feed/" },
+  { group: "government", name: "Jackson Redevelopment Authority", url: "https://jrams.org/feed/", note: "rarely updated; newest post 2021" },
+  // Suburbs
+  { group: "metro", name: "City of Ridgeland", url: "https://www.ridgelandms.org/feed/" },
+  { group: "metro", name: "City of Pearl", url: "https://www.cityofpearl.com/feed/" },
+  { group: "metro", name: "City of Brandon", url: "https://brandonms.org/feed/" },
+  { group: "metro", name: "City of Clinton", url: "https://clintonms.org/feed/" },
+  // State officials and agencies
+  { group: "state", name: "Governor", url: "https://governorreeves.ms.gov/feed/" },
+  { group: "state", name: "Attorney General", url: "https://attorneygenerallynnfitch.com/feed/" },
+  { group: "state", name: "Treasurer", url: "https://treasury.ms.gov/feed/" },
+  { group: "state", name: "MDEQ", url: "https://www.mdeq.ms.gov/feed/" },
+  { group: "state", name: "State Department of Health", url: "https://msdh.ms.gov/msdhsite/rssFeed.xml", note: "carries the weekly certificate-of-need report" },
+  // Universities and colleges
+  { group: "campus", name: "Millsaps College", url: "https://millsaps.edu/feed/" },
+  { group: "campus", name: "Mississippi College", url: "https://www.mc.edu/rss/news" },
+  { group: "campus", name: "Hinds Community College", url: "https://www.hindscc.edu/feed" },
+  { group: "campus", name: "Jackson State University", url: "https://www.jsums.edu/news/feed/", note: "new site; one placeholder post as of Oct. 2026" },
+  // Civic and business groups
+  { group: "civic", name: "Jackson Association of Neighborhoods", url: "https://www.jxnneighborhoods.com/news?format=rss" },
+  { group: "civic", name: "Innovate Mississippi", url: "https://www.innovate.ms/feed/" },
+  { group: "civic", name: "Community Foundation for Mississippi", url: "https://formississippi.org/feed/" },
+];
+
+export const FEED_GROUPS = ["news", "syndication", "government", "metro", "state", "campus", "civic"];
+
+async function readFeed(feed) {
+  const res = await get(feed.url);
+  if (res.status >= 400) throw new Error(`HTTP ${res.status}`);
+  if (!looksLikeFeed(res.body)) throw new Error("not a feed");
+  return parseFeed(res.body).map((it) => ({ ...it, outlet: feed.name, group: feed.group }));
+}
+
+/**
+ * Newest items across the local feed registry.
+ * @param {object} args
+ * @param {string} [args.group]  one of FEED_GROUPS, or "all" (default "news")
+ * @param {string} [args.query]  keep only items whose title or summary mentions this (case-insensitive)
+ * @param {number} [args.hours]  look back this many hours (default 48; undated items are kept and marked)
+ * @param {number} [args.limit]  max items (default 40)
+ */
+export async function localFeeds({ group = "news", query = "", hours = 48, limit = 40 } = {}) {
+  const g = String(group || "news").toLowerCase();
+  const chosen = FEEDS.filter((f) => g === "all" || f.group === g);
+  if (!chosen.length) {
+    return `local_feeds unavailable: no feeds registered for group "${g}" (groups: ${FEED_GROUPS.join(", ")}, all)`;
+  }
+  const since = Date.now() - Math.max(1, Number(hours) || 48) * 3600 * 1000;
+  const q = String(query || "").trim().toLowerCase();
+  const items = [];
+  const errors = [];
+  let i = 0;
+  async function worker() {
+    while (i < chosen.length) {
+      const f = chosen[i++];
+      try {
+        for (const it of await readFeed(f)) items.push(it);
+      } catch (e) {
+        errors.push(`${f.name}: ${e.name === "AbortError" ? "timeout" : e.message.slice(0, 80)}`);
+      }
+    }
+  }
+  await Promise.all(Array.from({ length: Math.min(8, chosen.length) }, worker));
+
+  const seen = new Set();
+  const kept = [];
+  for (const it of items) {
+    const t = Date.parse(it.date);
+    const dated = !Number.isNaN(t);
+    if (dated && t < since) continue;
+    if (q && !`${it.title} ${it.summary}`.toLowerCase().includes(q)) continue;
+    const key = (it.link || it.title).replace(/[?#].*$/, "");
+    if (!key || seen.has(key)) continue;
+    seen.add(key);
+    kept.push({ ...it, t: dated ? t : 0 });
+  }
+  kept.sort((a, b) => b.t - a.t);
+  const rows = kept.slice(0, Math.min(Math.max(Number(limit) || 40, 5), 100));
+
+  const out = [];
+  out.push(
+    `Local feeds, group "${g}"${q ? `, mentioning "${query}"` : ""}, last ${hours}h, newest first (${rows.length} of ${kept.length} items from ${chosen.length - errors.length} of ${chosen.length} feeds; direct links):`,
+  );
+  if (!rows.length) out.push("- (nothing in the window)");
+  for (const it of rows) {
+    out.push(`- ${it.t ? isoDate(it.date) : "undated"} | ${it.outlet} | ${it.title.slice(0, 140)}\n  ${it.link}`);
+  }
+  if (errors.length) out.push("", `(unreachable: ${errors.join(" | ")})`);
+  out.push("", "Each line is a primary link; use fetch_url to read the story, then cite the outlet by name.");
+  return out.join("\n");
+}
+
+export const LOCAL_FEEDS_SPEC = {
+  type: "function",
+  function: {
+    name: "local_feeds",
+    description:
+      "Newest items from local RSS feeds the Wire reads directly: Jackson-area newsrooms (group \"news\"), outlets that reprint Mississippi Today in full (\"syndication\"), the city's authorities and utility (\"government\"), suburbs (\"metro\"), state agencies and officials (\"state\"), universities (\"campus\"), and civic and business groups (\"civic\"). Dated, deduplicated, newest first, with direct links. Call with group \"news\" at the start of every run alongside news_feed, then other groups by beat. Use query to keep only items mentioning a term.",
+    parameters: {
+      type: "object",
+      properties: {
+        group: { type: "string", enum: [...FEED_GROUPS, "all"], description: "Which feeds to read. Default \"news\"." },
+        query: { type: "string", description: "Optional keyword filter on title and summary, e.g. \"JXN Water\" or \"Farish\"." },
+        hours: { type: "integer", minimum: 1, maximum: 720, description: "Lookback window in hours. Default 48." },
+        limit: { type: "integer", minimum: 5, maximum: 100, description: "Max items. Default 40." },
+      },
+    },
+  },
+};
