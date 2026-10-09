@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllPosts, formatDate, readingTime } from "@/lib/posts";
-import { site } from "@/lib/site";
+import { categories, site } from "@/lib/site";
 import { absoluteUrl } from "@/lib/markdown";
+import SearchForm from "@/app/components/SearchForm";
 import CategoryTag from "@/app/components/CategoryTag";
 
 export const revalidate = 600;
 
 const DEK =
-  "Every article we've published, newest first. Skim by category or jump straight to a story.";
+  "Every article we've published, newest first. Search it, skim a section, or jump straight to a story.";
 
 export const metadata: Metadata = {
   title: "Archive",
@@ -62,6 +63,20 @@ export default function ArchivePage() {
           {all.length} article{all.length === 1 ? "" : "s"} since{" "}
           {formatDate(all[all.length - 1].date)}.
         </p>
+        <div className="mt-5 max-w-xl">
+          <SearchForm id="archive-q" />
+        </div>
+        <nav aria-label="Browse by section" className="mt-4 flex flex-wrap gap-2">
+          {categories.map((c) => (
+            <Link
+              key={c.slug}
+              href={`/category/${c.slug}`}
+              className="border border-rule px-3 py-1.5 font-sans text-xs font-bold uppercase tracking-wider text-ink hover:border-ink hover:text-crimson"
+            >
+              {c.name}
+            </Link>
+          ))}
+        </nav>
       </header>
 
       {[...groups.entries()].map(([ym, posts]) => (
@@ -80,7 +95,7 @@ export default function ArchivePage() {
                     {formatDate(p.date).split(",")[0]}
                   </span>
                   <span className="hidden sm:block">
-                    <CategoryTag category={p.category} />
+                    <CategoryTag plain category={p.category} />
                   </span>
                   <span className="font-serif text-base font-bold leading-snug sm:text-lg">
                     {p.title}

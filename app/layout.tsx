@@ -10,6 +10,7 @@ import "./globals.css";
 import { site } from "@/lib/site";
 import { absoluteUrl } from "@/lib/markdown";
 import Header from "./components/Header";
+import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 
 // Set NEXT_PUBLIC_GA_ID (e.g. "G-XXXXXXXXXX") in the deployment environment to
@@ -167,8 +168,19 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
         />
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:bg-ink focus:px-4 focus:py-2 focus:font-sans focus:text-sm focus:font-bold focus:text-newsprint"
+        >
+          Skip to content
+        </a>
         <Header />
-        <main className="flex-1">{children}</main>
+        {/* Sits outside the header so `position: sticky` can follow the
+            reader down the page; inside it, the header's own box pinned it. */}
+        <NavBar />
+        <main id="main" className="flex-1">
+          {children}
+        </main>
         <Footer />
       </body>
       {gaId && <GoogleAnalytics gaId={gaId} />}

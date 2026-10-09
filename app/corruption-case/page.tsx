@@ -431,7 +431,7 @@ export default function CorruptionCasePage() {
                   className="mb-3 aspect-[16/9] w-full"
                 />
               )}
-              <CategoryTag category={p.category} />
+              <CategoryTag plain category={p.category} />
               <h3 className="mt-1 font-serif text-2xl font-bold leading-[1.1] group-hover:text-crimson">
                 {p.title}
               </h3>

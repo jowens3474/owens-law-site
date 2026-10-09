@@ -18,6 +18,9 @@
 
 html {
   -webkit-text-size-adjust: 100%;
+  /* Keep in-page anchors (transcript timestamps, skip link) clear of the
+     sticky section bar. */
+  scroll-padding-top: 4rem;
 }
 
 body {
@@ -31,14 +34,33 @@ body {
   background: rgba(0, 0, 0, 0.1);
 }
 
+/* One visible focus style for keyboard readers, site-wide. Layered so a
+   component's own focus utilities (focus:outline-none, focus:ring-*) still
+   win where they are set. */
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--color-crimson);
+    outline-offset: 2px;
+  }
+}
+
 /* Long-form article typography. Body copy reads in Source Serif 4 for an
-   editorial register; headlines and UI stay on the sans stack. */
+   editorial register; headlines and UI stay on the sans stack. Phones get a
+   slightly smaller size so a line holds enough words to read comfortably. */
 .prose-article p {
   font-family: var(--font-article), Georgia, "Times New Roman", serif;
-  font-size: 1.25rem;
-  line-height: 1.65;
+  font-size: 1.125rem;
+  line-height: 1.6;
   margin-bottom: 1.4rem;
   color: #222222;
+  text-wrap: pretty;
+}
+
+@media (min-width: 640px) {
+  .prose-article p {
+    font-size: 1.25rem;
+    line-height: 1.65;
+  }
 }
 
 .prose-article p:first-of-type::first-letter {

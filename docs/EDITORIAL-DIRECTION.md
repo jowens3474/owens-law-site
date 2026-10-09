@@ -304,3 +304,33 @@ it under "Pipeline coverage" on the hub. Adding the project or date to
 `Business`, `Economy`, `Development`, `Real Estate`, `Politics`,
 `General News`. The former Commercial Real Estate and Residential Real Estate
 sections redirect to Development and Real Estate (see `next.config.ts`).
+
+## Reader-facing site
+
+The pieces of the site that exist to make the reporting easy to find and
+pleasant to read:
+
+- `/search?q=` searches every published article: headline, dek, tags, and
+  body. A phrase in quotes matches exactly; every other term must appear
+  somewhere in the story, and headline matches rank first. Words of three
+  letters or fewer match whole words only, so "AI" does not light up
+  "said" (`lib/search-terms.ts`). The section menu, the archive, and the
+  404 page all carry the search box. The code is in `lib/search.ts`.
+- The section bar sticks to the top of every page. On phones, tablets, and
+  screens 1280px and wider it shows a small wordmark that links home once
+  the masthead has scrolled away.
+- On phones the front page shows the six newest stories ("Latest") right
+  after the lead, before the "More coverage" grid.
+- Article pages have a reading-progress line, a share row (the system
+  share sheet where the browser offers one, plus copy link, email,
+  Facebook, and X), and body text at 18px on phones and 20px above that.
+- Quotes and apostrophes are typed straight in `lib/posts.ts` and rendered
+  as typographic quotes in every article's headline, dek, body, timeline,
+  and note (`lib/typography.ts`). Writers never need to type curly quotes.
+  Pipeline data and page chrome are not converted.
+- The rail's "From the Archive" module rotates five older original stories
+  (two weeks old or more) once a day. There is no "Most Read" module: the
+  site does not count views.
+- The masthead date is rendered in Jackson time and corrected on the
+  reader's device, so a page built on a Monday never shows Monday's date
+  on Friday.

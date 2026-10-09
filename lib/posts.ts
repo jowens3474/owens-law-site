@@ -1,4 +1,5 @@
 import { cache } from "react";
+import { smartenPost } from "./typography";
 
 export interface TimelineEntry {
   date: string;
@@ -55,7 +56,8 @@ export interface Post {
 //                                             // | "Politics" | "General News"
 //   author: "Byline Name",
 //   date: "2026-05-25",                       // format: YYYY-MM-DD
-//   views: 0,                                 // used only for "Most Read" ranking
+//   views: 0,                                 // unused; kept because the autopilot
+//                                             // scripts write it and Post requires it
 //   image: "/photo.webp",                     // optional; file lives in /public.
 //                                             // Omit to fall back to a generated plate.
 //   imageAlt: "Describe the photo.",          // optional; for screen readers
@@ -4783,12 +4785,12 @@ export function isBrief(p: Post): boolean {
 }
 
 export const getAllPosts = cache((): Post[] =>
-  POSTS.filter(isPublished).sort(sortByDateDesc),
+  POSTS.filter(isPublished).sort(sortByDateDesc).map(smartenPost),
 );
 
 export const getPostBySlug = cache((slug: string): Post | undefined => {
   const post = POSTS.find((p) => p.slug === slug);
-  return post && isPublished(post) ? post : undefined;
+  return post && isPublished(post) ? smartenPost(post) : undefined;
 });
 
 // How long a `lead: true` pin holds the homepage lead, counted from the
@@ -4843,10 +4845,31 @@ export function getTodaysBrief(): Post | undefined {
   );
 }
 
-export function getMostRead(limit = 5): Post[] {
-  return POSTS.filter(isPublished)
-    .sort((a, b) => b.views - a.views)
-    .slice(0, limit);
+// A small daily rotation of older original stories for the rail, so the back
+// catalog keeps getting read. The picks are fixed for a calendar day (Chicago
+// time), so every render that day shows the same set.
+const ARCHIVE_MIN_AGE_DAYS = 14;
+const DAY_MS = 24 * 60 * 60 * 1000;
+const ARCHIVE_SEED_STRIDE = 7919; // any prime: keeps consecutive days' shuffles unrelated
+
+export function getFromTheArchive(limit = 5): Post[] {
+  const pool = getAllPosts().filter(
+    (p) => !isBrief(p) && daysSincePublished(p) >= ARCHIVE_MIN_AGE_DAYS,
+  );
+  const day = Math.floor(Date.parse(`${todayLocalIso()}T00:00:00Z`) / DAY_MS);
+  return pool
+    .map((p, i) => ({ p, key: hashInt(day * ARCHIVE_SEED_STRIDE + i) }))
+    .sort((a, b) => a.key - b.key)
+    .slice(0, limit)
+    .map((x) => x.p);
+}
+
+// Small integer hash (one mulberry32 step) for stable daily shuffles.
+function hashInt(n: number): number {
+  let t = (n + 0x6d2b79f5) | 0;
+  t = Math.imul(t ^ (t >>> 15), t | 1);
+  t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+  return (t ^ (t >>> 14)) >>> 0;
 }
 
 export function getRelatedPosts(post: Post, limit = 3): Post[] {
