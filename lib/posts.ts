@@ -68,6 +68,28 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "jackson-24-month-paving-rfqs-oct-27-deadline",
+    title: "Jackson Just Put Three 24-Month Paving Contracts Out to Bid. All Close Oct. 27.",
+    dek: "The city posted RFQs for asphalt milling, paving materials, and housing rehab on Oct. 8, the same week the council amended engineering contracts for a resurfacing program that began in 2023.",
+    category: "Development",
+    categories: ["Business","Economy"],
+    tags: ["pipeline"],
+    author: "Jackson Wire Staff",
+    date: "2026-10-09",
+    views: 0,
+    body: [
+      "Jackson is locking in its road-building supply chain for the next two years. On Oct. 8 the city posted three requests for qualifications covering asphalt pavement milling, asphaltic paving materials, and housing rehabilitation services, according to the city's bid portal. All three close at 3:30 p.m. on Oct. 27.",
+      "The two paving solicitations are term contracts, not project contracts. RFQ 74567 covers a 24-month contract for asphalt pavement milling, with the contractor furnishing all labor and equipment. RFQ 74505 covers a 24-month supply of asphaltic paving materials. The city's Infrastructure Management Division, inside the Department of Public Works, runs both, according to the state procurement listing for the prior milling contract (ms.gov).",
+      "The timing matters because the city is still finishing work it started three years ago. At its Oct. 6 meeting the council took up an order authorizing the mayor to execute Amendment No. 1 to an engineering services agreement with CiviltTech, Inc. for the 2023 arterial street resurfacing projects, adding construction engineering and inspection for the Beasley Road, Northwest Industrial Parkway, and Northwest Progress Parkway resurfacing, according to the council agenda (jacksonms.gov).",
+      "That is a 2023 program still adding inspection scope in late 2026. The city's street resurfacing effort began in October 2023 with Phase 1A, contracted to Dickerson and Bowen, Inc. and Neel-Schaffer, and the city has said it plans to repave 450 streets by the end of 2027, the Clarion Ledger reported in April. A separate city solicitation describes a resurfacing package covering roughly 35.3 miles of roadway with a 270-day contract time.",
+      "The money behind the paving is the 1% special infrastructure sales tax, which Jackson voters approved and the Legislature authorized. It is levied on top of the state's 7% rate, bringing Jackson's combined rate to 8%, and it carries a repeal date of July 1, 2035, according to the Department of Revenue. The tax is restricted to water, sewer, drainage, and street work, which is why the city buys paving capacity through term contracts rather than one-off awards.",
+      "The revenue picture is improving. Jackson received $2,612,443 in sales tax diversions in August 2026, up 9.5% from $2,385,899 a year earlier, and is up 6.0% fiscal-year-to-date, according to Department of Revenue diversion reports. That is real money for a city that has spent years fighting over how to spend it. But the metro is not growing underneath it: Jackson MSA nonfarm employment stood at 302,100 in August 2026, up from 298,600 in March, and the metro unemployment rate was 3.0%, according to Bureau of Labor Statistics series for the Jackson metro.",
+      "The third solicitation is a different kind of contract. RFQ 90638 asks general contractors to qualify for an Approved Contractor List that the Office of Housing and Community Development will use to solicit sealed bids for housing construction and rehabilitation funded by Community Development Block Grants and HOME Investment Partnership grants, according to the bid posting. Responses go to the City Clerk's Office at 219 South President Street. The contact is the Office of Housing and Community Development at 218 South President Street, the Richard Porter Building.",
+      "Read together, the three RFQs describe a city trying to build standing capacity rather than bid every job from scratch. A 24-month milling contract means one vendor is on call for the whole paving season. An approved contractor list means the city can move CDBG and HOME dollars into rehab work without restarting procurement each time. Whether that shortens the gap between a street being listed and a street being paved is the question the Oct. 27 bids will begin to answer.",
+      "What's next: Bids for all three solicitations close at 3:30 p.m. Oct. 27, 2026, and the city's Purchasing Manager, Monica Oliver, is the listed contact for the housing RFQ. Watch whether the milling and materials awards come back as single contracts or split among multiple vendors, and whether the council pairs them with a new resurfacing authorization before the 2026 paving season ends. The 1% infrastructure tax does not expire until July 1, 2035, so the constraint on how fast Jackson paves is capacity and engineering, not the revenue stream itself.",
+    ],
+  },
+  {
     slug: "morning-brief-2026-10-09",
     title: "Morning Brief: Oct 9 · Isaias Closes In as Jackson Sales Tax Diversions Beat Forecast",
     dek: "Hurricane Isaias is forecast to rake Mississippi's coast Friday night into Saturday, and the storm's timing lands in the middle of the state fair's run and the fall construction season.",
