@@ -1,4 +1,5 @@
 import { getAllPosts } from "@/lib/posts";
+import { getAllLaws } from "@/lib/laws";
 import { site, categories } from "@/lib/site";
 import { absoluteUrl } from "@/lib/markdown";
 
@@ -17,6 +18,15 @@ export async function GET() {
     lines.push(`- [${p.title}](${absoluteUrl(`/article/${p.slug}.md`)}): ${p.dek}`);
   }
   lines.push("");
+
+  const laws = getAllLaws();
+  if (laws.length > 0) {
+    lines.push("## New laws, explained in plain words", "");
+    for (const l of laws) {
+      lines.push(`- [${l.title} (${l.bill})](${absoluteUrl(`/laws/${l.slug}`)}): ${l.oneSentence}`);
+    }
+    lines.push("");
+  }
 
   lines.push("## Sections", "");
   for (const c of categories) {

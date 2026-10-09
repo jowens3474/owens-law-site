@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { searchPosts } from "@/lib/search";
+import { searchPosts, searchLaws } from "@/lib/search";
 import { formatDate, readingTime } from "@/lib/posts";
 import { categories, site } from "@/lib/site";
 import SearchForm from "@/app/components/SearchForm";
@@ -47,6 +47,7 @@ export default async function SearchPage({
   const { terms, hits } = q
     ? searchPosts(q, { limit: LIMIT })
     : { terms: [] as string[], hits: [] };
+  const laws = q ? searchLaws(q, { limit: 5 }).hits : [];
   const quoted = terms.map((t) => `“${t}”`).join(" and ");
 
   return (
@@ -107,6 +108,29 @@ export default async function SearchPage({
           Try a more specific word. Very short and very common words are
           ignored.
         </p>
+      )}
+
+      {laws.length > 0 && (
+        <section className="mt-6 border border-rule p-5">
+          <h2 className="font-sans text-xs font-bold uppercase tracking-widest text-crimson">
+            Laws, explained
+          </h2>
+          <ul className="mt-2 divide-y divide-rule">
+            {laws.map((law) => (
+              <li key={law.slug} className="py-3">
+                <p className="font-sans text-[0.7rem] font-bold uppercase tracking-wider text-muted">
+                  {law.bill}
+                </p>
+                <Link href={`/laws/${law.slug}`} className="font-serif text-lg font-bold leading-snug hover:text-crimson">
+                  <Highlight text={law.title} terms={terms} />
+                </Link>
+                <p className="mt-1 font-sans text-sm text-muted">
+                  <Highlight text={law.oneSentence} terms={terms} />
+                </p>
+              </li>
+            ))}
+          </ul>
+        </section>
       )}
 
       {q && terms.length > 0 && (

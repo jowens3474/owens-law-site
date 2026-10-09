@@ -102,3 +102,21 @@ body {
 .hairline {
   border-top: 1px solid var(--color-rule);
 }
+
+/* Plain-language law explainers: the article serif at the same sizes, with
+   no drop cap, since each entry is a run of short titled sections. */
+.prose-plain p {
+  font-family: var(--font-article), Georgia, "Times New Roman", serif;
+  font-size: 1.125rem;
+  line-height: 1.6;
+  margin-bottom: 1.1rem;
+  color: #222222;
+  text-wrap: pretty;
+}
+
+@media (min-width: 640px) {
+  .prose-plain p {
+    font-size: 1.25rem;
+    line-height: 1.65;
+  }
+}

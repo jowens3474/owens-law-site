@@ -65,9 +65,13 @@ export default function NavBar() {
     { name: "Home", href: "/" },
     ...categories.map((c) => ({ name: c.name, href: `/category/${c.slug}` })),
     { name: "Pipeline", href: "/pipeline" },
+    { name: "Laws", href: "/laws" },
     { name: "Pro", href: "/pro" },
     { name: "About", href: "/about" },
   ];
+  // The masthead and the scrolled wordmark already lead home, so the
+  // desktop row skips "Home" to keep ten links fitting at xl.
+  const desktopLinks = links.filter((l) => l.href !== "/");
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
@@ -98,7 +102,7 @@ export default function NavBar() {
             </Link>
           </div>
           <ul className="flex min-w-0 flex-1 items-center justify-center">
-            {links.map((l) => {
+            {desktopLinks.map((l) => {
               const active = isActive(l.href);
               return (
                 <li key={l.href}>

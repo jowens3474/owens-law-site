@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { MEETINGS } from "@/lib/meetings";
 import { getAllPosts } from "@/lib/posts";
+import { getAllLaws } from "@/lib/laws";
 import { categories } from "@/lib/site";
 import { absoluteUrl } from "@/lib/markdown";
 
@@ -61,6 +62,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "daily",
       priority: 0.8,
     },
+    {
+      url: absoluteUrl("/laws"),
+      lastModified: latest,
+      changeFrequency: "daily",
+      priority: 0.8,
+    },
+    ...getAllLaws().map((l) => ({
+      url: absoluteUrl(`/laws/${l.slug}`),
+      lastModified: new Date(l.updated ?? l.date),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
     {
       url: absoluteUrl("/explainers"),
       lastModified: latest,

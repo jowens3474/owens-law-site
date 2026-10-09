@@ -160,3 +160,49 @@ export function searchPosts(
   );
   return { terms, hits: hits.slice(0, limit) };
 }
+
+// Laws, searched the same way (every term must match; headline first).
+import { getAllLaws, type Law } from "./laws";
+
+export function searchLaws(
+  q: string,
+  { limit = 5 }: { limit?: number } = {},
+): { terms: string[]; hits: Law[] } {
+  const terms = queryTerms(q);
+  if (terms.length === 0) return { terms, hits: [] };
+  const ms = matchers(terms);
+  const scored: { law: Law; score: number }[] = [];
+  for (const law of getAllLaws()) {
+    const head = norm(`${law.bill} ${law.title} ${law.officialTitle ?? ""}`);
+    const summary = norm(`${law.oneSentence} ${law.topics.join(" ")}`);
+    const body = norm(
+      [
+        ...law.whatItDoes,
+        ...law.whyItHappened,
+        ...law.whatsBehindIt,
+        ...law.whatItCosts,
+        ...law.whatChangesForYou,
+        ...(law.jackson ?? []),
+        ...law.watchFor,
+      ].join(" "),
+    );
+    let score = 0;
+    let everyTermFound = true;
+    for (const m of ms) {
+      let s = 0;
+      if (m.once.test(head)) s += 10;
+      if (m.once.test(summary)) s += 5;
+      s += countMatches(body, m.every, MAX_BODY_HITS);
+      if (s === 0) {
+        everyTermFound = false;
+        break;
+      }
+      score += s;
+    }
+    if (everyTermFound) scored.push({ law, score });
+  }
+  scored.sort(
+    (a, b) => b.score - a.score || b.law.date.localeCompare(a.law.date),
+  );
+  return { terms, hits: scored.slice(0, limit).map((s) => s.law) };
+}

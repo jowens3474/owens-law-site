@@ -1,0 +1,64 @@
+name: Laws Desk
+
+# Drafts and publishes one plain-language law explainer per run (see /laws).
+# With no inputs it takes the next entry from data/laws-queue.json. Requires
+# DEEPSEEK_API_KEY; web search uses TAVILY_API_KEY, then BRAVE_API_KEY, then
+# DuckDuckGo with no key.
+
+on:
+  schedule:
+    # Tuesday to Saturday at 15:00 UTC (10 AM CDT), after the daily autopilot.
+    - cron: "0 15 * * 2-6"
+  workflow_dispatch:
+    inputs:
+      bill:
+        description: 'Bill number, e.g. "SB 2588" (blank = next queue entry)'
+        required: false
+        default: ""
+      sources:
+        description: "Source URLs to read first, separated by |"
+        required: false
+        default: ""
+      notes:
+        description: "Hints for the desk (what the law does, where to look)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: autopilot
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+          persist-credentials: true
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run the laws desk
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
+          BRAVE_API_KEY: ${{ secrets.BRAVE_API_KEY }}
+          BILL: ${{ github.event.inputs.bill }}
+          SOURCES: ${{ github.event.inputs.sources }}
+          NOTES: ${{ github.event.inputs.notes }}
+        run: node scripts/laws-desk.mjs

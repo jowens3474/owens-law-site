@@ -334,3 +334,41 @@ pleasant to read:
 - The masthead date is rendered in Jackson time and corrected on the
   reader's device, so a page built on a Monday never shows Monday's date
   on Friday.
+
+## What Passed (laws, plainly)
+
+`/laws` explains every bill that became law in plain words, one entry per
+law, so a reader can keep up without reading the text or connecting the
+dots alone. The data lives in `lib/laws.ts`; `scripts/laws-desk.mjs`
+drafts new entries (one per run) from a bill number and sources, and
+`.github/workflows/laws-desk.yml` works through `data/laws-queue.json`
+daily. Each entry gets `/laws/<slug>`, the sitemap, `llms.txt`, and the
+"What passed" rail on the front page.
+
+**Reading level.** A bright 12-year-old. Short sentences, one idea each,
+no jargon without a one-line definition in the same breath ("A fiscal
+note is the Legislature's own estimate of what a bill will cost."). Prefer
+a concrete household to an abstraction: "a family earning $50,000", "about
+$8 a month".
+
+**Shape.** Every entry has the same sections, in this order: one sentence
+that says the whole law; what it does; why it happened; what's behind it
+(who pushed, who fought, the politics and the money, how the vote went);
+what it costs and who pays; what changes for you; what it means for
+Jackson (only when there is something to say); watch for; sources; a
+reporting note. 450 to 800 words in all. Analysis only in a sentence that
+begins "The Wire's read:".
+
+**Sourcing.** The bill as enacted comes first (the Legislature's bill
+history page is linked automatically from the bill number), then the
+fiscal note or budget office estimate when one exists, the governor's
+action, and at least two news reports. Vote counts, sponsors, dollar
+figures, and effective dates come from those documents, attributed once
+in-line. Never a number without a source; a gap is stated as "the Wire
+could not find". The reporting note says what was read, what could not
+be read (the Legislature's site and LegiScan refuse the runner; news
+syndication copies usually carry the text), and what the Wire did not do.
+
+**Updates.** When a law is blocked in court, amended, or starts a new
+phase, update the entry in place, set `updated`, and say what changed in
+the "Watch for" section.

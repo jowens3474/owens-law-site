@@ -15,6 +15,7 @@ import { site } from "@/lib/site";
 import ArticleImage from "./components/ArticleImage";
 import Sidebar from "./components/Sidebar";
 import ComingUp from "./components/ComingUp";
+import LawsRail from "./components/LawsRail";
 import CategoryTag from "./components/CategoryTag";
 
 function SectionHeading({ children }: { children: React.ReactNode }) {
@@ -210,6 +211,10 @@ export default function Home() {
 
           <div className="mt-10">
             <ComingUp />
+          </div>
+
+          <div className="mt-10">
+            <LawsRail />
           </div>
 
           <div className="mt-10">
