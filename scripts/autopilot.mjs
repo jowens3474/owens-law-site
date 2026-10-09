@@ -262,7 +262,7 @@ const TOOLS = [
           body: {
             type: "array",
             items: { type: "string" },
-            minItems: 7,
+            minItems: 5,
             description:
               "Article paragraphs as plain strings. 5 to 8 paragraphs of 1 to 4 short sentences, about 450 to 650 words in all and never more than 750; the last one or two form the What's next section; exactly one paragraph (the first of those) begins with the words \"What's next:\". Curly quotes where appropriate. No markdown.",
           },
