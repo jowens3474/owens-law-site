@@ -1,13 +1,5 @@
 [
   {
-    "bill": "SB 2322",
-    "hint": "Driver's licenses: licenses must show sex recorded at birth; lawfully present noncitizens can get a license marked as such that expires with lawful presence; out-of-state licenses issued without proof of lawful presence are invalid in Mississippi and officers must cite and refer to ICE; veteran marker; Social Security number linked. Sponsor Sen. Angela Burks Hill. Approved April 8, 2026, effective July 1, 2026. Companion to SB 2114, already explained on the site, and HB 538.",
-    "sources": [
-      "https://policyrisk.com/state-bill/MS-SB2322-2026",
-      "https://www.starherald.net/new-mississippi-laws-aimed-curbing-illegal-immigration-could-face-challenges-aclu-69e03b22eb06b"
-    ]
-  },
-  {
     "bill": "HB 1944",
     "hint": "Children's Promise Act expansion: raises the cap on tax credits for donations to private schools and other eligible organizations from $18 million to $24 million beginning in 2027 and creates a set-aside for special-purpose schools. The only school choice measure that passed in 2026. Effective Jan. 1, 2026.",
     "sources": [
@@ -142,5 +134,15 @@
     "sources": [
       "https://desotocountynews.com/mississippi-news/what-lived-and-died-in-the-2026-mississippi-legislative-session/"
     ]
+  },
+  {
+    "bill": "SB 2322",
+    "hint": "Driver's licenses: licenses must show sex recorded at birth; lawfully present noncitizens can get a license marked as such that expires with lawful presence; out-of-state licenses issued without proof of lawful presence are invalid in Mississippi and officers must cite and refer to ICE; veteran marker; Social Security number linked. Sponsor Sen. Angela Burks Hill. Approved April 8, 2026, effective July 1, 2026. Companion to SB 2114, already explained on the site, and HB 538.",
+    "sources": [
+      "https://policyrisk.com/state-bill/MS-SB2322-2026",
+      "https://www.starherald.net/new-mississippi-laws-aimed-curbing-illegal-immigration-could-face-challenges-aclu-69e03b22eb06b"
+    ],
+    "attempts": 1,
+    "lastError": "entry is too long (1088 words; aim for 450 to 800); whyItHappened: a paragraph has 5 sentences (limit 4)"
   }
 ]
