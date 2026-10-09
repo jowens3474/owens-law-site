@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 
 const subscribeNoop = () => () => {};
 const hasWebShare = () =>
@@ -8,7 +8,7 @@ const hasWebShare = () =>
 const noWebShare = () => false;
 
 const chip =
-  "inline-flex min-h-9 items-center border border-rule px-3 font-sans text-xs font-bold uppercase tracking-wide text-ink transition-colors hover:border-ink hover:text-crimson";
+  "inline-flex min-h-10 items-center border border-rule px-3 font-sans text-xs font-bold uppercase tracking-wide text-ink transition-colors hover:border-ink hover:text-crimson";
 
 // Share row for the end of a story. The system share sheet appears where the
 // browser offers one (most phones); copy, email, Facebook, and X work
@@ -21,8 +21,11 @@ export default function ShareBar({
   title: string;
 }) {
   const [copied, setCopied] = useState<"idle" | "done" | "failed">("idle");
+  const timer = useRef<number | undefined>(undefined);
   const canShare = useSyncExternalStore(subscribeNoop, hasWebShare, noWebShare);
   const enc = encodeURIComponent;
+
+  useEffect(() => () => window.clearTimeout(timer.current), []);
 
   async function copy() {
     try {
@@ -31,7 +34,8 @@ export default function ShareBar({
     } catch {
       setCopied("failed");
     }
-    window.setTimeout(() => setCopied("idle"), 2500);
+    window.clearTimeout(timer.current);
+    timer.current = window.setTimeout(() => setCopied("idle"), 2500);
   }
 
   async function share() {
@@ -41,6 +45,13 @@ export default function ShareBar({
       // The reader closed the sheet; nothing to do.
     }
   }
+
+  const copyLabel =
+    copied === "done"
+      ? "Link copied"
+      : copied === "failed"
+        ? "Copy failed"
+        : "Copy link";
 
   return (
     <div className="flex flex-wrap items-center gap-2">
@@ -52,16 +63,16 @@ export default function ShareBar({
           Share this story
         </button>
       )}
-      <button type="button" onClick={copy} className={chip} aria-live="polite">
-        {copied === "done"
-          ? "Link copied"
-          : copied === "failed"
-            ? "Copy failed"
-            : "Copy link"}
+      <button type="button" onClick={copy} className={chip}>
+        {copyLabel}
       </button>
+      <span role="status" className="sr-only">
+        {copied === "idle" ? "" : copyLabel}
+      </span>
       <a
         href={`mailto:?subject=${enc(title)}&body=${enc(`${title}\n\n${url}`)}`}
         className={chip}
+        aria-label="Share by email"
       >
         Email
       </a>
@@ -70,6 +81,7 @@ export default function ShareBar({
         target="_blank"
         rel="noopener noreferrer"
         className={chip}
+        aria-label="Share on Facebook"
       >
         Facebook
       </a>
@@ -78,6 +90,7 @@ export default function ShareBar({
         target="_blank"
         rel="noopener noreferrer"
         className={chip}
+        aria-label="Share on X"
       >
         X
       </a>

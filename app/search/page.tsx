@@ -62,14 +62,16 @@ export default async function SearchPage({
           {DESCRIPTION} Put a phrase in quotes to match it exactly.
         </p>
         <div className="mt-5">
-          <SearchForm id="search-q" q={q} autoFocus={!q} />
+          {/* Keyed on the query so a half-typed box is replaced when a chip
+              or the nav icon navigates here without a full page load. */}
+          <SearchForm key={q} id="search-q" q={q} autoFocus={!q} />
         </div>
       </header>
 
       {!q && (
         <section className="mt-8">
           <h2 className="font-sans text-xs font-bold uppercase tracking-widest text-ink">
-            Try
+            Start with one of these
           </h2>
           <ul className="mt-3 flex flex-wrap gap-2">
             {SUGGESTIONS.map((s) => (
@@ -119,7 +121,7 @@ export default async function SearchPage({
 
       {q && terms.length > 0 && hits.length === 0 && (
         <p className="mt-3 font-sans text-sm text-muted">
-          Try fewer words, or{" "}
+          {terms.length > 1 ? "Try fewer words, or" : "Try another word, or"}{" "}
           <Link href="/archive" className="font-semibold text-crimson">
             browse every article
           </Link>

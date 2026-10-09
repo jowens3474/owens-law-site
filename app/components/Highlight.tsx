@@ -1,12 +1,8 @@
-// Wraps every occurrence of the search terms in <mark>, ignoring case and
-// treating a typed apostrophe and the typographic one as the same character.
-function fold(s: string): string {
-  return s
-    .toLowerCase()
-    .replace(/[‘’]/g, "'")
-    .replace(/[“”]/g, '"');
-}
+import { norm, termPattern } from "@/lib/search-terms";
 
+// Wraps every occurrence of the search terms in <mark>, matching the way
+// lib/search.ts matched them: ignoring case, and treating a typed quote and
+// the typographic one as the same character.
 export default function Highlight({
   text,
   terms,
@@ -15,13 +11,12 @@ export default function Highlight({
   terms: string[];
 }) {
   if (terms.length === 0) return <>{text}</>;
-  const wanted = new Set(terms.map(fold));
+  const wanted = new Set(terms.map(norm));
   const pattern = [...terms]
     .sort((a, b) => b.length - a.length)
     .map((t) =>
-      t
-        .replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
-        .replace(/'/g, "['’]")
+      termPattern(t)
+        .replace(/'/g, "['‘’]")
         .replace(/"/g, '["“”]'),
     )
     .join("|");
@@ -29,7 +24,7 @@ export default function Highlight({
   return (
     <>
       {text.split(re).map((part, i) =>
-        wanted.has(fold(part)) ? (
+        wanted.has(norm(part)) ? (
           <mark key={i} className="bg-crimson/15 text-ink">
             {part}
           </mark>

@@ -323,8 +323,9 @@ pleasant to read:
   share sheet where the browser offers one, plus copy link, email,
   Facebook, and X), and body text at 18px on phones and 20px above that.
 - Quotes and apostrophes are typed straight in `lib/posts.ts` and rendered
-  as typographic quotes everywhere (`lib/typography.ts`). Writers never
-  need to type curly quotes.
+  as typographic quotes in every article's headline, dek, body, timeline,
+  and note (`lib/typography.ts`). Writers never need to type curly quotes.
+  Pipeline data and page chrome are not converted.
 - The rail's "From the Archive" module rotates five older original stories
   (two weeks old or more) once a day. There is no "Most Read" module: the
   site does not count views.

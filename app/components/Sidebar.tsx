@@ -48,7 +48,7 @@ export default function Sidebar() {
             From the Archive
           </h2>
           <p className="mt-2 font-sans text-xs text-muted">
-            Stories worth a second read. A new set every day.
+            Older stories, resurfaced. A new set every day.
           </p>
           <ul className="mt-1 divide-y divide-rule">
             {archive.map((post) => (

@@ -56,7 +56,8 @@ export interface Post {
 //                                             // | "Politics" | "General News"
 //   author: "Byline Name",
 //   date: "2026-05-25",                       // format: YYYY-MM-DD
-//   views: 0,                                 // used only for "Most Read" ranking
+//   views: 0,                                 // unused; kept because the autopilot
+//                                             // scripts write it and Post requires it
 //   image: "/photo.webp",                     // optional; file lives in /public.
 //                                             // Omit to fall back to a generated plate.
 //   imageAlt: "Describe the photo.",          // optional; for screen readers
@@ -4844,23 +4845,20 @@ export function getTodaysBrief(): Post | undefined {
   );
 }
 
-export function getMostRead(limit = 5): Post[] {
-  return POSTS.filter(isPublished)
-    .sort((a, b) => b.views - a.views)
-    .slice(0, limit)
-    .map(smartenPost);
-}
-
 // A small daily rotation of older original stories for the rail, so the back
 // catalog keeps getting read. The picks are fixed for a calendar day (Chicago
 // time), so every render that day shows the same set.
-export function getFromTheArchive(limit = 5, minAgeDays = 14): Post[] {
+const ARCHIVE_MIN_AGE_DAYS = 14;
+const DAY_MS = 24 * 60 * 60 * 1000;
+const ARCHIVE_SEED_STRIDE = 7919; // any prime: keeps consecutive days' shuffles unrelated
+
+export function getFromTheArchive(limit = 5): Post[] {
   const pool = getAllPosts().filter(
-    (p) => !isBrief(p) && daysSincePublished(p) >= minAgeDays,
+    (p) => !isBrief(p) && daysSincePublished(p) >= ARCHIVE_MIN_AGE_DAYS,
   );
-  const day = Math.floor(Date.parse(`${todayLocalIso()}T00:00:00Z`) / 86400000);
+  const day = Math.floor(Date.parse(`${todayLocalIso()}T00:00:00Z`) / DAY_MS);
   return pool
-    .map((p, i) => ({ p, key: hashInt(day * 7919 + i) }))
+    .map((p, i) => ({ p, key: hashInt(day * ARCHIVE_SEED_STRIDE + i) }))
     .sort((a, b) => a.key - b.key)
     .slice(0, limit)
     .map((x) => x.p);

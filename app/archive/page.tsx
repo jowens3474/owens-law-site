@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllPosts, formatDate, readingTime } from "@/lib/posts";
-import { site } from "@/lib/site";
+import { categories, site } from "@/lib/site";
 import { absoluteUrl } from "@/lib/markdown";
-import CategoryTag from "@/app/components/CategoryTag";
 import SearchForm from "@/app/components/SearchForm";
-import { categories } from "@/lib/site";
 
 export const revalidate = 600;
 
@@ -95,8 +93,10 @@ export default function ArchivePage() {
                   <span className="text-xs font-semibold uppercase tracking-wider text-muted">
                     {formatDate(p.date).split(",")[0]}
                   </span>
-                  <span className="hidden sm:block">
-                    <CategoryTag category={p.category} />
+                  {/* Plain text, not CategoryTag: a link inside this row's
+                      link is invalid HTML and broke hydration. */}
+                  <span className="hidden font-sans text-[0.72rem] font-bold uppercase tracking-wider text-crimson sm:block">
+                    {p.category}
                   </span>
                   <span className="font-serif text-base font-bold leading-snug sm:text-lg">
                     {p.title}

@@ -50,9 +50,9 @@ function EmptyFrontPage() {
       <p className="font-sans text-sm font-bold uppercase tracking-widest text-crimson">
         Premiere Edition
       </p>
-      <h2 className="mt-3 font-serif text-4xl font-black leading-tight sm:text-5xl">
+      <h1 className="mt-3 font-serif text-4xl font-black leading-tight sm:text-5xl">
         The presses are warming up.
-      </h2>
+      </h1>
       <p className="mt-5 font-sans text-lg leading-relaxed text-muted">
         {site.name} is just getting started. Our first reporting on Jackson
         business, economics, and development is on the way — check back soon.

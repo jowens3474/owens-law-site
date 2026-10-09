@@ -8,7 +8,6 @@ import {
 import { site } from "@/lib/site";
 import { absoluteUrl } from "@/lib/markdown";
 import ArticleImage from "@/app/components/ArticleImage";
-import CategoryTag from "@/app/components/CategoryTag";
 
 // Refresh every 10 minutes so the countdown stays current and new
 // corruption-case articles appear without a redeploy.
@@ -431,7 +430,11 @@ export default function CorruptionCasePage() {
                   className="mb-3 aspect-[16/9] w-full"
                 />
               )}
-              <CategoryTag category={p.category} />
+              {/* Plain text, not CategoryTag: a link inside this card's
+                  link is invalid HTML and broke hydration. */}
+              <span className="inline-block font-sans text-[0.72rem] font-bold uppercase tracking-wider text-crimson">
+                {p.category}
+              </span>
               <h3 className="mt-1 font-serif text-2xl font-bold leading-[1.1] group-hover:text-crimson">
                 {p.title}
               </h3>

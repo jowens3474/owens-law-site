@@ -17,7 +17,7 @@ export default function NotFound() {
         <SearchForm id="nf-q" />
       </div>
       <nav
-        aria-label="Sections"
+        aria-label="Browse by section"
         className="mt-6 flex flex-wrap justify-center gap-2"
       >
         {categories.map((c) => (

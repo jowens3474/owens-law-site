@@ -34,10 +34,14 @@ body {
   background: rgba(0, 0, 0, 0.1);
 }
 
-/* One visible focus style for keyboard readers, site-wide. */
-:focus-visible {
-  outline: 2px solid var(--color-crimson);
-  outline-offset: 2px;
+/* One visible focus style for keyboard readers, site-wide. Layered so a
+   component's own focus utilities (focus:outline-none, focus:ring-*) still
+   win where they are set. */
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--color-crimson);
+    outline-offset: 2px;
+  }
 }
 
 /* Long-form article typography. Body copy reads in Source Serif 4 for an
