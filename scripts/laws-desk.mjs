@@ -24,7 +24,7 @@ const QUEUE_FILE = "data/laws-queue.json";
 const MAX_ITERATIONS = 14;
 const MAX_QUEUE_ATTEMPTS = 3;
 const SITE = "https://www.thejacksonwire.com";
-const DRY_RUN = Boolean(process.env.DRY_RUN) && process.env.DRY_RUN !== "0";
+const DRY_RUN = /^(1|true|yes)$/i.test(process.env.DRY_RUN ?? "");
 
 // Must match LAW_TOPICS in lib/laws.ts. The tsc gate before publishing
 // catches drift: an off-list topic fails the type check and is not pushed.
@@ -195,6 +195,17 @@ function normalizeUrl(u) {
 
 const PARAGRAPH_FIELDS = ["whatItDoes", "whyItHappened", "whatsBehindIt", "whatItCosts", "whatChangesForYou", "watchFor"];
 
+// Split prose into sentences without breaking at titles, months and
+// initials ("Sen. Hill", "Oct. 1", "U.S.", "p.m.").
+const ABBREVIATIONS = /\b(Sen|Rep|Gov|Dr|Mr|Mrs|Ms|Lt|Gen|Col|St|Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sept|Sep|Oct|Nov|Dec|No|vs|etc|Inc|Co|Corp|U\.S|a\.m|p\.m)\./g;
+function splitSentences(p) {
+  const guarded = p.replace(ABBREVIATIONS, (m) => m.replace(/\./g, "\u0001"));
+  return guarded
+    .split(/(?<=[.!?]['"]?)\s+(?=['"]?[A-Z$0-9])/)
+    .map((x) => x.replace(/\u0001/g, "."))
+    .filter(Boolean);
+}
+
 function wordCount(law) {
   const parts = [law.oneSentence, ...PARAGRAPH_FIELDS.flatMap((k) => law[k] ?? []), ...(law.jackson ?? [])];
   return parts.join(" ").split(/\s+/).filter(Boolean).length;
@@ -243,6 +254,15 @@ function validate(law, lawsSource, fetched) {
   const words = wordCount(law);
   if (words < 420) errors.push(`entry is too short (${words} words; aim for 450 to 800)`);
   if (words > 850) errors.push(`entry is too long (${words} words; aim for 450 to 800)`);
+  for (const key of [...PARAGRAPH_FIELDS, "jackson"]) {
+    for (const p of law[key] ?? []) {
+      if (typeof p !== "string") continue;
+      const sentences = splitSentences(p);
+      if (sentences.length > 4) errors.push(`${key}: a paragraph has ${sentences.length} sentences (limit 4)`);
+      const long = sentences.find((x) => x.split(/\s+/).length > 40);
+      if (long) errors.push(`${key}: a sentence runs over 40 words ("${long.slice(0, 50)}...")`);
+    }
+  }
   const allText = JSON.stringify(law);
   if (/[*#`]{2}|\n- /.test(allText)) errors.push("no markdown in the text");
   if (HAS_DASH.test(allText)) errors.push("no em or en dashes; write ranges as '5 to 15'");

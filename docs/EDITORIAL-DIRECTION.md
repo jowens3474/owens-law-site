@@ -344,7 +344,7 @@ lives in `lib/laws.ts`; `scripts/laws-desk.mjs` drafts new entries (one
 per run) from a bill number and sources, and
 `.github/workflows/laws-desk.yml` works through `data/laws-queue.json`
 five days a week (Tuesday through Saturday). Each entry gets `/laws/<slug>`, the sitemap, `llms.txt`, and the
-"What passed" rail on the front page.
+"What Passed" rail on the front page.
 
 **Reading level.** A bright 12-year-old. Short sentences, one idea each,
 no jargon without a one-line definition in the same breath ("A fiscal
@@ -357,7 +357,8 @@ that says the whole law; what it does; why it happened; what's behind it
 (who pushed, who fought, the politics and the money, how the vote went);
 what it costs and who pays; what changes for you; what it means for
 Jackson (only when there is something to say); watch for; sources; a
-reporting note. 450 to 800 words in all. Analysis only in a sentence that
+reporting note. 450 to 800 words in all, 850 at most. Sentences of 40
+words or fewer, paragraphs of four sentences or fewer. Analysis only in a sentence that
 begins "The Wire's read:". Ranges are written "5 to 15 years", never with
 a dash. The reporting note is plain text; the page adds the label.
 

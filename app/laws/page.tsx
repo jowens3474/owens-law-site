@@ -197,7 +197,7 @@ export default async function LawsPage({ searchParams }: PageProps<"/laws">) {
           words. We say what the law does, who wanted it and who fought it,
           what it costs and who pays, and what changes for an ordinary
           household. Where the Wire adds its own reading, the sentence
-          begins &ldquo;The Wire&apos;s read.&rdquo; Spot an error? Write
+          begins &ldquo;The Wire&apos;s read:&rdquo; Spot an error? Write
           to{" "}
           <a href={`mailto:${site.email}`} className="font-semibold text-crimson">
             {site.email}
