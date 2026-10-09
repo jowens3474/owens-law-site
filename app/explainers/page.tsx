@@ -68,7 +68,7 @@ export default function ExplainersPage() {
                   className="mb-4 aspect-[16/9] w-full"
                 />
               )}
-              <CategoryTag category={p.category} />
+              <CategoryTag plain category={p.category} />
               <h2 className="mt-1 font-serif text-2xl font-bold leading-[1.1] group-hover:text-crimson">
                 {p.title}
               </h2>

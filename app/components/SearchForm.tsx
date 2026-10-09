@@ -18,6 +18,7 @@ export default function SearchForm({
       action="/search"
       method="get"
       role="search"
+      aria-label={compact ? "Search the Wire" : "Search articles"}
       className={compact ? "flex gap-2" : "flex flex-col gap-2 sm:flex-row"}
     >
       <label htmlFor={id} className="sr-only">
@@ -35,7 +36,7 @@ export default function SearchForm({
             ? "Search the Wire"
             : "Search every story: a street, a company, a dollar figure"
         }
-        className="min-w-0 flex-1 border border-ink bg-paper px-3 py-2 font-sans text-base focus:outline-none focus:ring-2 focus:ring-crimson"
+        className="min-w-0 flex-1 border border-ink bg-paper px-3 py-2 font-sans text-base focus:outline-hidden focus:ring-2 focus:ring-crimson"
       />
       <button
         type="submit"

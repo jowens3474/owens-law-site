@@ -4,6 +4,7 @@ import { getAllPosts, formatDate, readingTime } from "@/lib/posts";
 import { categories, site } from "@/lib/site";
 import { absoluteUrl } from "@/lib/markdown";
 import SearchForm from "@/app/components/SearchForm";
+import CategoryTag from "@/app/components/CategoryTag";
 
 export const revalidate = 600;
 
@@ -93,10 +94,8 @@ export default function ArchivePage() {
                   <span className="text-xs font-semibold uppercase tracking-wider text-muted">
                     {formatDate(p.date).split(",")[0]}
                   </span>
-                  {/* Plain text, not CategoryTag: a link inside this row's
-                      link is invalid HTML and broke hydration. */}
-                  <span className="hidden font-sans text-[0.72rem] font-bold uppercase tracking-wider text-crimson sm:block">
-                    {p.category}
+                  <span className="hidden sm:block">
+                    <CategoryTag plain category={p.category} />
                   </span>
                   <span className="font-serif text-base font-bold leading-snug sm:text-lg">
                     {p.title}

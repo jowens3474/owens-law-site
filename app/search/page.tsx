@@ -121,7 +121,9 @@ export default async function SearchPage({
 
       {q && terms.length > 0 && hits.length === 0 && (
         <p className="mt-3 font-sans text-sm text-muted">
-          {terms.length > 1 ? "Try fewer words, or" : "Try another word, or"}{" "}
+          {terms.length > 1 || terms[0].includes(" ")
+            ? "Try fewer words, or"
+            : "Try another word, or"}{" "}
           <Link href="/archive" className="font-semibold text-crimson">
             browse every article
           </Link>

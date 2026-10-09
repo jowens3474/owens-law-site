@@ -12,7 +12,7 @@ export default function MeetingSearchForm({ q = "", body = "" }: { q?: string; b
         type="search"
         defaultValue={q}
         placeholder="Search everything said: a street, a company, a dollar figure"
-        className="min-w-0 flex-1 border border-ink bg-paper px-3 py-2 font-sans text-base focus:outline-none focus:ring-2 focus:ring-crimson"
+        className="min-w-0 flex-1 border border-ink bg-paper px-3 py-2 font-sans text-base focus:outline-hidden focus:ring-2 focus:ring-crimson"
       />
       {body && <input type="hidden" name="body" value={body} />}
       <button

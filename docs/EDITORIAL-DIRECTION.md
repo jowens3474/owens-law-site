@@ -312,11 +312,13 @@ pleasant to read:
 
 - `/search?q=` searches every published article: headline, dek, tags, and
   body. A phrase in quotes matches exactly; every other term must appear
-  somewhere in the story, and headline matches rank first. The section
-  menu, the archive, and the 404 page all carry the search box. The code
-  is in `lib/search.ts`.
-- The section bar sticks to the top of every page. Once the masthead has
-  scrolled away it shows a small wordmark that links home.
+  somewhere in the story, and headline matches rank first. Words of three
+  letters or fewer match whole words only, so "AI" does not light up
+  "said" (`lib/search-terms.ts`). The section menu, the archive, and the
+  404 page all carry the search box. The code is in `lib/search.ts`.
+- The section bar sticks to the top of every page. On phones, tablets, and
+  screens 1280px and wider it shows a small wordmark that links home once
+  the masthead has scrolled away.
 - On phones the front page shows the six newest stories ("Latest") right
   after the lead, before the "More coverage" grid.
 - Article pages have a reading-progress line, a share row (the system
