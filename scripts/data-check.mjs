@@ -27,6 +27,28 @@ if (only === "fetch") {
   process.exit(0);
 }
 
+// TOOL=feeds [QUERY="name=url|name=url"]: probe RSS/Atom feeds from a runner.
+// With no QUERY, probes every candidate in scripts/lib/local-feeds.mjs. An
+// HTML page is scanned for the feeds it advertises and the first few tried.
+if (only === "feeds") {
+  const { CANDIDATE_FEEDS, probeAll, formatProbe } = await import("./lib/local-feeds.mjs");
+  let specs = CANDIDATE_FEEDS;
+  if (query) {
+    specs = query.split("|").map((s) => s.trim()).filter(Boolean).map((s) => {
+      const eq = s.indexOf("=");
+      return eq > 0 && !/^https?:/.test(s) ? { name: s.slice(0, eq).trim(), url: s.slice(eq + 1).trim(), group: "query" } : { name: "", url: s, group: "query" };
+    });
+  }
+  console.log(`Probing ${specs.length} feed candidates...`);
+  const started = Date.now();
+  const results = await probeAll(specs, 8);
+  for (const r of results) console.log("\n" + formatProbe(r));
+  const ok = results.filter((r) => r.items || (r.tried || []).some((t) => t.items)).length;
+  console.log(`\n[feeds] ${ok} of ${results.length} readable in ${Math.round((Date.now() - started) / 1000)}s`);
+  await new Promise((r) => process.stdout.write("", r));
+  process.exit(0);
+}
+
 // TOOL=probe QUERY="url1|url2": print each page's links and a text excerpt
 // so a new source can be understood from a runner before a tool is written.
 if (only === "probe") {
