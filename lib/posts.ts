@@ -72,7 +72,7 @@ const POSTS: Post[] = [
     category: "Development",
     categories: ["General News"],
     author: "Jackson Wire Staff",
-    date: "2026-10-08",
+    date: "2026-10-09",
     views: 0,
     body: [
       "Farish Street Green opened Monday, Oct. 5. WLBT reported that the project turned three vacant lots into a public space, and that the Jackson Redevelopment Authority provided roughly half an acre between Amite Street and James Meredith Drive. WLBT described about 100 trees, a wooden trellis, picnic tables and a concrete stage, and Mississippi Today described young sycamores, maples and sumacs beginning to spread over grass, walking trails and lounge areas. The opening followed a 2020 heat-mapping campaign and years of community meetings, according to 2C Mississippi and a 2023 Gulf States Newsroom report. This story looks at what the published record says about how the plantings will be watered and maintained now that the park is open.",
