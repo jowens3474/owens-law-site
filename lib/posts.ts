@@ -68,6 +68,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-10-09",
+    title: "Morning Brief: Oct 9 · Isaias Closes In as Jackson Sales Tax Diversions Beat Forecast",
+    dek: "Hurricane Isaias is forecast to rake Mississippi's coast Friday night into Saturday, and the storm's timing lands in the middle of the state fair's run and the fall construction season.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-10-09",
+    views: 0,
+    body: [
+      "Isaias bears down on Mississippi coast: Hurricane Isaias strengthened to a Category 3 storm early Friday and is forecast to make landfall near the Florida-Alabama line Friday night or early Saturday, the National Hurricane Center reported. Mississippi Power said it has staged nearly 500 additional resources, and MEMA urged residents statewide to prepare for heavy rain and flash flooding through the weekend. The storm has already shut in roughly 1.3 million barrels a day of Gulf oil production, Argus reported, and the timing collides with the Mississippi State Fair, which runs at the Jackson fairgrounds through Oct. 18. Business owners along the coast and in the metro should watch for utility outages and road closures into next week.",
+      "Jackson sales tax diversions outrun last year: The city collected $2,612,443 in sales tax diversions in August, up 9.5 percent from $2,385,899 a year earlier, according to Department of Revenue diversion reports. Fiscal-year-to-date, Jackson is at $5,328,637, up 6.0 percent. The gain outpaces most of the metro: Pearl is down 8.6 percent for the month and 10.5 percent fiscal-year-to-date, while Ridgeland is up 23.7 percent and Byram 20.9 percent. The numbers matter because the 1 percent local option tax is one of the few revenue lines the city controls outright, and the FY27 budget the council passed Sept. 11 assumes no millage increase.",
+      "Hinds County millage vote nears: Hinds County supervisors are weighing a roughly 1.5-mill increase that would raise about $2.3 million a year, with most of it directed to the new $100 million detention center under construction, WLBT and WAPT reported. Board President Robert Graham said the hike would cost the owner of a $200,000 home about $2.50 a month, or $30 a year. Residents pushed back at a July work session, with one telling the board that more money will not fix a management problem. The board's next regular meeting is scheduled for Oct. 19, and the county must set its levy before the fiscal year closes.",
+      "City opens paving bids for 24-month contracts: Jackson posted three solicitations Oct. 8 for road work, including a 24-month asphalt pavement milling contract and a 24-month supply of asphaltic paving materials, both with bids due Oct. 27, according to the city's bid page. A third request covers Housing and Community Development rehabilitation services. The two-year terms are notable: they lock in pricing and a contractor before winter, when asphalt plants typically slow. For contractors, the milling and materials awards are the largest public paving packages the city has put out this fall, and they arrive as the FY27 capital budget takes effect.",
+      "State fair anchors a strong revenue month: The 166th Mississippi State Fair opened Oct. 8 and runs through Oct. 18 at the fairgrounds, with officials projecting at least $35 million in economic impact after roughly 500,000 attendees last year, MPB reported. The fair lands as state revenue collections ran $123.3 million, or 6.84 percent, above legislative estimates through the first quarter of fiscal 2027, the Joint Legislative Budget Committee reported Oct. 6. September collections alone beat the estimate by $51.6 million. For downtown vendors and hotels, the fair is the single biggest 11-day stretch of the year, and this year it overlaps a storm that could trim coastal travel.",
+    ],
+  },
+  {
     slug: "farish-street-green-maintenance-watering-who-pays",
     title: "Farish Street Green Is Open. The Wire Found No Public Watering Plan or Upkeep Budget.",
     dek: "The only maintenance commitment the Wire found in published coverage is one sentence: 2C Mississippi for three years, then the Jackson Redevelopment Authority. The coverage the Wire reviewed mentions no irrigation system, watering schedule or upkeep budget.",
