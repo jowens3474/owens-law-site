@@ -214,7 +214,7 @@ export const CANDIDATE_FEEDS = [
   { group: "syndication", name: "Tippah News MS", url: "https://tippahnews.com/category/mississippi-news/feed/" },
   { group: "syndication", name: "Our Tupelo", url: "https://ourtupelo.com/feed/" },
   { group: "syndication", name: "Scott County Times", url: "https://www.sctonline.net/search/?f=rss&t=article&l=25&s=start_time&sd=desc" },
-  { group: "syndication", name: "Beat of the Capital", url: "https://thebeatofthecapital.com/feed/" },
+  
   { group: "syndication", name: "News From The States", url: "https://www.newsfromthestates.com/rss.xml" },
   // City, county, utilities, authorities
   { group: "government", name: "City of Jackson", url: "https://www.jacksonms.gov/feed/" },
@@ -321,7 +321,6 @@ export const FEEDS = [
   { group: "syndication", name: "Mississippi Today via Tippah News", url: "https://tippahnews.com/category/mississippi-news/feed/" },
   { group: "syndication", name: "Mississippi Today via Our Tupelo", url: "https://ourtupelo.com/feed/" },
   { group: "syndication", name: "WJTV via Beat of the Capital", url: "https://thebeatofthecapital.com/feed/" },
-  { group: "syndication", name: "States Newsroom", url: "https://www.newsfromthestates.com/rss.xml" },
   // City, authorities, utilities
   { group: "government", name: "JXN Water", url: "https://jxnwater.com/feed/" },
   { group: "government", name: "Jackson Municipal Airport Authority", url: "https://jmaa.com/feed/" },
@@ -388,7 +387,12 @@ export async function localFeeds({ group = "news", query = "", hours = 48, limit
   }
   await Promise.all(Array.from({ length: Math.min(8, chosen.length) }, worker));
 
-  const seen = new Set();
+  // Reprints (the syndication group) are considered after primary feeds so a
+  // Mississippi Today story read from its own feed wins over the same story
+  // on DeSoto County News, and WJTV over Beat of the Capital.
+  items.sort((a, b) => (a.group === "syndication") - (b.group === "syndication"));
+  const seenLink = new Set();
+  const seenTitle = new Set();
   const kept = [];
   for (const it of items) {
     const t = Date.parse(it.date);
@@ -396,8 +400,10 @@ export async function localFeeds({ group = "news", query = "", hours = 48, limit
     if (dated && t < since) continue;
     if (q && !`${it.title} ${it.summary}`.toLowerCase().includes(q)) continue;
     const key = (it.link || it.title).replace(/[?#].*$/, "");
-    if (!key || seen.has(key)) continue;
-    seen.add(key);
+    const tkey = it.title.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+    if (!key || seenLink.has(key) || (tkey && seenTitle.has(tkey))) continue;
+    seenLink.add(key);
+    if (tkey) seenTitle.add(tkey);
     kept.push({ ...it, t: dated ? t : 0 });
   }
   kept.sort((a, b) => b.t - a.t);

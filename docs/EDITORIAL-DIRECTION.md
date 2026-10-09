@@ -101,7 +101,7 @@ run with `local_feeds`, `news_feed`, `jackson_meetings`, and `public_notices`.
 | Tool | Source | Key |
 | --- | --- | --- |
 | `news_feed` | Google News RSS and GDELT, newest first | none |
-| `local_feeds` | Forty local RSS feeds read directly (newsrooms, Mississippi Today reprints, JXN Water, the airport, suburbs, state officials, campuses, civic groups), by group, deduplicated, newest first, direct links; see the local source map below | none |
+| `local_feeds` | Thirty-nine local RSS feeds read directly (newsrooms, Mississippi Today reprints, JXN Water, the airport, suburbs, state officials, campuses, civic groups), by group, deduplicated, newest first, direct links; see the local source map below | none |
 | `jackson_meetings` | jacksonms.gov agenda post type and news posts; Hinds County board page | none |
 | `federal_awards` | USASpending contracts and grants by place of performance (Hinds, Madison, Rankin) | none |
 | `bls_series` | BLS Jackson MSA unemployment, employment, nonfarm jobs; Mississippi unemployment | `BLS_API_KEY` optional |
@@ -153,7 +153,7 @@ Readable, by `local_feeds` group:
 | Group | Feeds |
 | --- | --- |
 | `news` | WLBT (news section and Hinds County section), WJTV (local, politics, bribery case), WAPT, Mississippi Today, Mississippi Free Press, Jackson Advocate, Mississippi Link, SuperTalk, Magnolia Tribune (all and business), Jackson Jambalaya, Mississippi Business Journal, Clinton Courier |
-| `syndication` | DeSoto County News, Tippah News, and Our Tupelo, which reprint Mississippi Today in full; Beat of the Capital, which reprints WJTV; States Newsroom |
+| `syndication` | DeSoto County News, Tippah News, and Our Tupelo, which reprint Mississippi Today in full; Beat of the Capital, which reprints WJTV. When a story also arrives from the original outlet's feed, the tool keeps the original and drops the reprint |
 | `government` | JXN Water, Jackson Municipal Airport Authority, Jackson Redevelopment Authority (stale since 2021) |
 | `metro` | Ridgeland, Pearl, Brandon, Clinton |
 | `state` | Governor, Attorney General, Treasurer, MDEQ, State Department of Health (weekly certificate-of-need report) |
