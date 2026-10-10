@@ -1,0 +1,48 @@
+name: Status Report
+
+# Read-only daily snapshot the chief of staff reads (docs/staff/chief-of-staff.md).
+# Checks the live site, the Vercel deploys on main, the ten desks' runs, what
+# the desks published, what is scheduled to come up, and the staff backlog,
+# then prints it in the job log and the run summary. Publishes nothing and
+# commits nothing. The token it gets can only read.
+
+on:
+  schedule:
+    # Daily at 11:35 UTC (6:35 AM CDT / 5:35 AM CST): 35 minutes after the
+    # Morning Brief's 11:00 UTC slot and before the chief of staff at 6:51 AM
+    # Central. GitHub often starts scheduled runs hours late, so the chief
+    # dispatches a fresh run when none is recent.
+    - cron: "35 11 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+  statuses: read
+
+concurrency:
+  group: status-report
+  cancel-in-progress: false
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 200
+          persist-credentials: false
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Build the status report
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          SITE: https://www.thejacksonwire.com
+        run: node scripts/status-report.mjs
