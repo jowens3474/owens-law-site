@@ -14,9 +14,7 @@ export async function GET() {
   lines.push(`# ${site.name}`, "");
   lines.push(`> ${site.description}`, "");
   lines.push(`${site.tagline} Based in ${site.city}.`, "");
-
-  lines.push("## Mission", "");
-  lines.push(site.mission, "");
+  lines.push(`Mission: ${site.mission}`, "");
 
   lines.push("## Articles", "");
   for (const p of posts) {

@@ -47,6 +47,8 @@ export interface Post {
 // to drip-publish — no manual rebuild needed. The front page refreshes hourly,
 // lists and feeds at most daily, and an article page renders on its first visit
 // after its date; the daily automated commits also redeploy every page.
+// Do not open a scheduled article's URL before its date: the "not found" page
+// that visit produces stays cached until the next deploy.
 //
 // Template:
 // {

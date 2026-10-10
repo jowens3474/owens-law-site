@@ -1,6 +1,10 @@
 // Central place to rebrand the publication. Change these and the whole site updates.
 import missionData from "./mission.json";
 
+if (typeof missionData.statement !== "string" || !missionData.statement.trim()) {
+  throw new Error('lib/mission.json must hold a non-empty "statement" string.');
+}
+
 export const site = {
   name: "The Jackson Wire",
   shortName: "Jackson Wire",

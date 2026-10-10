@@ -85,7 +85,7 @@ Government and development:
 Quote and cite by URL in the article. Example: "according to the bond resolution on the Sept. 8 agenda (hindscountyms.com), the county would borrow..."
 
 STORY REQUIREMENTS, all mandatory
-- End every article with a "What's next" section of one or two paragraphs that names the next date, the decision-maker, and what readers should watch. Where a source supports it, say how readers can take part or protect themselves: the meeting, the comment deadline, the record to check. If a date is not public, say so and say what would set it.
+- End every article with a "What's next" section of one or two paragraphs that names the next date, the decision-maker, and what readers should watch. Where a source supports it, say how readers can take part: the meeting, the comment deadline, the record to check. If a date is not public, say so and say what would set it.
 - Include at least one number the Wire computed or pulled from a document (a ratio, a per-resident figure, a comparison to a prior year, a share of a budget), not just a figure repeated from another outlet.
 - When a public dollar is involved, name who pays and who profits.
 - Prefer a specific, checkable claim over a broad one. "The council votes Tuesday on a $4.2 million lease" beats "the city is weighing a lease."

@@ -69,7 +69,7 @@ WRITING RULES
 - Dates as "March 16, 2026". Money as "$2,000" or "$1.2 million". Percentages as "12%".
 - No markdown, no bullet characters, no headings inside paragraphs. Paragraphs are 1 to 4 sentences.
 
-STRUCTURE (each section is an array of 1 to 3 short paragraphs; the whole entry runs 450 to 800 words)
+STRUCTURE (each section is an array of 1 to 3 short paragraphs; the whole entry runs 450 to 800 words, and the mission adds none: cut background to fit a reader step)
 - slug: 3 to 10 lowercase words joined by hyphens that say what the law does.
 - title: a plain headline under 90 characters that says what the law does, with no bill number.
 - oneSentence: the whole law in one plain sentence under 30 words, no bill number.
@@ -77,7 +77,7 @@ STRUCTURE (each section is an array of 1 to 3 short paragraphs; the whole entry 
 - whyItHappened: the problem or event that prompted it, with a number if there is one.
 - whatsBehindIt: who pushed it, who fought it, the politics and money behind each side, how the vote went.
 - whatItCosts: what it costs the state (the fiscal note if there is one), what it costs or saves a household or a business, who pays. If no one has published a cost, say so.
-- whatChangesForYou: what a reader will actually notice, with examples, and what they can do when a source says: a deadline, a right they have, how to check their status.
+- whatChangesForYou: what a reader will actually notice, with examples, and, only where a source says so, what they can do: a deadline to meet, a right they have, or how to check their status.
 - jackson: only if a source says something specific to Jackson or Hinds County; otherwise an empty array.
 - watchFor: dates, deadlines, lawsuits, agencies writing rules, the next session.
 - sources: every page you used, each with a name and the exact URL you fetched. Put the most official one first.

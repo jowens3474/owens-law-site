@@ -3,7 +3,7 @@ import Link from "next/link";
 import { site } from "@/lib/site";
 import { absoluteUrl } from "@/lib/markdown";
 
-const description = `About ${site.name}: our mission, independent business, economics, and development reporting from Jackson, Mississippi, our editorial standards, AI policy, corrections, and how to send a tip.`;
+const description = `About ${site.name}: independent business, economics, and development reporting from Jackson, Mississippi. Our mission, editorial standards, AI policy, corrections, and how to send a tip.`;
 
 export const metadata: Metadata = {
   title: "About",
@@ -49,52 +49,54 @@ export default function AboutPage() {
         >
           Our mission
         </h2>
-        <p className="mt-3 text-balance font-serif text-2xl font-bold leading-snug text-ink sm:text-[1.7rem]">
+        <p className="mt-3 text-balance font-serif text-xl font-bold leading-snug text-ink sm:text-2xl">
           {site.mission}
         </p>
         <ul className="mt-6 space-y-3 font-sans text-base leading-relaxed text-ink">
           <li>
-            <strong>We follow the money.</strong> We report what a decision
-            costs, who pays, and who benefits.
+            <strong>We follow the money.</strong> When public money is
+            involved, we report what it costs, who pays, and who benefits, or
+            say that the documents do not show it.
           </li>
           <li>
             <strong>We explain the rules.</strong>{" "}
             <Link
               href="/laws"
-              className="font-bold text-crimson hover:text-crimson-bright"
+              className="font-bold text-crimson underline underline-offset-2 hover:text-crimson-bright"
             >
               What Passed
             </Link>{" "}
-            explains new laws in plain words, so anyone can follow them.
+            explains the new Mississippi laws that matter most to Jackson in
+            plain words.
           </li>
           <li>
             <strong>We tell you what is coming.</strong>{" "}
             <Link
               href="/pipeline"
-              className="font-bold text-crimson hover:text-crimson-bright"
+              className="font-bold text-crimson underline underline-offset-2 hover:text-crimson-bright"
             >
               The Pipeline
             </Link>{" "}
-            lists the votes, hearings, and deadlines ahead, so you can weigh
-            in before a decision is made.
+            tracks the development projects, bonds, rate cases, and ballot
+            questions we are following, with the dates that will decide them.
           </li>
           <li>
             <strong>We open the record.</strong>{" "}
             <Link
               href="/meetings"
-              className="font-bold text-crimson hover:text-crimson-bright"
+              className="font-bold text-crimson underline underline-offset-2 hover:text-crimson-bright"
             >
               The Record
             </Link>{" "}
-            makes what is said at Jackson&rsquo;s public meetings
-            searchable.
+            makes what is said at the Jackson City Council meetings we have
+            transcribed searchable.
           </li>
           <li>
-            <strong>We fix mistakes in public.</strong> Every correction is
-            listed at{" "}
+            <strong>We fix mistakes in public.</strong> Corrections to our
+            articles are listed at{" "}
             <Link
               href="/corrections"
-              className="font-bold text-crimson hover:text-crimson-bright"
+              className="font-bold text-crimson underline underline-offset-2 hover:text-crimson-bright"
             >
               /corrections
             </Link>

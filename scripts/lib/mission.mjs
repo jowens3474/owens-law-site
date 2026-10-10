@@ -1,22 +1,28 @@
-// The Wire's mission statement, shared by the desk scripts (autopilot,
-// morning brief, laws desk) and the newsletter. The text itself lives in
+// The Wire's mission statement, shared by the autopilot, the Morning Brief,
+// the laws desk, and the newsletter. The text itself lives in
 // lib/mission.json, which the website also reads, so it is edited in one
-// place.
+// place. The rules below live only here; docs/EDITORIAL-DIRECTION.md mirrors
+// them, so change both together.
 import { readFileSync } from "node:fs";
 
 const { statement } = JSON.parse(
   readFileSync(new URL("../../lib/mission.json", import.meta.url), "utf8"),
 );
+if (typeof statement !== "string" || statement.trim() === "") {
+  throw new Error("lib/mission.json must hold a non-empty \"statement\" string.");
+}
 
-export const MISSION = statement;
+export const MISSION = statement.trim();
 
-// The block every desk prompt carries. It turns the mission into concrete
-// writing rules and keeps it on the side of accuracy, not advocacy.
+// The block the autopilot, Morning Brief, and laws desk prompts carry. It
+// turns the mission into reporting rules, yields to every fact, length, and
+// punctuation rule in each prompt, and keeps the writing on the side of
+// accuracy, not advocacy.
 export const MISSION_PROMPT = `THE WIRE'S MISSION
-"${statement}"
-Everything you write serves that mission. In practice:
-- Tell readers what the news means for them and what they can do about it: the meeting to attend, the comment or filing deadline, the office to contact, the record to check. Only include a step a source supports; never invent a date, deadline, phone number, or procedure.
-- Name who pays, who benefits, and by how much. Point out fees, fine print, and terms that could cost an ordinary person money or a right.
-- Name or link the primary document so readers can check it themselves, and explain any jargon in plain words.
-- When a story touches voting, due process, equal treatment, or access to public records and meetings, say so plainly. Those are part of the beat.
-- Serve the mission with accuracy, not advocacy. Report what the documents and sources show, attribute every claim, give each side its strongest case, and keep the Wire's own analysis clearly labeled as analysis.`;
+"${MISSION}"
+The mission is the reason the Wire reports, not a position to argue. It shapes what you look for in the documents. It does not override the fact, length, and punctuation rules in this prompt, and it does not raise any length limit. In practice:
+- Tell readers what the documents show the news means for them and, when a source gives one, what they can do: the meeting to attend, the comment or filing deadline, the office to contact, the record to check. Copy dates, times, addresses, and phone numbers exactly from a source you read in this run. If no source gives a step, leave it out, and do not write generic advice.
+- When money is involved, name who pays, who benefits, and by how much, as the sources give it. Point out fees, fine print, and terms in the document that cost an ordinary person money or limit a right.
+- Name the primary document and where it is posted so readers can find it, and explain any jargon in plain words.
+- When a story touches voting, due process, equal treatment, or access to public records and meetings, report what the documents and named sources say about it. Do not call anything unlawful or unjust unless a named source or a court does.
+- Accuracy, not advocacy. Attribute every claim, give each side its strongest case, state options without telling readers or officials what they should do, and keep the Wire's own analysis clearly labeled as analysis.`;
