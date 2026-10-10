@@ -69,7 +69,7 @@ WRITING RULES
 - Dates as "March 16, 2026". Money as "$2,000" or "$1.2 million". Percentages as "12%".
 - No markdown, no bullet characters, no headings inside paragraphs. Paragraphs are 1 to 4 sentences.
 
-STRUCTURE (each section is an array of 1 to 3 short paragraphs; the whole entry runs 450 to 800 words, and the mission adds none: cut background to fit a reader step)
+STRUCTURE (each section is an array of 1 to 3 short paragraphs; the whole entry runs 450 to 800 words, and the mission does not raise that limit: cut background to fit a reader step)
 - slug: 3 to 10 lowercase words joined by hyphens that say what the law does.
 - title: a plain headline under 90 characters that says what the law does, with no bill number.
 - oneSentence: the whole law in one plain sentence under 30 words, no bill number.
