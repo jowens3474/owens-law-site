@@ -5,8 +5,9 @@ import { getAllLaws } from "@/lib/laws";
 import { categories } from "@/lib/site";
 import { absoluteUrl } from "@/lib/markdown";
 
-// Refresh every 10 minutes so newly-scheduled articles appear in the sitemap.
-export const revalidate = 600;
+// Refresh at most daily; deploys rebuild it sooner. Each refresh is a billed
+// cache write on Vercel.
+export const revalidate = 86400;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const posts = getAllPosts();

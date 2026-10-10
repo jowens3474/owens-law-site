@@ -44,7 +44,9 @@ export interface Post {
 // future YYYY-MM-DD and the article stays hidden from the site, sitemap, RSS,
 // llms.txt, and search until that day arrives (compared in Central time).
 // Batch-write 3–4 pieces on one day and stagger their dates across the week
-// to drip-publish — no manual rebuild needed (pages revalidate every 10 min).
+// to drip-publish — no manual rebuild needed. The front page refreshes hourly,
+// lists and feeds at most daily, and an article page renders on its first visit
+// after its date; the daily automated commits also redeploy every page.
 //
 // Template:
 // {
@@ -4820,7 +4822,7 @@ const sortByDateDesc = (a: Post, b: Post) => b.date.localeCompare(a.date);
 // Today's calendar date (YYYY-MM-DD) in the publication's local time zone
 // (America/Chicago). Used to schedule article publication by date so writers
 // can batch-write multiple pieces and drip-publish across the week without
-// rebuilding — pages revalidate every 10 minutes (see `revalidate` exports).
+// rebuilding (see the `revalidate` exports for each page's refresh window).
 export function todayLocalIso(): string {
   return new Intl.DateTimeFormat("en-CA", {
     timeZone: "America/Chicago",

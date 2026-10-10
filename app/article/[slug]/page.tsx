@@ -20,8 +20,10 @@ import ReadingProgress from "@/app/components/ReadingProgress";
 import ShareBar from "@/app/components/ShareBar";
 import { extractCitations } from "@/lib/citations";
 
-// Refresh every 10 minutes so scheduled articles render on schedule.
-export const revalidate = 600;
+// Rebuilt on every deploy and otherwise served from cache. Each refresh is a
+// billed cache write on Vercel, and the daily automated commits redeploy the
+// site anyway. A future-dated entry renders on its first visit after its date.
+export const revalidate = false;
 
 export function generateStaticParams() {
   return getAllPosts().map((post) => ({ slug: post.slug }));

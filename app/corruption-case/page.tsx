@@ -10,9 +10,9 @@ import { absoluteUrl } from "@/lib/markdown";
 import ArticleImage from "@/app/components/ArticleImage";
 import CategoryTag from "@/app/components/CategoryTag";
 
-// Refresh every 10 minutes so the countdown stays current and new
-// corruption-case articles appear without a redeploy.
-export const revalidate = 600;
+// Refresh at most daily; deploys rebuild it sooner. Each refresh is a billed
+// cache write on Vercel.
+export const revalidate = 86400;
 
 const DEK =
   "Complete coverage of U.S. v. Owens, Lumumba, and Banks — the federal bribery prosecution that ended July 6, 2026, with all five defendants pleading guilty and no trial. The story now moves to the fall sentencing calendar.";

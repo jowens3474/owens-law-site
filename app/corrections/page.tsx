@@ -4,7 +4,9 @@ import { getAllPosts, formatDate } from "@/lib/posts";
 import { site } from "@/lib/site";
 import { absoluteUrl } from "@/lib/markdown";
 
-export const revalidate = 600;
+// Refresh at most daily; deploys rebuild it sooner. Each refresh is a billed
+// cache write on Vercel.
+export const revalidate = 86400;
 
 const DEK =
   "Every correction the Wire has issued, listed publicly and dated. We fix errors at the top of the affected article and append a dated correction note. This page collects them.";

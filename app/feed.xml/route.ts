@@ -2,7 +2,9 @@ import { getAllPosts } from "@/lib/posts";
 import { site } from "@/lib/site";
 import { absoluteUrl } from "@/lib/markdown";
 
-export const revalidate = 600;
+// Refresh at most every six hours; deploys rebuild it sooner. Feed readers
+// poll often, and each refresh is a billed cache write on Vercel.
+export const revalidate = 21600;
 
 function esc(s: string): string {
   return s

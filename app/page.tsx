@@ -8,9 +8,10 @@ import {
   readingTime,
 } from "@/lib/posts";
 
-// Refresh every 10 minutes so scheduled (future-dated) articles flip live
-// automatically without a redeploy.
-export const revalidate = 600;
+// Refresh at most hourly so a future-dated article reaches the front page on
+// its date even on a day without a deploy. Each refresh is a billed cache
+// write on Vercel, so keep this window long.
+export const revalidate = 3600;
 import { site } from "@/lib/site";
 import ArticleImage from "./components/ArticleImage";
 import Sidebar from "./components/Sidebar";

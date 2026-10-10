@@ -3,7 +3,9 @@ import { getAllLaws } from "@/lib/laws";
 import { site, categories } from "@/lib/site";
 import { absoluteUrl } from "@/lib/markdown";
 
-export const revalidate = 600;
+// Refresh at most daily; deploys rebuild it sooner. Each refresh is a billed
+// cache write on Vercel.
+export const revalidate = 86400;
 
 export async function GET() {
   const posts = getAllPosts();

@@ -1,7 +1,8 @@
 import { getAllPosts, getPostBySlug } from "@/lib/posts";
 import { postToMarkdown } from "@/lib/markdown";
 
-export const revalidate = 600;
+// Rebuilt on every deploy; see app/article/[slug]/page.tsx.
+export const revalidate = false;
 
 export function generateStaticParams() {
   return getAllPosts().map((post) => ({ slug: post.slug }));

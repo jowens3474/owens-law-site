@@ -6,8 +6,9 @@ import { absoluteUrl } from "@/lib/markdown";
 import ArticleCard from "@/app/components/ArticleCard";
 import Sidebar from "@/app/components/Sidebar";
 
-// Refresh every 10 minutes so scheduled articles appear on their date.
-export const revalidate = 600;
+// Refresh at most daily; deploys rebuild it sooner. Each refresh is a billed
+// cache write on Vercel.
+export const revalidate = 86400;
 
 export function generateStaticParams() {
   return categories.map((c) => ({ category: c.slug }));
