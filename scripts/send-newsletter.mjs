@@ -16,6 +16,9 @@ import { fileURLToPath } from "node:url";
 import { tagUrl } from "./lib/utm.mjs";
 
 const SITE_URL = "https://www.thejacksonwire.com";
+// The one spelling of the host that readers see in the footer, with www
+// because mail clients link the bare domain and it does not resolve.
+const SITE_HOST = new URL(SITE_URL).host;
 const FEED_URL = `${SITE_URL}/feed.xml`;
 const RESEND_API_BASE = "https://api.resend.com";
 const FROM = "The Jackson Wire <brief@thejacksonwire.com>";
@@ -23,7 +26,7 @@ const FROM = "The Jackson Wire <brief@thejacksonwire.com>";
 // Every link to the site inside the email is tagged, so readers can be traced
 // to the digest (see scripts/lib/utm.mjs). Fetching the feed stays untagged.
 const UTM = { source: "newsletter", medium: "email", campaign: "daily-digest" };
-const tag = (url) => tagUrl(url, UTM);
+const tagLink = (url) => tagUrl(url, UTM);
 
 const FORWARD_LINE =
   "Know someone who should read this? Forward this email. New readers can sign up at";
@@ -113,7 +116,7 @@ export function buildHtml(items) {
       (item, i) => `
               <tr>
                 <td style="padding: 24px 32px 0 32px;">
-                  <a href="${escHtml(tag(item.link))}" style="color: #060a12; font-size: 20px; font-weight: 700; line-height: 1.3; text-decoration: none; font-family: Georgia, 'Times New Roman', serif;">
+                  <a href="${escHtml(tagLink(item.link))}" style="color: #060a12; font-size: 20px; font-weight: 700; line-height: 1.3; text-decoration: none; font-family: Georgia, 'Times New Roman', serif;">
                     ${escHtml(item.title)}
                   </a>
                   <p style="margin: 8px 0 0 0; color: #555555; font-size: 15px; line-height: 1.5; font-family: Arial, Helvetica, sans-serif;">
@@ -157,12 +160,12 @@ ${articleBlocks}
                 <p style="margin: 0 0 14px 0; color: #444444; font-size: 13px; line-height: 1.6; font-family: Arial, Helvetica, sans-serif;">
                   ${escHtml(MISSION)}
                 </p>
-                <p style="margin: 0 0 12px 0; color: #888888; font-size: 12px; line-height: 1.6; font-family: Arial, Helvetica, sans-serif;">
+                <p style="margin: 0 0 12px 0; color: #555555; font-size: 12px; line-height: 1.6; font-family: Arial, Helvetica, sans-serif;">
                   ${escHtml(FORWARD_LINE)}
-                  <a href="${escHtml(tag(`${SITE_URL}/`))}" style="color: #888888; text-decoration: underline;">www.thejacksonwire.com</a>
+                  <a href="${escHtml(tagLink(`${SITE_URL}/`))}" style="color: #555555; text-decoration: underline;">${escHtml(SITE_HOST)}</a>
                 </p>
                 <p style="margin: 0; color: #888888; font-size: 12px; line-height: 1.6; font-family: Arial, Helvetica, sans-serif;">
-                  You're receiving this because you subscribed at thejacksonwire.com.<br />
+                  You're receiving this because you subscribed at ${escHtml(SITE_HOST)}.<br />
                   <a href="{{{RESEND_UNSUBSCRIBE_URL}}}" style="color: #888888; text-decoration: underline;">Unsubscribe</a>
                 </p>
               </td>
@@ -179,15 +182,15 @@ export function buildText(items) {
   const lines = ["THE JACKSON WIRE", ""];
   for (const item of items) {
     lines.push(item.title);
-    lines.push(tag(item.link));
+    lines.push(tagLink(item.link));
     lines.push(item.dek);
     lines.push("");
   }
   lines.push("---");
   lines.push(MISSION);
   lines.push("");
-  lines.push(`${FORWARD_LINE} ${tag(`${SITE_URL}/`)}`);
-  lines.push("You're receiving this because you subscribed at thejacksonwire.com.");
+  lines.push(`${FORWARD_LINE} ${tagLink(`${SITE_URL}/`)}`);
+  lines.push(`You're receiving this because you subscribed at ${SITE_HOST}.`);
   lines.push("Unsubscribe: {{{RESEND_UNSUBSCRIBE_URL}}}");
   return lines.join("\n");
 }

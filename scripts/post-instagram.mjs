@@ -9,6 +9,7 @@
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 
 const SITE_URL = "https://www.thejacksonwire.com";
+const SITE_HOST = new URL(SITE_URL).host;
 const FEED_URL = `${SITE_URL}/feed.xml`;
 const POSTED_FILE = "data/instagram-posted.json";
 const GRAPH_BASE = "https://graph.instagram.com/v23.0";
@@ -130,14 +131,15 @@ function buildCaption(item) {
   const dataCenters = /data center|data-center|datacenter/.test(hay);
   if (dataCenters) hashtags.push("#DataCenters");
 
-  // Captions are not clickable, so this link carries no UTM tag. It starts
-  // with www because the bare domain does not resolve.
+  // Captions are not clickable, so this link carries no UTM tag. The host
+  // comes from SITE_URL, which starts with www because the bare domain does
+  // not resolve.
   const caption = [
     item.title,
     "",
     item.dek,
     "",
-    `Full story: www.thejacksonwire.com/article/${item.slug}`,
+    `Full story: ${SITE_HOST}/article/${item.slug}`,
     "",
     hashtags.join(" "),
   ].join("\n");
