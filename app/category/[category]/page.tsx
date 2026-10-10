@@ -9,6 +9,9 @@ import Sidebar from "@/app/components/Sidebar";
 // Refresh at most daily; deploys rebuild it sooner. Each refresh is a billed
 // cache write on Vercel.
 export const revalidate = 86400;
+// The section set is fixed at build; new sections arrive by commit and deploy.
+// Unknown slugs get the prerendered 404 and write nothing to the cache.
+export const dynamicParams = false;
 
 export function generateStaticParams() {
   return categories.map((c) => ({ category: c.slug }));

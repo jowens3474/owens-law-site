@@ -7,11 +7,14 @@ import { absoluteUrl } from "@/lib/markdown";
 // Search results and filtered lists are rendered fresh on every request, so
 // crawlers are kept off them: they hold nothing the article pages do not.
 // /api/card stays open because link previews fetch share images from it.
+// /api/pro/ is closed because /pro links to its checkout with a plain GET,
+// which starts a Stripe Checkout Session on every hit.
 const DISALLOW = [
   "/search",
   "/laws?",
   "/meetings/search",
   "/api/meetings/",
+  "/api/pro/",
   "/pro/dashboard",
 ];
 

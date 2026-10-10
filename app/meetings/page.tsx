@@ -11,8 +11,6 @@ import {
 } from "@/lib/meetings";
 import MeetingSearchForm from "@/app/components/MeetingSearchForm";
 
-export const revalidate = 600;
-
 const DEK =
   "Every word said at the Jackson City Council meetings in our archive, transcribed, indexed, and searchable. Find who said what about a parcel, a contract, or a dollar figure, then jump to that moment in the video.";
 

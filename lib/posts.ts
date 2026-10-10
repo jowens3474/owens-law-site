@@ -45,10 +45,10 @@ export interface Post {
 // llms.txt, and search until that day arrives (compared in Central time).
 // Batch-write 3–4 pieces on one day and stagger their dates across the week
 // to drip-publish — no manual rebuild needed. The front page refreshes hourly,
-// lists and feeds at most daily, and an article page renders on its first visit
-// after its date; the daily automated commits also redeploy every page.
-// Do not open a scheduled article's URL before its date: the "not found" page
-// that visit produces stays cached until the next deploy.
+// feed.xml every six hours, and the other lists and feeds daily; an article
+// page renders on its first visit after its date, and if its URL is opened
+// early the not-found page is cached for at most an hour
+// (lib/not-found-cap.ts); the daily automated commits also redeploy every page.
 //
 // Template:
 // {
@@ -4835,6 +4835,14 @@ export function todayLocalIso(): string {
 // Future-dated articles stay hidden from every public surface until then.
 function isPublished(p: Post): boolean {
   return p.date <= todayLocalIso();
+}
+
+// True when the slug belongs to an article that exists but is future-dated.
+// Article routes use it to cap how long their not-found render is cached (see
+// lib/not-found-cap.ts); an unknown slug returns false.
+export function isScheduledSlug(slug: string): boolean {
+  const post = POSTS.find((p) => p.slug === slug);
+  return post !== undefined && !isPublished(post);
 }
 
 // Morning Briefs are daily digests of other outlets' reporting. They stay on

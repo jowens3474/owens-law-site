@@ -1,5 +1,6 @@
-import { getAllPosts, getPostBySlug } from "@/lib/posts";
+import { getAllPosts, getPostBySlug, isScheduledSlug } from "@/lib/posts";
 import { postToMarkdown } from "@/lib/markdown";
+import { capNotFoundLife } from "@/lib/not-found-cap";
 
 // Rebuilt on every deploy; see app/article/[slug]/page.tsx.
 export const revalidate = false;
@@ -15,6 +16,7 @@ export async function GET(
   const { slug } = await params;
   const post = getPostBySlug(slug);
   if (!post) {
+    if (isScheduledSlug(slug)) await capNotFoundLife();
     return new Response("Not found", { status: 404 });
   }
   return new Response(postToMarkdown(post), {

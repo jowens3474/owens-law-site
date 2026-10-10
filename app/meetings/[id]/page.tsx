@@ -17,6 +17,9 @@ import MeetingSearchForm from "@/app/components/MeetingSearchForm";
 
 // Meeting data only changes through a commit, which redeploys the site.
 export const revalidate = false;
+// The ID set is fixed at build; new meetings arrive by commit and deploy.
+// Unknown IDs get the prerendered 404 and write nothing to the cache.
+export const dynamicParams = false;
 
 export function generateStaticParams() {
   return MEETINGS.map((m) => ({ id: m.id }));

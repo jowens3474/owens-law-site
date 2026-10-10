@@ -55,6 +55,8 @@ export interface Law {
   watchFor: string[]; // dates, lawsuits, next steps
   sources: LawSource[]; // the bill first, then everything else used
   author: string;
+  // An entry opened before its date shows not-found for at most an hour after
+  // the date arrives (lib/not-found-cap.ts).
   date: string; // ISO yyyy-mm-dd; publication date (future dates stay hidden)
   updated?: string;
   note?: string; // reporting note shown at the end
@@ -601,6 +603,14 @@ export const LAWS: Law[] = [
 
 function isPublished(l: Law): boolean {
   return l.date <= todayLocalIso();
+}
+
+// True when the slug belongs to a law entry that exists but is future-dated.
+// The law page uses it to cap how long its not-found render is cached (see
+// lib/not-found-cap.ts); an unknown slug returns false.
+export function isScheduledLawSlug(slug: string): boolean {
+  const law = LAWS.find((l) => l.slug === slug);
+  return law !== undefined && !isPublished(law);
 }
 
 const memo = new WeakMap<Law, Law>();
