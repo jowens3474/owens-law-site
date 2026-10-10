@@ -1,13 +1,5 @@
 [
   {
-    "bill": "HB 1944",
-    "hint": "Children's Promise Act expansion: raises the cap on tax credits for donations to private schools and other eligible organizations from $18 million to $24 million beginning in 2027 and creates a set-aside for special-purpose schools. The only school choice measure that passed in 2026. Effective Jan. 1, 2026.",
-    "sources": [
-      "https://www.mississippifirst.org/2026-legislative-session-review/",
-      "https://desotocountynews.com/mississippi-news/what-lived-and-died-in-the-2026-mississippi-legislative-session/"
-    ]
-  },
-  {
     "bill": "HB 325",
     "hint": "Permanently dedicates lottery proceeds above $80 million to the Education Enhancement Fund beyond the original June 30, 2028 expiration. Effective July 1, 2026.",
     "sources": [
@@ -144,5 +136,15 @@
     ],
     "attempts": 1,
     "lastError": "entry is too long (1088 words; aim for 450 to 800); whyItHappened: a paragraph has 5 sentences (limit 4)"
+  },
+  {
+    "bill": "HB 1944",
+    "hint": "Children's Promise Act expansion: raises the cap on tax credits for donations to private schools and other eligible organizations from $18 million to $24 million beginning in 2027 and creates a set-aside for special-purpose schools. The only school choice measure that passed in 2026. Effective Jan. 1, 2026.",
+    "sources": [
+      "https://www.mississippifirst.org/2026-legislative-session-review/",
+      "https://desotocountynews.com/mississippi-news/what-lived-and-died-in-the-2026-mississippi-legislative-session/"
+    ],
+    "attempts": 1,
+    "lastError": "oneSentence must be one sentence of 8 to 30 words; entry is too long (1084 words; aim for 450 to 800); whatsBehindIt: a sentence runs over 40 words (\"That version would have raised private school cred"
   }
 ]
