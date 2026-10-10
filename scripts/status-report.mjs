@@ -5,10 +5,12 @@
 // Markdown report. It publishes nothing and commits nothing.
 //
 // Output: the report on stdout (appended to $GITHUB_STEP_SUMMARY when set),
-// then ::warning:: annotations for a site that is not 200, a failed desk, or a
-// missing desk run, then one last line, `STATUS_JSON <compact json>`, with the
-// key facts. The exit code is 0 unless the script itself crashes: a check that
-// cannot run prints "could not check: <reason>" and the report goes on.
+// printed between ::stop-commands:: markers with a random token, so no text in
+// it can act as a workflow command. Then ::warning:: annotations for a site
+// that is not 200, a failed desk, or a missing desk run, then one last line,
+// `STATUS_JSON <compact json>`, with the key facts. The exit code is 0 unless
+// the script itself crashes: a check that cannot run prints "could not check:
+// <reason>" and the report goes on.
 // All times are America/Chicago, like "Sat Oct 10, 6:35 AM".
 //
 // Env:
@@ -26,6 +28,7 @@
 // the GitHub API and is never printed.
 
 import { execFileSync } from "node:child_process";
+import { randomUUID } from "node:crypto";
 import { appendFileSync, readFileSync, realpathSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -45,6 +48,8 @@ const STATUS_LOOKUPS_AT_ONCE = 8;
 const LAWS_STREAK_COMMITS = 300; // how far back to read git for the laws desk's rejections in a row
 const LATE_START_NOTE_MS = 30 * MINUTE; // a scheduled run that starts this much later than its time gets a note
 const FETCH_TIMEOUT_MS = 20000;
+const DEFAULT_JOB_TIMEOUT_MINUTES = 360; // GitHub's limit for a job that sets none
+const TIMEOUT_SLACK_MS = 60000; // a run this close to its limit, or longer, was stopped by the limit
 // A browser-like agent, so the site and its CDN treat the checks like a reader.
 const USER_AGENT =
   "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 TheJacksonWire-StatusReport/1.0";
@@ -64,20 +69,33 @@ export const DESK_FILES = [
   "newsletter.yml",
 ];
 
-// Commit subjects the desks write (see each script's git commit). The laws
-// desk publishes as "What Passed: <bill>: <title>" (scripts/laws-desk.mjs);
-// people also start site edits with "What Passed: ", so a bill number is
-// required. Social, Instagram and Pro alerts only record state, so they are
-// not listed.
+// Commit subjects the desks write (see each script's git commit), and what
+// each one is: a story ("published") or a data update ("data"). The first
+// match wins. The laws desk publishes as "What Passed: <bill>: <title>"
+// (scripts/laws-desk.mjs); people also start site edits with "What Passed: ",
+// so a bill number is required. The sales tax desk writes "Sales tax: update
+// diversions dataset" when only the data changed. Social, Instagram and Pro
+// alerts only record state, so they are not listed. The laws desk's queue
+// commits ("Laws desk: ...") are handled in classifyCommit.
 const DESK_SUBJECTS = [
-  { desk: "Autopilot", re: /^Autopilot: / },
-  { desk: "Morning Brief", re: /^Morning Brief: / },
-  { desk: "Laws desk", re: /^Laws desk: / },
-  { desk: "Laws desk", re: /^What Passed: [A-Z]{1,5} ?\d+: / },
-  { desk: "Meetings", re: /^Meetings: / },
-  { desk: "Sales tax", re: /^Sales tax: / },
+  { desk: "Autopilot", re: /^Autopilot: /, kind: "published" },
+  { desk: "Morning Brief", re: /^Morning Brief: /, kind: "published" },
+  { desk: "Laws desk", re: /^What Passed: [A-Z]{1,5} ?\d+: /, kind: "published" },
+  { desk: "Sales tax", re: /^Sales tax: update /, kind: "data" },
+  { desk: "Sales tax", re: /^Sales tax: /, kind: "published" },
+  { desk: "Meetings", re: /^Meetings: /, kind: "data" },
 ];
-const REJECTED_SUBJECT = /moved to the back of the queue|dropped/i;
+// A laws desk draft that failed validation is "moved to the back of the queue",
+// or "dropped" after its last failed try. A bill dropped because it is already
+// on the site or did not become law is queue housekeeping, not a rejected draft.
+const QUEUE_REJECTION = /moved to the back of the queue|dropped/i;
+const QUEUE_HOUSEKEEPING = /^Laws desk: dropped .* from the queue \((?:already on the site|did not become law)/i;
+
+// Text from outside (a commit subject, a feed title or date, Vercel's
+// description) goes into the report on one line: carriage returns and
+// newlines become spaces. The report is also printed between stop-commands
+// markers (see main), so no field can start a workflow command.
+export const oneLine = (text) => String(text ?? "").replace(/\s+/g, " ").trim();
 
 // ---------------------------------------------------------------------------
 // Times, in Central
@@ -133,7 +151,7 @@ export function chicagoDate(when) {
 // it prints as a date; anything else prints in Chicago time.
 export function formatFeedDate(pubDate) {
   const d = new Date(pubDate);
-  if (Number.isNaN(d.getTime())) return pubDate ? String(pubDate) : "no date";
+  if (Number.isNaN(d.getTime())) return oneLine(pubDate) || "no date";
   if (d.getUTCHours() === 0 && d.getUTCMinutes() === 0 && d.getUTCSeconds() === 0) {
     const p = partsOf(calendarFormat, d);
     return `${p.weekday} ${p.month} ${p.day} (date only)`;
@@ -141,13 +159,13 @@ export function formatFeedDate(pubDate) {
   return formatChicago(d);
 }
 
-// "35m", "5h 4m", "2d 3h"
+// "35m", "5h 4m", "2d 3h", "3d"
 export function formatDuration(ms) {
   const mins = Math.round(Math.abs(ms) / MINUTE);
   const days = Math.floor(mins / 1440);
   const hours = Math.floor((mins % 1440) / 60);
   const rest = mins % 60;
-  if (days) return `${days}d ${hours}h`;
+  if (days) return hours ? `${days}d ${hours}h` : `${days}d`;
   if (hours) return rest ? `${hours}h ${rest}m` : `${hours}h`;
   return `${rest}m`;
 }
@@ -246,15 +264,51 @@ export function workflowName(yaml) {
   return m ? m[1].trim() : "";
 }
 
+// The time limit, in minutes, of the workflow's jobs: the `timeout-minutes:`
+// line under each job's id (the id sits 2 spaces in, the setting 4). A step's
+// own limit sits deeper and is ignored. A job with no limit gets GitHub's
+// default of 360. Returns the smallest limit, or null when the file has no jobs
+// or a limit that is not a plain number, which means the limit is not known.
+export function readTimeoutMinutes(yaml) {
+  const lines = String(yaml).split("\n");
+  const start = lines.findIndex((l) => /^jobs:\s*(?:#.*)?$/.test(l));
+  if (start === -1) return null;
+  const limits = [];
+  for (const line of lines.slice(start + 1)) {
+    if (/^\S/.test(line)) break; // the next top-level key ends the jobs block
+    if (/^ {2}[\w-]+:\s*(?:#.*)?$/.test(line)) limits.push(DEFAULT_JOB_TIMEOUT_MINUTES); // a new job
+    const m = line.match(/^ {4}timeout-minutes:\s*(\S.*?)\s*(?:#.*)?$/);
+    if (m && limits.length) limits[limits.length - 1] = /^\d+(?:\.\d+)?$/.test(m[1]) ? Number(m[1]) : Number.NaN;
+  }
+  if (!limits.length || limits.some((n) => !(n > 0))) return null;
+  return Math.min(...limits);
+}
+
 // ---------------------------------------------------------------------------
 // Desks: did each scheduled run happen, and did it pass
 // ---------------------------------------------------------------------------
 
 const ACTIVE_STATUSES = new Set(["queued", "in_progress", "waiting", "pending", "requested"]);
-// A run that did not finish its job. "cancelled" counts: the desk did not do its work.
-const FAILURE_CONCLUSIONS = new Set(["failure", "timed_out", "cancelled", "startup_failure", "action_required"]);
+// A run that failed. A run that was cancelled before its time limit is not a
+// failure: someone or something stopped it, so it has its own verdict. A run
+// that hit its time limit is a failure (see isTimeout).
+const FAILURE_CONCLUSIONS = new Set(["failure", "timed_out", "startup_failure", "action_required"]);
 
 const isFailure = (run) => run.status === "completed" && FAILURE_CONCLUSIONS.has(run.conclusion);
+const isCancelled = (run) => run.status === "completed" && run.conclusion === "cancelled";
+
+// GitHub records a job that runs into its `timeout-minutes` as "cancelled", the
+// same as a person pressing Cancel. What tells them apart is how long the run
+// lasted: one that went on for the whole limit (less a minute, for clocks) was
+// stopped by the limit, which is a failure; a shorter one was stopped early.
+// `timeoutMs` is the limit from the workflow file; without it nothing is a
+// timeout. Real case: Autopilot run 34883748917 on Sep 14 lasted 15m20s against
+// a 15 minute limit.
+export function isTimeout(run, timeoutMs) {
+  if (!isCancelled(run) || !(timeoutMs > 0)) return false;
+  const lasted = Date.parse(run.updated_at) - Date.parse(run.run_started_at ?? run.created_at);
+  return lasted >= timeoutMs - TIMEOUT_SLACK_MS;
+}
 const isActive = (run) => ACTIVE_STATUSES.has(run.status);
 const createdMs = (run) => Date.parse(run.created_at);
 const newestFirst = (a, b) => createdMs(b) - createdMs(a);
@@ -273,8 +327,11 @@ export function matchSlots(slots, runs, nowMs, graceMs) {
   });
 }
 
-function describeRun(run) {
-  const state = run.status === "completed" ? run.conclusion || "completed" : String(run.status).replace(/_/g, " ");
+// "Fri Oct 9, 2:07 PM, schedule, success". A run that hit its time limit reads
+// "timed out after 15m" instead of the "cancelled" GitHub records for it.
+function describeRun(run, timeoutMs) {
+  const done = isTimeout(run, timeoutMs) ? `timed out after ${formatDuration(timeoutMs)}` : run.conclusion || "completed";
+  const state = run.status === "completed" ? done : String(run.status).replace(/_/g, " ");
   return `${formatChicago(run.created_at)}, ${run.event}, ${state}`;
 }
 
@@ -296,22 +353,39 @@ function describeSlots(times) {
   return `${times.length} slots: ${shown}${times.length > 3 ? `; and ${times.length - 3} more` : ""}`;
 }
 
+// Where a desk's own window starts. A scheduled time is judged only once the
+// grace has passed, so the window reaches back a day plus the grace (36 hours
+// with the default grace). That way every daily desk always has one slot that
+// is both old enough to judge and still in view, even when the report starts
+// late or in standard time. The report's own window (HOURS, 26 by default)
+// still sets Published and Deploys; a longer HOURS wins here too.
+export function deskWindowStart(nowMs, windowStartMs, graceMs) {
+  return Math.min(windowStartMs, nowMs - DAY - graceMs);
+}
+
 // One desk's verdict. `runs` are the workflow's recent runs (up to
-// HISTORY_DAYS back, any event); the window is [windowStartMs, nowMs].
-// Verdicts: FAILED, MISSING, running, waiting, ok, "not scheduled in window".
-export function summarizeDesk({ label, cronExprs, runs, nowMs, windowStartMs, graceMs }) {
+// HISTORY_DAYS back, any event); the desk's window is
+// [deskWindowStart, nowMs]. `timeoutMs` is the workflow's time limit, read from
+// its file: a cancelled run that lasted that long is a timeout, which counts as
+// a failure (and toward "twice in a row"). Verdicts: FAILED, MISSING, running,
+// cancelled, waiting, ok, "not scheduled in window".
+export function summarizeDesk({ label, cronExprs, timeoutMs = null, runs, nowMs, windowStartMs, graceMs }) {
   const crons = cronExprs.map(parseCron);
+  const startMs = deskWindowStart(nowMs, windowStartMs, graceMs);
   const history = runs.filter((r) => createdMs(r) <= nowMs).sort(newestFirst);
-  const inWindow = history.filter((r) => createdMs(r) >= windowStartMs);
-  const slots = scheduledTimes(crons, windowStartMs, nowMs);
+  const inWindow = history.filter((r) => createdMs(r) >= startMs);
+  const slots = scheduledTimes(crons, startMs, nowMs);
   const matched = matchSlots(slots, inWindow, nowMs, graceMs);
   const missing = matched.filter((s) => s.state === "missing").map((s) => s.time);
   const waiting = matched.filter((s) => s.state === "waiting").map((s) => s.time);
 
+  const failedRun = (run) => isFailure(run) || isTimeout(run, timeoutMs);
   const doneInWindow = inWindow.find((r) => r.status === "completed");
   const done = history.filter((r) => r.status === "completed");
-  const failed = Boolean(doneInWindow) && isFailure(doneInWindow);
-  const twice = failed && done.length >= 2 && isFailure(done[0]) && isFailure(done[1]);
+  const failed = Boolean(doneInWindow) && failedRun(doneInWindow);
+  const timedOut = failed && isTimeout(doneInWindow, timeoutMs);
+  const cancelled = Boolean(doneInWindow) && isCancelled(doneInWindow) && !failed;
+  const twice = failed && done.length >= 2 && failedRun(done[0]) && failedRun(done[1]);
   const running = inWindow.some(isActive);
   const last = inWindow[0] ?? null;
 
@@ -319,21 +393,26 @@ export function summarizeDesk({ label, cronExprs, runs, nowMs, windowStartMs, gr
   if (failed) verdict = "FAILED";
   else if (missing.length) verdict = "MISSING";
   else if (running) verdict = "running";
+  else if (cancelled) verdict = "cancelled";
   else if (!inWindow.length && !slots.length) verdict = "not scheduled in window";
   else if (!inWindow.length) verdict = "waiting";
   else verdict = "ok";
 
-  const lastText = last ? ` Last run ${describeRun(last)}${lagNote(last, crons)}.` : "";
+  const lastText = last ? ` Last run ${describeRun(last, timeoutMs)}${lagNote(last, crons)}.` : "";
   let line;
   if (verdict === "FAILED") {
-    line = `${label}: FAILED${twice ? " twice in a row" : ""}. Last finished run ${describeRun(doneInWindow)}. ${doneInWindow.html_url}`;
-    if (twice) line += ` The run before: ${describeRun(done[1])}. ${done[1].html_url}`;
+    line = `${label}: FAILED${twice ? " twice in a row" : ""}. Last finished run ${describeRun(doneInWindow, timeoutMs)}. ${doneInWindow.html_url}`;
+    if (twice) line += ` The run before: ${describeRun(done[1], timeoutMs)}. ${done[1].html_url}`;
     if (running) line += " A newer run is still going.";
     if (missing.length) line += ` Also no run for ${describeSlots(missing)}.`;
   } else if (verdict === "MISSING") {
     line = `${label}: MISSING. No run for ${describeSlots(missing)}.${lastText}`;
   } else if (verdict === "running") {
     line = `${label}: running.${lastText}`;
+  } else if (verdict === "cancelled") {
+    line = `${label}: cancelled. Someone or something stopped the last finished run before its time limit: ${describeRun(doneInWindow, timeoutMs)}. ${doneInWindow.html_url}`;
+    if (!(timeoutMs > 0)) line += " The workflow's time limit could not be read, so this may have been a timeout.";
+    if (waiting.length) line += ` Waiting on ${describeSlots(waiting)}.`;
   } else if (verdict === "waiting") {
     line = `${label}: waiting. No run yet for ${describeSlots(waiting)}.`;
   } else if (verdict === "ok") {
@@ -344,10 +423,10 @@ export function summarizeDesk({ label, cronExprs, runs, nowMs, windowStartMs, gr
     line = `${label}: not scheduled in window.`;
   }
   if (!inWindow.length) {
-    line += history.length ? ` Last run before the window: ${describeRun(history[0])}.` : ` No runs in the last ${HISTORY_DAYS} days.`;
+    line += history.length ? ` Last run before the window: ${describeRun(history[0], timeoutMs)}.` : ` No runs in the last ${HISTORY_DAYS} days.`;
   }
 
-  return { label, verdict, twice, line: `- ${line}`, failedUrl: failed ? doneInWindow.html_url : null, missingSlots: missing };
+  return { label, verdict, twice, timedOut, line: `- ${line}`, failedUrl: failed ? doneInWindow.html_url : null, missingSlots: missing };
 }
 
 // ---------------------------------------------------------------------------
@@ -378,16 +457,18 @@ export function vercelStatusOf(payload) {
 
 const firstLine = (text) => String(text ?? "").split("\n")[0];
 
-// Text from outside (a feed title, Vercel's description) goes into the log on
-// one line, so it can never start a line with "::" and act as a workflow command.
-const oneLine = (text) => String(text ?? "").replace(/\s+/g, " ").trim();
-
 // `commits` is the API's list of commits on main (possibly a little older than
 // the window); `statusBySha` maps each sha to its combined status payload, or
 // to an Error when that lookup failed. The counts cover commits made at or
 // after `windowStartMs`. `last24h` covers every commit given, so it holds for
-// any window length. `vercel` on the newest commit is null when Vercel posted
-// nothing and undefined when the lookup failed.
+// any window length.
+//
+// `newest` is the newest commit that HAS a Vercel status, wherever it falls in
+// the list: state-only commits marked [skip ci] get none, and they must not
+// hide the real deploy. The search never looks past a commit whose status
+// lookup failed. That commit becomes `newest` with `vercel` undefined, which
+// means the state is unknown. `newest` is null when no commit in the list has
+// a status. `listed` is how many commits were given.
 export function summarizeDeploys(commits, statusBySha, nowMs, windowStartMs = -Infinity) {
   const counts = { deployed: 0, failed: 0, pending: 0, none: 0, unknown: 0 };
   let total = 0;
@@ -402,14 +483,14 @@ export function summarizeDeploys(commits, statusBySha, nowMs, windowStartMs = -I
     const lookupFailed = payload === undefined || payload instanceof Error;
     const vercel = lookupFailed ? undefined : vercelStatusOf(payload);
     if (vercel && nowMs - when <= DAY) last24h += 1;
+    if (!newest && (lookupFailed || vercel)) newest = { ...row, vercel };
     if (when < windowStartMs) continue;
     total += 1;
     if (lookupFailed) counts.unknown += 1;
     else if (!vercel) counts.none += 1;
     else counts[vercel.bucket] += 1;
-    newest ??= { ...row, vercel };
   }
-  return { total, ...counts, last24h, newest, truncated: commits.length >= COMMITS_PER_PAGE };
+  return { total, ...counts, last24h, newest, listed: commits.length, truncated: commits.length >= COMMITS_PER_PAGE };
 }
 
 // ---------------------------------------------------------------------------
@@ -428,22 +509,26 @@ export function parseGitLog(raw) {
     });
 }
 
-// Which desk a commit subject belongs to, and whether the laws desk threw its
-// draft out. null for every other commit.
+// Which desk a commit subject belongs to and what it is: a story ("published"),
+// a rejected laws draft ("rejected"), a data update ("data"), or laws queue
+// housekeeping ("queue"). null for every other commit.
 export function classifyCommit(subject) {
+  if (/^Laws desk: /.test(subject)) {
+    const rejected = QUEUE_REJECTION.test(subject) && !QUEUE_HOUSEKEEPING.test(subject);
+    return { desk: "Laws desk", kind: rejected ? "rejected" : "queue" };
+  }
   const hit = DESK_SUBJECTS.find((d) => d.re.test(subject));
-  if (!hit) return null;
-  const rejected = /^Laws desk: /.test(subject) && REJECTED_SUBJECT.test(subject);
-  return { desk: hit.desk, kind: rejected ? "rejected" : "published" };
+  return hit ? { desk: hit.desk, kind: hit.kind } : null;
 }
 
 // Consecutive laws desk rejections at the front of `commits` (newest first):
-// 0 when the newest laws desk commit published, 2 when the last two did not.
+// 0 when the newest draft was published, 2 when the last two were rejected.
+// Queue housekeeping is not a draft, so it neither counts nor breaks a streak.
 export function rejectionStreak(commits) {
   let streak = 0;
   for (const c of commits) {
     const hit = classifyCommit(c.subject);
-    if (!hit || hit.desk !== "Laws desk") continue;
+    if (!hit || hit.desk !== "Laws desk" || hit.kind === "queue") continue;
     if (hit.kind !== "rejected") break;
     streak += 1;
   }
@@ -458,11 +543,8 @@ export function summarizePublished(commits, sinceMs, untilMs) {
     const hit = classifyCommit(c.subject);
     if (hit) items.push({ ...c, ...hit });
   }
-  return {
-    published: items.filter((i) => i.kind === "published"),
-    rejected: items.filter((i) => i.kind === "rejected"),
-    items,
-  };
+  const only = (kind) => items.filter((i) => i.kind === kind);
+  return { published: only("published"), rejected: only("rejected"), data: only("data"), queue: only("queue"), items };
 }
 
 // ---------------------------------------------------------------------------
@@ -509,10 +591,11 @@ export function summarizeQueue(queue, lawsSource) {
   const items = Array.isArray(queue) ? queue : [];
   const done = (bill) => lawsSource.includes(`bill: ${JSON.stringify(bill)}`);
   const next = items.find((q) => !q.bill || !done(q.bill));
+  const name = (q) => oneLine(q.bill) || "an unnumbered item";
   return {
     count: items.length,
-    next: next ? next.bill || "an unnumbered item" : null,
-    retried: items.filter((q) => (q.attempts ?? 0) > 0).map((q) => ({ bill: q.bill || "an unnumbered item", attempts: q.attempts })),
+    next: next ? name(next) : null,
+    retried: items.filter((q) => (q.attempts ?? 0) > 0).map((q) => ({ bill: name(q), attempts: q.attempts })),
   };
 }
 
@@ -628,12 +711,13 @@ export function renderDeploys(summary) {
       `${summary.unknown ? `, ${summary.unknown} could not be checked` : ""}.`,
   );
   lines.push(`- Deploys in the last 24 hours (commits with a Vercel status): ${summary.last24h}.`);
+  // The newest deploy is the newest commit that has a Vercel status; commits with none are skipped.
   const n = summary.newest;
   if (n) {
-    const what = n.vercel === undefined ? "could not check: the status lookup failed" : n.vercel ? `${n.vercel.state}, "${oneLine(n.vercel.description)}"` : "no Vercel status";
-    lines.push(`- Newest commit ${n.sha.slice(0, 7)} (${formatChicago(n.when)}, "${n.subject}"): ${what}`);
+    const what = n.vercel === undefined ? "could not check: the status lookup failed" : `${n.vercel.state}, "${oneLine(n.vercel.description)}"`;
+    lines.push(`- Newest deploy, commit ${n.sha.slice(0, 7)} (${formatChicago(n.when)}, "${oneLine(n.subject)}"): ${what}`);
   } else {
-    lines.push("- No commits on main in the window.");
+    lines.push(`- Newest deploy: could not check: ${summary.listed === 0 ? "no commits were listed" : "none of the commits listed has a Vercel status"}.`);
   }
   return lines;
 }
@@ -645,27 +729,32 @@ export function desksByVerdict(results) {
   return out;
 }
 
-export function renderDesks(results, graceMs) {
+// `lookbackMs` is how far back the desks were read (default a day plus the grace).
+export function renderDesks(results, graceMs, lookbackMs = DAY + graceMs) {
   const by = desksByVerdict(results);
   const count = (verdict) => (by[verdict] ?? []).length;
   const named = (verdict) => (count(verdict) ? ` (${by[verdict].join(", ")})` : "");
   const lines = [
-    `A desk is MISSING when a scheduled time passed more than ${formatDuration(graceMs)} ago with no run after it. GitHub often starts scheduled runs hours late.`,
+    `A desk is MISSING when a scheduled time passed more than ${formatDuration(graceMs)} ago with no run after it. GitHub often starts scheduled runs hours late. Each desk is read over the last ${formatDuration(lookbackMs)}.`,
     `Summary: ${count("ok")} ok, ${count("running")} running, ${count("waiting")} waiting, ${count("not scheduled in window")} not scheduled in window, ` +
-      `${count("FAILED")} FAILED${named("FAILED")}, ${count("MISSING")} MISSING${named("MISSING")}` +
+      `${count("FAILED")} FAILED${named("FAILED")}, ${count("MISSING")} MISSING${named("MISSING")}, ${count("cancelled")} cancelled${named("cancelled")}` +
       `${count("unknown") ? `, ${count("unknown")} could not be checked` : ""}.`,
   ];
   for (const r of results) lines.push(r.line);
   return lines;
 }
 
+// Stories are "published"; a rejected laws draft is REJECTED; data-only commits
+// are DATA and laws queue housekeeping is QUEUE. Only stories count as published.
 export function renderPublished(summary, streak, refName) {
   const lines = [`Commits on ${refName} in the window whose subject starts with a desk prefix.`];
   if (!summary.items.length) lines.push("- None.");
+  const tags = { rejected: "REJECTED ", data: "DATA ", queue: "QUEUE " };
   for (const i of summary.items) {
-    lines.push(`- ${i.kind === "rejected" ? "REJECTED " : ""}${formatChicago(i.when)}: ${i.subject}`);
+    lines.push(`- ${tags[i.kind] ?? ""}${formatChicago(i.when)}: ${oneLine(i.subject)}`);
   }
-  lines.push(`Published ${summary.published.length}, rejected ${summary.rejected.length}.`);
+  const extra = [(summary.data ?? []).length && ` Data updates ${summary.data.length}.`, (summary.queue ?? []).length && ` Queue changes ${summary.queue.length}.`];
+  lines.push(`Published ${summary.published.length}, rejected ${summary.rejected.length}.${extra.filter(Boolean).join("")}`);
   if (streak >= 1) lines.push(`Laws desk: the last ${streak === 1 ? "draft was" : `${streak} drafts were`} rejected${streak >= 2 ? " in a row" : ""}.`);
   return lines;
 }
@@ -673,8 +762,8 @@ export function renderPublished(summary, streak, refName) {
 export function renderBacklog(backlog) {
   const lines = [`${backlog.total} open item${backlog.total === 1 ? "" : "s"}. Items are listed oldest first.`];
   for (const s of backlog.sections) {
-    lines.push(`### ${s.heading} (${s.items.length})`);
-    for (const item of s.items) lines.push(`- [ ] ${item}`);
+    lines.push(`### ${oneLine(s.heading)} (${s.items.length})`);
+    for (const item of s.items) lines.push(`- [ ] ${oneLine(item)}`);
   }
   return lines;
 }
@@ -727,7 +816,8 @@ function requireGithub(ctx) {
 }
 
 // One GET to the live site. Never throws: the result says what happened.
-async function probe(url, { manual = false, readBody = false } = {}) {
+// scripts/site-watch.mjs reuses it.
+export async function probe(url, { manual = false, readBody = false } = {}) {
   try {
     const res = await fetch(url, {
       redirect: manual ? "manual" : "follow",
@@ -886,14 +976,16 @@ async function checkDeploys(ctx) {
       none: summary.none,
       unknown: summary.unknown,
       last24h: summary.last24h,
-      newest: n ? { sha: n.sha.slice(0, 7), state: n.vercel ? n.vercel.state : n.vercel === undefined ? "unknown" : "none", description: n.vercel?.description ?? "" } : null,
+      // The newest commit that has a Vercel status (state "unknown" when its lookup failed), or null.
+      newest: n ? { sha: n.sha.slice(0, 7), state: n.vercel ? n.vercel.state : "unknown", description: n.vercel?.description ?? "" } : null,
     },
   };
 }
 
 // The desk's recent runs come from the Actions API, from HISTORY_DAYS days back
 // (or the start of the window if that is earlier), so "failed twice in a row"
-// can see past the window.
+// can see past the window. Only runs on main count: a test dispatch from a
+// feature branch is not the desk doing its job.
 async function checkDesk(ctx, file) {
   const fallback = file.replace(/\.ya?ml$/, "");
   let yaml;
@@ -908,11 +1000,13 @@ async function checkDesk(ctx, file) {
     cronExprs.forEach(parseCron);
     requireGithub(ctx);
     const since = isoSeconds(Math.min(ctx.windowStart, ctx.now - HISTORY_DAYS * DAY));
-    const query = new URLSearchParams({ created: `>=${since}`, per_page: String(RUNS_PER_PAGE) });
+    const query = new URLSearchParams({ branch: "main", created: `>=${since}`, per_page: String(RUNS_PER_PAGE) });
     const data = await githubGet(ctx, `/repos/${ctx.repo}/actions/workflows/${file}/runs?${query}`);
+    const timeoutMinutes = readTimeoutMinutes(yaml);
     return summarizeDesk({
       label,
       cronExprs,
+      timeoutMs: timeoutMinutes === null ? null : timeoutMinutes * MINUTE,
       runs: data.workflow_runs ?? [],
       nowMs: ctx.now,
       windowStartMs: ctx.windowStart,
@@ -924,7 +1018,7 @@ async function checkDesk(ctx, file) {
 }
 
 function unchecked(label, reason) {
-  return { label, verdict: "unknown", twice: false, line: `- ${label}: could not check: ${reason}`, failedUrl: null, missingSlots: [] };
+  return { label, verdict: "unknown", twice: false, timedOut: false, line: `- ${label}: could not check: ${reason}`, failedUrl: null, missingSlots: [] };
 }
 
 async function checkDesks(ctx) {
@@ -939,7 +1033,7 @@ async function checkDesks(ctx) {
   const by = desksByVerdict(results);
   const count = (verdict) => (by[verdict] ?? []).length;
   return {
-    lines: renderDesks(results, ctx.graceMs),
+    lines: renderDesks(results, ctx.graceMs, ctx.now - deskWindowStart(ctx.now, ctx.windowStart, ctx.graceMs)),
     warnings,
     json: {
       ok: count("ok"),
@@ -949,6 +1043,8 @@ async function checkDesks(ctx) {
       unknown: count("unknown"),
       failed: by.FAILED ?? [],
       missing: by.MISSING ?? [],
+      cancelled: by.cancelled ?? [],
+      timedOut: results.filter((r) => r.timedOut).map((r) => r.label),
       twice: results.filter((r) => r.twice).map((r) => r.label),
       verdicts: Object.fromEntries(results.map((r) => [r.label, r.verdict])),
     },
@@ -967,12 +1063,20 @@ function checkPublished(ctx) {
   const format = "--format=%H%x1f%cI%x1f%s";
   const inWindow = parseGitLog(git(["log", ref, `--since=${isoSeconds(ctx.windowStart)}`, format]));
   const summary = summarizePublished(inWindow, ctx.windowStart, ctx.now);
-  // The streak can reach back past the window: the last few laws desk commits.
-  const streak = rejectionStreak(parseGitLog(git(["log", ref, "-n", String(LAWS_STREAK_COMMITS), format])));
+  // The streak can reach back past the window: the last few laws desk commits,
+  // up to the moment of the report.
+  const recent = parseGitLog(git(["log", ref, "-n", String(LAWS_STREAK_COMMITS), format])).filter((c) => Date.parse(c.when) <= ctx.now);
+  const streak = rejectionStreak(recent);
   return {
     lines: renderPublished(summary, streak, ref),
     warnings: [],
-    json: { count: summary.published.length, rejected: summary.rejected.length, lawsRejectedInARow: streak },
+    json: {
+      count: summary.published.length,
+      rejected: summary.rejected.length,
+      dataUpdates: summary.data.length,
+      queueChanges: summary.queue.length,
+      lawsRejectedInARow: streak,
+    },
   };
 }
 
@@ -1064,6 +1168,14 @@ export function buildReport({ sections, now, hours, windowStart }) {
   };
 }
 
+// The report between GitHub Actions' stop-commands markers. While they are in
+// force the runner ignores workflow commands, so no field in the report (a
+// commit subject, a feed title, a log line) can start one. The token must be
+// unguessable and new on every run; main passes a random UUID.
+export function stopCommandsFence(markdown, token) {
+  return `::stop-commands::${token}\n${markdown}\n::${token}::`;
+}
+
 async function main() {
   const now = Date.now();
   const hoursEnv = Number(process.env.HOURS);
@@ -1092,7 +1204,7 @@ async function main() {
   const backlog = await section("backlog", "Backlog", async () => checkBacklog());
 
   const report = buildReport({ sections: [site, deploys, desks, published, comingUp, backlog], now, hours, windowStart: ctx.windowStart });
-  console.log(report.markdown);
+  console.log(stopCommandsFence(report.markdown, randomUUID()));
   if (process.env.GITHUB_STEP_SUMMARY) {
     try {
       appendFileSync(process.env.GITHUB_STEP_SUMMARY, `${report.markdown}\n`);

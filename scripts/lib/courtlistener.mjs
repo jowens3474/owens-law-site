@@ -10,6 +10,21 @@ const BASES = [
   "https://www.courtlistener.com/api/rest/v3",
 ];
 
+// True only for an https URL on courtlistener.com or one of its subdomains.
+// The test reads the parsed host, never the text of the URL, so a URL that
+// merely mentions the name (https://evil.example/?courtlistener.com, or
+// https://courtlistener.com@evil.example/) does not count, and neither does
+// text that is not a URL. Use it before sending the API token anywhere.
+export function isCourtListenerUrl(url) {
+  try {
+    const u = new URL(url);
+    const host = u.hostname.toLowerCase();
+    return u.protocol === "https:" && (host === "courtlistener.com" || host.endsWith(".courtlistener.com"));
+  } catch {
+    return false;
+  }
+}
+
 export const OWENS_CASE = {
   label: "U.S. v. Owens, Lumumba, and Banks",
   court: "mssd", // Southern District of Mississippi

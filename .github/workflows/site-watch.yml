@@ -1,0 +1,47 @@
+name: Site Watch
+
+# Smoke alarm for the live site. Every 30 minutes it checks that the home page
+# answers 200 and that Vercel's newest deploy did not fail. It keeps at most two
+# GitHub issues, labeled site-down and deploys-failing: one opens when the
+# problem starts and closes itself when the problem clears, so the owner gets
+# one notification when something breaks and one when it recovers. Publishes
+# nothing and commits nothing. See docs/staff/README.md.
+
+on:
+  schedule:
+    # Every 30 minutes. GitHub often starts scheduled runs hours late, so this
+    # is a best effort. An outside uptime monitor is still on the backlog.
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  statuses: read
+  issues: write
+
+concurrency:
+  group: site-watch
+  cancel-in-progress: false
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Check the site and the deploys
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          SITE: https://www.thejacksonwire.com
+        run: node scripts/site-watch.mjs

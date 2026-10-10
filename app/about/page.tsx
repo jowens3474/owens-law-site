@@ -251,14 +251,16 @@ export default function AboutPage() {
             someone else&rsquo;s read of it.
           </p>
           <p>
-            <strong>AI assistance, with disclosure.</strong> The Wire uses
-            AI tools for research synthesis and drafting on certain articles.
-            Every piece on this site is published under the editorial
-            judgment of the publisher: the topic, the framing, the facts
-            checked against primary sources, and the decision to publish are
-            human calls. If you ever see something on the Wire that looks
-            like a hallucination or a fabricated quote, write us &mdash; we
-            want to know immediately.
+            <strong>AI desks, with disclosure.</strong> Most of the
+            Wire&rsquo;s daily coverage is researched, drafted, and
+            published by AI desks that work from public documents under
+            rules the publisher sets: every fact must come from a source
+            the desk read, and every claim is attributed. Stories go out on
+            their own. An AI standards check then reviews each one against
+            its sources, the same day or the next, and the publisher
+            decides every correction it flags. If you ever see something on
+            the Wire that looks like a hallucination or a fabricated quote,
+            write us; we want to know immediately.
           </p>
           <p>
             <strong>Sources are protected.</strong> If you send a tip or a
@@ -336,9 +338,9 @@ export default function AboutPage() {
               {site.editor.name}
             </Link>
             , the Wire&rsquo;s editor of record. The byline reads
-            &ldquo;Jackson Wire Staff&rdquo; because the drafting is
-            AI-assisted; the judgment about what to cover, what the documents
-            say, and what to publish is his.
+            &ldquo;Jackson Wire Staff&rdquo; because the desks that research
+            and draft the stories are AI; the rules they follow, the beats
+            they cover, and every correction are his.
           </p>
         </div>
       </section>
