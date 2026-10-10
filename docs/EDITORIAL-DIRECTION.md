@@ -98,6 +98,62 @@ detailed sourcing belongs in the reporting note, not the body. Morning Briefs
 and the monthly sales tax report keep their own formats. The autopilot carries
 the same limits in `scripts/autopilot.mjs`.
 
+## Assignments and search titles
+
+**Assignments.** `data/assignments.json` is the editor's list of stories for
+the news desk to work first. Each item is `{id, topic, angle, type, sources,
+addedBy, addedAt, skips}`: a unique id, the topic in a sentence, the angle
+(what to find, what to leave out, what the Wire has already published), a
+type, URLs to open first, who added it and when, and a skip count that starts
+at 0. The type is one of `opening` (what is opening, closing, or being built),
+`money` (bills, taxes, fees), `explainer`, `sale` (who bought what), or `vote`
+(a vote before it happens). Sources are a place to start, not proof, so the
+Wire's own earlier stories are fine.
+
+The editor adds items by editing the file and committing it to main; the desk
+never adds one. The repo is public, so an assignment is public the moment it is
+committed. Build each one from facts the Wire has published or documents anyone
+can open, pick an event or deadline inside the next 60 days, and write the
+angle so the story can be worked now. An item that waits on a document that
+does not exist yet will be set aside twice and dropped, so add it when the
+document is due.
+
+Each day the autopilot reads the list before it researches. The desk takes the
+first item that has an id and a topic (any other entry is left in the file
+untouched) and puts it in the prompt as TODAY'S ASSIGNMENT. The model runs the
+opening data tools, then researches the assignment under the usual fact rules,
+and the rotation rule and the corruption-case and Politics caps apply to it
+like any other story. If the documents support a new, verifiable story, it
+writes it, reports `assignmentOutcome` as `done`, and the item is removed. If
+not, it reports `skipped: <reason>` and picks a story the usual way; the item
+moves to the back of the list with `skips` raised by one, and a second skip
+drops it. A day when the rotation rule or a cap bars the item counts as one of
+its two skips like any other. The list is written in the same commit as the
+article, so a publish is still one commit and one deploy, and the skip reason
+is in the commit message. A run that publishes nothing leaves the list alone,
+and a list that is not valid JSON is ignored for that run and never rewritten.
+The logic is in `scripts/lib/assignments.mjs`.
+
+The desk's topic rules also carry one tie-breaker: when two candidate stories
+are equally strong, prefer what readers search for (what is opening, closing,
+or being built; money out of readers' pockets; a plain explainer; who bought
+what; a vote before it happens). It breaks ties only and never overrides the
+fact rules, the rotation rule, or the caps.
+
+**Search titles.** Headlines run a median 83 characters and Google shows about
+60, so a story can carry a short `seoTitle` in `lib/posts.ts`. The rule: 60
+characters or fewer, lead with the specific place, project, business, or
+agency, no clickbait, no em or en dashes, and no site name. The article page
+uses it for the browser tab and search results, where the site's title
+template makes it `<seoTitle> | The Jackson Wire`. That suffix adds 19
+characters, so the name leads in case Google trims the end. The page itself,
+the social share title, and the structured-data headline keep the full title.
+The autopilot drops a `seoTitle` that is missing, too long, has a dash in it,
+or names the site, and the page then uses the full title; it never rejects an
+article over one (`scripts/lib/seo-title.mjs` holds the check). Older stories
+have none and are not backfilled. A hand-written story can add one the same
+way.
+
 ## Sources the desk works from
 
 Money and business: Secretary of State business filings (sos.ms.gov), MDA
@@ -399,10 +455,21 @@ that says the whole law; what it does; why it happened; what's behind it
 (who pushed, who fought, the politics and the money, how the vote went);
 what it costs and who pays; what changes for you; what it means for
 Jackson (only when there is something to say); watch for; sources; a
-reporting note. 450 to 800 words in all, 850 at most. Sentences of 40
+reporting note. 450 to 800 words in all, 850 at most; the desk aims for
+600 to 700 so a first draft lands inside the limit. Sentences of 40
 words or fewer, paragraphs of four sentences or fewer. Analysis only in a sentence that
 begins "The Wire's read:". Ranges are written "5 to 15 years", never with
 a dash. The reporting note is plain text; the page adds the label.
+
+**Revision.** A draft that fails a check is not thrown out on the spot.
+Any error from the desk's validator starts a revision: the desk sends the
+model each failed rule, with the numbers measured on the draft where
+there are any (words in all, words in the one-sentence summary,
+sentences in a paragraph), and asks for one corrected call, which goes
+through the same checks. The model cannot search or fetch during the
+revision. If the corrected entry fails too, the law moves to the back of
+the queue, as it always has; a law that fails three runs is dropped from
+the queue.
 
 **Sourcing.** The bill as enacted comes first (the Legislature's bill
 history page is linked automatically from the bill number), then the

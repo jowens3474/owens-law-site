@@ -8,7 +8,7 @@ import { absoluteUrl } from "@/lib/markdown";
 // attach the publication's work to an identifiable human.
 
 const editor = site.editor;
-const description = `${editor.name} is the ${editor.title.toLowerCase()} of ${site.name}, an independent, AI-assisted local newsroom covering Jackson, Mississippi.`;
+const description = `${editor.name} is the ${editor.title.toLowerCase()} of ${site.name}, an independent local newsroom staffed by AI desks, covering Jackson, Mississippi.`;
 
 export const metadata: Metadata = {
   title: editor.name,
@@ -73,12 +73,14 @@ export default function EditorPage() {
           estate, and the people who profit from them.
         </p>
         <p>
-          The Wire is AI-assisted and document-driven. Reporting is drafted
-          with the help of automated systems that read court filings, public
-          records, and local coverage; every article is published under the
-          editor&apos;s review and responsibility, and corrections run under
-          the editor&apos;s name. How that process works, and where it can
-          fail, is described in full on the{" "}
+          The Wire is document-driven, and its desks are AI. They research,
+          draft, and publish stories on their own, working from court
+          filings, public records, and local coverage under the editor&apos;s
+          rules. Every article is published under the editor&apos;s
+          responsibility. An AI standards check reviews each story against
+          its sources, the same day or the next, and the editor decides every
+          correction, which runs under the editor&apos;s name. How that
+          process works, and where it can fail, is described in full on the{" "}
           <Link href="/methodology" className="font-semibold text-crimson">
             methodology page
           </Link>

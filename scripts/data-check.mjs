@@ -3,7 +3,7 @@
 // Env: TOOL (optional: one tool name, default all), QUERY (optional),
 // COURTLISTENER_API_TOKEN, EIA_API_KEY, BLS_API_KEY (optional).
 import { DATA_TOOLS, runDataTool } from "./lib/data-tools.mjs";
-import { createCourtListener } from "./lib/courtlistener.mjs";
+import { createCourtListener, isCourtListenerUrl } from "./lib/courtlistener.mjs";
 import { fetchUrl } from "./lib/fetch-url.mjs";
 
 const only = process.env.TOOL?.trim();
@@ -76,7 +76,8 @@ if (only === "probe") {
         Accept: "text/html,application/xhtml+xml,application/json,application/pdf,*/*",
         "Accept-Language": "en-US,en;q=0.9",
       };
-      if (/courtlistener\.com/.test(url) && process.env.COURTLISTENER_API_TOKEN) headers.Authorization = `Token ${process.env.COURTLISTENER_API_TOKEN}`;
+      // The token goes only to CourtListener itself, never to a URL that mentions it.
+      if (isCourtListenerUrl(url) && process.env.COURTLISTENER_API_TOKEN) headers.Authorization = `Token ${process.env.COURTLISTENER_API_TOKEN}`;
       const res = await fetch(url, { headers });
       const ct = res.headers.get("content-type") || "";
       console.log(`HTTP ${res.status} ${ct} final=${res.url}`);

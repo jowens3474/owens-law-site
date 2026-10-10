@@ -39,7 +39,7 @@ export default function MethodologyPage() {
 
       <div className="prose-article mt-8">
         <p>
-          The Jackson Wire is an AI-assisted, document-driven newsroom
+          The Jackson Wire is a document-driven newsroom staffed by AI desks,
           focused on business, economics, and development in metro Jackson.
           It publishes daily, works from primary sources, and tries to be
           unambiguous about how each piece is produced. This page is the long
@@ -123,17 +123,22 @@ export default function MethodologyPage() {
         </h2>
         <div className="prose-article mt-4">
           <p>
-            The Wire uses AI tools for research synthesis and drafting on
-            most articles. The drafting models are Anthropic&apos;s Claude (Opus
-            and Haiku families). The fact-discipline rules in the model&apos;s
+            AI desks research, draft, and publish most of the Wire&apos;s
+            daily coverage on their own, under rules the publisher sets. The
+            daily desks draft with DeepSeek&apos;s deepseek-chat model;
+            stories the publisher writes in working sessions are drafted with
+            Anthropic&apos;s Claude. The fact-discipline rules in the model&apos;s
             instructions require every claim to trace to a tool result the
             model saw in that session: a court filing, a news article, an
             agenda document. If the model can&apos;t verify a claim, it is
             instructed to leave it out.
           </p>
           <p>
-            AI use does not eliminate error. The editorial responsibility,
-            and the consequences of error, belong to the publisher. The
+            AI use does not eliminate error. Stories go out on their own. An
+            AI standards check then reviews each one against its sources, the
+            same day or the next, and the publisher decides every correction
+            it flags. The editorial responsibility, and the consequences of
+            error, belong to the publisher. The
             site&apos;s <Link href="/corrections" className="font-bold text-crimson hover:text-crimson-bright">corrections log</Link> is public.
           </p>
         </div>

@@ -3,6 +3,11 @@
 // CourtListener docket feed, writes a full article in the Wire's voice,
 // appends it to lib/posts.ts, and pushes to main. Triggered by
 // .github/workflows/autopilot.yml on a cron schedule.
+//
+// Before it researches, it reads the editor's list in data/assignments.json
+// and works the first item first (queue logic in scripts/lib/assignments.mjs).
+// Each story also carries a short seoTitle for the browser tab and search
+// results (checked in scripts/lib/seo-title.mjs).
 
 import { readFileSync, writeFileSync } from "node:fs";
 import { execSync } from "node:child_process";
@@ -13,6 +18,16 @@ import { createCourtListener } from "./lib/courtlistener.mjs";
 import { DATA_TOOLS, DATA_TOOL_NAMES, runDataTool } from "./lib/data-tools.mjs";
 import { pingIndexNow } from "./lib/indexnow.mjs";
 import { MISSION_PROMPT } from "./lib/mission.mjs";
+import {
+  ASSIGNMENTS_FILE,
+  readAssignments,
+  writeAssignments,
+  pickAssignment,
+  assignmentPrompt,
+  applyOutcome,
+  describeOutcome,
+} from "./lib/assignments.mjs";
+import { checkSeoTitle, SEO_TITLE_MAX } from "./lib/seo-title.mjs";
 
 const POSTS_FILE = "lib/posts.ts";
 const CATEGORIES = [
@@ -138,6 +153,7 @@ An article can carry several tags. Leave tags empty if none apply.
 TOPIC SELECTION
 - Pick something timely: a document filed or a decision scheduled within the last 7 days or the next 90.
 - Do not duplicate topics already covered (you will be given recent titles). A genuinely new document about a covered project is fine; a second summary is not.
+- Tie-breaker: when two candidate stories are equally strong, prefer the kinds readers search for: what is opening, closing, or being built; money out of readers' pockets (bills, taxes, fees); a plain explainer people search for; who bought what; a vote before it happens. This only breaks ties. It never overrides the fact discipline, the beat rotation rules, or the corruption-case and Politics caps.
 
 OUTPUT
 - After research, call publish_article exactly ONCE with the final article.
@@ -237,6 +253,11 @@ const TOOLS = [
               "URL slug: lowercase, hyphens only, no leading/trailing hyphens, no other punctuation.",
           },
           title: { type: "string", description: "Article headline." },
+          seoTitle: {
+            type: "string",
+            description:
+              `Search and browser-tab title, ${SEO_TITLE_MAX} characters or fewer. Lead with the specific place, project, business, or agency, then what happened, in the form "<Place or agency>: <what happened>". Use only facts that appear in the headline and body. No clickbait. No em dashes or en dashes. Do not add the site name; the page adds it. The page still shows the full headline.`,
+          },
           dek: {
             type: "string",
             description:
@@ -269,10 +290,16 @@ const TOOLS = [
             description:
               "Article paragraphs as plain strings. 5 to 8 paragraphs of 1 to 4 short sentences, about 450 to 650 words in all and never more than 750; the last one or two form the What's next section; exactly one paragraph (the first of those) begins with the words \"What's next:\". Curly quotes where appropriate. No markdown.",
           },
+          assignmentOutcome: {
+            type: "string",
+            description:
+              "Only when the prompt gave you a TODAY'S ASSIGNMENT. Exactly \"done\" if this article is that assignment, or \"skipped: <short reason>\" if you set the assignment aside and wrote another story. Leave it out when there was no assignment.",
+          },
         },
         required: [
           "slug",
           "title",
+          "seoTitle",
           "dek",
           "category",
           "categories",
@@ -359,6 +386,18 @@ async function main() {
 
   const today = todayLocalIso();
 
+  // The editor's list: the first usable item is today's assignment. A list
+  // that cannot be read is ignored with a note and never rewritten.
+  const { items: assignmentItems, problem: assignmentProblem } =
+    readAssignments(ASSIGNMENTS_FILE);
+  if (assignmentProblem) {
+    console.error(`[autopilot] Assignment list ignored: ${assignmentProblem}`);
+  }
+  const assignment = pickAssignment(assignmentItems);
+  const assignmentBlock = assignment
+    ? `\n\n${assignmentPrompt(assignment)}`
+    : "";
+
   const userPrompt = `Today is ${today} (America/Chicago). Research and draft a new article for The Jackson Wire.
 
 Recent articles already published (newest first) — do not duplicate these topics:
@@ -367,10 +406,10 @@ ${recentTitles.map((t, i) => `${i + 1}. [${recentCategories[i] || "?"}] ${t}`).j
 ${beatLine}
 
 REMINDER: call local_feeds("news"), news_feed("Jackson Mississippi"), jackson_meetings(), and public_notices() first, then the beat data tools (federal_awards, court_search, bankruptcies, sec_filings, federal_register, bls_series, eia_fuel_prices), then document-oriented web_search queries on the money beat (agendas, bond documents, permits, filings, WARN notices, rate cases), fetch_url the best document, and build the story from it. Check get_owens_case_docket once; it only wins the day with a substantive new filing and only if the rules above allow it. End the article with a "What's next:" section.
-Use date "${today}". Pick a category from: ${CATEGORIES.join(", ")}.`;
+Use date "${today}". Pick a category from: ${CATEGORIES.join(", ")}.${assignmentBlock}`;
 
   console.log(
-    `[autopilot] today=${today}, recent_titles=${recentTitles.length}`,
+    `[autopilot] today=${today}, recent_titles=${recentTitles.length}, assignment=${assignment ? assignment.id : "none"}`,
   );
 
   const messages = [
@@ -393,7 +432,10 @@ Use date "${today}". Pick a category from: ${CATEGORIES.join(", ")}.`;
       messages.push({
         role: "user",
         content:
-          "Research time is over. Using only the material gathered above, call publish_article now with the strongest story you can support. Do not call any other tool. Only if the sourcing genuinely cannot support any article, reply with the exact text NO_ARTICLE and nothing else.",
+          "Research time is over. Using only the material gathered above, call publish_article now with the strongest story you can support. Do not call any other tool. Only if the sourcing genuinely cannot support any article, reply with the exact text NO_ARTICLE and nothing else." +
+          (assignment
+            ? ' If TODAY\'S ASSIGNMENT is not supported by what you read, publish the strongest other story you can support (or NO_ARTICLE as above) and, when you publish, set assignmentOutcome to "skipped: <short reason>".'
+            : ""),
       });
     }
     const isFinal = iteration === MAX_ITERATIONS;
@@ -628,9 +670,21 @@ Use date "${today}". Pick a category from: ${CATEGORIES.join(", ")}.`;
     ? `\n    tags: ${JSON.stringify(tags)},`
     : "";
 
+  // The short search title. A bad one is dropped and the page falls back to
+  // the full title; it is never a reason to reject the article.
+  const seo = checkSeoTitle(article.seoTitle);
+  if (seo.ok) {
+    console.log(`[autopilot] seoTitle (${[...seo.value].length} characters): ${seo.value}`);
+  } else {
+    console.log(`[autopilot] seoTitle dropped (${seo.reason}); the page will use the full title.`);
+  }
+  const seoTitleLine = seo.ok
+    ? `\n    seoTitle: ${JSON.stringify(seo.value)},`
+    : "";
+
   const articleObj = `  {
     slug: ${JSON.stringify(article.slug)},
-    title: ${JSON.stringify(article.title)},
+    title: ${JSON.stringify(article.title)},${seoTitleLine}
     dek: ${JSON.stringify(article.dek)},
     category: ${JSON.stringify(article.category)},${categoriesLine}${tagsLine}
     author: "Jackson Wire Staff",
@@ -655,6 +709,25 @@ ${article.body.map((p) => `      ${JSON.stringify(p)},`).join("\n")}
   writeFileSync(POSTS_FILE, updated);
   console.log(`[autopilot] Wrote ${POSTS_FILE}.`);
 
+  // Today's assignment, if there was one: remove it when done, or move it to
+  // the back (dropping it on its second skip). The list goes into the same
+  // commit as the article, so a publish stays one commit and one deploy. A run
+  // that publishes nothing leaves the list alone.
+  const filesToCommit = [POSTS_FILE];
+  let commitMsg = `Autopilot: ${article.title}`;
+  if (assignment) {
+    const result = applyOutcome(
+      assignmentItems,
+      assignment.id,
+      article.assignmentOutcome,
+    );
+    const note = describeOutcome(assignment.id, result);
+    writeAssignments(result.items, ASSIGNMENTS_FILE);
+    filesToCommit.push(ASSIGNMENTS_FILE);
+    commitMsg += `\n\n${note}`;
+    console.log(`[autopilot] ${note}`);
+  }
+
   console.log("[autopilot] Committing & pushing to main...");
   execSync(`git config user.name "Jackson Wire Autopilot"`, {
     stdio: "inherit",
@@ -662,8 +735,7 @@ ${article.body.map((p) => `      ${JSON.stringify(p)},`).join("\n")}
   execSync(`git config user.email "autopilot@thejacksonwire.com"`, {
     stdio: "inherit",
   });
-  execSync(`git add ${POSTS_FILE}`, { stdio: "inherit" });
-  const commitMsg = `Autopilot: ${article.title}`;
+  execSync(`git add ${filesToCommit.join(" ")}`, { stdio: "inherit" });
   // Pass the message on stdin: headlines contain $ and quotes that a shell
   // would otherwise expand or break on.
   execSync("git commit -F -", { input: commitMsg, stdio: ["pipe", "inherit", "inherit"] });

@@ -52,6 +52,7 @@ export function smartenPost(post: Post): Post {
     dek: smarten(post.dek),
     body: post.body.map(smarten),
   };
+  if (post.seoTitle) out.seoTitle = smarten(post.seoTitle);
   if (post.note) out.note = smarten(post.note);
   if (post.imageAlt) out.imageAlt = smarten(post.imageAlt);
   if (post.timeline) {

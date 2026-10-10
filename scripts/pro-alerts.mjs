@@ -9,9 +9,15 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { sendBroadcast, renderEmail, renderText } from "./lib/resend.mjs";
 import { createCourtListener } from "./lib/courtlistener.mjs";
+import { tagUrl, tagSections } from "./lib/utm.mjs";
 
 const STATE_FILE = "data/pro-alerts-seen.json";
 const SITE = process.env.SITE_URL || "https://www.thejacksonwire.com";
+// The footer link to the site carries this tag so readers can be traced to
+// the alert (see scripts/lib/utm.mjs). Item links are usually off-site
+// records and pass through unchanged; tagSections tags one only if it ever
+// points at the Wire.
+const UTM = { source: "pro-alerts", medium: "email", campaign: "pro" };
 const FROM = "Pipeline Pro <pro@thejacksonwire.com>";
 const UA = "TheJacksonWire/1.0 (+https://www.thejacksonwire.com; capitolmain42@gmail.com)";
 const AWARD_MIN = 250000;
@@ -176,8 +182,9 @@ async function main() {
     kicker: "Pipeline Pro · Alert",
     title: `${count} new item${count === 1 ? "" : "s"} on the desk`,
     intro: "New public records since the last check. Documents are linked where the source provides one.",
-    sections,
-    footer: `Full desk: ${SITE}/pro/dashboard. Reply with a question. Not legal, investment, or brokerage advice.`,
+    sections: tagSections(sections, UTM),
+    // The link comes last so no period follows it and no mail client folds one into the tag.
+    footer: `Reply with a question. Not legal, investment, or brokerage advice. Full desk: ${tagUrl(`${SITE}/pro/dashboard`, UTM)}`,
   };
   const html = renderEmail(payload);
   const text = renderText(payload);

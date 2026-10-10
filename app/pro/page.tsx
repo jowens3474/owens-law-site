@@ -52,16 +52,28 @@ const FAQ: { q: string; a: string }[] = [
 export default function ProPage() {
   const upcoming = getUpcomingMilestones(4);
   const stripe = stripeConfigured();
+  // Pipeline Pro is a subscription service, not a shipped product, so it is
+  // a Service. Google's merchant listing and product snippet checks apply to
+  // Product only and asked for an image, return policy, and shipping details.
+  // Offer only what the page shows: the monthly and annual seats when Stripe
+  // is live, otherwise just the founding seat that readers request by form.
+  const prices: number[] = stripe ? [pro.monthly, pro.annual] : [pro.founding];
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Product",
+    "@type": "Service",
     name: `${site.name} ${pro.name}`,
     description: DEK,
+    provider: { "@id": absoluteUrl("/#org") },
+    areaServed: { "@type": "Place", name: "Jackson, Mississippi metropolitan area" },
     brand: { "@type": "Brand", name: site.name },
-    offers: [
-      { "@type": "Offer", price: pro.monthly, priceCurrency: "USD", url: absoluteUrl(pro.path), category: "subscription" },
-      { "@type": "Offer", price: pro.annual, priceCurrency: "USD", url: absoluteUrl(pro.path), category: "subscription" },
-    ],
+    offers: prices.map((price) => ({
+      "@type": "Offer",
+      price,
+      priceCurrency: "USD",
+      availability: "https://schema.org/InStock",
+      url: absoluteUrl(pro.path),
+      category: "subscription",
+    })),
   };
 
   return (
