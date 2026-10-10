@@ -455,10 +455,19 @@ that says the whole law; what it does; why it happened; what's behind it
 (who pushed, who fought, the politics and the money, how the vote went);
 what it costs and who pays; what changes for you; what it means for
 Jackson (only when there is something to say); watch for; sources; a
-reporting note. 450 to 800 words in all, 850 at most. Sentences of 40
+reporting note. 450 to 800 words in all, 850 at most; the desk aims for
+600 to 700 so a first draft lands inside the limit. Sentences of 40
 words or fewer, paragraphs of four sentences or fewer. Analysis only in a sentence that
 begins "The Wire's read:". Ranges are written "5 to 15 years", never with
 a dash. The reporting note is plain text; the page adds the label.
+
+**Revision.** A draft that breaks a limit is not thrown out on the spot.
+The desk sends the model each failed rule with the numbers measured on
+the draft (words in all, words in the one-sentence summary, sentences in
+a paragraph) and asks for one corrected call, which goes through the same
+checks. The model cannot search or fetch during the revision. If the
+corrected entry fails too, the law moves to the back of the queue, as it
+always has.
 
 **Sourcing.** The bill as enacted comes first (the Legislature's bill
 history page is linked automatically from the bill number), then the

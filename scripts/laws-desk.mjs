@@ -11,6 +11,11 @@
 // BRAVE_API_KEY, then DuckDuckGo with no key. DRY_RUN=1 writes the entry
 // without committing. A queue entry that fails three runs is dropped so it
 // cannot block the rest of the queue.
+//
+// A draft that fails validation gets one revision before it is rejected: the
+// model is shown each failed rule with the numbers measured on its draft and
+// sends one corrected publish_law call, checked by the same validator. If that
+// fails too, the queue item moves to the back as before.
 
 import { readFileSync, writeFileSync } from "node:fs";
 import { execSync } from "node:child_process";
@@ -23,6 +28,10 @@ import { MISSION_PROMPT } from "./lib/mission.mjs";
 const LAWS_FILE = "lib/laws.ts";
 const QUEUE_FILE = "data/laws-queue.json";
 const MAX_ITERATIONS = 14;
+// The revision pass may spend up to this many model turns getting one usable
+// publish_law call (a declined search or a broken call uses a turn). Only one
+// revised entry is ever checked.
+const MAX_REVISION_TURNS = 3;
 const MAX_QUEUE_ATTEMPTS = 3;
 const SITE = "https://www.thejacksonwire.com";
 const DRY_RUN = /^(1|true|yes)$/i.test(process.env.DRY_RUN ?? "");
@@ -69,10 +78,10 @@ WRITING RULES
 - Dates as "March 16, 2026". Money as "$2,000" or "$1.2 million". Percentages as "12%".
 - No markdown, no bullet characters, no headings inside paragraphs. Paragraphs are 1 to 4 sentences.
 
-STRUCTURE (each section is an array of 1 to 3 short paragraphs; the whole entry runs 450 to 800 words, and the mission does not raise that limit: cut background to fit a reader step)
+STRUCTURE (each section is an array of 1 to 3 short paragraphs)
 - slug: 3 to 10 lowercase words joined by hyphens that say what the law does.
 - title: a plain headline under 90 characters that says what the law does, with no bill number.
-- oneSentence: the whole law in one plain sentence under 30 words, no bill number.
+- oneSentence: the whole law in exactly one sentence of 8 to 30 words, no bill number. The desk counts words as the pieces of text separated by spaces, so "$2,000" is one word, "5 to 15 years" is four words, and "Sen. Hill" is two words. Aim for 20 to 25 words, count them before you submit, and cut it if the count is over 30: the desk rejects 31 words.
 - whatItDoes: the rule change in plain words. Start with the single biggest change. Say what the old rule was, if a source says.
 - whyItHappened: the problem or event that prompted it, with a number if there is one.
 - whatsBehindIt: who pushed it, who fought it, the politics and money behind each side, how the vote went.
@@ -82,6 +91,12 @@ STRUCTURE (each section is an array of 1 to 3 short paragraphs; the whole entry 
 - watchFor: dates, deadlines, lawsuits, agencies writing rules, the next session.
 - sources: every page you used, each with a name and the exact URL you fetched. Put the most official one first.
 - note: a reporting note in the Wire's voice, without a label: what was read, what could not be read, where sources disagree, what the Wire did not do (for example, it did not contact the sponsor).
+
+LENGTH (the desk counts words and rejects an entry outside its limits)
+- Target about 600 to 700 words in all. The range is 450 to 800 words, and the desk rejects anything over 850 or under 420, so aim for the middle of the range and not for the ceiling. The mission does not raise this limit: cut background to fit a reader step.
+- The count is oneSentence plus every paragraph of whatItDoes, whyItHappened, whatsBehindIt, whatItCosts, whatChangesForYou, jackson and watchFor. The title, sources and note are not counted.
+- Plan about 100 words each for whatItDoes, whyItHappened, whatsBehindIt, whatItCosts, whatChangesForYou and watchFor, and under 60 for jackson. Add up your total before you submit. If it is over 700, cut.
+- Cut background first: history, earlier versions of the bill, procedure, side details, a second example where one will do. Cut reader-facing facts last: what the law does, the amounts, the dates, who pays, and what changes for a household.
 
 Call publish_law exactly once, when the research is done.`;
 
@@ -129,7 +144,7 @@ const TOOLS = [
     type: "function",
     function: {
       name: "publish_law",
-      description: "Submit the finished entry for publication. Call exactly once, after research is complete.",
+      description: "Submit the finished entry for publication. Call exactly once, after research is complete. Aim for about 600 to 700 words in all (the desk rejects more than 850).",
       parameters: {
         type: "object",
         additionalProperties: false,
@@ -144,7 +159,7 @@ const TOOLS = [
           effective: { type: "string", description: "ISO date (yyyy-mm-dd) the law takes effect." },
           effectiveNote: { type: "string", description: "One short sentence if parts start on other dates, else empty string." },
           topics: { type: "array", items: { type: "string", enum: TOPICS }, minItems: 1, maxItems: 3 },
-          oneSentence: { type: "string" },
+          oneSentence: { type: "string", description: "Exactly one sentence of 8 to 30 words, counted as words separated by spaces. No bill number." },
           whatItDoes: { type: "array", items: { type: "string" }, minItems: 1, maxItems: 3 },
           whyItHappened: { type: "array", items: { type: "string" }, minItems: 1, maxItems: 3 },
           whatsBehindIt: { type: "array", items: { type: "string" }, minItems: 1, maxItems: 3 },
@@ -272,6 +287,174 @@ function validate(law, lawsSource, fetched) {
   return errors;
 }
 
+// The revision pass. When the first draft fails validate(), the model gets one
+// message that lists each failed rule with the numbers measured on its draft,
+// and one chance to send a corrected publish_law call. validate() stays the
+// only judge of what publishes; nothing here loosens it.
+
+// The limits quoted back to the model. They mirror the numbers inside
+// validate(), so change them together.
+const LIMITS = {
+  minWords: 420,
+  aimMinWords: 450,
+  aimMaxWords: 800,
+  maxWords: 850,
+  oneSentenceMin: 8,
+  oneSentenceMax: 30,
+  paragraphSentences: 4,
+  sentenceWords: 40,
+  titleChars: 90,
+  paragraphChars: 40,
+  noteChars: 60,
+};
+
+const textWords = (s) => (typeof s === "string" ? s : "").split(/\s+/).filter(Boolean).length;
+const fmt = (n) => n.toLocaleString("en-US");
+const opener = (s) => `"${s.trim().slice(0, 40)}..."`;
+
+// Every paragraph of every body section, numbered the way a reader counts them.
+function bodyParagraphs(law) {
+  return [...PARAGRAPH_FIELDS, "jackson"].flatMap((key) =>
+    (Array.isArray(law[key]) ? law[key] : []).flatMap((text, i) =>
+      typeof text === "string" ? [{ key, number: i + 1, text }] : [],
+    ),
+  );
+}
+
+// "oneSentence 24, whatItDoes 190, ...": the same text wordCount() adds up.
+function wordsBySection(law) {
+  return ["oneSentence", ...PARAGRAPH_FIELDS, "jackson"]
+    .map((key) => [key, [law[key]].flat().reduce((sum, p) => sum + textWords(p), 0)])
+    .filter(([key, n]) => key !== "jackson" || n > 0)
+    .map(([key, n]) => `${key} ${n}`)
+    .join(", ");
+}
+
+// One entry per validator rule that has a number worth measuring, matched on
+// the validator's own message. A "scan" rule reports every paragraph at fault
+// in one pass, however often the validator repeated itself. A problem that
+// matches no rule here goes through in the validator's own words.
+const FEEDBACK_RULES = [
+  {
+    match: /^entry is too (long|short) /,
+    lines: (law, error) => {
+      const total = wordCount(law);
+      const now = `Words now (the title, sources and note are not counted): ${wordsBySection(law)}.`;
+      const aim = `aim for ${LIMITS.aimMinWords} to ${LIMITS.aimMaxWords}`;
+      return error.startsWith("entry is too long")
+        ? `Total words ${fmt(total)}, limit ${LIMITS.maxWords} (${aim}): cut ${fmt(total - LIMITS.aimMaxWords)} or more words, mostly background. Aim for about 700 so a small miscount does not fail it again. ${now}`
+        : `Total words ${fmt(total)}, minimum ${LIMITS.minWords} (${aim}): add ${fmt(LIMITS.aimMinWords - total)} or more words, using only facts from pages you fetched. ${now}`;
+    },
+  },
+  {
+    match: /^oneSentence must be one sentence of /,
+    lines: (law) => {
+      const text = typeof law.oneSentence === "string" ? law.oneSentence.trim() : "";
+      const n = textWords(text);
+      const sentences = splitSentences(text).length;
+      const size = n > LIMITS.oneSentenceMax
+        ? `limit ${LIMITS.oneSentenceMax}: cut ${n - LIMITS.oneSentenceMax} or more words`
+        : `minimum ${LIMITS.oneSentenceMin}: add ${LIMITS.oneSentenceMin - n} or more words`;
+      const several = sentences > 1 ? ` It reads as ${sentences} sentences now.` : "";
+      return `oneSentence is ${n} words, ${size}. It must be one sentence of ${LIMITS.oneSentenceMin} to ${LIMITS.oneSentenceMax} words, counted as words separated by spaces.${several}`;
+    },
+  },
+  {
+    match: /: a paragraph has \d+ sentences/,
+    scan: true,
+    lines: (law) =>
+      bodyParagraphs(law).flatMap(({ key, number, text }) => {
+        const n = splitSentences(text).length;
+        return n > LIMITS.paragraphSentences
+          ? [`${key} paragraph ${number} has ${n} sentences, limit ${LIMITS.paragraphSentences} (it starts ${opener(text)}): cut ${n - LIMITS.paragraphSentences} or more sentences.`]
+          : [];
+      }),
+  },
+  {
+    match: /: a sentence runs over \d+ words/,
+    scan: true,
+    lines: (law) =>
+      bodyParagraphs(law).flatMap(({ key, number, text }) =>
+        splitSentences(text)
+          .map((s) => ({ s, n: s.split(/\s+/).length }))
+          .filter(({ n }) => n > LIMITS.sentenceWords)
+          .map(({ s, n }) => `${key} paragraph ${number} has a sentence of ${n} words, limit ${LIMITS.sentenceWords} (it starts ${opener(s)}): split it in two or cut it to ${LIMITS.sentenceWords} words or fewer.`),
+      ),
+  },
+  {
+    match: /^title must be present and under /,
+    lines: (law) => {
+      const n = typeof law.title === "string" ? law.title.trim().length : 0;
+      return n === 0
+        ? `title is missing: write a plain headline under ${LIMITS.titleChars} characters.`
+        : `title is ${n} characters, limit ${LIMITS.titleChars}: cut ${n - LIMITS.titleChars} or more.`;
+    },
+  },
+  {
+    match: /^(\w+) must be 1 to 3 paragraphs of real sentences$/,
+    lines: (law, error) => {
+      const key = error.split(" ")[0];
+      const v = law[key];
+      if (!Array.isArray(v)) return `${error} (${key} was not a list of paragraphs).`;
+      const weak = v.flatMap((p, i) => (typeof p === "string" && p.trim().length >= LIMITS.paragraphChars ? [] : [`paragraph ${i + 1}`]));
+      return `${error} (it has ${v.length} paragraphs${weak.length ? `; under ${LIMITS.paragraphChars} characters or not text: ${weak.join(", ")}` : ""}).`;
+    },
+  },
+  {
+    match: /^note must say /,
+    lines: (law) => {
+      const n = typeof law.note === "string" ? law.note.trim().length : 0;
+      return `note is ${n} characters, minimum ${LIMITS.noteChars}: say what was read, what could not be read and what the Wire did not do.`;
+    },
+  },
+];
+
+// The failed rules as lines of text, in the validator's order.
+function failedRuleLines(law, errors) {
+  const lines = [];
+  const scanned = new Set();
+  for (const error of errors) {
+    const rule = FEEDBACK_RULES.find((r) => r.match.test(error));
+    if (!rule) {
+      lines.push(error);
+      continue;
+    }
+    if (rule.scan) {
+      if (scanned.has(rule)) continue;
+      scanned.add(rule);
+    }
+    const out = [rule.lines(law, error)].flat();
+    lines.push(...(out.length ? out : [error]));
+  }
+  return lines;
+}
+
+const REVISION_TERMS = [
+  "You get one revision. Send one corrected publish_law call now: the whole entry again, with every rule above fixed.",
+  "Keep the facts that are already right. Add no fact that is not in a page you fetched, and list only sources you already fetched.",
+  "When you cut, cut background first (history, earlier versions of the bill, procedure, side details). Keep what a reader can use: what the law does, the amounts, the dates, who pays, and what changes for a household.",
+  "Do not call web_search or fetch_url. Research is closed for this step, and any such call is declined.",
+  "The corrected entry goes through the same rules. If it fails again, the bill goes to the back of the queue.",
+];
+
+// Turns the validator's list of problems into the follow-up message for the
+// revision pass. No problems, no message.
+function revisionFeedback(law, errors) {
+  if (!errors.length) return "";
+  let lines;
+  try {
+    lines = failedRuleLines(law, errors);
+  } catch {
+    lines = errors; // measuring the draft must never block the revision itself
+  }
+  return [
+    "Not published. The desk checked your draft against its rules. These failed, with the numbers measured on your draft:",
+    ...lines.map((line, i) => `${i + 1}. ${line}`),
+    "",
+    ...REVISION_TERMS,
+  ].join("\n");
+}
+
 function readQueue() {
   try {
     return JSON.parse(readFileSync(QUEUE_FILE, "utf8"));
@@ -365,6 +548,84 @@ function cleanArgs(args) {
   return out;
 }
 
+// One model turn. With forcePublish the only call the model may make is publish_law.
+function askModel(client, messages, forcePublish) {
+  return client.chat.completions.create({
+    model: "deepseek-chat",
+    messages,
+    tools: TOOLS,
+    tool_choice: forcePublish ? { type: "function", function: { name: "publish_law" } } : "auto",
+    temperature: 0.3,
+    max_tokens: 8000,
+  });
+}
+
+const REVISION_REMINDER = "Call publish_law now with the corrected entry. Research is closed for this step.";
+
+// The one revision pass. The first draft failed validate(). The model gets each
+// failed rule with the numbers measured on that draft, in the same conversation,
+// and one corrected publish_law call, which goes through the same validate()
+// with the same list of fetched pages. Research is closed: any other tool call
+// is declined. Returns { law, errors }: law is the corrected entry if it
+// passed, errors is what the second validation found if it did not (empty when
+// the model never produced a call to check).
+async function reviseDraft(client, messages, rejected, lawsSource, fetched) {
+  const request = revisionFeedback(rejected.candidate, rejected.errors);
+  console.log(`[laws-desk] revision request sent to the model:\n${request}`);
+  messages.push({ role: "user", content: request });
+
+  for (let turn = 1; turn <= MAX_REVISION_TURNS; turn++) {
+    let msg;
+    try {
+      const response = await askModel(client, messages, true);
+      msg = response.choices[0].message;
+      console.log(`[laws-desk] revision turn ${turn}: finish=${response.choices[0].finish_reason}, tool_calls=${msg.tool_calls?.length ?? 0}`);
+    } catch (e) {
+      // A failed revision call must not leave the bill stuck at the front of the queue.
+      console.error(`[laws-desk] revision call failed: ${e?.message || e}`);
+      return { law: null, errors: [] };
+    }
+    messages.push(msg);
+    if (!msg.tool_calls?.length) {
+      messages.push({ role: "user", content: REVISION_REMINDER });
+      continue;
+    }
+
+    let candidate = null;
+    for (const tc of msg.tool_calls) {
+      if (tc.function.name !== "publish_law") {
+        console.log(`[laws-desk] revision: declined ${tc.function.name}; research is closed`);
+        messages.push({ role: "tool", tool_call_id: tc.id, content: `Declined. ${REVISION_REMINDER}` });
+        continue;
+      }
+      let args;
+      try {
+        args = JSON.parse(tc.function.arguments || "{}");
+      } catch {
+        messages.push({ role: "tool", tool_call_id: tc.id, content: "Arguments were not valid JSON. Retry with valid JSON." });
+        continue;
+      }
+      if (candidate) {
+        messages.push({ role: "tool", tool_call_id: tc.id, content: "Declined. Only the first corrected call is checked." });
+        continue;
+      }
+      candidate = cleanArgs(args);
+      messages.push({ role: "tool", tool_call_id: tc.id, content: "Received." });
+    }
+    if (!candidate) continue;
+
+    const errors = validate(candidate, lawsSource, fetched);
+    if (errors.length) {
+      console.log(`[laws-desk] validation 2 (revision): publish_law rejected: ${errors.join("; ")}`);
+      return { law: null, errors };
+    }
+    console.log("[laws-desk] validation 2 (revision): passed");
+    return { law: candidate, errors: [] };
+  }
+  console.log(`[laws-desk] revision: no usable publish_law call in ${MAX_REVISION_TURNS} turns.`);
+  return { law: null, errors: [] };
+}
+
 async function main() {
   if (!process.env.DEEPSEEK_API_KEY) throw new Error("Missing DEEPSEEK_API_KEY");
 
@@ -410,8 +671,9 @@ async function main() {
   const fetched = new Set();
   let law = null;
   let lastErrors = [];
+  let rejected = null; // the draft that failed validation, held for the one revision pass
 
-  for (let iteration = 1; iteration <= MAX_ITERATIONS && !law; iteration++) {
+  for (let iteration = 1; iteration <= MAX_ITERATIONS && !law && !rejected; iteration++) {
     const isFinal = iteration === MAX_ITERATIONS;
     if (isFinal) {
       messages.push({
@@ -419,14 +681,7 @@ async function main() {
         content: "Research time is over. Using only the material gathered above, call publish_law now (or report_not_law). Where something is unknown, say the Wire could not find it.",
       });
     }
-    const response = await client.chat.completions.create({
-      model: "deepseek-chat",
-      messages,
-      tools: TOOLS,
-      tool_choice: isFinal ? { type: "function", function: { name: "publish_law" } } : "auto",
-      temperature: 0.3,
-      max_tokens: 8000,
-    });
+    const response = await askModel(client, messages, isFinal);
     const msg = response.choices[0].message;
     console.log(`[laws-desk] iteration ${iteration}: finish=${response.choices[0].finish_reason}, tool_calls=${msg.tool_calls?.length ?? 0}`);
     messages.push(msg);
@@ -470,16 +725,26 @@ async function main() {
         const errors = validate(candidate, lawsSource, fetched);
         if (errors.length) {
           lastErrors = errors;
-          console.log(`[laws-desk] publish_law rejected: ${errors.join("; ")}`);
-          messages.push({ role: "tool", tool_call_id: tc.id, content: `Not published. Fix these and call publish_law again:\n- ${errors.join("\n- ")}` });
+          rejected = { candidate, errors };
+          console.log(`[laws-desk] validation 1 (first draft): publish_law rejected: ${errors.join("; ")}`);
+          messages.push({ role: "tool", tool_call_id: tc.id, content: "Not published. The next message lists each rule this draft failed." });
         } else {
           law = candidate;
+          console.log("[laws-desk] validation 1 (first draft): passed");
           messages.push({ role: "tool", tool_call_id: tc.id, content: "Received." });
         }
       } else {
         messages.push({ role: "tool", tool_call_id: tc.id, content: `Unknown tool ${name}.` });
       }
     }
+  }
+
+  // One revision pass, even when the first draft came on the last research
+  // turn. If the corrected entry fails too, the item is rotated below as before.
+  if (!law && rejected) {
+    const revision = await reviseDraft(client, messages, rejected, lawsSource, fetched);
+    law = revision.law;
+    if (revision.errors.length) lastErrors = revision.errors;
   }
 
   if (!law) {
