@@ -35,6 +35,11 @@ function shift(ym: string, n: number): string {
   const d = new Date(Date.UTC(y, m - 1 + n, 1));
   return `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, "0")}`;
 }
+// Last day of a "YYYY-MM" month, as "YYYY-MM-DD".
+function monthEnd(ym: string): string {
+  const [y, m] = ym.split("-").map(Number);
+  return new Date(Date.UTC(y, m, 0)).toISOString().slice(0, 10);
+}
 function money(n: number): string {
   return "$" + Math.round(n).toLocaleString("en-US");
 }
@@ -110,15 +115,24 @@ export default function SalesTaxPage() {
       metroThen += r.then.amount;
     }
   }
+  // Google recommends a license for datasets; that is the owner's legal choice, so none is set.
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Dataset",
     name: "Sales tax diversions to metro Jackson cities",
     description: DEK,
     url: absoluteUrl("/economy/sales-tax"),
-    creator: { "@id": absoluteUrl("/#org") },
+    creator: {
+      "@type": "Organization",
+      "@id": absoluteUrl("/#org"),
+      name: site.name,
+      url: absoluteUrl("/"),
+    },
     isBasedOn: DOR_LISTING,
-    temporalCoverage: `${series[0]?.month ?? latest}/${latest}`,
+    keywords: ["sales tax", "sales tax diversions", "Jackson, Mississippi", "municipal revenue", "Mississippi Department of Revenue"],
+    spatialCoverage: "Jackson, Mississippi metropolitan area",
+    // Full dates, first day of the first month to last day of the latest month.
+    temporalCoverage: `${series[0]?.month ?? latest}-01/${monthEnd(latest)}`,
   };
 
   return (

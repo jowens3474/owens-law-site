@@ -8,6 +8,7 @@
 
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { randomBytes, createHmac } from "node:crypto";
+import { tagUrl } from "./lib/utm.mjs";
 
 const SITE_URL = "https://www.thejacksonwire.com";
 const FEED_URL = `${SITE_URL}/feed.xml`;
@@ -19,6 +20,12 @@ const X_TWEETS_URL = "https://api.x.com/2/tweets";
 const MAX_POSTS_PER_RUN = 3;
 const X_MAX_CHARS = 270;
 const BSKY_MAX_GRAPHEMES = 300;
+
+// Each platform's links carry their own source so readers can be traced to
+// the channel (see scripts/lib/utm.mjs). The tag is added only to the link
+// that gets posted. Slugs, the posted-state file, and the dedupe checks all
+// keep using the plain feed link.
+const utm = (source) => ({ source, medium: "social", campaign: "daily" });
 
 // Thrown for auth/credential failures on a given post attempt. Counted
 // separately so the run's exit code can distinguish "everything failed
@@ -158,9 +165,11 @@ function trimToGraphemes(s, maxGraphemes) {
 
 function buildXText(item) {
   const title = stripDashes(item.title);
-  const url = item.link;
+  const url = tagUrl(item.link, utm("x"));
   // total = title + "\n\n" + dek + "\n" + url
-  const overhead = title.length + 2 + 1 + url.length;
+  // X counts every link as 23 characters, so the tag costs the post nothing.
+  // Size the dek on the plain link, as before, so tagging does not shrink it.
+  const overhead = title.length + 2 + 1 + item.link.length;
   const budget = Math.max(0, X_MAX_CHARS - overhead);
   const dek = trimToLength(stripDashes(item.dek), budget);
   return `${title}\n\n${dek}\n${url}`;
@@ -331,7 +340,7 @@ async function createBlueskyPost(session, item) {
     embed: {
       $type: "app.bsky.embed.external",
       external: {
-        uri: item.link,
+        uri: tagUrl(item.link, utm("bluesky")),
         title: stripDashes(item.title),
         description: stripDashes(item.dek),
         ...(thumb ? { thumb } : {}),

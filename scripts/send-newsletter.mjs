@@ -11,11 +11,22 @@
 // operator can temporarily switch FROM below to "onboarding@resend.dev".
 
 import { MISSION } from "./lib/mission.mjs";
+import { realpathSync } from "node:fs";
+import { fileURLToPath } from "node:url";
+import { tagUrl } from "./lib/utm.mjs";
 
 const SITE_URL = "https://www.thejacksonwire.com";
 const FEED_URL = `${SITE_URL}/feed.xml`;
 const RESEND_API_BASE = "https://api.resend.com";
 const FROM = "The Jackson Wire <brief@thejacksonwire.com>";
+
+// Every link to the site inside the email is tagged, so readers can be traced
+// to the digest (see scripts/lib/utm.mjs). Fetching the feed stays untagged.
+const UTM = { source: "newsletter", medium: "email", campaign: "daily-digest" };
+const tag = (url) => tagUrl(url, UTM);
+
+const FORWARD_LINE =
+  "Know someone who should read this? Forward this email. New readers can sign up at";
 
 // --- Time helpers ------------------------------------------------------------
 
@@ -91,18 +102,18 @@ function truncate(s, max) {
   return s.length > max ? s.slice(0, max - 1).trimEnd() + "…" : s;
 }
 
-function buildSubject(items) {
+export function buildSubject(items) {
   const first = items[0];
   return truncate(`The Wire: ${first.title}`, 78);
 }
 
-function buildHtml(items) {
+export function buildHtml(items) {
   const articleBlocks = items
     .map(
       (item, i) => `
               <tr>
                 <td style="padding: 24px 32px 0 32px;">
-                  <a href="${escHtml(item.link)}" style="color: #060a12; font-size: 20px; font-weight: 700; line-height: 1.3; text-decoration: none; font-family: Georgia, 'Times New Roman', serif;">
+                  <a href="${escHtml(tag(item.link))}" style="color: #060a12; font-size: 20px; font-weight: 700; line-height: 1.3; text-decoration: none; font-family: Georgia, 'Times New Roman', serif;">
                     ${escHtml(item.title)}
                   </a>
                   <p style="margin: 8px 0 0 0; color: #555555; font-size: 15px; line-height: 1.5; font-family: Arial, Helvetica, sans-serif;">
@@ -146,6 +157,10 @@ ${articleBlocks}
                 <p style="margin: 0 0 14px 0; color: #444444; font-size: 13px; line-height: 1.6; font-family: Arial, Helvetica, sans-serif;">
                   ${escHtml(MISSION)}
                 </p>
+                <p style="margin: 0 0 12px 0; color: #888888; font-size: 12px; line-height: 1.6; font-family: Arial, Helvetica, sans-serif;">
+                  ${escHtml(FORWARD_LINE)}
+                  <a href="${escHtml(tag(`${SITE_URL}/`))}" style="color: #888888; text-decoration: underline;">www.thejacksonwire.com</a>
+                </p>
                 <p style="margin: 0; color: #888888; font-size: 12px; line-height: 1.6; font-family: Arial, Helvetica, sans-serif;">
                   You're receiving this because you subscribed at thejacksonwire.com.<br />
                   <a href="{{{RESEND_UNSUBSCRIBE_URL}}}" style="color: #888888; text-decoration: underline;">Unsubscribe</a>
@@ -160,17 +175,18 @@ ${articleBlocks}
 </html>`;
 }
 
-function buildText(items) {
+export function buildText(items) {
   const lines = ["THE JACKSON WIRE", ""];
   for (const item of items) {
     lines.push(item.title);
-    lines.push(item.link);
+    lines.push(tag(item.link));
     lines.push(item.dek);
     lines.push("");
   }
   lines.push("---");
   lines.push(MISSION);
   lines.push("");
+  lines.push(`${FORWARD_LINE} ${tag(`${SITE_URL}/`)}`);
   lines.push("You're receiving this because you subscribed at thejacksonwire.com.");
   lines.push("Unsubscribe: {{{RESEND_UNSUBSCRIBE_URL}}}");
   return lines.join("\n");
@@ -275,7 +291,21 @@ async function main() {
   console.log(`[newsletter] Broadcast sent. id=${broadcastId}`, sendResult?.id ? `send id=${sendResult.id}` : "");
 }
 
-main().catch((err) => {
-  console.error("[newsletter] FAILED:", err?.message || err);
-  process.exit(1);
-});
+// Run only when started directly (node scripts/send-newsletter.mjs). Importing
+// this file, to preview the email without sending it, does nothing. If the two
+// paths cannot be compared, run as before.
+function isEntryPoint() {
+  if (!process.argv[1]) return false;
+  try {
+    return realpathSync(process.argv[1]) === realpathSync(fileURLToPath(import.meta.url));
+  } catch {
+    return true;
+  }
+}
+
+if (isEntryPoint()) {
+  main().catch((err) => {
+    console.error("[newsletter] FAILED:", err?.message || err);
+    process.exit(1);
+  });
+}

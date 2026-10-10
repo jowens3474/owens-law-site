@@ -13,10 +13,14 @@ import OpenAI from "openai";
 import { runDataTool } from "./lib/data-tools.mjs";
 import { createCourtListener } from "./lib/courtlistener.mjs";
 import { sendBroadcast, renderEmail, renderText } from "./lib/resend.mjs";
+import { tagSections } from "./lib/utm.mjs";
 
 const SITE = process.env.SITE_URL || "https://www.thejacksonwire.com";
 const FROM = "Pipeline Pro <pro@thejacksonwire.com>";
 const REPLY_TO = "capitolmain42@gmail.com";
+// Links to the site in the email carry this tag so readers can be traced to
+// the briefing (see scripts/lib/utm.mjs). Links to other sites pass through.
+const UTM = { source: "pro-briefing", medium: "email", campaign: "pro" };
 const log = (m) => console.log(`[pro-briefing] ${m}`);
 
 function todayLocalIso() {
@@ -213,11 +217,13 @@ ${feeds.bls_series}`;
     sections.push({ heading: "This week on the Wire", items: stories.map((s) => ({ text: clean(s.title), url: s.link })) });
   }
   const subject = clean(draft.subject || `Pipeline Pro: week of ${pretty(today)}`).slice(0, 120);
+  // Tag last, after the allowed-URL check above, so the model and that check
+  // only ever see plain links.
   const payload = {
     kicker: `Pipeline Pro · Week of ${pretty(today)}`,
     title: subject.replace(/^Pipeline Pro:\s*/i, ""),
     intro: clean(draft.lede),
-    sections: sections.filter((s) => s.items.length || s.note),
+    sections: tagSections(sections.filter((s) => s.items.length || s.note), UTM),
     footer: "Pipeline Pro is edited by J. Edward Owens for The Jackson Wire. Reply to this email with a question; a researcher answers within one business day. Not legal, investment, or brokerage advice.",
   };
   const html = renderEmail(payload);

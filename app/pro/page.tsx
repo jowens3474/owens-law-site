@@ -52,15 +52,20 @@ const FAQ: { q: string; a: string }[] = [
 export default function ProPage() {
   const upcoming = getUpcomingMilestones(4);
   const stripe = stripeConfigured();
+  // Pipeline Pro is a subscription service, not a shipped product, so it is
+  // a Service. Google's merchant listing and product snippet checks apply to
+  // Product only and asked for an image, return policy, and shipping details.
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Product",
+    "@type": "Service",
     name: `${site.name} ${pro.name}`,
     description: DEK,
+    provider: { "@id": absoluteUrl("/#org") },
+    areaServed: { "@type": "Place", name: "Jackson, Mississippi metropolitan area" },
     brand: { "@type": "Brand", name: site.name },
     offers: [
-      { "@type": "Offer", price: pro.monthly, priceCurrency: "USD", url: absoluteUrl(pro.path), category: "subscription" },
-      { "@type": "Offer", price: pro.annual, priceCurrency: "USD", url: absoluteUrl(pro.path), category: "subscription" },
+      { "@type": "Offer", price: pro.monthly, priceCurrency: "USD", availability: "https://schema.org/InStock", url: absoluteUrl(pro.path), category: "subscription" },
+      { "@type": "Offer", price: pro.annual, priceCurrency: "USD", availability: "https://schema.org/InStock", url: absoluteUrl(pro.path), category: "subscription" },
     ],
   };
 

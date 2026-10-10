@@ -130,12 +130,14 @@ function buildCaption(item) {
   const dataCenters = /data center|data-center|datacenter/.test(hay);
   if (dataCenters) hashtags.push("#DataCenters");
 
+  // Captions are not clickable, so this link carries no UTM tag. It starts
+  // with www because the bare domain does not resolve.
   const caption = [
     item.title,
     "",
     item.dek,
     "",
-    `Full story: thejacksonwire.com/article/${item.slug}`,
+    `Full story: www.thejacksonwire.com/article/${item.slug}`,
     "",
     hashtags.join(" "),
   ].join("\n");
