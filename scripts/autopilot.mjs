@@ -27,7 +27,7 @@ import {
   applyOutcome,
   describeOutcome,
 } from "./lib/assignments.mjs";
-import { checkSeoTitle } from "./lib/seo-title.mjs";
+import { checkSeoTitle, SEO_TITLE_MAX } from "./lib/seo-title.mjs";
 
 const POSTS_FILE = "lib/posts.ts";
 const CATEGORIES = [
@@ -256,7 +256,7 @@ const TOOLS = [
           seoTitle: {
             type: "string",
             description:
-              "Search and browser-tab title, 60 characters or fewer. Lead with the specific place, project, business, or agency, then what happened, in the form \"<Place or agency>: <what happened>\". No clickbait. No em dashes or en dashes. Do not add the site name; the page adds it. The page still shows the full headline.",
+              `Search and browser-tab title, ${SEO_TITLE_MAX} characters or fewer. Lead with the specific place, project, business, or agency, then what happened, in the form "<Place or agency>: <what happened>". Use only facts that appear in the headline and body. No clickbait. No em dashes or en dashes. Do not add the site name; the page adds it. The page still shows the full headline.`,
           },
           dek: {
             type: "string",
@@ -434,7 +434,7 @@ Use date "${today}". Pick a category from: ${CATEGORIES.join(", ")}.${assignment
         content:
           "Research time is over. Using only the material gathered above, call publish_article now with the strongest story you can support. Do not call any other tool. Only if the sourcing genuinely cannot support any article, reply with the exact text NO_ARTICLE and nothing else." +
           (assignment
-            ? ' If TODAY\'S ASSIGNMENT is not supported by what you read, publish the strongest other story and set assignmentOutcome to "skipped: <short reason>".'
+            ? ' If TODAY\'S ASSIGNMENT is not supported by what you read, publish the strongest other story you can support (or NO_ARTICLE as above) and, when you publish, set assignmentOutcome to "skipped: <short reason>".'
             : ""),
       });
     }

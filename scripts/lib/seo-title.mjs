@@ -10,9 +10,13 @@ export const SEO_TITLE_MAX = 60;
 // from their code points so this file contains none of them itself.
 const DASHES = String.fromCharCode(0x2012, 0x2013, 0x2014, 0x2015);
 
+// The article page adds " | The Jackson Wire" itself, so a title that already
+// names the site would show it twice.
+const SITE_NAME = "the jackson wire";
+
 // Returns { ok: true, value } with the whitespace tidied, or
-// { ok: false, reason } when the title is missing, empty, too long, or has a
-// dash in it.
+// { ok: false, reason } when the title is missing, empty, too long, has a dash
+// in it, or contains the site name.
 export function checkSeoTitle(raw) {
   if (typeof raw !== "string") return { ok: false, reason: "missing" };
   const value = raw.replace(/\s+/g, " ").trim();
@@ -26,6 +30,9 @@ export function checkSeoTitle(raw) {
   }
   if ([...value].some((c) => DASHES.includes(c))) {
     return { ok: false, reason: "contains an em or en dash" };
+  }
+  if (value.toLowerCase().includes(SITE_NAME)) {
+    return { ok: false, reason: "contains the site name" };
   }
   return { ok: true, value };
 }

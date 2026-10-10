@@ -110,27 +110,29 @@ at 0. The type is one of `opening` (what is opening, closing, or being built),
 (a vote before it happens). Sources are a place to start, not proof, so the
 Wire's own earlier stories are fine.
 
-People add items, the editor or the growth editor, by editing the file and
-committing it to main; the desk never adds one. The repo is public, so an
-assignment is public the moment it is committed. Build each one from facts the
-Wire has published or documents anyone can open, give it a date inside the next
-60 days, and write the angle so the story can be worked now. An item that
-waits on a document that does not exist yet will be set aside twice and
-dropped, so add it when the document is due.
+The editor adds items by editing the file and committing it to main; the desk
+never adds one. The repo is public, so an assignment is public the moment it is
+committed. Build each one from facts the Wire has published or documents anyone
+can open, pick an event or deadline inside the next 60 days, and write the
+angle so the story can be worked now. An item that waits on a document that
+does not exist yet will be set aside twice and dropped, so add it when the
+document is due.
 
-Each day the autopilot reads the list before it researches. If it is not
-empty, the first item goes into the prompt as TODAY'S ASSIGNMENT. The model
-researches it first under the usual fact rules, and the rotation rule and the
-corruption-case and Politics caps apply to it like any other story. If the
-documents support a new, verifiable story, it writes it, reports
-`assignmentOutcome` as `done`, and the item is removed. If not, it reports
-`skipped: <reason>` and picks a story the usual way; the item moves to the
-back of the list with `skips` raised by one, and a second skip drops it. The
-list is written in the same commit as the article, so a publish is still one
-commit and one deploy, and the skip reason is in the commit message. A run
-that publishes nothing leaves the list alone, and a list that is not valid
-JSON is ignored for that run and never rewritten. The logic is in
-`scripts/lib/assignments.mjs`.
+Each day the autopilot reads the list before it researches. The desk takes the
+first item that has an id and a topic (any other entry is left in the file
+untouched) and puts it in the prompt as TODAY'S ASSIGNMENT. The model runs the
+opening data tools, then researches the assignment under the usual fact rules,
+and the rotation rule and the corruption-case and Politics caps apply to it
+like any other story. If the documents support a new, verifiable story, it
+writes it, reports `assignmentOutcome` as `done`, and the item is removed. If
+not, it reports `skipped: <reason>` and picks a story the usual way; the item
+moves to the back of the list with `skips` raised by one, and a second skip
+drops it. A day when the rotation rule or a cap bars the item counts as one of
+its two skips like any other. The list is written in the same commit as the
+article, so a publish is still one commit and one deploy, and the skip reason
+is in the commit message. A run that publishes nothing leaves the list alone,
+and a list that is not valid JSON is ignored for that run and never rewritten.
+The logic is in `scripts/lib/assignments.mjs`.
 
 The desk's topic rules also carry one tie-breaker: when two candidate stories
 are equally strong, prefer what readers search for (what is opening, closing,
@@ -146,10 +148,11 @@ uses it for the browser tab and search results, where the site's title
 template makes it `<seoTitle> | The Jackson Wire`. That suffix adds 19
 characters, so the name leads in case Google trims the end. The page itself,
 the social share title, and the structured-data headline keep the full title.
-The autopilot drops a `seoTitle` that is missing, too long, or has a dash in
-it, and the page then uses the full title; it never rejects an article over
-one (`scripts/lib/seo-title.mjs` holds the check). Older stories have none and
-are not backfilled. A hand-written story can add one the same way.
+The autopilot drops a `seoTitle` that is missing, too long, has a dash in it,
+or names the site, and the page then uses the full title; it never rejects an
+article over one (`scripts/lib/seo-title.mjs` holds the check). Older stories
+have none and are not backfilled. A hand-written story can add one the same
+way.
 
 ## Sources the desk works from
 

@@ -30,7 +30,23 @@ export const ASSIGNMENT_TYPES = {
 const text = (v) => (typeof v === "string" ? v.trim() : "");
 const skipsOf = (item) =>
   Number.isInteger(item?.skips) && item.skips > 0 ? item.skips : 0;
-const indexOfId = (items, id) => items.findIndex((a) => a && a.id === id);
+
+// An item the desk can work has an id (so it can be found again) and a topic.
+// Anything else is left in the list untouched for the editor to fix.
+function isUsable(item) {
+  return (
+    !!item &&
+    typeof item === "object" &&
+    text(item.id) !== "" &&
+    text(item.topic) !== ""
+  );
+}
+
+// Finds an item by id among usable items only, the same test pickAssignment
+// uses, so an unusable entry that happens to share an id can never be the one
+// that is removed or moved.
+const indexOfId = (items, id) =>
+  items.findIndex((a) => isUsable(a) && a.id === id);
 
 // Reason text goes into the log and the commit message, so keep it to one
 // short line with no dashes (the house style, and the model sometimes adds
@@ -69,17 +85,6 @@ export function readAssignments(file = ASSIGNMENTS_FILE) {
 
 export function writeAssignments(items, file = ASSIGNMENTS_FILE) {
   writeFileSync(file, JSON.stringify(items, null, 2) + "\n");
-}
-
-// An item the desk can work has an id (so it can be found again) and a topic.
-// Anything else is left in the list untouched for the editor to fix.
-function isUsable(item) {
-  return (
-    !!item &&
-    typeof item === "object" &&
-    text(item.id) !== "" &&
-    text(item.topic) !== ""
-  );
 }
 
 // The first usable item, or null when there is nothing to work.
@@ -174,7 +179,7 @@ export function assignmentPrompt(item) {
     .filter((s) => /^https?:\/\//i.test(s));
   return [
     "TODAY'S ASSIGNMENT",
-    "The editor put this story on the desk's list. Work it before the open-ended research order above.",
+    "The editor put this story on the desk's list. Run the opening data tools as above, then research this assignment before choosing a topic of your own.",
     `Topic: ${text(item.topic)}`,
     `Angle: ${text(item.angle) || "none given"}`,
     `Type: ${type ? (hint ? `${type} (${hint})` : type) : "not given"}`,
