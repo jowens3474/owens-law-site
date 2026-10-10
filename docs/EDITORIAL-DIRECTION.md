@@ -4,6 +4,36 @@ The Jackson Wire leans toward business, economics, and development. It works
 like a research desk: read the document first, publish what it says before it
 becomes a press release, and tell readers what is coming and when.
 
+## Mission
+
+> Our mission is to increase transparency and educate the public, so people
+> can make better decisions and are not taken advantage of or kept in the
+> dark. Informed people lead better lives and get better outcomes, and that
+> strengthens human and civil rights.
+
+The statement lives in `lib/mission.json`. The About page, the site footer,
+the organization's structured data, `llms.txt`, the newsletter footer, and the
+desk prompts (autopilot, Morning Brief, laws desk, through
+`scripts/lib/mission.mjs`) all read it from there, so change it in that one
+file.
+
+What the mission asks of every piece:
+
+- **What it means for you, and what you can do.** Name the meeting to attend,
+  the comment or filing deadline, the office to contact, or the record to
+  check, when a source gives one. Never invent a date, deadline, phone number,
+  or procedure.
+- **Follow the money.** Who pays, who benefits, and by how much. Point out
+  fees, fine print, and terms that could cost an ordinary person money or a
+  right.
+- **Show the source.** Name or link the primary document so readers can check
+  it, and explain jargon in plain words.
+- **Rights are part of the beat.** When a story touches voting, due process,
+  equal treatment, or access to public records and meetings, say so plainly.
+- **Accuracy, not advocacy.** The mission is served by getting it right:
+  report what the documents and sources show, attribute every claim, give each
+  side its strongest case, and keep the Wire's own analysis labeled.
+
 ## Beat weights
 
 - About three of every four articles are **Business**, **Economy**, or

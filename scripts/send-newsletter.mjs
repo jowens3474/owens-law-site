@@ -10,6 +10,8 @@
 // that's done, Resend will reject the from address -- for testing, the
 // operator can temporarily switch FROM below to "onboarding@resend.dev".
 
+import { MISSION } from "./lib/mission.mjs";
+
 const SITE_URL = "https://www.thejacksonwire.com";
 const FEED_URL = `${SITE_URL}/feed.xml`;
 const RESEND_API_BASE = "https://api.resend.com";
@@ -141,6 +143,9 @@ function buildHtml(items) {
 ${articleBlocks}
             <tr>
               <td style="padding: 24px 32px 32px 32px; background-color: #f7f8fa;">
+                <p style="margin: 0 0 14px 0; color: #444444; font-size: 13px; line-height: 1.6; font-family: Arial, Helvetica, sans-serif;">
+                  ${MISSION.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")}
+                </p>
                 <p style="margin: 0; color: #888888; font-size: 12px; line-height: 1.6; font-family: Arial, Helvetica, sans-serif;">
                   You're receiving this because you subscribed at thejacksonwire.com.<br />
                   <a href="{{{RESEND_UNSUBSCRIBE_URL}}}" style="color: #888888; text-decoration: underline;">Unsubscribe</a>
@@ -164,6 +169,8 @@ function buildText(items) {
     lines.push("");
   }
   lines.push("---");
+  lines.push(MISSION);
+  lines.push("");
   lines.push("You're receiving this because you subscribed at thejacksonwire.com.");
   lines.push("Unsubscribe: {{{RESEND_UNSUBSCRIBE_URL}}}");
   return lines.join("\n");

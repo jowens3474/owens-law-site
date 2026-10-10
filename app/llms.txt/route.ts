@@ -13,6 +13,9 @@ export async function GET() {
   lines.push(`> ${site.description}`, "");
   lines.push(`${site.tagline} Based in ${site.city}.`, "");
 
+  lines.push("## Mission", "");
+  lines.push(site.mission, "");
+
   lines.push("## Articles", "");
   for (const p of posts) {
     lines.push(`- [${p.title}](${absoluteUrl(`/article/${p.slug}.md`)}): ${p.dek}`);

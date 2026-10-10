@@ -1,4 +1,6 @@
 // Central place to rebrand the publication. Change these and the whole site updates.
+import missionData from "./mission.json";
+
 export const site = {
   name: "The Jackson Wire",
   shortName: "Jackson Wire",
@@ -6,6 +8,9 @@ export const site = {
   tagline: "Business, economics, and what is coming next in Jackson.",
   description:
     "Independent, research-driven reporting on business, economics, and development in Jackson and Mississippi. We read the filings, budgets, contracts, and agendas so readers see what is coming before it is announced.",
+  // The Wire's mission, shown on the About page and in the footer, and given
+  // to the desk scripts. Edit it in lib/mission.json.
+  mission: missionData.statement,
   email: "capitolmain42@gmail.com",
   city: "Jackson, Mississippi",
   founded: 2026,

@@ -13,6 +13,7 @@ import { webSearch } from "./lib/search.mjs";
 import { createCourtListener } from "./lib/courtlistener.mjs";
 import { DATA_TOOLS, DATA_TOOL_NAMES, runDataTool } from "./lib/data-tools.mjs";
 import { pingIndexNow } from "./lib/indexnow.mjs";
+import { MISSION_PROMPT } from "./lib/mission.mjs";
 
 const POSTS_FILE = "lib/posts.ts";
 
@@ -23,6 +24,8 @@ const { getOwensCaseDocket, readCourtFiling } = courtListener;
 const SYSTEM_PROMPT = `You are the morning brief writer for The Jackson Wire, an independent business and economics news site covering Jackson, Mississippi and its metro.
 
 Your job: produce the day's Morning Brief, a punchy summary of the FIVE things Jackson's business and civic readers most need to know this morning. The brief is the Wire's daily front-door product. It should make a reader who runs a company, owns property, or sits on a board feel current on Jackson by 7 a.m. Central, and it should tell them at least one thing that is coming that they did not know about.
+
+${MISSION_PROMPT}
 
 FORMAT — strict
 - Five items. Exactly five.

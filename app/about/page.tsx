@@ -3,7 +3,7 @@ import Link from "next/link";
 import { site } from "@/lib/site";
 import { absoluteUrl } from "@/lib/markdown";
 
-const description = `About ${site.name} — independent business, economics, and development reporting from Jackson, Mississippi. Beats, editorial standards, AI policy, corrections, and how to send a tip.`;
+const description = `About ${site.name}: our mission, independent business, economics, and development reporting from Jackson, Mississippi, our editorial standards, AI policy, corrections, and how to send a tip.`;
 
 export const metadata: Metadata = {
   title: "About",
@@ -37,6 +37,71 @@ export default function AboutPage() {
           {site.tagline}
         </p>
       </header>
+
+      <section
+        id="mission"
+        aria-labelledby="mission-heading"
+        className="mt-8 scroll-mt-20 border-l-4 border-crimson bg-paper px-5 py-6 sm:px-7"
+      >
+        <h2
+          id="mission-heading"
+          className="font-sans text-xs font-bold uppercase tracking-widest text-crimson"
+        >
+          Our mission
+        </h2>
+        <p className="mt-3 text-balance font-serif text-2xl font-bold leading-snug text-ink sm:text-[1.7rem]">
+          {site.mission}
+        </p>
+        <ul className="mt-6 space-y-3 font-sans text-base leading-relaxed text-ink">
+          <li>
+            <strong>We follow the money.</strong> We report what a decision
+            costs, who pays, and who benefits.
+          </li>
+          <li>
+            <strong>We explain the rules.</strong>{" "}
+            <Link
+              href="/laws"
+              className="font-bold text-crimson hover:text-crimson-bright"
+            >
+              What Passed
+            </Link>{" "}
+            explains new laws in plain words, so anyone can follow them.
+          </li>
+          <li>
+            <strong>We tell you what is coming.</strong>{" "}
+            <Link
+              href="/pipeline"
+              className="font-bold text-crimson hover:text-crimson-bright"
+            >
+              The Pipeline
+            </Link>{" "}
+            lists the votes, hearings, and deadlines ahead, so you can weigh
+            in before a decision is made.
+          </li>
+          <li>
+            <strong>We open the record.</strong>{" "}
+            <Link
+              href="/meetings"
+              className="font-bold text-crimson hover:text-crimson-bright"
+            >
+              The Record
+            </Link>{" "}
+            makes what is said at Jackson&rsquo;s public meetings
+            searchable.
+          </li>
+          <li>
+            <strong>We fix mistakes in public.</strong> Every correction is
+            listed at{" "}
+            <Link
+              href="/corrections"
+              className="font-bold text-crimson hover:text-crimson-bright"
+            >
+              /corrections
+            </Link>
+            .
+          </li>
+        </ul>
+      </section>
 
       <div className="prose-article mt-8">
         <p>
