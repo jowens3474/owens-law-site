@@ -98,6 +98,59 @@ detailed sourcing belongs in the reporting note, not the body. Morning Briefs
 and the monthly sales tax report keep their own formats. The autopilot carries
 the same limits in `scripts/autopilot.mjs`.
 
+## Assignments and search titles
+
+**Assignments.** `data/assignments.json` is the editor's list of stories for
+the news desk to work first. Each item is `{id, topic, angle, type, sources,
+addedBy, addedAt, skips}`: a unique id, the topic in a sentence, the angle
+(what to find, what to leave out, what the Wire has already published), a
+type, URLs to open first, who added it and when, and a skip count that starts
+at 0. The type is one of `opening` (what is opening, closing, or being built),
+`money` (bills, taxes, fees), `explainer`, `sale` (who bought what), or `vote`
+(a vote before it happens). Sources are a place to start, not proof, so the
+Wire's own earlier stories are fine.
+
+People add items, the editor or the growth editor, by editing the file and
+committing it to main; the desk never adds one. The repo is public, so an
+assignment is public the moment it is committed. Build each one from facts the
+Wire has published or documents anyone can open, give it a date inside the next
+60 days, and write the angle so the story can be worked now. An item that
+waits on a document that does not exist yet will be set aside twice and
+dropped, so add it when the document is due.
+
+Each day the autopilot reads the list before it researches. If it is not
+empty, the first item goes into the prompt as TODAY'S ASSIGNMENT. The model
+researches it first under the usual fact rules, and the rotation rule and the
+corruption-case and Politics caps apply to it like any other story. If the
+documents support a new, verifiable story, it writes it, reports
+`assignmentOutcome` as `done`, and the item is removed. If not, it reports
+`skipped: <reason>` and picks a story the usual way; the item moves to the
+back of the list with `skips` raised by one, and a second skip drops it. The
+list is written in the same commit as the article, so a publish is still one
+commit and one deploy, and the skip reason is in the commit message. A run
+that publishes nothing leaves the list alone, and a list that is not valid
+JSON is ignored for that run and never rewritten. The logic is in
+`scripts/lib/assignments.mjs`.
+
+The desk's topic rules also carry one tie-breaker: when two candidate stories
+are equally strong, prefer what readers search for (what is opening, closing,
+or being built; money out of readers' pockets; a plain explainer; who bought
+what; a vote before it happens). It breaks ties only and never overrides the
+fact rules, the rotation rule, or the caps.
+
+**Search titles.** Headlines run a median 83 characters and Google shows about
+60, so a story can carry a short `seoTitle` in `lib/posts.ts`. The rule: 60
+characters or fewer, lead with the specific place, project, business, or
+agency, no clickbait, no em or en dashes, and no site name. The article page
+uses it for the browser tab and search results, where the site's title
+template makes it `<seoTitle> | The Jackson Wire`. That suffix adds 19
+characters, so the name leads in case Google trims the end. The page itself,
+the social share title, and the structured-data headline keep the full title.
+The autopilot drops a `seoTitle` that is missing, too long, or has a dash in
+it, and the page then uses the full title; it never rejects an article over
+one (`scripts/lib/seo-title.mjs` holds the check). Older stories have none and
+are not backfilled. A hand-written story can add one the same way.
+
 ## Sources the desk works from
 
 Money and business: Secretary of State business filings (sos.ms.gov), MDA

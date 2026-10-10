@@ -56,7 +56,10 @@ export async function generateMetadata({
         },
       ];
   return {
-    title: post.title,
+    // The short search title when the story has one; the root layout's title
+    // template turns it into "<seoTitle> | The Jackson Wire". The social
+    // titles below and the JSON-LD headline keep the full headline.
+    title: post.seoTitle || post.title,
     description: post.dek,
     authors: [{ name: post.author }],
     alternates: {

@@ -15,6 +15,11 @@ export interface TimelineSection {
 export interface Post {
   slug: string;
   title: string;
+  // Short search title, 60 characters or fewer. Leads with the place, project,
+  // business, or agency name. Used for the browser tab and search results
+  // (the site's title template adds " | The Jackson Wire"); the page itself
+  // still shows the full title. Optional: old stories have none.
+  seoTitle?: string;
   dek: string;
   category: string; // primary section; shown as the article's tag
   categories?: string[]; // optional extra sections to cross-file the story under
