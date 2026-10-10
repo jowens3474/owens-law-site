@@ -46,9 +46,10 @@ export interface Post {
 // Batch-write 3–4 pieces on one day and stagger their dates across the week
 // to drip-publish — no manual rebuild needed. The front page refreshes hourly,
 // feed.xml every six hours, and the other lists and feeds daily; an article
-// page renders on its first visit after its date, and if its URL is opened
-// early the not-found page is cached for at most an hour
-// (lib/not-found-cap.ts); the daily automated commits also redeploy every page.
+// page renders on its first visit after its date. If its URL is opened early,
+// the not-found page is cached for at most an hour, and the first visit after
+// that still gets it while the page refreshes (lib/not-found-cap.ts). The
+// daily automated commits also redeploy every page.
 //
 // Template:
 // {

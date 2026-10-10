@@ -32,8 +32,9 @@ fact, length, or punctuation rules:
   how much, as the sources give it. If the documents do not show the cost or
   who benefits, say so in one short clause scoped to what was read (for
   example, "the agenda packet does not show the cost") instead of leaving it
-  out, and never estimate the missing figure. Point out fees, fine print, and
-  terms in the document that cost an ordinary person money or limit a right.
+  out, and never estimate the missing figure. That is a fact about what was
+  read, so the fact rules allow it. Point out fees, fine print, and terms in
+  the document that cost an ordinary person money or limit a right.
 - **Show the source.** Name the primary document and where it is posted, and
   explain jargon in plain words.
 - **Rights are part of the story.** When a story touches voting, due process,

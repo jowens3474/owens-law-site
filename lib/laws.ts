@@ -55,8 +55,9 @@ export interface Law {
   watchFor: string[]; // dates, lawsuits, next steps
   sources: LawSource[]; // the bill first, then everything else used
   author: string;
-  // An entry opened before its date shows not-found for at most an hour after
-  // the date arrives (lib/not-found-cap.ts).
+  // An entry opened before its date has its not-found page cached for at most
+  // an hour; the first visit after that still gets it while the page refreshes
+  // (lib/not-found-cap.ts).
   date: string; // ISO yyyy-mm-dd; publication date (future dates stay hidden)
   updated?: string;
   note?: string; // reporting note shown at the end
