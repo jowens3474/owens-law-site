@@ -461,13 +461,15 @@ words or fewer, paragraphs of four sentences or fewer. Analysis only in a senten
 begins "The Wire's read:". Ranges are written "5 to 15 years", never with
 a dash. The reporting note is plain text; the page adds the label.
 
-**Revision.** A draft that breaks a limit is not thrown out on the spot.
-The desk sends the model each failed rule with the numbers measured on
-the draft (words in all, words in the one-sentence summary, sentences in
-a paragraph) and asks for one corrected call, which goes through the same
-checks. The model cannot search or fetch during the revision. If the
-corrected entry fails too, the law moves to the back of the queue, as it
-always has.
+**Revision.** A draft that fails a check is not thrown out on the spot.
+Any error from the desk's validator starts a revision: the desk sends the
+model each failed rule, with the numbers measured on the draft where
+there are any (words in all, words in the one-sentence summary,
+sentences in a paragraph), and asks for one corrected call, which goes
+through the same checks. The model cannot search or fetch during the
+revision. If the corrected entry fails too, the law moves to the back of
+the queue, as it always has; a law that fails three runs is dropped from
+the queue.
 
 **Sourcing.** The bill as enacted comes first (the Legislature's bill
 history page is linked automatically from the bill number), then the

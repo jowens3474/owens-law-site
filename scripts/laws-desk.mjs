@@ -96,7 +96,7 @@ LENGTH (the desk counts words and rejects an entry outside its limits)
 - Target about 600 to 700 words in all. The range is 450 to 800 words, and the desk rejects anything over 850 or under 420, so aim for the middle of the range and not for the ceiling. The mission does not raise this limit: cut background to fit a reader step.
 - The count is oneSentence plus every paragraph of whatItDoes, whyItHappened, whatsBehindIt, whatItCosts, whatChangesForYou, jackson and watchFor. The title, sources and note are not counted.
 - Plan about 100 words each for whatItDoes, whyItHappened, whatsBehindIt, whatItCosts, whatChangesForYou and watchFor, and under 60 for jackson. Add up your total before you submit. If it is over 700, cut.
-- Cut background first: history, earlier versions of the bill, procedure, side details, a second example where one will do. Cut reader-facing facts last: what the law does, the amounts, the dates, who pays, and what changes for a household.
+- Cut background first: history, earlier versions of the bill, procedure (committee stages, readings), side details, a second example where one will do. Cut reader-facing facts last: what the law does, the amounts, the dates, who pays, and what changes for a household; keep the sponsor and the vote count.
 
 Call publish_law exactly once, when the research is done.`;
 
@@ -231,6 +231,7 @@ function wordCount(law) {
 
 // Returns a list of problems; an empty list means the entry can publish.
 // Everything here is a hard rule: nothing publishes with a problem left.
+// Its numbers are mirrored in LIMITS for the revision feedback; change both together.
 function validate(law, lawsSource, fetched) {
   const errors = [];
   const iso = /^\d{4}-\d{2}-\d{2}$/;
@@ -292,15 +293,19 @@ function validate(law, lawsSource, fetched) {
 // and one chance to send a corrected publish_law call. validate() stays the
 // only judge of what publishes; nothing here loosens it.
 
-// The limits quoted back to the model. They mirror the numbers inside
-// validate(), so change them together.
+// The numbers quoted back to the model. The limits mirror the ones inside
+// validate(), so change them together. The aim figures (aimMinWords,
+// aimMaxWords, aimWords, oneSentenceAim) are targets from the prompt, not
+// limits that validate() enforces.
 const LIMITS = {
   minWords: 420,
   aimMinWords: 450,
   aimMaxWords: 800,
   maxWords: 850,
+  aimWords: 700,
   oneSentenceMin: 8,
   oneSentenceMax: 30,
+  oneSentenceAim: 25,
   paragraphSentences: 4,
   sentenceWords: 40,
   titleChars: 90,
@@ -342,7 +347,7 @@ const FEEDBACK_RULES = [
       const now = `Words now (the title, sources and note are not counted): ${wordsBySection(law)}.`;
       const aim = `aim for ${LIMITS.aimMinWords} to ${LIMITS.aimMaxWords}`;
       return error.startsWith("entry is too long")
-        ? `Total words ${fmt(total)}, limit ${LIMITS.maxWords} (${aim}): cut ${fmt(total - LIMITS.aimMaxWords)} or more words, mostly background. Aim for about 700 so a small miscount does not fail it again. ${now}`
+        ? `Total words ${fmt(total)}, limit ${LIMITS.maxWords} (${aim}): cut ${fmt(total - LIMITS.aimMaxWords)} or more words, to reach ${LIMITS.aimMaxWords}, mostly background. Aim for about ${LIMITS.aimWords} so a small miscount does not fail it again. ${now}`
         : `Total words ${fmt(total)}, minimum ${LIMITS.minWords} (${aim}): add ${fmt(LIMITS.aimMinWords - total)} or more words, using only facts from pages you fetched. ${now}`;
     },
   },
@@ -353,7 +358,7 @@ const FEEDBACK_RULES = [
       const n = textWords(text);
       const sentences = splitSentences(text).length;
       const size = n > LIMITS.oneSentenceMax
-        ? `limit ${LIMITS.oneSentenceMax}: cut ${n - LIMITS.oneSentenceMax} or more words`
+        ? `limit ${LIMITS.oneSentenceMax}: cut ${n - LIMITS.oneSentenceMax} or more words. Aim for ${LIMITS.oneSentenceAim} or fewer so a miscount does not fail it again`
         : `minimum ${LIMITS.oneSentenceMin}: add ${LIMITS.oneSentenceMin - n} or more words`;
       const several = sentences > 1 ? ` It reads as ${sentences} sentences now.` : "";
       return `oneSentence is ${n} words, ${size}. It must be one sentence of ${LIMITS.oneSentenceMin} to ${LIMITS.oneSentenceMax} words, counted as words separated by spaces.${several}`;
@@ -432,7 +437,7 @@ function failedRuleLines(law, errors) {
 const REVISION_TERMS = [
   "You get one revision. Send one corrected publish_law call now: the whole entry again, with every rule above fixed.",
   "Keep the facts that are already right. Add no fact that is not in a page you fetched, and list only sources you already fetched.",
-  "When you cut, cut background first (history, earlier versions of the bill, procedure, side details). Keep what a reader can use: what the law does, the amounts, the dates, who pays, and what changes for a household.",
+  "When you cut, cut background first: history, earlier versions of the bill, procedure (committee stages, readings), side details. Keep what a reader can use: what the law does, the amounts, the dates, who pays, and what changes for a household; keep the sponsor and the vote count.",
   "Do not call web_search or fetch_url. Research is closed for this step, and any such call is declined.",
   "The corrected entry goes through the same rules. If it fails again, the bill goes to the back of the queue.",
 ];
@@ -568,7 +573,7 @@ const REVISION_REMINDER = "Call publish_law now with the corrected entry. Resear
 // with the same list of fetched pages. Research is closed: any other tool call
 // is declined. Returns { law, errors }: law is the corrected entry if it
 // passed, errors is what the second validation found if it did not (empty when
-// the model never produced a call to check).
+// the model never produced a call to check, or the call failed).
 async function reviseDraft(client, messages, rejected, lawsSource, fetched) {
   const request = revisionFeedback(rejected.candidate, rejected.errors);
   console.log(`[laws-desk] revision request sent to the model:\n${request}`);
