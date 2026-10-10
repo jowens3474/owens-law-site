@@ -68,6 +68,27 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "mda-workforce-housing-12-million-hinds-county-deadline-nov-30",
+    title: "MDA Has $12 Million for New Workforce Housing. Hinds County Is One of Six Places It Can Go, and the Deadline Is Nov. 30.",
+    dek: "The state's Workforce Housing Program will fund only new single-family construction, capped at $4 million per project. Hinds County is the largest of six qualifying areas, and no local government has yet signed on.",
+    category: "Economy",
+    categories: ["Business","Development"],
+    tags: ["pipeline"],
+    author: "Jackson Wire Staff",
+    date: "2026-10-10",
+    views: 0,
+    body: [
+      "Mississippi has $12 million in federal disaster-recovery money to build new single-family homes, and it can only be spent in six places. Hinds County is one of them, and it is the largest. Applications close at 5 p.m. CDT on Nov. 30, 2026.",
+      "The money is the Mississippi Workforce Housing Program, run by the Mississippi Development Authority out of the state's $134.95 million CDBG-DR allocation for the 2023 and 2024 tornadoes and straight-line winds. According to the program's eligibility page (mshousingrecovery.com), the funds may be used only for new construction of single-family housing. Repair and rehabilitation of existing homes are excluded. So are apartments and rentals.",
+      "The terms are narrow enough that they will shape who can play. An applicant must be a nonprofit or a for-profit nongovernmental organization, and it must already own the project site. The maximum award is the lesser of $4 million or 40 percent of total project cost, meaning a single award could consume a third of the entire program. At least 51 percent of the homes must sell to households earning 80 percent or less of area median income, and none may sell above 120 percent.",
+      "One more requirement matters most for Jackson. The applicant must submit letters of community support from units of local government in the storm-impacted area where the housing will be built. That puts the Jackson City Council and the Hinds County Board of Supervisors in the position of gatekeepers, and neither has taken up a letter of support on a public agenda the Wire has reviewed.",
+      "The program is reimbursement-based. MDA pays monthly, pro rata, at the same percentage the CDBG-DR funds cover the project. An applicant awarded 40 percent of project cost gets 40 percent of each invoice reimbursed, and must show it has the other 60 percent lined up. That structure favors developers with balance sheets, not first-time builders.",
+      "Hinds County's place on the list is not incidental. The state's own CDBG-DR action plan ranks Hinds first among Mississippi counties for tornadoes over the disaster period, with 91, ahead of Rankin at 77 and Harrison at 71. The same plan allocates $29.32 million to owner-occupied housing recovery and $19.55 million to affordable rental repairs statewide. The workforce program is the piece aimed at new supply, tied to economic development projects expected to draw workers back.",
+      "The timing is awkward for Jackson's own housing efforts. The city's Office of Housing and Community Development opened a separate solicitation on Oct. 8 for rehabilitation services, due Oct. 27, and its Housing Rehabilitation Program is built around repairing owner-occupied homes, the exact activity the workforce program will not fund. The two pots of money do not overlap, and the city has not said publicly how it intends to use the state program.",
+      "What's next: Applications are due to MDA by 5 p.m. CDT on Nov. 30, 2026, through mshousingrecovery.com. The decision-maker on the local side is whoever moves a letter of community support, which would have to clear the Jackson City Council or the Hinds County Board of Supervisors first. Watch the council's agenda and the supervisors' Monday meeting packets for a workforce housing item; without a letter, a Hinds County project cannot qualify. MDA has not published an award date, so the next signal will be the application portal's activity or a program update from the agency.",
+    ],
+  },
+  {
     slug: "morning-brief-2026-10-10",
     title: "Morning Brief: Oct 10 · Jackson Sales Tax Diversions Beat Forecast as Ridgeland Surges",
     dek: "Jackson's August sales tax diversion came in at $2.61 million, up 9.5% from a year earlier, the strongest monthly gain the capital has posted this fiscal year.",
