@@ -6,17 +6,23 @@ import {
   getLawBySlug,
   getRelatedLaws,
   isInEffect,
+  isScheduledLawSlug,
   billHistoryUrl,
   becameLawLabel,
 } from "@/lib/laws";
 import { formatDate } from "@/lib/posts";
+import { capNotFoundLife } from "@/lib/not-found-cap";
 import { site } from "@/lib/site";
 import { absoluteUrl } from "@/lib/markdown";
 import ReadingProgress from "@/app/components/ReadingProgress";
 import ShareBar from "@/app/components/ShareBar";
 
-// Refresh every 10 minutes so scheduled entries render on schedule.
-export const revalidate = 600;
+// Rebuilt on every deploy and otherwise served from cache. Each refresh is a
+// billed cache write on Vercel, and the daily automated commits redeploy the
+// site anyway. A future-dated entry renders on its first visit after its date;
+// if its URL is opened early, the not-found render is cached for at most an
+// hour (lib/not-found-cap.ts).
+export const revalidate = false;
 
 export function generateStaticParams() {
   return getAllLaws().map((law) => ({ slug: law.slug }));
@@ -78,7 +84,10 @@ function Section({
 export default async function LawPage({ params }: PageProps<"/laws/[slug]">) {
   const { slug } = await params;
   const law = getLawBySlug(slug);
-  if (!law) notFound();
+  if (!law) {
+    if (isScheduledLawSlug(slug)) await capNotFoundLife();
+    notFound();
+  }
 
   const url = absoluteUrl(`/laws/${law.slug}`);
   const live = isInEffect(law);

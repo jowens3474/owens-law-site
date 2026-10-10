@@ -11,6 +11,15 @@ export default function Footer() {
             <p className="mt-2 font-sans text-sm text-muted">
               {site.description}
             </p>
+            <p className="mt-4 border-l-2 border-crimson pl-3 font-sans text-sm leading-relaxed text-ink">
+              {site.mission}{" "}
+              <Link
+                href="/about#mission"
+                className="whitespace-nowrap font-semibold text-crimson hover:text-crimson-bright"
+              >
+                Our mission →
+              </Link>
+            </p>
             <a
               href={`mailto:${site.email}`}
               className="mt-3 inline-block font-sans text-sm font-semibold text-crimson hover:text-crimson-bright"

@@ -4,6 +4,47 @@ The Jackson Wire leans toward business, economics, and development. It works
 like a research desk: read the document first, publish what it says before it
 becomes a press release, and tell readers what is coming and when.
 
+## Mission
+
+> Our mission is to increase transparency and educate the public, to help
+> people make better decisions and to prevent them from being taken advantage
+> of or kept in the dark. That should help improve people's lives and outcomes
+> and advance human and civil rights.
+
+The statement lives in `lib/mission.json`; the quote above is a copy, so
+change both together. The About page, the site footer, `llms.txt`,
+`llms-full.txt`, the newsletter footer, and the autopilot, Morning Brief, and
+laws desk prompts all read it from there; the organization's structured data
+links to it at `/about#mission`. The monthly sales-tax report and the Pro
+briefing do not carry it yet.
+
+The reporting rules below live in `scripts/lib/mission.mjs`, which the three
+desk prompts include; change the two together. They apply to every autopilot
+article, Morning Brief, and What Passed entry, and they never override the
+fact, length, or punctuation rules:
+
+- **What it means for you, and what you can do.** Say what the documents show
+  the news means for readers and, when a source gives one, the meeting to
+  attend, the comment or filing deadline, the office to contact, or the
+  record to check. Copy dates, times, addresses, and phone numbers exactly
+  from a source; if no source gives a step, leave it out.
+- **Follow the money, when money is involved.** Who pays, who benefits, and by
+  how much, as the sources give it. If the documents do not show the cost or
+  who benefits, say so in one short clause scoped to what was read (for
+  example, "the agenda packet does not show the cost") instead of leaving it
+  out, and never estimate the missing figure. That is a fact about what was
+  read, so the fact rules allow it. Point out fees, fine print, and terms in
+  the document that cost an ordinary person money or limit a right.
+- **Show the source.** Name the primary document and where it is posted, and
+  explain jargon in plain words.
+- **Rights are part of the story.** When a story touches voting, due process,
+  equal treatment, or access to public records and meetings, report what the
+  documents and named sources say; call nothing unlawful or unjust unless a
+  named source or a court does.
+- **Accuracy, not advocacy.** Attribute every claim, give each side its
+  strongest case, state options without telling readers or officials what to
+  do, and keep the Wire's own analysis labeled.
+
 ## Beat weights
 
 - About three of every four articles are **Business**, **Economy**, or
@@ -36,7 +77,8 @@ development items and at least one forward-looking item with a date.
 4. **Follow the money.** Who benefits, by how much, and who pays.
 
 Every article ends with a **What's next** section that names the next date,
-the decision-maker, and what to watch. Every article carries at least one
+the decision-maker, and what to watch, and, where a source supports it, how
+readers can take part. Every article carries at least one
 number the Wire computed or pulled from a document.
 
 ## Length

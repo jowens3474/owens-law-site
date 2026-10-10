@@ -6,7 +6,9 @@ import { absoluteUrl } from "@/lib/markdown";
 import { getUpcomingMilestones, formatMilestoneDate, PROJECTS } from "@/lib/pipeline";
 import ProSignup from "@/app/components/ProSignup";
 
-export const revalidate = 600;
+// Refresh at most daily; deploys rebuild it sooner. Each refresh is a billed
+// cache write on Vercel.
+export const revalidate = 86400;
 
 const DEK = `${pro.tagline} A Monday briefing, same-day alerts, and a members-only desk built on the Wire's research pipeline, for the people whose money is on the line.`;
 

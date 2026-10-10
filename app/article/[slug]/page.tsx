@@ -8,7 +8,9 @@ import {
   formatDate,
   readingTime,
   isBrief,
+  isScheduledSlug,
 } from "@/lib/posts";
+import { capNotFoundLife } from "@/lib/not-found-cap";
 import { site, categoryByName } from "@/lib/site";
 import { absoluteUrl } from "@/lib/markdown";
 import ArticleImage from "@/app/components/ArticleImage";
@@ -20,8 +22,12 @@ import ReadingProgress from "@/app/components/ReadingProgress";
 import ShareBar from "@/app/components/ShareBar";
 import { extractCitations } from "@/lib/citations";
 
-// Refresh every 10 minutes so scheduled articles render on schedule.
-export const revalidate = 600;
+// Rebuilt on every deploy and otherwise served from cache. Each refresh is a
+// billed cache write on Vercel, and the daily automated commits redeploy the
+// site anyway. A future-dated entry renders on its first visit after its date;
+// if its URL is opened early, the not-found render is cached for at most an
+// hour (lib/not-found-cap.ts).
+export const revalidate = false;
 
 export function generateStaticParams() {
   return getAllPosts().map((post) => ({ slug: post.slug }));
@@ -83,7 +89,10 @@ export default async function ArticlePage({
 }: PageProps<"/article/[slug]">) {
   const { slug } = await params;
   const post = getPostBySlug(slug);
-  if (!post) notFound();
+  if (!post) {
+    if (isScheduledSlug(slug)) await capNotFoundLife();
+    notFound();
+  }
 
   const related = getRelatedPosts(post, 3);
 

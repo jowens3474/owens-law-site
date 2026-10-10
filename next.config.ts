@@ -1,11 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Meeting transcripts are read from disk at request time (search) and on
-  // first render of a meeting not in the build (new archive commits), so
-  // the data directory must ship with those routes.
+  // Meeting search reads transcripts from disk at request time, so the data
+  // directory must ship with those routes. Meeting pages are all prerendered
+  // (dynamicParams = false) and need none.
   outputFileTracingIncludes: {
-    "/meetings/[id]": ["./data/meetings/**/*"],
     "/meetings/search": ["./data/meetings/**/*"],
     "/api/meetings/search": ["./data/meetings/**/*"],
   },

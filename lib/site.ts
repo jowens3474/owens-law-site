@@ -1,4 +1,10 @@
 // Central place to rebrand the publication. Change these and the whole site updates.
+import missionData from "./mission.json";
+
+if (typeof missionData.statement !== "string" || !missionData.statement.trim()) {
+  throw new Error('lib/mission.json must hold a non-empty "statement" string.');
+}
+
 export const site = {
   name: "The Jackson Wire",
   shortName: "Jackson Wire",
@@ -6,6 +12,9 @@ export const site = {
   tagline: "Business, economics, and what is coming next in Jackson.",
   description:
     "Independent, research-driven reporting on business, economics, and development in Jackson and Mississippi. We read the filings, budgets, contracts, and agendas so readers see what is coming before it is announced.",
+  // The Wire's mission. The text lives in lib/mission.json; see
+  // docs/EDITORIAL-DIRECTION.md for everywhere it appears.
+  mission: missionData.statement.trim(),
   email: "capitolmain42@gmail.com",
   city: "Jackson, Mississippi",
   founded: 2026,

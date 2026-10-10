@@ -6,7 +6,9 @@ import { getPostsByTag, formatDate } from "@/lib/posts";
 import SalesTaxChart from "@/app/components/SalesTaxChart";
 import dataset from "@/data/sales-tax-diversions.json";
 
-export const revalidate = 3600;
+// Refresh at most daily; deploys rebuild it sooner. Each refresh is a billed
+// cache write on Vercel.
+export const revalidate = 86400;
 
 interface CityMonth {
   amount: number;

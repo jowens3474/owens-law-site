@@ -44,7 +44,12 @@ export interface Post {
 // future YYYY-MM-DD and the article stays hidden from the site, sitemap, RSS,
 // llms.txt, and search until that day arrives (compared in Central time).
 // Batch-write 3–4 pieces on one day and stagger their dates across the week
-// to drip-publish — no manual rebuild needed (pages revalidate every 10 min).
+// to drip-publish — no manual rebuild needed. The front page refreshes hourly,
+// feed.xml every six hours, and the other lists and feeds daily; an article
+// page renders on its first visit after its date. If its URL is opened early,
+// the not-found page is cached for at most an hour, and the first visit after
+// that still gets it while the page refreshes (lib/not-found-cap.ts). The
+// daily automated commits also redeploy every page.
 //
 // Template:
 // {
@@ -4841,7 +4846,7 @@ const sortByDateDesc = (a: Post, b: Post) => b.date.localeCompare(a.date);
 // Today's calendar date (YYYY-MM-DD) in the publication's local time zone
 // (America/Chicago). Used to schedule article publication by date so writers
 // can batch-write multiple pieces and drip-publish across the week without
-// rebuilding — pages revalidate every 10 minutes (see `revalidate` exports).
+// rebuilding (see the `revalidate` exports for each page's refresh window).
 export function todayLocalIso(): string {
   return new Intl.DateTimeFormat("en-CA", {
     timeZone: "America/Chicago",
@@ -4852,6 +4857,14 @@ export function todayLocalIso(): string {
 // Future-dated articles stay hidden from every public surface until then.
 function isPublished(p: Post): boolean {
   return p.date <= todayLocalIso();
+}
+
+// True when the slug belongs to an article that exists but is future-dated.
+// Article routes use it to cap how long their not-found render is cached (see
+// lib/not-found-cap.ts); an unknown slug returns false.
+export function isScheduledSlug(slug: string): boolean {
+  const post = POSTS.find((p) => p.slug === slug);
+  return post !== undefined && !isPublished(post);
 }
 
 // Morning Briefs are daily digests of other outlets' reporting. They stay on

@@ -18,7 +18,9 @@ import { site } from "@/lib/site";
 import { absoluteUrl } from "@/lib/markdown";
 import CategoryTag from "@/app/components/CategoryTag";
 
-export const revalidate = 600;
+// Refresh at most daily; deploys rebuild it sooner. Each refresh is a billed
+// cache write on Vercel.
+export const revalidate = 86400;
 
 const DEK =
   "Every development project, bond, rate case, and ballot question the Wire is tracking in metro Jackson, with the dates that will decide them. Read this to see what is coming before it is announced.";

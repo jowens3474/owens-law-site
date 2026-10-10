@@ -10,7 +10,9 @@ import { absoluteUrl } from "@/lib/markdown";
 import ArticleImage from "@/app/components/ArticleImage";
 import CategoryTag from "@/app/components/CategoryTag";
 
-export const revalidate = 600;
+// Refresh at most daily; deploys rebuild it sooner. Each refresh is a billed
+// cache write on Vercel.
+export const revalidate = 86400;
 
 const DEK =
   "Background, analysis, and reference pieces from The Jackson Wire. Start here if you're new to a story.";

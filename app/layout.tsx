@@ -128,6 +128,7 @@ const orgJsonLd = {
         addressCountry: "US",
       },
       correctionsPolicy: absoluteUrl("/corrections"),
+      missionCoveragePrioritiesPolicy: absoluteUrl("/about#mission"),
       ethicsPolicy: absoluteUrl("/methodology"),
       actionableFeedbackPolicy: absoluteUrl("/about"),
       founder: { "@id": absoluteUrl(`${site.editor.path}#person`) },

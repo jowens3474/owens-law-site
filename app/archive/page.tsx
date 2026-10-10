@@ -6,7 +6,9 @@ import { absoluteUrl } from "@/lib/markdown";
 import SearchForm from "@/app/components/SearchForm";
 import CategoryTag from "@/app/components/CategoryTag";
 
-export const revalidate = 600;
+// Refresh at most daily; deploys rebuild it sooner. Each refresh is a billed
+// cache write on Vercel.
+export const revalidate = 86400;
 
 const DEK =
   "Every article we've published, newest first. Search it, skim a section, or jump straight to a story.";

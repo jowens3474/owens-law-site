@@ -10,7 +10,9 @@ import { absoluteUrl } from "@/lib/markdown";
 import ArticleImage from "@/app/components/ArticleImage";
 import CategoryTag from "@/app/components/CategoryTag";
 
-export const revalidate = 600;
+// Refresh at most daily; deploys rebuild it sooner. Each refresh is a billed
+// cache write on Vercel.
+export const revalidate = 86400;
 
 const DEK =
   "Mississippi went from two announced data center projects to seven in a year. The Wire is tracking every one, every hearing, every regulatory filing.";

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { site } from "@/lib/site";
 import { absoluteUrl } from "@/lib/markdown";
 
-const description = `About ${site.name} — independent business, economics, and development reporting from Jackson, Mississippi. Beats, editorial standards, AI policy, corrections, and how to send a tip.`;
+const description = `About ${site.name}: independent business, economics, and development reporting from Jackson, Mississippi. Our mission, editorial standards, AI policy, corrections, and how to send a tip.`;
 
 export const metadata: Metadata = {
   title: "About",
@@ -37,6 +37,73 @@ export default function AboutPage() {
           {site.tagline}
         </p>
       </header>
+
+      <section
+        id="mission"
+        aria-labelledby="mission-heading"
+        className="mt-8 scroll-mt-20 border-l-4 border-crimson bg-paper px-5 py-6 sm:px-7"
+      >
+        <h2
+          id="mission-heading"
+          className="font-sans text-xs font-bold uppercase tracking-widest text-crimson"
+        >
+          Our mission
+        </h2>
+        <p className="mt-3 text-balance font-serif text-xl font-bold leading-snug text-ink sm:text-2xl">
+          {site.mission}
+        </p>
+        <ul className="mt-6 space-y-3 font-sans text-base leading-relaxed text-ink">
+          <li>
+            <strong>We follow the money.</strong> When public money is
+            involved, we report what it costs, who pays, and who benefits, or
+            say that the documents do not show it.
+          </li>
+          <li>
+            <strong>We explain the rules.</strong>{" "}
+            <Link
+              href="/laws"
+              className="font-bold text-crimson underline underline-offset-2 hover:text-crimson-bright"
+            >
+              What Passed
+            </Link>{" "}
+            explains the new Mississippi laws that matter most to Jackson in
+            plain words.
+          </li>
+          <li>
+            <strong>We tell you what is coming.</strong>{" "}
+            <Link
+              href="/pipeline"
+              className="font-bold text-crimson underline underline-offset-2 hover:text-crimson-bright"
+            >
+              The Pipeline
+            </Link>{" "}
+            tracks the development projects, bonds, rate cases, and ballot
+            questions we are following, with the dates that will decide them.
+          </li>
+          <li>
+            <strong>We open the record.</strong>{" "}
+            <Link
+              href="/meetings"
+              className="font-bold text-crimson underline underline-offset-2 hover:text-crimson-bright"
+            >
+              The Record
+            </Link>{" "}
+            makes what is said at the Jackson City Council meetings we have
+            transcribed searchable.
+          </li>
+          <li>
+            <strong>We fix mistakes in public.</strong> Corrections to our
+            articles are listed at{" "}
+            <Link
+              href="/corrections"
+              className="font-bold text-crimson underline underline-offset-2 hover:text-crimson-bright"
+            >
+              /corrections
+            </Link>
+            .
+          </li>
+        </ul>
+      </section>
 
       <div className="prose-article mt-8">
         <p>
