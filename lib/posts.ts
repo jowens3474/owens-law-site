@@ -68,6 +68,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-10-10",
+    title: "Morning Brief: Oct 10 · Jackson Sales Tax Diversions Beat Forecast as Ridgeland Surges",
+    dek: "Jackson's August sales tax diversion came in at $2.61 million, up 9.5% from a year earlier, the strongest monthly gain the capital has posted this fiscal year.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-10-10",
+    views: 0,
+    body: [
+      "Jackson sales tax diversions up 9.5 percent: The Department of Revenue's newest diversion report shows Jackson collected $2,612,443 in August, up 9.5% from $2,385,899 a year earlier, with fiscal-year-to-date receipts at $5,328,637, up 6.0%. The gain outpaces the metro's mixed picture: Ridgeland jumped 23.7% to $1,611,884 and Flowood rose 9.8%, while Pearl fell 8.6% to $1,166,022 and Canton slipped 2.1%. For a city running a $113 million general fund, the monthly diversion is the closest thing to a real-time read on consumer activity. The question worth watching is whether Jackson's August strength holds once the Mississippi State Fair's October receipts land.",
+      "Tourism tax goes to voters Nov. 3: Jackson voters will decide a Jackson Convention and Visitors Bureau tourism tax on the November 3 ballot, raising the restaurant and prepared food tax by 0.5% and the hotel, lodging, and vacation rental tax by 1%. Revenue would be dedicated solely to Visit Jackson for destination marketing, convention sales, and tourism promotion. The City Council already approved the referral. Absentee voting opened Sept. 21. The measure arrives as the capital leans on events like the State Fair, which runs through Oct. 18 and which Visit Jackson estimates could generate roughly $32 million in economic impact, to lift hotel and restaurant receipts.",
+      "Huntington puts $21.1 million into Jackson operations: The Mississippi Development Authority announced Oct. 7 that Huntington National Bank will invest more than $21.1 million to renovate its Jackson data and information processing operations. The project lands the same week Huntington disclosed a separate $40 million modernization of its Tupelo regional headquarters and operations center. For Jackson, the commitment is a rare capital infusion into back-office financial operations, the kind of facility that carries year-round payroll rather than construction jobs alone. MDA did not attach a job count to the Jackson figure in its announcement, a detail worth pressing the agency and the bank on as the work proceeds.",
+      "Homeward JXN names its first encampment: Jackson's rehousing initiative has identified the first homeless encampment it intends to close, Planning and Development Director Angela Brown said Friday, though she declined to name the location. Four residents there have agreed to be rehoused, and Brown said they should be in housing within two weeks, WLBT reported. The city approved an $80,000 contract with Clutch Consulting in July and brought on the Mississippi Housing Partnership in August; the partnership has since hired an encampment coordinator and a landlord liaison. Brown said the city will run about three pilot sites before going live with the full model. The open item: the landlord list is not yet secured.",
+      "Madison conference center, Ridgeland waste contract move: Two suburban money items are advancing. Madison County gave final approval in September to the Madison County Conference Center, a 50,000-square-foot facility paired with a privately financed 250-room Dolce by Wyndham hotel at Prado Vista, a project county leaders describe as two decades in the making. In Ridgeland, the city has opened a request for proposals for residential and light commercial solid waste hauling, with an optional pre-proposal meeting Oct. 20 and sealed proposals due by 10 a.m. Nov. 6. Ridgeland's RFP weights cost at 25% and spreads the rest across qualifications, operations, customer service, outreach, and implementation, a structure that leaves room to award on service quality rather than price alone.",
+    ],
+  },
+  {
     slug: "jackson-24-month-paving-rfqs-oct-27-deadline",
     title: "Jackson Just Put Three 24-Month Paving Contracts Out to Bid. All Close Oct. 27.",
     dek: "The city posted RFQs for asphalt milling, paving materials, and housing rehab on Oct. 8, the same week the council amended engineering contracts for a resurfacing program that began in 2023.",
