@@ -1,11 +1,12 @@
 name: Social
 
-# Posts today's freshly published articles to X (Twitter) and Bluesky.
-# Runs daily. Each platform is independently optional -- missing secrets
-# for one platform just skip it, they don't block the other.
-# Requires BLUESKY_HANDLE, BLUESKY_APP_PASSWORD, X_API_KEY, X_API_SECRET,
-# X_ACCESS_TOKEN, X_ACCESS_SECRET in repo Settings → Secrets and
-# variables → Actions. See docs/SOCIAL-SETUP.md.
+# Posts today's freshly published articles to X (Twitter), Bluesky, and the
+# Wire's Facebook Page. Runs daily. Each platform is independently optional --
+# missing secrets for one platform just skip it, they don't block the others.
+# Uses BLUESKY_HANDLE, BLUESKY_APP_PASSWORD, X_API_KEY, X_API_SECRET,
+# X_ACCESS_TOKEN, X_ACCESS_SECRET, FACEBOOK_PAGE_ID, and FACEBOOK_PAGE_TOKEN
+# from repo Settings → Secrets and variables → Actions. See
+# docs/SOCIAL-SETUP.md.
 
 on:
   # Fires as soon as an article lands on main. The posted-state commit
@@ -52,15 +53,18 @@ jobs:
           X_API_SECRET: ${{ secrets.X_API_SECRET }}
           X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
           X_ACCESS_SECRET: ${{ secrets.X_ACCESS_SECRET }}
+          FACEBOOK_PAGE_ID: ${{ secrets.FACEBOOK_PAGE_ID }}
+          FACEBOOK_PAGE_TOKEN: ${{ secrets.FACEBOOK_PAGE_TOKEN }}
         run: |
-          bsky=false; x=false
+          bsky=false; x=false; fb=false
           [ -n "$BLUESKY_HANDLE" ] && [ -n "$BLUESKY_APP_PASSWORD" ] && bsky=true
           [ -n "$X_API_KEY" ] && [ -n "$X_API_SECRET" ] && [ -n "$X_ACCESS_TOKEN" ] && [ -n "$X_ACCESS_SECRET" ] && x=true
-          if [ "$bsky" = true ] || [ "$x" = true ]; then
+          [ -n "$FACEBOOK_PAGE_ID" ] && [ -n "$FACEBOOK_PAGE_TOKEN" ] && fb=true
+          if [ "$bsky" = true ] || [ "$x" = true ] || [ "$fb" = true ]; then
             echo "configured=true" >> "$GITHUB_OUTPUT"
           else
             echo "configured=false" >> "$GITHUB_OUTPUT"
-            echo "::notice::Social posting is not configured (no Bluesky or X secrets). Skipping. See docs/SOCIAL-SETUP.md."
+            echo "::notice::Social posting is not configured (no Bluesky, X, or Facebook secrets). Skipping. See docs/SOCIAL-SETUP.md."
           fi
 
       - name: Setup Node
@@ -81,7 +85,7 @@ jobs:
         if: ${{ github.event_name == 'push' && steps.config.outputs.configured == 'true' }}
         run: sleep 360
 
-      - name: Post to X and Bluesky
+      - name: Post to X, Bluesky, and Facebook
         if: ${{ steps.config.outputs.configured == 'true' }}
         env:
           BLUESKY_HANDLE: ${{ secrets.BLUESKY_HANDLE }}
@@ -90,6 +94,8 @@ jobs:
           X_API_SECRET: ${{ secrets.X_API_SECRET }}
           X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
           X_ACCESS_SECRET: ${{ secrets.X_ACCESS_SECRET }}
+          FACEBOOK_PAGE_ID: ${{ secrets.FACEBOOK_PAGE_ID }}
+          FACEBOOK_PAGE_TOKEN: ${{ secrets.FACEBOOK_PAGE_TOKEN }}
         run: node scripts/post-social.mjs
 
       # Runs even when the posting step fails partway: each successful publish

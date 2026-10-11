@@ -99,6 +99,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.5,
     },
+    {
+      url: absoluteUrl("/privacy"),
+      lastModified: latest,
+      changeFrequency: "yearly",
+      priority: 0.2,
+    },
   ];
 
   const categoryPages: MetadataRoute.Sitemap = categories.map((c) => ({

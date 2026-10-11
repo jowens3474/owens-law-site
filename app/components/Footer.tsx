@@ -146,7 +146,10 @@ export default function Footer() {
           <p className="mt-2">
             This site uses cookies and Google Analytics to measure traffic and
             understand how readers use {site.name}. We don&apos;t sell your
-            data.
+            data.{" "}
+            <Link href="/privacy" className="underline hover:text-crimson">
+              Privacy
+            </Link>
           </p>
         </div>
       </div>
