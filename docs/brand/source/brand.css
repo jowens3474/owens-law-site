@@ -1,0 +1,23 @@
+/* Shared styles for the brand images. The fonts are the site's own: Bodoni
+   Moda Black at the 11pt optical size the site serves, and Libre Franklin.
+   The .dollar-s rules are copied from app/globals.css; keep them in step. */
+@import url("https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@11,900&family=Libre+Franklin:wght@600;700&display=block");
+
+html, body { margin: 0; padding: 0; }
+
+.dollar-s {
+  --dollar-ascent: 1.125em;
+  --dollar-x-height: 0.46em;
+  --dollar-reach: 0.08em;
+  --dollar-center: 0.235em;
+  --dollar-stroke: max(1px, 0.04em);
+  position: relative;
+}
+.dollar-s::after {
+  content: "";
+  position: absolute;
+  top: calc(var(--dollar-ascent) - var(--dollar-x-height) - var(--dollar-reach));
+  left: calc(var(--dollar-center) - var(--dollar-stroke) / 2);
+  height: calc(var(--dollar-x-height) + 2 * var(--dollar-reach));
+  border-left: var(--dollar-stroke) solid;
+}
