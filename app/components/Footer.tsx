@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { categories, site } from "@/lib/site";
+import Wordmark from "./Wordmark";
 
 export default function Footer() {
   return (
@@ -7,7 +8,9 @@ export default function Footer() {
       <div className="mx-auto max-w-6xl px-4 py-10">
         <div className="flex flex-col gap-8 md:flex-row md:justify-between">
           <div className="max-w-sm">
-            <p className="font-serif text-2xl font-bold">{site.name}</p>
+            <p className="font-serif text-2xl font-bold">
+              <Wordmark />
+            </p>
             <p className="mt-2 font-sans text-sm text-muted">
               {site.description}
             </p>

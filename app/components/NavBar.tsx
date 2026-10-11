@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { categories, site } from "@/lib/site";
 import SearchForm from "./SearchForm";
+import Wordmark from "./Wordmark";
 
 // Once the page has scrolled past roughly the masthead, the bar shows a small
 // wordmark so readers always know where they are and have a way home.
@@ -75,7 +76,7 @@ export default function NavBar() {
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
-  const wordmark =
+  const wordmarkClasses =
     "whitespace-nowrap font-serif font-black leading-none tracking-tight text-ink";
 
   return (
@@ -93,11 +94,12 @@ export default function NavBar() {
           <div className="w-10 shrink-0 xl:w-36">
             <Link
               href="/"
-              className={`hidden text-base transition-[opacity,visibility] xl:inline-block ${wordmark} ${
+              aria-label={site.name}
+              className={`hidden text-base transition-[opacity,visibility] xl:inline-block ${wordmarkClasses} ${
                 scrolled ? "visible opacity-100" : "invisible opacity-0"
               }`}
             >
-              {site.name}
+              <Wordmark />
             </Link>
           </div>
           <ul className="flex min-w-0 flex-1 items-center justify-center">
@@ -135,8 +137,12 @@ export default function NavBar() {
         {/* Phones and tablets */}
         <div className="flex items-center justify-between py-1 lg:hidden">
           {scrolled ? (
-            <Link href="/" className={`inline-block py-2 text-lg ${wordmark}`}>
-              {site.name}
+            <Link
+              href="/"
+              aria-label={site.name}
+              className={`inline-block py-2 text-lg ${wordmarkClasses}`}
+            >
+              <Wordmark />
             </Link>
           ) : (
             <span className="font-sans text-sm font-semibold uppercase tracking-wide">

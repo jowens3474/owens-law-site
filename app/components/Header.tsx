@@ -2,6 +2,7 @@ import Link from "next/link";
 import { site } from "@/lib/site";
 import { editionDate } from "@/lib/edition";
 import EditionDate from "./EditionDate";
+import Wordmark from "./Wordmark";
 
 export default function Header() {
   return (
@@ -22,7 +23,7 @@ export default function Header() {
       <div className="mx-auto max-w-6xl px-4 py-6 text-center sm:py-10">
         <Link href="/" className="inline-block" aria-label={`${site.name} home`}>
           <span className="block font-serif text-5xl font-black leading-none tracking-tight text-ink sm:text-6xl md:text-7xl">
-            {site.name}
+            <Wordmark />
           </span>
         </Link>
         <p className="mt-3 font-sans text-xs font-semibold tracking-[0.2em] text-muted uppercase">
