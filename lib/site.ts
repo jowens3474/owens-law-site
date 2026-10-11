@@ -8,8 +8,8 @@ if (typeof missionData.statement !== "string" || !missionData.statement.trim()) 
 export const site = {
   // The name and tagline are also baked into app/opengraph-image.png, its
   // alt text (app/opengraph-image.alt.txt: one line, no trailing newline),
-  // and the Facebook images in docs/brand/. Remake them from
-  // docs/brand/source/ whenever either changes.
+  // and the Facebook images in docs/brand/. Remake those whenever either
+  // changes.
   name: "The Jackson Wire",
   shortName: "Jackson Wire",
   url: "https://www.thejacksonwire.com",
