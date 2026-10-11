@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 // Social poster — reads today's freshly published articles from feed.xml
-// and posts them to X (Twitter) and Bluesky. Plain Node, fetch only, no
-// new deps (X's OAuth 1.0a signing is done with node:crypto). Each
-// platform is independently optional: missing credentials for one
-// platform just skip that platform, they don't block the other.
+// and posts them to X (Twitter), Bluesky, and the Wire's Facebook Page.
+// Plain Node, fetch only, no new deps (X's OAuth 1.0a signing is done with
+// node:crypto). Each platform is independently optional: missing
+// credentials for one platform just skip that platform, they don't block
+// the others.
 // Triggered by .github/workflows/social.yml on a cron schedule.
 
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
@@ -16,6 +17,10 @@ const POSTED_FILE = "data/social-posted.json";
 
 const BSKY_BASE = "https://bsky.social";
 const X_TWEETS_URL = "https://api.x.com/2/tweets";
+// Graph API version for Facebook Page posts. v26.0 shipped July 29, 2026.
+// Meta retires each version about two years after the next one ships, so
+// move this forward before then (developers.facebook.com/docs/graph-api/changelog).
+const FB_GRAPH_BASE = "https://graph.facebook.com/v26.0";
 
 const MAX_POSTS_PER_RUN = 3;
 const X_MAX_CHARS = 270;
@@ -96,15 +101,16 @@ function slugFromLink(link) {
 // --- posted-state file --------------------------------------------------------
 
 function loadPosted() {
-  if (!existsSync(POSTED_FILE)) return { x: [], bluesky: [] };
+  if (!existsSync(POSTED_FILE)) return { x: [], bluesky: [], facebook: [] };
   try {
     const parsed = JSON.parse(readFileSync(POSTED_FILE, "utf8"));
     return {
       x: Array.isArray(parsed?.x) ? parsed.x : [],
       bluesky: Array.isArray(parsed?.bluesky) ? parsed.bluesky : [],
+      facebook: Array.isArray(parsed?.facebook) ? parsed.facebook : [],
     };
   } catch {
-    return { x: [], bluesky: [] };
+    return { x: [], bluesky: [], facebook: [] };
   }
 }
 
@@ -112,6 +118,7 @@ function savePosted(posted) {
   const out = {
     x: Array.from(new Set(posted.x)).sort(),
     bluesky: Array.from(new Set(posted.bluesky)).sort(),
+    facebook: Array.from(new Set(posted.facebook)).sort(),
   };
   writeFileSync(POSTED_FILE, JSON.stringify(out, null, 2) + "\n");
 }
@@ -175,6 +182,16 @@ function buildXText(item) {
   return `${title}\n\n${dek}\n${url}`;
 }
 
+// Facebook draws the link preview (headline, image, description) from the
+// article's own tags, so the post's own text is the dek alone. Built once
+// per article so a dry run shows exactly what a live run sends.
+function buildFacebookPost(item) {
+  return {
+    message: stripDashes(item.dek || item.title),
+    link: tagUrl(item.link, utm("facebook")),
+  };
+}
+
 function buildBlueskyText(item) {
   const title = stripDashes(item.title);
   const overhead = graphemeLength(title) + 2; // "\n\n"
@@ -199,6 +216,13 @@ function getBlueskyCredentials() {
   const appPassword = process.env.BLUESKY_APP_PASSWORD;
   if (!handle || !appPassword) return null;
   return { handle, appPassword };
+}
+
+function getFacebookCredentials() {
+  const pageId = process.env.FACEBOOK_PAGE_ID;
+  const pageToken = process.env.FACEBOOK_PAGE_TOKEN;
+  if (!pageId || !pageToken) return null;
+  return { pageId, pageToken };
 }
 
 // --- X (Twitter) OAuth 1.0a + API v2 ---------------------------------------------
@@ -376,6 +400,58 @@ async function createBlueskyPost(session, item) {
   return data;
 }
 
+// --- Facebook Page (Graph API) ---------------------------------------------------
+
+// Graph API errors that mean the secrets are wrong rather than the request
+// (developers.facebook.com/docs/graph-api/guides/error-handling): 190 an
+// invalid or expired token, 102 a session problem, and 3, 10 or 200-299 a
+// missing permission. Code 100 with subcode 33 is Graph's answer for a Page
+// ID that does not exist or that the token cannot reach, the likeliest
+// setup mistake.
+function isFacebookAuthError(code, subcode) {
+  return (
+    code === 190 ||
+    code === 102 ||
+    code === 3 ||
+    code === 10 ||
+    (code >= 200 && code <= 299) ||
+    (code === 100 && subcode === 33)
+  );
+}
+
+async function postToFacebook(post, creds) {
+  // A form body keeps the Page token out of the request URL.
+  const body = new URLSearchParams({
+    message: post.message,
+    link: post.link,
+    access_token: creds.pageToken,
+  });
+  const res = await fetch(`${FB_GRAPH_BASE}/${encodeURIComponent(creds.pageId)}/feed`, {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body,
+  });
+  let data = null;
+  try {
+    data = await res.json();
+  } catch {
+    // non-JSON response; fall through to generic error below
+  }
+  if (!res.ok || !data?.id) {
+    const code = Number(data?.error?.code);
+    const subcode = Number(data?.error?.error_subcode);
+    const message =
+      data?.error?.message || (res.ok ? "no post id in the response" : `HTTP ${res.status}`);
+    if (res.status === 401 || isFacebookAuthError(code, subcode)) {
+      throw new CredentialsError(
+        `Facebook post rejected (code ${code || "none"}): ${message.replace(/\.$/, "")}. Check FACEBOOK_PAGE_ID and FACEBOOK_PAGE_TOKEN.`,
+      );
+    }
+    throw new Error(`Facebook post failed (HTTP ${res.status}, code ${code || "none"}): ${message}`);
+  }
+  return data;
+}
+
 // --- main ----------------------------------------------------------------------
 
 async function main() {
@@ -386,12 +462,14 @@ async function main() {
 
   const xCreds = getXCredentials();
   const blueskyCreds = getBlueskyCredentials();
+  const facebookCreds = getFacebookCredentials();
 
   if (!xCreds) console.log("[social] skipping x (no credentials)");
   if (!blueskyCreds) console.log("[social] skipping bluesky (no credentials)");
-  if (!xCreds && !blueskyCreds) {
+  if (!facebookCreds) console.log("[social] skipping facebook (no credentials)");
+  if (!xCreds && !blueskyCreds && !facebookCreds) {
     console.log(
-      "[social] Not configured (no X or Bluesky secrets). Nothing posted. See docs/SOCIAL-SETUP.md.",
+      "[social] Not configured (no X, Bluesky, or Facebook secrets). Nothing posted. See docs/SOCIAL-SETUP.md.",
     );
     process.exit(0);
   }
@@ -428,6 +506,7 @@ async function main() {
   const posted = loadPosted();
   const postedX = new Set(posted.x);
   const postedBluesky = new Set(posted.bluesky);
+  const postedFacebook = new Set(posted.facebook);
 
   let attempted = 0;
   let credentialFailures = 0;
@@ -497,6 +576,38 @@ async function main() {
           if (e instanceof CredentialsError) credentialFailures++;
           console.error(`[social] x: failed to post "${item.slug}": ${e.message}`);
           console.error("[social] x: continuing to next article.");
+        }
+      }
+    }
+  }
+
+  // --- Facebook Page ---
+  if (facebookCreds) {
+    const facebookItems = todaysItems
+      .filter((item) => !postedFacebook.has(item.slug))
+      .slice(0, MAX_POSTS_PER_RUN);
+    if (facebookItems.length === 0) {
+      console.log("[social] facebook: nothing new to post.");
+    } else if (dryRun) {
+      for (const item of facebookItems) {
+        const post = buildFacebookPost(item);
+        console.log(
+          `[social] facebook DRY_RUN: would post "${item.slug}":\n${post.message}\n${post.link}`,
+        );
+      }
+    } else {
+      for (const item of facebookItems) {
+        attempted++;
+        console.log(`[social] facebook: --- ${item.slug} ---`);
+        try {
+          await postToFacebook(buildFacebookPost(item), facebookCreds);
+          posted.facebook.push(item.slug);
+          savePosted(posted);
+          console.log(`[social] facebook: posted "${item.slug}" and recorded it.`);
+        } catch (e) {
+          if (e instanceof CredentialsError) credentialFailures++;
+          console.error(`[social] facebook: failed to post "${item.slug}": ${e.message}`);
+          console.error("[social] facebook: continuing to next article.");
         }
       }
     }
