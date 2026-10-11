@@ -70,39 +70,51 @@ export default function PrivacyPage() {
         <p>
           If you sign up, we keep your email address with Resend, the service
           that sends our newsletter, and use it only to send you the
-          Wire&apos;s emails. Every email has an unsubscribe link.
+          Wire&apos;s emails. Every newsletter and briefing has an
+          unsubscribe link.
         </p>
       </Section>
 
       <Section title="Pipeline Pro">
         <p>
           If you ask about or join Pipeline Pro, we keep the name, email,
-          company, and role you give us with Resend. When Pro is paid by card,
-          Stripe handles the payment, and we never see your card number.
-          Signing in to the Pro desk sets a cookie that keeps you signed in.
+          company, and role you give us, in Resend and in the Wire&apos;s
+          email inbox. When Pro is paid by card, Stripe handles the payment,
+          and we never see your card number. Signing in to the Pro desk sets a
+          cookie that keeps you signed in.
         </p>
       </Section>
 
-      <Section title="Tips and email to the Wire">
+      <Section title="Tips and sources">
         <p>
-          If you send a tip or a document, your identity stays with the Wire.
-          Our <Link href="/about" className="text-crimson underline hover:text-crimson-bright">About page</Link>{" "}
-          explains how we protect sources.
+          What happens to tips and documents you send is on our{" "}
+          <Link
+            href="/about"
+            className="text-crimson underline hover:text-crimson-bright"
+          >
+            About page
+          </Link>
+          .
         </p>
       </Section>
 
       <Section title="Your choices">
         <p>
-          We don&apos;t sell your data. To come off our email lists, use the
-          unsubscribe link in any email, or write to{" "}
+          We don&apos;t sell your data. You can block or delete cookies in your
+          browser settings. Pro sign-in needs its cookie to work.
+        </p>
+        <p>
+          To come off our email lists, use the unsubscribe link in any
+          newsletter or briefing, or write to{" "}
           <a
             href={`mailto:${site.email}`}
             className="text-crimson underline hover:text-crimson-bright"
           >
             {site.email}
           </a>{" "}
-          and we will remove your address. Questions about this page go to the
-          same address.
+          and we will remove your address. Unsubscribing does not cancel a paid
+          Pipeline Pro plan; use Manage billing on the Pro desk, or write to us.
+          Questions about this page go to the same address.
         </p>
       </Section>
 

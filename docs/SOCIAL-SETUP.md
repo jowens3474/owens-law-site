@@ -60,12 +60,14 @@ a tagged link. Facebook builds the preview card (headline, image,
 description) from the article's own tags. Facebook groups cannot be posted
 to automatically; share to groups by hand.
 
-1. **Create a Meta app.** At [developers.facebook.com](https://developers.facebook.com),
-   go to **My Apps → Create App**, name it something like "Jackson Wire
-   Poster", and pick the use case for managing a Page (in older flows,
-   choose **Business** as the app type). You do not need App Review: Meta
-   gives every new app Standard Access, which works for people with a role
-   on the app, and you are its admin.
+1. **Create a Meta app.** Log in to
+   [developers.facebook.com](https://developers.facebook.com) as the person
+   who runs the Wire's Page (Meta may first ask you to register as a
+   developer). Choose **My Apps → Create App** and name it something like
+   "Jackson Wire Poster". If Meta asks what the app is for, pick the option
+   for managing a Page, or the **Business** type if it asks for a type. A
+   Business app gets Standard Access automatically, which covers people with
+   a role on the app (you are its admin), so you do not need App Review.
 2. **Get a Page token.** Open the **Graph API Explorer**
    (developers.facebook.com/tools/explorer), select the new app, and add
    the permissions `pages_show_list`, `pages_read_engagement`, and
@@ -90,7 +92,9 @@ to automatically; share to groups by hand.
 
 The Page token stops working if you change your Facebook password, remove
 the app, or lose admin on the Page. The run then logs "Facebook post
-rejected"; repeat steps 2, 3 and 5. The Graph API version is set in
+rejected"; repeat steps 2, 3 and 5. A run turns red only if every post it
+tried failed this way, so if the Page stops getting posts, open the latest
+Social run and search its log for "Facebook post rejected". The Graph API version is set in
 `scripts/post-social.mjs` (`FB_GRAPH_BASE`); move it forward before Meta
 retires it (see the Graph API changelog).
 
@@ -108,7 +112,9 @@ DRY_RUN=1 \
 ```
 
 `DRY_RUN=1` logs what would be posted to each platform without calling
-any API or writing `data/social-posted.json`. You can also omit one
+any API or writing `data/social-posted.json`. After the first real
+Facebook post, open the Page in a private browser window to confirm
+readers can see it. You can also omit one
 platform's variables entirely (even under `DRY_RUN`) to confirm the
 "skipping" log line for that platform.
 

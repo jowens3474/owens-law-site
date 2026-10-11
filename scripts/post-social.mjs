@@ -183,9 +183,13 @@ function buildXText(item) {
 }
 
 // Facebook draws the link preview (headline, image, description) from the
-// article's own tags, so the post's own text is the dek alone.
-function buildFacebookText(item) {
-  return stripDashes(item.dek || item.title);
+// article's own tags, so the post's own text is the dek alone. Built once
+// per article so a dry run shows exactly what a live run sends.
+function buildFacebookPost(item) {
+  return {
+    message: stripDashes(item.dek || item.title),
+    link: tagUrl(item.link, utm("facebook")),
+  };
 }
 
 function buildBlueskyText(item) {
@@ -398,18 +402,28 @@ async function createBlueskyPost(session, item) {
 
 // --- Facebook Page (Graph API) ---------------------------------------------------
 
-// Graph API error codes that mean the Page token or its permissions are at
-// fault rather than the request: 190 invalid or expired token, 102 session,
-// and 10 or 200-299 a missing permission.
-function isFacebookAuthError(code) {
-  return code === 190 || code === 102 || code === 10 || (code >= 200 && code <= 299);
+// Graph API errors that mean the secrets are wrong rather than the request
+// (developers.facebook.com/docs/graph-api/guides/error-handling): 190 an
+// invalid or expired token, 102 a session problem, and 3, 10 or 200-299 a
+// missing permission. Code 100 with subcode 33 is Graph's answer for a Page
+// ID that does not exist or that the token cannot reach, the likeliest
+// setup mistake.
+function isFacebookAuthError(code, subcode) {
+  return (
+    code === 190 ||
+    code === 102 ||
+    code === 3 ||
+    code === 10 ||
+    (code >= 200 && code <= 299) ||
+    (code === 100 && subcode === 33)
+  );
 }
 
-async function postToFacebook(item, creds) {
+async function postToFacebook(post, creds) {
   // A form body keeps the Page token out of the request URL.
   const body = new URLSearchParams({
-    message: buildFacebookText(item),
-    link: tagUrl(item.link, utm("facebook")),
+    message: post.message,
+    link: post.link,
     access_token: creds.pageToken,
   });
   const res = await fetch(`${FB_GRAPH_BASE}/${encodeURIComponent(creds.pageId)}/feed`, {
@@ -425,10 +439,13 @@ async function postToFacebook(item, creds) {
   }
   if (!res.ok || !data?.id) {
     const code = Number(data?.error?.code);
+    const subcode = Number(data?.error?.error_subcode);
     const message =
       data?.error?.message || (res.ok ? "no post id in the response" : `HTTP ${res.status}`);
-    if (res.status === 401 || isFacebookAuthError(code)) {
-      throw new CredentialsError(`Facebook post rejected (code ${code || "none"}): ${message}`);
+    if (res.status === 401 || isFacebookAuthError(code, subcode)) {
+      throw new CredentialsError(
+        `Facebook post rejected (code ${code || "none"}): ${message.replace(/\.$/, "")}. Check FACEBOOK_PAGE_ID and FACEBOOK_PAGE_TOKEN.`,
+      );
     }
     throw new Error(`Facebook post failed (HTTP ${res.status}, code ${code || "none"}): ${message}`);
   }
@@ -573,8 +590,9 @@ async function main() {
       console.log("[social] facebook: nothing new to post.");
     } else if (dryRun) {
       for (const item of facebookItems) {
+        const post = buildFacebookPost(item);
         console.log(
-          `[social] facebook DRY_RUN: would post "${item.slug}":\n${buildFacebookText(item)}\n${tagUrl(item.link, utm("facebook"))}`,
+          `[social] facebook DRY_RUN: would post "${item.slug}":\n${post.message}\n${post.link}`,
         );
       }
     } else {
@@ -582,7 +600,7 @@ async function main() {
         attempted++;
         console.log(`[social] facebook: --- ${item.slug} ---`);
         try {
-          await postToFacebook(item, facebookCreds);
+          await postToFacebook(buildFacebookPost(item), facebookCreds);
           posted.facebook.push(item.slug);
           savePosted(posted);
           console.log(`[social] facebook: posted "${item.slug}" and recorded it.`);
