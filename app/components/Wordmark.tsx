@@ -5,14 +5,14 @@ import { site } from "@/lib/site";
 // text, so screen readers, search engines and copy and paste still get
 // "The Jackson Wire".
 export default function Wordmark() {
-  const at = site.name.indexOf("Jackson");
-  if (at === -1) return <>{site.name}</>;
-  const s = at + "Jack".length;
+  const jacksonAt = site.name.indexOf("Jackson");
+  if (jacksonAt === -1) return <>{site.name}</>;
+  const sAt = jacksonAt + "Jack".length;
   return (
     <>
-      {site.name.slice(0, s)}
+      {site.name.slice(0, sAt)}
       <span className="dollar-s">s</span>
-      {site.name.slice(s + 1)}
+      {site.name.slice(sAt + 1)}
     </>
   );
 }

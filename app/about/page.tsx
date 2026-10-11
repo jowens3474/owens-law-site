@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { site } from "@/lib/site";
 import { absoluteUrl } from "@/lib/markdown";
+import Wordmark from "@/app/components/Wordmark";
 
 const description = `About ${site.name}: independent business, economics, and development reporting from Jackson, Mississippi. Our mission, editorial standards, AI policy, corrections, and how to send a tip.`;
 
@@ -31,7 +32,7 @@ export default function AboutPage() {
           About
         </p>
         <h1 className="mt-2 font-serif text-4xl font-black sm:text-5xl">
-          {site.name}
+          <Wordmark />
         </h1>
         <p className="mt-3 font-sans text-xl text-muted">
           {site.tagline}

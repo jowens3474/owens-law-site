@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { categories } from "@/lib/site";
+import { categories, site } from "@/lib/site";
 import SearchForm from "./SearchForm";
 import Wordmark from "./Wordmark";
 
@@ -76,7 +76,7 @@ export default function NavBar() {
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
-  const wordmark =
+  const wordmarkClasses =
     "whitespace-nowrap font-serif font-black leading-none tracking-tight text-ink";
 
   return (
@@ -94,7 +94,8 @@ export default function NavBar() {
           <div className="w-10 shrink-0 xl:w-36">
             <Link
               href="/"
-              className={`hidden text-base transition-[opacity,visibility] xl:inline-block ${wordmark} ${
+              aria-label={site.name}
+              className={`hidden text-base transition-[opacity,visibility] xl:inline-block ${wordmarkClasses} ${
                 scrolled ? "visible opacity-100" : "invisible opacity-0"
               }`}
             >
@@ -136,7 +137,11 @@ export default function NavBar() {
         {/* Phones and tablets */}
         <div className="flex items-center justify-between py-1 lg:hidden">
           {scrolled ? (
-            <Link href="/" className={`inline-block py-2 text-lg ${wordmark}`}>
+            <Link
+              href="/"
+              aria-label={site.name}
+              className={`inline-block py-2 text-lg ${wordmarkClasses}`}
+            >
               <Wordmark />
             </Link>
           ) : (
