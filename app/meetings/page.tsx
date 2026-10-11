@@ -20,12 +20,12 @@ export const metadata: Metadata = {
   alternates: { canonical: "/meetings" },
   openGraph: {
     type: "website",
-    title: `The Record — ${site.name}`,
+    title: `The Record | ${site.name}`,
     description: DEK,
     url: absoluteUrl("/meetings"),
     siteName: site.name,
   },
-  twitter: { card: "summary_large_image", title: `The Record — ${site.name}`, description: DEK },
+  twitter: { card: "summary_large_image", title: `The Record | ${site.name}`, description: DEK },
 };
 
 function monthLabel(ym: string): string {
@@ -50,7 +50,7 @@ export default async function MeetingsPage({ searchParams }: PageProps<"/meeting
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: `The Record — ${site.name}`,
+    name: `The Record | ${site.name}`,
     description: DEK,
     url: absoluteUrl("/meetings"),
     isPartOf: { "@id": absoluteUrl("/#org") },

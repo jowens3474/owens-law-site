@@ -90,14 +90,14 @@ export const metadata: Metadata = {
   alternates: { canonical: "/data-centers" },
   openGraph: {
     type: "website",
-    title: `Data Centers — ${site.name}`,
+    title: `Data Centers | ${site.name}`,
     description: DEK,
     url: absoluteUrl("/data-centers"),
     siteName: site.name,
   },
   twitter: {
     card: "summary_large_image",
-    title: `Data Centers — ${site.name}`,
+    title: `Data Centers | ${site.name}`,
     description: DEK,
   },
 };

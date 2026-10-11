@@ -31,14 +31,14 @@ export const metadata: Metadata = {
   alternates: { canonical: "/pipeline" },
   openGraph: {
     type: "website",
-    title: `The Pipeline — ${site.name}`,
+    title: `The Pipeline | ${site.name}`,
     description: DEK,
     url: absoluteUrl("/pipeline"),
     siteName: site.name,
   },
   twitter: {
     card: "summary_large_image",
-    title: `The Pipeline — ${site.name}`,
+    title: `The Pipeline | ${site.name}`,
     description: DEK,
   },
 };
@@ -72,7 +72,7 @@ export default function PipelinePage() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: `The Pipeline — ${site.name}`,
+    name: `The Pipeline | ${site.name}`,
     description: DEK,
     url: absoluteUrl("/pipeline"),
     isPartOf: { "@id": absoluteUrl("/#org") },

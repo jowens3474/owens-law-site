@@ -12,14 +12,14 @@ export const metadata: Metadata = {
   alternates: { canonical: "/methodology" },
   openGraph: {
     type: "website",
-    title: `Methodology — ${site.name}`,
+    title: `Methodology | ${site.name}`,
     description: DEK,
     url: absoluteUrl("/methodology"),
     siteName: site.name,
   },
   twitter: {
     card: "summary_large_image",
-    title: `Methodology — ${site.name}`,
+    title: `Methodology | ${site.name}`,
     description: DEK,
   },
 };

@@ -35,8 +35,8 @@ export async function generateMetadata({ params }: PageProps<"/meetings/[id]">):
     title,
     description,
     alternates: { canonical: `/meetings/${m.id}` },
-    openGraph: { type: "article", title: `${title} — ${site.name}`, description, url: absoluteUrl(`/meetings/${m.id}`), siteName: site.name },
-    twitter: { card: "summary", title: `${title} — ${site.name}`, description },
+    openGraph: { type: "article", title: `${title} | ${site.name}`, description, url: absoluteUrl(`/meetings/${m.id}`), siteName: site.name },
+    twitter: { card: "summary", title: `${title} | ${site.name}`, description },
   };
 }
 

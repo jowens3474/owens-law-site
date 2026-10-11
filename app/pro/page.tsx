@@ -18,12 +18,12 @@ export const metadata: Metadata = {
   alternates: { canonical: pro.path },
   openGraph: {
     type: "website",
-    title: `${pro.name} — ${site.name}`,
+    title: `${pro.name} | ${site.name}`,
     description: DEK,
     url: absoluteUrl(pro.path),
     siteName: site.name,
   },
-  twitter: { card: "summary_large_image", title: `${pro.name} — ${site.name}`, description: DEK },
+  twitter: { card: "summary_large_image", title: `${pro.name} | ${site.name}`, description: DEK },
 };
 
 const FAQ: { q: string; a: string }[] = [
