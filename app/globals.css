@@ -98,6 +98,26 @@ body {
 .glow-card:hover {
 }
 
+/* The wordmark's dollar sign (app/components/Wordmark.tsx): the font's own
+   lowercase s with a vertical stroke through it, so the sign is exactly the
+   size of the letters beside it. The numbers are Bodoni Moda's. The inline
+   box starts at the font's ascent, 1.125em above the baseline. The s is
+   0.46em tall and centered 0.235em from its left edge. Like the font's own $,
+   the stroke runs 0.08em past the letter at each end. A border rather than a
+   background, so the stroke prints and survives forced-colors mode. */
+.dollar-s {
+  position: relative;
+}
+.dollar-s::after {
+  content: "";
+  position: absolute;
+  top: calc(1.125em - 0.46em - 0.08em);
+  left: 0.235em;
+  height: calc(0.46em + 0.16em);
+  border-left: max(1px, 0.04em) solid;
+  transform: translateX(-50%);
+}
+
 /* Thin rule for use above/below sections. */
 .hairline {
   border-top: 1px solid var(--color-rule);

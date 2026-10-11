@@ -3,8 +3,9 @@
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { categories, site } from "@/lib/site";
+import { categories } from "@/lib/site";
 import SearchForm from "./SearchForm";
+import Wordmark from "./Wordmark";
 
 // Once the page has scrolled past roughly the masthead, the bar shows a small
 // wordmark so readers always know where they are and have a way home.
@@ -97,7 +98,7 @@ export default function NavBar() {
                 scrolled ? "visible opacity-100" : "invisible opacity-0"
               }`}
             >
-              {site.name}
+              <Wordmark />
             </Link>
           </div>
           <ul className="flex min-w-0 flex-1 items-center justify-center">
@@ -136,7 +137,7 @@ export default function NavBar() {
         <div className="flex items-center justify-between py-1 lg:hidden">
           {scrolled ? (
             <Link href="/" className={`inline-block py-2 text-lg ${wordmark}`}>
-              {site.name}
+              <Wordmark />
             </Link>
           ) : (
             <span className="font-sans text-sm font-semibold uppercase tracking-wide">
