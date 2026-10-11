@@ -149,14 +149,14 @@ export const metadata: Metadata = {
   alternates: { canonical: "/corruption-case" },
   openGraph: {
     type: "website",
-    title: `The Corruption Case — ${site.name}`,
+    title: `The Corruption Case | ${site.name}`,
     description: DEK,
     url: absoluteUrl("/corruption-case"),
     siteName: site.name,
   },
   twitter: {
     card: "summary_large_image",
-    title: `The Corruption Case — ${site.name}`,
+    title: `The Corruption Case | ${site.name}`,
     description: DEK,
   },
 };

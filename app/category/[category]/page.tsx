@@ -24,7 +24,7 @@ export async function generateMetadata({
   const cat = categoryBySlug(category);
   if (!cat) return {};
   const url = absoluteUrl(`/category/${cat.slug}`);
-  const title = `${cat.name} — ${site.name}`;
+  const title = `${cat.name} | ${site.name}`;
   return {
     title: cat.name,
     description: `${cat.name} — ${cat.blurb} ${site.name}.`,

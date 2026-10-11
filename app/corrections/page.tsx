@@ -17,14 +17,14 @@ export const metadata: Metadata = {
   alternates: { canonical: "/corrections" },
   openGraph: {
     type: "website",
-    title: `Corrections — ${site.name}`,
+    title: `Corrections | ${site.name}`,
     description: DEK,
     url: absoluteUrl("/corrections"),
     siteName: site.name,
   },
   twitter: {
     card: "summary_large_image",
-    title: `Corrections — ${site.name}`,
+    title: `Corrections | ${site.name}`,
     description: DEK,
   },
 };

@@ -8,8 +8,7 @@ becomes a press release, and tell readers what is coming and when.
 
 > Our mission is to increase transparency and educate the public, to help
 > people make better decisions and to prevent them from being taken advantage
-> of or kept in the dark. That should help improve people's lives and outcomes
-> and advance human and civil rights.
+> of or kept in the dark.
 
 The statement lives in `lib/mission.json`; the quote above is a copy, so
 change both together. The About page, the site footer, `llms.txt`,

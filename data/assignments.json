@@ -36,5 +36,57 @@
     "addedBy": "editor",
     "addedAt": "2026-10-10",
     "skips": 0
+  },
+  {
+    "id": "westland-plaza-after-the-sale",
+    "topic": "Westland Plaza after its $11.8 million sale: who bought it, which stores are open, and what is planned",
+    "angle": "Who bought what. Readers search for Westland Plaza by name. The Wire's Aug. 9 story, built on trade coverage, reported the $11.8 million sale of the 214,000-square-foot center at 2590 Robinson Road at 83 percent occupancy. Name the buyer from the recorded deed or the buyer's own announcement, then report what has changed since: stores that opened, closed, or signed leases, and any building permits, site plans, or renovation filings. Add only what is new and confirmed.",
+    "type": "sale",
+    "sources": [
+      "https://www.thejacksonwire.com/article/westland-plaza-sale-11-8-million-west-jackson"
+    ],
+    "addedBy": "editor",
+    "addedAt": "2026-10-11",
+    "skips": 0
+  },
+  {
+    "id": "prado-vista-whats-open",
+    "topic": "Gabriel Prado's projects, Prado Vista in Ridgeland and the Prado Conservatory in Jackson: what is open, what is being built, and when",
+    "angle": "What is being built. Readers search for Prado Vista, the Prado conservatory, and the Prado hotel's owner. The Wire has reported that Prado Vista is a 77-acre development off I-55 at Colony Park Boulevard in Ridgeland with a county-owned conference center and a 250-room hotel with four restaurants (July 28), and that the hotel was announced as a Dolce by Wyndham at a reported $67 million, to be privately developed and financed by Gabriel Prado's PraCon Global Investment Group (Sept. 9). The conference center's public financing has had its own coverage, so stay on the private projects and report only what is not yet reported: the owner of record of the hotel parcel, the company that will operate the hotel, hotel building permits, and any opening date on the record, from Ridgeland and Madison County permit and planning records and the developer's own announcements. For the conservatory, the former Fortification Street YMCA at 800 E. River Place in Jackson that the city's zoning council rezoned in August, use City of Jackson zoning council and building permit records. Add only what is new and confirmed.",
+    "type": "opening",
+    "sources": [
+      "https://www.thejacksonwire.com/article/prado-vista-ridgeland-100-million-development",
+      "https://www.thejacksonwire.com/article/madison-county-conference-center-48m-bond-prado",
+      "https://www.thejacksonwire.com/article/morning-brief-2026-08-19"
+    ],
+    "addedBy": "editor",
+    "addedAt": "2026-10-11",
+    "skips": 0
+  },
+  {
+    "id": "flats-at-fondren-progress",
+    "topic": "Flats at Fondren: how far along the 234 apartments are, when leasing opens, and the rents on offer",
+    "angle": "What is being built. Readers search for the Flats at Fondren by name. The Wire's Aug. 3 story says $55 million, and its Aug. 15 story and Aug. 21 Morning Brief say $59 million. The Aug. 3 and Aug. 15 stories say ground was broken in April, but the Aug. 21 brief says it was broken that week. Settle both from city permits or the developer, which the Wire's stories call both Arlington Development and Arlington Properties. Then report the construction stage, the expected pre-leasing and delivery dates (the Aug. 15 story said fall 2027), and any rents or floor plans now published, against the roughly $2,100 average the developer described. Add only what is new and confirmed.",
+    "type": "opening",
+    "sources": [
+      "https://www.thejacksonwire.com/article/flats-at-fondren-55-million-bet-jackson-rents",
+      "https://www.thejacksonwire.com/article/flats-at-fondren-rent-double-jackson-median",
+      "https://www.thejacksonwire.com/article/morning-brief-2026-08-21"
+    ],
+    "addedBy": "editor",
+    "addedAt": "2026-10-11",
+    "skips": 0
+  },
+  {
+    "id": "trustmark-branches-who-owns-them",
+    "topic": "Which Jackson-area Trustmark branches were sold in the $91.7 million sale-leaseback, and to whom",
+    "angle": "Who bought what. The Wire's Sept. 22 story, from Trustmark's Sept. 10 SEC filing, reported that the bank sold 34 branch buildings in five states to entities affiliated with Blue Owl Real Estate Capital and leased them back for 15 years at $6.4 million a year, and that the bank says no branch will close. Find which of the 34 are in the Jackson metro from recorded deeds or Trustmark's own filings, name the buyer entity on each, and report any recorded price. Readers know their branch by its street, so give addresses. Add only what is new and confirmed.",
+    "type": "sale",
+    "sources": [
+      "https://www.thejacksonwire.com/article/trustmark-sale-leaseback-34-branches-blue-owl-91-7-million"
+    ],
+    "addedBy": "editor",
+    "addedAt": "2026-10-11",
+    "skips": 0
   }
 ]
