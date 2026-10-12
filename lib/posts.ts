@@ -78,6 +78,28 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "jackson-landfill-fee-adopted-oct-6-reopening-delayed",
+    title: "Jackson Adopted the $10-a-Ton Landfill Fee Oct. 6. The Gate It Applies To Is Still Not Fully Open.",
+    seoTitle: "Jackson: Landfill fee adopted Oct. 6, reopening delayed",
+    dek: "The council adopted the per-ton rubbish fee on Oct. 6, resolving a question the Wire's own coverage left open. The same week, the city said the Byram site still cannot take full loads.",
+    category: "Economy",
+    categories: ["Business"],
+    tags: ["pipeline"],
+    author: "Jackson Wire Staff",
+    date: "2026-10-12",
+    views: 0,
+    body: [
+      "Jackson's new per-ton rubbish fee is now law. The City Council adopted the ordinance amending Section 106-148 of the city code at its Oct. 6 meeting, according to the Oct. 6 agenda posted at jacksonms.gov and Citizen Portal's account of the meeting. The item appears on the agenda under the heading \"ADOPTION OF ORDINANCE\" as item 8, and the city's own video index for the Oct. 6 meeting lists it as item 10 under the consent agenda. Either way, the vote the Wire's Sept. 22 and Sept. 25 stories said would come in October has come.",
+      "The rates are the ones reported in September. Residents pay $10 a ton, with no minimum charge, for up to 12 visits a calendar year. Beginning with the 13th visit, a resident pays the nonresident rate of $20 a ton with a one-ton minimum, according to the Jackson Association of Neighborhoods' summary of the introduced ordinance. Nonresidents and commercial haulers pay $20 a ton with a one-ton minimum on every visit. Tires are billed separately: $1 each for car and truck tires, $3 for commercial tires, and $5 for tractor, farm, or skid-steer tires.",
+      "The fee replaces a schedule that charged $5 per cubic yard for construction and demolition debris and vegetative debris, priced by a visual estimate of the load. The city has installed a scale, so billing now runs on actual weight. That is the substantive change: the same pile of debris can now cost a different amount depending on what it weighs, and a resident who stays under 12 visits a year pays the residential rate.",
+      "The catch is that the facility the fee governs is not fully open. WLBT reported Oct. 6 that multi-year upgrades are still delaying the full reopening of the Byram site, and that the city did not offer a timeline. Solid Waste manager LaKesha Weathers told WLBT the new cell is complete but the city is \"still finalizing receiving equipment, a couple of other things before we can fully open to the public.\" Until then, the site takes only small loads, such as carpets, rugs, and furniture, and cannot do the pull-offs it once offered, Weathers said.",
+      "That gap has a cost for the businesses the new commercial rate targets. Brenner Hobbs, co-owner of Bandit Property Cleanup, told WLBT that crews are being told to hand-unload dump trailers because machinery cannot offload. \"Obviously, for time purposes, that's not gonna be good for our business,\" he said. So the ordinance sets a $20-a-ton commercial price while the site cannot yet accept the commercial-sized loads that price assumes.",
+      "What the city has still not published is the arithmetic behind the rates. The ordinance text was not posted with the Sept. 22 packet, and the city's rubbish disposal page at jacksonms.gov still lists the old $5-per-cubic-yard schedule as of Oct. 12. The Neel-Schaffer Engineering study that recommended the weight-based structure, and any tonnage or cost model behind it, has not been posted with the agenda. The Wire's Sept. 25 story ran the per-ton conversion and found the residential rate is a price cut for most loads; the missing number is what a ton costs Jackson to bury, which Public Works Director Lorenzo Anderson's department holds.",
+      "For readers who generate debris before the site is fully open, the city points to two alternatives. Residential disposal of large items runs the fourth Friday of each month, and Roll Off Dumpster Days run the second Saturday of each month, per WLBT. The next dumpster day was Oct. 10.",
+      "What's next: The fee is adopted, so the open question is the reopening date, which the city has not set. Watch the council's next regular meetings and the Public Works Committee, which met Oct. 5, for any update on receiving equipment at the Byram site. Readers who want the tonnage and cost figures behind the rates should ask the Department of Public Works directly, because they are not in the ordinance packet. The city's rubbish disposal page at jacksonms.gov is where the new schedule should appear once it is updated from the old per-cubic-yard rates.",
+    ],
+  },
+  {
     slug: "morning-brief-2026-10-12",
     title: "Morning Brief: Oct 12 · Cyberattack Knocks 69 Mississippi Government Sites Offline",
     dek: "A cyberattack on website host US Next has taken down Hinds County and dozens of other Mississippi government sites, forcing the county to stand up a workaround for tax and tag payments.",
