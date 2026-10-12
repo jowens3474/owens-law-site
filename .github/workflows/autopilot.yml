@@ -12,6 +12,8 @@ on:
 
 permissions:
   contents: write
+  # Lets the hand-off step start the Social and Instagram workflows.
+  actions: write
 
 concurrency:
   group: autopilot
@@ -39,6 +41,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Note the starting commit
+        id: start
+        run: echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
       - name: Run autopilot
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
@@ -48,3 +54,22 @@ jobs:
           BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
           COURTLISTENER_API_TOKEN: ${{ secrets.COURTLISTENER_API_TOKEN }}
         run: node scripts/autopilot.mjs
+
+      # A commit pushed with this workflow's own token does not start other
+      # workflows, so the push trigger on Social and Instagram never fires
+      # for a desk's story, and a story published after the day's scheduled
+      # Social run would never be posted. When this run added to
+      # lib/posts.ts, start both directly and have them wait for the deploy.
+      - name: Hand the new story to social posting
+        if: ${{ !cancelled() }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          START: ${{ steps.start.outputs.sha }}
+        run: |
+          if [ -z "$START" ] || git diff --quiet "$START" HEAD -- lib/posts.ts; then
+            echo "No new story on main from this run; nothing to hand off."
+          else
+            gh workflow run social.yml --ref main -f wait_for_deploy=true
+            gh workflow run instagram.yml --ref main -f wait_for_deploy=true
+            echo "Started Social and Instagram for the new story."
+          fi
