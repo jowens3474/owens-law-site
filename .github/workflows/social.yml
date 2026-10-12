@@ -1,7 +1,9 @@
 name: Social
 
 # Posts today's freshly published articles to X (Twitter), Bluesky, and the
-# Wire's Facebook Page. Runs daily. Each platform is independently optional --
+# Wire's Facebook Page. Runs on a daily cron, when a person's push changes
+# lib/posts.ts, and when a desk starts it after publishing
+# (scripts/hand-off-social.sh). Each platform is independently optional --
 # missing secrets for one platform just skip it, they don't block the others.
 # Uses BLUESKY_HANDLE, BLUESKY_APP_PASSWORD, X_API_KEY, X_API_SECRET,
 # X_ACCESS_TOKEN, X_ACCESS_SECRET, FACEBOOK_PAGE_ID, and FACEBOOK_PAGE_TOKEN
@@ -19,7 +21,9 @@ on:
     branches: [main]
     paths:
       - "lib/posts.ts"
-  # Safety net for anything the push trigger missed.
+  # Daily run. The poster takes only stories dated today in Chicago, so this
+  # cannot recover a story published after it runs; the desks' hand-off
+  # covers those.
   schedule:
     # Daily at 15:45 UTC (10:45 AM CDT / 9:45 AM CST).
     - cron: "45 15 * * *"
@@ -86,10 +90,12 @@ jobs:
         if: ${{ steps.config.outputs.configured == 'true' }}
         run: npm ci
 
-      # A run started by a push, or by a desk that just published (see the
-      # hand-off step in autopilot.yml), starts before the site has rebuilt,
-      # so the RSS feed the poster reads would still be stale. Give the
-      # deploy a head start. The daily cron is the backstop.
+      # A run started by a push, or by a desk that just published (see
+      # scripts/hand-off-social.sh), starts before the site has rebuilt, so
+      # the RSS feed the poster reads would still be stale. Give the deploy a
+      # head start. The poster reads the feed once, so a deploy that outlasts
+      # this wait loses the story; the daily cron can recover it only if it
+      # runs later the same Chicago day.
       - name: Wait for deploy (runs started by a new story)
         if: ${{ (github.event_name == 'push' || inputs.wait_for_deploy) && steps.config.outputs.configured == 'true' }}
         run: sleep 360
