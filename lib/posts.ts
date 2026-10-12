@@ -78,6 +78,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-10-12",
+    title: "Morning Brief: Oct 12 · Cyberattack Knocks 69 Mississippi Government Sites Offline",
+    dek: "A cyberattack on website host US Next has taken down Hinds County and dozens of other Mississippi government sites, forcing the county to stand up a workaround for tax and tag payments.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-10-12",
+    views: 0,
+    body: [
+      "Cyberattack knocks 69 Mississippi government sites offline: A cyberattack on US Next, the hosting company for county and state government websites, has left Hinds County and dozens of other Mississippi sites offline, WAPT reported Monday. Hinds County Tax Collector office manager Kristi Fields said residents trying to pay taxes or renew car tags now hit an error page, and the county's IT department built an alternative site for those transactions. Supervisor Tony Smith said Hinds County servers were not directly targeted and that the FBI is investigating. Three years ago a ransomware attack shut both Hinds County courthouses for weeks and the county paid an undisclosed sum to cybercriminals, Smith said.",
+      "JAN terminal bidders face Oct 26 decision date: The Jackson Municipal Airport Authority expects to name one or more respondents for a pre-development agreement on a new terminal by Oct. 26, according to the authority's July 23 release. JMAA issued a request for qualifications and proposals seeking design-build teams to design, scope and build new facilities, and said it is weighing traditional public delivery and private infrastructure investment. CEO Rosa M. Beckett said the process aims to deliver enhancements quickly at affordable cost. JMAA announced more than $30 million in proposed capital reinvestment in June and has reinvested over $100 million since 2016 at JAN, which serves about 1.2 million passengers a year.",
+      "Hinds jail costs climb past $100 million: Hinds County's new detention center is nearing completion with final construction costs estimated at more than $100 million, Mississippi Today reported in April, and the county is paying millions more to house roughly 200 detainees out of county. Supervisors proposed a millage increase in July that WLBT reported would generate about $2.3 million annually for the criminal justice facility and infrastructure, drawing resident pushback. The board's next regular meeting is Oct. 19 at the Chancery Court Building. The county's published meeting schedule lists the jail and tax matters among recurring agenda items, though the agenda packet for that date was not posted as of Monday.",
+      "Fifteen new food permits land across metro: The Mississippi State Department of Health awarded about 15 food-service permits in the Jackson area last month, the Clarion Ledger reported Oct. 7. The Oxbow American Grill is under construction in the former Sombra Mexican Kitchen space at The Township at Colony Park in Ridgeland, targeting a late fall opening. Josett, from longtime Walker's Drive-In executive chef Michael Greenhill, is expected to open at 3000 Old Canton Road in Fondren in late November. Other approvals include Wingora in Ridgeland, a Dunkin inside the Byram Walmart, and M2Go Campus at Jackson State's Heritage Dining Hall.",
+      "State Fair runs through Oct 18 in Jackson: The 166th Mississippi State Fair opened Oct. 8 and runs through Oct. 18 at the Mississippi Fairgrounds, with state officials projecting at least $35 million in economic impact, MPB reported. Agriculture Commissioner Andy Gipson said attendance last year ran about 20,000 below the prior year, and officials are tying this year's push to the America 250 celebration. A Jackson State University study has called the fair one of the largest economic events in the capital city, with fairgoers spending at area restaurants and hotels. The fair's final weekend includes the horse and mule pull on Saturday, Oct. 17.",
+    ],
+  },
+  {
     slug: "entergy-traceview-mdeq-response-to-comments-permit-board-oct-13",
     title: "MDEQ Has Now Answered the Traceview Comments. The Permit Board Votes Oct. 13.",
     seoTitle: "MDEQ: Traceview comment responses filed before Oct. 13 vote",
