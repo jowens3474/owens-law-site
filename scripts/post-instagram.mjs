@@ -2,9 +2,9 @@
 // Instagram poster — reads today's freshly published articles from
 // feed.xml, waits for each article's branded card image to deploy, and
 // posts it to Instagram via the Graph API (Instagram Login flavor).
-// Plain Node, fetch only, no new deps. Triggered by
-// .github/workflows/instagram.yml on a cron schedule, ~90 min after
-// autopilot.mjs publishes (so the site has time to deploy).
+// Plain Node, fetch only, no new deps. Run by .github/workflows/instagram.yml:
+// on a daily cron, after a person's push to lib/posts.ts, and when a desk
+// hands off a new story (scripts/hand-off-social.sh).
 
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 

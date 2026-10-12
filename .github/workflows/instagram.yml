@@ -1,27 +1,35 @@
 name: Instagram
 
 # Posts today's freshly published articles to Instagram as branded card
-# images. Runs about 90 minutes after Autopilot publishes, giving the site
-# time to build and deploy so /api/card/<slug> is live.
+# images. Runs on a daily cron, when a person's push changes lib/posts.ts,
+# and when a desk starts it after publishing (scripts/hand-off-social.sh).
 # Requires IG_USER_ID and IG_ACCESS_TOKEN in repo Settings → Secrets and
 # variables → Actions. See docs/INSTAGRAM-SETUP.md.
 
 on:
-  # Fires as soon as an article lands on main, whether pushed by Autopilot,
-  # Morning Brief, or a merged PR. The poster waits for the site to redeploy
-  # before posting. The posted-state commit touches only
+  # Fires when a person's push or merged PR changes lib/posts.ts. The desks
+  # push with their workflow token, which starts no other workflow, so
+  # Autopilot, the Morning Brief, and Sales tax start this one themselves
+  # after they publish (wait_for_deploy below). The poster waits for the site
+  # to redeploy before posting. The posted-state commit touches only
   # data/instagram-posted.json (and carries [skip ci]), so it cannot retrigger
   # this workflow.
   push:
     branches: [main]
     paths:
       - "lib/posts.ts"
-  # Safety net: catches anything the push trigger missed (a failed run, a
-  # deploy that took longer than the poster's wait budget).
+  # Daily run. The poster takes only stories dated today in Chicago, so this
+  # cannot recover a story published after it runs; the desks' hand-off
+  # covers those.
   schedule:
     # Daily at 15:30 UTC (10:30 AM CDT / 9:30 AM CST).
     - cron: "30 15 * * *"
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      wait_for_deploy:
+        description: "Wait for the site to rebuild before reading the feed (the desks set this after they publish)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -69,13 +77,15 @@ jobs:
         if: ${{ steps.config.outputs.configured == 'true' }}
         run: npm ci
 
-      # A push-triggered run starts before the site has rebuilt, so the RSS
-      # feed the poster reads would still be stale and the new article would
-      # be invisible to it. Give the deploy a head start; the poster's own
-      # card-wait covers the remainder. The daily cron is the backstop if a
-      # deploy ever runs longer than this.
-      - name: Wait for deploy (push-triggered runs)
-        if: ${{ github.event_name == 'push' && steps.config.outputs.configured == 'true' }}
+      # A run started by a push, or by a desk that just published (see
+      # scripts/hand-off-social.sh), starts before the site has rebuilt, so
+      # the RSS feed the poster reads would still be stale and the new
+      # article would be invisible to it. Give the deploy a head start. The
+      # poster reads the feed once, so a deploy that outlasts this wait loses
+      # the story; the daily cron can recover it only if it runs later the
+      # same Chicago day.
+      - name: Wait for deploy (runs started by a new story)
+        if: ${{ (github.event_name == 'push' || inputs.wait_for_deploy) && steps.config.outputs.configured == 'true' }}
         run: sleep 360
 
       - name: Post to Instagram

@@ -5,7 +5,9 @@
 // node:crypto). Each platform is independently optional: missing
 // credentials for one platform just skip that platform, they don't block
 // the others.
-// Triggered by .github/workflows/social.yml on a cron schedule.
+// Run by .github/workflows/social.yml: on a daily cron, after a person's
+// push to lib/posts.ts, and when a desk hands off a new story
+// (scripts/hand-off-social.sh).
 
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { randomBytes, createHmac } from "node:crypto";
