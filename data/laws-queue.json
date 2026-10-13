@@ -1,12 +1,5 @@
 [
   {
-    "bill": "HB 325",
-    "hint": "Permanently dedicates lottery proceeds above $80 million to the Education Enhancement Fund beyond the original June 30, 2028 expiration. Effective July 1, 2026.",
-    "sources": [
-      "https://www.mississippifirst.org/2026-legislative-session-review/"
-    ]
-  },
-  {
     "bill": "HB 1622",
     "hint": "Small Community Hospital Pilot: hospitals in counties with no town over 15,000 people or in the Delta can add services or one new facility within five miles without a certificate of need; up to eight dialysis facilities statewide; geriatric psychiatric unit licenses; Humphreys and Issaquena counties exempt entirely; losing appellants pay fees; apply by June 30, 2027. About 55 hospitals qualify. Sponsor Rep. Sam Creekmore. Approved March 23, 2026. HB 3, already explained on the site, is the companion.",
     "sources": [
@@ -146,5 +139,14 @@
     ],
     "attempts": 1,
     "lastError": "oneSentence must be one sentence of 8 to 30 words; entry is too long (1084 words; aim for 450 to 800); whatsBehindIt: a sentence runs over 40 words (\"That version would have raised private school cred"
+  },
+  {
+    "bill": "HB 325",
+    "hint": "Permanently dedicates lottery proceeds above $80 million to the Education Enhancement Fund beyond the original June 30, 2028 expiration. Effective July 1, 2026.",
+    "sources": [
+      "https://www.mississippifirst.org/2026-legislative-session-review/"
+    ],
+    "attempts": 1,
+    "lastError": "entry failed the type check"
   }
 ]
