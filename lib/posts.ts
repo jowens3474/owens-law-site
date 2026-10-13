@@ -78,6 +78,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-10-13",
+    title: "Morning Brief: Oct 13 · Horhn's State of the City Lands as the $23M Hole Comes Due",
+    dek: "Mayor John Horhn delivers his second State of the City address at 4 p.m. today, with a general fund roughly $23 million smaller than last year and no completed audit since 2022.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-10-13",
+    views: 0,
+    body: [
+      "Horhn's State of the City lands at 4 p.m.: Mayor John Horhn delivers his second State of the City address Tuesday at 4 p.m. in the theater at the Jackson Convention Complex, 105 East Pascagoula Street, per the Jackson Association of Neighborhoods. The council approved an event license for the address at no cost to the city, its Oct. 6 agenda shows. Horhn told the Clarion Ledger the city entered fiscal 2027 with a general fund near $113 million, about $23 million below last year, with police, fire and public works all cut. He said the city was 'edging towards bankruptcy' before last year's actions, his characterization rather than a legal finding.",
+      "MDEQ board votes on Entergy's Traceview plant today: The Mississippi Environmental Quality Permit Board meets Tuesday at 9 a.m. at MDEQ's Jackson office, 515 E. Amite Street, and its October agenda lists Entergy Mississippi's Traceview Advanced Power Station under the Air Division, per the agenda PDF at mdeq.ms.gov. The Wire reported MDEQ filed its responses to public comments before the vote. The board meets the second Tuesday of each month and is chaired by Brian Perry of the Mississippi Department of Agriculture and Commerce. Anyone can confirm the date or location at (601) 961-5041.",
+      "Jackson diversions beat Ridgeland's pace on the year: Department of Revenue diversion reports show Jackson received $2,612,443 in August, up 9.5% from $2,385,899 a year earlier, and $5,328,637 fiscal year to date, up 6.0%. Ridgeland drew $1,611,884, up 23.7%, the metro's fastest monthly gain, though its fiscal-year-to-date growth is 13.7%. Pearl fell 8.6% for the month to $1,166,022 and is down 10.5% on the year, the metro's steepest decline. The numbers are the closest thing to a monthly economic indicator for each city and are posted at dor.ms.gov.",
+      "Downtown Jackson BID hearing set: The council's Oct. 6 agenda carries an order setting a public hearing for the district plan of the Downtown Jackson Business Improvement District under the Business Improvement District Act, sponsored by Harris and Horhn. A BID lets property owners in a defined area fund public safety, landscaping, marketing and wayfinding through an assessment. Downtown Jackson Partners already operates in the district, and the city's special districts page lists a Fondren BID as well. The agenda does not show the assessment rate or the hearing date; readers can check the posted order at jacksonms.gov.",
+      "Brandon's $6B data center nears first occupancy: AVAIO Digital's $6 billion campus at the East Metropolitan Center in Brandon is 'on track to deliver first occupancy in August 2027,' the company's project page states, and the developer has said the first phase, over 600,000 square feet and 116 megawatts, will be complete and energized in the first half of 2027. The Clarion Ledger reported none of AVAIO's four U.S. campuses are operational as of October 2026. Rankin First says the project will pay the county's largest ad valorem tax bill once phase one is running.",
+    ],
+  },
+  {
     slug: "jackson-landfill-fee-adopted-oct-6-reopening-delayed",
     title: "Jackson Adopted the $10-a-Ton Landfill Fee Oct. 6. The Gate It Applies To Is Still Not Fully Open.",
     seoTitle: "Jackson: Landfill fee adopted Oct. 6, reopening delayed",
