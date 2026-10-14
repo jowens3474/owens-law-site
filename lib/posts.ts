@@ -78,6 +78,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-10-14",
+    title: "Morning Brief: Oct 14 · Horhn Touts $150M Road Push, Discloses $1.3M Overbilling",
+    dek: "Mayor John Horhn's second State of the City announced a $150 million street and drainage program and a $1.3 million overbilling recovery, while UMMC's $250 million cancer center breaks ground Oct. 22.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-10-14",
+    views: 0,
+    body: [
+      "Horhn touts $150M road program, $1.3M overbilling: In his second State of the City address Tuesday at the Jackson Convention Complex, Mayor John Horhn said the city has assembled $150 million for street and drainage work from the 1% sales tax, federal highway money, state appropriations and bonds, and named AJ Construction, 2 Oaks Construction, APAC Construction and MS Paving as selected contractors, the Clarion Ledger reported. He said crews will resurface roughly nine streets a week for a year, calling it the biggest paving year in four decades. Horhn also disclosed the city's IT department found $1.3 million in overbilling on a single contract and is trying to recover it; he did not name the contractor.",
+      "UMMC cancer center groundbreaking set Oct. 22: The University of Mississippi Medical Center's $250 million Cancer Center and Research Institute is scheduled to break ground Oct. 22, Horhn said in Tuesday's address, per the Clarion Ledger. The five-story, 250,000-square-foot building on State Street across from the main hospital is the centerpiece of a $125 million philanthropic campaign that UMMC said in March had reached $100 million. Regions Bank added a $2.5 million gift on Oct. 5, UMMC's cancer institute page shows. The state has committed $100 million toward construction. It is the largest single private capital project now moving in Jackson.",
+      "Jackson opens asphalt paving bids Oct. 15: The city's Procurement Division has two 24-month paving contracts out for bid, both posted Oct. 12: RFQ 74567-102726 for asphalt pavement milling and RFQ 74505-102726 for asphaltic paving materials, according to the city's bid opportunities page. The milling contract's bid opening is Oct. 15. The postings do not state a contract value or estimated tonnage. The awards will set who supplies the material and grinding for the $150 million resurfacing program Horhn described Tuesday, so the bid tabulation is the first public look at what the work will actually cost per street.",
+      "Jackson diversions up 9.5%, Ridgeland up 23.7%: August sales tax diversions to Jackson totaled $2,612,443, up 9.5% from $2,385,899 a year earlier, and fiscal-year-to-date collections are up 6.0%, the Department of Revenue's diversion report shows. Ridgeland again led the metro in growth at 23.7% for the month and 13.7% year to date. Pearl was the outlier, down 8.6% for August and 10.5% year to date, the steepest metro decline. The monthly diversion is the closest thing to a real-time read on each city's retail base, and it lands as Jackson voters weigh a separate tourism tax on Nov. 3.",
+      "Visit Jackson unveils five-year tourism plan: Visit Jackson rolled out a five-year strategic plan at its State of Tourism address Tuesday, WJTV reported, hours before Horhn's speech. The plan follows the bureau's May figure of $1.3 billion in annual visitor spending in Jackson and Hinds County, including $267.6 million on food and beverage and $166 million on lodging. It also lands ahead of the Nov. 3 referendum that would raise the restaurant tourism tax from 1% to 1.5% and the lodging tax from 1% to 2%, with revenue dedicated to Visit Jackson. The measure needs 60% approval to take effect.",
+    ],
+  },
+  {
     slug: "jackson-tourism-tax-november-2026-ballot-explained",
     title: "Jackson's Nov. 3 Tourism Tax Vote, Explained: What the Ballot Asks and Who Spends the Money",
     seoTitle: "Jackson tourism tax vote Nov. 3: what the ballot asks",
