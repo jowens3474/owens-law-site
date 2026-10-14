@@ -1,14 +1,5 @@
 [
   {
-    "bill": "HB 1622",
-    "hint": "Small Community Hospital Pilot: hospitals in counties with no town over 15,000 people or in the Delta can add services or one new facility within five miles without a certificate of need; up to eight dialysis facilities statewide; geriatric psychiatric unit licenses; Humphreys and Issaquena counties exempt entirely; losing appellants pay fees; apply by June 30, 2027. About 55 hospitals qualify. Sponsor Rep. Sam Creekmore. Approved March 23, 2026. HB 3, already explained on the site, is the companion.",
-    "sources": [
-      "https://policyrisk.com/state-bill/MS-HB1622-2026",
-      "https://desotocountynews.com/mississippi-news/mississippi-governor-signs-law-to-ease-rural-hospital-service-expansions/",
-      "https://ourtupelo.com/governor-signs-bill-for-hospital-improvements-as-lawmakers-work-to-boost-rural-facilities/"
-    ]
-  },
-  {
     "bill": "HB 525",
     "hint": "Mandatory minimum sentences for sexual battery (5 to 30 years first offense, 10 to 40 second) and a new crime of capital sexual battery with the death penalty available when a child 12 or younger is abused and suffers organ damage. Effective July 1, 2026.",
     "sources": [
@@ -145,6 +136,17 @@
     "hint": "Permanently dedicates lottery proceeds above $80 million to the Education Enhancement Fund beyond the original June 30, 2028 expiration. Effective July 1, 2026.",
     "sources": [
       "https://www.mississippifirst.org/2026-legislative-session-review/"
+    ],
+    "attempts": 1,
+    "lastError": "entry failed the type check"
+  },
+  {
+    "bill": "HB 1622",
+    "hint": "Small Community Hospital Pilot: hospitals in counties with no town over 15,000 people or in the Delta can add services or one new facility within five miles without a certificate of need; up to eight dialysis facilities statewide; geriatric psychiatric unit licenses; Humphreys and Issaquena counties exempt entirely; losing appellants pay fees; apply by June 30, 2027. About 55 hospitals qualify. Sponsor Rep. Sam Creekmore. Approved March 23, 2026. HB 3, already explained on the site, is the companion.",
+    "sources": [
+      "https://policyrisk.com/state-bill/MS-HB1622-2026",
+      "https://desotocountynews.com/mississippi-news/mississippi-governor-signs-law-to-ease-rural-hospital-service-expansions/",
+      "https://ourtupelo.com/governor-signs-bill-for-hospital-improvements-as-lawmakers-work-to-boost-rural-facilities/"
     ],
     "attempts": 1,
     "lastError": "entry failed the type check"
