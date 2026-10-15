@@ -78,6 +78,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-10-15",
+    title: "Morning Brief: Oct 15 · Data Center Clock Ticks as Paving Bids Open",
+    dek: "Jackson's 183-day data center moratorium is one-third spent with no permanent rules adopted and no hearing scheduled, as Mayor Horhn warns the city may lose the projects entirely.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-10-15",
+    views: 0,
+    body: [
+      "Data center clock burns with no rules: Jackson's 183-day data center moratorium took effect Aug. 13 and has run 63 days, about one-third of its term, with no permanent ordinance adopted and no public hearing scheduled, the Clarion Ledger reported Thursday. Council President Vernon Hartley said he received a draft ordinance from the city's legal department this month and expects to announce a hearing, potentially within weeks, once lawyers clear it. Ward 4 Councilman Brian Grizzell, who wrote the moratorium, is drafting his own version. Mayor John Horhn told the paper he wants safeguards on utility costs, noise and water, but warned the city risks losing projects: \"The sun may have set on Jackson as it relates to data centers.\"",
+      "Casino hinges on river market math: A nearly $1 billion casino resort proposed for 93 acres along the Pearl River faces a state hurdle, WLBT reported Wednesday. Jay McDaniel, executive director of the Mississippi Gaming Commission, said the commission would weigh the project's effect on the Lower River Market, which includes Vicksburg, Natchez and Greenville. Gaming revenue in that market fell in four of the last five years, from $364.5 million in 2021 to just under $321 million in 2025, commission figures show. Lt. Gov. Delbert Hosemann said he would not back a statute change. The council delayed a vote on LeFleur Development's option, which would cost $1,000 and expire Oct. 31, 2027.",
+      "Paving bids open today at City Hall: Jackson's 24-month asphalt milling contract closes Thursday, Oct. 15, according to the city's bid notice posted Oct. 12. A companion solicitation for a 24-month supply of asphaltic paving materials also closed this week. Both are tied to the road program Mayor Horhn has been promoting. The notices do not state a contract value or an estimated tonnage, so the size of the award is not yet public. Bid documents are posted on jacksonms.gov under Bid Opportunities. The city also has an open request for proposals for Housing and Community Development rehabilitation services.",
+      "Jackson sales tax take up 9.5 percent: Jackson received $2,612,443 in sales tax diversions in August, up 9.5 percent from $2,385,899 a year earlier, and is up 6.0 percent fiscal-year-to-date, the Department of Revenue's newest diversion report shows. Ridgeland led the metro at plus 23.7 percent for the month, with Byram up 20.9 percent and Madison up 11.4 percent. Pearl was the outlier, down 8.6 percent for the month and 10.5 percent fiscal-year-to-date. The diversions are the closest thing to a monthly economic reading for each city, and they land as Jackson voters weigh a Nov. 3 tourism tax increase.",
+      "Wright house restoration targets 2028: The Mississippi Museum of Art has named architectural historian Jennifer Baughn curator of Fountainhead, the state's only Frank Lloyd Wright residence, and launched a restoration the Clarion Ledger reported could run into the low single-digit millions. The museum spent nearly $2 million to buy the Woodland Hills home in late 2025. Yazoo clay has shifted the structure, and a Historic Structure Report due later this year will set the scope and cost. Officials target limited, reservation-based tours by late 2028, with shuttle options studied because Wright's steep driveway will not be regraded.",
+    ],
+  },
+  {
     slug: "jackson-council-oct-6-agenda-pearl-river-casino-land-chicago-flights",
     title: "Jackson's Oct. 6 Agenda Shows the Casino Land Vote, a $1.3 Million Opioid Grant, and a Chicago Flights Deal",
     seoTitle: "Jackson: Oct. 6 agenda shows casino land, grants, flights",
