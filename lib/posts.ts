@@ -78,6 +78,28 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "prado-projects-status-conservatory-lofts-dolce-hotel",
+    title: "Three Prado Projects, Three Different Stages: What Is Actually Built, Permitted, and Still Paper",
+    seoTitle: "Prado projects: what is built, permitted, and still paper",
+    dek: "Prado Lofts is under construction and the Dolce hotel has started dirt work. The Prado Conservatory, rezoned in August, is still on paper, and the land is held by a company that is not PraCon.",
+    category: "Development",
+    categories: ["Real Estate","Business"],
+    tags: ["pipeline"],
+    author: "Jackson Wire Staff",
+    date: "2026-10-15",
+    views: 0,
+    body: [
+      "Gabriel Prado's three biggest Jackson-area projects are not moving at the same speed, and the public record shows which ones are real. Prado Lofts on Meadowbrook Road is under construction. The Dolce by Wyndham hotel at Prado Vista in Ridgeland has started dirt work. The Prado Conservatory, the $60 million conversion of the old Fortification Street YMCA, has a rezoning and nothing else on file.",
+      "Start with the one that is furthest along. Prado Lofts broke ground Jan. 15 at the former McRae's site, a $50 million, 135-unit project that Prado told the Madison County Journal he wanted finished in 13 months, with leasing to begin as early as late 2026 or early 2027. The general contractor, AnderCorp, posted construction photos in September. The project carries a $29.4 million construction loan from HALL Structured Finance, according to the lender's transaction page, which lists PraCon Global Investment Group as the sponsor. That loan covers about 59 percent of the stated $50 million cost.",
+      "The Ridgeland hotel is the one readers ask about, and the answer is that site work has begun. Thad Varner, an attorney with Butler Snow, told the Madison County Board of Supervisors on Sept. 8 that PraCon had already signed a franchise agreement with an upscale hotel and that dirt work on the project was underway, according to WLBT's account of the meeting. The hotel will carry the Dolce by Wyndham flag, the brand's first in Mississippi, at a reported $67 million, financed privately by PraCon. The Clarion Ledger reported that Wyndham pitched the Dolce brand to Ridgeland partly because of the Amazon data center construction nearby.",
+      "The land under that hotel is not owned by PraCon. The county is buying 13 acres near Topgolf from PraCon MS Fund LLC at roughly $795,000 an acre, a figure Supervisor Trey Baxter tried and failed to reopen with a new appraisal on Sept. 8. The county owns the conference center it is borrowing $48 million to build. PraCon owns the hotel. The two sit on the same site and are financed on completely different terms.",
+      "The Prado Conservatory is the project with the least on the record. When the Jackson City Council rezoned 800 E. River Place from light industrial to Community Mixed Use on Aug. 17, the applicant was not PraCon. It was DMG Real Estate Holdings SBC, LLC, according to WLBT. That is the entity that holds the 9-acre parcel, and it is a separate company from the one Prado runs. PraCon is the developer; DMG is the owner of record. The Wire found no building permit, demolition permit, or site plan filed under either name for the property.",
+      "Prado said at the August meeting that the company would begin pulling permits right away, and PraCon told WJTV it intended to move into the next stages of permitting after the rezoning. Two months later, the city's zoning agenda for Oct. 19 contains no Prado item, and the Oct. 6 council packet does not either. The project's own numbers have also shifted in public: the Clarion Ledger reported 160 units across two phases, while the architect's earlier concept for the Meadowbrook site listed 215 units. The conservatory plan calls for about 60 units in the old YMCA building and about 100 more in a new five-story building, plus what PraCon says would be Mississippi's first padel courts.",
+      "The pattern across all three is worth naming. Prado announces at the scale of the finished project, and the documents show the scale of the current phase. Prado Lofts was pitched for years as a 215-unit development and is being built at 135. Prado Vista was described as a $120 million investment with two high-end hotels, 228 homes for sale, and a river walk; what has broken ground so far is the hotel pad. None of that makes the projects fake. It means the announced number and the permitted number are different things, and only one of them is on file.",
+      "What's next: The Madison County Board of Supervisors meets at 125 W. North St. in Canton, and its agenda is posted at madison-co.com; the county's website was reporting a hosting outage this week, so agendas may be delayed. The Jackson City Council's next zoning meeting is 2:30 p.m. Monday, Oct. 19, in Council Chambers at 219 S. President St., and its agenda is posted at jacksonms.gov. Watch for a building permit application at 800 E. River Place under DMG Real Estate Holdings SBC, LLC, and for a construction start on the Dolce hotel beyond site work. Neither has appeared in the records the Wire reviewed.",
+    ],
+  },
+  {
     slug: "morning-brief-2026-10-15",
     title: "Morning Brief: Oct 15 · Data Center Clock Ticks as Paving Bids Open",
     dek: "Jackson's 183-day data center moratorium is one-third spent with no permanent rules adopted and no hearing scheduled, as Mayor Horhn warns the city may lose the projects entirely.",
