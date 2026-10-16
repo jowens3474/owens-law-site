@@ -78,6 +78,28 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "jackson-sales-tax-diversions-september-2026",
+    title: "Jackson sales tax diversion slips 0.2% to $2,622,651 in September",
+    dek: "Jackson's monthly check from the Department of Revenue edged down from a year earlier, while Ridgeland and Brandon posted double-digit gains and Pearl fell sharply.",
+    category: "Economy",
+    categories: ["Business"],
+    tags: ["by-the-numbers"],
+    author: "Jackson Wire Staff",
+    date: "2026-10-16",
+    views: 0,
+    body: [
+      "Jackson received $2,622,651 in sales tax diversions in September 2026, down 0.2% from $2,628,600 in September 2025. The payment ranks 9th among the last 24 months on file. The highest was April 2026 at $2,826,377, and the lowest was February 2025 at $2,338,089.",
+      "Among the suburbs, Ridgeland led with $1,557,911, up 14.0% from $1,367,120 a year earlier. Flowood followed at $1,350,593, up 3.8%. Pearl posted the steepest decline, falling 17.4% to $1,161,762 from $1,406,124.",
+      "Madison came in at $961,239, down 3.0% from $991,472. Richland rose 7.0% to $828,919. Brandon gained 13.1% to $773,167. Clinton fell 4.1% to $493,462.",
+      "Smaller cities were mixed. Byram rose 7.1% to $330,246. Canton slipped 1.8% to $304,778. Florence gained 9.4% to $93,925. Pelahatchie was nearly flat, down 0.2% to $46,860. Raymond edged up 0.7% to $26,551. Terry fell 2.0% to $26,184. Bolton rose 12.9% to $22,872. Edwards fell 5.1% to $5,274.",
+      "The metro total for cities with both months on file was $10,606,394, up 1.0% from $10,497,547 a year earlier.",
+      "Fiscal year to date, which began July 1, Jackson has received $7,951,288, up 3.9% from $7,656,494 a year earlier. Ridgeland leads the suburbs in FYTD growth at 13.8%, with $4,783,372. Flowood is up 6.9% to $4,202,744. Pearl is down 12.8% to $3,594,245. Madison is up 3.0% to $2,921,389. Richland is up 4.7% to $2,425,427. Brandon is up 4.3% to $2,277,298. Clinton is up 0.5% to $1,515,566. Byram is up 11.5% to $1,030,349. Canton is down 3.1% to $939,868. Florence is up 2.9% to $284,568. Pelahatchie is down 5.7% to $140,104. Raymond is down 0.8% to $70,106. Terry is down 3.4% to $76,980. Bolton is up 0.9% to $62,592. Edwards is down 2.5% to $14,351.",
+      "Over the last 24 months, Jackson's monthly diversion has ranged from $2,338,089 to $2,826,377. The September 2026 figure is above the 24-month midpoint. The city's FYTD pace is ahead of last year's. The tracker page is at https://www.thejacksonwire.com/economy/sales-tax.",
+      "What's next: The next monthly report from the Department of Revenue is due around the middle of next month. Watch whether Jackson's FYTD gain holds above 3.9%, whether Ridgeland's double-digit streak continues, and whether Pearl's decline deepens.",
+    ],
+    note: "Data: Mississippi Department of Revenue, Diversions to Cities from Sales Tax Collections, September 2026 report (https://www.dor.ms.gov/sites/default/files/statistics/stats_div0926_0.pdf). Figures are the state's monthly diversion payments to each municipality; percent changes and the metro total are Wire calculations from the reports. Full history: https://www.thejacksonwire.com/economy/sales-tax.",
+  },
+  {
     slug: "flats-at-fondren-groundbreaking-date-cost-rents-what-is-confirmed",
     title: "Flats at Fondren: The Developer's Own Filing Says April, Not August, and It Never Says $59 Million",
     seoTitle: "Flats at Fondren: April Groundbreaking, No Published Rents",
