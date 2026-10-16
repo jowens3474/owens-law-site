@@ -78,6 +78,28 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "flats-at-fondren-groundbreaking-date-cost-rents-what-is-confirmed",
+    title: "Flats at Fondren: The Developer's Own Filing Says April, Not August, and It Never Says $59 Million",
+    seoTitle: "Flats at Fondren: April Groundbreaking, No Published Rents",
+    dek: "Arlington's own press release is dated April 29 and puts first deliveries in fall 2027. It states no project cost, and no rents or floor plans are published anywhere yet.",
+    category: "Development",
+    categories: ["Real Estate"],
+    tags: ["pipeline"],
+    author: "Jackson Wire Staff",
+    date: "2026-10-16",
+    views: 0,
+    body: [
+      "The Flats at Fondren broke ground in April, not August, and the developer's own announcement never puts a dollar figure on the project. Arlington Development's press release is dated April 29, 2026, and WLBT and WAPT both covered the ceremony on April 16. The Wire's Aug. 21 Morning Brief said the groundbreaking happened that week. The developer's own document says otherwise.",
+      "That release, posted at arlingtonproperties.net, is the most detailed public record of the project. It confirms 234 apartment homes across one-, two-, and three-bedroom floor plans, an average unit size of 977 square feet, and initial deliveries anticipated in fall 2027. It lists the design team, the amenity package, and the Hinds County-owned parking deck connected to the property. It does not state a cost.",
+      "The two figures in circulation come from elsewhere. WLBT reported $55 million on April 16. Visit Jackson's press release, posted the same day, says $59 million. Neither is the developer's number, and Arlington's release gives no basis to choose between them. The Wire's earlier stories used both. Until Arlington or its lender publishes a figure, the cost of the project is unconfirmed.",
+      "The square footage is also unsettled, and the gap is large. Arlington says total development will span approximately 293,797 square feet. Visit Jackson says the units span more than 228,000 square feet. The Wire computed the net rentable area from the developer's own numbers: 234 units at an average of 977 square feet is 228,618 square feet. That lands within a few hundred feet of the Visit Jackson figure and roughly 65,000 square feet below Arlington's. The difference is the kind of space that is not an apartment: corridors, the clubhouse, the fitness center, the coworking lounge, and the pool pavilion.",
+      "No rents are published. A search of Arlington's site, its leasing pages, and the major rental listing services turns up no Flats at Fondren listing, no floor plan pricing, and no pre-leasing or waitlist page. The roughly $2,100 average that has circulated since last fall traces to developer Jason Watkins, who told the Clarion Ledger in November 2025 that average rent would be in the neighborhood of $2,100 a month and would likely be the highest in the market. That is a developer's projection, not a published rate.",
+      "The comparable Arlington cites is now priced on the open market. The District Lofts at Eastover, about a mile and a half away, lists studios from $1,760, one-bedrooms from $1,820, and two-bedrooms from $2,305, according to its Zillow listing. A Flats two-bedroom at the projected average would sit below the District Lofts two-bedroom floor, not above it. The Flats is also the larger unit: 977 square feet on average, against a District Lofts range of 572 to 1,358 square feet.",
+      "The public money in the deal runs through parking. The deck is owned by Hinds County, built with state money, and directly connected to the apartments. Hinds County Supervisor Tony Smith told WAPT the Flats will lease parts of the garage and that the arrangement will bring additional revenue to the city. The county owns the structure and collects the parking revenue; the developer gets resident parking without building a deck. The garage was funded in part by a $20 million state loan authorized in 2022, and supervisors added $5 million in remaining state funds in January 2024 after cost overruns, according to WLBT.",
+      "What's next: Arlington has not published a pre-leasing date, and no city permit record reviewed for this story sets one. The date to watch is the developer's own fall 2027 delivery window, which would put pre-leasing in roughly the first half of 2027 if the project follows the usual 6-to-9-month lead time. Readers who want the rent number before it is announced can check Arlington's leasing pages at arlingtonproperties.net and the District Lofts listing, which the company uses as its Jackson pricing benchmark. The Hinds County Board of Supervisors meets again Oct. 19; its agenda is posted at co.hinds.ms.us, and any change to the garage lease terms would appear there.",
+    ],
+  },
+  {
     slug: "morning-brief-2026-10-16",
     title: "Morning Brief: Oct 16 · JXN Water Plan Would Cut City Hall Out of the System",
     dek: "JXN Water's newly released transition plan recommends an independent public authority to run Jackson's water and sewer systems, rejecting Mayor John Horhn's push for city-appointed majority control.",
