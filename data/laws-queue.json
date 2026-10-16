@@ -1,12 +1,5 @@
 [
   {
-    "bill": "HB 1224",
-    "hint": "Mississippi Keeping Kids Safe Online Act: social media safety curriculum from the Department of Education, limits on features interactive computer services offer minors. Effective July 1, 2026.",
-    "sources": [
-      "https://magnoliatribune.com/2026/06/29/from-teacher-pay-to-illegal-immigration-new-laws-set-to-take-effect-in-mississippi/"
-    ]
-  },
-  {
     "bill": "HB 538",
     "hint": "Requires state and local agencies and public colleges to cooperate with federal immigration enforcement and honor ICE detainers; bans sanctuary policies; the attorney general can sue to force compliance. Sponsor Rep. Lee Yancey. Approved April 8, 2026, effective July 1, 2026. Companion to SB 2114, already explained on the site.",
     "sources": [
@@ -149,6 +142,15 @@
     "sources": [
       "https://msindy.org/p/new-state-laws-taking-effect",
       "https://www.wlox.com/2026/07/01/july-1-new-mississippi-laws-take-effect-today/"
+    ],
+    "attempts": 1,
+    "lastError": "entry failed the type check"
+  },
+  {
+    "bill": "HB 1224",
+    "hint": "Mississippi Keeping Kids Safe Online Act: social media safety curriculum from the Department of Education, limits on features interactive computer services offer minors. Effective July 1, 2026.",
+    "sources": [
+      "https://magnoliatribune.com/2026/06/29/from-teacher-pay-to-illegal-immigration-new-laws-set-to-take-effect-in-mississippi/"
     ],
     "attempts": 1,
     "lastError": "entry failed the type check"
