@@ -78,6 +78,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-10-16",
+    title: "Morning Brief: Oct 16 · JXN Water Plan Would Cut City Hall Out of the System",
+    dek: "JXN Water's newly released transition plan recommends an independent public authority to run Jackson's water and sewer systems, rejecting Mayor John Horhn's push for city-appointed majority control.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-10-16",
+    views: 0,
+    body: [
+      "JXN Water plan would cut City Hall out: A 36-page transition plan released Oct. 15 recommends converting JXN Water into an independent public authority under Mississippi Code Sections 51-41-1 through 51-41-33, with a board first appointed by a federal judge and later elected by ratepayers in good standing. Interim third-party manager Ted Henifin would step down by July 1, 2028, with federal oversight possibly ending in December 2029, the Clarion Ledger reported. The plan states plainly: \"there is no case to be made to return governance to the City in the foreseeable future.\" It sets up a direct conflict with Mayor John Horhn, who wants a municipal utility district where Jackson appoints a majority of the board. The parties have until roughly late October to comment before the plan goes to U.S. District Judge Henry Wingate, whose approval is required.",
+      "Metrocenter vandalism threatens billion-dollar build: Vandals and copper thieves are tearing apart the vacant former Metrocenter Mall near Highway 80 and Highway 18, and the developer says the damage is now delaying a project billed at nearly $1 billion. General manager Bob Hickingbottom told 16 WAPT the last two or three weeks have turned \"extremely overt and really aggressive,\" with millions of dollars in interior damage. Site inspector Mark Pendleton said he has run off at least 10 people and watched police remove others. Hickingbottom said crews have broken ground on three manufacturing plants at the site, which has sat vacant since 2018. The project still needs site clearance and a Mississippi Department of Environmental Quality inspection before it can proceed.",
+      "Jackson police to drop Flock camera contract: Jackson Police Chief RaShall Brackney told the City Council's Public Safety and Parks Committee on Oct. 14 that JPD will not renew its contract with Flock Safety, the Atlanta-based license plate camera vendor, citing how the system handles driver data. The Clarion Ledger reported the cameras are expected to be removed once the contract expires. Council President Vernon Hartley said he has fielded resident complaints about privacy. The council approved the Flock contract unanimously under a previous administration, and installations began about two years ago. The decision lands as Flock faces national scrutiny over officers allegedly misusing automated license plate databases, though Jackson officials said they have not received evidence of misuse here.",
+      "Catfish house targets Folk Festival after stop-work lifted: A stop-work order on the future Shivers Creek Catfish House on Capitol Street has been lifted, and building owner Kip Gibery told the Clarion Ledger he hopes to open in time for the National Folk Festival, Nov. 13 to 15. Gibery called the halt a miscommunication with the permit office and said the timeline now hinges on an accelerated health department review. The restaurant, owned by restaurateur Dustin Malley, would add a locally owned dining option to a corridor that has drawn redevelopment investment. Separately, the city has three 24-month paving contracts out to bid, for asphalt milling and paving materials, all closing at 3:30 p.m. on Oct. 27.",
+      "Jackson sales tax take flat as suburbs pull ahead: Jackson received $2,622,651 in sales tax diversions in September, down 0.2% from $2,628,600 a year earlier, while its fiscal-year-to-date total of $7,951,288 is up 3.9%, according to Department of Revenue diversion reports. The suburbs are moving faster: Ridgeland rose 14.0% for the month and 13.8% year to date, and Flowood gained 3.8%. Pearl fell 17.4% for the month. The numbers land as Visit Jackson unveiled a five-year tourism plan on Oct. 13, with president and CEO Dr. Rickey Thigpen saying the city has been asked to compete against destinations with far greater resources. Voters decide a restaurant and hotel tax increase on Nov. 3.",
+    ],
+  },
+  {
     slug: "prado-projects-status-conservatory-lofts-dolce-hotel",
     title: "Three Prado Projects, Three Different Stages: What Is Actually Built, Permitted, and Still Paper",
     seoTitle: "Prado projects: what is built, permitted, and still paper",
