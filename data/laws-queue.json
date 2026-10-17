@@ -1,13 +1,5 @@
 [
   {
-    "bill": "HB 538",
-    "hint": "Requires state and local agencies and public colleges to cooperate with federal immigration enforcement and honor ICE detainers; bans sanctuary policies; the attorney general can sue to force compliance. Sponsor Rep. Lee Yancey. Approved April 8, 2026, effective July 1, 2026. Companion to SB 2114, already explained on the site.",
-    "sources": [
-      "https://www.starherald.net/new-mississippi-laws-aimed-curbing-illegal-immigration-could-face-challenges-aclu-69e03b22eb06b",
-      "https://magnoliatribune.com/2026/06/29/from-teacher-pay-to-illegal-immigration-new-laws-set-to-take-effect-in-mississippi/"
-    ]
-  },
-  {
     "bill": "HB 1625",
     "hint": "Crypto kiosk rules: operators need a Money Transmission Modernization Act license, cannot call kiosks ATMs, must post fraud warnings. Effective July 1, 2026.",
     "sources": [
@@ -150,6 +142,16 @@
     "bill": "HB 1224",
     "hint": "Mississippi Keeping Kids Safe Online Act: social media safety curriculum from the Department of Education, limits on features interactive computer services offer minors. Effective July 1, 2026.",
     "sources": [
+      "https://magnoliatribune.com/2026/06/29/from-teacher-pay-to-illegal-immigration-new-laws-set-to-take-effect-in-mississippi/"
+    ],
+    "attempts": 1,
+    "lastError": "entry failed the type check"
+  },
+  {
+    "bill": "HB 538",
+    "hint": "Requires state and local agencies and public colleges to cooperate with federal immigration enforcement and honor ICE detainers; bans sanctuary policies; the attorney general can sue to force compliance. Sponsor Rep. Lee Yancey. Approved April 8, 2026, effective July 1, 2026. Companion to SB 2114, already explained on the site.",
+    "sources": [
+      "https://www.starherald.net/new-mississippi-laws-aimed-curbing-illegal-immigration-could-face-challenges-aclu-69e03b22eb06b",
       "https://magnoliatribune.com/2026/06/29/from-teacher-pay-to-illegal-immigration-new-laws-set-to-take-effect-in-mississippi/"
     ],
     "attempts": 1,
