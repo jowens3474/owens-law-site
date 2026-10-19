@@ -1,14 +1,1 @@
-[
-  {
-    "id": "trustmark-branches-who-owns-them",
-    "topic": "Which Jackson-area Trustmark branches were sold in the $91.7 million sale-leaseback, and to whom",
-    "angle": "Who bought what. The Wire's Sept. 22 story, from Trustmark's Sept. 10 SEC filing, reported that the bank sold 34 branch buildings in five states to entities affiliated with Blue Owl Real Estate Capital and leased them back for 15 years at $6.4 million a year, and that the bank says no branch will close. Find which of the 34 are in the Jackson metro from recorded deeds or Trustmark's own filings, name the buyer entity on each, and report any recorded price. Readers know their branch by its street, so give addresses. Add only what is new and confirmed.",
-    "type": "sale",
-    "sources": [
-      "https://www.thejacksonwire.com/article/trustmark-sale-leaseback-34-branches-blue-owl-91-7-million"
-    ],
-    "addedBy": "editor",
-    "addedAt": "2026-10-11",
-    "skips": 1
-  }
-]
+[]
