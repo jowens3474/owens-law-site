@@ -78,6 +78,28 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "ummc-cancer-center-250-million-100-million-state-share-groundbreaking",
+    title: "UMMC Breaks Ground This Month on a $250 Million Cancer Center. $100 Million of It Is State Money.",
+    seoTitle: "UMMC cancer center: $250M project, $100M from Mississippi",
+    dek: "The five-story building is the largest single capital commitment on the UMMC campus in years. Private donors have pledged $100 million, the state added $100 million, and $8.5 million in federal money pays for site work.",
+    category: "Development",
+    categories: ["Economy"],
+    tags: ["pipeline"],
+    author: "Jackson Wire Staff",
+    date: "2026-10-20",
+    views: 0,
+    body: [
+      "Ground is scheduled to be broken this month on the University of Mississippi Medical Center's new Cancer Center and Research Institute, a five-story, 250,000-plus square foot building next to the main campus in Jackson. The price tag is $250 million, according to UMMC's own campaign materials and SuperTalk Mississippi's April 1 report on the project.",
+      "The money breaks into three pieces, and only one of them comes from the state. UMMC has raised $100 million in private gifts toward a $125 million goal, the medical center announced in March when it opened the public phase of the campaign. The Legislature appropriated $100 million in capital expense funds, and Gov. Tate Reeves signed the bill on Monday, April 13, according to UMMC Vice Chancellor Dr. LouAnn Woodward's April 17 VC Notes column. Another $8.5 million in federal money is paying for site preparation, Woodward wrote.",
+      "That leaves the campaign roughly $25 million short of its stated goal with construction starting. The campaign's own progress page (abouttime.ms) still reads \"close to 70% of our fundraising goal,\" a figure that appears not to have been updated since the March announcement of $100 million, which UMMC itself described as 80% of the goal. The Wire could not find a public document showing how the remaining gap is covered, or whether the building's final cost depends on closing it.",
+      "The donor list is unusually concentrated for a Jackson capital project. Sandy and John Black gave $25 million, the Gertrude C. Ford Foundation and the Bower Foundation each gave $10 million, and C Spire gave $5 million, per SuperTalk's accounting. Trustmark gave $2 million, Regions Bank gave $2.5 million on Oct. 5, and Jim Kennedy, chairman emeritus of Cox Enterprises, gave $5 million in July, according to UMMC news releases. By the Wire's count, those seven gifts alone total $59.5 million, or about 60% of the private money raised.",
+      "The state's share is the part with a direct claim on taxpayers outside Jackson. The $100 million appropriation sat in the same bill as $30 million for the University of Southern Mississippi's science research fund and $32 million for Mississippi State's veterinary school, SuperTalk reported. Sen. Daniel Sparks, R-Belmont, told SuperTalk the private fundraising is what justified the public money: \"UMMC didn't just show up with their hand out and say, 'Hey, we need some money.' They've already raised $100 million or more for this project, so if you want to talk about skin in the game, they have it.\"",
+      "The economic case UMMC is making rests on a designation it does not have yet. The building is designed to support an application for National Cancer Institute designation, which would make it the only such center in Mississippi, Louisiana or Arkansas, Woodward wrote. Dr. Rodney Rocconi, the center's director, has said the designation could take up to a decade and requires recruiting faculty and expanding research capacity, Mississippi Today reported. UMMC's cancer center received nearly $2.6 million from the NCI in August for metastasis research, according to a UMMC release.",
+      "For scale, the last comparable UMMC groundbreaking was the pediatrics tower, which UMMC described in its own news archive as a $180 million project. The cancer center is about 39% larger by cost, and unlike the pediatrics tower it is being built with a state appropriation covering 40% of the total. The Clarion-Ledger reported Oct. 20 that business and civic leaders see the project as the anchor of a medical business district around the campus, though no public document reviewed by the Wire sets out a district boundary, a zoning change, or a city incentive tied to it.",
+      "What's next: UMMC has said ground will be broken \"later this year\" and its cancer center page says the groundbreaking comes \"later this month,\" but the Wire could not find a published date, time or location for the ceremony on UMMC's site or in the campaign materials. A date would likely be announced through UMMC News (umc.edu/news) and the campaign site (abouttime.ms), which also carries the fundraising tracker. Readers who want the construction schedule or the contract awards should watch UMMC's board materials and the state's capital expense records for the $100 million line, since the appropriation is already law.",
+    ],
+  },
+  {
     slug: "trustmark-blue-owl-deeds-still-unrecorded-hinds-county-60-days",
     title: "Trustmark Sold 34 Branches Sept. 3. Seven Weeks Later, Hinds County Has Recorded No Deed to Any Buyer.",
     seoTitle: "Hinds County: no Trustmark branch deed recorded to Blue Owl",
