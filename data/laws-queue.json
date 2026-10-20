@@ -1,12 +1,5 @@
 [
   {
-    "bill": "HB 1625",
-    "hint": "Crypto kiosk rules: operators need a Money Transmission Modernization Act license, cannot call kiosks ATMs, must post fraud warnings. Effective July 1, 2026.",
-    "sources": [
-      "https://www.yourleague.org/new-mississippi-laws-impacting-credit-unions-26/"
-    ]
-  },
-  {
     "bill": "HB 1793",
     "hint": "Adds firearm safes to the Second Amendment sales tax holiday. Effective July 1, 2026.",
     "sources": [
@@ -156,5 +149,14 @@
     ],
     "attempts": 1,
     "lastError": "entry failed the type check"
+  },
+  {
+    "bill": "HB 1625",
+    "hint": "Crypto kiosk rules: operators need a Money Transmission Modernization Act license, cannot call kiosks ATMs, must post fraud warnings. Effective July 1, 2026.",
+    "sources": [
+      "https://www.yourleague.org/new-mississippi-laws-impacting-credit-unions-26/"
+    ],
+    "attempts": 1,
+    "lastError": "entry is too long (855 words; aim for 450 to 800)"
   }
 ]
