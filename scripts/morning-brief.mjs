@@ -14,6 +14,7 @@ import { createCourtListener } from "./lib/courtlistener.mjs";
 import { DATA_TOOLS, DATA_TOOL_NAMES, runDataTool } from "./lib/data-tools.mjs";
 import { pingIndexNow } from "./lib/indexnow.mjs";
 import { MISSION_PROMPT } from "./lib/mission.mjs";
+import { wellFormedMessages } from "./lib/well-formed-messages.mjs";
 
 const POSTS_FILE = "lib/posts.ts";
 
@@ -266,15 +267,30 @@ Process:
   let brief = null;
   let iteration = 0;
   const MAX_ITERATIONS = 14;
+  // DeepSeek keeps researching if allowed. After this many iterations, tell
+  // it to publish with what it has; on the final iteration, force the call.
+  const WRAP_UP_AT = 11;
 
   while (iteration++ < MAX_ITERATIONS && !brief) {
     console.log(`[brief] iteration ${iteration}: calling DeepSeek...`);
 
+    if (iteration === WRAP_UP_AT) {
+      console.log("[brief] research window closed; instructing model to publish.");
+      messages.push({
+        role: "user",
+        content:
+          "Research time is over. Using only the material gathered above, call publish_brief now with the five strongest items you can support. Do not call any other tool.",
+      });
+    }
+    const isFinal = iteration === MAX_ITERATIONS;
+
     const response = await client.chat.completions.create({
       model: "deepseek-chat",
-      messages,
+      messages: wellFormedMessages(messages),
       tools: TOOLS,
-      tool_choice: "auto",
+      tool_choice: isFinal
+        ? { type: "function", function: { name: "publish_brief" } }
+        : "auto",
       temperature: 0.3,
       max_tokens: 8000,
     });

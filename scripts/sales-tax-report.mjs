@@ -26,6 +26,7 @@ import {
   pct,
   DATA_FILE,
 } from "./lib/sales-tax.mjs";
+import { wellFormedMessages } from "./lib/well-formed-messages.mjs";
 
 const POSTS_FILE = "lib/posts.ts";
 const SITE = "https://www.thejacksonwire.com";
@@ -118,10 +119,10 @@ Tracker page (link it once, in the body): ${SITE}/economy/sales-tax`;
   log("calling DeepSeek...");
   const completion = await client.chat.completions.create({
     model: "deepseek-chat",
-    messages: [
+    messages: wellFormedMessages([
       { role: "system", content: system },
       { role: "user", content: user },
-    ],
+    ]),
     response_format: { type: "json_object" },
     temperature: 0.2,
   });

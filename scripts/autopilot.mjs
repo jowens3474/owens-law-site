@@ -28,6 +28,7 @@ import {
   describeOutcome,
 } from "./lib/assignments.mjs";
 import { checkSeoTitle, SEO_TITLE_MAX } from "./lib/seo-title.mjs";
+import { wellFormedMessages } from "./lib/well-formed-messages.mjs";
 
 const POSTS_FILE = "lib/posts.ts";
 const CATEGORIES = [
@@ -442,7 +443,7 @@ Use date "${today}". Pick a category from: ${CATEGORIES.join(", ")}.${assignment
 
     const response = await client.chat.completions.create({
       model: "deepseek-chat",
-      messages,
+      messages: wellFormedMessages(messages),
       tools: TOOLS,
       tool_choice: isFinal
         ? { type: "function", function: { name: "publish_article" } }

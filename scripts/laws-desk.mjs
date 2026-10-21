@@ -24,6 +24,7 @@ import { fetchUrl } from "./lib/fetch-url.mjs";
 import { webSearch } from "./lib/search.mjs";
 import { pingIndexNow } from "./lib/indexnow.mjs";
 import { MISSION_PROMPT } from "./lib/mission.mjs";
+import { wellFormedMessages } from "./lib/well-formed-messages.mjs";
 
 const LAWS_FILE = "lib/laws.ts";
 const QUEUE_FILE = "data/laws-queue.json";
@@ -557,7 +558,7 @@ function cleanArgs(args) {
 function askModel(client, messages, forcePublish) {
   return client.chat.completions.create({
     model: "deepseek-chat",
-    messages,
+    messages: wellFormedMessages(messages),
     tools: TOOLS,
     tool_choice: forcePublish ? { type: "function", function: { name: "publish_law" } } : "auto",
     temperature: 0.3,
