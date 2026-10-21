@@ -78,6 +78,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-10-21",
+    title: "Morning Brief: Oct 21 · Jackson Asks Judge for Water Hearing; Tourism Tax on Nov. 3 Ballot",
+    dek: "Jackson has asked a federal judge for a hearing on JXN Water's transition plan, a request that lands as the city's own comment window on the plan runs and as voters prepare to decide a restaurant and hotel tax increase Nov. 3.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-10-21",
+    views: 0,
+    body: [
+      "Jackson asks Wingate for water hearing: Mayor John Horhn told the Clarion Ledger on Tuesday that Jackson has requested a hearing before U.S. District Judge Henry Wingate over JXN Water's transition plan, and said he had not known the city had received the proposal when he outlined his own vision for the system last week. JXN Water sent the plan to the parties on Oct. 5 and released it publicly the night of Oct. 15. City spokesman Nic Lott said the court allowed an additional 30 days for comments, correcting Horhn's earlier statement that Jackson had already responded. JXN Water's plan would move the water and sewer systems to an independent authority, with Henifin stepping down in 2028 and oversight possibly ending December 2029.",
+      "Tourism tax hike goes to Nov. 3 ballot: Jackson voters will decide Nov. 3 whether to raise the restaurant tax by 0.5% and the hotel and lodging tax by 1%, the first increase to the city's tourism tax in more than 40 years, WAPT reported. The Legislature authorized the referendum this session; it appears on the third page of the ballot and applies only to city voters. Revenue would go to Visit Jackson for marketing and events, and supporters note the city's rate is below Memphis, Atlanta and Birmingham. It needs 60% approval to pass. The ballot language, per Ballotpedia, dedicates the money solely to the Jackson Convention and Visitors Bureau.",
+      "Casino land option still stalled at Council: Rep. Chris Bell, a Jackson Democrat, pressed the City Council at Monday night's work session to approve an option letting LeFleur Development buy 93 acres of city swampland along the Pearl River, Mississippi Today reported. The council tabled the deal Oct. 6 over price and over whether the Legislature will ever allow a casino in Jackson. As written, LeFleur would pay $1,000 for a one-year option and $111,000 for the land, the average of two city appraisals. LeFleur's unverified figures project $24 million a year in city tax revenue and 2,600 jobs. State law limits casinos to the Gulf Coast and Mississippi River counties.",
+      "Hinds jail receiver says county shorting him: The receiver running the Hinds County jail says county officials are giving him too little money and too little information, Mississippi Today reported Wednesday. The complaint lands as the Board of Supervisors works from a special-called meeting held Monday, Oct. 19, whose revised agenda is posted as a scanned PDF with no text layer at co.hinds.ms.us, so the items cannot be read without opening the file. The board's last readable agenda, from Oct. 5, was dominated by court orders setting salaries for circuit court administrators and staff, a reminder that the county's payroll obligations run alongside the jail's costs.",
+      "Sales tax split widens across the metro: Jackson's September sales tax diversion came in at $2,622,651, down 0.2% from $2,628,600 a year earlier, while Ridgeland collected $1,557,911, up 14.0%, according to Department of Revenue diversion reports. Ridgeland's gain alone, about $190,791, is more than seven times the roughly $26,000 Jackson lost. Pearl fell 17.4% to $1,161,762 and Brandon rose 13.1% to $773,167. Jackson's fiscal-year-to-date total is still up 3.9% at $7,951,288, so the September dip is a single month against a stronger year. The reports are posted at dor.ms.gov.",
+    ],
+  },
+  {
     slug: "ummc-cancer-center-250-million-100-million-state-share-groundbreaking",
     title: "UMMC Breaks Ground This Month on a $250 Million Cancer Center. $100 Million of It Is State Money.",
     seoTitle: "UMMC cancer center: $250M project, $100M from Mississippi",
