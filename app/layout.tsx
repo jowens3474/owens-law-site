@@ -118,6 +118,7 @@ const orgJsonLd = {
         height: 60,
       },
       image: { "@id": absoluteUrl("/#logo") },
+      sameAs: [site.facebook],
       email: site.email,
       foundingDate: String(site.founded),
       description: site.description,
