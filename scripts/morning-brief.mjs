@@ -267,8 +267,8 @@ Process:
   let brief = null;
   let iteration = 0;
   const MAX_ITERATIONS = 14;
-  // DeepSeek keeps researching if allowed. After this many iterations, tell
-  // it to publish with what it has; on the final iteration, force the call.
+  // DeepSeek keeps researching if allowed. From this iteration on, tell it
+  // to publish with what it has; on the final iteration, force the call.
   const WRAP_UP_AT = 11;
 
   while (iteration++ < MAX_ITERATIONS && !brief) {
