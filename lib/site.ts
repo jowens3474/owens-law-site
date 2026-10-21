@@ -29,8 +29,8 @@ export const site = {
   mission: missionData.statement.trim(),
   email: "capitolmain42@gmail.com",
   // The Facebook Page's public URL. It lives in lib/social.json and is used by
-  // the footer, the publisher JSON-LD in app/layout.tsx, and the daily email
-  // (scripts/send-newsletter.mjs reads the JSON itself).
+  // the footer and the publisher JSON-LD in app/layout.tsx. The daily email
+  // gets it from scripts/lib/social.mjs, which reads the JSON itself.
   facebook: socialData.facebook,
   city: "Jackson, Mississippi",
   founded: 2026,

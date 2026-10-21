@@ -26,14 +26,14 @@ const FROM = "The Jackson Wire <brief@thejacksonwire.com>";
 
 // Every link to the site inside the email is tagged, so readers can be traced
 // to the digest (see scripts/lib/utm.mjs). Fetching the feed stays untagged.
+// The Facebook Page link (lib/social.json) is not a link to the site, so it
+// goes out untagged too.
 const UTM = { source: "newsletter", medium: "email", campaign: "daily-digest" };
 const tagLink = (url) => tagUrl(url, UTM);
 
 const FORWARD_LINE =
   "Know someone who should read this? Forward this email. New readers can sign up at";
 
-// The Facebook Page link (lib/social.json) is not a link to the site, so it
-// goes out untagged.
 const FOLLOW_LINE = "Follow us on Facebook";
 
 // --- Time helpers ------------------------------------------------------------
