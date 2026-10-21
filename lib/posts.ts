@@ -78,6 +78,28 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "jxn-water-transition-plan-120-8-million-acquisition-financing",
+    title: "JXN Water's Transition Plan Hinges on a $120.8 Million Purchase of City Assets. The City Has Not Agreed to Sell.",
+    seoTitle: "JXN Water: $120.8M asset purchase at heart of transition",
+    dek: "Henifin's plan would have a new authority borrow $120.8 million to buy Jackson's water and sewer systems, saving about $1.4 million a year. Horhn wants a hearing instead.",
+    category: "Economy",
+    categories: ["Business"],
+    tags: ["pipeline"],
+    author: "Jackson Wire Staff",
+    date: "2026-10-21",
+    views: 0,
+    body: [
+      "The number that decides Jackson's water future is $120.8 million. That is what JXN Water's own financial plan says a new public authority would need to borrow to buy the city's water and sewer systems and retire the debt attached to them. The transition plan Ted Henifin released Oct. 15 lists that purchase as one of two ways to end federal oversight. The other is a long-term operating agreement. Neither has been negotiated with the city.",
+      "The arithmetic is in the Financial Management Plan Henifin filed with the U.S. District Court on Aug. 20 (jxnwater.com). Borrowing the $120.8 million on a tax-exempt basis instead of a taxable one would cut debt service by about $31.8 million over the life of the bonds, roughly $1.4 million a year for twenty years, the plan states. Tax-exempt bonds carry interest rates about 25 to 30 percent below taxable bonds, according to the same document. The plan also says the purchase would let the city close its 1993 General Bond Resolution, which the transition plan says Jackson has failed to meet for years, and would free the utility to borrow for sewer repairs once federal grants run out in 2029.",
+      "Who pays, and who profits, turns on which option the parties choose. Under a purchase, the new authority's ratepayers carry the $120.8 million, and the city sheds a debt load it has repeatedly covered from other revenue. Under an operating agreement, the city keeps the assets and the debt, and the authority runs the system for a fee. The transition plan puts negotiations over both in June 2028, after the authority is formed. The plan does not state a purchase price for the assets beyond the debt payoff, and it does not show what the city would net.",
+      "The plan's schedule is tight and entirely dependent on U.S. District Judge Henry Wingate. It targets court approval of the transition plan in December 2026, court appointment of the first board in August 2027, Secretary of State approval of the conversion in October 2027, a CEO named by April 2028, and Henifin's departure no later than July 1, 2028. Federal oversight would continue through December 2029. The plan calls the schedule aggressive.",
+      "Two dates in that sequence carry money. The first board is to be chosen from a ranked list of applicants advertised publicly, an answer to Wingate's objection in July 2025 that Henifin had handed him a pre-picked slate. After that, directors would be elected by account holders in good standing, which makes the customer list the voter roll. The plan rates the recommended authority high for customer control and low for cost and time to implement. It rates the state-created Metro Jackson Water Authority under HB 1677, which Jackson has challenged in federal court, low for customer control.",
+      "The city's position is not settled. Mayor John Horhn told the Clarion Ledger on Oct. 20 that Jackson has asked Wingate for a hearing on the plan, and he acknowledged he had not known the city had received it when he described his own vision for the system in an Oct. 12 interview. City spokesman Nic Lott said the court granted an extra 30 days for comments, moving the deadline past the original Oct. 20 date. Horhn wants Jackson to appoint a majority of the governing board through a municipal utility district. Henifin's plan says plainly that there is \"no case to be made to return governance to the City in the foreseeable future.\"",
+      "One measure of what is at stake sits in the same financial plan. JXN Water collected $46.2 million of the $56.4 million it billed in the first half of 2026, an 82 percent collection rate, up from 60 percent in 2023. The plan says operating revenue exceeded operating expenses for the first time since 2020, but that debt service still leaves a near-term cash deficit covered by shrinking federal grants. It projects a 10 percent rate increase in spring 2027, with more in 2028 and 2029 whose size depends on whether the purchase happens.",
+      "What's next: Wingate's chambers will set any hearing on the city's request, and the parties' comments on the transition plan are now due roughly 30 days after the original Oct. 20 deadline, per Lott. Watch for the city's written comments and for whether the Department of Justice, EPA, state Health Department and MDEQ file their own. The plan itself is posted at jxnwater.com, and customers with billing questions can reach JXN Water Customer Care at 601-500-5200. The next hard date is December 2026, when the plan asks Wingate to approve the governance change that makes the $120.8 million borrowing possible.",
+    ],
+  },
+  {
     slug: "morning-brief-2026-10-21",
     title: "Morning Brief: Oct 21 · Jackson Asks Judge for Water Hearing; Tourism Tax on Nov. 3 Ballot",
     dek: "Jackson has asked a federal judge for a hearing on JXN Water's transition plan, a request that lands as the city's own comment window on the plan runs and as voters prepare to decide a restaurant and hotel tax increase Nov. 3.",
