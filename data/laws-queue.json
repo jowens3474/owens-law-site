@@ -1,12 +1,5 @@
 [
   {
-    "bill": "HB 1793",
-    "hint": "Adds firearm safes to the Second Amendment sales tax holiday. Effective July 1, 2026.",
-    "sources": [
-      "https://www.nraila.org/articles/20260422/mississippi-legislature-adjourns-2026-session"
-    ]
-  },
-  {
     "bill": "HB 1941",
     "hint": "State general obligation bonds for the Mississippi Outdoor Stewardship Trust Fund. Confirm it became law.",
     "sources": [
@@ -158,5 +151,14 @@
     ],
     "attempts": 1,
     "lastError": "entry is too long (855 words; aim for 450 to 800)"
+  },
+  {
+    "bill": "HB 1793",
+    "hint": "Adds firearm safes to the Second Amendment sales tax holiday. Effective July 1, 2026.",
+    "sources": [
+      "https://www.nraila.org/articles/20260422/mississippi-legislature-adjourns-2026-session"
+    ],
+    "attempts": 1,
+    "lastError": "entry failed the type check"
   }
 ]
