@@ -98,6 +98,11 @@ Social run and search its log for "Facebook post rejected". The Graph API versio
 `scripts/post-social.mjs` (`FB_GRAPH_BASE`); move it forward before Meta
 retires it (see the Graph API changelog).
 
+The Page's public URL lives in `lib/social.json`. The site footer, the daily
+email, and the publisher JSON-LD all read it from there. When the Page's
+username changes, update it there; the old `profile.php?id=` link keeps
+redirecting to the Page.
+
 ## Verify
 
 Run the workflow manually once (**Actions → Social → Run workflow**), or

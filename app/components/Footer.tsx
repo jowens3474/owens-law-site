@@ -29,6 +29,14 @@ export default function Footer() {
             >
               {site.email}
             </a>
+            <a
+              href={site.facebook}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-1.5 block w-fit font-sans text-sm font-semibold text-crimson hover:text-crimson-bright"
+            >
+              Follow us on Facebook
+            </a>
           </div>
 
           <nav aria-label="Footer sections">

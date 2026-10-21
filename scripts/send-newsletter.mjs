@@ -14,6 +14,7 @@ import { MISSION } from "./lib/mission.mjs";
 import { realpathSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { tagUrl } from "./lib/utm.mjs";
+import { FACEBOOK_URL } from "./lib/social.mjs";
 
 const SITE_URL = "https://www.thejacksonwire.com";
 // The one spelling of the host that readers see in the footer, with www
@@ -25,11 +26,15 @@ const FROM = "The Jackson Wire <brief@thejacksonwire.com>";
 
 // Every link to the site inside the email is tagged, so readers can be traced
 // to the digest (see scripts/lib/utm.mjs). Fetching the feed stays untagged.
+// The Facebook Page link (lib/social.json) is not a link to the site, so it
+// goes out untagged too.
 const UTM = { source: "newsletter", medium: "email", campaign: "daily-digest" };
 const tagLink = (url) => tagUrl(url, UTM);
 
 const FORWARD_LINE =
   "Know someone who should read this? Forward this email. New readers can sign up at";
+
+const FOLLOW_LINE = "Follow us on Facebook";
 
 // --- Time helpers ------------------------------------------------------------
 
@@ -164,6 +169,9 @@ ${articleBlocks}
                   ${escHtml(FORWARD_LINE)}
                   <a href="${escHtml(tagLink(`${SITE_URL}/`))}" style="color: #555555; text-decoration: underline;">${escHtml(SITE_HOST)}</a>
                 </p>
+                <p style="margin: 0 0 12px 0; color: #555555; font-size: 12px; line-height: 1.6; font-family: Arial, Helvetica, sans-serif;">
+                  <a href="${escHtml(FACEBOOK_URL)}" style="color: #555555; text-decoration: underline;">${escHtml(FOLLOW_LINE)}</a>
+                </p>
                 <p style="margin: 0; color: #888888; font-size: 12px; line-height: 1.6; font-family: Arial, Helvetica, sans-serif;">
                   You're receiving this because you subscribed at ${escHtml(SITE_HOST)}.<br />
                   <a href="{{{RESEND_UNSUBSCRIBE_URL}}}" style="color: #888888; text-decoration: underline;">Unsubscribe</a>
@@ -190,6 +198,7 @@ export function buildText(items) {
   lines.push(MISSION);
   lines.push("");
   lines.push(`${FORWARD_LINE} ${tagLink(`${SITE_URL}/`)}`);
+  lines.push(`${FOLLOW_LINE}: ${FACEBOOK_URL}`);
   lines.push(`You're receiving this because you subscribed at ${SITE_HOST}.`);
   lines.push("Unsubscribe: {{{RESEND_UNSUBSCRIBE_URL}}}");
   return lines.join("\n");

@@ -1,8 +1,16 @@
 // Central place to rebrand the publication. Change these and the whole site updates.
 import missionData from "./mission.json";
+import socialData from "./social.json";
 
 if (typeof missionData.statement !== "string" || !missionData.statement.trim()) {
   throw new Error('lib/mission.json must hold a non-empty "statement" string.');
+}
+
+if (
+  typeof socialData.facebook !== "string" ||
+  !/^https:\/\/\S+$/.test(socialData.facebook)
+) {
+  throw new Error('lib/social.json must hold an https:// URL in "facebook".');
 }
 
 export const site = {
@@ -20,6 +28,10 @@ export const site = {
   // docs/EDITORIAL-DIRECTION.md for everywhere it appears.
   mission: missionData.statement.trim(),
   email: "capitolmain42@gmail.com",
+  // The Facebook Page's public URL. It lives in lib/social.json and is used by
+  // the footer and the publisher JSON-LD in app/layout.tsx. The daily email
+  // gets it from scripts/lib/social.mjs, which reads the JSON itself.
+  facebook: socialData.facebook,
   city: "Jackson, Mississippi",
   founded: 2026,
   // Human editor of record. Every article carries this byline and the
