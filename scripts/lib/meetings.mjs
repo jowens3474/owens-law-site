@@ -14,6 +14,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync, readdirSync, rmSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 import { join } from "node:path";
+import { wellFormedMessages } from "./well-formed-messages.mjs";
 
 export const DATA_DIR = "data/meetings";
 export const INDEX_FILE = join(DATA_DIR, "index.json");
@@ -285,10 +286,10 @@ export async function indexWithModel(client, meeting, { log = () => {}, agenda =
   const agendaPart = agenda ? `\n\nPublished agenda (use its item names and spellings where the transcript matches):\n${agenda.slice(0, 16_000)}` : "";
   const res = await client.chat.completions.create({
     model: "deepseek-chat",
-    messages: [
+    messages: wellFormedMessages([
       { role: "system", content: INDEX_PROMPT },
       { role: "user", content: `Meeting: ${meeting.body}\nVideo title: ${meeting.title}\nDate: ${meeting.date}${agendaPart}\n\nTranscript:\n${text}` },
-    ],
+    ]),
     response_format: { type: "json_object" },
     temperature: 0.1,
     max_tokens: 6000,

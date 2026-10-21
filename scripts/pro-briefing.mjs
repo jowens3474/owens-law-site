@@ -14,6 +14,7 @@ import { runDataTool } from "./lib/data-tools.mjs";
 import { createCourtListener } from "./lib/courtlistener.mjs";
 import { sendBroadcast, renderEmail, renderText } from "./lib/resend.mjs";
 import { tagSections } from "./lib/utm.mjs";
+import { wellFormedMessages } from "./lib/well-formed-messages.mjs";
 
 const SITE = process.env.SITE_URL || "https://www.thejacksonwire.com";
 const FROM = "Pipeline Pro <pro@thejacksonwire.com>";
@@ -178,10 +179,10 @@ ${feeds.bls_series}`;
   log("calling DeepSeek...");
   const completion = await client.chat.completions.create({
     model: "deepseek-chat",
-    messages: [
+    messages: wellFormedMessages([
       { role: "system", content: system },
       { role: "user", content: user },
-    ],
+    ]),
     response_format: { type: "json_object" },
     temperature: 0.3,
   });
