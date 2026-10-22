@@ -1,12 +1,5 @@
 [
   {
-    "bill": "HB 1941",
-    "hint": "State general obligation bonds for the Mississippi Outdoor Stewardship Trust Fund. Confirm it became law.",
-    "sources": [
-      "https://sportsmensalliance.org/news/mississippi-legislative-session-2026/"
-    ]
-  },
-  {
     "bill": "HB 1153",
     "hint": "Lab-grown dairy labeling or restrictions; became law without the governor's signature, per Magnolia Tribune.",
     "sources": []
@@ -160,5 +153,14 @@
     ],
     "attempts": 1,
     "lastError": "entry failed the type check"
+  },
+  {
+    "bill": "HB 1941",
+    "hint": "State general obligation bonds for the Mississippi Outdoor Stewardship Trust Fund. Confirm it became law.",
+    "sources": [
+      "https://sportsmensalliance.org/news/mississippi-legislative-session-2026/"
+    ],
+    "attempts": 1,
+    "lastError": "effective must be an ISO date; entry is too long (967 words; aim for 450 to 800)"
   }
 ]
