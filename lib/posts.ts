@@ -78,6 +78,28 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "mdeq-issued-traceview-air-permit-oct-14-ridgeland-gas-plant",
+    title: "MDEQ Issued Traceview's Air Permit Oct. 14. The $1 Billion Ridgeland Gas Plant Can Now Build.",
+    seoTitle: "MDEQ: Traceview air permit issued for Ridgeland gas plant",
+    dek: "The 754-megawatt plant Entergy says data centers help pay for cleared its last major state environmental hurdle on Oct. 14, and a pretreatment draft went to the facility a day later.",
+    category: "Development",
+    categories: ["Economy"],
+    tags: ["pipeline","data-centers"],
+    author: "Jackson Wire Staff",
+    date: "2026-10-22",
+    views: 0,
+    body: [
+      "The Mississippi Department of Environmental Quality issued the air construction permit for Entergy Mississippi's Traceview Advanced Power Station on Oct. 14, according to the agency's enSearch Online facility record for the site at 1972 W County Line Road in Ridgeland. The permit is numbered PSD 1720-00100. It is the approval that lets a 754-megawatt gas-fired plant move from paper to steel.",
+      "The same record shows the water side is not finished. MDEQ's pretreatment application MSP092492 moved to \"Send Draft Permit to Facility\" on Oct. 15, one day after the air permit issued. Stormwater coverage under general permit MSR109942 was issued Aug. 24, and a modification to MSR109619 covering the Green Acres Substation was issued Aug. 19. Construction coverage, in other words, is already in hand.",
+      "Entergy's own project page describes what is being built: a 754-megawatt natural gas combined-cycle plant and substation on roughly 75 acres of a 585-acre tract between Livingston Road and the Natchez Trace Parkway, on the Hinds and Madison county line. The company calls it a \"more than $1 billion investment,\" with construction starting in 2026 and an in-service date in 2029. Divided across the plant's capacity, that is more than $1.3 million per megawatt.",
+      "The money question is who pays for it. Entergy says data center revenue is already covering much of the cost. In an Aug. 27 release, the company said new large-customer revenue, \"like Amazon's,\" prevented what would otherwise have been a $4.87 per month increase in July for residential customers, and that it had filed for an additional $0.41 reduction tied partly to data center revenue. It projects more than $2 billion in customer benefits over 20 years.",
+      "That claim has a documented challenger. A May 2026 report prepared for Earthjustice and Environmental Advocates of Mississippi by Synapse Energy Economics says Entergy \"provides no public workpapers or any other documentation demonstrating that these claims\" are true, because contracts signed under Senate Bill 2001 are reviewed confidentially. The report states that residential ratepayers had already paid about $38 million as of March 2026 for investments related to serving data centers, and would contribute $74 million by the end of 2026. Neither figure can be checked against a public filing, which is the report's point.",
+      "Traceview sits inside that argument. The plant is one of three combined-cycle units Entergy is building, alongside Delta Blues in Greenville and a Vicksburg plant on the former Baxter Wilson site, together more than 2,100 megawatts. Entergy's release says accelerating those replacements saves an estimated $1.3 billion in materials and equipment, and that large customers are \"paying 100% of their own costs to be on the grid.\" The Synapse authors write that the savings projections rest on assumptions they could not validate.",
+      "The local record is thinner than the state one. MDEQ's file lists the plant under two names, \"Madison County Advanced Power Station\" and \"Traceview,\" and the site straddles the Ridgeland city limit and the county line. The enSearch record does not show a local zoning approval for the plant, and the city of Ridgeland's own data center ordinance, cited in Mississippi Free Press coverage of the May 19 Jackson council meeting, governs data centers rather than generation. Whether Ridgeland or Madison County holds site-plan authority over a 585-acre industrial plant is a question the public file does not answer.",
+      "What's next: the pretreatment draft permit for Traceview is with the facility as of Oct. 15, and MDEQ's public notice and comment period for that water permit is the next document to watch on the agency's enSearch page for facility 89056 (opc.deq.state.ms.us). Construction is scheduled to run from 2026 to a 2029 in-service date, and Entergy Mississippi's rate treatment of the plant's cost will be settled in filings before the Mississippi Public Service Commission, whose monthly utility dockets are posted at psc.ms.gov. Readers who want to contest or support the water permit should watch MDEQ's public notice calendar for the comment window, which the enSearch record does not yet show.",
+    ],
+  },
+  {
     slug: "morning-brief-2026-10-22",
     title: "Morning Brief: Oct 22 · 110-Acre Medical District Study Lands as Cancer Center Breaks Ground",
     dek: "Business leaders got their first look at a land-use study covering 110 acres of mostly state-owned land around UMMC and Veterans Memorial Stadium, the same week the cancer center that sparked it breaks ground.",
