@@ -78,6 +78,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-10-23",
+    title: "Morning Brief: Oct 23 · Jackson Demands $1.3M Back From AT&T; Water Plan Draws Suburban Pushback",
+    dek: "A July 30 demand letter obtained by the Clarion Ledger puts a number and a company name behind the $1.3 million in overbilling Mayor John Horhn described at his State of the City address, while AT&T says its charges are valid.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-10-23",
+    views: 0,
+    body: [
+      "Jackson demands $1.3M back from AT&T: City attorneys want $1,346,816.21 repaid for phone service Jackson says it paid for and never received, according to a July 30 demand letter the Clarion Ledger obtained through a public records request. The letter, signed by special assistant city attorney Jason Nabors, says AT&T dragged out the transfer of city numbers to RingCentral for roughly five years. AT&T disputes it, says delays came from discrepancies in the city's own records, and says it will not disconnect the 911 call center lines it was threatening over a separate $441,261.12 balance. The letter does not show how the city reached $1.3 million, and the released billing records do not identify which charges make up the figure. City Attorney Drew Martin said Jackson is evaluating its options.",
+      "State commits $3.1M to Homeward JXN, in installments: Mississippi Home Corporation will provide the $3.1 million match for the city's rehousing initiative, but in four installments of about $775,000 on a cost-reimbursement basis, WLBT reported. Jackson pays eligible costs up front and submits documentation to be repaid, which puts the cash-flow burden on a city that recently closed a $23 million budget deficit. Two days earlier Horhn told the council the match was not coming and the city needed another $5 million. Even with the commitment, WLBT reports the program is about $3.8 million short, and the city says it will raise that over two years. MHC told city leaders on September 18 that HOME-ARP caps support services at $500,000 and tenant-based rental assistance at $250,000.",
+      "Byram mayor opposes JXN Water board plan: Byram Mayor Richard White says he will not support Ted Henifin's proposal to convert JXN Water into a public authority whose board is initially appointed by U.S. District Judge Henry Wingate and later elected by account holders. \"That doesn't sound fair to the residents of Byram,\" White told WLBT, saying his city would have little say. JXN Water's latest quarterly report lists about 54,000 ratepayers, and Mississippi Today estimates roughly 4,200 live outside Jackson, many in Byram. White prefers the Metro Jackson Water Authority created by House Bill 1677, with seats appointed by the governor, lieutenant governor, and the mayors of Byram and Ridgeland. Wingate blocked most of that law in June; the state has appealed.",
+      "Data center count reaches 17 in metro: Jackson State's Mississippi Urban Research Center told a Thursday forum that the metro area holds 17 data centers and the state 24, 16 WAPT reported. Five operate in Hinds County, including CleanSpark's Clinton bitcoin sites, DartPoints, Lumen, NETDOOR and USNX, with the AWS Clinton hub and the Saxum project planned or under construction. The forum drew opponents as well as supporters. The count matters for rates: JXN Water's financial plan calls for a 10% increase in spring 2027, and Entergy Mississippi has told AWS it may need to curtail load at peak. The research center's inventory is the closest thing to a public list of who is drawing what.",
+      "Sales tax splits metro as tourism vote nears: September diversions show Ridgeland up 14.0% over a year earlier and Brandon up 13.1%, while Pearl fell 17.4% and Jackson came in at $2,622,651, down 0.2%, according to Department of Revenue diversion reports. Jackson's fiscal-year total is still ahead 3.9% at $7,951,288. The monthly figure lands as voters decide Nov. 3 on a referendum raising the hotel tax by 1% and the restaurant and prepared food tax by 0.5%, with revenue dedicated to the Jackson Convention and Visitors Bureau, per the ballot language. WAPT reported it would be the first such increase in more than 40 years. The measure appears on the third page of Jackson-only ballots.",
+    ],
+  },
+  {
     slug: "mdeq-issued-traceview-air-permit-oct-14-ridgeland-gas-plant",
     title: "MDEQ Issued Traceview's Air Permit Oct. 14. The $1 Billion Ridgeland Gas Plant Can Now Build.",
     seoTitle: "MDEQ: Traceview air permit issued for Ridgeland gas plant",
