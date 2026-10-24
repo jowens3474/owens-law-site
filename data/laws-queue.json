@@ -1,12 +1,5 @@
 [
   {
-    "bill": "HB 858",
-    "hint": "Bars optical mark reading voting equipment that can make a wireless connection during an election. Approved around March 20, 2026.",
-    "sources": [
-      "https://news.ballotpedia.org/2026/04/20/mississippi-legislators-enact-citizenship-checks-for-voter-list-maintenance-seven-other-election-related-bills/"
-    ]
-  },
-  {
     "bill": "SB 2695",
     "hint": "Passed in 2024 and effective July 1, 2026: first-time driver's license applicants must complete a certified driver's education course; high schools must offer one; road test required.",
     "sources": [
@@ -162,6 +155,15 @@
     "bill": "HB 1153",
     "hint": "Lab-grown dairy labeling or restrictions; became law without the governor's signature, per Magnolia Tribune.",
     "sources": [],
+    "attempts": 1,
+    "lastError": "entry failed the type check"
+  },
+  {
+    "bill": "HB 858",
+    "hint": "Bars optical mark reading voting equipment that can make a wireless connection during an election. Approved around March 20, 2026.",
+    "sources": [
+      "https://news.ballotpedia.org/2026/04/20/mississippi-legislators-enact-citizenship-checks-for-voter-list-maintenance-seven-other-election-related-bills/"
+    ],
     "attempts": 1,
     "lastError": "entry failed the type check"
   }
