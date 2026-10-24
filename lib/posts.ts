@@ -78,6 +78,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-10-24",
+    title: "Morning Brief: Oct 24 · Jackson Nets Under $100K From Kia, Hyundai; Big Fix Closures Begin",
+    dek: "Jackson's car-theft lawsuit against Kia and Hyundai closes for $178,556.05, with the city keeping a little less than $100,000, as MDOT's two-and-a-half-year Big Fix starts putting lane closures on I-20, I-55 and I-220.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-10-24",
+    views: 0,
+    body: [
+      "Jackson nets under $100K from Kia, Hyundai: The City Council on Tuesday approved accepting a $178,556.05 settlement of Jackson's 2025 suit against Kia America and Hyundai North America, and the city keeps a little less than $100,000 of it, Interim Chief Administrative Officer Drew Martin told WLBT. The suit, filed in Hinds County Chancery Court and later moved to federal court in California, claimed the automakers skipped anti-theft technology and that at least 300 of their vehicles were stolen in Jackson in 2023. Tatum and Wade PLLC represented the city. The payout works out to roughly $333 per stolen vehicle alleged in the complaint, before attorney fees.",
+      "Big Fix lane closures now hit Jackson interstates: MDOT's two-and-a-half-year, $400 million Big Fix has moved from mobilization to active construction now that the state fair has left town, agency spokesman Michael Flood told WAPT. Work covers 36 bridges and 32 miles of interstate, including I-20 from Wiggins Road to east of Pearson Road, I-55 from McDowell Road to north of High Street, I-220 from I-20 to the Lynch Street bridge, and Highway 51 from I-55 to north of U.S. 80. Most work runs overnight and on weekends for now. MDOT plans two 45-day full closures of I-20, the first in summer 2027, which is the date freight and retail calendars should circle.",
+      "Jackson sales tax take flat as suburbs pull ahead: Jackson received $2,622,651 in September sales tax diversions, down 0.2% from $2,628,600 a year earlier, while its fiscal-year-to-date total rose 3.9% to $7,951,288, according to Department of Revenue diversion reports. Ridgeland collected $1,557,911, up 14.0%, and Brandon rose 13.1% to $773,167. Pearl fell 17.4% to $1,161,762. Jackson's monthly check is still the largest in the metro, but the growth is happening on the suburban side of the line, which matters for a city that cut roughly $26 million from its 2026 budget, as WLBT reported.",
+      "Tourism tax vote set for Nov. 3: Jackson voters decide in 11 days whether to raise the restaurant and prepared food tax by 0.5% and the hotel, lodging and vacation rental tax by 1%, with the money dedicated solely to the Jackson Convention and Visitors Bureau, according to the ballot language posted by Ballotpedia. WAPT reported it would be the first such increase in more than 40 years and that the measure appears on the third page of the ballot, applying only to city voters. A simple majority passes it. Restaurant and hotel operators would collect the new levy; the ballot dedicates the proceeds to tourism marketing, not streets or general city services.",
+      "Gluckstadt's $30M Kayo Center adds restaurant: Crafted 81, from Burgers and Blues owner Steven Sahler, is set to open in March in Gluckstadt's $30 million Kayo Center off Calhoun Station Parkway, the Clarion Ledger reported. The plan calls for about 110 seats inside and 150 outside on 7,000 square feet of fenced green space, plus a pickup lane for online orders. The Gluckstadt Board of Aldermen approved an amended site plan Oct. 13 for six new buildings and 212 parking spaces. The six-acre district already holds a cheerleading facility and expects a boutique, bakery and medical practice, with full completion set for fall 2027.",
+    ],
+  },
+  {
     slug: "homeward-jxn-mississippi-home-corporation-750000-cap-3-1-million",
     title: "Jackson Says Mississippi Home Corporation Will Match $3.1 Million for Homeward JXN. The Agency's Own Manual Caps Those Grants at $750,000.",
     seoTitle: "Jackson: Homeward JXN match vs. HOME-ARP grant caps",
