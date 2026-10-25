@@ -78,6 +78,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-10-25",
+    title: "Morning Brief: Oct 25 · Pearl River Land Deal Sits in Committee as Lawmaker Pushes $600M Casino Case",
+    dek: "The 93-acre LeFleur Development option on Pearl River floodplain land is still parked in committee three weeks after the council tabled it, and the state law that would make a Jackson casino legal still has not passed.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-10-25",
+    views: 0,
+    body: [
+      "Pearl River land deal parked in committee: The Jackson City Council has not voted on declaring roughly 93 acres along the Pearl River surplus and granting LeFleur Development an option to buy it, three weeks after tabling the request on Oct. 6. Council President Vernon Hartley told Mississippi Today the proposal was referred to a committee, not killed. The terms: $1,000 for a one-year option running to Oct. 31, 2027, extendable to 2031 at $2,000 a year, with a sale price near $110,000 based on two appraisals LeFleur obtained. Ward 1 Councilman Ashby Foote questioned whether that price was too low. Rep. Chris Bell, a Jackson Democrat, told the council the city should not fumble what he called a $600 million influx.",
+      "Property tax swap poll lands as session nears: A Cygnal poll of 501 likely Mississippi voters, released by House Speaker Jason White, found 56.6 percent would favor eliminating the property tax on primary residences even with a higher sales tax, against 24.6 percent opposed, Mississippi Today reported Sunday. Asked how to replace the revenue, 34.6 percent chose local sales taxes and 29.3 percent a higher statewide sales tax, which is 7 percent; 36.2 percent were unsure. The survey was fielded Oct. 1 and 2 with a margin of error of 4.38 points. For Jackson property owners, the question is what replaces a tax base the mayor says has declined for decades.",
+      "Sales tax receipts split metro cities: Department of Revenue diversion reports for September show Jackson received $2,622,651, down 0.2 percent from $2,628,600 a year earlier, while its fiscal-year-to-date total of $7,951,288 is up 3.9 percent. The suburbs are running hotter: Ridgeland is up 14.0 percent for the month and 13.8 percent year to date, Brandon up 13.1 percent, Flowood up 3.8 percent. Pearl is down 17.4 percent for the month and 12.8 percent year to date. Jackson's general fund is about $113 million this year, roughly $23 million below last year, the Clarion Ledger reported.",
+      "Hinds work session Tuesday on a scanned agenda: The Hinds County Board of Supervisors meets in work session Tuesday, Oct. 27, with an agenda posted as a scanned image at co.hinds.ms.us that carries no searchable text. The board's Oct. 19 special called meeting agenda is scanned the same way. The most recent readable agenda, from Oct. 5, included orders setting salaries and office space for circuit court judges and their administrators. County spending decisions land on these agendas before they reach a vote, and residents who want to follow them have to open the PDF and read the page images.",
+      "Fenian's Pub reopens Halloween after two years: Fenian's Pub at Fortification and Jefferson streets plans its grand opening Oct. 31, owner William Lake told the Clarion Ledger, after more than two years closed and one missed August date. The deck is roughly seven times larger, the bar is now horseshoe shaped, and there is an outdoor stage and a self-serve beer station. Separately, the Clarion Ledger reported Oct. 7 that chef Michael Greenhill's Josett is expected to open late in November at 3000 Old Canton Road in the Fondren 3000 project. Both are small signals for a downtown and midtown market still absorbing a smaller city budget.",
+    ],
+  },
+  {
     slug: "amazon-canton-ridgeland-air-permit-modifications-draft-comment-period-closed",
     title: "Amazon Asked MDEQ for More Diesel Generators at Both Madison County Campuses. The Draft Permits Went to Public Comment in August and the Comment Window Has Closed.",
     seoTitle: "Amazon Madison County: generator permit comments closed",
