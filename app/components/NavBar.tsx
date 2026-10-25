@@ -69,6 +69,7 @@ export default function NavBar() {
     { name: "Laws", href: "/laws" },
     { name: "Pro", href: "/pro" },
     { name: "About", href: "/about" },
+    { name: "Blockcraft", href: "/minecraft" },
   ];
   // At xl the scrolled wordmark leads home, so "Home" leaves the row to
   // keep ten links fitting; below xl the wordmark is hidden, so Home stays.
