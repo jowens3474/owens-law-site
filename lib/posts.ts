@@ -78,6 +78,28 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "vero-fiber-tec-jackson-psc-assignment-2026-ua-63",
+    title: "A Colorado Fiber Company Closed on TEC in April. Mississippi Regulators Still Have Not Transferred TEC of Jackson's Customers.",
+    seoTitle: "Vero Fiber: PSC still holds TEC of Jackson customer transfer",
+    dek: "Vero Fiber finished buying TEC on April 14. Six months later, docket 2026-UA-63 to move TEC of Jackson's assets and customers to Vero Fiber ABS is still open on the PSC's docket.",
+    category: "Business",
+    categories: ["Economy"],
+    tags: ["pipeline"],
+    author: "Jackson Wire Staff",
+    date: "2026-10-25",
+    views: 0,
+    body: [
+      "The sale of Telephone Electronics Corporation closed on April 14. The Mississippi Public Service Commission has not finished moving the Mississippi piece of it. Docket 2026-UA-63, a joint petition of TEC of Jackson, Inc. and Vero Fiber ABS, LLC for approval of a pro forma assignment of assets and customers, was filed Aug. 6 and still sits on the Commission's October utility docket, according to the docket posted at psc.ms.gov.",
+      "The docket language matters. TEC of Jackson is the entity the FCC describes as a Mississippi corporation that provides competitive intrastate telecommunications services in seven states and is designated as an eligible telecommunications carrier in Mississippi, per FCC order DA 26-327 released April 2. An eligible telecommunications carrier designation is what lets a company draw federal universal service support. The PSC petition asks the Commission to let those assets and customers move to Vero Fiber ABS, a separate Vero entity that filed its own certificate application as 2026-UA-48 on July 1.",
+      "So the same company is asking the Commission for two things at once: a certificate to serve Mississippi at all, and permission to absorb the customers of a carrier that already has one. Both items appeared on the telecommunications agenda for the Commission's Oct. 6 open meeting at the Woolfolk State Building, according to the meeting agenda. The Commission's dockets page lists no October consent docket entry resolving either case, and the next posted meeting notice is for Nov. 17.",
+      "The money at stake is not in the petition. The PSC docket entries give no purchase price, no customer count, and no revenue figure for the assignment, and the Commission's public filings do not show what Vero paid for the Mississippi customer base or how the transfer is valued for state purposes. What the public record does show is scale: Vero said the TEC deal brought more than 4,500 miles of fiber and roughly 444,000 households across Mississippi, Alabama and Tennessee, in a company announcement on the acquisition.",
+      "TEC's corporate home is 700 South West Street in downtown Jackson, according to the company's own contact listing, and the April 14 announcement was datelined from both Boulder, Colorado and Jackson. Vero's corporate address on its release is 1580 N Logan St Ste 660, Denver. That is the shape of the transaction readers should watch: a Jackson-headquartered, century-old carrier whose parent is now a Colorado limited liability company, with the state customer transfer still pending before three elected commissioners.",
+      "There is a precedent for how this usually goes. The Commission handled a nearly identical pro forma assignment in 2025, when Crown Castle Fiber's Mississippi assets and customers moved to Fiber AssetCo under docket 2025-UA-56, filed June 2, 2025, according to the Commission's October 2025 consent docket. Those filings are typically routine. The difference here is timing: the corporate deal closed in April and the state assignment petition did not arrive until August, which means Mississippi customers have been served for months by an entity whose certificated customer base has not formally changed hands.",
+      "For a household in Pelahatchie, Morton, Forest or Magee, the practical question is whether the name on the bill, the rates, and the federal lifeline and universal service treatment change. Nothing in the docket entries the Wire read shows a rate change, a service change, or a change in the eligible telecommunications carrier designation. The petition is styled as pro forma, which in Commission practice means a transaction that does not change ultimate control. Vero's April announcement said TEC would keep operating as an independent brand with local leadership in place.",
+      "What's next: the Commission's next posted open meeting notice is for Nov. 17, 2026, at the Woolfolk State Office Building in Jackson, and the agenda for that meeting had not been posted as of Oct. 25. Watch whether 2026-UA-48 and 2026-UA-63 appear on it together, and whether the Commission issues the certificate and the assignment in the same order. The filings and any proposed orders are public at psc.ms.gov under Executive Secretary, then Dockets; the October 2026 utility docket lists both case numbers with their filing dates. Readers who want to comment can contact the Commissioner for their district, listed on the Commission's home page.",
+    ],
+  },
+  {
     slug: "morning-brief-2026-10-25",
     title: "Morning Brief: Oct 25 · Pearl River Land Deal Sits in Committee as Lawmaker Pushes $600M Casino Case",
     dek: "The 93-acre LeFleur Development option on Pearl River floodplain land is still parked in committee three weeks after the council tabled it, and the state law that would make a Jackson casino legal still has not passed.",
