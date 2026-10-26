@@ -78,6 +78,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-10-26",
+    title: "Morning Brief: Oct 26 · Tourism Tax on the Nov. 3 Ballot; Farish Street Bids Due Friday",
+    dek: "Jackson voters decide in eight days whether to raise the restaurant tax by half a percent and the hotel tax by one percent, the first tourism tax change in more than 40 years, with all new revenue dedicated to Visit Jackson.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-10-26",
+    views: 0,
+    body: [
+      "Tourism tax hike goes to Jackson voters: Jackson voters decide Nov. 3 whether to raise the restaurant and prepared food tax by 0.5% and the hotel, lodging and vacation rental tax by 1%, with the added money dedicated solely to the Jackson Convention and Visitors Bureau, doing business as Visit Jackson, according to the ballot title posted by Ballotpedia. WAPT reported it would be the first increase in the city's tourism taxes in more than 40 years and that the measure, passed by the Legislature this session, appears on the third page of the ballot and applies only to city voters. Visit Jackson CEO Rickey Thigpen told WAPT most residents do not stay in hotels, so tourists would carry the bulk of it. A simple majority passes it.",
+      "Farish Street proposals due Friday at 4 p.m.: The Jackson Redevelopment Authority is taking redevelopment proposals on its own parcels in the 200 and 300 blocks of North Farish Street until Friday, Oct. 30 at 4 p.m. Central, per the solicitation posted at jrams.org. The authority's property list prices the largest Farish parcel at $440,320 and the whole Farish inventory at roughly $1.9 million, and the RFP sets no published minimum, so those figures are the only public price signal. Respondents may bid on one property or several. The solicitation requires concepts consistent with zoning, historic-preservation rules and the district design guidelines. JRA's board meets the fourth Wednesday, which is Oct. 28, at 10 a.m. at Union Station, 300 W. Capitol St.",
+      "Jackson sales tax take flattens as suburbs grow: Jackson received $2,622,651 in September sales tax diversions, down 0.2% from $2,628,600 a year earlier, while its fiscal-year-to-date total of $7,951,288 is up 3.9%, according to Department of Revenue diversion reports. The metro comparison is starker: Ridgeland collected $1,557,911, up 14.0%, and Brandon $773,167, up 13.1%, in the same month. Pearl fell 17.4% to $1,161,762 and is down 12.8% for the fiscal year. Jackson's general fund is about $113 million for fiscal 2027, roughly $23 million below the prior year, Mayor John Horhn told the Clarion-Ledger, with police at about $33 million and public works at about $19 million. The next diversion report is the November filing.",
+      "Water transition plan sets a 2028 exit date: The 36-page ITPM Transition Plan Ted Henifin submitted Oct. 5 recommends converting JXN Water into a public authority under Mississippi Code Sections 51-41-1 through 51-41-33, with an initial board appointed by the federal court and later directors elected by account holders in good standing. The schedule has Henifin withdrawing in spring 2028, no later than July 1, 2028, with federal oversight continuing through 2029, and the Sun Herald reported court approval of the plan targeted for December. The plan states the city's 1993 general bond resolution covenants have gone unmet for years, blocking refinancing and new revenue-pledged debt. The sewer stipulated order terminates four years from its Oct. 5, 2023 effective date unless the court extends it.",
+      "Hinds supervisors work session Tuesday: The Hinds County Board of Supervisors holds a work session Tuesday, Oct. 27 at 9 a.m., following a special called meeting Oct. 19, according to the county's agenda page. The posted work session agenda is a scanned image with no text layer, so the items are not readable online; the county posts the PDF at co.hinds.ms.us under Board Agendas. The board's last text-readable regular agenda, from Oct. 5, ran through elected-official salary orders for circuit court administrators and a bid-opening and bid-approval sequence, the kind of routine spending that moves without a public hearing. Supervisors adopted the fiscal 2027 budget Sept. 10. Rankin County's board next meets Nov. 2.",
+    ],
+  },
+  {
     slug: "vero-fiber-tec-jackson-psc-assignment-2026-ua-63",
     title: "A Colorado Fiber Company Closed on TEC in April. Mississippi Regulators Still Have Not Transferred TEC of Jackson's Customers.",
     seoTitle: "Vero Fiber: PSC still holds TEC of Jackson customer transfer",
