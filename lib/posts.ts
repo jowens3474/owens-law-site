@@ -78,6 +78,28 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "jmaa-cag-holdings-terminal-predevelopment-16-3-million",
+    title: "JMAA Picked One Team for a New JAN Terminal. The $16.3 Million Design Bill Comes Before Any Price for the Building.",
+    seoTitle: "JMAA: $16.3M terminal design cap before any build price",
+    dek: "Commissioners authorized a predevelopment deal with a Carlyle-led team on Oct. 26. The only cost figures on the record cover design, not construction, and the airport got one proposal.",
+    category: "Development",
+    categories: ["Business","Economy"],
+    tags: ["pipeline"],
+    author: "Jackson Wire Staff",
+    date: "2026-10-27",
+    views: 0,
+    body: [
+      "The Jackson Municipal Airport Authority board voted unanimously on Oct. 26 to authorize negotiations on a predevelopment agreement with Jackson Forward, a team led by CAG Holdings, the airport investment platform of the Carlyle Group, along with Mississippi-based Yates Construction and the architecture firm Gensler. The vote moves the terminal project into design. It does not set a construction price, and the authority has not published one.",
+      "The only dollar figures on the record are for design work. According to 16 WAPT's account of the meeting, the first phase would cost up to $6.6 million and bring the design to roughly 30 percent completion. The proposed cap on reimbursable predevelopment costs is $16.3 million, which includes that first phase and would carry the design to between 60 and 80 percent, said Peter Kirsch of the Colorado law firm Kaplan Kirsch, which advises the authority.",
+      "Divide the two numbers and the arithmetic is stark: the design alone is budgeted at up to $16.3 million, and no document the Wire reviewed states what the building costs. The Clarion Ledger reported that a final price tag and a complete funding plan have not been determined. Airport officials said the board would have checkpoints where it could stop before committing to construction.",
+      "The delivery model is the unusual part. Under the design-build-finance approach, Carlyle and its partners would put up the money to build, and the airport would then buy the completed improvements. Gerrard Bushell, chairman of CAG Holdings, told the board that airline rates and charges would help support the project and that airlines would be involved in discussions about its cost. That means the bill eventually lands on the carriers serving JAN, and through them on ticket prices, rather than on a bond issue voters or the City Council would see.",
+      "JMAA's own July 23 announcement of the procurement describes the second stage as a development agreement with a guaranteed maximum price, after which the facilities turn over to the airport. The authority keeps ownership of the improvements and all airport assets. The request for qualifications and proposals, JMAA Project No. 2026-30, set a 2:00 p.m. CT deadline of Sept. 25, 2026 for responses and a non-mandatory pre-submission meeting and terminal tour on Aug. 11, 2026 in the Community Room on the third floor of the main terminal at 100 International Drive.",
+      "The airport received one proposal. Kirsch described considerable industry interest, according to the Clarion Ledger, but only Jackson Forward submitted. Reginald Thompson of Alliant Insurance Services, the evaluation committee spokesman, said in the authority's release that the team applied established criteria covering qualifications, financial strength and technical expertise. A single responsive bid is a fact readers can weigh when the guaranteed maximum price arrives, because there will be no competing price to compare it against.",
+      "The scope is still conceptual. The current plan consolidates the east and west concourses into one, adds a single security checkpoint, expands concessions and seating, and demolishes the west concourse. Board Chairman Warren Herring said the airport has nine gates but only four or five are used consistently, and that six or seven gates could handle larger aircraft. The authority's release carries a disclaimer that the rendering does not represent a final design or a commitment to specific features.",
+      "What's next: JMAA expects to conclude the predevelopment agreement by the end of 2026, and commissioners also authorized a search for a program manager to represent the authority, with officials hoping to have someone in place before the end of the year. Construction is hoped to begin by the end of 2028. The board's monthly meetings are posted at jmaa.com/meet-our-team, where the Oct. 26 notice of regular meeting is listed; the agenda and minutes for that meeting were not yet posted when the Wire checked. Watch for the signed predevelopment agreement, the program manager contract, and the first board vote that sets a guaranteed maximum price, because that is the number that tells passengers and airlines what the terminal costs.",
+    ],
+  },
+  {
     slug: "morning-brief-2026-10-27",
     title: "Morning Brief: Oct 27 · Airport Picks Carlyle Team; $6.6M Design Phase First",
     dek: "JMAA's board voted unanimously Monday to negotiate a predevelopment agreement with a team led by CAG Holdings, Yates Construction and Gensler, with up to $6.6 million for design work and no construction price yet.",
