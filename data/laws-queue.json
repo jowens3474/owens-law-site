@@ -1,12 +1,5 @@
 [
   {
-    "bill": "SB 2695",
-    "hint": "Passed in 2024 and effective July 1, 2026: first-time driver's license applicants must complete a certified driver's education course; high schools must offer one; road test required.",
-    "sources": [
-      "https://www.wlox.com/2026/07/01/july-1-new-mississippi-laws-take-effect-today/"
-    ]
-  },
-  {
     "bill": "SB 3053",
     "hint": "$2,000 pay raise for university professors (SB 3063 covers community college faculty). Check both numbers.",
     "sources": [
@@ -166,5 +159,14 @@
     ],
     "attempts": 1,
     "lastError": "entry failed the type check"
+  },
+  {
+    "bill": "SB 2695",
+    "hint": "Passed in 2024 and effective July 1, 2026: first-time driver's license applicants must complete a certified driver's education course; high schools must offer one; road test required.",
+    "sources": [
+      "https://www.wlox.com/2026/07/01/july-1-new-mississippi-laws-take-effect-today/"
+    ],
+    "attempts": 1,
+    "lastError": "entry is too long (903 words; aim for 450 to 800)"
   }
 ]
