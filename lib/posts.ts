@@ -78,6 +78,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-10-28",
+    title: "Morning Brief: Oct 28 · City Says It Was Cut Out of Water Transition; Writing Its Own",
+    dek: "Jackson's city attorney told a council committee that JXN Water never consulted the city before sending its transition plan to a federal judge, and the city now plans a competing plan of its own.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-10-28",
+    views: 0,
+    body: [
+      "City says it was cut out of water plan: Jackson City Attorney Drew Martin told a council committee Tuesday that the city was never consulted on JXN Water's transition plan and is now drafting its own, WLBT reported. Martin said the city was supposed to work on the plan with Interim Third-Party Manager Ted Henifin but learned of it only after Henifin sent it to U.S. District Judge Henry Wingate. \"The next thing I knew, he was emailing everybody saying, 'Here's our plan,'\" Martin said. The federal order required weekly meetings between Henifin and the city's public works director before filing; Martin said the last two scheduled meetings did not happen. Parties must respond to the court by Dec. 4.",
+      "Water bills face another increase in spring 2027: JXN Water's 36-page transition plan says continued cash flow problems require an additional 10% rate increase in spring 2027, WLBT reported. That would follow the roughly 11.7% increase Judge Wingate approved, which raised the average single-family combined water and sewer bill by about $8.88 a month to roughly $88 starting March 23, 2026, according to JXN Water's rates page. Under the stipulated order, Henifin can raise rates without council approval if a year has passed since the last increase. Henifin wrote that elected officials \"twice failed to support required rate increases,\" and that the system will not be financially sustainable until 2029.",
+      "Farish Street proposals due Friday at 4 p.m.: The Jackson Redevelopment Authority's Phase II request for proposals for JRA-owned parcels in the 200 and 300 blocks of North Farish Street closes Oct. 30 at 4 p.m., the authority's RFP page states. Respondents may bid on one property or several, and JRA says it welcomes concepts consistent with the Farish Street Historic District Design Guidelines. The RFP opened Aug. 31 with two pre-proposal webinars, Sept. 8 and Sept. 29, and two addenda posted. JRA lists its address as 300 West Capitol Street, Suite 200, and its contact as (601) 960-1815. The RFP does not state a minimum price for the parcels.",
+      "Jackson sales tax receipts slip as suburbs gain: The Department of Revenue's September diversion report shows Jackson collected $2,622,651, down 0.2% from $2,628,600 a year earlier, while fiscal-year-to-date receipts of $7,951,288 are up 3.9%. The contrast is in the suburbs: Ridgeland rose 14.0% to $1,557,911 and Brandon 13.1% to $773,167, while Pearl fell 17.4% to $1,161,762. Under Mississippi Code Section 27-65-75, a city receives 18.5% of sales tax collected on business inside its limits during the preceding month, paid by the 15th. Jackson's September figure is the first month of the fiscal year to fall below the prior year, after August's 9.5% gain.",
+      "Lumumba sentencing split; objections due Friday: U.S. District Judge Daniel P. Jordan III granted a sealed motion Tuesday moving Chokwe Antar Lumumba's sentencing to Nov. 20 at 1 p.m., but ordered him and counsel to appear Nov. 5 at 9 a.m. so the court can hear all three defendants' objections to their presentence reports before sentencing Jody Owens and then Aaron Banks. The order, filed Oct. 27, requires the parties to tell the court by 5 p.m. Oct. 30 whether any objections will be waived, and to submit sentencing memoranda by that same time. Jordan wrote that Lumumba's interest in sealing the basis for the delay outweighs the public's right to know.",
+    ],
+  },
+  {
     slug: "jmaa-cag-holdings-terminal-predevelopment-16-3-million",
     title: "JMAA Picked One Team for a New JAN Terminal. The $16.3 Million Design Bill Comes Before Any Price for the Building.",
     seoTitle: "JMAA: $16.3M terminal design cap before any build price",
