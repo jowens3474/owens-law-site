@@ -78,6 +78,28 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "jackson-pearl-river-93-acres-lefleur-option-110500",
+    title: "Jackson Is Weighing $110,500 for 93 Pearl River Acres. LeFleur Development Pitches a $1 Billion Resort on Them.",
+    seoTitle: "Jackson: $110,500 option on 93 Pearl River acres",
+    dek: "The council tabled the surplus-property option Oct. 6 after Ward 1's Ashby Foote questioned the price. A state lawmaker pressed the deal Monday, and the land sits in the Pearl's floodplain.",
+    category: "Development",
+    categories: ["Real Estate","Economy"],
+    tags: ["pipeline"],
+    author: "Jackson Wire Staff",
+    date: "2026-10-28",
+    views: 0,
+    body: [
+      "Jackson owns 93 acres along the Pearl River near Interstate 55 and Fortification Street. LeFleur Development LLC wants an option to buy them for about $110,500, a figure the Jackson Association of Neighborhoods reports was set by averaging two appraisals. The council has not voted yes.",
+      "The matter was tabled at the Oct. 6 meeting after Ward 1 Council Member Ashby Foote, the body's lone Republican, questioned whether $110,000 was too low, according to Mississippi Today's account of the session. On Monday night, Oct. 19, state Rep. Chris Bell, a Jackson Democrat, urged the council to approve the sale, the outlet reported.",
+      "The price works out to roughly $1,188 an acre. The two appraisals, both done in March, came in at $112,000 and $110,000, according to a summary of the proposal published by SCCG Management, an industry outlet that tracks casino development. The Wire could not read the appraisal documents themselves; they are not posted on the city's agenda page.",
+      "LeFleur is backed by former Gov. Haley Barbour and attorney-developer Robert Gibbs, a key ally of Mayor John Horhn, Mississippi Today reported. The developer is seeking a partner to build a resort that could include a casino, and SCCG's summary puts the project's potential value at $1 billion, with projections of $24 million a year in taxes and 2,600 jobs.",
+      "Two facts complicate those projections. The land lies within the Pearl River's floodplain, as Mississippi Today's reporting describes it. And casino development is not legal in Jackson today; state law would have to change first, a point the neighborhood association made in its Oct. 22 recap of the Oct. 6 meeting. The council is not currently considering a casino approval, that recap states.",
+      "The city's financial position is the backdrop. Jackson is working through a $26 million budget cut, according to SCCG's summary of the proposal. Set against that, $110,500 is a rounding error: the Wire calculates it equals about 0.4% of the cut, and less than one month of the city's September sales tax diversion of $2,622,651, per Department of Revenue figures.",
+      "The structure the council discussed is an option, not a sale. A developer could pay for time to pursue the property before closing, and protections could let the land revert to city ownership if the promised development does not happen, the neighborhood association reported. Those terms are what determine whether the city keeps leverage; the option price and the reverter language are the two numbers and clauses to read closely.",
+      "What's next: the council's next regular meeting is listed for Nov. 17 at 6 p.m. at Jackson City Hall, 219 S. President St., and the surplus declaration and option agreement would have to appear on an agenda before any vote. Agendas post at jacksonms.gov under City Council, Agendas and Minutes, generally about a week ahead; the Oct. 20 agenda page carried no readable text when the Wire checked it. Watch whether Foote's price objection produces a second appraisal or a reverter clause, and whether any Mississippi bill to allow a Jackson casino is filed before the 2027 legislative session.",
+    ],
+  },
+  {
     slug: "morning-brief-2026-10-28",
     title: "Morning Brief: Oct 28 · City Says It Was Cut Out of Water Transition; Writing Its Own",
     dek: "Jackson's city attorney told a council committee that JXN Water never consulted the city before sending its transition plan to a federal judge, and the city now plans a competing plan of its own.",
