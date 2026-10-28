@@ -1,12 +1,5 @@
 [
   {
-    "bill": "SB 3053",
-    "hint": "$2,000 pay raise for university professors (SB 3063 covers community college faculty). Check both numbers.",
-    "sources": [
-      "https://magnoliatribune.com/2026/06/29/from-teacher-pay-to-illegal-immigration-new-laws-set-to-take-effect-in-mississippi/"
-    ]
-  },
-  {
     "bill": "",
     "hint": "Judicial pay raise of $10,000 to $13,000 for Supreme Court, Court of Appeals, circuit and chancery judges; find the bill number (2026 session).",
     "sources": [
@@ -168,5 +161,14 @@
     ],
     "attempts": 1,
     "lastError": "entry is too long (903 words; aim for 450 to 800)"
+  },
+  {
+    "bill": "SB 3053",
+    "hint": "$2,000 pay raise for university professors (SB 3063 covers community college faculty). Check both numbers.",
+    "sources": [
+      "https://magnoliatribune.com/2026/06/29/from-teacher-pay-to-illegal-immigration-new-laws-set-to-take-effect-in-mississippi/"
+    ],
+    "attempts": 1,
+    "lastError": "entry failed the type check"
   }
 ]
