@@ -1,12 +1,5 @@
 [
   {
-    "bill": "",
-    "hint": "Judicial pay raise of $10,000 to $13,000 for Supreme Court, Court of Appeals, circuit and chancery judges; find the bill number (2026 session).",
-    "sources": [
-      "https://www.supertalk.fm/bill-by-bill-recap-of-the-2026-mississippi-legislative-session/"
-    ]
-  },
-  {
     "bill": "SB 2294",
     "hint": "Mississippi Math Act and literacy expansion: statewide math initiative (M3) with coaching, universal screening and intervention; literacy work extended to grades 4 to 8; new graduation requirements in financial literacy (J.P. Wilemon Jr. Financial Literacy Act) and computer science including AI; civics in U.S. government courses. Effective July 1, 2026.",
     "sources": [
@@ -167,6 +160,15 @@
     "hint": "$2,000 pay raise for university professors (SB 3063 covers community college faculty). Check both numbers.",
     "sources": [
       "https://magnoliatribune.com/2026/06/29/from-teacher-pay-to-illegal-immigration-new-laws-set-to-take-effect-in-mississippi/"
+    ],
+    "attempts": 1,
+    "lastError": "entry failed the type check"
+  },
+  {
+    "bill": "",
+    "hint": "Judicial pay raise of $10,000 to $13,000 for Supreme Court, Court of Appeals, circuit and chancery judges; find the bill number (2026 session).",
+    "sources": [
+      "https://www.supertalk.fm/bill-by-bill-recap-of-the-2026-mississippi-legislative-session/"
     ],
     "attempts": 1,
     "lastError": "entry failed the type check"
