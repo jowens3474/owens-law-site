@@ -78,6 +78,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-10-29",
+    title: "Morning Brief: Oct 29 · Madison Weighs $11.7M TIF for The Gallery; Henifin Rejects City's Water Plan",
+    dek: "Madison will take public comment Nov. 10 on up to $11.741 million in TIF bonds for the $60 million Gallery district, the same week Jackson votes on its own tourism tax and JXN Water's manager tells the city it has no standing to write a rival transition plan.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-10-29",
+    views: 0,
+    body: [
+      "Madison sets Nov. 10 hearing on Gallery TIF: Madison's mayor and Board of Aldermen will hold a public hearing at 9 a.m. Nov. 10 in the City Hall boardroom on a tax increment financing plan for The Gallery, the Clarion Ledger reported Thursday. The public notice puts the bond issue at up to $11.741 million for roads, sidewalks, drainage, utilities, landscaping, traffic signalization and parking. Repayment would come from a share of future sales tax generated inside the district plus incremental property tax from new investment, not from existing city taxes; the notice says the bonds carry no full faith and credit pledge and require no local tax increase. Bellamare Development LLC may also have to post added security through a taxpayer agreement. County participation could pledge county increment too.",
+      "Henifin: city has no standing on water plan: JXN Water's interim third-party manager told WLBT on Thursday that the order appointing him required him to write the transition plan alone. \"The order required the ITPM to develop the plan - not in cooperation with any other party,\" Ted Henifin said, adding the city, state and federal government may comment, with responses due Dec. 4. He also asked why the party that drove the system to failure would design its long-term plan. The exchange follows the city's Tuesday statement that it was not consulted and would draft its own plan. Henifin's proposal would convert JXN Water into a private authority when the federal receivership ends.",
+      "Jackson sales tax diversions flat as suburbs grow: Department of Revenue diversion reports show Jackson received $2,622,651 in September, down 0.2% from $2,628,600 a year earlier, while fiscal-year-to-date collections are up 3.9% at $7,951,288. Ridgeland collected $1,557,911, up 14.0%, and Brandon $773,167, up 13.1%. Pearl fell 17.4% to $1,161,762 and is down 12.8% for the fiscal year. The monthly payment is the closest thing the metro has to a real-time economic indicator, and it lands five days before Jackson voters decide a tourism tax increase that would add 10 cents to a $20 restaurant bill and $1 to a $100 hotel room, needing 60% approval.",
+      "Farish Street proposals due Friday: Responses to the Jackson Redevelopment Authority's Farish Street Forward request for proposals are due Oct. 30, per the RFP page and WLBT. JRA CEO Alex Lawson told WLBT the RFP had been downloaded 80 times and at least 20 people attended each information session, with interest ranging from single buildings to the whole street. The rubric weights financial capacity at 25% and relevant experience at 20%. JRA says no agency or city money goes in initially, though it will help developers find historic tax credits and will offer buildings at nominal cost. The city and JRA have spent about $51 million on the corridor over the years.",
+      "Gluckstadt MegaDome is dead, mayor says: The $100 million sports complex announced for Gluckstadt in January 2024 is unlikely to be built, Mayor Walter Morrison told WLBT. \"I don't think it'll ever get built,\" he said, describing a breakdown between out-of-town developers and the local landowner. The 43-acre site at Weisenberger Road and Highway 51 was never fully sold to 828 Sports Ventures, and Morrison said the developers have left for Texas. The parcel's owners are marketing it to someone else. Meanwhile a privately funded TD Select Baseball complex off Stout Road is expected to open in coming weeks. Separately, the Owens and Banks sentencings remain set for Nov. 5, with sentencing memoranda due Oct. 30.",
+    ],
+  },
+  {
     slug: "jackson-pearl-river-93-acres-lefleur-option-110500",
     title: "Jackson Is Weighing $110,500 for 93 Pearl River Acres. LeFleur Development Pitches a $1 Billion Resort on Them.",
     seoTitle: "Jackson: $110,500 option on 93 Pearl River acres",
