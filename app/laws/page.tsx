@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllLaws, isInEffect, LAW_TOPICS, type Law } from "@/lib/laws";
+import { getAllRulings } from "@/lib/rulings";
 import { formatDate } from "@/lib/posts";
 import { site } from "@/lib/site";
 import { absoluteUrl } from "@/lib/markdown";
@@ -79,6 +80,7 @@ export default async function LawsPage({ searchParams }: PageProps<"/laws">) {
     .filter((l) => !isInEffect(l))
     .sort((a, b) => a.effective.localeCompare(b.effective));
   const filtering = Boolean(topic || q);
+  const hasRulings = getAllRulings().length > 0;
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-10">
@@ -92,6 +94,15 @@ export default async function LawsPage({ searchParams }: PageProps<"/laws">) {
         <p className="mt-3 max-w-2xl font-sans text-lg leading-relaxed text-muted">
           {DEK}
         </p>
+        {hasRulings && (
+          <p className="mt-2 font-sans text-sm text-muted">
+            Looking for court decisions?{" "}
+            <Link href="/rulings" className="font-semibold text-crimson hover:text-crimson-bright">
+              What the Courts Decided
+            </Link>{" "}
+            explains Mississippi Supreme Court and Court of Appeals rulings the same way.
+          </p>
+        )}
         <p className="mt-2 font-sans text-sm text-muted">
           {`${all.length} ${all.length === 1 ? "law" : "laws"} explained so far, with more on the way. Each entry is built from the bill's summary and history, the Legislature's cost estimate when the Wire can find one, and news reports; the reporting note at the end of each entry says what was and was not read.`}
         </p>

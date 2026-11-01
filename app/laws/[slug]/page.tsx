@@ -14,6 +14,7 @@ import { formatDate } from "@/lib/posts";
 import { capNotFoundLife } from "@/lib/not-found-cap";
 import { site } from "@/lib/site";
 import { absoluteUrl } from "@/lib/markdown";
+import EntrySection from "@/app/components/EntrySection";
 import ReadingProgress from "@/app/components/ReadingProgress";
 import ShareBar from "@/app/components/ShareBar";
 
@@ -55,30 +56,6 @@ export async function generateMetadata({
       description: law.oneSentence,
     },
   };
-}
-
-function Section({
-  id,
-  heading,
-  paragraphs,
-}: {
-  id: string;
-  heading: string;
-  paragraphs?: string[];
-}) {
-  if (!paragraphs || paragraphs.length === 0) return null;
-  return (
-    <section id={id} className="mt-9 scroll-mt-16">
-      <h2 className="border-b border-ink pb-1 font-sans text-xs font-bold uppercase tracking-widest text-ink">
-        {heading}
-      </h2>
-      <div className="prose-plain mt-4">
-        {paragraphs.map((p, i) => (
-          <p key={i}>{p}</p>
-        ))}
-      </div>
-    </section>
-  );
 }
 
 export default async function LawPage({ params }: PageProps<"/laws/[slug]">) {
@@ -199,7 +176,7 @@ export default async function LawPage({ params }: PageProps<"/laws/[slug]">) {
         </header>
 
         {sections.map((s) => (
-          <Section key={s.id} id={s.id} heading={s.heading} paragraphs={s.paragraphs} />
+          <EntrySection key={s.id} id={s.id} heading={s.heading} paragraphs={s.paragraphs} />
         ))}
 
         <aside className="mt-10 border-t border-rule pt-4">

@@ -1,10 +1,11 @@
-// Full-text search over published articles and law explainers. Everything
-// is in memory (a few hundred posts, a few dozen laws), so a query is a
-// linear scan: cheap, and no index to keep in sync. Every term must appear
-// somewhere in the entry; matches in the headline count most, then the dek
-// and tags, then the body.
+// Full-text search over published articles, law explainers and court ruling
+// explainers. Everything is in memory (a few hundred posts, a few dozen laws
+// and rulings), so a query is a linear scan: cheap, and no index to keep in
+// sync. Every term must appear somewhere in the entry; matches in the
+// headline count most, then the dek and tags, then the body.
 import { getAllPosts, type Post } from "./posts";
 import { getAllLaws, type Law } from "./laws";
+import { getAllRulings, type Ruling } from "./rulings";
 import { norm, termPattern } from "./search-terms";
 
 export interface SearchHit {
@@ -231,6 +232,77 @@ export function lawMatches(law: Law, q: string): boolean {
       ...law.whatChangesForYou,
       ...(law.jackson ?? []),
       ...law.watchFor,
+    ].join(" "),
+  );
+  return matchers(terms).every((m) => m.once.test(hay));
+}
+
+// Court rulings, searched the same way (every term must match; the case name,
+// docket and headline first).
+
+export function searchRulings(
+  q: string,
+  { limit = 5 }: { limit?: number } = {},
+): { terms: string[]; hits: Ruling[] } {
+  const terms = queryTerms(q);
+  if (terms.length === 0) return { terms, hits: [] };
+  const ms = matchers(terms);
+  const scored: { ruling: Ruling; score: number }[] = [];
+  for (const ruling of getAllRulings()) {
+    const head = norm(`${ruling.caseName} ${ruling.docket} ${ruling.title} ${ruling.court}`);
+    const summary = norm(`${ruling.oneSentence} ${ruling.topics.join(" ")} ${ruling.outcome}`);
+    const body = norm(
+      [
+        ...ruling.whatHappened,
+        ...ruling.whatTheCourtDecided,
+        ...ruling.whyItMatters,
+        ...ruling.whatChangesForYou,
+        ...(ruling.jackson ?? []),
+        ...ruling.watchFor,
+      ].join(" "),
+    );
+    let score = 0;
+    let everyTermFound = true;
+    for (const m of ms) {
+      let s = 0;
+      if (m.once.test(head)) s += 10;
+      if (m.once.test(summary)) s += 5;
+      s += countMatches(body, m.every, MAX_BODY_HITS);
+      if (s === 0) {
+        everyTermFound = false;
+        break;
+      }
+      score += s;
+    }
+    if (everyTermFound) scored.push({ ruling, score });
+  }
+  scored.sort(
+    (a, b) => b.score - a.score || b.ruling.date.localeCompare(a.ruling.date),
+  );
+  return { terms, hits: scored.slice(0, limit).map((s) => s.ruling) };
+}
+
+// True when every usable term in `q` appears somewhere in the ruling, with the
+// same word-boundary rules as search results. A query with no usable terms
+// (stop words only) is treated as no filter. Used by the /rulings filter box.
+export function rulingMatches(ruling: Ruling, q: string): boolean {
+  const terms = queryTerms(q);
+  if (terms.length === 0) return true;
+  const hay = norm(
+    [
+      ruling.caseName,
+      ruling.docket,
+      ruling.title,
+      ruling.court,
+      ruling.oneSentence,
+      ...ruling.topics,
+      ruling.outcome,
+      ...ruling.whatHappened,
+      ...ruling.whatTheCourtDecided,
+      ...ruling.whyItMatters,
+      ...ruling.whatChangesForYou,
+      ...(ruling.jackson ?? []),
+      ...ruling.watchFor,
     ].join(" "),
   );
   return matchers(terms).every((m) => m.once.test(hay));
