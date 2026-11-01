@@ -16,6 +16,14 @@
 // model is shown each failed rule with the numbers measured on its draft and
 // sends one corrected publish_law call, checked by the same validator. If that
 // fails too, the queue item moves to the back as before.
+//
+// The type check is the last gate, and it runs twice. A fresh checkout has no
+// route types (PageProps, LayoutProps) or next-env.d.ts, so `next typegen`
+// makes them first. The first run is on the repo as it stands, before any
+// research or model call: if it fails the repo is broken, not an entry, so no
+// API credit is spent, lib/laws.ts and the queue are left alone, and the run
+// exits non-zero. The second run has the entry in: if it fails, lib/laws.ts is
+// restored and the queue item moves to the back, as for a rejected draft.
 
 import { readFileSync, writeFileSync } from "node:fs";
 import { execSync } from "node:child_process";
@@ -658,6 +666,25 @@ async function main() {
     return;
   }
 
+  // Baseline, before any research or model call: is the repo itself sound? tsc
+  // needs the route types (PageProps, LayoutProps) and next-env.d.ts. Both are
+  // git-ignored and made by next dev, next build or next typegen, so a fresh
+  // checkout has neither and tsc fails on every page whatever the entry says.
+  // Typegen makes them without a full build. It can exit 0 after failing to
+  // load next.config.ts, but then it generates nothing and the tsc run that
+  // follows fails on PageProps, so tsc is the real check. A failure here is the
+  // repo's, not an entry's: stop before spending any API credit, leave
+  // lib/laws.ts and the queue alone, and exit non-zero so the run turns red.
+  console.log("[laws-desk] Baseline type check before any model call: next typegen, then tsc.");
+  try {
+    execSync("npx next typegen", { stdio: "inherit" });
+    execSync("npx tsc --noEmit", { stdio: "inherit" });
+  } catch (e) {
+    console.error(`[laws-desk] Baseline type check failed (${e?.message || e}); the repo is broken, so the run stops before any model call. lib/laws.ts untouched, queue unchanged, nothing published.`);
+    process.exit(1);
+  }
+  console.log("[laws-desk] Baseline type check passed.");
+
   const client = new OpenAI({ apiKey: process.env.DEEPSEEK_API_KEY, baseURL: "https://api.deepseek.com" });
   const today = todayLocalIso();
   const task = [
@@ -769,7 +796,9 @@ async function main() {
   writeFileSync(LAWS_FILE, updated);
   console.log(`[laws-desk] Drafted "${law.title}" (${law.bill}, ${wordCount(law)} words) -> /laws/${law.slug}`);
 
-  // The type check is the last gate: a bad field never reaches main.
+  // The type check is the last gate: a bad field never reaches main. The
+  // baseline passed and typegen's output is still valid, so a failure here is
+  // the entry's.
   try {
     execSync("npx tsc --noEmit", { stdio: "inherit" });
   } catch {
