@@ -651,10 +651,21 @@ export const getLawBySlug = cache((slug: string): Law | undefined => {
   return law && isPublished(law) ? smartenLaw(law) : undefined;
 });
 
+// The entries most like `entry`: those that share a topic with it come first,
+// then the rest, each group in the order `entries` lists them. The law pages
+// and the ruling pages (lib/rulings.ts) both use it.
+export function relatedByTopic<T extends { slug: string; topics: LawTopic[] }>(
+  entry: T,
+  entries: T[],
+  limit: number,
+): T[] {
+  const others = entries.filter((e) => e.slug !== entry.slug);
+  const shared = others.filter((e) => e.topics.some((t) => entry.topics.includes(t)));
+  return shared.concat(others.filter((e) => !shared.includes(e))).slice(0, limit);
+}
+
 export function getRelatedLaws(law: Law, limit = 3): Law[] {
-  const all = getAllLaws().filter((l) => l.slug !== law.slug);
-  const shared = all.filter((l) => l.topics.some((t) => law.topics.includes(t)));
-  return shared.concat(all.filter((l) => !shared.includes(l))).slice(0, limit);
+  return relatedByTopic(law, getAllLaws(), limit);
 }
 
 // Newest entries by publication date, for the front-page rail.

@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { MEETINGS } from "@/lib/meetings";
 import { getAllPosts } from "@/lib/posts";
 import { getAllLaws } from "@/lib/laws";
+import { getAllRulings } from "@/lib/rulings";
 import { categories } from "@/lib/site";
 import { absoluteUrl } from "@/lib/markdown";
 
@@ -12,6 +13,7 @@ export const revalidate = 86400;
 export default function sitemap(): MetadataRoute.Sitemap {
   const posts = getAllPosts();
   const latest = posts[0] ? new Date(posts[0].date) : new Date();
+  const rulings = getAllRulings();
 
   const staticPages: MetadataRoute.Sitemap = [
     { url: absoluteUrl("/"), lastModified: latest, changeFrequency: "daily", priority: 1 },
@@ -75,6 +77,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: 0.7,
     })),
+    // The rulings hub and entries stay out of the sitemap until one is published.
+    ...(rulings.length > 0
+      ? [
+          {
+            url: absoluteUrl("/rulings"),
+            lastModified: latest,
+            changeFrequency: "daily" as const,
+            priority: 0.8,
+          },
+          ...rulings.map((r) => ({
+            url: absoluteUrl(`/rulings/${r.slug}`),
+            lastModified: new Date(r.updated ?? r.date),
+            changeFrequency: "monthly" as const,
+            priority: 0.7,
+          })),
+        ]
+      : []),
     {
       url: absoluteUrl("/explainers"),
       lastModified: latest,

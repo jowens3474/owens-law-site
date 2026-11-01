@@ -1,8 +1,11 @@
 import Link from "next/link";
 import { categories, site } from "@/lib/site";
+import { getAllRulings } from "@/lib/rulings";
 import Wordmark from "./Wordmark";
 
 export default function Footer() {
+  // The court rulings link waits for the first published ruling.
+  const hasRulings = getAllRulings().length > 0;
   return (
     <footer className="mt-16 border-t-4 border-double border-ink bg-newsprint">
       <div className="mx-auto max-w-6xl px-4 py-10">
@@ -78,6 +81,16 @@ export default function Footer() {
                   What Passed: new laws
                 </Link>
               </li>
+              {hasRulings && (
+                <li>
+                  <Link
+                    href="/rulings"
+                    className="font-sans text-sm hover:text-crimson"
+                  >
+                    What the Courts Decided
+                  </Link>
+                </li>
+              )}
               <li>
                 <Link
                   href="/meetings"

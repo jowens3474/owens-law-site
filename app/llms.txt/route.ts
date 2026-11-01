@@ -1,5 +1,6 @@
 import { getAllPosts } from "@/lib/posts";
 import { getAllLaws } from "@/lib/laws";
+import { getAllRulings } from "@/lib/rulings";
 import { site, categories } from "@/lib/site";
 import { absoluteUrl } from "@/lib/markdown";
 
@@ -27,6 +28,15 @@ export async function GET() {
     lines.push("## New laws, explained in plain words", "");
     for (const l of laws) {
       lines.push(`- [${l.title} (${l.bill})](${absoluteUrl(`/laws/${l.slug}`)}): ${l.oneSentence}`);
+    }
+    lines.push("");
+  }
+
+  const rulings = getAllRulings();
+  if (rulings.length > 0) {
+    lines.push("## Court rulings, explained in plain words", "");
+    for (const r of rulings) {
+      lines.push(`- [${r.title}](${absoluteUrl(`/rulings/${r.slug}`)}): ${r.oneSentence}`);
     }
     lines.push("");
   }

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { site } from "@/lib/site";
 import { absoluteUrl } from "@/lib/markdown";
+import { getAllRulings } from "@/lib/rulings";
 import Wordmark from "@/app/components/Wordmark";
 
 const description = `About ${site.name}: independent business, economics, and development reporting from Jackson, Mississippi. Our mission, editorial standards, AI policy, corrections, and how to send a tip.`;
@@ -25,6 +26,8 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
+  // The court rulings clause waits for the first published ruling.
+  const hasRulings = getAllRulings().length > 0;
   return (
     <div className="mx-auto max-w-3xl px-4 py-10">
       <header className="border-b border-rule pb-5">
@@ -68,7 +71,21 @@ export default function AboutPage() {
               What Passed
             </Link>{" "}
             explains the new Mississippi laws that matter most to Jackson in
-            plain words.
+            plain words
+            {hasRulings && (
+              <>
+                , and{" "}
+                <Link
+                  href="/rulings"
+                  className="font-bold text-crimson underline underline-offset-2 hover:text-crimson-bright"
+                >
+                  What the Courts Decided
+                </Link>{" "}
+                does the same for Mississippi Supreme Court and Court of
+                Appeals rulings
+              </>
+            )}
+            .
           </li>
           <li>
             <strong>We tell you what is coming.</strong>{" "}

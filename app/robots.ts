@@ -12,6 +12,7 @@ import { absoluteUrl } from "@/lib/markdown";
 const DISALLOW = [
   "/search",
   "/laws?",
+  "/rulings?",
   "/meetings/search",
   "/api/meetings/",
   "/api/pro/",

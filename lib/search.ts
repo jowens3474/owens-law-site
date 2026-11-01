@@ -1,10 +1,11 @@
-// Full-text search over published articles and law explainers. Everything
-// is in memory (a few hundred posts, a few dozen laws), so a query is a
-// linear scan: cheap, and no index to keep in sync. Every term must appear
-// somewhere in the entry; matches in the headline count most, then the dek
-// and tags, then the body.
+// Full-text search over published articles, law explainers and court ruling
+// explainers. Everything is in memory (a few hundred posts, a few dozen laws
+// and rulings), so a query is a linear scan: cheap, and no index to keep in
+// sync. Every term must appear somewhere in the entry; matches in the
+// headline count most, then the dek and tags, then the body.
 import { getAllPosts, type Post } from "./posts";
 import { getAllLaws, type Law } from "./laws";
+import { getAllRulings, type Ruling } from "./rulings";
 import { norm, termPattern } from "./search-terms";
 
 export interface SearchHit {
@@ -166,30 +167,34 @@ export function searchPosts(
   return { terms, hits: hits.slice(0, limit) };
 }
 
-// Laws, searched the same way (every term must match; headline first).
+// Laws and court rulings are searched by the same two helpers below, so they
+// match and rank alike. Each kind hands over its text in three parts: the
+// headline words (identifiers and title), the summary words, and the body
+// paragraphs.
+interface EntryText {
+  head: string;
+  summary: string;
+  body: string[];
+}
 
-export function searchLaws(
+// The entries that contain every term, best match first. A term found in the
+// headline counts most, then the summary, then the body (up to MAX_BODY_HITS
+// mentions); ties go to the newest publication date.
+function searchEntries<T extends { date: string }>(
   q: string,
-  { limit = 5 }: { limit?: number } = {},
-): { terms: string[]; hits: Law[] } {
+  entries: T[],
+  textOf: (entry: T) => EntryText,
+  limit: number,
+): { terms: string[]; hits: T[] } {
   const terms = queryTerms(q);
   if (terms.length === 0) return { terms, hits: [] };
   const ms = matchers(terms);
-  const scored: { law: Law; score: number }[] = [];
-  for (const law of getAllLaws()) {
-    const head = norm(`${law.bill} ${law.title} ${law.officialTitle ?? ""}`);
-    const summary = norm(`${law.oneSentence} ${law.topics.join(" ")}`);
-    const body = norm(
-      [
-        ...law.whatItDoes,
-        ...law.whyItHappened,
-        ...law.whatsBehindIt,
-        ...law.whatItCosts,
-        ...law.whatChangesForYou,
-        ...(law.jackson ?? []),
-        ...law.watchFor,
-      ].join(" "),
-    );
+  const scored: { entry: T; score: number }[] = [];
+  for (const entry of entries) {
+    const text = textOf(entry);
+    const head = norm(text.head);
+    const summary = norm(text.summary);
+    const body = norm(text.body.join(" "));
     let score = 0;
     let everyTermFound = true;
     for (const m of ms) {
@@ -203,27 +208,29 @@ export function searchLaws(
       }
       score += s;
     }
-    if (everyTermFound) scored.push({ law, score });
+    if (everyTermFound) scored.push({ entry, score });
   }
   scored.sort(
-    (a, b) => b.score - a.score || b.law.date.localeCompare(a.law.date),
+    (a, b) => b.score - a.score || b.entry.date.localeCompare(a.entry.date),
   );
-  return { terms, hits: scored.slice(0, limit).map((s) => s.law) };
+  return { terms, hits: scored.slice(0, limit).map((s) => s.entry) };
 }
 
-// True when every usable term in `q` appears somewhere in the law, with the
-// same word-boundary rules as search results. A query with no usable terms
-// (stop words only) is treated as no filter. Used by the /laws filter box.
-export function lawMatches(law: Law, q: string): boolean {
+// True when every usable term in `q` appears somewhere in the entry's text,
+// with the same word-boundary rules as search results. A query with no usable
+// terms (stop words only) is treated as no filter.
+function entryMatches(text: EntryText, q: string): boolean {
   const terms = queryTerms(q);
   if (terms.length === 0) return true;
-  const hay = norm(
-    [
-      law.bill,
-      law.title,
-      law.officialTitle ?? "",
-      law.oneSentence,
-      ...law.topics,
+  const hay = norm([text.head, text.summary, ...text.body].join(" "));
+  return matchers(terms).every((m) => m.once.test(hay));
+}
+
+function lawText(law: Law): EntryText {
+  return {
+    head: `${law.bill} ${law.title} ${law.officialTitle ?? ""}`,
+    summary: `${law.oneSentence} ${law.topics.join(" ")}`,
+    body: [
       ...law.whatItDoes,
       ...law.whyItHappened,
       ...law.whatsBehindIt,
@@ -231,7 +238,50 @@ export function lawMatches(law: Law, q: string): boolean {
       ...law.whatChangesForYou,
       ...(law.jackson ?? []),
       ...law.watchFor,
-    ].join(" "),
-  );
-  return matchers(terms).every((m) => m.once.test(hay));
+    ],
+  };
+}
+
+function rulingText(ruling: Ruling): EntryText {
+  return {
+    head: `${ruling.caseName} ${ruling.docket} ${ruling.title} ${ruling.court}`,
+    summary: `${ruling.oneSentence} ${ruling.topics.join(" ")} ${ruling.outcome}`,
+    body: [
+      ...ruling.whatHappened,
+      ...ruling.whatTheCourtDecided,
+      ...ruling.whyItMatters,
+      ...ruling.whatChangesForYou,
+      ...(ruling.jackson ?? []),
+      ...ruling.watchFor,
+    ],
+  };
+}
+
+// Laws, searched the same way (every term must match; headline first).
+export function searchLaws(
+  q: string,
+  { limit = 5 }: { limit?: number } = {},
+): { terms: string[]; hits: Law[] } {
+  return searchEntries(q, getAllLaws(), lawText, limit);
+}
+
+// True when every usable term in `q` appears somewhere in the law. Used by the
+// /laws filter box.
+export function lawMatches(law: Law, q: string): boolean {
+  return entryMatches(lawText(law), q);
+}
+
+// Court rulings, searched the same way (every term must match; the case name,
+// docket and headline first).
+export function searchRulings(
+  q: string,
+  { limit = 5 }: { limit?: number } = {},
+): { terms: string[]; hits: Ruling[] } {
+  return searchEntries(q, getAllRulings(), rulingText, limit);
+}
+
+// True when every usable term in `q` appears somewhere in the ruling. Used by
+// the /rulings filter box.
+export function rulingMatches(ruling: Ruling, q: string): boolean {
+  return entryMatches(rulingText(ruling), q);
 }

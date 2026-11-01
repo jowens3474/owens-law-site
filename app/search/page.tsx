@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { searchPosts, searchLaws } from "@/lib/search";
+import { searchPosts, searchLaws, searchRulings } from "@/lib/search";
+import { courtShort } from "@/lib/rulings";
 import { formatDate, readingTime } from "@/lib/posts";
 import { categories, site } from "@/lib/site";
 import SearchForm from "@/app/components/SearchForm";
@@ -48,6 +49,7 @@ export default async function SearchPage({
     ? searchPosts(q, { limit: LIMIT })
     : { terms: [] as string[], hits: [] };
   const laws = q ? searchLaws(q, { limit: 5 }).hits : [];
+  const rulings = q ? searchRulings(q, { limit: 5 }).hits : [];
   const quoted = terms.map((t) => `“${t}”`).join(" and ");
 
   return (
@@ -126,6 +128,29 @@ export default async function SearchPage({
                 </Link>
                 <p className="mt-1 font-sans text-sm text-muted">
                   <Highlight text={law.oneSentence} terms={terms} />
+                </p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {rulings.length > 0 && (
+        <section className="mt-6 border border-rule p-5">
+          <h2 className="font-sans text-xs font-bold uppercase tracking-widest text-crimson">
+            Court rulings, explained
+          </h2>
+          <ul className="mt-2 divide-y divide-rule">
+            {rulings.map((ruling) => (
+              <li key={ruling.slug} className="py-3">
+                <p className="font-sans text-[0.7rem] font-bold uppercase tracking-wider text-muted">
+                  {courtShort(ruling.court)} · {ruling.docket}
+                </p>
+                <Link href={`/rulings/${ruling.slug}`} className="font-serif text-lg font-bold leading-snug hover:text-crimson">
+                  <Highlight text={ruling.title} terms={terms} />
+                </Link>
+                <p className="mt-1 font-sans text-sm text-muted">
+                  <Highlight text={ruling.oneSentence} terms={terms} />
                 </p>
               </li>
             ))}
