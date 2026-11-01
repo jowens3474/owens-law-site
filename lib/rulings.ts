@@ -11,12 +11,12 @@
 //   the lower court's ruling stands), reversed (it disagreed, so the lower
 //   court's ruling is thrown out), rendered (the higher court made the final
 //   ruling itself, with nothing left for the lower court to do), remanded
-//   (sent back to the lower court for more work), vacated (set aside, as if
-//   never made), dismissed (ended without the court ruling on the questions
-//   raised), dissent (a judge's written disagreement with the majority), en
-//   banc (decided by all of the court's judges instead of a smaller panel)
-//   and per curiam (an opinion issued in the court's name, with no single
-//   author).
+//   (sent back to the lower court or an agency for more work), vacated (set
+//   aside, as if never made), dismissed (ended without the court ruling on
+//   the questions raised), dissent (a judge's written disagreement with the
+//   majority), en banc (decided by all of the court's judges instead of a
+//   smaller panel) and per curiam (an opinion issued in the court's name,
+//   with no single author).
 // - Say what the court decided, never whether a person did something. A court
 //   upholding a conviction is not the Wire saying the person did it.
 //   Attribute everything: "the court wrote," "according to the opinion."
@@ -35,7 +35,7 @@ import { absoluteUrl } from "./markdown";
 import { todayLocalIso } from "./posts";
 import { site } from "./site";
 import { smarten } from "./typography";
-import { LAW_TOPICS, type LawSource, type LawTopic } from "./laws";
+import { LAW_TOPICS, relatedByTopic, type LawSource, type LawTopic } from "./laws";
 
 // Rulings are filed under the same topics as laws, so a topic chip means the
 // same thing in both sections. Re-exported so the rulings pages import
@@ -101,6 +101,11 @@ export const RULING_SHARE_IMAGE = {
   alt: `${site.name}, with the tagline: ${site.tagline}`,
 };
 
+// The line every ruling page carries, on the hub and under each entry, so a
+// reader knows a summary is not the opinion and not legal advice.
+export const RULING_DISCLAIMER =
+  "A plain-language summary of a court opinion, not legal advice. The opinion is the official record.";
+
 export const RULINGS: Ruling[] = [
   {
     slug: "medical-cannabis-application-fee-no-refund",
@@ -127,15 +132,15 @@ export const RULINGS: Ruling[] = [
       "On the fee, the court reversed, meaning it threw out the order to return the $15,000. On the license, it affirmed, meaning it upheld the denial. Justice Branning wrote for five justices.",
       "The law calls the application fee nonrefundable, the court wrote. Its only exception lets the state refund the fee when the sole reason for denial is another dispensary within 1,500 feet. No exception covers a church, and it is 'certainly not within the constitutional powers of this Court to create one,' Branning wrote.",
       "The majority also said a church does not have to own its building to count. It is enough that the church existed there before the application, and no one disputed that Wellspring did, the court wrote.",
-      "Four justices dissented, meaning they disagreed with the result. Chief Justice Randolph wrote that Green Cross 'was never offered constitutional due process,' which he described as notice and a chance to be heard. He would have sent the case back for a full appeal before the agency.",
-      "Justice Sullivan, joined by Presiding Justice King and Justice Ishee, said the denial rested on 'uncorroborated hearsay within hearsay,' meaning secondhand reports. The agency's record was three emails from an agent and an affidavit, a sworn statement, he wrote. He would have overturned the denial and kept the refund.",
+      "Four justices dissented, meaning they disagreed with the result. Chief Justice Randolph wrote that Green Cross 'was never offered constitutional due process,' which Randolph described as notice and a chance to be heard. Randolph would have sent the case back for a full appeal before the agency.",
+      "Justice Sullivan, joined by Presiding Justice King and Justice Ishee, said the denial rested on 'uncorroborated hearsay within hearsay,' meaning secondhand reports. The agency's record was three emails from an agent and an affidavit, a sworn statement, Sullivan wrote. Sullivan would have overturned the denial and kept the refund.",
     ],
     whyItMatters: [
       "The court called this 'a case of first impression,' meaning it had never ruled on these questions before. Its answer is that the $15,000 application fee stays with the state when a license is denied over a nearby church.",
       "Under the ruling, a church does not need to own its space to block a dispensary. Wellspring had paid a fee to use its space, the trial judge found. The majority quoted that finding and agreed.",
     ],
     whatChangesForYou: [
-      "The ruling deals with fees paid by people and companies applying for dispensary licenses. Under it, an applicant denied for any reason other than a nearby dispensary cannot get the $15,000 application fee back.",
+      "The ruling deals with fees paid by people and companies applying for dispensary licenses. On the court's reading, an applicant denied for any reason other than a nearby dispensary cannot get the $15,000 application fee back.",
       "A 2023 law, House Bill 1158, created an appeal inside the agency for denied applicants, the majority wrote. Green Cross applied and went to court before that law took effect.",
       "The Wire's read: applicants carry the risk that a church opens nearby shortly before they apply, even if a careful survey finds nothing.",
     ],
@@ -153,7 +158,7 @@ export const RULINGS: Ruling[] = [
   },
   {
     slug: "tenant-injury-verdict-tossed-unqualified-expert",
-    title: "Supreme Court tosses Hinds County tenant's injury verdict over unqualified expert",
+    title: "Supreme Court tosses Hinds County jury's verdict for a tenant over unqualified expert",
     caseName: "Park Wind Apartments, LLC v. Glenda Mayze",
     court: "Mississippi Supreme Court",
     docket: "2025-CA-00269-SCT",
@@ -182,7 +187,7 @@ export const RULINGS: Ruling[] = [
       "The ruling does not decide whether the complex was careless. Park Wind raised other issues on appeal, but the court did not reach them.",
     ],
     whatChangesForYou: [
-      "Mayze's claim will be tried again in Hinds County Circuit Court. The verdict she won no longer stands.",
+      "The court threw out the verdict Mayze won. It sent her claim back to Hinds County Circuit Court for a new trial.",
       "The Wire's read: for tenants and landlords alike, the ruling shows that an expert's credentials can undo a jury's decision on appeal.",
     ],
     jackson: [
@@ -216,7 +221,7 @@ export const RULINGS: Ruling[] = [
     oneSentence: "A daughter waited too long to challenge the 2008 loan papers on her late parents' Jackson home, the Court of Appeals ruled.",
     whatHappened: [
       "William Brown and his wife owned a home on Laura Avenue in Jackson, according to the opinion. They signed a note to borrow $119,356.26 from Wells Fargo, backed by a deed of trust. That is a paper that lets a lender take the home if the loan goes unpaid.",
-      "The deed of trust was recorded in Hinds County on Oct. 16, 2008. Mrs. Brown died in 2009 and Mr. Brown in 2017, and neither challenged the loan, the court wrote.",
+      "The deed of trust was recorded, meaning filed in the public land records, in Hinds County on Oct. 16, 2008. Mrs. Brown died in 2009 and Mr. Brown in 2017, and neither challenged the loan, the court wrote.",
       "In 2019, Mr. Brown's estate, meaning the property he left, won an order halting the bank's foreclosure, its move to take the house. That order was later lifted, the opinion says.",
       "In 2022, their daughter, ReJohnna Mitchell, sued as the person in charge of her father's estate. She claimed her mother lacked the mental capacity to sign and had been under a conservatorship, meaning someone else managed her affairs.",
       "The court noted that Mrs. Brown's signature on the deed of trust is 'merely an odd scribble.' The trial court dismissed the suit as filed too late, and Mitchell, representing herself, appealed.",
@@ -280,6 +285,8 @@ function smartenRuling(ruling: Ruling): Ruling {
     whyItMatters: ruling.whyItMatters.map(smarten),
     whatChangesForYou: ruling.whatChangesForYou.map(smarten),
     watchFor: ruling.watchFor.map(smarten),
+    // Source names are display text, so they curl like the rest; URLs stay as is.
+    sources: ruling.sources.map((s) => ({ ...s, name: smarten(s.name) })),
   };
   if (ruling.appealedFrom) out.appealedFrom = smarten(ruling.appealedFrom);
   if (ruling.jackson) out.jackson = ruling.jackson.map(smarten);
@@ -302,9 +309,7 @@ export const getRulingBySlug = cache((slug: string): Ruling | undefined => {
 });
 
 export function getRelatedRulings(ruling: Ruling, limit = 3): Ruling[] {
-  const all = getAllRulings().filter((r) => r.slug !== ruling.slug);
-  const shared = all.filter((r) => r.topics.some((t) => ruling.topics.includes(t)));
-  return shared.concat(all.filter((r) => !shared.includes(r))).slice(0, limit);
+  return relatedByTopic(ruling, getAllRulings(), limit);
 }
 
 // Newest entries by publication date, for the front-page rail.
@@ -312,9 +317,10 @@ export function getLatestRulings(limit = 3): Ruling[] {
   return [...getAllRulings()].sort((a, b) => b.date.localeCompare(a.date)).slice(0, limit);
 }
 
-// The result in plain words. None of these carry an apostrophe, because the
-// pages show this text as written and the entries' own text is curled by
-// smarten().
+// The result in plain words, each saying what the header's definitions say. A
+// remand names no court, because it can go to an agency as well as a trial
+// court. None of these carry an apostrophe, because the pages show this text
+// as written and the entries' own text is curled by smarten().
 export function outcomeLabel(outcome: RulingOutcome): string {
   switch (outcome) {
     case "affirmed":
@@ -322,17 +328,17 @@ export function outcomeLabel(outcome: RulingOutcome): string {
     case "reversed":
       return "Reversed, so the lower court decision is thrown out";
     case "reversed and remanded":
-      return "Reversed and sent back to the trial court";
+      return "Reversed and sent back for more work";
     case "reversed and rendered":
       return "Reversed, and the court made the final ruling itself";
     case "affirmed in part and reversed in part":
       return "Part of the lower court decision stands and part is reversed";
     case "vacated and remanded":
-      return "Set aside and sent back to the trial court";
+      return "Set aside and sent back for more work";
     case "dismissed":
-      return "Dismissed, so the court ended the case without deciding the main question";
+      return "Dismissed, so the court did not rule on the questions raised";
     default:
-      return "See the explanation below for the result";
+      return "Read the entry for the result";
   }
 }
 

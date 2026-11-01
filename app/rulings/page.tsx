@@ -6,6 +6,7 @@ import {
   LAW_TOPICS,
   outcomeLabel,
   RULING_COURTS,
+  RULING_DISCLAIMER,
   RULING_SHARE_IMAGE,
   type Ruling,
 } from "@/lib/rulings";
@@ -141,7 +142,7 @@ export default async function RulingsPage({ searchParams }: PageProps<"/rulings"
             type="search"
             defaultValue={q}
             autoComplete="off"
-            placeholder="Search by case name, docket number, or a word: custody"
+            placeholder="Try a word, like cannabis"
             className="min-w-0 flex-1 border border-ink bg-paper px-3 py-2 font-sans text-base focus:outline-hidden focus:ring-2 focus:ring-crimson"
           />
           {topic && <input type="hidden" name="topic" value={topic} />}
@@ -230,9 +231,24 @@ export default async function RulingsPage({ searchParams }: PageProps<"/rulings"
       )}
 
       <section className="mt-14 border-t border-rule pt-5">
-        <p className="font-sans text-sm leading-relaxed text-muted">
-          A plain-language summary of a court opinion, not legal advice. The
-          opinion is the official record.
+        <h2 className="font-sans text-xs font-bold uppercase tracking-widest text-ink">
+          How this section is made
+        </h2>
+        <p className="mt-2 font-sans text-sm leading-relaxed text-muted">
+          Each entry is built from the court&apos;s opinion. The Wire reads
+          it, then writes the result in plain words. We say what happened in
+          the case, what the court decided, why it matters, and what changes
+          for an ordinary reader. The reporting note at the end of each
+          entry says what the Wire read. Where the Wire adds its own
+          reading, the sentence begins &ldquo;The Wire&apos;s read:&rdquo;
+          Spot an error? Write to{" "}
+          <a href={`mailto:${site.email}`} className="font-semibold text-crimson">
+            {site.email}
+          </a>
+          .
+        </p>
+        <p className="mt-2 font-sans text-sm leading-relaxed text-muted">
+          {RULING_DISCLAIMER}
         </p>
         <p className="mt-2 font-sans text-sm leading-relaxed text-muted">
           Looking for new laws instead?{" "}

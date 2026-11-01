@@ -8,6 +8,7 @@ import {
   getRulingBySlug,
   isScheduledRulingSlug,
   outcomeLabel,
+  RULING_DISCLAIMER,
   RULING_SHARE_IMAGE,
 } from "@/lib/rulings";
 import { formatDate } from "@/lib/posts";
@@ -122,7 +123,7 @@ export default async function RulingPage({ params }: PageProps<"/rulings/[slug]"
       <article id="ruling">
         <header>
           <p className="font-sans text-xs font-bold uppercase tracking-[0.2em] text-crimson">
-            {ruling.court} · {ruling.docket}
+            {ruling.court} · <span className="whitespace-nowrap">{ruling.docket}</span>
           </p>
           <h1 className="mt-2 text-balance font-serif text-4xl font-bold leading-[1.05] tracking-tight text-ink sm:text-5xl">
             {ruling.title}
@@ -228,8 +229,7 @@ export default async function RulingPage({ params }: PageProps<"/rulings/[slug]"
         )}
 
         <p className="mt-6 border-t border-rule pt-4 font-sans text-sm text-muted">
-          A plain-language summary of a court opinion, not legal advice. The
-          opinion is the official record.
+          {RULING_DISCLAIMER}
         </p>
 
         <footer className="mt-10 border-t border-rule pt-5">
