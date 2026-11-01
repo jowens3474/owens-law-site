@@ -60,8 +60,7 @@
     "sources": [
       "https://www.mississippifirst.org/2026-legislative-session-review/"
     ],
-    "attempts": 1,
-    "lastError": "entry failed the type check"
+    "attempts": 0
   },
   {
     "bill": "HB 1622",
@@ -71,8 +70,7 @@
       "https://desotocountynews.com/mississippi-news/mississippi-governor-signs-law-to-ease-rural-hospital-service-expansions/",
       "https://ourtupelo.com/governor-signs-bill-for-hospital-improvements-as-lawmakers-work-to-boost-rural-facilities/"
     ],
-    "attempts": 1,
-    "lastError": "entry failed the type check"
+    "attempts": 0
   },
   {
     "bill": "HB 525",
@@ -81,8 +79,7 @@
       "https://msindy.org/p/new-state-laws-taking-effect",
       "https://www.wlox.com/2026/07/01/july-1-new-mississippi-laws-take-effect-today/"
     ],
-    "attempts": 1,
-    "lastError": "entry failed the type check"
+    "attempts": 0
   },
   {
     "bill": "HB 1224",
@@ -90,8 +87,7 @@
     "sources": [
       "https://magnoliatribune.com/2026/06/29/from-teacher-pay-to-illegal-immigration-new-laws-set-to-take-effect-in-mississippi/"
     ],
-    "attempts": 1,
-    "lastError": "entry failed the type check"
+    "attempts": 0
   },
   {
     "bill": "HB 538",
@@ -100,8 +96,7 @@
       "https://www.starherald.net/new-mississippi-laws-aimed-curbing-illegal-immigration-could-face-challenges-aclu-69e03b22eb06b",
       "https://magnoliatribune.com/2026/06/29/from-teacher-pay-to-illegal-immigration-new-laws-set-to-take-effect-in-mississippi/"
     ],
-    "attempts": 1,
-    "lastError": "entry failed the type check"
+    "attempts": 0
   },
   {
     "bill": "HB 1625",
@@ -118,8 +113,7 @@
     "sources": [
       "https://www.nraila.org/articles/20260422/mississippi-legislature-adjourns-2026-session"
     ],
-    "attempts": 1,
-    "lastError": "entry failed the type check"
+    "attempts": 0
   },
   {
     "bill": "HB 1941",
@@ -134,8 +128,7 @@
     "bill": "HB 1153",
     "hint": "Lab-grown dairy labeling or restrictions; became law without the governor's signature, per Magnolia Tribune.",
     "sources": [],
-    "attempts": 1,
-    "lastError": "entry failed the type check"
+    "attempts": 0
   },
   {
     "bill": "HB 858",
@@ -143,8 +136,7 @@
     "sources": [
       "https://news.ballotpedia.org/2026/04/20/mississippi-legislators-enact-citizenship-checks-for-voter-list-maintenance-seven-other-election-related-bills/"
     ],
-    "attempts": 1,
-    "lastError": "entry failed the type check"
+    "attempts": 0
   },
   {
     "bill": "SB 2695",
@@ -161,8 +153,7 @@
     "sources": [
       "https://magnoliatribune.com/2026/06/29/from-teacher-pay-to-illegal-immigration-new-laws-set-to-take-effect-in-mississippi/"
     ],
-    "attempts": 1,
-    "lastError": "entry failed the type check"
+    "attempts": 0
   },
   {
     "bill": "",
@@ -170,7 +161,6 @@
     "sources": [
       "https://www.supertalk.fm/bill-by-bill-recap-of-the-2026-mississippi-legislative-session/"
     ],
-    "attempts": 1,
-    "lastError": "entry failed the type check"
+    "attempts": 0
   }
 ]
