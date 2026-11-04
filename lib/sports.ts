@@ -25,6 +25,10 @@ export interface SportsSection {
   slug: string; // becomes /sports/<slug>
   name: string;
   tag: string; // "sports-<slug>"
+  // A plain phrase for running text, such as the article page's "From this
+  // beat" link. The name does not work there: "NIL: Deals, Laws and Cases"
+  // would follow another colon.
+  beat: string;
   blurb: string;
 }
 
@@ -33,6 +37,7 @@ export const SPORTS_SECTIONS: SportsSection[] = [
     slug: "ms-college",
     name: "Mississippi College Sports",
     tag: "sports-ms-college",
+    beat: "Mississippi college sports",
     blurb:
       "Men's and women's basketball, baseball and football at Ole Miss, Mississippi State, Southern Miss, Jackson State, Alcorn State, Mississippi Valley State, Delta State and the state's other colleges.",
   },
@@ -40,6 +45,7 @@ export const SPORTS_SECTIONS: SportsSection[] = [
     slug: "ms-high-school",
     name: "Mississippi High School and Recruiting",
     tag: "sports-ms-high-school",
+    beat: "Mississippi high school sports and recruiting",
     blurb:
       "Mississippi high school teams, players and championships, and the recruiting that sends them to college programs.",
   },
@@ -47,6 +53,7 @@ export const SPORTS_SECTIONS: SportsSection[] = [
     slug: "national",
     name: "National College Sports",
     tag: "sports-national",
+    beat: "National college sports",
     blurb:
       "The college sports stories beyond Mississippi: conferences, championships, the transfer portal and the business of the games.",
   },
@@ -54,6 +61,7 @@ export const SPORTS_SECTIONS: SportsSection[] = [
     slug: "sec",
     name: "SEC",
     tag: "sports-sec",
+    beat: "SEC sports",
     blurb:
       "The Southeastern Conference, home to Ole Miss and Mississippi State: schedules, standings, rules and the money behind the league.",
   },
@@ -61,6 +69,7 @@ export const SPORTS_SECTIONS: SportsSection[] = [
     slug: "nil",
     name: "NIL: Deals, Laws and Cases",
     tag: "sports-nil",
+    beat: "NIL deals, laws and cases",
     blurb:
       "Name, image and likeness: what athletes can be paid, the state and federal laws that govern it, and the court cases that are changing it.",
   },

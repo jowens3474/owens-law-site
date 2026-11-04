@@ -333,7 +333,7 @@ export default async function ArticlePage({
               SPORTS_SECTIONS.map((s) => [
                 s.tag,
                 {
-                  label: `Sports: ${s.name}`,
+                  label: `${s.beat}: our stories and the latest headlines`,
                   href: `/sports/${s.slug}`,
                 },
               ]),

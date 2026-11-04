@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { HEADLINES_NOTE } from "@/lib/sports-note";
+import { HEADLINES_NOTE, NO_JS_NOTE } from "@/lib/sports-note";
 
 // Headlines from other outlets, loaded in the browser from the small hourly
 // JSON at /api/sports/headlines so the pages themselves stay static. One
@@ -14,16 +14,22 @@ interface Headline {
   date: string;
 }
 type Data = Record<string, Headline[]>;
+type State =
+  | { status: "loading" }
+  | { status: "error" }
+  | { status: "ready"; items: Headline[] };
 
-let shared: Promise<Data> | null = null;
-function load(): Promise<Data> {
+// Resolves to null when the request fails. A failed request is forgotten so
+// a later mount (another page view) tries again.
+let shared: Promise<Data | null> | null = null;
+function load(): Promise<Data | null> {
   if (!shared) {
     shared = fetch("/api/sports/headlines")
-      .then((r) => (r.ok ? r.json() : Promise.reject(new Error("bad status"))))
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`))))
       .then((j) => (j && typeof j.sections === "object" && j.sections ? (j.sections as Data) : {}))
       .catch(() => {
-        shared = null; // let a later mount try again
-        return {} as Data;
+        shared = null;
+        return null;
       });
   }
   return shared;
@@ -61,56 +67,74 @@ function safeLink(link: unknown): boolean {
   return typeof link === "string" && /^https?:/i.test(link);
 }
 
-// `note={false}` leaves the attribution line to the page, so the hub, which
-// shows five lists, prints it once instead of five times.
+// `pageNotes={false}` leaves the attribution line and the no-JavaScript line
+// to the page, so the hub, which shows five lists, prints each once.
 export default function SportsHeadlines({
   section,
   limit,
-  note = true,
+  pageNotes = true,
 }: {
   section: string;
   limit: number;
-  note?: boolean;
+  pageNotes?: boolean;
 }) {
-  const [items, setItems] = useState<Headline[] | null>(null);
+  const [state, setState] = useState<State>({ status: "loading" });
 
   useEffect(() => {
     let live = true;
     load().then((data) => {
       if (!live) return;
+      if (data === null) {
+        setState({ status: "error" });
+        return;
+      }
       const list = Array.isArray(data[section]) ? data[section] : [];
-      setItems(list.filter((h) => h && h.title && safeLink(h.link)).slice(0, limit));
+      setState({
+        status: "ready",
+        items: list.filter((h) => h && h.title && safeLink(h.link)).slice(0, limit),
+      });
     });
     return () => {
       live = false;
     };
   }, [section, limit]);
 
-  if (items === null) {
+  if (state.status === "loading") {
     return (
       <div aria-busy="true" className="mt-1">
         <span className="sr-only">Loading headlines</span>
+        {/* Each placeholder is about the height of a real row: a two-line
+            title plus the outlet line on phones, a one-line title on wider
+            screens. That keeps the list from jumping when headlines arrive. */}
         <ul aria-hidden="true" className="divide-y divide-rule">
           {Array.from({ length: limit }, (_, i) => (
-            <li key={i} className="h-[4.25rem] py-3">
+            <li key={i} className="h-[5.9rem] py-3 sm:h-[4.35rem]">
               <div className="h-4 w-4/5 rounded bg-rule/60" />
               <div className="mt-2 h-3 w-1/3 rounded bg-rule/40" />
             </li>
           ))}
         </ul>
-        <noscript>Turn on JavaScript to see the latest headlines.</noscript>
+        {pageNotes && (
+          <noscript>
+            <p className="py-2 text-muted">{NO_JS_NOTE}</p>
+          </noscript>
+        )}
       </div>
     );
   }
 
-  if (items.length === 0) {
+  if (state.status === "error") {
+    return <p className="py-4 text-muted">Headlines could not load. Try again later.</p>;
+  }
+
+  if (state.items.length === 0) {
     return <p className="py-4 text-muted">No headlines right now. Check back later.</p>;
   }
 
   return (
     <div>
       <ul className="divide-y divide-rule">
-        {items.map((h) => {
+        {state.items.map((h) => {
           const date = apDate(h.date);
           return (
             <li key={h.link} className="py-3">
@@ -131,7 +155,7 @@ export default function SportsHeadlines({
           );
         })}
       </ul>
-      {note && <p className="mt-3 font-sans text-xs text-muted">{HEADLINES_NOTE}</p>}
+      {pageNotes && <p className="mt-3 font-sans text-xs text-muted">{HEADLINES_NOTE}</p>}
     </div>
   );
 }
