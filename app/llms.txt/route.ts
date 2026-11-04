@@ -1,6 +1,7 @@
 import { getAllPosts } from "@/lib/posts";
 import { getAllLaws } from "@/lib/laws";
 import { getAllRulings } from "@/lib/rulings";
+import { SPORTS_SECTIONS } from "@/lib/sports";
 import { site, categories } from "@/lib/site";
 import { absoluteUrl } from "@/lib/markdown";
 
@@ -40,6 +41,11 @@ export async function GET() {
     }
     lines.push("");
   }
+
+  lines.push(
+    `Sports: ${SPORTS_SECTIONS.map((s) => `[${s.name}](${absoluteUrl(`/sports/${s.slug}`)})`).join(", ")}`,
+    "",
+  );
 
   lines.push("## Sections", "");
   for (const c of categories) {
