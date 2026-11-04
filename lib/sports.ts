@@ -9,6 +9,12 @@
 // would spread through all of them. The /sports pages find stories by tag
 // instead, and the homepage lead skips them (see getFeaturedPost).
 //
+// Each section also shows live headlines from other outlets. The registry and
+// routing are in lib/sports-feeds.mjs; /api/sports/headlines serves them as one
+// small JSON (ISR, hourly) and the pages load it in the browser. Feeds are read
+// with node:https, not fetch, so raw feed bodies never enter Next's Data Cache
+// (every cache write is billed on Vercel Hobby).
+//
 // To add a section, add it to SPORTS_SECTIONS. The route, the tab strip, the
 // sitemap, llms.txt and the article "From this beat" link all derive from it.
 import { absoluteUrl } from "./markdown";

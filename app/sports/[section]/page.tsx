@@ -11,6 +11,7 @@ import { absoluteUrl } from "@/lib/markdown";
 import ArticleCard from "@/app/components/ArticleCard";
 import NilPanels from "@/app/components/NilPanels";
 import Sidebar from "@/app/components/Sidebar";
+import SportsHeadlines from "@/app/components/SportsHeadlines";
 import SportsTabs from "@/app/components/SportsTabs";
 
 // Refresh at most daily; deploys rebuild it sooner. Each refresh is a billed
@@ -77,17 +78,22 @@ export default async function SportsSectionPage({
 
       <div className="mt-8 grid gap-12 lg:grid-cols-3">
         <div className="lg:col-span-2">
-          {posts.length === 0 ? (
-            <p className="py-12 text-muted">
-              No Wire stories in this section yet. Check back soon.
-            </p>
-          ) : (
-            <div>
+          {posts.length > 0 && (
+            <section className="mb-8">
+              <h2 className="border-b border-ink pb-1 font-sans text-xs font-bold uppercase tracking-widest text-ink">
+                From the Wire
+              </h2>
               {posts.map((post) => (
                 <ArticleCard key={post.slug} post={post} variant="row" />
               ))}
-            </div>
+            </section>
           )}
+          <section className="mb-8">
+            <h2 className="border-b border-ink pb-1 font-sans text-xs font-bold uppercase tracking-widest text-ink">
+              Latest headlines
+            </h2>
+            <SportsHeadlines section={sec.slug} limit={15} />
+          </section>
           {sec.slug === "nil" && <NilPanels />}
         </div>
         <Sidebar />

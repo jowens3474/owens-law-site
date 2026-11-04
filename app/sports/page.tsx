@@ -5,10 +5,12 @@ import { site } from "@/lib/site";
 import { absoluteUrl } from "@/lib/markdown";
 import ArticleCard from "@/app/components/ArticleCard";
 import Sidebar from "@/app/components/Sidebar";
+import SportsHeadlines from "@/app/components/SportsHeadlines";
 import SportsTabs from "@/app/components/SportsTabs";
 
-// The front page refreshes hourly; sports follows it.
-export const revalidate = 3600;
+// Headlines now load client-side, so the hub no longer needs hourly refreshes;
+// each refresh is a billed cache write on Vercel.
+export const revalidate = 86400;
 
 const DEK =
   "Mississippi college and high school sports, the SEC, national college sports, and NIL: the deals, laws and court cases about paying athletes.";
@@ -58,17 +60,23 @@ export default function SportsPage() {
                     {s.name}
                   </Link>
                 </h2>
-                {posts.length === 0 ? (
-                  <p className="py-6 text-muted">
-                    No Wire stories in this section yet. Check back soon.
-                  </p>
-                ) : (
+                {posts.length > 0 && (
                   <div>
                     {posts.map((post) => (
                       <ArticleCard key={post.slug} post={post} variant="row" />
                     ))}
                   </div>
                 )}
+                <h3 className="mt-4 border-b border-rule pb-1 font-sans text-xs font-bold uppercase tracking-widest text-ink">
+                  Latest headlines
+                </h3>
+                <SportsHeadlines section={s.slug} limit={5} />
+                <Link
+                  href={`/sports/${s.slug}`}
+                  className="mt-3 inline-block font-sans text-xs font-bold uppercase tracking-wide text-crimson hover:text-crimson-bright"
+                >
+                  More {s.name} →
+                </Link>
               </section>
             );
           })}
