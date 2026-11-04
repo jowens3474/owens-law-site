@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { HEADLINES_NOTE } from "@/lib/sports-note";
 
 // Headlines from other outlets, loaded in the browser from the small hourly
 // JSON at /api/sports/headlines so the pages themselves stay static. One
@@ -60,7 +61,17 @@ function safeLink(link: unknown): boolean {
   return typeof link === "string" && /^https?:/i.test(link);
 }
 
-export default function SportsHeadlines({ section, limit }: { section: string; limit: number }) {
+// `note={false}` leaves the attribution line to the page, so the hub, which
+// shows five lists, prints it once instead of five times.
+export default function SportsHeadlines({
+  section,
+  limit,
+  note = true,
+}: {
+  section: string;
+  limit: number;
+  note?: boolean;
+}) {
   const [items, setItems] = useState<Headline[] | null>(null);
 
   useEffect(() => {
@@ -120,10 +131,7 @@ export default function SportsHeadlines({ section, limit }: { section: string; l
           );
         })}
       </ul>
-      <p className="mt-3 font-sans text-xs text-muted">
-        Headlines link to the original outlets and refresh about once an hour. The Wire did not
-        write these stories.
-      </p>
+      {note && <p className="mt-3 font-sans text-xs text-muted">{HEADLINES_NOTE}</p>}
     </div>
   );
 }

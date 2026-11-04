@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getSportsPosts, SPORTS_SECTIONS, SPORTS_SHARE_IMAGE } from "@/lib/sports";
+import { HEADLINES_NOTE } from "@/lib/sports-note";
 import { site } from "@/lib/site";
 import { absoluteUrl } from "@/lib/markdown";
 import ArticleCard from "@/app/components/ArticleCard";
@@ -70,7 +71,7 @@ export default function SportsPage() {
                 <h3 className="mt-4 border-b border-rule pb-1 font-sans text-xs font-bold uppercase tracking-widest text-ink">
                   Latest headlines
                 </h3>
-                <SportsHeadlines section={s.slug} limit={5} />
+                <SportsHeadlines section={s.slug} limit={5} note={false} />
                 <Link
                   href={`/sports/${s.slug}`}
                   className="mt-3 inline-block font-sans text-xs font-bold uppercase tracking-wide text-crimson hover:text-crimson-bright"
@@ -80,6 +81,7 @@ export default function SportsPage() {
               </section>
             );
           })}
+          <p className="font-sans text-xs text-muted">{HEADLINES_NOTE}</p>
         </div>
         <Sidebar />
       </div>
