@@ -65,13 +65,14 @@ export default function NavBar() {
   const links = [
     { name: "Home", href: "/" },
     ...categories.map((c) => ({ name: c.name, href: `/category/${c.slug}` })),
+    { name: "Sports", href: "/sports" },
     { name: "Pipeline", href: "/pipeline" },
     { name: "Laws", href: "/laws" },
     { name: "Pro", href: "/pro" },
     { name: "About", href: "/about" },
   ];
   // At xl the scrolled wordmark leads home, so "Home" leaves the row to
-  // keep ten links fitting; below xl the wordmark is hidden, so Home stays.
+  // keep eleven links fitting; below xl the wordmark is hidden, so Home stays.
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
@@ -87,9 +88,12 @@ export default function NavBar() {
       <div className="mx-auto max-w-6xl px-4">
         {/* Laptops and up: equal side slots keep the links centered. The
             left slot holds the wordmark once there is room for it (xl).
-            The fit is tight: at xl the ten links need about 800px of the
-            830px between the slots, so a new link or a longer label means
-            revisiting the slot widths or the link padding. */}
+            The fit is tight: at xl the eleven links need about 798px of the
+            832px between the slots (about +34px of slack), and at lg the
+            twelve links with Home leave about +65px at 1024. The side slots
+            cannot shrink, because the wordmark is about 143px in a 144px
+            slot, so a new link or a longer label means revisiting the link
+            padding or tracking. */}
         <div className="hidden items-center lg:flex">
           <div className="w-10 shrink-0 xl:w-36">
             <Link
@@ -110,7 +114,7 @@ export default function NavBar() {
                   <Link
                     href={l.href}
                     aria-current={active ? "page" : undefined}
-                    className={`-mb-px block whitespace-nowrap border-b-2 px-2 py-2.5 font-sans text-[0.75rem] font-semibold uppercase tracking-wide text-ink transition-colors hover:text-crimson ${
+                    className={`-mb-px block whitespace-nowrap border-b-2 px-1.5 py-2.5 font-sans text-[0.75rem] font-semibold uppercase tracking-normal text-ink transition-colors hover:text-crimson ${
                       active ? "border-ink" : "border-transparent"
                     }`}
                   >

@@ -13,6 +13,7 @@ import {
 import { capNotFoundLife } from "@/lib/not-found-cap";
 import { site, categoryByName } from "@/lib/site";
 import { absoluteUrl } from "@/lib/markdown";
+import { SPORTS_SECTIONS } from "@/lib/sports";
 import ArticleImage from "@/app/components/ArticleImage";
 import Timeline from "@/app/components/Timeline";
 import CategoryTag from "@/app/components/CategoryTag";
@@ -328,6 +329,15 @@ export default async function ArticlePage({
               label: "Data Centers — every Jackson project we track",
               href: "/data-centers",
             },
+            ...Object.fromEntries(
+              SPORTS_SECTIONS.map((s) => [
+                s.tag,
+                {
+                  label: `${s.beat}: our stories and the latest headlines`,
+                  href: `/sports/${s.slug}`,
+                },
+              ]),
+            ),
           };
           const hubTag = post.tags?.find((t) => hubMap[t]);
           if (!hubTag) return null;

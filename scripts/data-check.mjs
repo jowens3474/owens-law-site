@@ -49,6 +49,26 @@ if (only === "feeds") {
   process.exit(0);
 }
 
+// TOOL=sports: run the production sports headline builder (lib/sports-feeds.mjs) against the real feeds.
+if (only === "sports") {
+  const { buildSportsHeadlines, httpsGetText } = await import("../lib/sports-feeds.mjs");
+  const { report, sections } = await buildSportsHeadlines({ fetchText: httpsGetText });
+  for (const r of report) {
+    console.log(r.ok ? `OK  ${r.outlet} ${r.url} items=${r.items} newest=${r.newest}` : `FAIL ${r.outlet} ${r.url} ${r.error}`);
+  }
+  for (const [slug, list] of Object.entries(sections)) {
+    console.log(`\n== ${slug} (${list.length}) ==`);
+    for (const h of list) console.log(`${h.date.slice(0, 10)} | ${h.outlet} | ${h.sport || "-"} | ${h.title} | ${h.link}`);
+  }
+  console.log("\n== dropped by the gambling exclusion ==");
+  for (const r of report) for (const t of r.dropped || []) console.log(`${r.outlet}: ${t}`);
+  const okFeeds = report.filter((r) => r.ok).length;
+  const counts = Object.entries(sections).map(([k, v]) => `${k}=${v.length}`).join(" ");
+  console.log(`\n[sports] ${okFeeds} of ${report.length} feeds readable; section counts: ${counts}`);
+  await new Promise((r) => process.stdout.write("", r));
+  process.exit(0);
+}
+
 // TOOL=probe QUERY="url1|url2": print each page's links and a text excerpt
 // so a new source can be understood from a runner before a tool is written.
 if (only === "probe") {
