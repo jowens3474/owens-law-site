@@ -68,10 +68,6 @@ export interface Post {
 //   date: "2026-05-25",                       // format: YYYY-MM-DD
 //   views: 0,                                 // unused; kept because the autopilot
 //                                             // scripts write it and Post requires it
-//   tags: ["sports-sec"],                     // optional. Sports stories use category
-//                                             // "General News" plus ONE of: "sports-ms-college"
-//                                             // | "sports-ms-high-school" | "sports-national"
-//                                             // | "sports-sec" | "sports-nil" (see lib/sports.ts)
 //   image: "/photo.webp",                     // optional; file lives in /public.
 //                                             // Omit to fall back to a generated plate.
 //   imageAlt: "Describe the photo.",          // optional; for screen readers
@@ -5674,9 +5670,7 @@ function daysSincePublished(p: Post): number {
 // The homepage lead is normally the newest published story, so the top of the
 // front page turns over every time anything publishes. Morning Briefs are
 // skipped because the homepage already gives today's brief its own banner
-// above the lead; leading with it would print the same story twice. Sports
-// stories (any `sports-*` tag) are skipped too, so the front page lead stays
-// on the Jackson business and politics beat.
+// above the lead; leading with it would print the same story twice.
 // A story marked `lead: true` overrides that for LEAD_PIN_DAYS, then releases.
 export const getFeaturedPost = cache((): Post | undefined => {
   const published = getAllPosts();
@@ -5685,11 +5679,7 @@ export const getFeaturedPost = cache((): Post | undefined => {
   );
   if (pinned) return pinned;
   return (
-    published.find(
-      (p) =>
-        !(p.tags ?? []).includes("morning-brief") &&
-        !(p.tags ?? []).some((t) => t.startsWith("sports-")),
-    ) ??
+    published.find((p) => !(p.tags ?? []).includes("morning-brief")) ??
     published[0]
   );
 });

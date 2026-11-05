@@ -25,7 +25,6 @@ export const LAW_TOPICS = [
   "Environment and outdoors",
   "Technology",
   "Transportation",
-  "Sports and NIL",
 ] as const;
 
 export type LawTopic = (typeof LAW_TOPICS)[number];
