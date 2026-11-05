@@ -60,6 +60,7 @@ const TOPICS = [
   "Environment and outdoors",
   "Technology",
   "Transportation",
+  "Sports and NIL",
 ];
 const BECAME_LAW = ["signed", "without signature", "veto overridden"];
 
