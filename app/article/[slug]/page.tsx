@@ -144,12 +144,11 @@ export default async function ArticlePage({
     articleSection: brief ? "Briefing" : post.category,
     inLanguage: "en-US",
     isAccessibleForFree: true,
+    // The staff byline is the newsroom; a named byline is a person.
     author: [
-      {
-        "@type": "Organization",
-        name: post.author,
-        url: absoluteUrl("/about"),
-      },
+      post.author === "Jackson Wire Staff"
+        ? { "@type": "Organization", name: post.author, url: absoluteUrl("/about") }
+        : { "@type": "Person", name: post.author },
     ],
     editor: {
       "@type": "Person",

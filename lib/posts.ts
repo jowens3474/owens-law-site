@@ -85,7 +85,7 @@ const POSTS: Post[] = [
     category: "General News",
     categories: ["Politics"],
     tags: ["corruption-case"],
-    author: "Jackson Wire Staff",
+    author: "Edward XO",
     date: "2026-11-05",
     views: 0,
     body: [
