@@ -59,14 +59,6 @@ export default function Footer() {
               ))}
               <li>
                 <Link
-                  href="/sports"
-                  className="font-sans text-sm hover:text-crimson"
-                >
-                  Sports
-                </Link>
-              </li>
-              <li>
-                <Link
                   href="/pipeline"
                   className="font-sans text-sm hover:text-crimson"
                 >
