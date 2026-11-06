@@ -296,8 +296,12 @@ export default function SenateRacePage() {
             Affidavit ballots: where to bring your ID
           </h2>
           <p className="mt-2 font-sans text-sm text-muted">
-            A voter without ID can cast an affidavit ballot and has five business days to show ID
-            at the circuit clerk&apos;s office for it to count.
+            Only voters who cast an affidavit ballot because they had no acceptable photo ID, or
+            who have a religious objection to being photographed, need to act: they have until
+            Tuesday, Nov. 10, to go to the circuit clerk&apos;s office in their county. Offices
+            are usually in the county courthouse, and hours vary, so call ahead. Where a number
+            is missing, sources disagreed and we are confirming it; the state Elections Hotline
+            is 1-800-829-6786.
           </p>
           {/* Stacked rows on phones, a table from the sm breakpoint up, so the
               page never scrolls sideways. */}
