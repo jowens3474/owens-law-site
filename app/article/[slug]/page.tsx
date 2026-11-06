@@ -14,6 +14,7 @@ import { capNotFoundLife } from "@/lib/not-found-cap";
 import { site, categoryByName } from "@/lib/site";
 import { absoluteUrl } from "@/lib/markdown";
 import { SPORTS_SECTIONS } from "@/lib/sports";
+import { SENATE_RACE, SENATE_TAG } from "@/lib/senate-race";
 import ArticleImage from "@/app/components/ArticleImage";
 import Timeline from "@/app/components/Timeline";
 import CategoryTag from "@/app/components/CategoryTag";
@@ -327,6 +328,10 @@ export default async function ArticlePage({
             "data-centers": {
               label: "Data Centers — every Jackson project we track",
               href: "/data-centers",
+            },
+            [SENATE_TAG]: {
+              label: "Mississippi Senate race: where the count stands",
+              href: `/${SENATE_RACE.slug}`,
             },
             ...Object.fromEntries(
               SPORTS_SECTIONS.map((s) => [

@@ -4,7 +4,7 @@ import { useState, type FormEvent } from "react";
 
 type Status = "idle" | "pending" | "success" | "error";
 
-function useSubscribe() {
+function useSubscribe(successMessage: string) {
   const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState("");
   const [email, setEmail] = useState("");
@@ -23,7 +23,7 @@ function useSubscribe() {
       const data = await res.json().catch(() => ({}));
       if (res.ok && data?.ok) {
         setStatus("success");
-        setMessage("You're in. First brief lands tomorrow morning.");
+        setMessage(successMessage);
         setEmail("");
       } else {
         setStatus("error");
@@ -40,10 +40,17 @@ function useSubscribe() {
 
 export default function NewsletterSignup({
   variant = "card",
+  heading,
+  blurb,
+  successMessage = "You're in. First brief lands tomorrow morning.",
 }: {
   variant?: "card" | "strip" | "block";
+  // Optional copy overrides for the "block" variant. Defaults are unchanged.
+  heading?: string;
+  blurb?: string;
+  successMessage?: string;
 } = {}) {
-  const { status, message, email, setEmail, onSubmit } = useSubscribe();
+  const { status, message, email, setEmail, onSubmit } = useSubscribe(successMessage);
   const pending = status === "pending";
 
   if (variant === "strip") {
@@ -97,11 +104,15 @@ export default function NewsletterSignup({
           The Morning Dispatch
         </p>
         <p className="mt-3 font-serif text-xl font-bold leading-tight sm:text-2xl">
-          Read this story? You&apos;ll want the next one too.
+          {heading ?? <>Read this story? You&apos;ll want the next one too.</>}
         </p>
         <p className="mt-2 font-sans text-sm text-muted">
-          The Jackson Wire, in your inbox each morning. No spam, no sacred
-          cows. Unsubscribe in one click.
+          {blurb ?? (
+            <>
+              The Jackson Wire, in your inbox each morning. No spam, no sacred
+              cows. Unsubscribe in one click.
+            </>
+          )}
         </p>
         <form
           onSubmit={onSubmit}

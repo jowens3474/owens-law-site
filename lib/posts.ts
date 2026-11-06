@@ -148,6 +148,7 @@ const POSTS: Post[] = [
     categories: ["General News"],
     author: "Jackson Wire Staff",
     date: "2026-11-02",
+    tags: ["senate-race-2026"],
     views: 0,
     body: [
       "Mississippi voters decide Tuesday whether to keep Republican Sen. Cindy Hyde-Smith in Washington or replace her with Scott Colom, the Democratic district attorney for Lowndes, Oktibbeha, Clay and Noxubee counties. Independent Ty Pinkins, an attorney who left the Democratic Party last year, is also on the ballot. A Democrat has not won a U.S. Senate race in Mississippi since 1982, NBC News noted, and Donald Trump carried the state by 23 points in 2024.",

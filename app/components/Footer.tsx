@@ -67,6 +67,14 @@ export default function Footer() {
               </li>
               <li>
                 <Link
+                  href="/mississippi-senate-race"
+                  className="font-sans text-sm hover:text-crimson"
+                >
+                  Senate race 2026
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/pipeline"
                   className="font-sans text-sm hover:text-crimson"
                 >
