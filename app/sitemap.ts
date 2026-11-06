@@ -2,6 +2,8 @@ import type { MetadataRoute } from "next";
 import { MEETINGS } from "@/lib/meetings";
 import { getAllPosts } from "@/lib/posts";
 import { getAllLaws } from "@/lib/laws";
+import { NIL_GUIDE } from "@/lib/nil";
+import { SPORTS_SECTIONS } from "@/lib/sports";
 import { getAllRulings } from "@/lib/rulings";
 import { categories } from "@/lib/site";
 import { absoluteUrl } from "@/lib/markdown";
@@ -65,6 +67,29 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "daily",
       priority: 0.8,
     },
+    {
+      url: absoluteUrl("/sports"),
+      lastModified: latest,
+      changeFrequency: "daily",
+      priority: 0.8,
+    },
+    ...SPORTS_SECTIONS.map((s) => ({
+      url: absoluteUrl(`/sports/${s.slug}`),
+      lastModified: latest,
+      changeFrequency: "daily" as const,
+      priority: 0.7,
+    })),
+    // The NIL guide stays out of the sitemap until it has content.
+    ...(NIL_GUIDE.sections.length > 0
+      ? [
+          {
+            url: absoluteUrl("/sports/nil/guide"),
+            lastModified: latest,
+            changeFrequency: "monthly" as const,
+            priority: 0.7,
+          },
+        ]
+      : []),
     {
       url: absoluteUrl("/laws"),
       lastModified: latest,
