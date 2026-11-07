@@ -1,9 +1,13 @@
 #!/usr/bin/env node
 // Daily newsletter sender -- builds a branded digest of today's published
-// articles and sends it to the Resend audience as a Broadcast. Plain Node
+// articles and sends it to the Resend segment as a Broadcast. Plain Node
 // ESM, fetch only, no resend npm package. Triggered by
 // .github/workflows/newsletter.yml on a cron schedule, after autopilot and
 // social posting have had time to publish and deploy.
+//
+// Env: RESEND_API_KEY and a segment ID -- RESEND_SEGMENT_ID, or
+// RESEND_AUDIENCE_ID (its name from before Resend renamed Audiences to
+// Segments; same value). Both are required unless DRY_RUN=1.
 //
 // NOTE: sending from brief@thejacksonwire.com requires that domain be
 // verified in Resend (the SPF/DKIM DNS records Resend shows you). Until
@@ -232,14 +236,15 @@ async function resendRequest(path, apiKey, body) {
 
 async function main() {
   const apiKey = process.env.RESEND_API_KEY;
-  const audienceId = process.env.RESEND_AUDIENCE_ID;
-  if (!apiKey || !audienceId) {
+  const segmentId =
+    process.env.RESEND_SEGMENT_ID || process.env.RESEND_AUDIENCE_ID;
+  const dryRun = process.env.DRY_RUN === "1";
+  if ((!apiKey || !segmentId) && !dryRun) {
     console.log(
-      "[newsletter] Not configured (RESEND_API_KEY / RESEND_AUDIENCE_ID missing). Nothing sent. See docs/NEWSLETTER-SETUP.md.",
+      "[newsletter] Not configured (RESEND_API_KEY / RESEND_SEGMENT_ID or RESEND_AUDIENCE_ID missing). Nothing sent. See docs/NEWSLETTER-SETUP.md.",
     );
     process.exit(0);
   }
-  const dryRun = process.env.DRY_RUN === "1";
   if (dryRun) {
     console.log("[newsletter] DRY_RUN=1 -- will log the email but skip all Resend API calls.");
   }
@@ -280,13 +285,14 @@ async function main() {
   console.log(`[newsletter] Subject: ${subject}`);
 
   if (dryRun) {
+    console.log(`[newsletter] DRY_RUN: would broadcast to segment ${segmentId || "(not set)"}.`);
     console.log(`[newsletter] DRY_RUN: html preview (first 500 chars):\n${html.slice(0, 500)}`);
     return;
   }
 
   console.log("[newsletter] Creating broadcast...");
   const broadcast = await resendRequest("/broadcasts", apiKey, {
-    audience_id: audienceId,
+    segment_id: segmentId,
     from: FROM,
     subject,
     html,
