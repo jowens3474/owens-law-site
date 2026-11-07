@@ -10,15 +10,31 @@ const only = process.env.TOOL?.trim();
 const query = process.env.QUERY?.trim();
 
 // TOOL=fetch QUERY="url1|url2": print each response body in full (up to 6 MB),
-// for pulling a data file (GeoJSON, CSV) off a runner that can reach it.
+// for pulling a data file (GeoJSON, CSV) off a runner that can reach it. A PDF
+// (board books, minutes) would be mangled as text, so it is printed as base64
+// between PDF-BASE64 markers instead, up to 40 MB; decode it locally.
 if (only === "fetch") {
   for (const url of (query || "").split("|").map((u) => u.trim()).filter(Boolean)) {
     console.log(`\n===== FETCH ${url} =====`);
     try {
       const res = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) TheJacksonWire/1.0", Accept: "*/*" } });
-      const body = await res.text();
-      console.log(`HTTP ${res.status} ${res.headers.get("content-type") || ""} length=${body.length}`);
-      console.log(body.slice(0, 6_000_000));
+      const type = res.headers.get("content-type") || "";
+      const buf = Buffer.from(await res.arrayBuffer());
+      if (/pdf/i.test(type) || buf.subarray(0, 5).toString("latin1") === "%PDF-") {
+        console.log(`HTTP ${res.status} ${type} bytes=${buf.length}`);
+        if (buf.length > 40_000_000) {
+          console.log("PDF over 40 MB; not printed.");
+        } else {
+          const b64 = buf.toString("base64");
+          console.log("===== PDF-BASE64 =====");
+          for (let i = 0; i < b64.length; i += 4096) console.log(b64.slice(i, i + 4096));
+          console.log("===== END PDF-BASE64 =====");
+        }
+      } else {
+        const body = buf.toString("utf8");
+        console.log(`HTTP ${res.status} ${type} length=${body.length}`);
+        console.log(body.slice(0, 6_000_000));
+      }
       console.log("===== END FETCH =====");
     } catch (e) {
       console.log(`fetch failed: ${e.message}`);
