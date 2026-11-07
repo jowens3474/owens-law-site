@@ -202,7 +202,7 @@ export default function SenateRacePage() {
                   <span className="font-sans text-lg font-bold tabular-nums">{o.value}</span>
                 </p>
                 {o.note && <p className="mt-1 font-sans text-sm text-muted">{o.note}</p>}
-                {o.source && <Sources sources={[o.source]} />}
+                {o.sources && o.sources.length > 0 && <Sources sources={o.sources} />}
               </li>
             ))}
           </ul>

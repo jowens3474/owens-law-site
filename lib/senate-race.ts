@@ -44,7 +44,7 @@ export interface SenateRace {
   candidates: SenateCandidate[];
   countAsOf: string; // ISO
   countSource: SenateSource;
-  outstanding: { label: string; value: string; note?: string; source?: SenateSource }[];
+  outstanding: { label: string; value: string; note?: string; sources?: SenateSource[] }[];
   deadlines: { date: string; label: string; detail: string; source?: SenateSource }[]; // date: YYYY-MM-DD
   faq: { q: string; a: string[]; sources: SenateSource[] }[];
   updates: {
@@ -98,19 +98,22 @@ export const SENATE_RACE: SenateRace = {
       "label": "Affidavit ballots still being reviewed",
       "value": "12,000 to 20,000 (estimate)",
       "note": "Secretary of State Michael Watson's estimate on Nov. 5. He said 76% of those reviewed so far had been accepted. County election commissions review them in open meetings and report as they finish.",
-      "source": {
+      "sources": [{
         "name": "WLBT, Nov. 5",
         "url": "https://www.wlbt.com/2026/11/06/secretary-state-explains-affidavit-ballot-process-mississippi-senate-race/"
-      }
+      }]
     },
     {
       "label": "Mail ballots that could still arrive",
       "value": "About 3,300",
-      "note": "Ballots postmarked by Election Day count if they reach the circuit clerk by Tuesday, Nov. 10. The Mississippi Free Press reported Watson's figure of about 3,300 on Nov. 5, down from about 3,600 in a Nov. 4 Secretary of State statement. Mississippi Today reported that not all are expected to arrive by the deadline.",
-      "source": {
+      "note": "Ballots postmarked by Election Day count if they reach the circuit clerk by Tuesday, Nov. 10. The Mississippi Free Press reported Watson's figure of about 3,300 on Nov. 5, down from about 3,600 in a Nov. 4 Secretary of State statement. Mississippi Today reported on Nov. 5 that, of the 3,600 ballots Watson cited on Nov. 4, not all would realistically reach election workers by the deadline.",
+      "sources": [{
         "name": "Mississippi Free Press liveblog",
         "url": "https://www.mississippifreepress.org/liveblog-mississippis-2026-u-s-senate-election-results/"
-      }
+      }, {
+        "name": "Mississippi Today, Nov. 5",
+        "url": "https://mississippitoday.org/2026/11/05/thousands-of-affidavit-ballots-outstanding-in-mississippi-senate-election-campaigns-prepare-for-legal-fight/"
+      }]
     }
   ],
   deadlines: [

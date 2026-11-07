@@ -95,7 +95,7 @@ export default function Home() {
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8">
-      {/* Live Senate count banner. Fixed content and no images, so it takes
+      {/* Senate count tracker banner. Fixed content and no images, so it takes
           its height at first paint and does not shift the lead below it. */}
       {SENATE_RACE.showBanner && (
         <Link
