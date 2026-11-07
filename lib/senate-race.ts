@@ -106,7 +106,7 @@ export const SENATE_RACE: SenateRace = {
     {
       "label": "Mail ballots that could still arrive",
       "value": "About 3,300",
-      "note": "Ballots postmarked by Election Day count if they reach the circuit clerk by Tuesday, Nov. 10. Watson gave this figure this week, down from about 3,600 on Nov. 4, and not all are expected to arrive.",
+      "note": "Ballots postmarked by Election Day count if they reach the circuit clerk by Tuesday, Nov. 10. The Mississippi Free Press reported Watson's figure of about 3,300 on Nov. 5, down from about 3,600 in a Nov. 4 Secretary of State statement. Mississippi Today reported that not all are expected to arrive by the deadline.",
       "source": {
         "name": "Mississippi Free Press liveblog",
         "url": "https://www.mississippifreepress.org/liveblog-mississippis-2026-u-s-senate-election-results/"
@@ -117,12 +117,12 @@ export const SENATE_RACE: SenateRace = {
     {
       "date": "2026-11-03",
       "label": "Election Day",
-      "detail": "Polls closed at 7 p.m."
+      "detail": "Voting took place Tuesday, Nov. 3."
     },
     {
       "date": "2026-11-10",
       "label": "Affidavit ID deadline and last day for mail ballots to arrive",
-      "detail": "Voters who cast an affidavit ballot because they had no acceptable photo ID must show one, get a free voter ID card or sign a religious-objection affidavit at their circuit clerk's office. Mail ballots postmarked by Nov. 3 must arrive.",
+      "detail": "Voters who cast an affidavit ballot because they had no photo ID must present an acceptable photo ID at their circuit clerk's office. Mail ballots postmarked by Nov. 3 must arrive.",
       "source": {
         "name": "Mississippi Secretary of State, Oct. 26",
         "url": "https://www.sos.ms.gov/news/election-day-reminders-2026-general-election"
@@ -142,7 +142,7 @@ export const SENATE_RACE: SenateRace = {
     {
       "q": "When will the race be called?",
       "a": [
-        "The Associated Press, which counts and calls Mississippi races, declares a winner only when there is no scenario that would let the trailing candidate close the gap. As of Friday afternoon it had not called the race, with about 97% of the vote in.",
+        "The Associated Press says it declares a winner only when there is no scenario that would let the trailing candidate close the gap. As of 3:34 p.m. CT Friday it had not called the race, with about 97% of the vote in, Yahoo News reported.",
         "Counties must certify their results by Nov. 13."
       ],
       "sources": [
@@ -188,9 +188,13 @@ export const SENATE_RACE: SenateRace = {
     {
       "q": "Will there be a runoff?",
       "a": [
-        "No. The Secretary of State lists U.S. Senate as a plurality office: the candidate with the most votes wins, even without a majority. The 2020 amendment that created runoffs covers statewide state offices such as governor, not Congress."
+        "No. Mississippi does not hold runoffs for general elections for federal offices, Secretary of State Michael Watson reminded voters in September, so the candidate with the most votes wins even without a majority. Recent congressional runoffs in Mississippi were primaries or special elections, Mississippi Today reported."
       ],
       "sources": [
+        {
+          "name": "Mississippi Today, Sept. 15",
+          "url": "https://mississippitoday.org/2026/09/15/no-runoff-mississippi-midterm-election/"
+        },
         {
           "name": "Mississippi Secretary of State, vote requirements chart, via the Wire's Nov. 2 preview",
           "url": "/article/scott-colom-cindy-hyde-smith-senate-race-money-polls-rules"
@@ -245,10 +249,15 @@ export const SENATE_RACE: SenateRace = {
     {
       "q": "Has anyone gone to court?",
       "a": [
-        "So far the campaigns have traded letters. On Thursday, lawyers for Hyde-Smith wrote to all 82 counties demanding that affidavit ballots be kept separate and preserved. Colom's lawyers answered that the demands have no basis in Mississippi law, and his campaign manager called the move a \"desperate stunt.\"",
-        "State Republican Party Chairman Mike Hurst said Thursday he was considering a lawsuit and named Hinds County as a likely place, Mississippi Today reported."
+        "The Wire had found no lawsuit over the vote count as of Friday afternoon. The Mississippi Democratic Party sued in DeSoto County on Election Night over what it called \"substantial disruptions to voting\" at polling places, then asked to dismiss the suit Wednesday morning, and the judge granted that, Magnolia Tribune reported.",
+        "On Nov. 5, lawyers for Hyde-Smith wrote to all 82 counties demanding that affidavit ballots be kept separate and preserved. Colom's lawyers answered that the demands have no basis in Mississippi law, and his campaign manager called the move a \"desperate stunt.\"",
+        "State Republican Party Chairman Mike Hurst said Nov. 5 he was considering a lawsuit. He declined to name a county but referred to Hinds County as a likely option, Mississippi Today reported."
       ],
       "sources": [
+        {
+          "name": "Magnolia Tribune, Nov. 4",
+          "url": "https://magnoliatribune.com/2026/11/04/mississippi-democrats-seek-injunctive-relief-for-alleged-voting-issues-in-desoto-county/"
+        },
         {
           "name": "Letter from Hyde-Smith's lawyers to the counties, Nov. 5",
           "url": "https://www.mississippifreepress.org/wp-content/uploads/2026/11/261105-Demand-re-Preservation-of-Affidavit-Ballots-.pdf"
@@ -291,13 +300,18 @@ export const SENATE_RACE: SenateRace = {
   updates: [
     {
       "at": "2026-11-06T17:50:00-06:00",
-      "headline": "Colom's lead grows to about 2,500 as counties review affidavit ballots",
+      "headline": "Colom's lead grows to about 2,500 as counties report",
       "body": [
-        "Colom led Hyde-Smith 467,846 to 465,348 on WLBT's results page at 4:29 p.m. Friday, a margin of 2,498 votes, with independent Ty Pinkins at 20,028. The Associated Press, which counts and calls Mississippi races, had Colom ahead by 2,493 earlier in the afternoon with about 97% of the vote in, and it had not called the race.",
-        "The margin has grown from 43 votes early Wednesday as counties count affidavit ballots. Early county results show those ballots helping Colom even where Hyde-Smith is strong: in Alcorn, Chickasaw and Itawamba counties combined she netted just 71 votes from them despite big overall leads in two of those counties, and in Lafayette County they went 142 to 60 for Colom, the Mississippi Free Press reported.",
-        "Secretary of State Michael Watson has estimated 12,000 to 20,000 affidavit ballots statewide, with 76% accepted so far, and about 3,300 mail ballots that could still arrive by Tuesday."
+        "Colom led Hyde-Smith 467,846 to 465,348 on WLBT's results page at 4:29 p.m. Friday, a margin of 2,498 votes, with independent Ty Pinkins at 20,028. The Associated Press had Colom ahead by 2,493 earlier in the afternoon with about 97% of the vote in, and it had not called the race.",
+        "The margin has grown from 43 votes early Wednesday as counties continue to report results. Early county results show affidavit ballots helping Colom even where Hyde-Smith is strong: in Alcorn, Chickasaw and Itawamba counties combined she netted just 71 votes from them despite big overall leads in two of those counties, and in Lafayette County they went 142 to 60 for Colom, the Mississippi Free Press reported.",
+        "Hyde-Smith's campaign said in a Nov. 5 Facebook statement, quoted by WLBT, that \"thousands of votes remain to be counted from dozens of Republican counties\" and that it is \"confident those votes will reinforce her path to victory.\"",
+        "Secretary of State Michael Watson has estimated 12,000 to 20,000 affidavit ballots statewide, with 76% accepted so far. He put the number of mail ballots that could still arrive by Tuesday, Nov. 10, at about 3,300 on Nov. 5, the Mississippi Free Press reported."
       ],
       "sources": [
+        {
+          "name": "WLBT, Nov. 5 (Hyde-Smith campaign statement)",
+          "url": "https://www.wlbt.com/2026/11/05/representatives-hyde-smiths-campaign-send-letter-counties-demanding-preservation-all-affidavit-ballots/"
+        },
         {
           "name": "WLBT election results page (unofficial)",
           "url": "https://www.wlbt.com/politics/election-results/"
@@ -504,7 +518,7 @@ export const SENATE_RACE: SenateRace = {
       "sourceUrl": "https://www.courts.ms.gov/trialcourts/circuitcourt/circuitclerks.pdf"
     },
     {
-      "county": "Hinds",
+      "county": "Hinds (1st District, Jackson)",
       "clerk": "Zack Wallace",
       "phone": "601-968-6628",
       "city": "Jackson",

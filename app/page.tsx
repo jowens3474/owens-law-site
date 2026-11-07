@@ -104,7 +104,7 @@ export default function Home() {
         >
           <p className="flex items-center gap-2 font-sans text-[0.68rem] font-bold uppercase tracking-widest text-crimson">
             <span aria-hidden="true" className="inline-block h-2 w-2 rounded-full bg-crimson" />
-            Live · Mississippi Senate count
+            Count tracker · Mississippi Senate race
           </p>
           <h2 className="mt-1 text-balance font-serif text-xl font-bold leading-tight text-ink sm:text-2xl">
             {senateBannerHeadline()}

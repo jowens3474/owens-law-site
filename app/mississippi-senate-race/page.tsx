@@ -298,10 +298,11 @@ export default function SenateRacePage() {
           <p className="mt-2 font-sans text-sm text-muted">
             Only voters who cast an affidavit ballot because they had no acceptable photo ID, or
             who have a religious objection to being photographed, need to act: they have until
-            Tuesday, Nov. 10, to go to the circuit clerk&apos;s office in their county. Offices
-            are usually in the county courthouse, and hours vary, so call ahead. Where a number
-            is missing, sources disagreed and we are confirming it; the state Elections Hotline
-            is 1-800-829-6786.
+            Tuesday, Nov. 10, to go to the circuit clerk&apos;s office in their county. Hours vary
+            by county, so call ahead. Some counties have two circuit clerk offices; if yours does,
+            call to ask which office takes your ID. Where a number or address is missing, public
+            sources disagreed or listed only a mailing address; the state Elections Hotline is
+            1-800-829-6786.
           </p>
           {/* Stacked rows on phones, a table from the sm breakpoint up, so the
               page never scrolls sideways. */}
