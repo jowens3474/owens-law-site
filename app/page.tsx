@@ -13,6 +13,11 @@ import {
 // write on Vercel, so keep this window long.
 export const revalidate = 3600;
 import { site } from "@/lib/site";
+import {
+  SENATE_RACE,
+  apDateTimeCT,
+  senateBannerHeadline,
+} from "@/lib/senate-race";
 import ArticleImage from "./components/ArticleImage";
 import Sidebar from "./components/Sidebar";
 import ComingUp from "./components/ComingUp";
@@ -90,6 +95,26 @@ export default function Home() {
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8">
+      {/* Senate count tracker banner. Fixed content and no images, so it takes
+          its height at first paint and does not shift the lead below it. */}
+      {SENATE_RACE.showBanner && (
+        <Link
+          href={`/${SENATE_RACE.slug}`}
+          className="mb-6 block border-y-2 border-crimson bg-paper px-4 py-3 hover:bg-white"
+        >
+          <p className="flex items-center gap-2 font-sans text-[0.68rem] font-bold uppercase tracking-widest text-crimson">
+            <span aria-hidden="true" className="inline-block h-2 w-2 rounded-full bg-crimson" />
+            Count tracker · Mississippi Senate race
+          </p>
+          <h2 className="mt-1 text-balance font-serif text-xl font-bold leading-tight text-ink sm:text-2xl">
+            {senateBannerHeadline()}
+          </h2>
+          <p className="mt-1 font-sans text-xs text-muted">
+            Updated {apDateTimeCT(SENATE_RACE.lastUpdated)}
+          </p>
+        </Link>
+      )}
+
       {/* Today's brief, if published */}
       {todaysBrief && (
         <>

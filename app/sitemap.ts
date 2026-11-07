@@ -4,6 +4,7 @@ import { getAllPosts } from "@/lib/posts";
 import { getAllLaws } from "@/lib/laws";
 import { NIL_GUIDE } from "@/lib/nil";
 import { SPORTS_SECTIONS } from "@/lib/sports";
+import { SENATE_RACE } from "@/lib/senate-race";
 import { getAllRulings } from "@/lib/rulings";
 import { categories } from "@/lib/site";
 import { absoluteUrl } from "@/lib/markdown";
@@ -66,6 +67,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: latest,
       changeFrequency: "daily",
       priority: 0.8,
+    },
+    {
+      url: absoluteUrl(`/${SENATE_RACE.slug}`),
+      lastModified: new Date(SENATE_RACE.lastUpdated),
+      changeFrequency: "daily",
+      priority: 0.9,
     },
     {
       url: absoluteUrl("/sports"),

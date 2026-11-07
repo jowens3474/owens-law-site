@@ -2,6 +2,7 @@ import { getAllPosts } from "@/lib/posts";
 import { getAllLaws } from "@/lib/laws";
 import { getAllRulings } from "@/lib/rulings";
 import { SPORTS_SECTIONS } from "@/lib/sports";
+import { SENATE_RACE, senateBannerHeadline } from "@/lib/senate-race";
 import { site, categories } from "@/lib/site";
 import { absoluteUrl } from "@/lib/markdown";
 
@@ -41,6 +42,11 @@ export async function GET() {
     }
     lines.push("");
   }
+
+  lines.push(
+    `Live: [Mississippi Senate race: where the count stands](${absoluteUrl(`/${SENATE_RACE.slug}`)}): ${senateBannerHeadline()}. The Wire reports AP and the Secretary of State and does not call races.`,
+    "",
+  );
 
   lines.push(
     `Sports: ${SPORTS_SECTIONS.map((s) => `[${s.name}](${absoluteUrl(`/sports/${s.slug}`)})`).join(", ")}`,
