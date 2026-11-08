@@ -7,7 +7,9 @@
 // There is deliberately no Sports category: categories feed the nav, the
 // footer, the sitemap, the feeds and many other lists, and a Sports category
 // would spread through all of them. The /sports pages find stories by tag
-// instead, and the homepage lead skips them (see getFeaturedPost).
+// instead, and the homepage lead skips them (see getFeaturedPost). A story
+// filed under another category (Development, Politics) can also carry a
+// `sports-*` tag to appear in a section; it stays eligible for the lead.
 //
 // Each section also shows live headlines from other outlets. The registry and
 // routing are in lib/sports-feeds.mjs; /api/sports/headlines serves them as one
