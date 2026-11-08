@@ -5773,9 +5773,18 @@ function daysSincePublished(p: Post): number {
 // front page turns over every time anything publishes. Morning Briefs are
 // skipped because the homepage already gives today's brief its own banner
 // above the lead; leading with it would print the same story twice. Sports
-// stories (any `sports-*` tag) are skipped too, so the front page lead stays
-// on the Jackson business and politics beat.
+// stories (category "General News" with a `sports-*` tag, as lib/sports.ts
+// defines them) are skipped too, so the front page lead stays on the Jackson
+// business and politics beat. A business, development or politics story that
+// is also cross-filed to a sports section with a `sports-*` tag can still lead.
 // A story marked `lead: true` overrides that for LEAD_PIN_DAYS, then releases.
+function isSportsStory(p: Post): boolean {
+  return (
+    p.category === "General News" &&
+    (p.tags ?? []).some((t) => t.startsWith("sports-"))
+  );
+}
+
 export const getFeaturedPost = cache((): Post | undefined => {
   const published = getAllPosts();
   const pinned = published.find(
@@ -5784,9 +5793,7 @@ export const getFeaturedPost = cache((): Post | undefined => {
   if (pinned) return pinned;
   return (
     published.find(
-      (p) =>
-        !(p.tags ?? []).includes("morning-brief") &&
-        !(p.tags ?? []).some((t) => t.startsWith("sports-")),
+      (p) => !(p.tags ?? []).includes("morning-brief") && !isSportsStory(p),
     ) ??
     published[0]
   );
