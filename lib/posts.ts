@@ -82,6 +82,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-11-10",
+    title: "Morning Brief: Nov 10 · Jackson Gets $64M for Police; Data Center Vote Slips to Dec 1",
+    dek: "The Justice Department handed Jackson $63,986,271 over three years on Monday, about half what the city asked for, as the council pushed its data center repeal vote to Dec. 1.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-11-10",
+    views: 0,
+    body: [
+      "Jackson lands $63.99M policing grant: U.S. Attorney General Todd Blanche announced $63,986,271 for the City of Jackson and JPD on Monday at City Hall, spread over three years under the DOJ's Model Cities Initiative, the Clarion Ledger reported. That is roughly half the $125 million JPD applied for and below the $100 million Mississippi congressional leaders had floated; the Clarion Ledger reported the gap went unexplained at the briefing. City officials have said the money would build out the forensic lab, hire officers and expand surveillance, including artificial intelligence. The DOJ said the award is a cooperative agreement, giving the department a hand in implementation. Jackson recorded 79 homicides as of 8 a.m. Nov. 9, against 75 in all of 2025.",
+      "Data center repeal vote pushed to Dec 1: Council President Vernon Hartley said the council will not take an official vote on Ward 3 Councilman Kenneth Stokes's ordinance to rescind the data center moratorium until Dec. 1, according to a recording of the Nov. 3 meeting. The moratorium, adopted July 14 on a 5-2 vote, runs to April 4, 2027. City Attorney Drew Martin told the council staff are still drafting a regulatory framework and that tax abatements are not necessarily required. Speakers opposed repeal on noise, environmental and incentive grounds. The next regular meeting is Nov. 17, and the item could return earlier.",
+      "Jackson sales tax take flat as suburbs grow: Jackson received $2,622,651 in sales tax diversions in September, down 0.2% from $2,628,600 a year earlier, Department of Revenue diversion reports show. Ridgeland collected $1,557,911, up 14.0%, and Brandon $773,167, up 13.1%. Jackson's fiscal-year-to-date total is $7,951,288, up 3.9%. Pearl fell 17.4% to $1,161,762. The monthly diversion is the closest thing to a real-time read on each city's commercial base, and Jackson's flat September against double-digit suburban gains is the number to watch heading into the holiday quarter.",
+      "Entergy storm costs head for securitization: Entergy Mississippi filed Oct. 2 for a financing order to securitize restoration costs from Winter Storm Fern, docket 26-UA-85, and separately gave notice of a routine rate change to implement a storm cost offset rider, docket 2026-UN-86, per the Commission's November utility docket. The company has also marketed $650 million of first mortgage bonds, netting about $644.5 million, partly to fund storm restoration on an interim basis, SEC filings show. Securitization spreads a storm bill over years rather than one season. The docket does not state the per-customer charge; the rider filing is where that figure would appear.",
+      "JSU opens state's first teacher supply closet: Jackson State cut the ribbon Monday at 10 a.m. in Room 100 of the College of Education and Human Development on the Aspiring Educators Resource Closet, which WLBT and Darkhorse Press reported is the first of its kind in Mississippi. The College of Education partnered with the Mississippi Association of Educators-Retired to stock it with calculators, glue sticks, hand sanitizer and disinfectant wipes for recent graduates entering their first classrooms. Student Education Association president Teanna Howard, a senior graduating in May 2027, said the closet removes part of the cost of outfitting a room. The association meets in summer 2027 to pick the next campus.",
+    ],
+  },
+  {
     slug: "jackson-state-veterans-memorial-stadium-last-game-ummc-leverage",
     title: "Was That Jackson State's Last Game at the Vet? The Law Keeps the Stadium JSU's Until the Tigers Move, and Lawmakers Have Not Funded a Replacement.",
     seoTitle: "Veterans Memorial Stadium: JSU, UMMC and who holds leverage",
