@@ -82,6 +82,28 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "jackson-zoo-rfi-livingston-super-park-february-9-deadline",
+    title: "Jackson Wants a Developer for 110 Acres at the Zoo. The City's Own Numbers Show Why It Cannot Wait.",
+    seoTitle: "Jackson Zoo: Livingston Super Park RFI due Feb. 9",
+    dek: "The city's 27-page request for information on the Livingston Super Park closes Feb. 9. Zoo admissions and rent brought in $11,913 in the first half of fiscal 2026, against a $1.7 million operating budget.",
+    category: "Development",
+    categories: ["Business","Economy"],
+    tags: ["pipeline"],
+    author: "Jackson Wire Staff",
+    date: "2026-11-10",
+    views: 0,
+    body: [
+      "Jackson has formally asked the private sector to take a run at 110 acres of public land on West Capitol Street. The city's request for information for the \"Livingston Super Park at the Jackson Zoo\" was posted Oct. 29 and runs 27 pages, according to WLBT, which reviewed the document. Responses are due Monday, Feb. 8, the city's bid portal lists the opening as Feb. 9, 2027 under solicitation 98863-020927.",
+      "The document asks for \"concepts, development ideas, and partnership structures for the redevelopment and enhancement of Livingston Park and the Jackson Zoo ... as a unified family entertainment, recreation, and tourism destination,\" WLBT reported. It invites qualified firms, developers, entertainment companies and nonprofits. It also names what the city wants to see: zip lines, rock climbing, kayaking and paddle boats on Livingston Lake, mini golf, and virtual or holographic animal exhibits that could \"provide year-round revenue in a climate-controlled environment.\"",
+      "The money case for handing the property to an outside operator is in the city's own budget documents. Through the first six months of fiscal 2026, the zoo collected $11,913 in admissions, fees and rent, down from $17,613 in the same stretch of 2025, WLBT reported from budget records it obtained. The city had budgeted $1.7 million to operate the park for the year and had transferred about $288,000 to cover operations by that point.",
+      "Run the arithmetic and the picture sharpens. The $11,913 the zoo earned in six months works out to roughly $2,000 a month, or about $65 a day, against a budget that assumes about $4,658 a day in spending. The city's transfer of $288,000 was about 17 percent of the annual operating budget, and it was roughly 24 times everything the zoo brought in on its own in that half year. The RFI does not state a cost for the redevelopment, and the city has not published one.",
+      "The animal collection has shrunk alongside the revenue. WLBT reported the zoo's animals have fallen from several hundred to 85. In April, Chief Administrative Officer Pieter Teeuwissen described the intended shape of the place: \"We envision a zoo that has a different footprint than it has now, one that is probably smaller and is probably more modern, that incorporates technology, such as a virtual zoo, as well as more cost-efficient animals, such as reptiles, butterflies and birds.\"",
+      "This is the second time in a decade Jackson has gone outside for help running the zoo, and the first attempt is the cautionary tale. The city issued a request for proposals for a zoo management firm in 2018 under then-Mayor Chokwe Antar Lumumba and settled on ZoOceanarium Group, a Missouri firm tied to the St. Louis Aquarium. In 2021 ZoOceanarium walked away after more than two years of negotiations, and the city ended up operating a zoo for the first time in decades, WLBT reported. That history matters here because an RFI, unlike an RFP, commits the city to nothing: it is a market test, not a contract, and no respondent is guaranteed anything.",
+      "The RFI's stated goals are economic, not zoological. Any proposal is meant to \"increase annual tourism and regional visitation to the Jackson area; generate direct and indirect economic impact through visitor spending, employment, and supply chain activity; and position Jackson as a must-visit destination for families throughout Mississippi and the surrounding region,\" according to the document as quoted by WLBT. Council Vice President Vernon Hartley, whose ward includes the zoo, said in April the city was working on a memorandum of understanding to let the Zoo Area Progressive Partnership raise money on the zoo's behalf, and that funding was set aside for a lakefront pavilion that could generate as much as $5,000 per event.",
+      "What's next: responses are due Monday, Feb. 8, 2027, and the city's planroom calendar lists the Livingston Super Park and Jackson Zoo solicitation, 98863-020927, as bidding Feb. 9, 2027 at jacksonmsbids.com. The 27-page RFI is posted through the city's bid page at jacksonms.gov/business/bid-opportunities. Watch three things after the deadline: whether the respondents are entertainment operators, nonprofits or developers; whether any of them ask the city for money rather than offer it; and whether the council takes up a management agreement, which would be the first binding vote in the process. The city has not published a schedule for evaluating responses or bringing a recommendation to the council.",
+    ],
+  },
+  {
     slug: "morning-brief-2026-11-10",
     title: "Morning Brief: Nov 10 · Jackson Gets $64M for Police; Data Center Vote Slips to Dec 1",
     dek: "The Justice Department handed Jackson $63,986,271 over three years on Monday, about half what the city asked for, as the council pushed its data center repeal vote to Dec. 1.",
