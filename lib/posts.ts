@@ -82,6 +82,28 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "jackson-tourism-tax-failed-60-percent-threshold-visit-jackson-funding",
+    title: "Jackson's Tourism Tax Failed by 14 Points. The 60% Rule, Not the 54% No Vote, Is What Killed It.",
+    seoTitle: "Jackson tourism tax: 60% rule killed Visit Jackson measure",
+    dek: "Voters rejected the restaurant and hotel tax hike 54.2% to 45.8%. Visit Jackson needed 60%, and its federal ARPA money ran out Aug. 31.",
+    category: "Economy",
+    categories: ["Business"],
+    tags: ["pipeline"],
+    author: "Jackson Wire Staff",
+    date: "2026-11-10",
+    views: 0,
+    body: [
+      "Jackson voters rejected the tourism tax increase on Nov. 3 by 23,962 to 20,242, or 54.2% against to 45.8% for, according to the unofficial results reported by the Clarion Ledger. The measure needed 60% to pass. It missed by 14.2 percentage points, which means the no side never had to win a majority of anything close to a landslide to stop it.",
+      "The gap is the story. A majority of Jackson voters who cast a ballot on the question voted no, but the decisive number was the threshold written into Senate Bill 3328, the 2026 law that authorized the referendum and sent it to the city ballot. The Clarion Ledger reported that the City Council voted in August to place the question before voters. Visit Jackson's own campaign page states the 60% requirement plainly: \"To pass, 60% of qualified voters who vote on the referendum must select 'FOR THE TAX.'\"",
+      "What the tax would have done, per the ballot language and the Clarion Ledger: raise the tax that funds Visit Jackson from 1% to 1.5% on restaurant purchases and from 1% to 2% on hotel stays, adding 10 cents to a $20 restaurant bill and $1 to a $100 hotel room. Counting state sales tax and the separate convention center levies, the restaurant rate would have gone from 9% to 9.5% and the hotel rate from 11% to 12%, plus an existing 75-cent per-room, per-night charge. The Mississippi Free Press reported the increase would have generated about $2 million a year, and that it would have been the first change to the levy since 1983.",
+      "The money question is now the city's problem, and the documents point to a specific hole. Visit Jackson President and CEO Rickey Thigpen said at the Oct. 20 council meeting that federal CARES Act and ARPA funding ended Aug. 31, per the Mississippi Free Press. The Free Press also reported that about one third of Visit Jackson's 2025 funding came from ARPA. The agency's own campaign page lists an annual revenue figure of roughly $4.47 million in outside estimates, but the primary record of what replaces the expiring federal share is not public in the documents reviewed for this article.",
+      "The Wire's arithmetic on the vote: 44,204 people cast a ballot on the referendum. To reach 60%, the yes side needed 26,523 votes. It got 20,242, a shortfall of 6,281. Turnout on a single tax question in a city of Jackson's size is the other number worth watching, because the same 60% bar applies to any future referendum the Legislature authorizes.",
+      "The comparison that drove the campaign is in the surrounding cities. The Mississippi Free Press reported that the average tourism tax on hotels and motels in cities around Jackson is about 2.6% and about 1.8% on restaurants, excluding Madison, which has no tourism tax, and that Pearl, Flowood and Brandon charge 3% on hotel and motel stays. Ward 4 Councilman Brian Grizzell made the argument at the Oct. 20 meeting: \"When you eat in Pearl and … Clinton, you're already paying the same tax, so why can't we do it too?\" Voters answered that question on Nov. 3.",
+      "Visit Jackson's case rested on its own return figures. Its annual report, as cited by the Free Press, credits its programs with an estimated $80 million in additional direct traveler spending and $23 million in tax revenue in 2025, and claims a 1,400% return on operating costs, up from 1,227% in 2024. The same reporting found average visitor stay length rose from 1.7 days to 2.1 days between 2024 and 2025. The agency said in a statement to the Clarion Ledger that it remains \"committed to representing our capital city with the pride and passion she deserves.\"",
+      "What's next: WLBT reported after the vote that there is no word on whether the city has alternate plans to help fund tourism in Jackson. The next public venue is the City Council, which meets Tuesday, Nov. 17, at 6 p.m., according to the Jackson Association of Neighborhoods recap of the Nov. 3 and Nov. 5 meetings. The council's agenda packet is posted at jacksonms.gov, and the tourism agency's board-approved budget and annual independent CPA audit are described on its campaign page as public records. Watch whether the council moves to backfill the expiring federal share from the general fund, and whether any member asks for a line-item accounting of what the 1% levy raises now.",
+    ],
+  },
+  {
     slug: "jackson-zoo-rfi-livingston-super-park-february-9-deadline",
     title: "Jackson Wants a Developer for 110 Acres at the Zoo. The City's Own Numbers Show Why It Cannot Wait.",
     seoTitle: "Jackson Zoo: Livingston Super Park RFI due Feb. 9",
