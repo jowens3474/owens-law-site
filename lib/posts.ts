@@ -82,6 +82,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-11-11",
+    title: "Morning Brief: Nov 11 · Solar Farm Cleared; Madison Backs $11.7M Gallery Bonds",
+    dek: "The Mississippi Court of Appeals upheld Hinds County's permits for the Soul City solar project, clearing the largest solar farm in the state to build on roughly 5,800 acres in western Hinds County.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-11-11",
+    views: 0,
+    body: [
+      "Appeals court clears Soul City solar: The Mississippi Court of Appeals upheld the Hinds County Board of Supervisors' 2024 approval of two use permits for Soul City Storage LLC and Soul City Energy LLC, WLBT reported. The developer needs them to build on about 5,800 acres of undeveloped land in western Hinds County, between Bolton and Raymond. Apex Clean Energy has said the project would produce up to 400 megawatts, enough for about 95,000 homes, and generate up to $150 million in tax revenue over 30 years. Judge Latrice Westbrooks dissented, joined by three judges, finding the county never made the written findings its zoning ordinance requires. The county's approval was 3-2; the planning commission had denied it unanimously.",
+      "Madison backs $11.7M for The Gallery: Madison's mayor and Board of Aldermen voted unanimously Tuesday to approve a tax increment financing plan letting the city issue up to $11.741 million in bonds for The Gallery, a $59.2 million arts and entertainment district on Galleria Parkway, WLBT reported. No one spoke against it at the 9 a.m. hearing at 120 Montgomery Street. Attorney Chris Pace of Jones Walker told the board the bonds are limited revenue obligations repaid only from net new taxes the project generates, and that a change in state law lets the developer guarantee the debt with a lien on the property. Bellamare CEO Sunny Sethi said $10 million to $12 million in dirt work is underway, with vertical construction around the first of the year and openings in late 2027 or early 2028.",
+      "County weighs its share Nov 16: Madison County holds a public hearing Monday, Nov. 16, at 9 a.m. on whether to pledge its share of new property tax revenue toward repaying The Gallery bonds, according to WLBT and the Madison County coverage by Onlinemadison. The county's participation is the piece the city cannot supply itself: the TIF plan was built on the assumption that incremental property taxes from both jurisdictions back the debt. When WLBT first reported on The Gallery in April 2025, the project was described as privately funded; Sethi did not say why the financing plan was added. The city's own notice said the bonds would not carry the city's full faith and credit and would not require a local tax increase.",
+      "Jackson sales tax flat as suburbs gain: Jackson received $2,622,651 in sales tax diversions in September, down 0.2% from $2,628,600 a year earlier, while its fiscal year to date is up 3.9%, Department of Revenue diversion reports show. The metro split is starker: Ridgeland is up 14.0% for the month and 13.8% for the fiscal year, Brandon up 13.1%, Flowood up 3.8%, and Pearl down 17.4% for the month and 12.8% for the year. Jackson's September payment is still the largest single check in the metro, about $1.06 million more than Ridgeland's. The reports are posted at dor.ms.gov and tracked with history at thejacksonwire.com/economy/sales-tax.",
+      "Folk Festival closes downtown Thursday: The 83rd National Folk Festival runs Nov. 13 to 15 downtown, and the full festival-site closure begins Thursday, Nov. 12, at 10 p.m., per Visit Jackson's published schedule. West Street from James Meredith to Pearl and Congress Street from Yazoo to Pearl close then; streets and lots reopen in phases Nov. 16 through 18, all at 1 a.m. Visit Jackson estimated at least 30,000 attendees and a $3 million economic impact for the 2025 edition, WAPT reported, against the festival's own projection of upwards of 150,000 attendees and $15 million to $30 million a year by year three. Separately, counties must certify Senate results by Friday, Nov. 13.",
+    ],
+  },
+  {
     slug: "jackson-tourism-tax-failed-60-percent-threshold-visit-jackson-funding",
     title: "Jackson's Tourism Tax Failed by 14 Points. The 60% Rule, Not the 54% No Vote, Is What Killed It.",
     seoTitle: "Jackson tourism tax: 60% rule killed Visit Jackson measure",
