@@ -1,12 +1,5 @@
 [
   {
-    "bill": "SB 2867",
-    "hint": "Employer-provided child care tax credit: up to $3,000 per child per year, employer stipend of at least $2,000 to qualify, $1 million statewide cap. Effective July 1, 2026.",
-    "sources": [
-      "https://magnoliatribune.com/2026/06/29/from-teacher-pay-to-illegal-immigration-new-laws-set-to-take-effect-in-mississippi/"
-    ]
-  },
-  {
     "bill": "",
     "hint": "Seafood country-of-origin labeling for restaurants and markets; find the bill number (2026 session).",
     "sources": [
@@ -164,5 +157,14 @@
     ],
     "attempts": 1,
     "lastError": "entry is too long (1139 words; aim for 450 to 800); whatItDoes: a paragraph has 5 sentences (limit 4)"
+  },
+  {
+    "bill": "SB 2867",
+    "hint": "Employer-provided child care tax credit: up to $3,000 per child per year, employer stipend of at least $2,000 to qualify, $1 million statewide cap. Effective July 1, 2026.",
+    "sources": [
+      "https://magnoliatribune.com/2026/06/29/from-teacher-pay-to-illegal-immigration-new-laws-set-to-take-effect-in-mississippi/"
+    ],
+    "attempts": 1,
+    "lastError": "entry is too long (950 words; aim for 450 to 800); whatsBehindIt: a sentence runs over 40 words (\"The main caution came from the Mississippi Early L...\")"
   }
 ]
