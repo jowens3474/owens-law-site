@@ -82,6 +82,28 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "trustmark-merger-jackson-loses-its-largest-bank-headquarters",
+    title: "Trustmark's $3.2 Billion Sale Moves Jackson's Largest Bank Headquarters to Gulfport",
+    seoTitle: "Trustmark: $3.2B Hancock Whitney deal moves HQ to Gulfport",
+    dek: "The all-stock deal carries $205.5 million in planned expense cuts, equal to 35% of Trustmark's noninterest expense, and ends Jackson's claim to a homegrown bank holding company.",
+    category: "Business",
+    categories: ["Economy"],
+    tags: ["pipeline"],
+    author: "Jackson Wire Staff",
+    date: "2026-11-12",
+    views: 0,
+    body: [
+      "Jackson's largest bank holding company agreed Thursday to sell itself to a rival from the Gulf Coast. Trustmark Corporation, headquartered at 248 East Capitol Street since its predecessor Jackson Bank was chartered in 1889, will merge into Gulfport-based Hancock Whitney in an all-stock deal valued at about $3.2 billion, according to the joint press release filed with the SEC as Exhibit 99.1 to Trustmark's Nov. 12 Form 8-K.",
+      "The price is paid in stock, not cash: 0.7463 shares of Hancock Whitney common stock for each Trustmark share. At closing, Hancock Whitney shareholders will own about 65% of the combined company and Trustmark shareholders about 35%. The combined bank would hold roughly $58 billion in assets, $48 billion in deposits and 370 branches across six states, the investor presentation states.",
+      "The number that matters most for Jackson is buried in the deal model. The companies assume $205.5 million in pre-tax run-rate net expense savings, which the filing describes as equal to 35% of Trustmark's noninterest expense, against $250 million in pre-tax merger expenses. Trustmark reported 2,574 full-time equivalent employees at Sept. 30, 2026, in its third-quarter earnings release, down from 2,583 in June. The presentation does not say how many of those jobs sit in Jackson, and neither company has said which positions the savings come from.",
+      "What the documents do show is where the headquarters goes. Hancock Whitney's principal offices are at Hancock Whitney Plaza, 2510 14th Street in Gulfport, per its own Form 8-K. Trustmark's Jackson address appears in the same filings only as the place to request investor documents. Duane Dewey, Trustmark's chief executive, keeps a seat on the combined board and an advisory role, and five Trustmark directors join Hancock Whitney's board. The Wire's reading of the filings: the title moves, the board presence stays, and the operating decisions move with the title.",
+      "Jackson is where the deposits are. The presentation lists the Jackson metro at $7,099 million in combined deposits and a 30.2% share, ranked first among the bank's top 20 markets. Statewide, the combined bank would rank first in Mississippi deposit share, up from Hancock Whitney's current sixth, with $15.2 billion in Mississippi deposits against $4.5 billion today. That is a 241% increase in in-state deposits, computed from the presentation's own figures.",
+      "The deal also reshapes who lends to whom. Trustmark's efficiency ratio was 63.21% in the third quarter, per its earnings release; the combined bank projects roughly 49% by 2028, with a return on assets near 1.6%. Hancock Whitney chief executive John Hairston told employees in a transcript filed with the SEC that scale lets the bank \"compete against some of the largest financial institutions in the world.\" Dewey, in the same transcript, said the two banks had discussed a combination for years and that \"this isn't a story about outsiders arriving from somewhere far away.\"",
+      "Two details in the filings are worth flagging for anyone with a Trustmark account or a Trustmark loan. The companies say branches and associates will operate under the Hancock Whitney name only after a conversion expected late in 2027, and that until closing the banks remain separate. The presentation also books a core deposit intangible of 3.5% of Trustmark's core deposits, an accounting entry that reflects what the buyer thinks the deposit base is worth. The filings do not state any change to account terms, branch hours or fees, and neither company has announced closures.",
+      "What's next: both shareholder votes and federal regulatory approval must clear before a closing the companies expect late in the first quarter of 2027. Hancock Whitney will file a registration statement on Form S-4 containing a joint proxy statement and prospectus, and the companies direct shareholders to watch sec.gov, investors.hancockwhitney.com and investorrelations.trustmark.com for it; Trustmark investor relations can be reached at 601.208.6898. The documents to read first are the Nov. 12 Form 8-K and its two exhibits, which lay out the exchange ratio, the $205.5 million savings target and the market-by-market deposit table.",
+    ],
+  },
+  {
     slug: "morning-brief-2026-11-12",
     title: "Morning Brief: Nov 12 · Jackson Sales Tax Flat as Suburbs Pull Away; Data Center Repeal Returns Nov 17",
     dek: "Jackson's September sales tax diversion came in 0.2% below a year earlier while Ridgeland ran 14% ahead, and the city's data center moratorium repeal heads toward a Dec. 1 vote with the next council meeting Nov. 17.",
