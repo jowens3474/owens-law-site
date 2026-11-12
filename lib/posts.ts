@@ -82,6 +82,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-11-12",
+    title: "Morning Brief: Nov 12 · Jackson Sales Tax Flat as Suburbs Pull Away; Data Center Repeal Returns Nov 17",
+    dek: "Jackson's September sales tax diversion came in 0.2% below a year earlier while Ridgeland ran 14% ahead, and the city's data center moratorium repeal heads toward a Dec. 1 vote with the next council meeting Nov. 17.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-11-12",
+    views: 0,
+    body: [
+      "Jackson sales tax collections stall as suburbs pull away: The Department of Revenue's September diversion report puts Jackson's payment at $2,622,651, down 0.2% from $2,628,600 a year earlier. The fiscal-year total is still ahead, $7,951,288 against $7,656,494, up 3.9%. The metro comparison is the story: Ridgeland collected $1,557,911, up 14.0%, and Brandon rose 13.1%, while Pearl fell 17.4% to $1,161,762. Jackson's monthly check is roughly 1.7 times Ridgeland's, a gap that has narrowed steadily. Sales tax diversions are the closest thing to a monthly economic indicator for city hall, and the September figure is the first month of the fiscal year's second quarter.",
+      "Data center repeal returns to council Nov 17: Council President Vernon Hartley said the ordinance repealing Jackson's data center moratorium will not get an official vote until Dec. 1, but the next regular council meeting is Tuesday, Nov. 17, at 6 p.m. at Jackson City Hall, 219 S. President Street. Councilman Kenneth Stokes introduced the repeal Nov. 3; the moratorium, adopted July 14, runs to April 4, 2027. City Attorney Drew Martin told the council staff are still drafting a regulatory framework and that any project would still face zoning, site plan review and public hearings. No vote was taken, and the Jackson Association of Neighborhoods reports ward-level hearings are expected first.",
+      "Entergy storm bonds reach PSC docket Nov 17: The Commission's November utility docket lists Entergy Mississippi's petition for a financing order, docket 2026-UA-85, filed Oct. 2, asking the PSC to let the company seek State Bond Commission authorization for system restoration bonds covering 2026 severe winter storm costs. A companion item, 2026-UN-86, is Entergy's notice of intent to implement a storm cost offset rider. The docket is set for the regular meeting Tuesday, Nov. 17, at 10 a.m. in the Woolfolk State Office Building courtroom in Jackson. The docket does not state the bond amount or the monthly bill effect; the securitization statute, House Bill 4069, routes repayment through customer charges.",
+      "Madison backs $11.7M Gallery bonds: Madison's mayor and Board of Aldermen voted unanimously Tuesday to approve a tax-increment financing plan letting the city issue up to $11.741 million in bonds for The Gallery, a planned arts and entertainment district, WLBT reported. No one spoke against the plan at the public hearing at City Hall. An attorney told the board it has been several years since Madison issued TIF bonds and that the city will sell them at the appropriate time. The vote follows an October resolution of intent. The plan was available at City Hall or by email request. The approved amount is a ceiling, not a sale date.",
+      "Blight plan moves with landfill reopening in December: The council unanimously adopted the Blight Management and Neighborhood Recovery Master Plan (Version 1.8) at its Nov. 5 continuation, per the Jackson Association of Neighborhoods recap. Staff described a six-person team with more than $1 million provided by the mayor, working Wards 5, 3 and 6 with Wards 4 and 2 next. Structure demolition waits on the city landfill, tentatively set to reopen in December, so debris does not have to be hauled to commercial sites at $50 to $70 per ton. The city attorney's office is also adding a blight investigator, salary range $56,655.12 to $68,560.08.",
+    ],
+  },
+  {
     slug: "soul-city-solar-appeals-court-affirms-hinds-county-permits-psc-certificate-next",
     title: "A Court Cleared Hinds County's 5,800-Acre Solar Farm. The PSC Certificate Is Still the Gate.",
     seoTitle: "Hinds County solar farm: court affirms permits, PSC next",
