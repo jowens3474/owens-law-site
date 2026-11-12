@@ -1,13 +1,6 @@
 [
   {
     "bill": "",
-    "hint": "Seafood country-of-origin labeling for restaurants and markets; find the bill number (2026 session).",
-    "sources": [
-      "https://magnoliatribune.com/2026/06/29/from-teacher-pay-to-illegal-immigration-new-laws-set-to-take-effect-in-mississippi/"
-    ]
-  },
-  {
-    "bill": "",
     "hint": "Winter Storm Fern relief: zero-interest loans to cities and counties until FEMA reimburses, then 3%; the first version was vetoed. Find the bill number (2026 session).",
     "sources": [
       "https://www.supertalk.fm/bill-by-bill-recap-of-the-2026-mississippi-legislative-session/"
@@ -166,5 +159,14 @@
     ],
     "attempts": 1,
     "lastError": "entry is too long (950 words; aim for 450 to 800); whatsBehindIt: a sentence runs over 40 words (\"The main caution came from the Mississippi Early L...\")"
+  },
+  {
+    "bill": "",
+    "hint": "Seafood country-of-origin labeling for restaurants and markets; find the bill number (2026 session).",
+    "sources": [
+      "https://magnoliatribune.com/2026/06/29/from-teacher-pay-to-illegal-immigration-new-laws-set-to-take-effect-in-mississippi/"
+    ],
+    "attempts": 1,
+    "lastError": "entry is too long (865 words; aim for 450 to 800)"
   }
 ]
