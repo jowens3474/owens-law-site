@@ -82,6 +82,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-11-13",
+    title: "Morning Brief: Nov 13 · Trustmark Deal Terms Land; Stokes Censure Fight Heads to Court",
+    dek: "Hancock Whitney's all-stock purchase of Trustmark values Jackson's largest bank at about $3.2 billion, and the combined company will be run from Gulfport.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-11-13",
+    views: 0,
+    body: [
+      "Trustmark holders get 0.7463 Hancock shares: The merger agreement Hancock Whitney filed with the SEC on Nov. 11 sets the exchange at 0.7463 shares of Hancock Whitney common stock for each Trustmark share, a 100% stock deal the companies value at about $3.2 billion based on Hancock's Nov. 11 closing price. Trustmark, headquartered in Jackson with $19.1 billion in assets as of Sept. 30, merges into Hancock Whitney, which survives. At closing, Hancock holders are projected to own about 65% of the combined company and Trustmark holders about 35%. The companies expect to close late in the first quarter of 2027, pending shareholder and regulatory approvals. No Mississippi branch closures have been announced.",
+      "Stokes threatens suit over censure vote: Ward 3 Councilman Kenneth Stokes said Thursday he is preparing legal action if the council censures him, appearing with attorney Dennis Sweet, WLBT reported. Sweet called the city code terms \"decorum\" and \"set an example\" vague. Council President Vernon Hartley's Nov. 9 letter gave Stokes three business days to respond and attached a draft resolution asking for a public apology. It carries no fine, no removal from office and no committee loss. MC Law professor Matt Steffey told WLBT a censure is \"a public reprimand\" with no legal consequence. The last use was February 2020, against then-CAO Robert Blaine.",
+      "Entergy storm rider on PSC docket Nov 17: The Commission's November utility docket, posted at psc.ms.gov, lists a 10 a.m. Nov. 17 meeting in the Woolfolk State Office Building courtroom with two Entergy Mississippi items that touch customer bills: docket 2026-UN-86, notice of intent to make a routine rate change by implementing a storm cost offset rider, and 2026-UA-85, a petition for a financing order to seek State Bond Commission authorization for system restoration bonds tied to 2026 severe winter storm costs. The docket does not state a dollar amount or a monthly bill impact. Also listed is Atmos docket 2026-UA-40, its CY2026 system integrity plan and stable rate adjustment rider recovery.",
+      "Jackson sales tax flat as Ridgeland jumps 14%: Department of Revenue diversion reports for September show Jackson received $2,622,651, down 0.2% from $2,628,600 a year earlier, while its fiscal-year-to-date total of $7,951,288 runs 3.9% ahead of last year. Ridgeland collected $1,557,911, up 14.0%, and Brandon rose 13.1% to $773,167. Pearl fell 17.4% to $1,161,762, the steepest metro decline. The reports are the closest thing to a monthly economic indicator for each city and land weeks before the council's Dec. 1 scheduled vote on repealing the data center moratorium, which supporters cast as a growth measure and opponents as a cost shift onto ratepayers.",
+      "Council returns Nov 17 with data center repeal pending: The council's next regular meeting is Tuesday, Nov. 17, 2026, at 6 p.m. at Jackson City Hall, with the repeal of the city's data center moratorium still pending. Council President Vernon Hartley said the repeal would not get an official vote until Dec. 1, though it could return earlier. The moratorium adopted July 14 runs to April 4, 2027. Stokes, who voted for the ban in July, introduced the one-page repeal in the Nov. 3 packet; WLBT reported the draft does not say why. The city has also posted RFI 98863 for the Livingston Super Park at the Jackson Zoo, dated Oct. 29.",
+    ],
+  },
+  {
     slug: "trustmark-merger-jackson-loses-its-largest-bank-headquarters",
     title: "Trustmark's $3.2 Billion Sale Moves Jackson's Largest Bank Headquarters to Gulfport",
     seoTitle: "Trustmark: $3.2B Hancock Whitney deal moves HQ to Gulfport",
