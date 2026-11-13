@@ -66,6 +66,62 @@ export interface Law {
 
 export const LAWS: Law[] = [
   {
+    slug: "winter-storm-fern-zero-interest-loans-cities-counties",
+    bill: "SB 2632",
+    title: "Mississippi lends cities and counties storm money, interest-free until FEMA pays",
+    officialTitle: "Local Governments Disaster Recovery Emergency Loan Program Act",
+    session: "2026 Regular Session",
+    becameLaw: "signed",
+    effective: "2026-04-28",
+    effectiveNote: "The Wire could not find the signing date or the effective date of the version that became law; April 28, 2026 is the date MEMA opened the application window.",
+    topics: ["Local government","Taxes and budget"],
+    oneSentence: "Mississippi now lends cities and counties money to clean up after Winter Storm Fern, charging no interest until FEMA pays, then 3% a year on anything left over.",
+    whatItDoes: [
+      "The state runs a loan program for local governments hit by Winter Storm Fern, the ice and snow storm that crossed Mississippi January 23 to 27, 2026. The Mississippi Emergency Management Agency runs it, according to MEMA's program page. A city, county, utility district or school district borrows money to pay for storm work it has already done, then repays the state when FEMA reimburses it.",
+      "The first version, Senate Bill 2632, set a 1% monthly rate, which works out to 12% a year. Governor Tate Reeves vetoed it March 23, 2026, and the Legislature then reworked the plan. The version now in effect charges no interest up front and 3% a year only on whatever FEMA does not cover, according to MEMA and SuperTalk Mississippi.",
+      "Borrowers must name a dedicated source of money to repay the loan if FEMA says no. The vetoed bill let a city pledge its sales tax distribution or its homestead exemption reimbursement. MEMA's page says any remaining balance must be paid off within two years of FEMA's final decision.",
+    ],
+    whyItHappened: [
+      "Winter Storm Fern hit more than half the state, with north Mississippi and the Delta hit hardest, SuperTalk reported. It is widely considered Mississippi's worst winter weather since 1994. Oxford lost trees, power lines and roads to ice.",
+      "Cities and counties were paying for debris removal and repairs while waiting on FEMA, which can take months to send money. The loan program is meant to be bridge financing so local budgets do not have to carry the cost alone, according to MEMA.",
+      "MEMA's disaster page says Public Assistance, the FEMA program that reimburses governments for emergency response, debris removal and repairs, was approved for 82 Mississippi counties.",
+    ],
+    whatsBehindIt: [
+      "Senator Scott Delano sponsored the bill, and Representative Clay Deweese and Senator Hob Bryan handled it on the floor, according to the governor's veto message. MEMA staff and the governor's staff helped write it.",
+      "The fight was over one word. The conference report both chambers adopted unanimously on March 12, 2026 said \"one percent (1%) monthly.\" Reeves said his staff negotiated that 1% monthly rate, about 12% a year, and that the enrolled bill he received had already lost the word \"monthly\" before either chamber voted to remove it. He called the change \"plainly unconstitutional\" and \"possibly criminal.\"",
+      "Lieutenant Governor Delbert Hosemann and Senator Tyler McCaughn said the word was a clerical error and that the Senate fixed it openly. Hosemann called the veto message \"inaccurate\" and \"malicious.\" The Wire could not find a record of a veto override vote; the Senate's own session summary lists zero Senate vetoes overridden in 2026.",
+    ],
+    whatItCosts: [
+      "The Mississippi Association of Supervisors says the loan pool is $125 million. The Wire could not find a fiscal note or Legislative Budget Office estimate for the program, and the MEMA page does not state the appropriation behind the pool.",
+      "For a city, the cost is the interest. A town that borrows $1 million and gets fully reimbursed pays nothing extra. If FEMA denies the whole claim, 3% a year on $1 million is about $30,000 a year, and the balance must be cleared within two years of FEMA's final decision.",
+      "Loans cannot exceed 75% of a borrower's eligible expenses, and money is split among applicants in proportion to documented damage rather than first come, first served. The Wire could not find how much of the $125 million has been lent.",
+    ],
+    whatChangesForYou: [
+      "If you live in one of the 39 counties MEMA lists, including Hinds, your city or county may be doing storm repairs with state money instead of waiting on FEMA or borrowing from a bank at market rates. That can mean work starts sooner.",
+      "You do not apply. Only governments and public entities apply, and they must already have a FEMA project at Phase 4 in FEMA's Grants Portal and a submitted Request for Public Assistance.",
+      "The application window opened April 28, 2026 and closes April 30, 2027, and no loan may be issued after July 1, 2027. MEMA takes questions at 601-933-6379 or DisasterRecoveryLoan@mema.ms.gov. If FEMA denies a claim, watch your city or county budget: the repayment has to come from somewhere, and the loan agreement requires a pledged source.",
+    ],
+    jackson: [
+      "Hinds County is on MEMA's list of counties covered by the loan program. The Wire could not find whether Hinds County or the City of Jackson has applied or been awarded a loan.",
+    ],
+    watchFor: [
+      "The application deadline of April 30, 2027, and the July 1, 2027 cutoff for issuing any loan. MEMA must report to the Legislature by October 1 and February 1 each year on the program, according to the session summary.",
+      "FEMA's reimbursement decisions. Every dollar FEMA rejects becomes a local bill at 3%, and the two-year clock starts at FEMA's final determination.",
+      "Whether anyone investigates the enrolled-bill change Reeves described. He asked the Senate President to look into it, and the Wire could not find that any inquiry has been opened or closed.",
+    ],
+    sources: [
+      { name: "Governor's veto message for Senate Bill 2632, March 23, 2026", url: "https://billstatus.ls.state.ms.us/documents/2026/pdf/veto/SB2632.pdf" },
+      { name: "Summary of General Legislation 2026 Regular Session, Senate Legislative Services Office", url: "https://www.legislature.ms.gov/media/1368/26-summary.pdf" },
+      { name: "MEMA, 2026 Local Government Disaster Recovery Emergency Loan Program Winter Storm Fern", url: "https://www.msema.org/about/about-mema/recovery/public-assistance/2026-local-government-disaster-recovery-emergency-loan" },
+      { name: "Mississippi Association of Supervisors, MEMA 2026 loan program notice", url: "https://www.mssupervisors.org/mema-2026-local-government-disaster-recovery-emergency-loan-program-winter-storm-fern" },
+      { name: "SuperTalk Mississippi, Reeves' veto of disaster loan bill sparks dispute with Mississippi lawmakers, March 24, 2026", url: "https://www.supertalk.fm/reeves-veto-of-disaster-loan-bill-sparks-dispute-with-mississippi-lawmakers" },
+      { name: "SuperTalk Mississippi, Bill-by-bill recap of the 2026 Mississippi legislative session, April 6, 2026", url: "https://www.supertalk.fm/bill-by-bill-recap-of-the-2026-mississippi-legislative-session/" },
+    ],
+    author: "Jackson Wire Staff",
+    date: "2026-11-13",
+    note: "The Wire read the governor's full veto message for SB 2632, the Senate's 2026 session summary, MEMA's program page and FAQ, the Mississippi Association of Supervisors notice and two SuperTalk reports. The bill number is the weak spot. SB 2632 is the vetoed version, and the Wire could not find the number of the reworked bill that created the program now running. The session summary's entry for the loan program was truncated in the copy the Wire could read, and billstatus, LegiScan and similar trackers refused automated readers. The Wire also could not find a fiscal note, the signing date, the effective date, or any override vote; the Senate summary reports zero Senate vetoes overridden in 2026, which suggests lawmakers passed a new bill rather than overriding. The Wire did not contact Senator Delano, Representative Deweese, MEMA or the governor's office. The $125 million pool figure comes from the supervisors association, not from MEMA's page. The 39-county list is MEMA's.",
+  },
+  {
     slug: "voter-citizenship-checks-shield-act",
     bill: "SB 2588",
     title: "New law requires citizenship checks of Mississippi voters against a federal database",
