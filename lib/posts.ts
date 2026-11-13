@@ -82,6 +82,28 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "entergy-winter-storm-fern-securitization-psc-november-17",
+    title: "Entergy Wants Jackson-Area Customers to Pay Off Winter Storm Fern Through a Bond Charge. The PSC Clock Runs Out Nov. 17.",
+    seoTitle: "Entergy storm bond charge: PSC deadline Nov. 17",
+    dek: "Entergy Mississippi filed Oct. 2 for a financing order to securitize Winter Storm Fern costs. State law gives the PSC 60 days to grant or reject it, and the bill lands on every customer.",
+    category: "Economy",
+    categories: ["Business"],
+    tags: ["pipeline"],
+    author: "Jackson Wire Staff",
+    date: "2026-11-13",
+    views: 0,
+    body: [
+      "Entergy Mississippi's bill for Winter Storm Fern is about to stop being Entergy's problem and start being a line item on every customer's monthly statement. The utility filed a petition on Oct. 2 asking the Mississippi Public Service Commission for a financing order so the state can issue system restoration bonds against the storm costs, docket 2026-UA-85. The same day it filed a companion notice, 2026-UN-86, to implement a storm cost offset rider. Both sit on the Commission's November utility docket, and the November meeting is set for Tuesday, Nov. 17 at 10 a.m. in the Woolfolk State Office Building in Jackson.",
+      "The deadline is not the Commission's to move. Under the Mississippi Severe Winter Storm of 2026 Electric Utility Customer Relief and Electric Utility System Restoration Act, passed this year as House Bill 4069, the Commission must issue a financing order or reject the petition within 60 days of filing. Sixty days from Oct. 2 is Dec. 1. The Nov. 17 meeting is the last regular meeting on the calendar before that clock expires, which makes it the practical decision point.",
+      "The mechanism is worth understanding because it changes who carries the risk. HB4069 lets the state issue general obligation bonds, capped at the amount in the financing order, and requires the utility to collect a system restoration charge from retail customers sufficient to pay debt service. The charge is \"separate and apart from the base rates of the electric utility,\" and the statute says it must be paid by customers \"including special contract customers.\" The act defines the storm as the one that began Jan. 23, 2026, and was declared a major disaster by FEMA on Feb. 6, 2026.",
+      "The law also sets the terms that limit a customer's options. The financing order is irrevocable, and the statute states that issuing it and imposing the charge \"shall not constitute a change in rates\" under the ordinary rate statutes, sections 77-3-37 and 77-3-39. That matters: a rate change runs through the standard rate case, while this does not. A party may ask for reconsideration within seven days, and the Commission must rule within 14 days; if it does not act, the petition is deemed refused and the financing order stands.",
+      "Entergy has already been carrying these costs on its own balance sheet. A March 2026 first mortgage bond sale of $650 million at 5.05%, due April 15, 2036, listed financing of the Traceview and Vicksburg Advanced Power Stations and interim funding of Winter Storm Fern restoration among its uses of proceeds, according to the company's 8-K and prospectus supplement filed with the SEC. Securitization would refinance that interim borrowing at the state's cost of money, which is the savings argument the statute asks the utility to demonstrate.",
+      "Here is the number the docket does not yet supply. HB4069 requires the petition to set out known prudently incurred restoration costs, an estimate of unfinished work, the storm damage reserve the utility wants to fund, and the per-customer charge needed to retire the bonds. None of those figures appears in the Commission's November docket, which lists the docket number and title only. The Wire could not verify the size of the bond issue or the monthly charge from the documents available, and the Public Utilities Staff's independent audit of the costs, required by the statute, has not been published in the docket materials reviewed.",
+      "One structural detail is easy to miss. The act excludes electric power associations from the definition of \"electric utility,\" so the cooperatives that serve much of Hinds, Madison and Rankin County outside Entergy's territory are not part of this proceeding. Entergy's own filing describes the charge as applying to all electric load connected to its facilities, which means a Jackson customer who later buys power from another supplier would still pay it.",
+      "What's next: the Commission takes up dockets 2026-UA-85 and 2026-UN-86 at its regular meeting on Tuesday, Nov. 17 at 10 a.m. in the courtroom on the first floor of the Woolfolk State Office Building in Jackson. The docket is posted at psc.ms.gov under Executive Secretary, Dockets. The statutory 60-day window from the Oct. 2 filing closes Dec. 1, and once a final financing order issues, the utility has 60 days to ask the State Bond Commission to authorize the bonds. Watch for the audit figures and the proposed charge per kilowatt-hour; those are the numbers that decide what the storm costs a household.",
+    ],
+  },
+  {
     slug: "morning-brief-2026-11-13",
     title: "Morning Brief: Nov 13 · Trustmark Deal Terms Land; Stokes Censure Fight Heads to Court",
     dek: "Hancock Whitney's all-stock purchase of Trustmark values Jackson's largest bank at about $3.2 billion, and the combined company will be run from Gulfport.",
