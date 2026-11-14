@@ -389,6 +389,7 @@ async function main() {
   const sourceTexts = [];
   const readUrls = new Set();
   const schedules = [];
+  const scheduleErrors = new Map(); // "school|sport" -> last error, told to the model with the check
   const usage = { calls: 0, prompt: 0, completion: 0, hit: 0, miss: 0 };
   const ctx = () => ({
     today,
@@ -461,7 +462,11 @@ async function main() {
       let content = "";
       if (name === "publish_sports_article") {
         lastDraft = args;
-        const problems = draftProblems(args, ctx());
+        const problems = draftProblems(args, ctx()).map((p) => {
+          const m = p.match(/^Call team_schedule for (.+?) (football|men's basketball|women's basketball|baseball) /);
+          const err = m && scheduleErrors.get(`${m[1]}|${m[2]}`);
+          return err ? `${p} (Your last team_schedule call for it failed: ${err}. Call it once more.)` : p;
+        });
         lastProblems = problems;
         if (problems.length === 0) {
           article = args;
@@ -507,7 +512,10 @@ async function main() {
           else schedules.push(sched);
           content = sched.text;
           sourceTexts.push(content);
+          scheduleErrors.delete(`${args.school}|${args.sport}`);
         } catch (e) {
+          log(`team_schedule failed: ${e.message}`);
+          scheduleErrors.set(`${args.school}|${args.sport}`, e.message);
           content = `Schedule unavailable: ${e.message}`;
         }
       } else {

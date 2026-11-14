@@ -202,18 +202,28 @@ export function formatSchedule(school, sport, games, url, now = new Date()) {
   return lines.join("\n");
 }
 
-async function defaultFetchJson(url) {
+// A browser-like agent: the same request the research runner's fetch tool
+// makes, which ESPN answers. One retry for a dropped connection.
+const UA = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36 TheJacksonWire/1.0";
+
+async function fetchJsonOnce(url) {
   const c = new AbortController();
   const t = setTimeout(() => c.abort(), 15000);
   try {
-    const res = await fetch(url, {
-      headers: { "User-Agent": "TheJacksonWire/1.0 (+https://www.thejacksonwire.com)", Accept: "application/json" },
-      signal: c.signal,
-    });
+    const res = await fetch(url, { headers: { "User-Agent": UA, Accept: "*/*" }, signal: c.signal });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    return await res.json();
+    return JSON.parse(await res.text());
   } finally {
     clearTimeout(t);
+  }
+}
+
+async function defaultFetchJson(url) {
+  try {
+    return await fetchJsonOnce(url);
+  } catch {
+    await new Promise((r) => setTimeout(r, 2000));
+    return await fetchJsonOnce(url);
   }
 }
 
