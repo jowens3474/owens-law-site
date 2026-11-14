@@ -82,6 +82,26 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "jackson-sales-tax-diversions-september-2026-ridgeland-pearl",
+    title: "Jackson's Sales Tax Take Went Flat in September. Ridgeland's Grew 14 Percent.",
+    dek: "Department of Revenue figures show Jackson collected $2.62 million in September, down 0.2% from a year earlier, while Ridgeland and Brandon posted double-digit gains and Pearl fell 17.4%.",
+    category: "Economy",
+    categories: ["Business"],
+    author: "Jackson Wire Staff",
+    date: "2026-11-14",
+    views: 0,
+    body: [
+      "Jackson's share of the state's sales tax came to $2,622,651 in September, down 0.2 percent from the $2,628,600 it received in September 2025, according to the Department of Revenue's monthly diversion report (dor.ms.gov). The city's fiscal-year-to-date total is still ahead of last year: $7,951,288 through three months, up 3.9 percent from $7,656,494.",
+      "The flat month matters because the diversion is the closest thing Jackson has to a monthly economic thermometer. It is the portion of the 7 percent state sales tax that flows back to the city where the sale happened, so it tracks retail activity inside the city limits rather than the metro as a whole. A month that ends within $6,000 of the prior year, on a base of $2.6 million, is a rounding error away from no growth at all.",
+      "The suburbs tell a different story. Ridgeland collected $1,557,911, up 14.0 percent, and is running 13.8 percent ahead for the fiscal year. Brandon rose 13.1 percent to $773,167. Flowood added 3.8 percent to reach $1,350,593. Richland was up 7.0 percent and Byram 7.1 percent.",
+      "Pearl is the outlier in the other direction. Its September payment fell 17.4 percent to $1,161,762, and its fiscal-year total is down 12.8 percent, the steepest decline of any metro city in the report. Madison slipped 3.0 percent for the month but remains 3.0 percent ahead for the year. Clinton fell 4.1 percent and Canton 1.8 percent.",
+      "Put the metro's two largest retail cities side by side and the gap is stark. Ridgeland's September payment was equal to 59 cents for every dollar Jackson received, up from 52 cents a year earlier. Ridgeland's population is a fraction of Jackson's, which means its per-resident retail tax base is widening faster than the city's on the strength of the same regional shoppers.",
+      "The report does not say what drove any single city's number, and the Department of Revenue does not break out which businesses generated the collections. A large retailer opening, closing, or reclassifying its sales tax account can move a city's monthly figure by double digits without any change in the wider economy. The Wire's tracker, which keeps the monthly history for every metro city, is at thejacksonwire.com/economy/sales-tax.",
+      "For Jackson the fiscal-year picture is the one to watch. The city is $294,794 ahead of last year's pace through September, a cushion of about 3.9 percent. One more flat month would not erase it. Two or three would.",
+      "What's next: The Department of Revenue publishes the October diversions report in the first half of December, and that filing will show whether September was a one-month pause or the start of a trend. The reports are posted at dor.ms.gov under statistics, and the city's own budget assumes a collections figure that the council can adjust when it takes up mid-year revisions. Watch whether Jackson's fiscal-year cushion holds above 3 percent once the holiday retail months are counted.",
+    ],
+  },
+  {
     slug: "morning-brief-2026-11-14",
     title: "Morning Brief: Nov 14 · Stokes Censure Lands Tuesday; Jackson's Sales Tax Still Flat",
     dek: "The council votes Tuesday on a censure resolution against Ward 3's Kenneth Stokes, whose lawyer calls it unconstitutional, while new Department of Revenue figures show Jackson's September sales tax diversion down 0.2% as Ridgeland grew 14%.",
