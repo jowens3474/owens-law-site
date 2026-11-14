@@ -8,7 +8,7 @@
 import { apDate, weekdayOf, SPORTS, SCHEDULE_SCHOOLS } from "./espn-schedule.mjs";
 
 // En dash and em dash, written as escapes so this file contains neither.
-const DASHES = /[–—]/;
+const DASHES = /[\u2013\u2014]/;
 
 export const STORY_SCHOOLS = [
   ...SCHEDULE_SCHOOLS,
