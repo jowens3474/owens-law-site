@@ -1,33 +1,5 @@
 [
   {
-    "bill": "SB 2294",
-    "hint": "Mississippi Math Act and literacy expansion: statewide math initiative (M3) with coaching, universal screening and intervention; literacy work extended to grades 4 to 8; new graduation requirements in financial literacy (J.P. Wilemon Jr. Financial Literacy Act) and computer science including AI; civics in U.S. government courses. Effective July 1, 2026.",
-    "sources": [
-      "https://magnoliatribune.com/2026/06/29/from-teacher-pay-to-illegal-immigration-new-laws-set-to-take-effect-in-mississippi/"
-    ]
-  },
-  {
-    "bill": "SB 2867",
-    "hint": "Employer-provided child care tax credit: up to $3,000 per child per year, employer stipend of at least $2,000 to qualify, $1 million statewide cap. Effective July 1, 2026.",
-    "sources": [
-      "https://magnoliatribune.com/2026/06/29/from-teacher-pay-to-illegal-immigration-new-laws-set-to-take-effect-in-mississippi/"
-    ]
-  },
-  {
-    "bill": "",
-    "hint": "Seafood country-of-origin labeling for restaurants and markets; find the bill number (2026 session).",
-    "sources": [
-      "https://magnoliatribune.com/2026/06/29/from-teacher-pay-to-illegal-immigration-new-laws-set-to-take-effect-in-mississippi/"
-    ]
-  },
-  {
-    "bill": "",
-    "hint": "Winter Storm Fern relief: zero-interest loans to cities and counties until FEMA reimburses, then 3%; the first version was vetoed. Find the bill number (2026 session).",
-    "sources": [
-      "https://www.supertalk.fm/bill-by-bill-recap-of-the-2026-mississippi-legislative-session/"
-    ]
-  },
-  {
     "bill": "",
     "hint": "The $7.36 billion state budget for fiscal 2027 and the $1.17 billion Medicaid appropriation; explain how the budget works and where the money goes. Find the general appropriations bill numbers.",
     "sources": [
@@ -162,5 +134,32 @@
       "https://www.supertalk.fm/bill-by-bill-recap-of-the-2026-mississippi-legislative-session/"
     ],
     "attempts": 0
+  },
+  {
+    "bill": "SB 2294",
+    "hint": "Mississippi Math Act and literacy expansion: statewide math initiative (M3) with coaching, universal screening and intervention; literacy work extended to grades 4 to 8; new graduation requirements in financial literacy (J.P. Wilemon Jr. Financial Literacy Act) and computer science including AI; civics in U.S. government courses. Effective July 1, 2026.",
+    "sources": [
+      "https://magnoliatribune.com/2026/06/29/from-teacher-pay-to-illegal-immigration-new-laws-set-to-take-effect-in-mississippi/"
+    ],
+    "attempts": 1,
+    "lastError": "entry is too long (1139 words; aim for 450 to 800); whatItDoes: a paragraph has 5 sentences (limit 4)"
+  },
+  {
+    "bill": "SB 2867",
+    "hint": "Employer-provided child care tax credit: up to $3,000 per child per year, employer stipend of at least $2,000 to qualify, $1 million statewide cap. Effective July 1, 2026.",
+    "sources": [
+      "https://magnoliatribune.com/2026/06/29/from-teacher-pay-to-illegal-immigration-new-laws-set-to-take-effect-in-mississippi/"
+    ],
+    "attempts": 1,
+    "lastError": "entry is too long (950 words; aim for 450 to 800); whatsBehindIt: a sentence runs over 40 words (\"The main caution came from the Mississippi Early L...\")"
+  },
+  {
+    "bill": "",
+    "hint": "Seafood country-of-origin labeling for restaurants and markets; find the bill number (2026 session).",
+    "sources": [
+      "https://magnoliatribune.com/2026/06/29/from-teacher-pay-to-illegal-immigration-new-laws-set-to-take-effect-in-mississippi/"
+    ],
+    "attempts": 1,
+    "lastError": "entry is too long (865 words; aim for 450 to 800)"
   }
 ]
