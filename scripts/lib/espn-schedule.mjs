@@ -129,6 +129,10 @@ export function parseSchedule(json) {
     if (!us || !them) continue;
     const when = centralParts(start);
     const timeValid = e.timeValid !== false && comp.timeValid !== false;
+    // A game whose time is not set carries a placeholder instant (often
+    // midnight Eastern), which can land on the day before in Central. Its
+    // calendar date is the UTC date ESPN wrote.
+    const date = timeValid ? when.iso : String(e.date || comp.date).slice(0, 10);
     const status = statusOf(comp.status?.type);
     const tv = [];
     for (const b of Array.isArray(comp.broadcasts) ? comp.broadcasts : []) {
@@ -150,10 +154,13 @@ export function parseSchedule(json) {
     games.push({
       id: String(e.id ?? ""),
       startIso: start.toISOString(),
-      date: when.iso,
-      weekday: weekdayOf(when.iso),
+      date,
+      weekday: weekdayOf(date),
       time: timeValid ? apTime(when.hour, when.minute) : "TBA",
       opponent: textOf(them.team?.displayName) || textOf(them.team?.location) || "TBA",
+      // The school without the mascot ("Oklahoma", "Alabama State"), the name a story uses.
+      opponentShort:
+        textOf(them.team?.location) || textOf(them.team?.shortDisplayName) || textOf(them.team?.displayName) || "TBA",
       homeAway: textOf(us.homeAway),
       neutral: comp.neutralSite === true,
       venue: textOf(comp.venue?.fullName),
@@ -177,10 +184,17 @@ function sideWord(g) {
 /** The text the model reads: recent results and the next games, Central time. */
 export function formatSchedule(school, sport, games, url, now = new Date()) {
   const nowMs = now.getTime();
-  const past = games.filter((g) => g.status === "final" || Date.parse(g.startIso) < nowMs - 4 * 3600_000);
-  // Started but not final: under way now (or just ended and not yet scored).
-  const live = games.filter((g) => !past.includes(g) && Date.parse(g.startIso) <= nowMs && g.status !== "postponed" && g.status !== "canceled");
-  const upcoming = games.filter((g) => !past.includes(g) && !live.includes(g));
+  const startMs = (g) => Date.parse(g.startIso);
+  // Under way: ESPN says in progress (however long it has run), or it was
+  // scheduled to start within the last four hours and is not final yet.
+  const live = games.filter(
+    (g) =>
+      g.status === "in progress" ||
+      g.status === "delayed" ||
+      (g.status === "scheduled" && startMs(g) <= nowMs && startMs(g) > nowMs - 4 * 3600_000),
+  );
+  const past = games.filter((g) => !live.includes(g) && (g.status === "final" || startMs(g) <= nowMs));
+  const upcoming = games.filter((g) => !live.includes(g) && !past.includes(g));
   const lines = [
     `ESPN schedule for ${school} ${sport}, times Central. Source: ${url}`,
     "Recent results:",

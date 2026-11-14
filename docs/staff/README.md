@@ -20,6 +20,7 @@ Files in this folder:
 | Pro briefing | active | Mondays 6:00 AM | GitHub Actions: `.github/workflows/pro-briefing.yml` | `scripts/pro-briefing.mjs` |
 | Pro alerts | active | weekdays 8:00 AM, noon, 4:00 PM | GitHub Actions: `.github/workflows/pro-alerts.yml` | `scripts/pro-alerts.mjs` |
 | Autopilot | active | daily 9:00 AM | GitHub Actions: `.github/workflows/autopilot.yml` | `scripts/autopilot.mjs` |
+| Sports desk | built, manual dry runs until the owner approves a daily schedule | on demand | GitHub Actions: `.github/workflows/sports-desk.yml` | `scripts/sports-desk.mjs` |
 | Laws desk | active | Tuesday to Saturday 10:00 AM | GitHub Actions: `.github/workflows/laws-desk.yml` | `scripts/laws-desk.mjs` |
 | Sales tax | active | daily 10:00 AM | GitHub Actions: `.github/workflows/sales-tax.yml` | `scripts/sales-tax-report.mjs` |
 | Instagram | active | daily 10:30 AM, and after any change to `lib/posts.ts` | GitHub Actions: `.github/workflows/instagram.yml` | `scripts/post-instagram.mjs` |

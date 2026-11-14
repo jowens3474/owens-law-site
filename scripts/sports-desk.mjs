@@ -46,6 +46,7 @@ const MAX_ITERATIONS = 16;
 const WRAP_UP_AT = 12;
 const MAX_REVISIONS = 2;
 const FETCH_CHARS = 18000;
+const MIN_SOURCE_CHARS = 400;
 const log = (...a) => console.log("[sports-desk]", ...a);
 
 // Lead headlines that name a Mississippi school, for picking SEC items out of
@@ -78,7 +79,8 @@ RESEARCH ORDER
 FACT DISCIPLINE, non-negotiable
 - Every concrete claim (names, dates, times, scores, statistics, records, rankings, injuries, quotes, contract terms) must come from a tool result you saw in this conversation. Never rely on memory for rosters, coaches, records or schedules: they change every season.
 - Attribute in line: "the school announced," "ESPN's schedule lists," "the Clarion Ledger reported," "according to the SEC."
-- Quote only word for word from a page you read, keep quotes short, and credit them. If you cannot find a real quote, paraphrase and attribute. Never invent or tidy up a quote.
+- Quote only word for word from a page you read, keep quotes short, and credit them. If you cannot find a real quote, paraphrase and attribute. Never invent or tidy up a quote. When you paraphrase, use clearly different words; never reuse a source's sentence without quotation marks.
+- Every number (scores, records, statistics, rankings, attendance, dollar figures) must appear exactly as written in a source you read. Do not compute records, totals or percentages yourself.
 - Injuries, transfers and coaching moves: report only what was announced or what a named outlet reported, and attribute it. Never present a rumor as fact.
 - No betting lines, point spreads, odds, over/unders or sportsbook names.
 - Be fair to every school and opponent. No cheerleading, no "we" or "our."
@@ -93,7 +95,7 @@ STORY REQUIREMENTS
 - Include at least one fact or comparison a box score would not give readers (a record, a streak, a schedule consequence, a piece of program history), from your sources.
 - AP style: "Sunday, Nov. 15"; times like "7:30 p.m." or "noon," Central time.
 - End with the "What's next" section: exactly one paragraph begins with "What's next:". Name the next game with its date, Central time and TV when announced (from team_schedule), or the next decision and who makes it.
-- When the What's next paragraph names a game, fill nextGame with that game's school, sport, opponent, date and time exactly as team_schedule lists them.
+- When the What's next paragraph names a game, it must be the team's very next scheduled game, and nextGame must carry its school, sport, opponent, date and time exactly as team_schedule lists them. Give that date, time and opponent in the paragraph too.
 
 VOICE AND PUNCTUATION
 - Short, declarative sentences. Active voice. Direct and observant, never breathless.
@@ -517,11 +519,18 @@ async function main() {
           continue;
         }
         try {
-          const { contentType, text } = await fetchUrl(String(args.url || ""));
+          const { contentType, text, finalUrl } = await fetchUrl(String(args.url || ""));
           const seen = text.length > FETCH_CHARS ? `${text.slice(0, FETCH_CHARS)}\n\n[truncated]` : text;
           content = `[${contentType}]\n${seen}`;
           sourceTexts.push(seen);
-          readUrls.add(String(args.url));
+          // A page that came back nearly empty (an error page, a paywall
+          // stub) is not a source the story can rely on.
+          if (text.trim().length >= MIN_SOURCE_CHARS) {
+            readUrls.add(String(args.url));
+            if (finalUrl) readUrls.add(String(finalUrl));
+          } else {
+            content += "\n\n[This page came back nearly empty, so it does not count as a source.]";
+          }
         } catch (e) {
           content = `Fetch failed: ${e.message}`;
         }

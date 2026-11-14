@@ -93,6 +93,9 @@ export async function fetchUrl(url) {
     if (!res.ok) {
       throw new Error(`HTTP ${res.status} ${res.statusText}`);
     }
+    // Where the request ended up after redirects, for callers that record
+    // which pages they read (the sports desk). Existing callers ignore it.
+    const finalUrl = res.url || url;
     const ct = (res.headers.get("content-type") || "").toLowerCase();
     const buf = await res.arrayBuffer();
     if (buf.byteLength > MAX_BYTES) {
@@ -103,22 +106,22 @@ export async function fetchUrl(url) {
       url.toLowerCase().split("?")[0].endsWith(".pdf");
     if (looksPdf) {
       const text = await pdfToText(buf);
-      return { contentType: "pdf", text };
+      return { contentType: "pdf", text, finalUrl };
     }
     if (ct.includes("application/json")) {
       const raw = Buffer.from(buf).toString("utf8");
       try {
         const parsed = JSON.parse(raw);
-        return { contentType: "json", text: JSON.stringify(parsed, null, 2) };
+        return { contentType: "json", text: JSON.stringify(parsed, null, 2), finalUrl };
       } catch {
-        return { contentType: "json", text: raw };
+        return { contentType: "json", text: raw, finalUrl };
       }
     }
     const raw = Buffer.from(buf).toString("utf8");
     if (ct.includes("text/html") || /<html|<!doctype/i.test(raw.slice(0, 500))) {
-      return { contentType: "html", text: htmlToText(raw) };
+      return { contentType: "html", text: htmlToText(raw), finalUrl };
     }
-    return { contentType: "text", text: raw };
+    return { contentType: "text", text: raw, finalUrl };
   } finally {
     clearTimeout(timer);
   }

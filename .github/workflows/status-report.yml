@@ -1,7 +1,7 @@
 name: Status Report
 
 # Read-only daily snapshot the chief of staff reads (docs/staff/chief-of-staff.md).
-# Checks the live site, the Vercel deploys on main, the ten desks' runs, what
+# Checks the live site, the Vercel deploys on main, the eleven desks' runs, what
 # the desks published, what is scheduled to come up, and the staff backlog,
 # then prints it in the job log and the run summary. Publishes nothing and
 # commits nothing. The token it gets can only read.

@@ -516,16 +516,32 @@ listing.
 
 **Checks before it publishes** (`scripts/lib/sports-desk-checks.mjs`,
 tested by `scripts/lib/sports-desk-checks.test.mjs`, which the workflow
-runs first): at least two sources the desk actually opened, one of them a
-page it read and one official or an established outlet; every quote of
-three words or more found word for word in what it read; the next game in
-the What's next paragraph on ESPN's schedule with the same date and time,
-and its date stated there; weekdays that match their dates; no betting
-lines, odds or sportsbooks; 5 to 8 paragraphs, 400 to 750 words (aiming
-for 450 to 650); exactly one "What's next:" paragraph, one of the last
-two; no dashes; and no near-repeat of a recent sports headline. Problems go
-back to the model for up to two revisions; a draft that still fails is not
-published. The site's type check runs before the model is called and again
+runs first):
+- Sources: at least two the desk actually opened (a page counts only if it
+  came back with real text), at least one a page it read and at least one
+  official (a school, conference, the NCAA, ESPN) or an established
+  newsroom. Recruiting-insider and aggregator sites can be read but do not
+  count toward that.
+- Quotes of two words or more must appear word for word in what it read.
+- Numbers (scores, records, decimals, whole numbers of 10 or more; not
+  dates, times or years) must appear in what it read; records, totals and
+  percentages are never computed by the desk.
+- The game the What's next paragraph names must be the team's very next
+  playable game on ESPN's schedule (not canceled, postponed or already
+  started), with the same date and time, and the paragraph must give that
+  date, time and opponent.
+- A game that started in the last 18 hours and is named in the story must
+  carry ESPN's final score, as a result, or be left out; it is never
+  previewed.
+- Weekdays must match their dates; no betting lines, odds, parlays or
+  sportsbook brands (a gambling investigation can still be reported); 5 to
+  8 paragraphs and 400 to 750 words (aiming for 450 to 650); exactly one
+  "What's next:" paragraph, one of the last two; no dashes; no near-repeat
+  of a recent sports headline.
+
+Problems go back to the model for up to two revisions; a draft that still
+fails is not published. The desk refuses to open Wikipedia, which is not a
+source. The site's type check runs before the model is called and again
 before the push.
 
 **Steering it.** `data/sports-assignments.json` is the sports desk's list,
