@@ -66,6 +66,64 @@ export interface Law {
 
 export const LAWS: Law[] = [
   {
+    slug: "medicaid-appropriation-fiscal-2027-budget",
+    bill: "HB 1912",
+    title: "Mississippi gives Medicaid a $1.17 billion share of a $7.36 billion budget",
+    session: "2026 Regular Session",
+    becameLaw: "signed",
+    signedOn: "2026-04-06",
+    effective: "2026-07-01",
+    effectiveNote: "The money covers the state fiscal year that runs July 1, 2026 through June 30, 2027.",
+    topics: ["Health care","Taxes and budget"],
+    oneSentence: "Mississippi will spend $1.17 billion of its own money on Medicaid next year, a 16% jump that squeezed the rest of a $7.36 billion state budget.",
+    whatItDoes: [
+      "House Bill 1912 pays for the Division of Medicaid, the state-federal health insurance program for poor children, pregnant women, the elderly and people with disabilities, for the year that starts July 1, 2026. The bill sends $1,026,866,812 from the state's General Fund, the main pot of money the state collects from taxes and spends as it chooses.",
+      "The Legislative Budget Office counts $1,170,096,815 in total state support for Medicaid, because that figure adds other state funds to the General Fund share. That is the $1.17 billion number. The whole program, including federal money, comes to about $8.5 billion, Magnolia Tribune reported.",
+      "The bill also directs $100 million from the Capital Expense Fund, a separate savings account the state uses for building and one-time projects, to Medicaid operations.",
+    ],
+    whyItHappened: [
+      "The Division of Medicaid asked for a $390 million increase in state money. It told lawmakers it had burned through its cash reserves and warned that even a small state shortfall could snowball, because every state dollar draws federal matching money that is lost if the state cannot pay its share.",
+      "The federal pandemic relief dollars that propped up the program for years are gone. Mississippi Public Broadcasting reported that lawmakers had held Medicaid funding steady while that COVID-19 money absorbed the cost increases, and that cushion no longer exists.",
+      "Enrollment is not the driver. The agency's January report to the Legislative Budget Office showed 644,869 people on the rolls, down 11,917 from the year before, Magnolia Tribune reported.",
+    ],
+    whatsBehindIt: [
+      "The bill's lead sponsor was Rep. Clay Deweese, a Republican, with Rep. John Read and seven other House members. Senate Appropriations Chairman Briggs Hopson, a Republican from Vicksburg, said the Medicaid number left little room for anything else.",
+      "\"It did come down some, but it didn't come down to the point where we felt there was enough room to be able to fund much more than Medicaid and education increases,\" Hopson said, according to MPB.",
+      "The vote was lopsided. The House adopted the conference report 115 to 2 and the Senate adopted it unanimously, according to Magnolia Tribune. On the floor, Rep. Omeria Scott, a Democrat, argued that lawmakers knew Medicaid would rise before they offered teacher pay proposals, and said more money will be needed next year.",
+    ],
+    whatItCosts: [
+      "The state's General Fund budget for fiscal 2027 is $7,372,845,882, which is $230,490,090, or 3.23%, more than the year before, according to the Legislative Budget Office. Medicaid's General Fund line rose $120,227,038, or 13.26%, in that schedule; the larger $165 million figure counts all state support.",
+      "The state expects to collect $7,532,400,000 in General Fund revenue and sets aside 2%, or $150,648,000, as a reserve. That leaves $7,386,463,988 to spend, and the budget leaves an unencumbered balance of $13,618,106 on June 30, 2027. In plain terms, the state plans to spend almost every dollar it takes in.",
+      "The Wire found no figure in the documents it read showing what this budget costs an individual household. The money comes from state taxes, mostly sales tax ($2,921,600,000, or 38.31% of the estimate) and individual income tax ($2,117,800,000, or 27.77%).",
+    ],
+    whatChangesForYou: [
+      "If you are on Medicaid, the bill keeps the program running at current eligibility. It does not expand who qualifies. The performance targets in the bill assume 668,825 enrolled recipients and 55,000 children in the Children's Health Insurance Program.",
+      "The bill keeps a temporary ride program, up to $2,750,000, for kidney dialysis patients 65 or older or disabled whose income is at or below 135% of the federal poverty level. It also funds home and community based waiver slots, such as 20,121 funded slots for elderly and disabled people.",
+      "If you work for a public school, the squeeze showed up in your paycheck. Negotiators settled on a $2,000 raise for teachers and another $2,000 for special education teachers, far below the $5,000 and $6,000 proposals. House Education Chairman Rob Roberson noted the Highway Patrol got no raise at all.",
+    ],
+    jackson: [
+      "The budget includes $3,770,690 in state Health Department money for legal expenses tied to the City of Jackson water litigation, according to the Legislative Budget Office summary.",
+    ],
+    watchFor: [
+      "The fiscal year starts July 1, 2026. Medicaid must send monthly financial reports to the Legislative Budget Office and the PEER Committee, and those reports are the first public signal of whether $1.17 billion is enough.",
+      "Rep. Scott said on the floor that more money will be needed next year. The Legislative Budget Office's November 2026 estimate, reported by Mississippi Today, puts an additional $266 million available for the 2027 session.",
+      "Gov. Tate Reeves line-item vetoed HB 1924 and SB 3071, cutting $1.65 million in Gulf Coast Restoration funds and $1.55 million in opioid settlement funds from the final budget, the Legislative Budget Office reported.",
+    ],
+    sources: [
+      { name: "Legislative Budget Office, Budget Bulletin Fiscal Year 2027", url: "https://www.lbo.ms.gov/pdfs/fy27_bulletin.pdf" },
+      { name: "Legislative Budget Office, Budget Summary 2026 Legislative Session", url: "https://www.lbo.ms.gov/pdfs/2026_leg_sesn_sum.pdf" },
+      { name: "Mississippi Legislature bill status, HB 1912 history", url: "https://billstatus.ls.state.ms.us/2026/pdf/history/HB/HB1912.xml" },
+      { name: "Mississippi Legislature, HB 1912 as sent to governor", url: "https://billstatus.ls.state.ms.us/documents/2026/html/HB/1900-1999/HB1912SG.htm" },
+      { name: "Magnolia Tribune, State funding for Mississippi Medicaid tops $1 billion", url: "https://magnoliatribune.com/2026/03/30/state-funding-for-mississippi-medicaid-tops-1-billion" },
+      { name: "Mississippi Public Broadcasting, Pay raise for Mississippi teachers lands below early proposals as Medicaid pressures budget", url: "https://www.mpbonline.org/blogs/news/pay-raise-for-mississippi-teachers-lands-below-early-proposals-as-medicaid-pressures-budget" },
+      { name: "Mississippi Today via DeSoto County News, What lived and died in the 2026 Mississippi legislative session", url: "https://desotocountynews.com/mississippi-news/what-lived-and-died-in-the-2026-mississippi-legislative-session/" },
+      { name: "The Mississippi Independent, Gov. Reeves makes ample use of vetoes during 2026 session", url: "https://msindy.org/p/gov-reeves-makes-ample-use-of-vetoes" },
+    ],
+    author: "Jackson Wire Staff",
+    date: "2026-11-14",
+    note: "The Wire read the Legislative Budget Office's two budget documents, the bill status history and enrolled text of HB 1912, and reports from Magnolia Tribune, Mississippi Public Broadcasting, Mississippi Today and The Mississippi Independent. Mississippi does not pass one budget bill. It passes a package of agency appropriations bills, and HB 1912 is the Medicaid piece. The $7.36 billion figure is the General Fund total across that package, and the $1.17 billion is the Legislative Budget Office's \"state support\" total for Medicaid, which is larger than the $1,026,866,812 General Fund line in the bill itself. Readers should not treat those two numbers as the same measure. The Wire could not find a published per-household cost for this budget, and did not contact the sponsor, the Division of Medicaid or the governor's office. The Wire also could not confirm from the documents it read whether any lawsuit has been filed over this appropriation.",
+  },
+  {
     slug: "winter-storm-fern-zero-interest-loans-cities-counties",
     bill: "SB 2632",
     title: "Mississippi lends cities and counties storm money, interest-free until FEMA pays",
