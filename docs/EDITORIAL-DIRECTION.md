@@ -483,3 +483,57 @@ syndication copies usually carry the text), and what the Wire did not do.
 **Updates.** When a law is blocked in court, amended, or starts a new
 phase, update the entry in place, set `updated`, and say what changed in
 the "Watch for" section.
+
+## Sports desk
+
+`scripts/sports-desk.mjs` writes one original Mississippi college sports
+story a day, run by `.github/workflows/sports-desk.yml`. It publishes as a
+sports story (category "General News", tag `sports-ms-college`), so it
+appears on `/sports` and `/sports/ms-college`, in the story lists and the
+feed, and on Facebook and Instagram through `scripts/hand-off-social.sh`.
+Like every sports story, it never takes the homepage lead.
+
+**Beat.** Ole Miss and Mississippi State, in football, men's basketball,
+women's basketball and baseball; another sport only when it is clearly the
+day's biggest story. Southern Miss, Jackson State, Alcorn State,
+Mississippi Valley State, Delta State and the state's other colleges get
+the story only when they have the biggest news (a coaching change, a
+championship, a historic result, a major ruling).
+
+**What it picks, in order.** Breaking news from the last 24 to 36 hours (a
+game moved or canceled, injuries, coaching moves, transfers, SEC or NCAA
+rulings, NIL news); a big result and what it means; on game days, the
+setup; on slow days, a deeper explainer. It is told the recent sports
+titles and does not repeat a topic without genuinely new information.
+
+**How it researches.** It starts from the Sports tab's own headline feeds
+(the Mississippi college and SEC sections of `lib/sports-feeds.mjs`) and
+`news_feed` for "Ole Miss" and "Mississippi State", opens the school's or
+conference's announcement and at least one news report with `fetch_url`,
+and reads ESPN's team schedule (`team_schedule`,
+`scripts/lib/espn-schedule.mjs`) for every date, time, score and TV
+listing.
+
+**Checks before it publishes** (`scripts/lib/sports-desk-checks.mjs`,
+tested by `scripts/lib/sports-desk-checks.test.mjs`, which the workflow
+runs first): at least two sources the desk actually opened, one of them a
+page it read and one official or an established outlet; every quote of
+three words or more found word for word in what it read; the next game in
+the What's next paragraph on ESPN's schedule with the same date and time,
+and its date stated there; weekdays that match their dates; no betting
+lines, odds or sportsbooks; 5 to 8 paragraphs, 400 to 750 words (aiming
+for 450 to 650); exactly one "What's next:" paragraph, one of the last
+two; no dashes; and no near-repeat of a recent sports headline. Problems go
+back to the model for up to two revisions; a draft that still fails is not
+published. The site's type check runs before the model is called and again
+before the push.
+
+**Steering it.** `data/sports-assignments.json` is the sports desk's list,
+in the same format as `data/assignments.json`: the first usable item is
+worked first, removed when done, and moved back (then dropped) when the
+desk skips it.
+
+**Dry runs.** A manual run of the workflow defaults to a dry run: the
+draft, its check results and the DeepSeek token count go to the run
+summary, and nothing is written or published. Every run logs its token
+use.

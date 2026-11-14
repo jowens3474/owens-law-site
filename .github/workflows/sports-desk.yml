@@ -1,0 +1,76 @@
+name: Sports desk
+
+# Researches and writes one Mississippi college sports story a day
+# (scripts/sports-desk.mjs): Ole Miss and Mississippi State first, the
+# state's other colleges when they have the biggest news.
+# Requires DEEPSEEK_API_KEY. Web search uses TAVILY_API_KEY, then
+# BRAVE_API_KEY (optional), then DuckDuckGo with no key.
+#
+# Manual runs default to a dry run: the draft and its check results go to the
+# run summary and nothing is published. Untick "dry run" to publish.
+# The daily schedule is added once the editor approves sample drafts.
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run: draft and check, but publish nothing"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+  # Lets the hand-off step start the Social and Instagram workflows.
+  actions: write
+
+concurrency:
+  group: sports-desk
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+          persist-credentials: true
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Test the desk's checks
+        run: node --test scripts/lib/sports-desk-checks.test.mjs
+
+      - name: Note the starting commit
+        id: start
+        run: echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Run the sports desk
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
+          BRAVE_API_KEY: ${{ secrets.BRAVE_API_KEY }}
+          # A scheduled run has no inputs, so it publishes.
+          DRY_RUN: ${{ inputs.dry_run == true && '1' || '0' }}
+        run: node scripts/sports-desk.mjs
+
+      # When this run put a story on main, start Social and Instagram, which
+      # a push with this workflow's token cannot do. See
+      # scripts/hand-off-social.sh.
+      - name: Hand the new story to social posting
+        if: ${{ !cancelled() && inputs.dry_run != true }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          START: ${{ steps.start.outputs.sha }}
+        run: bash scripts/hand-off-social.sh "$START"
