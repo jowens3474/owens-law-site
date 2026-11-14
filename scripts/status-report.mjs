@@ -54,7 +54,7 @@ const TIMEOUT_SLACK_MS = 60000; // a run this close to its limit, or longer, was
 const USER_AGENT =
   "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 TheJacksonWire-StatusReport/1.0";
 
-// The ten desks, by workflow file. The display name and the cron lines are
+// The eleven desks, by workflow file. The display name and the cron lines are
 // read from each file at run time, so a schedule change shows up on its own.
 export const DESK_FILES = [
   "meeting-archive.yml",
@@ -62,6 +62,7 @@ export const DESK_FILES = [
   "pro-briefing.yml",
   "pro-alerts.yml",
   "autopilot.yml",
+  "sports-desk.yml",
   "laws-desk.yml",
   "sales-tax.yml",
   "instagram.yml",
@@ -80,6 +81,7 @@ export const DESK_FILES = [
 const DESK_SUBJECTS = [
   { desk: "Autopilot", re: /^Autopilot: /, kind: "published" },
   { desk: "Morning Brief", re: /^Morning Brief: /, kind: "published" },
+  { desk: "Sports desk", re: /^Sports desk: /, kind: "published" },
   { desk: "Laws desk", re: /^What Passed: [A-Z]{1,5} ?\d+: /, kind: "published" },
   { desk: "Sales tax", re: /^Sales tax: update /, kind: "data" },
   { desk: "Sales tax", re: /^Sales tax: /, kind: "published" },
