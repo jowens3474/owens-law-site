@@ -39,3 +39,4 @@ jobs:
           if [ -f data/sports-trial-assignment.json ]; then cp data/sports-trial-assignment.json data/sports-assignments.json; fi
           node scripts/sports-desk.mjs
 # Trial 2: after the ESPN fetch fix.
+# Trial 3: assignments now outrank the desk's own pick.

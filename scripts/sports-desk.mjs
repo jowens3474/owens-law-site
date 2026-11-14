@@ -67,6 +67,7 @@ WHAT TO PICK, in order
 4. On a slow day, a deeper explainer: a coach under pressure, the transfer portal, a recruiting class, a schedule or conference change. Never a filler recap.
 - Do not repeat a topic from the recent sports stories you are given unless there is genuinely new information; then lead with what is new.
 - Tie-breakers: Ole Miss and Mississippi State news beats other schools; in the fall, football beats other sports unless another story is clearly bigger.
+- When the user prompt includes TODAY'S ASSIGNMENT, that assignment is today's story and outranks everything above. Research it first and write it. Skip it only if, after opening its sources and searching, nothing new about it can be verified; bigger news elsewhere is not a reason to skip it.
 
 RESEARCH ORDER
 1. Start with the leads in the user prompt and with news_feed for "Ole Miss" and "Mississippi State" over the last 36 hours (and any other school with big news in the leads).
@@ -260,12 +261,12 @@ function assignmentBlock(item) {
   const sources = (Array.isArray(item.sources) ? item.sources : []).map(text).filter((s) => /^https?:\/\//i.test(s));
   return [
     "TODAY'S ASSIGNMENT",
-    "The editor put this story on the sports desk's list. Research it before choosing a story of your own.",
+    "The editor assigned this story. It is today's story: research it first, call team_schedule for its school and sport, and write it.",
     `Topic: ${text(item.topic)}`,
     `Angle: ${text(item.angle) || "none given"}`,
     "Sources to open first (fetch_url):",
     ...(sources.length ? sources.map((s) => `- ${s}`) : ["- none listed"]),
-    'If what you read supports a new, verifiable story on it, write it and set assignmentOutcome to "done". If not, write the day\'s best story instead and set assignmentOutcome to "skipped: <short reason>". Every fact rule applies unchanged.',
+    'Set assignmentOutcome to "done" when you write it. Only if, after opening its sources and searching, nothing new about it can be verified, write the day\'s best story instead and set assignmentOutcome to "skipped: <short reason>". Bigger news elsewhere is not a reason to skip it. Every fact rule applies unchanged.',
   ].join("\n");
 }
 
@@ -328,7 +329,7 @@ function draftSummary(article, problems, usage, heading) {
     "",
     `_${article.dek}_`,
     "",
-    `School: ${article.school}. Sport: ${article.sport}.${ng ? ` Next game: ${ng.school || article.school} ${ng.sport || article.sport} vs. ${ng.opponent}, ${ng.date}, ${ng.time || "time not given"}.` : ""}`,
+    `School: ${article.school}. Sport: ${article.sport}.${ng ? ` Next game: ${ng.school || article.school} ${ng.sport || article.sport} vs. ${ng.opponent}, ${ng.date}, ${ng.time || "time not given"}.` : ""}${article.assignmentOutcome ? ` Assignment: ${article.assignmentOutcome}.` : ""}`,
     "",
     ...article.body.flatMap((p) => [p, ""]),
     "Sources:",
@@ -363,6 +364,7 @@ async function main() {
   const { items: assignmentItems, problem: assignmentProblem } = readAssignments(SPORTS_ASSIGNMENTS_FILE);
   if (assignmentProblem) log(`Sports assignment list ignored: ${assignmentProblem}`);
   const assignment = pickAssignment(assignmentItems);
+  log(`assignment=${assignment ? assignment.id : "none"}`);
 
   const userPrompt = [
     `Today is ${today} (${weekdayOf(today)}, America/Chicago). Write today's Mississippi college sports article for The Jackson Wire.`,
@@ -376,7 +378,7 @@ async function main() {
       : ["(The leads feeds did not load today. Start with news_feed.)"]),
     "",
     'Steps: news_feed for "Ole Miss" and "Mississippi State" (36 hours), then pick the single biggest story by the rules, open the official announcement and at least one news report with fetch_url, call team_schedule for the story\'s school and sport, and publish with publish_sports_article.',
-    ...(assignment ? ["", assignmentBlock(assignment)] : []),
+    ...(assignment ? ["", assignmentBlock(assignment), "", "With an assignment, do it first: open its sources, search for it, and write it unless it truly cannot be verified."] : []),
   ].join("\n");
 
   const messages = [
