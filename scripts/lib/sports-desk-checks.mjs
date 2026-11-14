@@ -8,7 +8,7 @@
 import { apDate, weekdayOf, SPORTS, SCHEDULE_SCHOOLS } from "./espn-schedule.mjs";
 
 // En dash and em dash, written as escapes so this file contains neither.
-const DASHES = /[–—]/;
+const DASHES = /[\u2013\u2014]/;
 
 export const STORY_SCHOOLS = [
   ...SCHEDULE_SCHOOLS,
@@ -94,7 +94,7 @@ export function normalizeText(s) {
 
 // Dashes between digits become hyphens with no spaces, so an en-dashed or
 // spaced score reads the same as "42-7".
-const normalizeNumbers = (s) => s.replace(/[–—]/g, "-").replace(/(\d)\s*-\s*(\d)/g, "$1-$2");
+const normalizeNumbers = (s) => s.replace(/[\u2013\u2014]/g, "-").replace(/(\d)\s*-\s*(\d)/g, "$1-$2");
 const escapeRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 export function wordCount(paragraphs) {

@@ -206,7 +206,7 @@ test("quotes of two words or more must appear word for word in what the desk rea
 
 test("numbers must appear in what the desk read", () => {
   const read = [
-    "Ole Miss (6-3, 4-3 SEC) fell to No. 19 after a 42–7 loss. She shot 71.4 percent. A crowd of 53,885 watched on Nov. 7 at 11 a.m. in 2026.",
+    "Ole Miss (6-3, 4-3 SEC) fell to No. 19 after a 42\u20137 loss. She shot 71.4 percent. A crowd of 53,885 watched on Nov. 7 at 11 a.m. in 2026.",
   ];
   assert.deepEqual(
     unsourcedNumbers(["Ole Miss is 6-3 and 4-3 in the SEC, No. 19, after losing 7-42 before 53,885 fans; she shot 71.4 percent."], read),
