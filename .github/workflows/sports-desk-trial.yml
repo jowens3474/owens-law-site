@@ -1,0 +1,41 @@
+name: Sports desk trial (temporary)
+
+# Temporary: dry runs of scripts/sports-desk.mjs from the work branch before
+# the desk is merged, so the editor can review sample drafts. Always a dry
+# run: nothing is written, committed or published. Delete before merging.
+
+on:
+  push:
+    branches: [claude/website-build-cfORX]
+    paths:
+      - ".github/workflows/sports-desk-trial.yml"
+      - "data/sports-trial-assignment.json"
+
+permissions:
+  contents: read
+
+jobs:
+  trial:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+      - run: npm ci
+      - name: Test the desk's checks
+        run: node --test scripts/lib/sports-desk-checks.test.mjs
+      - name: Dry run
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
+          BRAVE_API_KEY: ${{ secrets.BRAVE_API_KEY }}
+          DRY_RUN: "1"
+        run: |
+          if [ -f data/sports-trial-assignment.json ]; then cp data/sports-trial-assignment.json data/sports-assignments.json; fi
+          node scripts/sports-desk.mjs
+# Regenerating samples on the final code.
