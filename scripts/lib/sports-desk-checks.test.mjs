@@ -213,6 +213,9 @@ test("numbers must appear in what the desk read", () => {
     [],
   );
   assert.deepEqual(unsourcedNumbers(["The Rebels are 4-1 at home and scored 114 points; she shot 71.5 percent."], read), ["4-1", "71.5", "114"]);
+  // A score or number at the end of a clause or sentence is checked too.
+  assert.deepEqual(unsourcedNumbers(["Ole Miss lost 45-10. The Rebels scored 114, a record."], read), ["45-10", "114"]);
+  assert.deepEqual(unsourcedNumbers(["Ole Miss, 6-3, fell to No. 19."], read), []);
   // Dates, clock times, years and small numbers are left alone.
   assert.deepEqual(unsourcedNumbers(["On Sunday, Nov. 15, at 11 a.m. in 2027, the Rebels need 3 wins."], read), []);
 });
@@ -368,4 +371,24 @@ test("draftProblems: a clean draft passes; an invented quote or number is caught
   assert.ok(draftProblems(invented, ctx).some((p) => /does not appear word for word/.test(p)));
   const made = { ...goodArticle, body: ["Ole Miss is 4-1 at home this season.", ...goodArticle.body.slice(1)] };
   assert.ok(draftProblems(made, ctx).some((p) => /numbers do not appear in anything you read: 4-1/.test(p)));
+});
+
+test("the headline and search title are held to the number and quote checks too", () => {
+  const ctx = {
+    today: TODAY,
+    now: MORNING,
+    sourceTexts: ["The SEC announced the game will be played Sunday at noon. Ole Miss is 6-3."],
+    readUrls: ["https://olemisssports.com/news/2026/11/13/football-oklahoma-game-moved"],
+    schedules: [schedule],
+    scheduleUrls: [schedule.url],
+    recentSportsTitles: [],
+  };
+  const inventedScore = { ...goodArticle, title: "Ole Miss Beats LSU 45-10, Then Waits Out the Ground Stop" };
+  assert.ok(draftProblems(inventedScore, ctx).some((p) => /numbers do not appear in anything you read: 45-10/.test(p)));
+  const inventedSeo = { ...goodArticle, seoTitle: "Ole Miss: 7-2 Rebels moved to Sunday" };
+  assert.ok(draftProblems(inventedSeo, ctx).some((p) => /numbers do not appear in anything you read: 7-2/.test(p)));
+  const inventedQuote = { ...goodArticle, title: 'Kiffin: "We Will Be Ready" for a Sunday Kickoff' };
+  assert.ok(draftProblems(inventedQuote, ctx).some((p) => /does not appear word for word/.test(p)));
+  const sourced = { ...goodArticle, title: "Ole Miss, 6-3, Moves to Sunday After FAA Ground Stop" };
+  assert.deepEqual(draftProblems(sourced, ctx), []);
 });

@@ -194,14 +194,16 @@ export function unsourcedNumbers(paragraphs, sourceTexts) {
   const text = normalizeNumbers(normalizeText((Array.isArray(paragraphs) ? paragraphs : []).join("\n")));
   const has = (n) => new RegExp(`(?<![\\d.])${escapeRe(n)}(?!\\d)`).test(corpus);
   const missing = new Set();
-  for (const m of text.matchAll(/(?<![\d.,:-])(\d{1,3})-(\d{1,3})(?![\d.,:-])/g)) {
+  // A number ends at a comma or period unless a digit follows (a decimal or a
+  // thousands separator), so "won 45-10." and "Ole Miss, 6-3," are checked.
+  for (const m of text.matchAll(/(?<![\d.,:-])(\d{1,3})-(\d{1,3})(?!\d|[.,]\d|:|-)/g)) {
     const pair = `${m[1]}-${m[2]}`;
     if (!has(pair) && !has(`${m[2]}-${m[1]}`)) missing.add(pair);
   }
   for (const m of text.matchAll(/(?<![\d.,:-])(\d+\.\d+)(?!\d)/g)) {
     if (!has(m[1])) missing.add(m[1]);
   }
-  for (const m of text.matchAll(/(?<![\d.,:-])(\d{1,3}(?:,\d{3})+|\d{2,})(?![\d.,:-])(?!\s*(?:a\.m\.|p\.m\.))/g)) {
+  for (const m of text.matchAll(/(?<![\d.,:-])(\d{1,3}(?:,\d{3})+|\d{2,})(?!\d|[.,]\d|:|-)(?!\s*(?:a\.m\.|p\.m\.))/g)) {
     const n = m[1];
     const v = Number(n.replace(/,/g, ""));
     if (v < 10) continue;
@@ -465,12 +467,14 @@ export function structureProblems(article) {
 export function draftProblems(article, ctx) {
   const body = Array.isArray(article.body) ? article.body : [];
   const problems = [...structureProblems(article)];
-  for (const q of unmatchedQuotes(body, ctx.sourceTexts)) {
+  // The headline and search title are the most visible claims, so they are
+  // held to the same quote and number rules as the body.
+  for (const q of unmatchedQuotes([article.title, article.dek, ...body], ctx.sourceTexts)) {
     problems.push(
       `This quote does not appear word for word in anything you read: "${q}". Quote exactly from a source you opened, or paraphrase in clearly different words and attribute.`,
     );
   }
-  const numbers = unsourcedNumbers([article.dek, ...body], ctx.sourceTexts);
+  const numbers = unsourcedNumbers([article.title, article.seoTitle, article.dek, ...body], ctx.sourceTexts);
   if (numbers.length) {
     problems.push(
       `These numbers do not appear in anything you read: ${numbers.join(", ")}. Use each number exactly as a source gives it, or remove it. Do not compute records, totals or percentages yourself.`,
