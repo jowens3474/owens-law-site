@@ -10,19 +10,28 @@ One-time checklist to wire up newsletter signups (`app/api/subscribe/route.ts`,
    3,000 emails/month and 100/day, which is plenty for a daily digest to a
    small list.
 
-## 2. Create an Audience
+## 2. Create a Segment
 
-1. In the Resend dashboard, go to **Audiences → Add Audience**. Name it
-   something like "Jackson Wire Subscribers."
-2. Copy the **Audience ID** shown on the audience's page. You'll need this
-   as `RESEND_AUDIENCE_ID`.
+Resend renamed Audiences to **Segments** in November 2025, and contacts are
+now global to the Resend team (one contact per email address, which can
+belong to any number of segments). This site's segment is "Jackson Wire
+Subscribers."
+
+1. In the Resend dashboard, go to **Audience → Segments → Create segment**.
+   Name it something like "Jackson Wire Subscribers."
+2. Open the segment and copy its ID from the page URL, which ends in
+   `?segmentId=...`. You'll need this as `RESEND_SEGMENT_ID`.
+
+`RESEND_AUDIENCE_ID`, the variable's name from before the rename, still
+works: the code reads `RESEND_SEGMENT_ID` first and falls back to
+`RESEND_AUDIENCE_ID`. Both hold the same segment ID, so you only need one.
 
 ## 3. Create an API key
 
 1. Go to **API Keys → Create API Key**.
-2. Give it **Full access** (the subscribe route writes contacts, and the
-   sender creates and sends broadcasts, so restricting to "Sending access"
-   only isn't enough).
+2. Give it **Full access** (the subscribe route writes contacts and adds
+   them to the segment, and the sender creates and sends broadcasts, so
+   restricting to "Sending access" only isn't enough).
 3. Copy the key. You'll need this as `RESEND_API_KEY`. It is only shown
    once.
 
@@ -32,7 +41,9 @@ In the repo: **Settings → Secrets and variables → Actions → New repository
 secret**. Add:
 
 - `RESEND_API_KEY` — the API key from step 3.
-- `RESEND_AUDIENCE_ID` — the audience ID from step 2.
+- `RESEND_SEGMENT_ID` — the segment ID from step 2. (An existing
+  `RESEND_AUDIENCE_ID` secret with the same value also works; there is no
+  need to rename it.)
 
 This is what `.github/workflows/newsletter.yml` uses to run the daily send.
 
@@ -41,9 +52,18 @@ This is what `.github/workflows/newsletter.yml` uses to run the daily send.
 The signup form (`/api/subscribe`) runs on the live site, not in GitHub
 Actions, so the site host needs these as runtime environment variables too
 (e.g. Vercel: **Project Settings → Environment Variables**). Add the same
-`RESEND_API_KEY` and `RESEND_AUDIENCE_ID` there and redeploy. Until both are
-set, the signup route responds with 503 "Newsletter signup is not
-configured yet."
+`RESEND_API_KEY` and `RESEND_SEGMENT_ID` (or `RESEND_AUDIENCE_ID`) there and
+redeploy. Until the API key and a segment ID are both set, the signup route
+responds with 503 "Newsletter signup is not configured yet."
+
+How signup works: the route creates the contact with `POST /contacts`,
+adding it to the segment. If the email is already a contact (an earlier
+signup, or a contact in another segment), it adds that contact to the
+segment with `POST /contacts/{email}/segments/{segment_id}`. It
+deliberately never sends `unsubscribed`. Because contacts are global,
+"unsubscribed" applies to everything the Resend team sends (including
+Pipeline Pro, which stores interest-form leads as unsubscribed on purpose),
+so a signup form with no confirmation step shouldn't be able to flip it.
 
 ## 6. Verify the sending domain
 
@@ -71,16 +91,20 @@ To send broadcasts from `brief@thejacksonwire.com`, the domain
   digest only for articles whose publish date is today's calendar date in
   America/Chicago. If nothing published today, it logs "No articles today;
   no send." and exits cleanly — no email goes out.
+- The broadcast targets the segment with `segment_id` (the Broadcasts
+  API's replacement for the deprecated `audience_id`).
 - You can trigger a manual run from **Actions → Newsletter → Run
   workflow**, or test locally with:
 
   ```
-  DRY_RUN=1 RESEND_API_KEY=... RESEND_AUDIENCE_ID=... node scripts/send-newsletter.mjs
+  DRY_RUN=1 RESEND_SEGMENT_ID=... node scripts/send-newsletter.mjs
   ```
 
-  `DRY_RUN=1` prints the subject line and the first 500 characters of the
-  HTML body without calling the Resend API.
+  `DRY_RUN=1` prints the target segment, the subject line, and the first
+  500 characters of the HTML body without calling the Resend API, so it
+  doesn't need `RESEND_API_KEY`. It still fetches the live `feed.xml`; if
+  nothing published today it stops at "No articles today; no send."
 
 ## Before the secrets are set
 
-Until both secrets exist, the Newsletter workflow checks for them first and skips with a notice instead of failing, so no failure emails are sent.
+Until `RESEND_API_KEY` and a segment ID secret both exist, the Newsletter workflow checks for them first and skips with a notice instead of failing, so no failure emails are sent.
