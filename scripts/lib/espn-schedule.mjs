@@ -178,7 +178,9 @@ function sideWord(g) {
 export function formatSchedule(school, sport, games, url, now = new Date()) {
   const nowMs = now.getTime();
   const past = games.filter((g) => g.status === "final" || Date.parse(g.startIso) < nowMs - 4 * 3600_000);
-  const upcoming = games.filter((g) => !past.includes(g));
+  // Started but not final: under way now (or just ended and not yet scored).
+  const live = games.filter((g) => !past.includes(g) && Date.parse(g.startIso) <= nowMs && g.status !== "postponed" && g.status !== "canceled");
+  const upcoming = games.filter((g) => !past.includes(g) && !live.includes(g));
   const lines = [
     `ESPN schedule for ${school} ${sport}, times Central. Source: ${url}`,
     "Recent results:",
@@ -188,6 +190,9 @@ export function formatSchedule(school, sport, games, url, now = new Date()) {
   for (const g of recent) {
     const score = g.result ? `${g.result} ${g.us}-${g.them}` : g.status;
     lines.push(`- ${g.weekday}, ${apDate(g.date)}: ${score} ${sideWord(g)} ${g.opponent}${g.venue ? ` (${g.venue})` : ""}`);
+  }
+  for (const g of live) {
+    lines.push(`Under way now (started ${g.time === "TBA" ? "today" : `at ${g.time}`}; do not preview it): ${g.weekday}, ${apDate(g.date)} ${sideWord(g)} ${g.opponent}`);
   }
   lines.push("Next games:");
   const next = upcoming.slice(0, 4);

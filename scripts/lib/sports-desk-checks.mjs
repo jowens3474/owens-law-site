@@ -230,7 +230,7 @@ export function opponentMatches(scheduleName, given) {
  * same date (and time, when ESPN lists one), and the What's next paragraph
  * must state that date.
  */
-export function nextGameProblems(article, schedules, todayIso) {
+export function nextGameProblems(article, schedules, todayIso, nowIso = "") {
   const problems = [];
   const find = (school, sport) => (schedules || []).find((s) => s.school === school && s.sport === sport);
   const storySched = SCHEDULE_SCHOOLS.includes(article.school) && SPORTS.includes(article.sport);
@@ -270,6 +270,9 @@ export function nextGameProblems(article, schedules, todayIso) {
       `nextGame (${ng.opponent} on ${ng.date}) is not on ESPN's ${school} ${sport} schedule. Upcoming there: ${upcoming || "none listed"}.`,
     );
     return problems;
+  }
+  if (nowIso && game.status !== "postponed" && Date.parse(game.startIso) <= Date.parse(nowIso)) {
+    problems.push(`${game.opponent} on ${apDate(game.date)} has already started or finished (ESPN lists it at ${game.time} Central). Do not present it as the next game; name the game after it, or report the result.`);
   }
   if (game.time !== "TBA" && ng.time && !/^tba$/i.test(String(ng.time).trim()) && canonTime(ng.time) !== canonTime(game.time)) {
     problems.push(`nextGame time "${ng.time}" does not match ESPN's ${game.time} Central for ${game.opponent} on ${apDate(game.date)}.`);
@@ -344,7 +347,7 @@ export function draftProblems(article, ctx) {
   }
   problems.push(...weekdayMismatches([article.title, article.dek, ...body].join("\n"), ctx.today));
   problems.push(...sourceProblems(article.sources, ctx.readUrls, ctx.scheduleUrls));
-  problems.push(...nextGameProblems(article, ctx.schedules, ctx.today));
+  problems.push(...nextGameProblems(article, ctx.schedules, ctx.today, ctx.now));
   const twin = similarRecentTitle(article.title, ctx.recentSportsTitles);
   if (twin) {
     problems.push(`This looks like a repeat of a recent Wire story ("${twin}"). Pick a different story, or lead with what is genuinely new and make the headline say so.`);

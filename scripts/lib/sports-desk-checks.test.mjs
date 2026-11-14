@@ -215,3 +215,13 @@ test("draftProblems: a clean draft passes; an invented quote is caught", () => {
   const invented = { ...goodArticle, body: ['"We are thrilled to play on Sunday," the coach said.', ...goodArticle.body.slice(1)] };
   assert.ok(draftProblems(invented, ctx).some((p) => /does not appear word for word/.test(p)));
 });
+
+test("a game under way is not listed as upcoming, and cannot be the next game", () => {
+  const during = new Date("2026-11-15T18:40:00Z"); // 12:40 p.m. Central, Oklahoma kicked off at noon
+  const text = formatSchedule("Ole Miss", "football", games, schedule.url, during);
+  assert.match(text, /Under way now \(started at noon; do not preview it\): Sunday, Nov\. 15 vs\. Oklahoma Sooners/);
+  assert.match(text, /Next games:\n- Saturday, Nov\. 21/);
+  const started = nextGameProblems(goodArticle, [schedule], "2026-11-15", during.toISOString());
+  assert.ok(started.some((p) => /has already started or finished/.test(p)));
+  assert.deepEqual(nextGameProblems(goodArticle, [schedule], TODAY, "2026-11-14T14:00:00Z"), []);
+});

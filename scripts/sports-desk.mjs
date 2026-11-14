@@ -82,6 +82,8 @@ FACT DISCIPLINE, non-negotiable
 - Injuries, transfers and coaching moves: report only what was announced or what a named outlet reported, and attribute it. Never present a rumor as fact.
 - No betting lines, point spreads, odds, over/unders or sportsbook names.
 - Be fair to every school and opponent. No cheerleading, no "we" or "our."
+- Never preview a game that has already started. The user prompt gives the current Central time, and team_schedule marks games under way. If a game has begun or ended, report the result or pick another story.
+- Wikipedia is not a source. Use the schools, the conferences, the NCAA, ESPN and news outlets.
 
 STORY REQUIREMENTS
 - Headline: clear and specific, under 100 characters. Numbers and proper nouns welcome.
@@ -220,6 +222,10 @@ const TOOLS = [
   },
 ];
 
+function nowCentral() {
+  return new Intl.DateTimeFormat("en-US", { timeZone: "America/Chicago", hour: "numeric", minute: "2-digit" }).format(new Date());
+}
+
 function todayLocalIso() {
   return new Intl.DateTimeFormat("en-CA", { timeZone: "America/Chicago" }).format(new Date());
 }
@@ -329,7 +335,14 @@ function draftSummary(article, problems, usage, heading) {
     "",
     `_${article.dek}_`,
     "",
-    `School: ${article.school}. Sport: ${article.sport}.${ng ? ` Next game: ${ng.school || article.school} ${ng.sport || article.sport} vs. ${ng.opponent}, ${ng.date}, ${ng.time || "time not given"}.` : ""}${article.assignmentOutcome ? ` Assignment: ${article.assignmentOutcome}.` : ""}`,
+    [
+      `School: ${article.school}`,
+      `Sport: ${article.sport}`,
+      ng ? `Next game: ${ng.school || article.school} ${ng.sport || article.sport} vs. ${ng.opponent}, ${ng.date}, ${ng.time || "time not given"}` : "",
+      article.assignmentOutcome ? `Assignment: ${article.assignmentOutcome}` : "",
+    ]
+      .filter(Boolean)
+      .join(" | "),
     "",
     ...article.body.flatMap((p) => [p, ""]),
     "Sources:",
@@ -367,7 +380,7 @@ async function main() {
   log(`assignment=${assignment ? assignment.id : "none"}`);
 
   const userPrompt = [
-    `Today is ${today} (${weekdayOf(today)}, America/Chicago). Write today's Mississippi college sports article for The Jackson Wire.`,
+    `Today is ${today} (${weekdayOf(today)}, America/Chicago); it is now ${nowCentral()} Central. Write today's Mississippi college sports article for The Jackson Wire.`,
     "",
     "Recent Wire sports stories (newest first). Do not repeat these topics unless there is genuinely new information:",
     ...(recent.length ? recent.map((r, i) => `${i + 1}. [${r.date}] ${r.title}`) : ["(none yet)"]),
@@ -395,6 +408,7 @@ async function main() {
   const usage = { calls: 0, prompt: 0, completion: 0, hit: 0, miss: 0 };
   const ctx = () => ({
     today,
+    now: new Date().toISOString(),
     sourceTexts,
     readUrls: [...readUrls],
     schedules,
@@ -492,6 +506,16 @@ async function main() {
         sourceTexts.push(content);
       } else if (name === "fetch_url") {
         log(`fetch_url: ${args.url}`);
+        let host = "";
+        try {
+          host = new URL(String(args.url || "")).hostname;
+        } catch {
+          /* fetchUrl reports a bad URL below */
+        }
+        if (/(^|\.)wikipedia\.org$/i.test(host)) {
+          messages.push({ role: "tool", tool_call_id: tc.id, content: "Wikipedia is not a source for Wire stories. Use the school, the conference, the NCAA, ESPN or a news outlet." });
+          continue;
+        }
         try {
           const { contentType, text } = await fetchUrl(String(args.url || ""));
           const seen = text.length > FETCH_CHARS ? `${text.slice(0, FETCH_CHARS)}\n\n[truncated]` : text;
