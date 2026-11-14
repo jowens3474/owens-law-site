@@ -82,6 +82,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-11-14",
+    title: "Morning Brief: Nov 14 · Stokes Censure Lands Tuesday; Jackson's Sales Tax Still Flat",
+    dek: "The council votes Tuesday on a censure resolution against Ward 3's Kenneth Stokes, whose lawyer calls it unconstitutional, while new Department of Revenue figures show Jackson's September sales tax diversion down 0.2% as Ridgeland grew 14%.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-11-14",
+    views: 0,
+    body: [
+      "Stokes censure vote set for Tuesday: The Jackson City Council's regular teleconference meeting is posted for Nov. 17, and the censure resolution against Ward 3 Councilman Kenneth Stokes is the item to watch. Council President Vernon Hartley's Nov. 9 letter cited Jackson Code Section 2-77(1), which says a councilmember \"shall maintain decorum and set an example of conduct\" and shall not \"bring disgrace or embarrassment upon the city.\" Stokes' attorney Dennis Sweet called the proposed censure \"vague\" and \"improper\" at a Nov. 12 press conference and said the councilman will \"take whatever legal actions necessary,\" WLBT reported. A Georgetown petition organizer wants a $500 fine attached. The notice is posted at jacksonms.gov.",
+      "Jackson sales tax flat while Ridgeland pulls away: Department of Revenue diversion reports for September 2026 show Jackson received $2,622,651, down 0.2% from $2,628,600 a year earlier, while Ridgeland took $1,557,911, up 14.0%. Flowood rose 3.8% and Brandon 13.1%; Pearl fell 17.4%. Jackson's fiscal-year-to-date total of $7,951,288 is up 3.9%, so the month is a flattening, not a collapse. The ratio is the story for anyone underwriting Jackson retail: Ridgeland now collects about 59 cents for every dollar Jackson does, against roughly 52 cents a year ago. The September report is posted at dor.ms.gov.",
+      "Acima settlement puts $170M plus into consumer relief: Attorney General Lynn Fitch announced Nov. 13 a $183.5 million multistate settlement with rent-to-own financier Acima Digital and parent Acima Holdings, WJTV reported. It includes $43 million in restitution, $130 million in lease balance forgiveness and a $10.5 million payment to participating states. Fitch's office said eligible consumers do not need to take any action: the settlement administrator will contact those owed restitution, and Acima will contact those getting lease forgiveness. The allegations were that Acima used the word \"credit\" in advertising and hid lease terms during electronic signing. Mississippi's share of the state payment was not broken out in the release.",
+      "Hinds supervisors meet Monday with a scanned agenda: The Hinds County Board of Supervisors meets Monday, Nov. 16 at 9 a.m. in the Board Room of the Hinds County Chancery Court Building, per the county's meeting schedule. The agenda PDF posted at co.hinds.ms.us has no text layer, so line items cannot be read online in advance; the county posts video afterward on Lifesize. The Nov. 2 meeting drew no readable minutes either. For contractors and landowners with business before the board, that means showing up or filing a public records request. The board's regular and special meetings run the first and third Mondays.",
+      "Folk Festival returns with a smaller measured footprint: The 83rd National Folk Festival opened Friday in downtown Jackson, free, with music running until 9:30 p.m. and 300-plus artists across six stages, per Visit Jackson. Visit Jackson CEO Ricky Thigpen told WLBT the event is an economic driver for the entire state, with Vicksburg, Meridian and Ridgeland working together to host it. The benchmark to beat is last year's: Visit Jackson estimated at least 30,000 attendees and a $3 million economic impact for the 2025 edition, WAPT reported. The festival's own organizers project 330,000 visitors across the three-year residency. It runs through Sunday, Nov. 15.",
+    ],
+  },
+  {
     slug: "entergy-winter-storm-fern-securitization-psc-november-17",
     title: "Entergy Wants Jackson-Area Customers to Pay Off Winter Storm Fern Through a Bond Charge. The PSC Clock Runs Out Nov. 17.",
     seoTitle: "Entergy storm bond charge: PSC deadline Nov. 17",
