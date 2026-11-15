@@ -82,6 +82,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-11-15",
+    title: "Morning Brief: Nov 15 · Traceview Permit Lands; Madison County Weighs Gallery Backing",
+    dek: "MDEQ issued Entergy's air construction permit for the 750-megawatt Traceview plant in Ridgeland on Oct. 14, and Madison County holds a 9 a.m. hearing Monday on pledging its property tax increment to The Gallery's $11.741 million in bonds.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-11-15",
+    views: 0,
+    body: [
+      "Traceview air permit issued for Ridgeland plant: MDEQ's permit database lists an Air-Construction permit for Entergy Mississippi's Traceview Advanced Power Station, 1972 W County Line Road in Ridgeland, with a start date of Oct. 14, 2026. The agency's response to comments describes a natural gas-fired 1x1 combined cycle plant nominally rated at 750 megawatts, built around a Mitsubishi M501JAC combustion turbine with duct burners. Entergy's project page puts it at 754 megawatts and says the site sits on the Hinds-Madison line north of West County Line Road because the high-voltage corridor already exists there. The permit is the last environmental gate before steel goes up; the docket does not show a construction schedule or a cost figure for the plant.",
+      "Madison County weighs Gallery tax pledge Monday: The county holds a 9 a.m. public hearing Monday, Nov. 16, on whether to commit its share of new property tax revenue to repaying bonds for The Gallery, WLBT reported. Madison's mayor and Board of Aldermen voted unanimously Nov. 11 to approve a TIF plan letting the city issue up to $11.741 million for roads, sidewalks, drainage, utilities, landscaping, traffic signals and parking in the $59.2 million arts and entertainment district on Galleria Parkway. Attorney Chris Pace of Jones Walker told the board the bonds are limited obligations repaid only from net new taxes, not the general fund. The county's participation is the piece the city cannot supply itself.",
+      "Entergy storm-bond clock runs out Tuesday: Tuesday, Nov. 17, is the deadline the Wire flagged for the Public Service Commission's action on Entergy Mississippi's petition for a financing order tied to Winter Storm Fern restoration costs. The Commission's November docket lists 2026-UA-85, Entergy's petition for a financing order allowing it to ask the State Bond Commission to issue system restoration bonds, and 2026-UN-86, its notice of intent to implement a storm cost offset rider. Both were filed Oct. 2. The rider is the mechanism that moves storm costs onto bills; the docket does not state a per-customer dollar amount. The docket is posted at psc.ms.gov.",
+      "Council meets Tuesday with censure and moratorium on the table: The Jackson City Council's regular teleconference is posted for Nov. 17, with the censure resolution against Ward 3 Councilman Kenneth Stokes as the marquee item and the data center moratorium repeal heading toward a Dec. 1 vote, per the city's notice at jacksonms.gov. Separately, the council's zoning session is posted for Monday, Nov. 16. On the money side, the city has three open solicitations: RFP 91313-121526 for McCluer Road Bridge Replacement, RFP 19567-121526 for timekeeping hardware for UKG Pro Workforce, and RFP 95883-120126 for purchase of city-owned Parcel 135-39, all posted Nov. 6 with Dec. 15 deadlines.",
+      "Jackson adds jobs but sales tax stays flat: Bureau of Labor Statistics data put the Jackson MSA at 302,600 nonfarm jobs in September, up 2,100 from 300,500 in May, with unemployment at 3.0 percent against 3.3 percent statewide. Department of Revenue diversion reports for the same month show Jackson's share at $2,622,651, down 0.2 percent from a year earlier, while Ridgeland collected $1,557,911, up 14.0 percent. The two readings together are the question worth watching into the holiday quarter: payrolls are growing while the city's retail base is not, and the fiscal-year-to-date figure of $7,951,288 is still up 3.9 percent. The reports are posted at dor.ms.gov.",
+    ],
+  },
+  {
     slug: "jackson-sales-tax-diversions-september-2026-ridgeland-pearl",
     title: "Jackson's Sales Tax Take Went Flat in September. Ridgeland's Grew 14 Percent.",
     dek: "Department of Revenue figures show Jackson collected $2.62 million in September, down 0.2% from a year earlier, while Ridgeland and Brandon posted double-digit gains and Pearl fell 17.4%.",
