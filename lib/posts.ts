@@ -82,6 +82,27 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "entergy-traceview-air-permit-issued-ridgeland-plant-construction",
+    title: "MDEQ Issued Entergy's Traceview Air Permit on Oct. 14. The $1 Billion Ridgeland Plant Can Now Build.",
+    dek: "The PSD permit for the 750-megawatt gas plant cleared MDEQ on Oct. 14, and a pretreatment application is moving. Entergy's own filings put the cost above $1 billion, paid by ratepayers.",
+    category: "Development",
+    categories: ["Economy"],
+    tags: ["pipeline","data-centers"],
+    author: "Jackson Wire Staff",
+    date: "2026-11-15",
+    views: 0,
+    body: [
+      "The air permit Entergy Mississippi needed to build its Traceview Advanced Power Station was issued on Oct. 14, according to the Mississippi Department of Environmental Quality's enSearch permit database. The permit, Air Ref. No. 1720-00100, is a Prevention of Significant Deterioration construction permit, the federal Clean Air Act approval a plant of this size must hold before it pours foundations.",
+      "The facility is a nominally 750-megawatt natural gas-fired combined cycle plant at 1972 W County Line Road in Ridgeland, on the Hinds and Madison county line between Livingston Road and the Natchez Trace Parkway. MDEQ's statement of basis describes the equipment as a Mitsubishi Model M501JAC combustion turbine with supplementary-fired duct burners. Entergy's project page puts the plant at 754 megawatts and the investment at more than $1 billion, with construction starting in 2026 and an in-service date in 2029.",
+      "The permit did not arrive quietly. MDEQ opened a public comment period on a draft permit on April 8, 2026, and the Better Data Center Project and Environmental Advocates Mississippi filed comments against it, according to MDEQ's response-to-comments document. The groups asked the Permit Board to deny the permit, and the same document records Yolanda Daniel of Environmental Advocates Mississippi telling the board, \"We are here asking the Board to deny.\" MDEQ issued the permit anyway.",
+      "The paper trail is still moving. The enSearch record shows a water pretreatment application, MSP092492, at the status \"Send Draft Permit to Facility\" as of Oct. 15, one day after the air permit. It also shows two general construction stormwater coverages active for the site, MSR109619 and MSR109942, both running to Jan. 31, 2027, and a Nov. 10 entry for a notice of intent on an asphalt general permit modification. Those are the filings that precede earthwork.",
+      "Who pays is the part worth reading closely. Entergy Mississippi sold $650 million of first mortgage bonds at 5.05% due 2036, a sale that closed March 6, 2026, and the prospectus supplement states expected net proceeds of about $644.5 million to finance the Traceview and Vicksburg Advanced Power Stations, to fund Winter Storm Fern restoration costs, and for general corporate purposes. That is debt carried by a regulated utility with 459,000 customers, per Entergy's October 2025 Vicksburg announcement. The Wire's arithmetic: $644.5 million spread across 459,000 customers is about $1,404 per customer, before interest and before any other borrowing for the same plants.",
+      "The company's case is that the site saves money. Entergy's project page says the plant will occupy roughly 75 acres of a 585-acre property, about one-eighth, and that building elsewhere would cost hundreds of millions of dollars more because the 115kV, 230kV and 500kV transmission corridor already runs alongside the site. The company also says the combined-cycle design produces more power per unit of fuel than the gas plants it is retiring, which it says translates to fuel savings for customers.",
+      "The question nobody has answered in public is what the plant is for. Traceview sits in the same metro as the Amazon Data Services Madison Mega Site at 1978 Highway 22 in Canton, whose MDEQ file shows a Title V application received June 29, 2026 and a construction permit modification whose draft public comment period ended Aug. 24, 2026. Entergy's PSC docket for November lists a September application to approve an electric service agreement with Nissan North America, but no comparable large-load contract for Traceview's output appears in the docket items the Commission posted. Entergy Mississippi and the PSC would be the ones to say how much of the 750 megawatts is already spoken for.",
+      "What's next: the Mississippi Public Service Commission's November utility docket carries Entergy items including 2026-UA-85, the Winter Storm Fern securitization petition, and 2026-UN-86, the storm cost offset rider, and the docket is posted at psc.ms.gov/exec-sec/dockets. The next MDEQ Permit Board meeting is set for 9:00 a.m. on the second Tuesday of each month at 515 E. Amite Street in Jackson, and the board can be reached at (601) 961-5041 to confirm dates. Readers who want to track the plant's water and stormwater filings can pull the facility record at opcgis.deq.state.ms.us/ensearchonline/ai_info.aspx?ai=89056, where every new permit status posts before it is announced.",
+    ],
+  },
+  {
     slug: "morning-brief-2026-11-15",
     title: "Morning Brief: Nov 15 · Traceview Permit Lands; Madison County Weighs Gallery Backing",
     dek: "MDEQ issued Entergy's air construction permit for the 750-megawatt Traceview plant in Ridgeland on Oct. 14, and Madison County holds a 9 a.m. hearing Monday on pledging its property tax increment to The Gallery's $11.741 million in bonds.",
