@@ -82,6 +82,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-11-16",
+    title: "Morning Brief: Nov 16 · Jackson Sales Tax Turns Up 7.5 Percent; Library Fight Lands",
+    dek: "Jackson's October sales tax diversion rose 7.5 percent over a year earlier, its first real gain in months, as the city and Hinds County supervisors jointly oppose closing any public library.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-11-16",
+    views: 0,
+    body: [
+      "Jackson sales tax turns up 7.5 percent: The Department of Revenue's October diversion report, the first full month of the new fiscal year, shows Jackson receiving $2,672,010, up from $2,485,254 in October 2025. Fiscal-year-to-date Jackson is at $10,623,298, up 4.7 percent. The gain follows a flat September. Ridgeland again outran the metro, at $1,514,334, up 18.6 percent for the month and 14.9 percent year to date. Flowood rose 9.5 percent. Pearl is down 9.5 percent year to date despite a 1.6 percent October gain. The report is posted at dor.ms.gov.",
+      "Council censure vote set for Tuesday: The Jackson City Council's Nov. 17 agenda carries a resolution to censure Ward 3 Councilman Kenneth Stokes for acting in a manner unbecoming of a councilmember, WLBT reported. The resolution cites rude, disrespectful, insulting and indecent language directed at council members and the public, and points to Stokes' Nov. 3 remarks telling Muslim protesters to take the rags off your heads. The meeting is at 6 p.m. at Jackson City Hall, 219 S. President St. The agenda also lists a regular council teleconference notice posted Nov. 13 on jacksonms.gov.",
+      "Supervisors, mayor oppose library closures: The Hinds County Board of Supervisors and Jackson Mayor John Horhn said they oppose closing any public library in Hinds County, WJTV reported Monday. The statement did not name branches or a dollar figure. Under the 1986 library agreement posted on jhlibrary.org, the city and county contribute equally to fund the Jackson Hinds Library System, and the system's own FAQ warns that falling below required local support can put State Aid eligibility at risk. The library board meets Tuesday, Nov. 24, at 4 p.m. at the Medgar Evers Library.",
+      "High Street ramp closes Nov. 19 for a month: MDOT will close the High Street on-ramp to Interstate 55 southbound on Nov. 19 for about a month of repairs under The Big Fix project, the agency said. The closure reroutes downtown traffic onto other entries for roughly four weeks, including the Thanksgiving travel week. AAA is forecasting another busy, if slightly less busy, Thanksgiving travel period, Magnolia Tribune reported. Separately, the city has an open request for proposals, RFP 91313-121526, for McCluer Road Bridge Replacement, with a Dec. 15 deadline, posted on jacksonms.gov.",
+      "Chaney weighs $250 health grants: Insurance Commissioner Mike Chaney is weighing one-time grants of about $250 to help low-income uninsured Mississippians pay for care, Mississippi Today reported. He estimates $4 million to $5 million would reach about 20,000 people, roughly a tenth of those who dropped marketplace coverage in the past year, and he wants funding available as early as December. The money would come from the Mississippi Comprehensive Health Insurance Risk Pool Association, which holds more than $22 million in assets per 2024 tax filings. Open enrollment runs through Jan. 15.",
+    ],
+  },
+  {
     slug: "entergy-traceview-air-permit-issued-ridgeland-plant-construction",
     title: "MDEQ Issued Entergy's Traceview Air Permit on Oct. 14. The $1 Billion Ridgeland Plant Can Now Build.",
     dek: "The PSD permit for the 750-megawatt gas plant cleared MDEQ on Oct. 14, and a pretreatment application is moving. Entergy's own filings put the cost above $1 billion, paid by ratepayers.",
