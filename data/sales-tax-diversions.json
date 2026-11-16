@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-16",
+  "updated": "2026-11-16",
   "cities": [
     "Jackson",
     "Ridgeland",
@@ -14406,6 +14406,72 @@
         "amount": 46860.41,
         "fytd": 140103.79
       }
+    },
+    "2026-10": {
+      "Jackson": {
+        "amount": 2672009.63,
+        "fytd": 10623297.68
+      },
+      "Ridgeland": {
+        "amount": 1514333.71,
+        "fytd": 6297705.31
+      },
+      "Madison": {
+        "amount": 931626.61,
+        "fytd": 3853015.92
+      },
+      "Flowood": {
+        "amount": 1404986.52,
+        "fytd": 5607730.43
+      },
+      "Pearl": {
+        "amount": 1261476.53,
+        "fytd": 4855721.79
+      },
+      "Brandon": {
+        "amount": 747616.48,
+        "fytd": 3024914
+      },
+      "Clinton": {
+        "amount": 493431.18,
+        "fytd": 2008997.51
+      },
+      "Byram": {
+        "amount": 337923.57,
+        "fytd": 1368272.44
+      },
+      "Canton": {
+        "amount": 325549.2,
+        "fytd": 1265416.78
+      },
+      "Richland": {
+        "amount": 767645.01,
+        "fytd": 3193071.77
+      },
+      "Florence": {
+        "amount": 87517.65,
+        "fytd": 372085.95
+      },
+      "Raymond": {
+        "amount": 48578.29,
+        "fytd": 118684.02
+      },
+      "Terry": {
+        "amount": 28307.91,
+        "fytd": 105288.2
+      },
+      "Edwards": {
+        "amount": 6324.72,
+        "fytd": 20675.85
+      },
+      "Bolton": {
+        "amount": 24229.04,
+        "fytd": 86820.54
+      },
+      "Pelahatchie": {
+        "amount": 47211.71,
+        "fytd": 187315.5
+      }
     }
   },
   "reports": {
@@ -15432,6 +15498,11 @@
     "2026-09": {
       "url": "https://www.dor.ms.gov/sites/default/files/statistics/stats_div0926_0.pdf",
       "fetched": "2026-10-16",
+      "revised": false
+    },
+    "2026-10": {
+      "url": "https://www.dor.ms.gov/sites/default/files/statistics/stats_div1026.pdf",
+      "fetched": "2026-11-16",
       "revised": false
     }
   }
