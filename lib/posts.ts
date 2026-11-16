@@ -82,6 +82,28 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "psc-nov-17-docket-data-center-costs-andes-mantero-storm-bond",
+    title: "The PSC Meets Tuesday With Data Center Costs, a Storm Bond and a New Rulemaking All on One Docket",
+    seoTitle: "Mississippi PSC: Nov. 17 docket carries data center costs",
+    dek: "Entergy's Andes/Mantero review, the Winter Storm Fern securitization and a fresh rulemaking docket all sit on the Nov. 17 agenda in Jackson. Entergy and Mississippi Power have already moved to intervene.",
+    category: "Economy",
+    categories: ["Business"],
+    tags: ["pipeline","data-centers"],
+    author: "Jackson Wire Staff",
+    date: "2026-11-16",
+    views: 0,
+    body: [
+      "The Mississippi Public Service Commission meets Tuesday at 10 a.m. in the courtroom on the first floor of the Woolfolk State Office Building in Jackson, and the November docket carries three items that decide who pays for the state's power buildout. Two of them are Entergy Mississippi cases. The third is a rulemaking the Commission opened on Oct. 6 and has not yet described in public.",
+      "The first is Docket 2024-UA-101, Entergy Mississippi's application for review of the Andes/Mantero project. The docket has been open since Aug. 28, 2024, according to the Commission's November utility docket (psc.ms.gov), and it is still listed as continued. A May 2026 report prepared for Earthjustice by Synapse Energy Economics ties the Andes power stations to the data center buildout and states that the initial docket capturing data center costs in Entergy's formula rate plan is 2023-UN-142.",
+      "The second is Docket 2026-UA-85, Entergy's petition for a financing order so the company can ask the State Bond Commission to issue system restoration bonds for costs from the 2026 severe winter storm. A companion item, 2026-UN-86, is Entergy's notice of intent to make a routine rate change by implementing a storm cost offset rider. Both were filed Oct. 2. The Legislature authorized the mechanism in HB4069, the Mississippi Severe Winter Storm of 2026 Electric Utility Customer Relief and Electric Utility System Restoration Act, which lets the Commission certify a financing order and the state issue bonds against storm restoration costs.",
+      "The third item is the one with the least paper behind it. Docket 2026-AD-88 is listed in the November docket only as \"ORDER OPENING RULEMAKING DOCKET AND SEEKING COMMENTS,\" filed Oct. 6. A docket tracker that mirrors the Commission's filings (cloakanddocket.com) shows five entries in the case through Nov. 6: the opening order, a Mississippi Power Company motion to intervene on Oct. 21, an Entergy Mississippi motion to intervene on Oct. 23, and two filings on Nov. 6, the later one granting Mississippi Power's motion.",
+      "Read together, those entries say something the Commission has not announced. Both of the state's large investor-owned electric utilities asked to be parties in a rulemaking whose subject the public docket does not name. The Wire could not obtain the text of the Oct. 6 order, so what the rulemaking covers is not established here. What is established is that the two companies that would be regulated considered it worth intervening within three weeks.",
+      "The money at stake is not small. Entergy Mississippi sold about $644.5 million in first-mortgage bonds in a March 6, 2026 offering, with net proceeds earmarked for the Traceview and Vicksburg Advanced Power Stations, interim Winter Storm Fern restoration costs and general corporate purposes, according to the prospectus supplement filed with the SEC. The company says data center revenue eliminated a nearly $5 monthly increase for residential customers beginning in July 2026. Synapse's May 2026 report argues the opposite direction, putting the extra cost already borne by ratepayers at $38 million, rising to $74 million by the end of 2026, or about $10.60 on an average bill.",
+      "The Commission's own filings give no cost figure for Andes/Mantero, and the November docket does not show what the storm bonds would be worth or how the rider would be set. Those numbers are the ones that reach a Jackson household's bill.",
+      "What's next: The Commission meets Tuesday, Nov. 17, at 10 a.m. in the courtroom on the first floor of the Woolfolk State Office Building in Jackson. The November utility and consent dockets are posted at psc.ms.gov/exec-sec/dockets, and the agenda for the meeting is posted on the same site. Watch whether 2024-UA-101 moves from continued to a vote, whether 2026-UA-85 produces a financing order that goes to the State Bond Commission, and whether the Commission states the subject of 2026-AD-88 and sets a comment deadline. Anyone who wants to follow the rulemaking can check the docket page for the order text; the Wire found no public comment date posted as of Monday.",
+    ],
+  },
+  {
     slug: "morning-brief-2026-11-16",
     title: "Morning Brief: Nov 16 · Jackson Sales Tax Turns Up 7.5 Percent; Library Fight Lands",
     dek: "Jackson's October sales tax diversion rose 7.5 percent over a year earlier, its first real gain in months, as the city and Hinds County supervisors jointly oppose closing any public library.",
