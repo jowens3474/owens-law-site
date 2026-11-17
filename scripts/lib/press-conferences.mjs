@@ -13,6 +13,15 @@
 // request it (the web player's caption links now need a token this script
 // cannot make). Channel ids were checked against the channels on Nov. 17,
 // 2026.
+//
+// YouTube refuses the caption request from GitHub's runners (LOGIN_REQUIRED)
+// but answers a home connection, so the owner's Mac saves each new
+// transcript ahead of time (scripts/press-transcripts-sync.mjs) to the
+// claude/press-transcripts branch, and the desk reads the saved copy first
+// (readSavedTranscripts below).
+
+import { readFileSync, readdirSync } from "node:fs";
+import { join } from "node:path";
 
 export const PRESS_CHANNELS = [
   { school: "Ole Miss", channelId: "UCp47rvbbB-HzCH96MU6yplQ", name: "Ole Miss Rebels (YouTube)" },
@@ -169,4 +178,83 @@ export async function pressConferenceTranscript(videoId, { fetchImpl = fetchText
     }
   }
   throw new Error(`No transcript available (${reasons.join("; ")}).`);
+}
+
+// ---------------------------------------------------------------------------
+// Saved transcripts: one <videoId>.json file per press conference, written by
+// the Mac job and read by the desk.
+
+const VIDEO_ID = /^[A-Za-z0-9_-]{11}$/;
+const PRESS_SCHOOLS = new Set(PRESS_CHANNELS.map((c) => c.school));
+const MIN_SAVED_CHARS = 200;
+
+/** The record the Mac job saves for one press conference. */
+export function transcriptRecord(video, { text, automatic }, now = new Date()) {
+  return {
+    videoId: video.videoId,
+    school: video.school,
+    title: video.title,
+    published: video.published,
+    url: videoUrl(video.videoId),
+    automatic: Boolean(automatic),
+    fetchedAt: now.toISOString(),
+    text,
+  };
+}
+
+/**
+ * A saved record checked field by field, or null when it is not one the desk
+ * can use. The video id must match the file it came from, and the school
+ * must be one of PRESS_CHANNELS. A record that does not say whether its
+ * captions were automatic is treated as automatic, so the desk keeps the
+ * misheard-words warning.
+ */
+export function validTranscriptRecord(rec, videoId) {
+  if (!rec || typeof rec !== "object" || Array.isArray(rec)) return null;
+  if (!VIDEO_ID.test(String(videoId ?? "")) || rec.videoId !== videoId) return null;
+  if (!PRESS_SCHOOLS.has(rec.school)) return null;
+  if (typeof rec.title !== "string" || !rec.title.trim()) return null;
+  if (typeof rec.published !== "string" || Number.isNaN(Date.parse(rec.published))) return null;
+  if (typeof rec.text !== "string" || rec.text.trim().length < MIN_SAVED_CHARS) return null;
+  return {
+    videoId,
+    school: rec.school,
+    title: rec.title.trim(),
+    published: rec.published,
+    url: videoUrl(videoId),
+    automatic: rec.automatic !== false,
+    fetchedAt: typeof rec.fetchedAt === "string" ? rec.fetchedAt : "",
+    text: rec.text,
+  };
+}
+
+/**
+ * Every usable saved transcript in a folder, oldest file name first. Files
+ * not named <videoId>.json are ignored; unreadable or malformed ones are
+ * reported in errors. A missing folder is not an error: there is nothing
+ * saved yet.
+ * @returns {{ items: ReturnType<typeof validTranscriptRecord>[], errors: string[] }}
+ */
+export function readSavedTranscripts(dir) {
+  const items = [];
+  const errors = [];
+  let names;
+  try {
+    names = readdirSync(dir);
+  } catch (e) {
+    if (e?.code !== "ENOENT") errors.push(`${dir}: ${e.message}`);
+    return { items, errors };
+  }
+  for (const name of names.sort()) {
+    const id = name.match(/^([A-Za-z0-9_-]{11})\.json$/)?.[1];
+    if (!id) continue;
+    try {
+      const rec = validTranscriptRecord(JSON.parse(readFileSync(join(dir, name), "utf8")), id);
+      if (rec) items.push(rec);
+      else errors.push(`${name}: not a usable transcript record`);
+    } catch (e) {
+      errors.push(`${name}: ${e.message}`);
+    }
+  }
+  return { items, errors };
 }

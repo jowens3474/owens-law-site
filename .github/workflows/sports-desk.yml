@@ -8,7 +8,12 @@ name: Sports desk
 #
 # Story ideas also come from the schools' press conferences: each run lists
 # the recent sessions Ole Miss and Mississippi State posted to YouTube and can
-# read their transcripts (scripts/lib/press-conferences.mjs).
+# read their transcripts (scripts/lib/press-conferences.mjs). YouTube refuses
+# caption requests from GitHub's runners, so the owner's Mac saves each new
+# transcript to the claude/press-transcripts branch every two hours
+# (scripts/press-transcripts-sync.mjs, scripts/press-transcripts-mac.sh), and
+# this workflow hands that branch's transcripts to the desk. That branch holds
+# only data and turns Vercel deployments off, so its pushes cost no deploys.
 #
 # Runs daily on the schedule below and publishes. Manual runs default to a dry
 # run: the draft and its check results go to the run summary and nothing is
@@ -58,7 +63,23 @@ jobs:
         run: npm ci
 
       - name: Test the desk's checks
-        run: node --test scripts/lib/sports-desk-checks.test.mjs scripts/lib/press-conferences.test.mjs
+        run: node --test scripts/lib/sports-desk-checks.test.mjs scripts/lib/press-conferences.test.mjs scripts/press-transcripts-sync.test.mjs
+
+      # The transcripts the Mac job saved. Extracted outside the checkout, so
+      # nothing from that branch can end up in the desk's commit. If the
+      # branch is missing, the desk asks YouTube directly (which usually
+      # fails from here) and falls back to news reports of the sessions.
+      - name: Fetch saved press conference transcripts
+        run: |
+          dir="$RUNNER_TEMP/press-transcripts"
+          mkdir -p "$dir"
+          if git fetch --quiet --depth=1 origin claude/press-transcripts; then
+            git archive FETCH_HEAD transcripts | tar -x -C "$dir" || echo "No saved transcripts on the branch."
+          else
+            echo "No claude/press-transcripts branch; the desk will try YouTube directly."
+          fi
+          echo "Saved transcripts: $(find "$dir" -name '*.json' | wc -l)"
+          echo "PRESS_TRANSCRIPTS_DIR=$dir/transcripts" >> "$GITHUB_ENV"
 
       - name: Note the starting commit
         id: start

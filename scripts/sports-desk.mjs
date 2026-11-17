@@ -28,7 +28,11 @@
 // lists the recent coach and player sessions Ole Miss and Mississippi State
 // posted to YouTube, and the press_conference_transcript tool reads one
 // (scripts/lib/press-conferences.mjs). A transcript counts as an official
-// source, and quotes from it pass the word-for-word check.
+// source, and quotes from it pass the word-for-word check. YouTube refuses
+// caption requests from GitHub's runners, so the owner's Mac saves the
+// transcripts ahead of time (scripts/press-transcripts-sync.mjs) and the
+// workflow hands them over in PRESS_TRANSCRIPTS_DIR; the desk reads a saved
+// copy first and asks YouTube only when none is saved.
 
 import { readFileSync, writeFileSync, appendFileSync, existsSync } from "node:fs";
 import { execSync } from "node:child_process";
@@ -43,7 +47,7 @@ import { readAssignments, writeAssignments, pickAssignment, applyOutcome } from 
 import { buildSportsHeadlines } from "../lib/sports-feeds.mjs";
 import { teamSchedule, SCHEDULE_SCHOOLS, SPORTS, weekdayOf } from "./lib/espn-schedule.mjs";
 import { draftProblems, STORY_SCHOOLS, STORY_SPORTS } from "./lib/sports-desk-checks.mjs";
-import { recentPressConferences, pressConferenceTranscript } from "./lib/press-conferences.mjs";
+import { recentPressConferences, pressConferenceTranscript, readSavedTranscripts } from "./lib/press-conferences.mjs";
 
 const DRY_RUN = process.env.DRY_RUN === "1";
 const POSTS_FILE = "lib/posts.ts";
@@ -56,6 +60,7 @@ const FETCH_CHARS = 18000;
 const MIN_SOURCE_CHARS = 400;
 const TRANSCRIPT_CHARS = 30000;
 const PRESS_HOURS = 96;
+const SAVED_TRANSCRIPTS_DIR = process.env.PRESS_TRANSCRIPTS_DIR || "";
 const log = (...a) => console.log("[sports-desk]", ...a);
 
 // Lead headlines that name a Mississippi school, for picking SEC items out of
@@ -294,15 +299,35 @@ async function gatherLeads() {
   }
 }
 
+// The recent press conferences: the schools' YouTube feeds, plus any session
+// saved by the Mac job that has already dropped off a feed. Each carries its
+// saved transcript (or null) as `saved`.
 async function gatherPressers() {
+  const saved = new Map();
+  if (SAVED_TRANSCRIPTS_DIR) {
+    const { items, errors } = readSavedTranscripts(SAVED_TRANSCRIPTS_DIR);
+    for (const e of errors) log(`saved transcript skipped: ${e}`);
+    for (const t of items) saved.set(t.videoId, t);
+  }
+  let listed = [];
   try {
     const { items, errors } = await recentPressConferences({ hours: PRESS_HOURS });
     for (const e of errors) log(`press conference list: ${e}`);
-    return items.slice(0, 30);
+    listed = items;
   } catch (e) {
     log(`press conferences unavailable: ${e.message}`);
-    return [];
   }
+  const since = Date.now() - PRESS_HOURS * 3600_000;
+  const byId = new Map(listed.map((v) => [v.videoId, v]));
+  for (const t of saved.values()) {
+    if (!byId.has(t.videoId) && Date.parse(t.published) >= since) {
+      byId.set(t.videoId, { school: t.school, videoId: t.videoId, title: t.title, published: t.published, url: t.url });
+    }
+  }
+  const all = [...byId.values()].map((v) => ({ ...v, saved: saved.get(v.videoId) ?? null }));
+  all.sort((a, b) => b.published.localeCompare(a.published));
+  log(`saved transcripts on file: ${saved.size}, listed sessions with one: ${all.filter((v) => v.saved).length}`);
+  return all.slice(0, 30);
 }
 
 function assignmentBlock(item) {
@@ -436,9 +461,9 @@ async function main() {
       ? leads.map((h) => `- ${h.date.slice(0, 10)} | ${h.outlet}${h.sport ? ` | ${h.sport}` : ""} | ${h.title} | ${h.link}`)
       : ["(The leads feeds did not load today. Start with news_feed.)"]),
     "",
-    "Recent press conferences, the schools' own videos, newest first (video id | posted | school | title). Read any that bear on today's news with press_conference_transcript:",
+    'Recent press conferences, the schools\' own videos, newest first (video id | posted | school | title). Read any that bear on today\'s news with press_conference_transcript. Sessions marked "transcript on file" are ready to read; for the others the transcript may not load:',
     ...(pressers.length
-      ? pressers.map((v) => `- ${v.videoId} | ${v.published.slice(0, 10)} | ${v.school} | ${v.title}`)
+      ? pressers.map((v) => `- ${v.videoId} | ${v.published.slice(0, 10)} | ${v.school} | ${v.title}${v.saved ? " | transcript on file" : ""}`)
       : ["(No press conference list today.)"]),
     "",
     'Steps: news_feed for "Ole Miss" and "Mississippi State" (36 hours), then pick the single biggest story by the rules, open the official announcement and at least one news report with fetch_url, call team_schedule for the story\'s school and sport, and publish with publish_sports_article.',
@@ -598,7 +623,8 @@ async function main() {
           content = "That id is not in today's press conference list. Use a video id from the list in the user prompt.";
         } else {
           try {
-            const { text, automatic } = await pressConferenceTranscript(id);
+            const { text, automatic } = video.saved ?? (await pressConferenceTranscript(id));
+            log(`transcript read from ${video.saved ? "the saved copy" : "YouTube"}`);
             const seen = text.length > TRANSCRIPT_CHARS ? `${text.slice(0, TRANSCRIPT_CHARS)}\n\n[truncated]` : text;
             content = [
               `Transcript of "${video.title}", posted ${video.published.slice(0, 10)} by ${video.school} athletics. Source: ${video.url}`,
