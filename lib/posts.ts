@@ -82,6 +82,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-11-17",
+    title: "Morning Brief: Nov 17 · Crigler Park Builds in January; Water Breaks Nearly Double",
+    dek: "A $10 million downtown park with $3.6 million in state money starts construction in January, while JXN Water reports water main breaks have nearly doubled in six weeks of drought.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-11-17",
+    views: 0,
+    body: [
+      "Crigler Park build starts in January: The Mississippi Department of Archives and History said Tuesday that construction on the $10 million Margaret Ann Crigler Park at the Two Mississippi Museums campus begins in January 2027, with the first phase opening in May 2028, WLBT reported. The money is a mix: a $1 million gift from retired businessman Noble T. Crigler, $4.5 million in committed private support raised by the Foundation for Mississippi History, and $3.6 million from the Legislature. MDAH said seven new partners have committed a combined $460,000 since the 2025 \"Coffee at Crigler\" event. The two-acre site adds a community lawn, walking paths and a children's area to a downtown block that has seen little new green space.",
+      "Water main breaks nearly double in drought: JXN Water said Tuesday that water main breaks have nearly doubled in the last six weeks, attributing the surge to prolonged drought drying out the clay soil, which shrinks and shifts and stresses buried pipe, WLBT reported. Crews are repairing in order of impact: critical facilities such as hospitals and schools first, then large breaks affecting neighborhoods, then small leaks by customer count. Customers who see a leak or lose pressure can report it at (601) 500-5200. The utility did not give a break count or a repair backlog in the statement, and it did not put a dollar figure on the added work.",
+      "State revenue estimate sets a $7.8B frame: The Joint Legislative Budget Committee, including Gov. Tate Reeves, adopted a nearly $7.8 billion estimated revenue figure for Fiscal Year 2028, Magnolia Tribune reported Nov. 4, about $266.4 million above the current year's sine die estimate. State economist Corey Miller attributed the growth to a strong workforce, a growing economy and inflation. Reeves' FY28 Executive Budget Recommendation is now posted on governorreeves.ms.gov, though the office had not published a release summarizing its priorities as of Tuesday morning. The number matters locally: it is the ceiling the 2027 Legislature will divide among agencies, and the state has been phasing down its individual income tax at the same time.",
+      "Zoning workshop takes up sign ordinance: Jackson's Department of Planning and Development holds a working session at 1 p.m. today on the second floor of the Warren Hood Building on pending rezoning applications and the proposed update to the city's sign ordinance, according to the city's municipal events calendar. No votes are taken at workshops; recommendations advance to the Planning Board. Sign rules carry direct cost for any business that buys or replaces signage, and the pending rezoning list is where land-use fights surface first. Questions go to planning@jacksonms.gov. The calendar does not list which parcels are on the rezoning list, and the city had not posted the draft sign ordinance text with the event listing.",
+      "Madison's Gallery bonds still unsold: Madison's mayor and Board of Aldermen voted unanimously Nov. 11 to approve a tax increment financing plan allowing up to $11.741 million in bonds for The Gallery, a planned $60 million arts and entertainment district, WLBT reported. No one spoke against it at the public hearing. An attorney told the board the next step is for the city to issue the bonds at the appropriate time, and that repayment comes from new tax revenue inside the district, not the general fund. The city has not set a sale date, so the borrowing cost, and the interest rate Madison ultimately pays, remain unknown.",
+    ],
+  },
+  {
     slug: "jackson-sales-tax-diversions-october-2026",
     title: "Jackson sales tax diversion hits $2,672,010 in October, up 7.5% from a year earlier",
     dek: "Jackson's October payment was its fifth highest of the last 24 months on file. Ridgeland led the suburbs with an 18.6% gain, while Pearl's fiscal-year-to-date total fell 9.5%.",
