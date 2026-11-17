@@ -5,6 +5,7 @@
 // They live apart from the desk script because that file runs its main() the
 // moment it is imported, which would make these impossible to test alone
 // (see sports-desk-checks.test.mjs). Nothing here touches the network or disk.
+import { isTipOnlyUrl } from "./sports-tips.mjs";
 import { apDate, weekdayOf, SPORTS, SCHEDULE_SCHOOLS } from "./espn-schedule.mjs";
 
 // En dash and em dash, written as escapes so this file contains neither.
@@ -409,6 +410,7 @@ export function staleGameProblems(article, schedules, nowIso) {
 
 /** Sources the draft relied on: at least two the desk read, one trusted, one a page (not only ESPN's data). */
 export function sourceProblems(sources, readUrls, scheduleUrls = [], officialUrls = []) {
+  const tipOnly = (Array.isArray(sources) ? sources : []).filter((s) => isTipOnlyUrl(s));
   const read = new Set([...(readUrls || [])].map(normalizeUrl).filter(Boolean));
   const sched = new Set([...(scheduleUrls || [])].map(normalizeUrl).filter(Boolean));
   // A school's own press conference video (read as a transcript) is official.
@@ -417,9 +419,14 @@ export function sourceProblems(sources, readUrls, scheduleUrls = [], officialUrl
   const usable = given.filter((u) => read.has(u) || sched.has(u));
   const unread = (Array.isArray(sources) ? sources : []).filter((s) => {
     const n = normalizeUrl(s);
-    return n && !read.has(n) && !sched.has(n);
+    return n && !read.has(n) && !sched.has(n) && !isTipOnlyUrl(s);
   });
   const problems = [];
+  if (tipOnly.length) {
+    problems.push(
+      `Social posts, forums, podcasts and search trends are tips, not sources. Remove them and rely on official sources or news reports: ${tipOnly.join(", ")}.`,
+    );
+  }
   if (unread.length) {
     problems.push(
       `These sources were not read with fetch_url or press_conference_transcript in this run (or came back nearly empty), so they cannot be relied on: ${unread.join(", ")}.`,
