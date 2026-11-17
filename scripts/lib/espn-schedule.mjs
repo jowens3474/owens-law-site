@@ -201,7 +201,7 @@ export function formatSchedule(school, sport, games, url, now = new Date(), { es
   ];
   if (espnEmpty) {
     lines.push(
-      "ESPN lists no games for this team right now (its data has gaps). Take the next game's date, time, opponent and TV from the school's own schedule page or announcement, opened with fetch_url; the desk checks them against what you read.",
+      "ESPN lists no games for this team right now (its data has gaps), so the desk cannot confirm the next game. Leave nextGame out, and make the What's next paragraph about the next decision or step instead of a game date or time.",
     );
   }
   const recent = past.slice(-3);

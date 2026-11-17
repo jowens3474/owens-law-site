@@ -453,7 +453,6 @@ async function main() {
   // What this run has read, for the checks: the text of every tool result,
   // the pages opened with fetch_url, and the schedules pulled.
   const sourceTexts = [];
-  const pageTexts = []; // fetch_url pages and transcripts that count as read (not search snippets)
   const readUrls = new Set();
   const officialUrls = new Set(); // press conference videos read as transcripts
   const schedules = [];
@@ -463,7 +462,6 @@ async function main() {
     today,
     now: new Date().toISOString(),
     sourceTexts,
-    pageTexts,
     readUrls: [...readUrls],
     officialUrls: [...officialUrls],
     schedules,
@@ -580,7 +578,6 @@ async function main() {
           // A page that came back nearly empty (an error page, a paywall
           // stub) is not a source the story can rely on.
           if (text.trim().length >= MIN_SOURCE_CHARS) {
-            pageTexts.push(seen);
             readUrls.add(String(args.url));
             if (finalUrl) readUrls.add(String(finalUrl));
           } else {
@@ -610,7 +607,6 @@ async function main() {
               seen,
             ].join("\n");
             sourceTexts.push(seen);
-            pageTexts.push(seen);
             readUrls.add(video.url);
             officialUrls.add(video.url);
           } catch (e) {

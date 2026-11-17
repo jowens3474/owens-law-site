@@ -5,7 +5,7 @@
 // They live apart from the desk script because that file runs its main() the
 // moment it is imported, which would make these impossible to test alone
 // (see sports-desk-checks.test.mjs). Nothing here touches the network or disk.
-import { apDate, weekdayOf, centralParts, SPORTS, SCHEDULE_SCHOOLS } from "./espn-schedule.mjs";
+import { apDate, weekdayOf, SPORTS, SCHEDULE_SCHOOLS } from "./espn-schedule.mjs";
 
 // En dash and em dash, written as escapes so this file contains neither.
 const DASHES = /[\u2013\u2014]/;
@@ -297,149 +297,12 @@ export function opponentMatches(scheduleName, given) {
 const startMs = (g) => Date.parse(g.startIso);
 const playable = (g) => g.status !== "canceled" && g.status !== "postponed";
 
-const MONTH_NAMES = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
-/** A pattern for a date as "Nov. 21", "Nov 21", "November 21" or "11/21/26", never as the start of another date. */
-function datePattern(isoDate) {
-  const [, m, d] = String(isoDate).split("-").map(Number);
-  if (!m || !d) return null;
-  const full = MONTH_NAMES[m - 1];
-  const short = full.slice(0, 3);
-  return new RegExp(
-    `(?:${escapeRe(apDate(isoDate))}|\\b${short}\\.?\\s+${d}|${full}\\s+${d})(?!\\d)|(?<![\\d/])0?${m}/0?${d}/(?:\\d{4}|\\d{2})(?!\\d)`,
-    "gi",
-  );
-}
-
-/** Text gives a date as "Nov. 21", "Nov 21", "November 21" or "11/21/26". */
-export function dateInText(text, isoDate) {
-  const re = datePattern(isoDate);
-  return !!re && re.test(String(text ?? ""));
-}
-
-const CLOCK = /(?<![\d:])(\d{1,2})(?::(\d{2}))?\s*([ap])\.?\s*m\.?(?![a-z])|\b(noon|midnight)\b/gi;
-const canonClock = (m) => (m[4] ? m[4].toLowerCase() : canonTime(`${m[1]}${m[2] ? `:${m[2]}` : ""} ${m[3]}.m.`));
-
-/** Clock times in text, canonical ("11am", "7:30pm", "noon"). */
-export function clockTimes(text) {
-  return [...new Set([...String(text ?? "").matchAll(CLOCK)].map(canonClock))];
-}
-
-/** Text gives this clock time, and not as Eastern time. */
-function centralTimeIn(text, canon) {
-  const t = String(text ?? "");
-  for (const m of t.matchAll(CLOCK)) {
-    if (canonClock(m) !== canon) continue;
-    const after = t.slice(m.index + m[0].length, m.index + m[0].length + 14);
-    if (/^\s*\(?\s*(?:ET|EST|EDT|Eastern)\b/i.test(after)) continue;
-    return true;
-  }
-  return false;
-}
-
-// Any month-day date, to find where one schedule row or sentence ends.
-const ANY_DATE = /\b(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.?\s+\d{1,2}(?!\d)|(?<![\d/])\d{1,2}\/\d{1,2}\/(?:\d{4}|\d{2})(?!\d)/gi;
-
-/**
- * The text around one date match, cut at the neighboring dates so a schedule
- * row cannot borrow from the next one: `after` runs from the date to the next
- * date (at most 200 characters on), `before` from the previous date (at most
- * 60 characters back) to the date, for an opponent written first ("Wofford on
- * Nov. 21").
- */
-function datePassage(t, start, end, others) {
-  let next = end + 200;
-  let prev = Math.max(0, start - 60);
-  for (const o of others) {
-    if (o.start >= end && o.start < next) next = o.start;
-    if (o.end <= start && o.end > prev) prev = o.end;
-  }
-  return { after: t.slice(start, next), before: t.slice(prev, start) };
-}
-
-/** Minutes after midnight for a canonical clock time, or null. */
-function clockMinutes(canon) {
-  if (canon === "noon") return 12 * 60;
-  if (canon === "midnight") return 0;
-  const m = String(canon).match(/^(\d{1,2})(?::(\d{2}))?([ap])m$/);
-  if (!m) return null;
-  const h = (Number(m[1]) % 12) + (m[3] === "p" ? 12 : 0);
-  return h * 60 + Number(m[2] || 0);
-}
-
-/**
- * When ESPN lists no games for the team, the next game a draft names must come
- * from what the desk read: one passage of a page or transcript it read must
- * give the date and the opponent together, with every clock time the draft
- * states for it after the date (as Central time, not Eastern), without
- * reaching past a neighboring date. The game cannot be past or
- * already started, and the What's next paragraph must give it.
- */
-export function readNextGameProblems(article, ng, school, sport, todayIso, nowIso, pageTexts) {
-  const problems = [];
-  const date = String(ng.date ?? "").trim();
-  const opponent = String(ng.opponent ?? "").trim();
-  const time = String(ng.time ?? "").trim();
-  const lead = `ESPN lists no ${school} ${sport} games right now, so the next game must come from a page you read (the school's schedule or announcement, opened with fetch_url).`;
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
-    problems.push(`nextGame date must be YYYY-MM-DD, as the source gives it.`);
-    return problems;
-  }
-  const body = Array.isArray(article.body) ? article.body : [];
-  const whatsNext = body.find((p) => /^What['’]s next:/.test(String(p))) || "";
-  const timed = time && !/^tba$/i.test(time);
-  const wanted = new Set(clockTimes(whatsNext));
-  if (timed) wanted.add(canonTime(time));
-
-  if (date < todayIso) {
-    problems.push(`nextGame (${opponent} on ${date}) is in the past. Name the team's next game.`);
-  } else if (date === todayIso) {
-    const start = timed ? clockMinutes(canonTime(time)) : null;
-    if (start === null) {
-      problems.push(`nextGame is today, ${apDate(date)}, so give its start time from a source; if it may have started, report the result or name the game after it.`);
-    } else if (nowIso) {
-      const now = centralParts(new Date(nowIso));
-      if (start <= now.hour * 60 + now.minute) {
-        problems.push(`${opponent} on ${apDate(date)} at ${time} has already started or finished. Do not present it as the next game; report the result or name the game after it.`);
-      }
-    }
-  }
-
-  const re = datePattern(date);
-  let found = false;
-  for (const text of Array.isArray(pageTexts) ? pageTexts : []) {
-    const t = String(text ?? "");
-    const others = [...t.matchAll(ANY_DATE)].map((m) => ({ start: m.index, end: m.index + m[0].length }));
-    re.lastIndex = 0;
-    for (const m of t.matchAll(re)) {
-      const { after, before } = datePassage(t, m.index, m.index + m[0].length, others);
-      const named = mentionsName(after, opponent) || mentionsName(before, opponent);
-      if (named && [...wanted].every((c) => centralTimeIn(after, c))) {
-        found = true;
-        break;
-      }
-    }
-    if (found) break;
-  }
-  if (!found) {
-    const when = wanted.size ? ` at ${[...wanted].join(" or ")} Central` : "";
-    problems.push(
-      `${lead} No page or transcript you read gives ${opponent} on ${apDate(date)}${when} in one passage. Open the school's schedule or announcement with fetch_url and take the date, opponent and time from it; a time given in Eastern must be converted to Central.`,
-    );
-  }
-
-  if (!mentionsDate(whatsNext, date)) problems.push(`The What's next paragraph must give the next game's date as "${weekdayOf(date)}, ${apDate(date)}".`);
-  if (timed && !mentionsTime(whatsNext, time)) problems.push(`The What's next paragraph must give the game time, ${time} Central.`);
-  if (!mentionsName(whatsNext, opponent)) problems.push(`The What's next paragraph must name the opponent, ${opponent}.`);
-  return problems;
-}
-
 /**
  * The next game a draft names must be the team's next playable game on a
  * schedule the desk read, not started, with the same date and time, and the
  * What's next paragraph must give that date, time (unless TBA) and opponent.
  */
-export function nextGameProblems(article, schedules, todayIso, nowIso = "", pageTexts = []) {
+export function nextGameProblems(article, schedules, todayIso, nowIso = "") {
   const problems = [];
   const nowMs = nowIso ? Date.parse(nowIso) : Date.parse(`${todayIso}T00:00:00Z`);
   const find = (school, sport) => (schedules || []).find((s) => s.school === school && s.sport === sport);
@@ -468,10 +331,6 @@ export function nextGameProblems(article, schedules, todayIso, nowIso = "", page
     problems.push(`nextGame is a ${school} ${sport} game, but the desk has not read that schedule. Call team_schedule for it.`);
     return problems;
   }
-  // ESPN's data has gaps (in November 2026 its college football schedules
-  // came back empty for every team). Then the next game is held to what the
-  // desk read instead.
-  if (!sched.games.length && sched.espnEmpty) return readNextGameProblems(article, ng, school, sport, todayIso, nowIso, pageTexts);
   const game = sched.games.find((g) => g.date === String(ng.date) && opponentMatches(g.opponent, ng.opponent));
   if (!game) {
     const upcoming = upcomingOf(sched)
@@ -627,7 +486,7 @@ export function draftProblems(article, ctx) {
   }
   problems.push(...weekdayMismatches([article.title, article.dek, ...body].join("\n"), ctx.today));
   problems.push(...sourceProblems(article.sources, ctx.readUrls, ctx.scheduleUrls, ctx.officialUrls));
-  problems.push(...nextGameProblems(article, ctx.schedules, ctx.today, ctx.now, ctx.pageTexts || []));
+  problems.push(...nextGameProblems(article, ctx.schedules, ctx.today, ctx.now));
   problems.push(...staleGameProblems(article, ctx.schedules, ctx.now));
   const twin = similarRecentTitle(article.title, ctx.recentSportsTitles);
   if (twin) {

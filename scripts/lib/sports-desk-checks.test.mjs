@@ -20,7 +20,6 @@ import {
   sourceProblems,
   structureProblems,
   draftProblems,
-  dateInText,
 } from "./sports-desk-checks.mjs";
 
 const TODAY = "2026-11-14";
@@ -392,70 +391,6 @@ test("the headline and search title are held to the number and quote checks too"
   assert.ok(draftProblems(inventedQuote, ctx).some((p) => /does not appear word for word/.test(p)));
   const sourced = { ...goodArticle, title: "Ole Miss, 6-3, Moves to Sunday After FAA Ground Stop" };
   assert.deepEqual(draftProblems(sourced, ctx), []);
-});
-
-test("when ESPN lists no games, the next game must come from one passage the desk read", () => {
-  const empty = { ...schedule, games: [], espnEmpty: true };
-  const art = {
-    ...withWhatsNext("What's next: Ole Miss hosts Wofford on Saturday, Nov. 21, at 11 a.m. on SECN+."),
-    nextGame: { school: "Ole Miss", sport: "football", opponent: "Wofford", date: "2026-11-21", time: "11 a.m." },
-  };
-  const page = ["Ole Miss will host Wofford on Saturday, Nov. 21. Kickoff is set for 11 a.m. on SECN+."];
-  assert.deepEqual(nextGameProblems(art, [empty], TODAY, MORNING, page), []);
-  // The school's schedule format: "Nov 21" with no period, "11 AM".
-  assert.deepEqual(nextGameProblems(art, [empty], TODAY, MORNING, ["Wofford on Nov 21 at 11 AM"]), []);
-  // Date, opponent and time scattered across different texts do not count.
-  const scattered = ["Women's basketball: Saturday, Nov. 21 at 11 a.m. vs. Tulane.", "Wofford's coach spoke Monday."];
-  assert.ok(nextGameProblems(art, [empty], TODAY, MORNING, scattered).some((p) => /in one passage/.test(p)));
-  // Nothing read at all.
-  assert.ok(nextGameProblems(art, [empty], TODAY, MORNING, []).some((p) => /in one passage/.test(p)));
-  // A schedule row cannot borrow the opponent or the time from the next or previous row.
-  const rows = ["Sat, Nov. 21 vs. Wofford 11 a.m. SECN+. Fri, Nov. 27 vs. Mississippi State 6:30 p.m. ESPN."];
-  assert.deepEqual(nextGameProblems(art, [empty], TODAY, MORNING, rows), []);
-  const wrongOpponent = { ...art, nextGame: { ...art.nextGame, opponent: "Mississippi State" }, body: [...art.body.slice(0, 5), "What's next: Ole Miss hosts Mississippi State on Saturday, Nov. 21, at 11 a.m."] };
-  assert.ok(nextGameProblems(wrongOpponent, [empty], TODAY, MORNING, rows).some((p) => /in one passage/.test(p)));
-  const wrongTime = { ...art, nextGame: { ...art.nextGame, time: "6:30 p.m." }, body: [...art.body.slice(0, 5), "What's next: Ole Miss hosts Wofford on Saturday, Nov. 21, at 6:30 p.m."] };
-  assert.ok(nextGameProblems(wrongTime, [empty], TODAY, MORNING, rows).some((p) => /in one passage/.test(p)));
-  const opponentFirst = ["Oklahoma on Nov 15 at noon. Wofford on Nov 21 at 11 AM."];
-  assert.deepEqual(nextGameProblems(art, [empty], TODAY, MORNING, opponentFirst), []);
-  const noonFromPrevRow = { ...art, nextGame: { ...art.nextGame, time: "noon" }, body: [...art.body.slice(0, 5), "What's next: Ole Miss hosts Wofford on Saturday, Nov. 21, at noon."] };
-  assert.ok(nextGameProblems(noonFromPrevRow, [empty], TODAY, MORNING, opponentFirst).some((p) => /in one passage/.test(p)));
-  // An Eastern time is not a Central one.
-  assert.ok(nextGameProblems(art, [empty], TODAY, MORNING, ["Wofford at Ole Miss, Nov. 21, 11 a.m. ET"]).some((p) => /in one passage/.test(p)));
-  // A TBA time: any clock time the What's next paragraph gives must still be in the passage.
-  const tbaWithTime = { ...art, nextGame: { ...art.nextGame, time: "TBA" }, body: [...art.body.slice(0, 5), "What's next: Ole Miss hosts Wofford on Saturday, Nov. 21, at 6:30 p.m."] };
-  assert.ok(nextGameProblems(tbaWithTime, [empty], TODAY, MORNING, ["Wofford visits Saturday, Nov. 21."]).some((p) => /6:30pm Central in one passage/.test(p)));
-  const tba = { ...tbaWithTime, body: [...art.body.slice(0, 5), "What's next: Ole Miss hosts Wofford on Saturday, Nov. 21; the time has not been set."] };
-  assert.deepEqual(nextGameProblems(tba, [empty], TODAY, MORNING, ["Wofford visits Saturday, Nov. 21."]), []);
-  // A past date, and a game earlier today that has already started.
-  const past = { ...art, nextGame: { ...art.nextGame, date: "2026-11-07" } };
-  assert.ok(nextGameProblems(past, [empty], TODAY, MORNING, ["Nov. 7: Wofford at 11 a.m."]).some((p) => /in the past/.test(p)));
-  const today = {
-    ...withWhatsNext("What's next: Ole Miss hosts Wofford on Saturday, Nov. 14, at 11 a.m."),
-    nextGame: { school: "Ole Miss", sport: "football", opponent: "Wofford", date: TODAY, time: "11 a.m." },
-  };
-  const twoPm = "2026-11-14T20:00:00Z"; // 2 p.m. Central
-  assert.ok(nextGameProblems(today, [empty], TODAY, twoPm, ["Wofford at Ole Miss, Nov. 14, 11 a.m."]).some((p) => /already started or finished/.test(p)));
-  assert.deepEqual(nextGameProblems(today, [empty], TODAY, MORNING, ["Wofford at Ole Miss, Nov. 14, 11 a.m."]), []);
-  // The What's next paragraph must give what nextGame says.
-  const vague = { ...art, body: [...art.body.slice(0, 5), "What's next: Ole Miss is back home this weekend."] };
-  const v = nextGameProblems(vague, [empty], TODAY, MORNING, page);
-  assert.ok(v.some((p) => /date as "Saturday, Nov\. 21"/.test(p)));
-  assert.ok(v.some((p) => /opponent, Wofford/.test(p)));
-  // An empty game list that is not ESPN's empty schedule (an error body) does not fall back.
-  assert.match(nextGameProblems(art, [{ ...schedule, games: [] }], TODAY, MORNING, page)[0], /not on ESPN's Ole Miss football schedule/);
-  // A full schedule still decides as before.
-  assert.match(nextGameProblems(art, [schedule], TODAY, MORNING, page)[0], /next Ole Miss football game is Oklahoma/);
-});
-
-test("dates are found as AP, abbreviated, spelled out or numeric with a year, never as part of another number", () => {
-  assert.ok(dateInText("Kickoff is Saturday, Nov. 21.", "2026-11-21"));
-  assert.ok(dateInText("Wofford on Nov 21 at 11 AM", "2026-11-21"));
-  assert.ok(dateInText("on November 21, 2026", "2026-11-21"));
-  assert.ok(dateInText("11/21/26 vs Wofford", "2026-11-21"));
-  assert.ok(dateInText("Sept. 5 opener", "2026-09-05"));
-  assert.ok(!dateInText("Nov. 2 and 11/2 and 11/210", "2026-11-21"));
-  assert.ok(!dateInText("He was 11/21 from the field.", "2026-11-21"));
 });
 
 test("noon is a whole word", () => {
