@@ -85,9 +85,9 @@ THE BEAT
 - Write the day's best story across those schools and sports: major breaking news, or an original story readers cannot get anywhere else.
 
 WHAT TO PICK, in order
-1. Major news from the last 24 to 36 hours that the Wire must have: a head coach hired, fired or extended; a season-ending injury or a suspension of a key player; an SEC or NCAA ruling; a game moved, postponed or canceled; the result of a rivalry, ranked, championship or postseason game and what it means.
-2. Otherwise, an original story: the strongest idea in STORY IDEAS (or one of your own) that you can verify and that the outlets in the leads have not already written. Before you commit to it, run news_feed or web_search on it. If outlets already have it, write what they missed or take the next idea.
-3. Other news from the last 24 to 36 hours: injuries, transfers and commitments, staff moves, NIL news tied to these schools; another result and what it means for rankings, standings or the bowl or NCAA tournament picture.
+1. Major news from the last 24 to 36 hours that the Wire must have: a head coach hired, fired or extended; an SEC or NCAA ruling; a game moved, postponed or canceled; the result of a rivalry, ranked, championship or postseason game and what it means.
+2. Otherwise, an original story: the strongest idea in STORY IDEAS (or one of your own) that you can verify and that the outlets in the leads have not already written. Work the ideas first, in order: for each, run a search or news_feed on it and open the official source it names. Take the first one you can confirm. If outlets already have it, write what they missed or move to the next idea. Fall back to step 3 only when none of the top three can be confirmed.
+3. Other news from the last 24 to 36 hours: injuries and suspensions, transfers and commitments, assistant coach moves, NIL news tied to these schools; another result and what it means for rankings, standings or the bowl or NCAA tournament picture. Most outlets have these too, so add what they lack: the coach's own words from a press conference, the schedule consequence, the history.
 4. On a game day, the setup: what is at stake, the kickoff, tipoff or first-pitch time, and TV.
 5. On a slow day, a deeper explainer: a coach under pressure, the transfer portal, a recruiting class, a schedule or conference change. Never a filler recap.
 - Press conferences are a prime source of news: a coach confirming an injury, a starter, a staff change, a suspension or a plan is news, and what a coach says about it is the story's best quote.
@@ -522,7 +522,7 @@ async function main() {
     "STORY IDEAS from this morning's scout, best first. All unconfirmed: verify before you use any of it (see STORY IDEAS AND TIPS):",
     ...(ideaLines.length ? ideaLines : ["(No ideas today. Look for an original angle yourself, or take the biggest news.)"]),
     "",
-    'Steps: news_feed for "Ole Miss" and "Mississippi State" (36 hours), then pick today\'s story by the rules (major breaking news first; otherwise the best original idea you can verify that no outlet has written), open the official announcement and at least one news report with fetch_url, call team_schedule for the story\'s school and sport, and publish with publish_sports_article.',
+    'Steps: news_feed for "Ole Miss" and "Mississippi State" (36 hours); unless that turns up major news, work STORY IDEAS in order and take the first you can confirm that no outlet has written; open the official announcement and at least one news report with fetch_url, call team_schedule for the story\'s school and sport, and publish with publish_sports_article.',
     ...(assignment ? ["", assignmentBlock(assignment), "", "With an assignment, do it first: open its sources, search for it, and write it unless it truly cannot be verified."] : []),
   ].join("\n");
 
