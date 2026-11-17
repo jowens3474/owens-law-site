@@ -82,6 +82,27 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "ole-miss-golding-playoff-fate-sealed-wofford-senior-day",
+    title: "Golding Says Fourth Loss \"Seals the Fate\" for Ole Miss, Which Closes With Wofford and the Egg Bowl",
+    seoTitle: "Ole Miss: Golding says playoff fate sealed at 6-4",
+    dek: "Ole Miss is 6-4 after Sunday's 24-17 loss at Oklahoma. Pete Golding says the playoff is out, and the Rebels have two home games left, starting Saturday against Wofford.",
+    category: "General News",
+    tags: ["sports-ms-college"],
+    author: "Jackson Wire Staff",
+    date: "2026-11-17",
+    views: 0,
+    body: [
+      "Ole Miss is 6-4 and out of the College Football Playoff race, and Pete Golding is not pretending otherwise. Asked after Sunday's 24-17 loss at Oklahoma whether the fourth loss ends the Rebels' playoff hopes, the Ole Miss coach said the game \"kind of seals the fate from a playoff standpoint.\"",
+      "The school's schedule page lists the Rebels at 6-4 overall and 4-4 in the SEC, with a two-game losing streak, after losses to Georgia and Oklahoma in consecutive weeks. Ole Miss was ranked No. 19 going into Norman. The Rebels' remaining regular-season games are both at Vaught-Hemingway Stadium: Wofford on Saturday and Mississippi State on Friday, Nov. 27.",
+      "Golding's answer went past the standings. \"What we're about to find out is what kind of character this team really has,\" he said, according to a transcript of his postgame press conference published by Sports Illustrated's Ole Miss site. He said the group had been disappointed after the Georgia loss, and that with the playoff gone, \"we're going to see what they really play for.\"",
+      "He also framed the last two weeks as a chance to protect a standard rather than chase a bracket. \"That's one of the big things to me that I'm really disappointed in: the opportunity to win 10 games,\" Golding said. \"I think that creates its own legacy for every team, regardless of where you play.\"",
+      "The loss in Norman came after a day of travel chaos. The game was pushed from Saturday to Sunday after a nationwide FAA ground stop, and Golding described buses, hours under a stadium and a team that never got to choose its schedule. \"I told the players this very much felt like COVID to me,\" he said. \"We didn't get to decide this.\"",
+      "On the field, Golding pointed to third down and tackling. Oklahoma's offense, he said, ran the ball 50 times, and the damage came on third-and-medium and longer rather than on early downs. \"It was never the run,\" he said. \"It was a missed-tackle component.\" He also cited a special teams touchdown allowed and poor third-down efficiency on offense as the game's deciding gaps.",
+      "Golding was asked whether he would consider giving up defensive play calling in the offseason, his first year handling both jobs. \"Yeah, I think everything's on the table, obviously,\" he said. He added that some offseason hires are no longer in the building, and that he has reached out to other coaches, including Oklahoma's Brent Venables, for ideas on running both roles.",
+      "What's next: Ole Miss hosts Wofford on Saturday, Nov. 21, at 11 a.m. at Vaught-Hemingway Stadium, with the game listed on SEC Network Plus. The Rebels then close the regular season at home against Mississippi State on Friday, Nov. 27, at 11 a.m.",
+    ],
+  },
+  {
     slug: "morning-brief-2026-11-17",
     title: "Morning Brief: Nov 17 · Crigler Park Builds in January; Water Breaks Nearly Double",
     dek: "A $10 million downtown park with $3.6 million in state money starts construction in January, while JXN Water reports water main breaks have nearly doubled in six weeks of drought.",
