@@ -8,6 +8,22 @@ const nextConfig: NextConfig = {
     "/meetings/search": ["./data/meetings/**/*"],
     "/api/meetings/search": ["./data/meetings/**/*"],
   },
+  async headers() {
+    return [
+      {
+        // Self-hosted fonts (scripts/self-host-fonts.mjs). Each file name
+        // carries a hash of its contents, so browsers can keep them for a
+        // year, as they did when next/font served them from /_next/static.
+        source: "/fonts/:file*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+    ];
+  },
   async rewrites() {
     return {
       // beforeFiles so /article/<slug>.md is rewritten before the [slug] page matches it.
