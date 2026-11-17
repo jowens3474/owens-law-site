@@ -199,6 +199,11 @@ export function formatSchedule(school, sport, games, url, now = new Date()) {
     `ESPN schedule for ${school} ${sport}, times Central. Source: ${url}`,
     "Recent results:",
   ];
+  if (games.length === 0) {
+    lines.push(
+      "ESPN lists no games for this team right now (its data has gaps). Take the next game's date, time, opponent and TV from the school's own schedule page or announcement, opened with fetch_url; the desk checks them against what you read.",
+    );
+  }
   const recent = past.slice(-3);
   if (recent.length === 0) lines.push("- none in ESPN's data");
   for (const g of recent) {

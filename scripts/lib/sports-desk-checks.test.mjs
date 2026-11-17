@@ -20,6 +20,7 @@ import {
   sourceProblems,
   structureProblems,
   draftProblems,
+  dateInText,
 } from "./sports-desk-checks.mjs";
 
 const TODAY = "2026-11-14";
@@ -391,4 +392,46 @@ test("the headline and search title are held to the number and quote checks too"
   assert.ok(draftProblems(inventedQuote, ctx).some((p) => /does not appear word for word/.test(p)));
   const sourced = { ...goodArticle, title: "Ole Miss, 6-3, Moves to Sunday After FAA Ground Stop" };
   assert.deepEqual(draftProblems(sourced, ctx), []);
+});
+
+test("when ESPN lists no games, the next game is held to what the desk read", () => {
+  const empty = { ...schedule, games: [] };
+  const art = {
+    ...withWhatsNext("What's next: Ole Miss hosts Wofford on Saturday, Nov. 21, at 11 a.m. on SECN+."),
+    nextGame: { school: "Ole Miss", sport: "football", opponent: "Wofford", date: "2026-11-21", time: "11 a.m." },
+  };
+  const read = ["Ole Miss will host Wofford on Saturday, Nov. 21. Kickoff is set for 11 a.m. on SECN+."];
+  assert.deepEqual(nextGameProblems(art, [empty], TODAY, MORNING, read), []);
+  // Nothing the desk read gives the date, the opponent or the time.
+  const unread = nextGameProblems(art, [empty], TODAY, MORNING, ["Ole Miss beat Oklahoma on Sunday."]);
+  assert.ok(unread.some((p) => /date Nov\. 21 does not appear/.test(p)));
+  assert.ok(unread.some((p) => /opponent "Wofford" does not appear/.test(p)));
+  assert.ok(unread.some((p) => /time "11 a\.m\." does not appear/.test(p)));
+  // A TBA time needs no time in the sources.
+  const tba = { ...art, nextGame: { ...art.nextGame, time: "TBA" } };
+  assert.deepEqual(nextGameProblems(tba, [empty], TODAY, MORNING, ["Wofford visits on Saturday, Nov. 21."]), []);
+  // A past date is caught.
+  const past = { ...art, nextGame: { ...art.nextGame, date: "2026-11-07" } };
+  assert.ok(nextGameProblems(past, [empty], TODAY, MORNING, ["Nov. 7: Wofford at 11 a.m."]).some((p) => /in the past/.test(p)));
+  // The What's next paragraph must give what nextGame says.
+  const vague = { ...art, body: [...art.body.slice(0, 5), "What's next: Ole Miss is back home this weekend."] };
+  const v = nextGameProblems(vague, [empty], TODAY, MORNING, read);
+  assert.ok(v.some((p) => /date as "Saturday, Nov\. 21"/.test(p)));
+  assert.ok(v.some((p) => /opponent, Wofford/.test(p)));
+  // A full schedule still decides as before.
+  assert.match(nextGameProblems(art, [schedule], TODAY, MORNING, read)[0], /next Ole Miss football game is Oklahoma/);
+});
+
+test("dates are found as AP, spelled out or numeric, never as the start of another date", () => {
+  assert.ok(dateInText("Kickoff is Saturday, Nov. 21.", "2026-11-21"));
+  assert.ok(dateInText("on November 21, 2026", "2026-11-21"));
+  assert.ok(dateInText("11/21/26 vs Wofford", "2026-11-21"));
+  assert.ok(!dateInText("Nov. 2 and 11/2 and 11/210", "2026-11-21"));
+});
+
+test("a school's own press conference video counts as an official source", () => {
+  const video = "https://www.youtube.com/watch?v=e5IkVddyqac";
+  const blog = "https://www.on3.com/a";
+  assert.ok(sourceProblems([video, blog], [video, blog], []).some((p) => /official/.test(p)));
+  assert.deepEqual(sourceProblems([video, blog], [video, blog], [], [video]), []);
 });

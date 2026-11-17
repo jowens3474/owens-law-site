@@ -23,6 +23,12 @@
 //
 // The editor can steer it with data/sports-assignments.json, the same list
 // format as the news desk's data/assignments.json (scripts/lib/assignments.mjs).
+//
+// Story ideas also come from the schools' own press conferences: each run
+// lists the recent coach and player sessions Ole Miss and Mississippi State
+// posted to YouTube, and the press_conference_transcript tool reads one
+// (scripts/lib/press-conferences.mjs). A transcript counts as an official
+// source, and quotes from it pass the word-for-word check.
 
 import { readFileSync, writeFileSync, appendFileSync, existsSync } from "node:fs";
 import { execSync } from "node:child_process";
@@ -37,6 +43,7 @@ import { readAssignments, writeAssignments, pickAssignment, applyOutcome } from 
 import { buildSportsHeadlines } from "../lib/sports-feeds.mjs";
 import { teamSchedule, SCHEDULE_SCHOOLS, SPORTS, weekdayOf } from "./lib/espn-schedule.mjs";
 import { draftProblems, STORY_SCHOOLS, STORY_SPORTS } from "./lib/sports-desk-checks.mjs";
+import { recentPressConferences, pressConferenceTranscript } from "./lib/press-conferences.mjs";
 
 const DRY_RUN = process.env.DRY_RUN === "1";
 const POSTS_FILE = "lib/posts.ts";
@@ -47,6 +54,8 @@ const WRAP_UP_AT = 12;
 const MAX_REVISIONS = 2;
 const FETCH_CHARS = 18000;
 const MIN_SOURCE_CHARS = 400;
+const TRANSCRIPT_CHARS = 30000;
+const PRESS_HOURS = 96;
 const log = (...a) => console.log("[sports-desk]", ...a);
 
 // Lead headlines that name a Mississippi school, for picking SEC items out of
@@ -66,12 +75,20 @@ WHAT TO PICK, in order
 2. A big result and what it means: rankings, standings, the bowl or NCAA tournament picture.
 3. On a game day, the setup: what is at stake, the kickoff, tipoff or first-pitch time, and TV.
 4. On a slow day, a deeper explainer: a coach under pressure, the transfer portal, a recruiting class, a schedule or conference change. Never a filler recap.
+- Press conferences are a prime source of news: a coach confirming an injury, a starter, a staff change, a suspension or a plan is news, and what a coach says about it is the story's best quote.
 - Do not repeat a topic from the recent sports stories you are given unless there is genuinely new information; then lead with what is new.
 - Tie-breakers: Ole Miss and Mississippi State news beats other schools; in the fall, football beats other sports unless another story is clearly bigger.
 - When the user prompt includes TODAY'S ASSIGNMENT, that assignment is today's story and outranks everything above. Research it first and write it. Skip it only if, after opening its sources and searching, nothing new about it can be verified; bigger news elsewhere is not a reason to skip it.
 
+PRESS CONFERENCES
+- The user prompt lists the schools' recent press conference videos (coaches and players), newest first. Read the transcript of any that bears on today's news with press_conference_transcript, and read the head coach's latest session in the story's sport when one is listed.
+- Look for news in them: injury and availability updates, depth chart and starting lineup changes, staff and coaching changes, suspensions, transfers, recruiting, and what the coach says about the next opponent.
+- A transcript is automatic captions. It can mishear words and misspell names. Quote only passages that read cleanly and make sense, keep quotes short, and never quote a garbled passage. Check every name you use against another source you read (the roster, the school's announcement or a news report); if a quote contains a name the captions misspelled, paraphrase instead of quoting.
+- Attribute by speaker and session, using the session date from the video title: "Golding said at his Monday press conference." The speaker is in the video title; when it is not clear who is talking in a passage, do not attribute it.
+- A press conference video you read counts as an official source; list its URL in sources.
+
 RESEARCH ORDER
-1. Start with the leads in the user prompt and with news_feed for "Ole Miss" and "Mississippi State" over the last 36 hours (and any other school with big news in the leads).
+1. Start with the leads and the press conference list in the user prompt, and with news_feed for "Ole Miss" and "Mississippi State" over the last 36 hours (and any other school with big news in the leads).
 2. Pick the story, then open the best sources with fetch_url and read them: the school's or conference's own announcement and at least one news report. Search results and leads are pointers, not sources.
 3. Call team_schedule for the school and sport of your story. Use it for every date, time, opponent, score and TV listing you state. If ESPN's data and a news report disagree on a date or time, go with the school's own announcement and say what changed.
 4. Use web_search for anything else you need, then fetch_url what you will rely on.
@@ -148,6 +165,19 @@ const TOOLS = [
           hours: { type: "integer", description: "Lookback window in hours (default 24, max 168).", minimum: 1, maximum: 168 },
         },
         required: ["query"],
+      },
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "press_conference_transcript",
+      description:
+        "Read the transcript (automatic captions) of one press conference from the list in the user prompt. Use it for story ideas and for quotes; quote only clean passages and check names against another source.",
+      parameters: {
+        type: "object",
+        properties: { video_id: { type: "string", description: "The video id shown in the press conference list." } },
+        required: ["video_id"],
       },
     },
   },
@@ -264,6 +294,17 @@ async function gatherLeads() {
   }
 }
 
+async function gatherPressers() {
+  try {
+    const { items, errors } = await recentPressConferences({ hours: PRESS_HOURS });
+    for (const e of errors) log(`press conference list: ${e}`);
+    return items.slice(0, 30);
+  } catch (e) {
+    log(`press conferences unavailable: ${e.message}`);
+    return [];
+  }
+}
+
 function assignmentBlock(item) {
   const text = (v) => (typeof v === "string" ? v.trim() : "");
   const sources = (Array.isArray(item.sources) ? item.sources : []).map(text).filter((s) => /^https?:\/\//i.test(s));
@@ -375,6 +416,9 @@ async function main() {
   const recent = recentSportsTitles(postsContent);
   const { leads, ok, total } = await gatherLeads();
   log(`today=${today}, recent sports stories=${recent.length}, leads=${leads.length} (feeds read ${ok} of ${total}), dry_run=${DRY_RUN}`);
+  const pressers = await gatherPressers();
+  log(`press conferences in the last ${PRESS_HOURS} hours: ${pressers.length}`);
+  const presserById = new Map(pressers.map((v) => [v.videoId, v]));
 
   const { items: assignmentItems, problem: assignmentProblem } = readAssignments(SPORTS_ASSIGNMENTS_FILE);
   if (assignmentProblem) log(`Sports assignment list ignored: ${assignmentProblem}`);
@@ -392,6 +436,11 @@ async function main() {
       ? leads.map((h) => `- ${h.date.slice(0, 10)} | ${h.outlet}${h.sport ? ` | ${h.sport}` : ""} | ${h.title} | ${h.link}`)
       : ["(The leads feeds did not load today. Start with news_feed.)"]),
     "",
+    "Recent press conferences, the schools' own videos, newest first (video id | posted | school | title). Read any that bear on today's news with press_conference_transcript:",
+    ...(pressers.length
+      ? pressers.map((v) => `- ${v.videoId} | ${v.published.slice(0, 10)} | ${v.school} | ${v.title}`)
+      : ["(No press conference list today.)"]),
+    "",
     'Steps: news_feed for "Ole Miss" and "Mississippi State" (36 hours), then pick the single biggest story by the rules, open the official announcement and at least one news report with fetch_url, call team_schedule for the story\'s school and sport, and publish with publish_sports_article.',
     ...(assignment ? ["", assignmentBlock(assignment), "", "With an assignment, do it first: open its sources, search for it, and write it unless it truly cannot be verified."] : []),
   ].join("\n");
@@ -405,6 +454,7 @@ async function main() {
   // the pages opened with fetch_url, and the schedules pulled.
   const sourceTexts = [];
   const readUrls = new Set();
+  const officialUrls = new Set(); // press conference videos read as transcripts
   const schedules = [];
   const scheduleErrors = new Map(); // "school|sport" -> last error, told to the model with the check
   const usage = { calls: 0, prompt: 0, completion: 0, hit: 0, miss: 0 };
@@ -413,6 +463,7 @@ async function main() {
     now: new Date().toISOString(),
     sourceTexts,
     readUrls: [...readUrls],
+    officialUrls: [...officialUrls],
     schedules,
     scheduleUrls: schedules.map((s) => s.url),
     recentSportsTitles: recent.map((r) => r.title),
@@ -538,6 +589,30 @@ async function main() {
         log(`news_feed: "${args.query}"`);
         content = (await runDataTool("news_feed", args, { prefix: "sports-desk" })) ?? "news_feed unavailable.";
         sourceTexts.push(content);
+      } else if (name === "press_conference_transcript") {
+        const id = String(args.video_id || "").trim();
+        const video = presserById.get(id);
+        log(`press_conference_transcript: ${id}${video ? ` (${video.title})` : ""}`);
+        if (!video) {
+          content = "That id is not in today's press conference list. Use a video id from the list in the user prompt.";
+        } else {
+          try {
+            const { text, automatic } = await pressConferenceTranscript(id);
+            const seen = text.length > TRANSCRIPT_CHARS ? `${text.slice(0, TRANSCRIPT_CHARS)}\n\n[truncated]` : text;
+            content = [
+              `Transcript of "${video.title}", posted ${video.published.slice(0, 10)} by ${video.school} athletics. Source: ${video.url}`,
+              automatic ? "These are YouTube's automatic captions: words and names can be misheard. Quote only clean passages and check names against another source. \">>\" marks a change of speaker." : "These are the video's captions. \">>\" marks a change of speaker.",
+              "",
+              seen,
+            ].join("\n");
+            sourceTexts.push(seen);
+            readUrls.add(video.url);
+            officialUrls.add(video.url);
+          } catch (e) {
+            log(`transcript failed: ${e.message}`);
+            content = `Transcript unavailable: ${e.message} Captions can take a few hours to appear after a video is posted; try another session or a news report of it.`;
+          }
+        }
       } else if (name === "team_schedule") {
         log(`team_schedule: ${args.school} ${args.sport}`);
         try {

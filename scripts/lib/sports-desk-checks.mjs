@@ -295,12 +295,57 @@ export function opponentMatches(scheduleName, given) {
 const startMs = (g) => Date.parse(g.startIso);
 const playable = (g) => g.status !== "canceled" && g.status !== "postponed";
 
+const MONTH_NAMES = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+/** Text gives a date as "Nov. 21", "November 21" or "11/21". */
+export function dateInText(text, isoDate) {
+  const [, m, d] = String(isoDate).split("-").map(Number);
+  if (!m || !d) return false;
+  const t = String(text ?? "");
+  const ap = apDate(isoDate);
+  return (
+    new RegExp(`${escapeRe(ap)}(?!\\d)`, "i").test(t) ||
+    new RegExp(`${MONTH_NAMES[m - 1]}\\s+${d}(?!\\d)`, "i").test(t) ||
+    new RegExp(`(?<![\\d/])0?${m}/0?${d}(?![\\d])`).test(t)
+  );
+}
+
+/**
+ * When ESPN lists no games for the team, the next game a draft names must come
+ * from what the desk read: its date, opponent and time (unless TBA) must appear
+ * in a source, the date must not be past, and the What's next paragraph must
+ * give them.
+ */
+export function readNextGameProblems(article, ng, school, sport, todayIso, sourceTexts) {
+  const problems = [];
+  const date = String(ng.date ?? "").trim();
+  const opponent = String(ng.opponent ?? "").trim();
+  const time = String(ng.time ?? "").trim();
+  const corpus = (Array.isArray(sourceTexts) ? sourceTexts : []).join("\n");
+  const lead = `ESPN lists no ${school} ${sport} games right now, so the next game must come from a page you read (the school's schedule or announcement, opened with fetch_url).`;
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+    problems.push(`nextGame date must be YYYY-MM-DD, as the source gives it.`);
+    return problems;
+  }
+  if (date < todayIso) problems.push(`nextGame (${opponent} on ${date}) is in the past. Name the team's next game.`);
+  if (!dateInText(corpus, date)) problems.push(`${lead} The date ${apDate(date)} does not appear in anything you read.`);
+  if (!mentionsName(corpus, opponent)) problems.push(`${lead} The opponent "${opponent}" does not appear in anything you read.`);
+  const timed = time && !/^tba$/i.test(time);
+  if (timed && !mentionsTime(corpus, time)) problems.push(`${lead} The time "${time}" does not appear in anything you read; give it as the source does, or say the time is to be announced.`);
+  const body = Array.isArray(article.body) ? article.body : [];
+  const whatsNext = body.find((p) => /^What['’]s next:/.test(String(p))) || "";
+  if (!mentionsDate(whatsNext, date)) problems.push(`The What's next paragraph must give the next game's date as "${weekdayOf(date)}, ${apDate(date)}".`);
+  if (timed && !mentionsTime(whatsNext, time)) problems.push(`The What's next paragraph must give the game time, ${time} Central.`);
+  if (!mentionsName(whatsNext, opponent)) problems.push(`The What's next paragraph must name the opponent, ${opponent}.`);
+  return problems;
+}
+
 /**
  * The next game a draft names must be the team's next playable game on a
  * schedule the desk read, not started, with the same date and time, and the
  * What's next paragraph must give that date, time (unless TBA) and opponent.
  */
-export function nextGameProblems(article, schedules, todayIso, nowIso = "") {
+export function nextGameProblems(article, schedules, todayIso, nowIso = "", sourceTexts = []) {
   const problems = [];
   const nowMs = nowIso ? Date.parse(nowIso) : Date.parse(`${todayIso}T00:00:00Z`);
   const find = (school, sport) => (schedules || []).find((s) => s.school === school && s.sport === sport);
@@ -329,6 +374,10 @@ export function nextGameProblems(article, schedules, todayIso, nowIso = "") {
     problems.push(`nextGame is a ${school} ${sport} game, but the desk has not read that schedule. Call team_schedule for it.`);
     return problems;
   }
+  // ESPN's data has gaps (in November 2026 its college football schedules
+  // came back empty for every team). Then the next game is held to what the
+  // desk read instead.
+  if (!sched.games.length) return readNextGameProblems(article, ng, school, sport, todayIso, sourceTexts);
   const game = sched.games.find((g) => g.date === String(ng.date) && opponentMatches(g.opponent, ng.opponent));
   if (!game) {
     const upcoming = upcomingOf(sched)
@@ -406,9 +455,11 @@ export function staleGameProblems(article, schedules, nowIso) {
 }
 
 /** Sources the draft relied on: at least two the desk read, one trusted, one a page (not only ESPN's data). */
-export function sourceProblems(sources, readUrls, scheduleUrls = []) {
+export function sourceProblems(sources, readUrls, scheduleUrls = [], officialUrls = []) {
   const read = new Set([...(readUrls || [])].map(normalizeUrl).filter(Boolean));
   const sched = new Set([...(scheduleUrls || [])].map(normalizeUrl).filter(Boolean));
+  // A school's own press conference video (read as a transcript) is official.
+  const official = new Set([...(officialUrls || [])].map(normalizeUrl).filter(Boolean));
   const given = [...new Set((Array.isArray(sources) ? sources : []).map(normalizeUrl).filter(Boolean))];
   const usable = given.filter((u) => read.has(u) || sched.has(u));
   const unread = (Array.isArray(sources) ? sources : []).filter((s) => {
@@ -418,7 +469,7 @@ export function sourceProblems(sources, readUrls, scheduleUrls = []) {
   const problems = [];
   if (unread.length) {
     problems.push(
-      `These sources were not read with fetch_url in this run (or came back nearly empty), so they cannot be relied on: ${unread.join(", ")}.`,
+      `These sources were not read with fetch_url or press_conference_transcript in this run (or came back nearly empty), so they cannot be relied on: ${unread.join(", ")}.`,
     );
   }
   if (usable.length < 2) {
@@ -427,7 +478,7 @@ export function sourceProblems(sources, readUrls, scheduleUrls = []) {
   if (!usable.some((u) => read.has(u))) {
     problems.push("At least one source must be a page you read with fetch_url (an announcement or news report), not only ESPN's schedule data.");
   }
-  if (usable.length && !usable.some((u) => isTrusted(`https://${u}`))) {
+  if (usable.length && !usable.some((u) => isTrusted(`https://${u}`) || official.has(u))) {
     problems.push("At least one source must be official (a school, conference, the NCAA or ESPN) or an established newsroom.");
   }
   return problems;
@@ -481,8 +532,8 @@ export function draftProblems(article, ctx) {
     );
   }
   problems.push(...weekdayMismatches([article.title, article.dek, ...body].join("\n"), ctx.today));
-  problems.push(...sourceProblems(article.sources, ctx.readUrls, ctx.scheduleUrls));
-  problems.push(...nextGameProblems(article, ctx.schedules, ctx.today, ctx.now));
+  problems.push(...sourceProblems(article.sources, ctx.readUrls, ctx.scheduleUrls, ctx.officialUrls));
+  problems.push(...nextGameProblems(article, ctx.schedules, ctx.today, ctx.now, ctx.sourceTexts));
   problems.push(...staleGameProblems(article, ctx.schedules, ctx.now));
   const twin = similarRecentTitle(article.title, ctx.recentSportsTitles);
   if (twin) {
