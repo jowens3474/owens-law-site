@@ -39,7 +39,8 @@ export const TRENDS_URL = "https://trends.google.com/trending/rss?geo=US-MS";
 const TIP_HOSTS = [
   // Social networks and their mirrors.
   "bsky.app", "bsky.social", "reddit.com", "redd.it", "x.com", "twitter.com", "t.co", "xcancel.com", "nitter.net",
-  "fxtwitter.com", "vxtwitter.com", "fixupx.com", "fixvx.com", "facebook.com", "fb.com", "instagram.com",
+  "fxtwitter.com", "vxtwitter.com", "fixupx.com", "fixvx.com", "threadreaderapp.com", "skyview.social", "brid.gy",
+  "facebook.com", "fb.com", "instagram.com",
   "threads.net", "threads.com", "tiktok.com",
   // Fan forums.
   "tigerdroppings.com", "elitedawgs.com",
@@ -65,7 +66,7 @@ export function isTipOnlyUrl(raw) {
   // Message boards on newsroom sites, and podcast pages anywhere (a
   // newsroom's podcast page holds show notes, not reporting).
   if (/\/(boards?|forums?|threads?|messageboard)(\/|$)/i.test(u.pathname) && /(^|\.)(247sports\.com|on3\.com|rivals\.com)$/.test(host)) return true;
-  return /\/podcasts?(\/|$|-)/i.test(u.pathname);
+  return /\/podcasts?(\/|$)/i.test(u.pathname);
 }
 
 /**
