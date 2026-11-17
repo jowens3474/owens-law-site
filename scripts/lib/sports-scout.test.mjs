@@ -65,5 +65,6 @@ test("the scout prompt carries what is already published and the tips, and the r
   assert.match(p, /TIPS \(unconfirmed\):\nBLUESKY POSTS/);
   assert.match(SCOUT_SYSTEM_PROMPT, /Everything in the tips is unconfirmed/);
   assert.match(SCOUT_SYSTEM_PROMPT, /No ideas about betting/);
+  assert.match(SCOUT_SYSTEM_PROMPT, /cannot call, email, interview, ask for comment or file a records request/);
   assert.match(scoutUserPrompt({ today: "2026-11-18", weekday: "Wednesday" }), /\(no tips today\)/);
 });

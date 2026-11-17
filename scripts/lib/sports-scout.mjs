@@ -27,7 +27,8 @@ WHAT MAKES A GOOD IDEA
 
 RULES
 - Everything in the tips is unconfirmed: posts and podcasts are opinion, rumor and chatter. Pitch ideas, not facts. Never present a tip's claim as true.
-- Each idea must be checkable: say exactly what the desk must confirm and where (the school's site or stats, the conference, the NCAA, ESPN data, public records, a named news outlet).
+- Each idea must be checkable today from pages already published: say exactly what the desk must confirm and where (the school's site, stats or box scores, the conference, the NCAA, ESPN data, published public records such as board agendas, a named news outlet). The desk only reads the web: it cannot call, email, interview, ask for comment or file a records request, so never pitch an idea that needs one.
+- A data idea works only when the sources print every figure the story needs. The desk may not add, average or compare numbers itself, so pitch the figures a source states, not math to be done.
 - No ideas about betting or odds, about a fan or other private person, or that rest on a single anonymous post. A sensitive incident (racism, a crime, a death) is an idea only if a news outlet has reported it, and the pitch must say which outlet to check.
 - At most one idea of kind news.
 
