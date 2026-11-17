@@ -82,6 +82,27 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "crigler-park-contract-flagstar-3-459-million-alternate-deduction",
+    title: "Crigler Park Will Be Built for $3.46 Million, Not $10 Million: MDAH Cut the Band Shell",
+    dek: "MDAH's own award letter shows Flagstar Construction bid $7.61 million, then took a $4.16 million deduction that removed the band shell. The park still gets called a $10 million project.",
+    category: "Development",
+    categories: ["Business"],
+    tags: ["pipeline"],
+    author: "Jackson Wire Staff",
+    date: "2026-11-17",
+    views: 0,
+    body: [
+      "The construction contract for Margaret Ann Crigler Park is worth $3,459,000, not the $10 million figure MDAH used when it announced the January 2027 start date on Tuesday. The number comes from the department's own notice of award, posted on mdah.ms.gov, which states that Flagstar Construction Company, Inc. will be awarded the contract subject to approval by the Department of Finance and Administration.",
+      "The gap is explained in the bid recommendation from Perkins&Will, the project architect, dated Oct. 20, 2026 and attached to the same file. Flagstar's base bid was $7,614,000. MDAH then took an \"Alternate 01 Deduction\" of $4,155,000, which the architect's letter says the department intends to apply. Subtract one from the other and the contract is $3,459,000, about 45 percent of the base bid.",
+      "What the deduction buys out is visible in the bid documents. The original scope, as advertised on the state's procurement listing, covered a band shell with a finished floor elevation of about 312 feet and a concessions and restroom building at about 308 feet. The MDAH bid page lists an addendum titled \"Bandshell - Span Systems Qualifications\" and a later one titled \"Addendum #4 - Removal of Bandshell.\" The band shell came out of the job before bids were opened on Oct. 19.",
+      "That reframes what the public money is buying. MDAH's funding page lists a $1 million gift from Noble T. Crigler, $3.6 million from the Mississippi Legislature per the department's Tuesday announcement, and $4.5 million in committed private support raised by the Foundation for Mississippi History. The state's share alone, $3.6 million, is slightly more than the entire construction contract. The award letter does not show what the remaining money covers, and MDAH has not published a line-item budget.",
+      "The private side has kept moving. WLBT reported that seven new partners have committed a combined $460,000 since the previous \"Coffee at Crigler\" event in 2025, bringing the partner count to 19. MDAH's park page names ten: Amazon, Atmos Energy, Brunini Grantham Grower & Hewes, the Community Foundation for Mississippi, the David and Lucile Packard Foundation, the Junior League of Jackson, the Mississippi Arts Commission, Noble Crigler, the Phil Hardin Foundation and the Walker Foundation. A year ago the department announced $1.4 million in gifts, including $500,000 from the Phil Hardin Foundation and $500,000 from the Mississippi Arts Commission's Building Fund for the Arts.",
+      "The schedule slipped with the scope. In November 2025, MDAH said the first phase would be finished in 2027. On Tuesday it put the first phase opening in May 2028, timed to the seventh annual Mississippi Makers Fest. The park is two acres on the block bounded by Yazoo, State, Mississippi and North streets, next to the Two Mississippi Museums.",
+      "For readers, the practical question is what a park without a stage can host. MDAH's own description of the site promises outdoor concerts and cultural events, and the Makers Fest is the deadline the department is building toward. Whether a band shell returns as a second-phase item, and what it would cost, is not in the award file. Barry White, MDAH's executive director, and Cindy Gardner, named as the department's recipient on the architect's recommendation, are the officials who would answer it; MDAH's public relations line is 601-576-6934.",
+      "What's next: the contract with Flagstar Construction is contingent on approval by the Department of Finance and Administration, and no date for that approval appears in the award letter. Construction is scheduled to begin in January 2027, with the first phase opening in May 2028. Readers can follow the project file, including the award letter, tabulations and all five addenda, at mdah.ms.gov/about-mdah/bid-opportunities/ad-bids-crigler-park, and the design and funding summary at mdah.ms.gov/crigler-park.",
+    ],
+  },
+  {
     slug: "ole-miss-golding-playoff-fate-sealed-wofford-senior-day",
     title: "Golding Says Fourth Loss \"Seals the Fate\" for Ole Miss, Which Closes With Wofford and the Egg Bowl",
     seoTitle: "Ole Miss: Golding says playoff fate sealed at 6-4",
