@@ -3,6 +3,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { apDate, apTime, weekdayOf, parseSchedule, formatSchedule, scheduleUrl } from "./espn-schedule.mjs";
+import { screenSearchResults } from "./sports-tips.mjs";
 import {
   BETTING,
   normalizeUrl,
@@ -413,4 +414,15 @@ test("social posts, forums and podcasts are tips: listing one as a source is a p
   assert.equal(problems.length, 1, problems.join(" | "));
   assert.match(problems[0], /tips, not sources.*bsky\.app.*simplecast/);
   assert.deepEqual(sourceProblems(read, read), []);
+});
+
+test("a quote or figure that only a forum search result holds fails the checks once results are screened", () => {
+  const raw = '[1] Coach search\nURL: https://www.reddit.com/r/OleMiss/comments/abc\nA booster says "it\'s done after the bowl" and the buyout is $4.2 million.\n\n[2] Interim DC named\nURL: https://olemisssports.com/news/x\nOle Miss named an interim defensive coordinator on Tuesday.';
+  const draft = ['A booster said "it\'s done after the bowl," and the buyout is $4.2 million.'];
+  // Unscreened, the forum text would have satisfied both checks.
+  assert.deepEqual(unmatchedQuotes(draft, [raw]), []);
+  assert.deepEqual(unsourcedNumbers(draft, [raw]), []);
+  const { sourceText } = screenSearchResults(raw);
+  assert.ok(unmatchedQuotes(draft, [sourceText]).length > 0);
+  assert.ok(unsourcedNumbers(draft, [sourceText]).length > 0);
 });
