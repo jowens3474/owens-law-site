@@ -15,6 +15,12 @@ name: Sports desk
 # this workflow hands that branch's transcripts to the desk. That branch holds
 # only data and turns Vercel deployments off, so its pushes cost no deploys.
 #
+# Before it researches, an idea scout reads tips (Bluesky posts, the schools'
+# insider podcasts, Mississippi search trends) next to what outlets already
+# published and pitches original story ideas (scripts/lib/sports-tips.mjs,
+# scripts/lib/sports-scout.mjs). The pitches go to the run summary. Tips are
+# never sources: every idea is verified like any other story.
+#
 # Runs daily on the schedule below and publishes. Manual runs default to a dry
 # run: the draft and its check results go to the run summary and nothing is
 # published. Untick "dry run" to publish.
@@ -63,7 +69,7 @@ jobs:
         run: npm ci
 
       - name: Test the desk's checks
-        run: node --test scripts/lib/sports-desk-checks.test.mjs scripts/lib/press-conferences.test.mjs scripts/press-transcripts-sync.test.mjs
+        run: node --test scripts/lib/sports-desk-checks.test.mjs scripts/lib/press-conferences.test.mjs scripts/press-transcripts-sync.test.mjs scripts/lib/sports-tips.test.mjs scripts/lib/sports-scout.test.mjs
 
       # The transcripts the Mac job saved. Extracted outside the checkout, so
       # nothing from that branch can end up in the desk's commit. If the

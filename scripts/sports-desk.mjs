@@ -33,6 +33,13 @@
 // transcripts ahead of time (scripts/press-transcripts-sync.mjs) and the
 // workflow hands them over in PRESS_TRANSCRIPTS_DIR; the desk reads a saved
 // copy first and asks YouTube only when none is saved.
+//
+// Story ideas also come from an idea scout: one model call that reads tips
+// (Bluesky posts, the schools' insider podcasts, Mississippi search trends;
+// scripts/lib/sports-tips.mjs) next to what outlets already published and
+// pitches stories the Wire could have first (scripts/lib/sports-scout.mjs).
+// A tip is never a source: fetch_url refuses social posts and podcasts, and
+// the source check rejects them.
 
 import { readFileSync, writeFileSync, appendFileSync, existsSync } from "node:fs";
 import { execSync } from "node:child_process";
@@ -48,6 +55,8 @@ import { buildSportsHeadlines } from "../lib/sports-feeds.mjs";
 import { teamSchedule, SCHEDULE_SCHOOLS, SPORTS, weekdayOf } from "./lib/espn-schedule.mjs";
 import { draftProblems, STORY_SCHOOLS, STORY_SPORTS } from "./lib/sports-desk-checks.mjs";
 import { recentPressConferences, pressConferenceTranscript, readSavedTranscripts, mergeSavedPressers } from "./lib/press-conferences.mjs";
+import { gatherTips, formatTips, isTipOnlyUrl } from "./lib/sports-tips.mjs";
+import { SCOUT_SYSTEM_PROMPT, scoutUserPrompt, parseScoutIdeas, formatIdeas, tipLabels } from "./lib/sports-scout.mjs";
 
 const DRY_RUN = process.env.DRY_RUN === "1";
 const POSTS_FILE = "lib/posts.ts";
@@ -73,17 +82,24 @@ const SYSTEM_PROMPT = `You are the sports desk writer for The Jackson Wire, an i
 THE BEAT
 - Core: Ole Miss and Mississippi State, the state's two power-conference (SEC) programs, in football, men's basketball, women's basketball and baseball. Another sport at those schools only when it is clearly the biggest story of the day (a national title run, a coaching scandal, a major NCAA ruling).
 - Southern Miss, Jackson State, Alcorn State, Mississippi Valley State, Delta State and the state's other colleges get the story only when they have the day's biggest news: a coaching change, a championship, a historic result, a major NCAA or conference ruling, a stadium or arena decision. Otherwise stay with Ole Miss and State.
-- Write about the single biggest story across those schools and sports.
+- Write the day's best story across those schools and sports: major breaking news, or an original story readers cannot get anywhere else.
 
 WHAT TO PICK, in order
-1. Breaking news from the last 24 to 36 hours: a game moved, postponed or canceled; injuries and suspensions; coaching hires, firings and contracts; transfers and commitments; SEC or NCAA rulings; NIL news tied to these schools.
-2. A big result and what it means: rankings, standings, the bowl or NCAA tournament picture.
-3. On a game day, the setup: what is at stake, the kickoff, tipoff or first-pitch time, and TV.
-4. On a slow day, a deeper explainer: a coach under pressure, the transfer portal, a recruiting class, a schedule or conference change. Never a filler recap.
+1. Major breaking news from the last 24 to 36 hours that the Wire must have: a head coach hired, fired or extended; a season-ending injury or a suspension of a key player; an SEC or NCAA ruling; a game moved, postponed or canceled.
+2. Otherwise, an original story: the strongest idea in STORY IDEAS (or one of your own) that you can verify and that the outlets in the leads have not already written. Before you commit to it, run news_feed or web_search on it. If outlets already have it, write what they missed or take the next idea.
+3. A big result and what it means: rankings, standings, the bowl or NCAA tournament picture.
+4. On a game day, the setup: what is at stake, the kickoff, tipoff or first-pitch time, and TV.
+5. On a slow day, a deeper explainer: a coach under pressure, the transfer portal, a recruiting class, a schedule or conference change. Never a filler recap.
 - Press conferences are a prime source of news: a coach confirming an injury, a starter, a staff change, a suspension or a plan is news, and what a coach says about it is the story's best quote.
 - Do not repeat a topic from the recent sports stories you are given unless there is genuinely new information; then lead with what is new.
 - Tie-breakers: Ole Miss and Mississippi State news beats other schools; in the fall, football beats other sports unless another story is clearly bigger.
 - When the user prompt includes TODAY'S ASSIGNMENT, that assignment is today's story and outranks everything above. Research it first and write it. Skip it only if, after opening its sources and searching, nothing new about it can be verified; bigger news elsewhere is not a reason to skip it.
+
+STORY IDEAS AND TIPS
+- STORY IDEAS in the user prompt come from a scout that read Bluesky posts, the schools' insider podcasts and Mississippi search trends next to what outlets already published. They point at what people are talking about. Everything in them, and every tip quoted under them, is unconfirmed.
+- A tip is never a source. Take no fact, number, name or quote from an idea or a tip, and never quote a fan, a social post or a podcast. fetch_url refuses social networks, forums and podcasts.
+- Verify an idea from the school, the conference, the NCAA, ESPN data, public records or a news report. If its premise cannot be confirmed, drop it and take the next idea. Never publish a rumor, and never build a story on "fans are saying" or "a podcast reported."
+- A data idea (attendance, a defense's numbers over several seasons, a home record) works only when every figure is printed in a source you read; you may not add, average or compare numbers yourself.
 
 PRESS CONFERENCES
 - The user prompt lists the schools' recent press conference videos (coaches and players), newest first. Read the transcript of any that bears on today's news with press_conference_transcript, and read the head coach's latest session in the story's sport when one is listed.
@@ -93,7 +109,7 @@ PRESS CONFERENCES
 - A press conference video you read counts as an official source; list its URL in sources.
 
 RESEARCH ORDER
-1. Start with the leads and the press conference list in the user prompt, and with news_feed for "Ole Miss" and "Mississippi State" over the last 36 hours (and any other school with big news in the leads).
+1. Start with STORY IDEAS, the leads and the press conference list in the user prompt, and with news_feed for "Ole Miss" and "Mississippi State" over the last 36 hours (and any other school with big news in the leads).
 2. Pick the story, then open the best sources with fetch_url and read them: the school's or conference's own announcement and at least one news report. Search results and leads are pointers, not sources.
 3. Call team_schedule for the school and sport of your story. Use it for every date, time, opponent, score and TV listing you state. If ESPN's data and a news report disagree on a date or time, go with the school's own announcement and say what changed.
 4. Use web_search for anything else you need, then fetch_url what you will rely on.
@@ -324,6 +340,43 @@ async function gatherPressers() {
   return all.slice(0, 30);
 }
 
+// Tips, then the idea scout's pitches. A failure anywhere leaves the desk
+// with no ideas; it never stops the run.
+async function scoutIdeas(client, { today, recent, leads, pressers }) {
+  const none = { ideas: [], label: () => "", usage: null };
+  let tips;
+  try {
+    tips = await gatherTips();
+  } catch (e) {
+    log(`tips unavailable: ${e.message}`);
+    return none;
+  }
+  for (const e of tips.errors) log(`tips: ${e}`);
+  log(`tips: ${tips.bluesky.length} Bluesky posts, ${tips.podcasts.length} podcast episodes, ${tips.trends.length} search trends`);
+  if (!tips.bluesky.length && !tips.podcasts.length && !tips.trends.length) return none;
+  try {
+    const response = await client.chat.completions.create({
+      model: "deepseek-chat",
+      messages: [
+        { role: "system", content: SCOUT_SYSTEM_PROMPT },
+        {
+          role: "user",
+          content: scoutUserPrompt({ today, weekday: weekdayOf(today), recentTitles: recent.map((r) => r.title), leads, pressers, tipsText: formatTips(tips) }),
+        },
+      ],
+      response_format: { type: "json_object" },
+      temperature: 0.7,
+      max_tokens: 3000,
+    });
+    const ideas = parseScoutIdeas(response.choices[0]?.message?.content);
+    log(`idea scout pitched ${ideas.length} idea(s)`);
+    return { ideas, label: tipLabels(tips), usage: response.usage || null };
+  } catch (e) {
+    log(`idea scout failed: ${e.message}`);
+    return none;
+  }
+}
+
 function assignmentBlock(item) {
   const text = (v) => (typeof v === "string" ? v.trim() : "");
   const sources = (Array.isArray(item.sources) ? item.sources : []).map(text).filter((s) => /^https?:\/\//i.test(s));
@@ -444,6 +497,12 @@ async function main() {
   const assignment = pickAssignment(assignmentItems);
   log(`assignment=${assignment ? assignment.id : "none"}`);
 
+  const scout = await scoutIdeas(client, { today, recent, leads, pressers });
+  const ideaLines = formatIdeas(scout.ideas, scout.label);
+  if (ideaLines.length) {
+    summarize(["## Sports desk: story ideas the scout pitched", "", ...ideaLines.map((l) => (l.startsWith("   ") ? `   - ${l.trim()}` : l)), ""]);
+  }
+
   const userPrompt = [
     `Today is ${today} (${weekdayOf(today)}, America/Chicago); it is now ${nowCentral()} Central. Write today's Mississippi college sports article for The Jackson Wire.`,
     "",
@@ -460,7 +519,10 @@ async function main() {
       ? pressers.map((v) => `- ${v.videoId} | ${v.published.slice(0, 10)} | ${v.school} | ${v.title}${v.saved ? " | transcript on file" : ""}`)
       : ["(No press conference list today.)"]),
     "",
-    'Steps: news_feed for "Ole Miss" and "Mississippi State" (36 hours), then pick the single biggest story by the rules, open the official announcement and at least one news report with fetch_url, call team_schedule for the story\'s school and sport, and publish with publish_sports_article.',
+    "STORY IDEAS from this morning's scout, best first. All unconfirmed: verify before you use any of it (see STORY IDEAS AND TIPS):",
+    ...(ideaLines.length ? ideaLines : ["(No ideas today. Look for an original angle yourself, or take the biggest news.)"]),
+    "",
+    'Steps: news_feed for "Ole Miss" and "Mississippi State" (36 hours), then pick today\'s story by the rules (major breaking news first; otherwise the best original idea you can verify that no outlet has written), open the official announcement and at least one news report with fetch_url, call team_schedule for the story\'s school and sport, and publish with publish_sports_article.',
     ...(assignment ? ["", assignmentBlock(assignment), "", "With an assignment, do it first: open its sources, search for it, and write it unless it truly cannot be verified."] : []),
   ].join("\n");
 
@@ -477,6 +539,13 @@ async function main() {
   const schedules = [];
   const scheduleErrors = new Map(); // "school|sport" -> last error, told to the model with the check
   const usage = { calls: 0, prompt: 0, completion: 0, hit: 0, miss: 0 };
+  if (scout.usage) {
+    usage.calls++;
+    usage.prompt += scout.usage.prompt_tokens || 0;
+    usage.completion += scout.usage.completion_tokens || 0;
+    usage.hit += scout.usage.prompt_cache_hit_tokens || 0;
+    usage.miss += scout.usage.prompt_cache_miss_tokens || 0;
+  }
   const ctx = () => ({
     today,
     now: new Date().toISOString(),
@@ -587,6 +656,15 @@ async function main() {
         }
         if (/(^|\.)wikipedia\.org$/i.test(host)) {
           messages.push({ role: "tool", tool_call_id: tc.id, content: "Wikipedia is not a source for Wire stories. Use the school, the conference, the NCAA, ESPN or a news outlet." });
+          continue;
+        }
+        if (isTipOnlyUrl(String(args.url || ""))) {
+          log("fetch_url refused: a tip-only site");
+          messages.push({
+            role: "tool",
+            tool_call_id: tc.id,
+            content: "Social networks, forums, podcasts and search trends are tips, not sources. Confirm the idea from the school, the conference, the NCAA, ESPN, public records or a news report.",
+          });
           continue;
         }
         try {

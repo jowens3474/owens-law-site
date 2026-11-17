@@ -406,3 +406,11 @@ test("a school's own press conference video counts as official, but not as a pag
   // A transcript and ESPN's schedule alone are not enough: one source must be a page.
   assert.ok(sourceProblems([video, schedule.url], [video], [schedule.url], [video]).some((p) => /page you read with fetch_url/.test(p)));
 });
+
+test("social posts, forums and podcasts are tips: listing one as a source is a problem of its own", () => {
+  const read = ["https://olemisssports.com/news/2026/11/17/x", "https://www.clarionledger.com/story/sports/x"];
+  const problems = sourceProblems([...read, "https://bsky.app/profile/a.bsky.social/post/1", "https://feeds.simplecast.com/e_k5LEa3"], read);
+  assert.equal(problems.length, 1, problems.join(" | "));
+  assert.match(problems[0], /tips, not sources.*bsky\.app.*simplecast/);
+  assert.deepEqual(sourceProblems(read, read), []);
+});
