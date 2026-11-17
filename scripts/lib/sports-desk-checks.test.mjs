@@ -409,6 +409,17 @@ test("when ESPN lists no games, the next game must come from one passage the des
   assert.ok(nextGameProblems(art, [empty], TODAY, MORNING, scattered).some((p) => /in one passage/.test(p)));
   // Nothing read at all.
   assert.ok(nextGameProblems(art, [empty], TODAY, MORNING, []).some((p) => /in one passage/.test(p)));
+  // A schedule row cannot borrow the opponent or the time from the next or previous row.
+  const rows = ["Sat, Nov. 21 vs. Wofford 11 a.m. SECN+. Fri, Nov. 27 vs. Mississippi State 6:30 p.m. ESPN."];
+  assert.deepEqual(nextGameProblems(art, [empty], TODAY, MORNING, rows), []);
+  const wrongOpponent = { ...art, nextGame: { ...art.nextGame, opponent: "Mississippi State" }, body: [...art.body.slice(0, 5), "What's next: Ole Miss hosts Mississippi State on Saturday, Nov. 21, at 11 a.m."] };
+  assert.ok(nextGameProblems(wrongOpponent, [empty], TODAY, MORNING, rows).some((p) => /in one passage/.test(p)));
+  const wrongTime = { ...art, nextGame: { ...art.nextGame, time: "6:30 p.m." }, body: [...art.body.slice(0, 5), "What's next: Ole Miss hosts Wofford on Saturday, Nov. 21, at 6:30 p.m."] };
+  assert.ok(nextGameProblems(wrongTime, [empty], TODAY, MORNING, rows).some((p) => /in one passage/.test(p)));
+  const opponentFirst = ["Oklahoma on Nov 15 at noon. Wofford on Nov 21 at 11 AM."];
+  assert.deepEqual(nextGameProblems(art, [empty], TODAY, MORNING, opponentFirst), []);
+  const noonFromPrevRow = { ...art, nextGame: { ...art.nextGame, time: "noon" }, body: [...art.body.slice(0, 5), "What's next: Ole Miss hosts Wofford on Saturday, Nov. 21, at noon."] };
+  assert.ok(nextGameProblems(noonFromPrevRow, [empty], TODAY, MORNING, opponentFirst).some((p) => /in one passage/.test(p)));
   // An Eastern time is not a Central one.
   assert.ok(nextGameProblems(art, [empty], TODAY, MORNING, ["Wofford at Ole Miss, Nov. 21, 11 a.m. ET"]).some((p) => /in one passage/.test(p)));
   // A TBA time: any clock time the What's next paragraph gives must still be in the passage.

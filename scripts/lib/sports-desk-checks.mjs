@@ -337,6 +337,26 @@ function centralTimeIn(text, canon) {
   return false;
 }
 
+// Any month-day date, to find where one schedule row or sentence ends.
+const ANY_DATE = /\b(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.?\s+\d{1,2}(?!\d)|(?<![\d/])\d{1,2}\/\d{1,2}\/(?:\d{4}|\d{2})(?!\d)/gi;
+
+/**
+ * The text around one date match, cut at the neighboring dates so a schedule
+ * row cannot borrow from the next one: `after` runs from the date to the next
+ * date (at most 200 characters on), `before` from the previous date (at most
+ * 60 characters back) to the date, for an opponent written first ("Wofford on
+ * Nov. 21").
+ */
+function datePassage(t, start, end, others) {
+  let next = end + 200;
+  let prev = Math.max(0, start - 60);
+  for (const o of others) {
+    if (o.start >= end && o.start < next) next = o.start;
+    if (o.end <= start && o.end > prev) prev = o.end;
+  }
+  return { after: t.slice(start, next), before: t.slice(prev, start) };
+}
+
 /** Minutes after midnight for a canonical clock time, or null. */
 function clockMinutes(canon) {
   if (canon === "noon") return 12 * 60;
@@ -351,7 +371,8 @@ function clockMinutes(canon) {
  * When ESPN lists no games for the team, the next game a draft names must come
  * from what the desk read: one passage of a page or transcript it read must
  * give the date and the opponent together, with every clock time the draft
- * states for it (as Central time, not Eastern). The game cannot be past or
+ * states for it after the date (as Central time, not Eastern), without
+ * reaching past a neighboring date. The game cannot be past or
  * already started, and the What's next paragraph must give it.
  */
 export function readNextGameProblems(article, ng, school, sport, todayIso, nowIso, pageTexts) {
@@ -388,10 +409,12 @@ export function readNextGameProblems(article, ng, school, sport, todayIso, nowIs
   let found = false;
   for (const text of Array.isArray(pageTexts) ? pageTexts : []) {
     const t = String(text ?? "");
+    const others = [...t.matchAll(ANY_DATE)].map((m) => ({ start: m.index, end: m.index + m[0].length }));
     re.lastIndex = 0;
     for (const m of t.matchAll(re)) {
-      const passage = t.slice(Math.max(0, m.index - 300), m.index + m[0].length + 300);
-      if (mentionsName(passage, opponent) && [...wanted].every((c) => centralTimeIn(passage, c))) {
+      const { after, before } = datePassage(t, m.index, m.index + m[0].length, others);
+      const named = mentionsName(after, opponent) || mentionsName(before, opponent);
+      if (named && [...wanted].every((c) => centralTimeIn(after, c))) {
         found = true;
         break;
       }
