@@ -392,3 +392,17 @@ test("the headline and search title are held to the number and quote checks too"
   const sourced = { ...goodArticle, title: "Ole Miss, 6-3, Moves to Sunday After FAA Ground Stop" };
   assert.deepEqual(draftProblems(sourced, ctx), []);
 });
+
+test("noon is a whole word", () => {
+  assert.ok(mentionsTime("Kickoff is at noon.", "noon"));
+  assert.ok(!mentionsTime("Kickoff is Saturday afternoon.", "noon"));
+});
+
+test("a school's own press conference video counts as official, but not as a page read with fetch_url", () => {
+  const video = "https://www.youtube.com/watch?v=e5IkVddyqac";
+  const blog = "https://www.on3.com/a";
+  assert.ok(sourceProblems([video, blog], [video, blog], []).some((p) => /official/.test(p)));
+  assert.deepEqual(sourceProblems([video, blog], [video, blog], [], [video]), []);
+  // A transcript and ESPN's schedule alone are not enough: one source must be a page.
+  assert.ok(sourceProblems([video, schedule.url], [video], [schedule.url], [video]).some((p) => /page you read with fetch_url/.test(p)));
+});
