@@ -1,1 +1,16 @@
-[]
+[
+  {
+    "id": "ole-miss-after-oklahoma-2026-11-17",
+    "topic": "Ole Miss after the 24-17 loss at Oklahoma: Pete Golding's Tuesday injury update and Senior Day against Wofford",
+    "angle": "The playoff is gone; Golding said after Sunday's game that the fourth loss kind of seals the fate from a playoff standpoint. Lead with the news from his Tuesday Wofford preview press conference: the running back who had season-ending surgery in Dallas last week, the high ankle injury that makes another back a game-time decision at best, who is shut down until the Egg Bowl or the bowl game, and the senior class he said is 40 and 11 with a chance to become the winningest class in program history by winning three more. Read both press conference transcripts (the Tuesday Wofford preview and Sunday's postgame at Oklahoma) with press_conference_transcript. Check every player's name and position on the roster before using it, because the captions misspell names. Take the 24-17 final and Ole Miss's 6-4 record from ESPN's game data, not from search results, which mix in an earlier Ole Miss win over Oklahoma. Take the Wofford date and time from the school's schedule page.",
+    "type": "explainer",
+    "sources": [
+      "https://olemisssports.com/sports/football/roster",
+      "https://olemisssports.com/sports/football/schedule",
+      "https://site.api.espn.com/apis/site/v2/sports/football/college-football/summary?event=401856887"
+    ],
+    "addedBy": "Jason Owens (owner)",
+    "addedAt": "2026-11-17",
+    "skips": 0
+  }
+]

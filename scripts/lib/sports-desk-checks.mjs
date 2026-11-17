@@ -297,14 +297,16 @@ const playable = (g) => g.status !== "canceled" && g.status !== "postponed";
 
 const MONTH_NAMES = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-/** Text gives a date as "Nov. 21", "November 21" or "11/21". */
+/** Text gives a date as "Nov. 21", "Nov 21", "November 21" or "11/21". */
 export function dateInText(text, isoDate) {
   const [, m, d] = String(isoDate).split("-").map(Number);
   if (!m || !d) return false;
   const t = String(text ?? "");
   const ap = apDate(isoDate);
+  const short = MONTH_NAMES[m - 1].slice(0, 3);
   return (
     new RegExp(`${escapeRe(ap)}(?!\\d)`, "i").test(t) ||
+    new RegExp(`\\b${short}\\.?\\s+${d}(?!\\d)`, "i").test(t) ||
     new RegExp(`${MONTH_NAMES[m - 1]}\\s+${d}(?!\\d)`, "i").test(t) ||
     new RegExp(`(?<![\\d/])0?${m}/0?${d}(?![\\d])`).test(t)
   );

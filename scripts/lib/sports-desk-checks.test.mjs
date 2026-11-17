@@ -426,6 +426,8 @@ test("dates are found as AP, spelled out or numeric, never as the start of anoth
   assert.ok(dateInText("Kickoff is Saturday, Nov. 21.", "2026-11-21"));
   assert.ok(dateInText("on November 21, 2026", "2026-11-21"));
   assert.ok(dateInText("11/21/26 vs Wofford", "2026-11-21"));
+  assert.ok(dateInText("Wofford on Nov 21 at 11 AM", "2026-11-21"));
+  assert.ok(dateInText("Sept. 5 and Sep 5", "2026-09-05"));
   assert.ok(!dateInText("Nov. 2 and 11/2 and 11/210", "2026-11-21"));
 });
 
