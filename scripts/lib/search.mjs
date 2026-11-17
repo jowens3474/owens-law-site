@@ -46,7 +46,8 @@ export function formatResults(results, provider) {
         (r, i) =>
           `[${i + 1}] ${String(r.title ?? "").replace(/\s+/g, " ").trim()}\nURL: ${String(r.url ?? "").trim()}\n${String(r.content || "")
             .slice(0, 1000)
-            .replace(/\n\s*\n/g, "\n")}`,
+            .replace(/\n\s*\n/g, "\n")
+            .trim()}`,
       )
       .join("\n\n") + `\n\n(source: ${provider})`
   );
