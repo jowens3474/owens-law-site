@@ -5,7 +5,7 @@
 // They live apart from the desk script because that file runs its main() the
 // moment it is imported, which would make these impossible to test alone
 // (see sports-desk-checks.test.mjs). Nothing here touches the network or disk.
-import { apDate, weekdayOf, SPORTS, SCHEDULE_SCHOOLS } from "./espn-schedule.mjs";
+import { apDate, weekdayOf, centralParts, SPORTS, SCHEDULE_SCHOOLS } from "./espn-schedule.mjs";
 
 // En dash and em dash, written as escapes so this file contains neither.
 const DASHES = /[\u2013\u2014]/;
@@ -139,6 +139,8 @@ export function mentionsTime(text, time) {
   const compact = (s) => normalizeText(s).replace(/[\s.]/g, "");
   const t = compact(time);
   if (!t) return false;
+  // "noon" must not match inside "afternoon".
+  if (t === "noon" || t === "midnight") return new RegExp(`\\b${t}\\b`).test(normalizeText(text));
   return new RegExp(`(?<!\\d)${escapeRe(t)}`).test(compact(text));
 }
 
@@ -297,45 +299,112 @@ const playable = (g) => g.status !== "canceled" && g.status !== "postponed";
 
 const MONTH_NAMES = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-/** Text gives a date as "Nov. 21", "Nov 21", "November 21" or "11/21". */
-export function dateInText(text, isoDate) {
+/** A pattern for a date as "Nov. 21", "Nov 21", "November 21" or "11/21/26", never as the start of another date. */
+function datePattern(isoDate) {
   const [, m, d] = String(isoDate).split("-").map(Number);
-  if (!m || !d) return false;
-  const t = String(text ?? "");
-  const ap = apDate(isoDate);
-  const short = MONTH_NAMES[m - 1].slice(0, 3);
-  return (
-    new RegExp(`${escapeRe(ap)}(?!\\d)`, "i").test(t) ||
-    new RegExp(`\\b${short}\\.?\\s+${d}(?!\\d)`, "i").test(t) ||
-    new RegExp(`${MONTH_NAMES[m - 1]}\\s+${d}(?!\\d)`, "i").test(t) ||
-    new RegExp(`(?<![\\d/])0?${m}/0?${d}(?![\\d])`).test(t)
+  if (!m || !d) return null;
+  const full = MONTH_NAMES[m - 1];
+  const short = full.slice(0, 3);
+  return new RegExp(
+    `(?:${escapeRe(apDate(isoDate))}|\\b${short}\\.?\\s+${d}|${full}\\s+${d})(?!\\d)|(?<![\\d/])0?${m}/0?${d}/(?:\\d{4}|\\d{2})(?!\\d)`,
+    "gi",
   );
+}
+
+/** Text gives a date as "Nov. 21", "Nov 21", "November 21" or "11/21/26". */
+export function dateInText(text, isoDate) {
+  const re = datePattern(isoDate);
+  return !!re && re.test(String(text ?? ""));
+}
+
+const CLOCK = /(?<![\d:])(\d{1,2})(?::(\d{2}))?\s*([ap])\.?\s*m\.?(?![a-z])|\b(noon|midnight)\b/gi;
+const canonClock = (m) => (m[4] ? m[4].toLowerCase() : canonTime(`${m[1]}${m[2] ? `:${m[2]}` : ""} ${m[3]}.m.`));
+
+/** Clock times in text, canonical ("11am", "7:30pm", "noon"). */
+export function clockTimes(text) {
+  return [...new Set([...String(text ?? "").matchAll(CLOCK)].map(canonClock))];
+}
+
+/** Text gives this clock time, and not as Eastern time. */
+function centralTimeIn(text, canon) {
+  const t = String(text ?? "");
+  for (const m of t.matchAll(CLOCK)) {
+    if (canonClock(m) !== canon) continue;
+    const after = t.slice(m.index + m[0].length, m.index + m[0].length + 14);
+    if (/^\s*\(?\s*(?:ET|EST|EDT|Eastern)\b/i.test(after)) continue;
+    return true;
+  }
+  return false;
+}
+
+/** Minutes after midnight for a canonical clock time, or null. */
+function clockMinutes(canon) {
+  if (canon === "noon") return 12 * 60;
+  if (canon === "midnight") return 0;
+  const m = String(canon).match(/^(\d{1,2})(?::(\d{2}))?([ap])m$/);
+  if (!m) return null;
+  const h = (Number(m[1]) % 12) + (m[3] === "p" ? 12 : 0);
+  return h * 60 + Number(m[2] || 0);
 }
 
 /**
  * When ESPN lists no games for the team, the next game a draft names must come
- * from what the desk read: its date, opponent and time (unless TBA) must appear
- * in a source, the date must not be past, and the What's next paragraph must
- * give them.
+ * from what the desk read: one passage of a page or transcript it read must
+ * give the date and the opponent together, with every clock time the draft
+ * states for it (as Central time, not Eastern). The game cannot be past or
+ * already started, and the What's next paragraph must give it.
  */
-export function readNextGameProblems(article, ng, school, sport, todayIso, sourceTexts) {
+export function readNextGameProblems(article, ng, school, sport, todayIso, nowIso, pageTexts) {
   const problems = [];
   const date = String(ng.date ?? "").trim();
   const opponent = String(ng.opponent ?? "").trim();
   const time = String(ng.time ?? "").trim();
-  const corpus = (Array.isArray(sourceTexts) ? sourceTexts : []).join("\n");
   const lead = `ESPN lists no ${school} ${sport} games right now, so the next game must come from a page you read (the school's schedule or announcement, opened with fetch_url).`;
   if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
     problems.push(`nextGame date must be YYYY-MM-DD, as the source gives it.`);
     return problems;
   }
-  if (date < todayIso) problems.push(`nextGame (${opponent} on ${date}) is in the past. Name the team's next game.`);
-  if (!dateInText(corpus, date)) problems.push(`${lead} The date ${apDate(date)} does not appear in anything you read.`);
-  if (!mentionsName(corpus, opponent)) problems.push(`${lead} The opponent "${opponent}" does not appear in anything you read.`);
-  const timed = time && !/^tba$/i.test(time);
-  if (timed && !mentionsTime(corpus, time)) problems.push(`${lead} The time "${time}" does not appear in anything you read; give it as the source does, or say the time is to be announced.`);
   const body = Array.isArray(article.body) ? article.body : [];
   const whatsNext = body.find((p) => /^What['’]s next:/.test(String(p))) || "";
+  const timed = time && !/^tba$/i.test(time);
+  const wanted = new Set(clockTimes(whatsNext));
+  if (timed) wanted.add(canonTime(time));
+
+  if (date < todayIso) {
+    problems.push(`nextGame (${opponent} on ${date}) is in the past. Name the team's next game.`);
+  } else if (date === todayIso) {
+    const start = timed ? clockMinutes(canonTime(time)) : null;
+    if (start === null) {
+      problems.push(`nextGame is today, ${apDate(date)}, so give its start time from a source; if it may have started, report the result or name the game after it.`);
+    } else if (nowIso) {
+      const now = centralParts(new Date(nowIso));
+      if (start <= now.hour * 60 + now.minute) {
+        problems.push(`${opponent} on ${apDate(date)} at ${time} has already started or finished. Do not present it as the next game; report the result or name the game after it.`);
+      }
+    }
+  }
+
+  const re = datePattern(date);
+  let found = false;
+  for (const text of Array.isArray(pageTexts) ? pageTexts : []) {
+    const t = String(text ?? "");
+    re.lastIndex = 0;
+    for (const m of t.matchAll(re)) {
+      const passage = t.slice(Math.max(0, m.index - 300), m.index + m[0].length + 300);
+      if (mentionsName(passage, opponent) && [...wanted].every((c) => centralTimeIn(passage, c))) {
+        found = true;
+        break;
+      }
+    }
+    if (found) break;
+  }
+  if (!found) {
+    const when = wanted.size ? ` at ${[...wanted].join(" or ")} Central` : "";
+    problems.push(
+      `${lead} No page or transcript you read gives ${opponent} on ${apDate(date)}${when} in one passage. Open the school's schedule or announcement with fetch_url and take the date, opponent and time from it; a time given in Eastern must be converted to Central.`,
+    );
+  }
+
   if (!mentionsDate(whatsNext, date)) problems.push(`The What's next paragraph must give the next game's date as "${weekdayOf(date)}, ${apDate(date)}".`);
   if (timed && !mentionsTime(whatsNext, time)) problems.push(`The What's next paragraph must give the game time, ${time} Central.`);
   if (!mentionsName(whatsNext, opponent)) problems.push(`The What's next paragraph must name the opponent, ${opponent}.`);
@@ -347,7 +416,7 @@ export function readNextGameProblems(article, ng, school, sport, todayIso, sourc
  * schedule the desk read, not started, with the same date and time, and the
  * What's next paragraph must give that date, time (unless TBA) and opponent.
  */
-export function nextGameProblems(article, schedules, todayIso, nowIso = "", sourceTexts = []) {
+export function nextGameProblems(article, schedules, todayIso, nowIso = "", pageTexts = []) {
   const problems = [];
   const nowMs = nowIso ? Date.parse(nowIso) : Date.parse(`${todayIso}T00:00:00Z`);
   const find = (school, sport) => (schedules || []).find((s) => s.school === school && s.sport === sport);
@@ -379,7 +448,7 @@ export function nextGameProblems(article, schedules, todayIso, nowIso = "", sour
   // ESPN's data has gaps (in November 2026 its college football schedules
   // came back empty for every team). Then the next game is held to what the
   // desk read instead.
-  if (!sched.games.length) return readNextGameProblems(article, ng, school, sport, todayIso, sourceTexts);
+  if (!sched.games.length && sched.espnEmpty) return readNextGameProblems(article, ng, school, sport, todayIso, nowIso, pageTexts);
   const game = sched.games.find((g) => g.date === String(ng.date) && opponentMatches(g.opponent, ng.opponent));
   if (!game) {
     const upcoming = upcomingOf(sched)
@@ -477,8 +546,8 @@ export function sourceProblems(sources, readUrls, scheduleUrls = [], officialUrl
   if (usable.length < 2) {
     problems.push("List at least two sources you opened and relied on (fetch_url pages or the team_schedule source).");
   }
-  if (!usable.some((u) => read.has(u))) {
-    problems.push("At least one source must be a page you read with fetch_url (an announcement or news report), not only ESPN's schedule data.");
+  if (!usable.some((u) => read.has(u) && !official.has(u))) {
+    problems.push("At least one source must be a page you read with fetch_url (an announcement or news report), not only ESPN's schedule data or a press conference transcript.");
   }
   if (usable.length && !usable.some((u) => isTrusted(`https://${u}`) || official.has(u))) {
     problems.push("At least one source must be official (a school, conference, the NCAA or ESPN) or an established newsroom.");
@@ -535,7 +604,7 @@ export function draftProblems(article, ctx) {
   }
   problems.push(...weekdayMismatches([article.title, article.dek, ...body].join("\n"), ctx.today));
   problems.push(...sourceProblems(article.sources, ctx.readUrls, ctx.scheduleUrls, ctx.officialUrls));
-  problems.push(...nextGameProblems(article, ctx.schedules, ctx.today, ctx.now, ctx.sourceTexts));
+  problems.push(...nextGameProblems(article, ctx.schedules, ctx.today, ctx.now, ctx.pageTexts || []));
   problems.push(...staleGameProblems(article, ctx.schedules, ctx.now));
   const twin = similarRecentTitle(article.title, ctx.recentSportsTitles);
   if (twin) {

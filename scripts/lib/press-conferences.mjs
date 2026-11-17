@@ -56,16 +56,20 @@ export function parseChannelFeed(xml) {
   return out;
 }
 
-/** Plain text from a YouTube "json3" caption file: the words in order, one space apart. */
+/**
+ * Plain text from a YouTube "json3" caption file: the words in order, one space
+ * apart. Segments within an event run together (automatic captions carry their
+ * own spaces); events are separate lines, so they are joined with a space.
+ */
 export function captionText(json) {
   const events = Array.isArray(json?.events) ? json.events : [];
-  const words = [];
+  const lines = [];
   for (const e of events) {
-    for (const s of Array.isArray(e?.segs) ? e.segs : []) {
-      if (typeof s?.utf8 === "string") words.push(s.utf8);
-    }
+    const segs = Array.isArray(e?.segs) ? e.segs : [];
+    const line = segs.map((x) => (typeof x?.utf8 === "string" ? x.utf8 : "")).join("");
+    if (line.trim()) lines.push(line);
   }
-  return words.join("").replace(/\s+/g, " ").trim();
+  return lines.join(" ").replace(/\s+/g, " ").trim();
 }
 
 /** The watch URL the desk cites for a video. */

@@ -71,6 +71,9 @@ test("caption text joins the words in order", () => {
   const json = { events: [{ segs: [{ utf8: "All right." }, { utf8: " Who wants" }] }, { tStartMs: 5 }, { segs: [{ utf8: "\n" }, { utf8: "to start us off?" }] }] };
   assert.equal(captionText(json), "All right. Who wants to start us off?");
   assert.equal(captionText({}), "");
+  // Human-made tracks put each line in its own event with no trailing space.
+  const human = { events: [{ segs: [{ utf8: "We play Saturday." }] }, { segs: [{ utf8: "He is out for the year." }] }] };
+  assert.equal(captionText(human), "We play Saturday. He is out for the year.");
 });
 
 test("a human-made English track is preferred over automatic captions", () => {

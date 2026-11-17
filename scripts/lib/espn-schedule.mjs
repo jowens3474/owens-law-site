@@ -182,7 +182,7 @@ function sideWord(g) {
 }
 
 /** The text the model reads: recent results and the next games, Central time. */
-export function formatSchedule(school, sport, games, url, now = new Date()) {
+export function formatSchedule(school, sport, games, url, now = new Date(), { espnEmpty = false } = {}) {
   const nowMs = now.getTime();
   const startMs = (g) => Date.parse(g.startIso);
   // Under way: ESPN says in progress (however long it has run), or it was
@@ -199,7 +199,7 @@ export function formatSchedule(school, sport, games, url, now = new Date()) {
     `ESPN schedule for ${school} ${sport}, times Central. Source: ${url}`,
     "Recent results:",
   ];
-  if (games.length === 0) {
+  if (espnEmpty) {
     lines.push(
       "ESPN lists no games for this team right now (its data has gaps). Take the next game's date, time, opponent and TV from the school's own schedule page or announcement, opened with fetch_url; the desk checks them against what you read.",
     );
@@ -259,6 +259,13 @@ export async function teamSchedule(school, sport, { fetchJson = defaultFetchJson
       `No ESPN schedule for "${school}" ${sport}. Schools: ${SCHEDULE_SCHOOLS.join(", ")}. Sports: ${SPORTS.join(", ")}.`,
     );
   }
-  const games = parseSchedule(await fetchJson(url));
-  return { school, sport, url, games, text: formatSchedule(school, sport, games, url, now) };
+  const json = await fetchJson(url);
+  const games = parseSchedule(json);
+  // ESPN answered for the right team with no events at all (its college
+  // football schedules did this for every team in November 2026), as opposed
+  // to an error body or events the parser could not read.
+  const ids = TEAM_IDS[school];
+  const expectedId = String(sport === "baseball" ? ids.baseball : ids.default);
+  const espnEmpty = Array.isArray(json?.events) && json.events.length === 0 && String(json?.team?.id ?? "") === expectedId;
+  return { school, sport, url, games, espnEmpty, text: formatSchedule(school, sport, games, url, now, { espnEmpty }) };
 }
