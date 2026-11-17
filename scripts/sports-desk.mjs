@@ -47,7 +47,7 @@ import { readAssignments, writeAssignments, pickAssignment, applyOutcome } from 
 import { buildSportsHeadlines } from "../lib/sports-feeds.mjs";
 import { teamSchedule, SCHEDULE_SCHOOLS, SPORTS, weekdayOf } from "./lib/espn-schedule.mjs";
 import { draftProblems, STORY_SCHOOLS, STORY_SPORTS } from "./lib/sports-desk-checks.mjs";
-import { recentPressConferences, pressConferenceTranscript, readSavedTranscripts } from "./lib/press-conferences.mjs";
+import { recentPressConferences, pressConferenceTranscript, readSavedTranscripts, mergeSavedPressers } from "./lib/press-conferences.mjs";
 
 const DRY_RUN = process.env.DRY_RUN === "1";
 const POSTS_FILE = "lib/posts.ts";
@@ -299,34 +299,28 @@ async function gatherLeads() {
   }
 }
 
-// The recent press conferences: the schools' YouTube feeds, plus any session
-// saved by the Mac job that has already dropped off a feed. Each carries its
-// saved transcript (or null) as `saved`.
+// The recent press conferences: the schools' YouTube feeds plus the
+// transcripts the Mac job saved (mergeSavedPressers). Each carries its saved
+// transcript (or null) as `saved`.
 async function gatherPressers() {
-  const saved = new Map();
+  let saved = [];
   if (SAVED_TRANSCRIPTS_DIR) {
     const { items, errors } = readSavedTranscripts(SAVED_TRANSCRIPTS_DIR);
     for (const e of errors) log(`saved transcript skipped: ${e}`);
-    for (const t of items) saved.set(t.videoId, t);
+    saved = items;
   }
   let listed = [];
+  let feeds = {};
   try {
-    const { items, errors } = await recentPressConferences({ hours: PRESS_HOURS });
-    for (const e of errors) log(`press conference list: ${e}`);
-    listed = items;
+    const r = await recentPressConferences({ hours: PRESS_HOURS });
+    for (const e of r.errors) log(`press conference list: ${e}`);
+    listed = r.items;
+    feeds = r.feeds;
   } catch (e) {
     log(`press conferences unavailable: ${e.message}`);
   }
-  const since = Date.now() - PRESS_HOURS * 3600_000;
-  const byId = new Map(listed.map((v) => [v.videoId, v]));
-  for (const t of saved.values()) {
-    if (!byId.has(t.videoId) && Date.parse(t.published) >= since) {
-      byId.set(t.videoId, { school: t.school, videoId: t.videoId, title: t.title, published: t.published, url: t.url });
-    }
-  }
-  const all = [...byId.values()].map((v) => ({ ...v, saved: saved.get(v.videoId) ?? null }));
-  all.sort((a, b) => b.published.localeCompare(a.published));
-  log(`saved transcripts on file: ${saved.size}, listed sessions with one: ${all.filter((v) => v.saved).length}`);
+  const all = mergeSavedPressers(listed, saved, feeds, { hours: PRESS_HOURS });
+  log(`saved transcripts on file: ${saved.length}, listed sessions with one: ${all.filter((v) => v.saved).length}`);
   return all.slice(0, 30);
 }
 

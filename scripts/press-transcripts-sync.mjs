@@ -12,12 +12,14 @@
 // (readSavedTranscripts in scripts/lib/press-conferences.mjs).
 //
 // A video whose captions are not ready yet is skipped and tried again on the
-// next run. Nothing here needs a key or npm packages.
+// next run. Automatic captions saved within six hours of posting can be
+// partial (a livestream still processing), so those are fetched once more
+// after the six hours. Nothing here needs a key or npm packages.
 //
 // Usage: node scripts/press-transcripts-sync.mjs --out <folder> [--hours 168] [--keep-days 14]
 // Exits 1 only when neither school's video list loaded.
 
-import { mkdirSync, writeFileSync, renameSync, unlinkSync } from "node:fs";
+import { mkdirSync, writeFileSync, renameSync, unlinkSync, readdirSync, statSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import {
@@ -29,10 +31,21 @@ import {
 } from "./lib/press-conferences.mjs";
 
 const MAX_FETCHES = 20; // per run, so a first run or a long-off Mac backfills gently
+const REFRESH_HOURS = 6;
+const SAVED_NAME = /^([A-Za-z0-9_-]{11})\.json$/;
+
+/** True for an automatic transcript saved within REFRESH_HOURS of posting, once REFRESH_HOURS have passed. */
+export function needsRefresh(rec, now = new Date()) {
+  const posted = Date.parse(rec.published);
+  const fetched = Date.parse(rec.fetchedAt);
+  const window = REFRESH_HOURS * 3600_000;
+  return Boolean(rec.automatic) && Number.isFinite(fetched) && fetched - posted < window && now.getTime() - posted >= window;
+}
 
 /**
- * One pass: save new transcripts and prune old ones.
- * @returns {Promise<{ listed: number, added: object[], failed: string[], pruned: object[], listErrors: string[], badFiles: string[] }>}
+ * One pass: save new transcripts, refresh early automatic ones, and prune
+ * old ones (and malformed files not touched in keepDays).
+ * @returns {Promise<{ listed: number, added: object[], refreshed: object[], failed: string[], pruned: object[], prunedBad: string[], listErrors: string[], badFiles: string[] }>}
  */
 export async function syncTranscripts({
   out,
@@ -45,14 +58,17 @@ export async function syncTranscripts({
 } = {}) {
   mkdirSync(out, { recursive: true });
   const { items: saved, errors: badFiles } = readSavedTranscripts(out);
-  const savedIds = new Set(saved.map((s) => s.videoId));
+  const savedById = new Map(saved.map((s) => [s.videoId, s]));
   const { items: videos, errors: listErrors } = await list({ hours, now });
 
   const added = [];
+  const refreshed = [];
   const failed = [];
+  const written = new Set();
   let fetches = 0;
   for (const v of videos) {
-    if (savedIds.has(v.videoId)) continue;
+    const old = savedById.get(v.videoId);
+    if (old && !needsRefresh(old, now)) continue;
     if (fetches >= maxFetches) break;
     fetches++;
     try {
@@ -60,10 +76,10 @@ export async function syncTranscripts({
       const file = join(out, `${v.videoId}.json`);
       writeFileSync(`${file}.tmp`, `${JSON.stringify(rec, null, 2)}\n`);
       renameSync(`${file}.tmp`, file);
-      savedIds.add(v.videoId);
-      added.push(rec);
+      written.add(v.videoId);
+      (old ? refreshed : added).push(rec);
     } catch (e) {
-      failed.push(`${v.videoId} (${v.title}): ${e.message}`);
+      failed.push(`${v.videoId} (${v.title})${old ? " refresh" : ""}: ${e.message}`);
     }
   }
 
@@ -74,7 +90,19 @@ export async function syncTranscripts({
     unlinkSync(join(out, `${s.videoId}.json`));
     pruned.push(s);
   }
-  return { listed: videos.length, added, failed, pruned, listErrors, badFiles };
+  // A malformed <id>.json is re-saved if its video is still listed; one that
+  // is not, and has sat untouched for keepDays, is removed.
+  const prunedBad = [];
+  for (const name of readdirSync(out)) {
+    const id = name.match(SAVED_NAME)?.[1];
+    if (!id || savedById.has(id) || written.has(id)) continue;
+    const file = join(out, name);
+    if (statSync(file).mtimeMs < cutoff) {
+      unlinkSync(file);
+      prunedBad.push(name);
+    }
+  }
+  return { listed: videos.length, added, refreshed, failed, pruned, prunedBad, listErrors, badFiles };
 }
 
 function argValue(args, name, fallback) {
@@ -95,9 +123,11 @@ async function main() {
   for (const e of r.listErrors) console.log(`list failed: ${e}`);
   for (const e of r.badFiles) console.log(`bad saved file: ${e}`);
   for (const a of r.added) console.log(`saved ${a.videoId} | ${a.school} | ${a.title} | ${a.text.length} chars${a.automatic ? " (automatic captions)" : ""}`);
+  for (const a of r.refreshed) console.log(`refreshed ${a.videoId} | ${a.school} | ${a.title} | ${a.text.length} chars${a.automatic ? " (automatic captions)" : ""}`);
   for (const f of r.failed) console.log(`not yet: ${f}`);
   for (const p of r.pruned) console.log(`pruned ${p.videoId} | ${p.published.slice(0, 10)} | ${p.title}`);
-  console.log(`press conferences listed: ${r.listed}, saved: ${r.added.length}, not ready: ${r.failed.length}, pruned: ${r.pruned.length}`);
+  for (const n of r.prunedBad) console.log(`pruned bad file ${n}`);
+  console.log(`press conferences listed: ${r.listed}, saved: ${r.added.length}, refreshed: ${r.refreshed.length}, not ready: ${r.failed.length}, pruned: ${r.pruned.length + r.prunedBad.length}`);
   if (r.listErrors.length >= PRESS_CHANNELS.length) process.exit(1);
 }
 

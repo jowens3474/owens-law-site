@@ -14,6 +14,7 @@ import {
   transcriptRecord,
   validTranscriptRecord,
   readSavedTranscripts,
+  mergeSavedPressers,
 } from "./press-conferences.mjs";
 import { mkdtempSync, writeFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
@@ -62,7 +63,7 @@ test("recent press conferences: recent sessions only, newest first, a failed cha
     if (url.includes(PRESS_CHANNELS[1].channelId)) throw new Error("HTTP 500");
     return feed;
   };
-  const { items, errors } = await recentPressConferences({ hours: 96, now, fetchFeed });
+  const { items, errors, feeds } = await recentPressConferences({ hours: 96, now, fetchFeed });
   assert.deepEqual(
     items.map((i) => i.videoId),
     ["e5IkVddyqac", "Rq4XwdopV68"],
@@ -71,6 +72,11 @@ test("recent press conferences: recent sessions only, newest first, a failed cha
   assert.equal(items[0].url, videoUrl("e5IkVddyqac"));
   assert.equal(errors.length, 1);
   assert.match(errors[0], /Mississippi State.*HTTP 500/);
+  // The feed's reach counts every video in it, not just press conferences.
+  assert.deepEqual(feeds, {
+    "Ole Miss": { ok: true, oldest: "2026-11-01T22:00:00.000Z" },
+    "Mississippi State": { ok: false, oldest: null },
+  });
 });
 
 test("caption text joins the words in order", () => {
@@ -130,6 +136,7 @@ test("a saved transcript record round-trips, and a bad one is refused field by f
   assert.equal(validTranscriptRecord({ ...rec, school: "Alabama" }, rec.videoId), null);
   assert.equal(validTranscriptRecord({ ...rec, title: " " }, rec.videoId), null);
   assert.equal(validTranscriptRecord({ ...rec, published: "soon" }, rec.videoId), null);
+  assert.equal(validTranscriptRecord({ ...rec, published: "Nov 17, 2026" }, rec.videoId), null, "ISO dates only");
   assert.equal(validTranscriptRecord({ ...rec, text: "too short" }, rec.videoId), null);
   assert.equal(validTranscriptRecord([rec], rec.videoId), null);
   assert.equal(validTranscriptRecord(null, rec.videoId), null);
@@ -161,4 +168,32 @@ test("readSavedTranscripts reads <id>.json files, reports bad ones, and treats a
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }
+});
+
+test("mergeSavedPressers: feed sessions get their saved copy; saved sessions return only when a feed cannot show them", () => {
+  const now = new Date("2026-11-17T22:00:00Z");
+  const session = (videoId, school, published) => ({ school, videoId, title: `PRESSER | ${videoId}`, published, url: videoUrl(videoId) });
+  const savedOf = (v) => validTranscriptRecord(transcriptRecord(v, { text: SAVED_TEXT, automatic: true }), v.videoId);
+
+  const listedA = session("AAAAAAAAAAA", "Ole Miss", "2026-11-17T19:02:11+00:00");
+  const offFeed = session("OFFFEED0000", "Ole Miss", "2026-11-15T12:00:00+00:00"); // older than the Ole Miss feed reaches
+  const takenDown = session("GONE0000000", "Ole Miss", "2026-11-16T12:00:00+00:00"); // the feed reaches this date but lacks it
+  const feedDown = session("MSUFEED0000", "Mississippi State", "2026-11-16T20:00:00Z"); // MSU's feed failed
+  const tooOld = session("TOOOLD00000", "Mississippi State", "2026-11-12T12:00:00Z"); // outside 96 hours
+  const listedB = session("BBBBBBBBBBB", "Ole Miss", "2026-11-17T08:00:00-06:00"); // 14:00Z, other offset style
+
+  const saved = [listedA, offFeed, takenDown, feedDown, tooOld].map(savedOf);
+  const feeds = { "Ole Miss": { ok: true, oldest: "2026-11-16T00:00:00.000Z" }, "Mississippi State": { ok: false, oldest: null } };
+  const out = mergeSavedPressers([listedB, listedA], saved, feeds, { now, hours: 96 });
+
+  assert.deepEqual(out.map((v) => v.videoId), ["AAAAAAAAAAA", "BBBBBBBBBBB", "MSUFEED0000", "OFFFEED0000"]);
+  assert.equal(out[0].saved.text, SAVED_TEXT);
+  assert.equal(out[1].saved, null);
+  assert.equal(out[2].saved.videoId, "MSUFEED0000");
+  assert.equal(out[3].url, videoUrl("OFFFEED0000"));
+
+  // With no feed information at all (the list failed outright), every saved session in the window returns.
+  const noFeeds = mergeSavedPressers([], saved, {}, { now, hours: 96 });
+  assert.deepEqual(noFeeds.map((v) => v.videoId), ["AAAAAAAAAAA", "MSUFEED0000", "GONE0000000", "OFFFEED0000"]);
+  assert.ok(noFeeds.every((v) => v.saved));
 });

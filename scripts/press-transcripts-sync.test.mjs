@@ -2,10 +2,10 @@
 // Run: node --test scripts/press-transcripts-sync.test.mjs
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { mkdtempSync, writeFileSync, readdirSync, rmSync, existsSync } from "node:fs";
+import { mkdtempSync, writeFileSync, readdirSync, rmSync, existsSync, utimesSync, readFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { syncTranscripts } from "./press-transcripts-sync.mjs";
+import { syncTranscripts, needsRefresh } from "./press-transcripts-sync.mjs";
 import { readSavedTranscripts, transcriptRecord, videoUrl } from "./lib/press-conferences.mjs";
 
 const NOW = new Date("2026-11-17T22:00:00Z");
@@ -83,4 +83,50 @@ test("a run fetches at most maxFetches transcripts, makes the folder, and passes
     assert.equal(r.added.length, 2);
     assert.deepEqual(r.listErrors, ["Ole Miss Rebels (YouTube): HTTP 500"]);
     assert.equal(readdirSync(dir).length, 2);
+  }));
+
+test("an automatic transcript saved soon after posting is fetched once more after six hours", () =>
+  withDir(async (dir) => {
+    const v = video("RRRRRRRRRRR", "2026-11-17T12:00:00Z");
+    const early = transcriptRecord(v, { text: TEXT, automatic: true }, new Date("2026-11-17T13:00:00Z"));
+    writeFileSync(join(dir, "RRRRRRRRRRR.json"), JSON.stringify(early));
+    assert.equal(needsRefresh(early, new Date("2026-11-17T17:00:00Z")), false, "not before six hours");
+    assert.equal(needsRefresh(early, NOW), true);
+    assert.equal(needsRefresh({ ...early, automatic: false }, NOW), false, "human captions are final");
+    assert.equal(needsRefresh({ ...early, fetchedAt: "2026-11-17T19:00:00Z" }, NOW), false, "fetched late enough already");
+
+    const longer = `${TEXT}He added that the kicker is healthy. `;
+    const list = async () => ({ items: [v], errors: [] });
+    const r = await syncTranscripts({ out: dir, now: NOW, list, transcript: async () => ({ text: longer, automatic: true }) });
+    assert.deepEqual(r.refreshed.map((x) => x.videoId), ["RRRRRRRRRRR"]);
+    assert.equal(r.added.length, 0);
+    const after = JSON.parse(readFileSync(join(dir, "RRRRRRRRRRR.json"), "utf8"));
+    assert.equal(after.text, longer);
+    assert.equal(after.fetchedAt, NOW.toISOString());
+
+    // Refreshed once: the next run leaves it alone.
+    const again = await syncTranscripts({ out: dir, now: NOW, list, transcript: async () => assert.fail("no second refresh") });
+    assert.equal(again.refreshed.length + again.added.length + again.failed.length, 0);
+
+    // A failed refresh keeps the saved copy.
+    writeFileSync(join(dir, "RRRRRRRRRRR.json"), JSON.stringify(early));
+    const failedRefresh = await syncTranscripts({ out: dir, now: NOW, list, transcript: async () => { throw new Error("HTTP 429"); } });
+    assert.match(failedRefresh.failed[0], /RRRRRRRRRRR .* refresh: HTTP 429/);
+    assert.equal(JSON.parse(readFileSync(join(dir, "RRRRRRRRRRR.json"), "utf8")).text, TEXT);
+  }));
+
+test("a malformed saved file is re-saved while listed, and removed once untouched for keepDays", () =>
+  withDir(async (dir) => {
+    const listed = video("LLLLLLLLLLL", "2026-11-17T12:00:00Z");
+    writeFileSync(join(dir, "LLLLLLLLLLL.json"), "{broken");
+    writeFileSync(join(dir, "SSSSSSSSSSS.json"), "{broken, recent");
+    writeFileSync(join(dir, "XXXXXXXXXXX.json"), "{broken, stale");
+    const stale = new Date("2026-10-01T00:00:00Z");
+    utimesSync(join(dir, "XXXXXXXXXXX.json"), stale, stale);
+    utimesSync(join(dir, "LLLLLLLLLLL.json"), stale, stale);
+    const r = await syncTranscripts({ out: dir, now: NOW, list: async () => ({ items: [listed], errors: [] }), transcript: async () => ({ text: TEXT, automatic: true }) });
+    assert.deepEqual(r.added.map((a) => a.videoId), ["LLLLLLLLLLL"]);
+    assert.deepEqual(r.prunedBad, ["XXXXXXXXXXX.json"]);
+    assert.equal(r.badFiles.length, 3);
+    assert.deepEqual(readdirSync(dir).sort(), ["LLLLLLLLLLL.json", "SSSSSSSSSSS.json"]);
   }));
