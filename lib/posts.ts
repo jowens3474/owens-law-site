@@ -82,6 +82,27 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "ole-miss-golding-injury-update-senior-day-wofford",
+    title: "Golding: Ole Miss Down to a Game-Time Decision at Running Back for Senior Day vs. Wofford",
+    seoTitle: "Ole Miss: Golding injury update before Wofford",
+    dek: "Kewan Lacy had season-ending surgery in Dallas last week, Shekai Mills-Knight is a game-time decision with a high ankle, and the Rebels' senior class can make history.",
+    category: "General News",
+    tags: ["sports-ms-college"],
+    author: "Jackson Wire Staff",
+    date: "2026-11-18",
+    views: 0,
+    body: [
+      "Ole Miss is down to a game-time decision at running back for Saturday's Senior Day against Wofford. Coach Pete Golding said Tuesday that Shekai Mills-Knight, who left the Oklahoma game with an ankle injury, is unlikely to be ready for the 11 a.m. kickoff at Vaught-Hemingway Stadium.",
+      "Golding said Mills-Knight's injury is a high ankle and that the staff will treat him as week to week, calling him a game-time decision at best for this week. Mills-Knight, a sophomore, carried eight times for 40 yards against the Sooners before the injury, according to the Oklahoma box score.",
+      "The bigger loss is Kewan Lacy. Golding confirmed the junior from Dallas had season-ending surgery last week in Dallas and was due back in Oxford on Wednesday. Golding said the shoulder was not getting better and it was looking like it was going to be long term, so the decision was made to go ahead and fix it. The Clarion Ledger reported on Nov. 12, citing On3, that Lacy would miss the rest of the season after dislocating his left shoulder at Texas.",
+      "That leaves Joshua Dye, a senior transfer from Southern Utah, as the healthiest option. Dye ran 11 times for 58 yards and scored on a 19-yard run at Oklahoma, his first touchdown of the season. \"I was proud of Josh for how he got in there and competed both in the run game and the protection,\" Golding said, according to the school's practice report. Makhi Frazier, a Michigan State transfer, is also on the roster.",
+      "Golding also ruled out two more starters for Saturday. Linebacker Keaton Thomas, who broke a thumb and had surgery after playing through it at Oklahoma, will sit, and defensive end Kam Franklin will be shut down this week with the Egg Bowl as the target. Safety Edwin Joseph, who did ground running last week, remains week to week.",
+      "The playoff math is settled. Ole Miss is 6-4 and 4-4 in the SEC after the 24-17 loss at Oklahoma, a game moved from Saturday to Sunday because the FAA grounded flights nationwide on Friday. \"This kind of seals the fate from a playoff standpoint,\" Golding said after the game. He said the staff would find out what kind of character the team has.",
+      "What the Rebels still have is a senior class chasing history. Golding said the group is \"40 and 11\" and can become the winningest class in program history by winning its final three games. \"They have the opportunity to go win three more,\" he said. \"They'll be the winningest class in the history of the program.\" Ole Miss will honor 17 seniors before Saturday's game, the school announced. Golding was also asked whether the last two weeks become an audition for younger players. He said the priority stays on winning, with room for evaluation once a game is in hand. \"There's a reason those guys went there and the reason the guys went here,\" he said of Wofford. \"Hopefully this is an opportunity for some of those other guys to get in-game experience.\"",
+      "What's next: Ole Miss hosts Wofford on Saturday, Nov. 21, at 11 a.m. Central on SEC Network+, the second all-time meeting between the schools and the first since a 38-13 Ole Miss win in Oxford in 2016. The Rebels close the regular season against Mississippi State on Friday, Nov. 27, at 11 a.m. on ABC.",
+    ],
+  },
+  {
     slug: "reeves-fy28-budget-100-million-energy-infrastructure-bank",
     title: "Reeves Wants $123 Million for an Energy Infrastructure Bank and Site Work. Lawmakers Have Not Written the Bill.",
     seoTitle: "Reeves FY28 budget: $100M energy bank, $20M site work",
