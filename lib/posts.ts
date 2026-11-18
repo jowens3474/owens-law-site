@@ -82,6 +82,28 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "reeves-fy28-budget-100-million-energy-infrastructure-bank",
+    title: "Reeves Wants $123 Million for an Energy Infrastructure Bank and Site Work. Lawmakers Have Not Written the Bill.",
+    seoTitle: "Reeves FY28 budget: $100M energy bank, $20M site work",
+    dek: "The governor's final budget recommendation asks for $100 million to stockpile transformers and pipe, plus $20 million to speed power lines to MDA-designated sites. No agency has been named to run it.",
+    category: "Economy",
+    categories: ["Development"],
+    tags: ["pipeline","data-centers"],
+    author: "Jackson Wire Staff",
+    date: "2026-11-18",
+    views: 0,
+    body: [
+      "Governor Tate Reeves released his Fiscal Year 2028 Executive Budget Recommendation on Nov. 17, and the largest single new economic development item in it is not a plant or a port. It is a bank. Reeves asks the Legislature to create an Energy Infrastructure Bank and seed it with $100 million in Capital Expense Funds, according to the recommendation posted at governorreeves.ms.gov.",
+      "The bank's stated job is to buy the parts that take longest to arrive: transformers, wire, pipe, the equipment the document says can run 18 months or more behind a project. \"Delays in obtaining essential components can exceed 18 months, slowing development and jeopardizing new investment,\" the recommendation states. The document does not name the agency that would run the bank, does not describe how it would price or recover the cost of the equipment it holds, and does not say which projects would draw on it first.",
+      "Two smaller line items sit alongside it. Reeves proposes $20 million in Capital Expense Funds for \"a state-authorized process that will expedite the construction of energy generation, transmission and pipeline infrastructure at sites designated by the Mississippi Development Authority.\" A third item, $3 million to MDA, would create an energy innovation accelerator program run with the state's energy manufacturing companies.",
+      "The three requests total $123 million, all from capital expense funds rather than the general fund. That is roughly 1.3 percent of the $9.43 billion in total state support funds the recommendation projects for FY28, a figure that appears in the budget summary tables in the same document. The recommendation does not break out how much of the $100 million would be spent in any one county, and it does not identify a single site.",
+      "The timing is the story for the Jackson metro. The Public Service Commission has spent the fall on data center costs, and Entergy Mississippi's $1 billion Traceview plant in Ridgeland cleared its MDEQ air permit on Oct. 14, according to the agency's permit database. Amazon's Madison County campus at the Mega Site near Canton carries an air construction permit that MDEQ lists as modified as recently as December 2025, with a Title V application received June 29, 2026. Every one of those projects depends on equipment with long lead times, which is the gap the bank is meant to close.",
+      "There is a precedent worth noting. In 2026 the Legislature put $20 million into \"Energy Ready\" infrastructure and expanded what Mississippi Site Development Grant money can pay for to include easements, rights of way, and electricity, natural gas and telecommunications lines serving industrial property, according to a CSG South summary of enacted bills. The bank would be a different instrument: state money buying hardware ahead of demand rather than grants to a single site.",
+      "The open question is who carries the risk. If the state buys transformers and a designated project stalls, the recommendation does not say whether the equipment is sold, held, or charged to ratepayers through a utility. Nor does it say whether an MDA-designated site could include land inside Jackson, where the city has its own 110-acre zoo tract solicitation and a separate push for development. Haley Fisackerly, Entergy Mississippi's president and CEO, has publicly credited the Legislature and the PSC with structuring data center agreements so large customers pay direct power costs; the budget document does not address how a state equipment bank would interact with those agreements.",
+      "What's next: the recommendation is a request, not an appropriation. The House and Senate Appropriations committees write the FY28 budget during the 2027 regular session, which convenes in January at the State Capitol in Jackson, and the bank exists only if both chambers pass a bill creating it and fund it. Readers can track the request in the FY28 Executive Budget Recommendation PDF posted at governorreeves.ms.gov and follow the corresponding appropriation bills at legislature.ms.gov once they are filed. The document does not set a date for a draft bill, and no agency has been named to answer questions about the bank's design.",
+    ],
+  },
+  {
     slug: "morning-brief-2026-11-18",
     title: "Morning Brief: Nov 18 · Data Center Ban Survives; Stokes Censured",
     dek: "The Jackson City Council voted 5-2 Tuesday to keep the city's data center moratorium through April 4, then censured Ward 3 Councilman Kenneth Stokes 5-1 for his conduct at the Nov. 3 meeting.",
