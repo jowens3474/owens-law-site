@@ -82,6 +82,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-11-18",
+    title: "Morning Brief: Nov 18 · Data Center Ban Survives; Stokes Censured",
+    dek: "The Jackson City Council voted 5-2 Tuesday to keep the city's data center moratorium through April 4, then censured Ward 3 Councilman Kenneth Stokes 5-1 for his conduct at the Nov. 3 meeting.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-11-18",
+    views: 0,
+    body: [
+      "Data center ban survives until April 4: The Jackson City Council rejected an ordinance Tuesday night that would have repealed the temporary moratorium on data centers, WLBT reported. Councilmen Kenneth Stokes and Ashby Foote voted to lift the ban; Vernon Hartley, Kevin Parkinson, Tina Clay, Brian Grizzell and Lashia Brown-Thomas voted to keep it. While the ban stands, the city will not accept, process or approve permit applications for new data centers or expansions of existing ones. Stokes argued the repeal would \"untie the mayor's hands\" on economic development. Resident Yolanda Daniel asked whether the council had fully evaluated other opportunities for jobs, investment and tax revenue before ending the review early. The agenda packet does not show a dollar value attached to any pending project.",
+      "Stokes censured 5-1 over Nov. 3 outburst: The same meeting produced a formal censure of Ward 3 Councilman Kenneth Stokes, adopted 5-1 with Stokes the only no vote, Mississippi Today reported. The resolution, item 26 on the Nov. 17 agenda posted at jacksonms.gov, cites his \"conduct during City Council meetings.\" The council did not debate it. The censure carries no stated fine, removal or loss of committee assignment in the agenda language. Stokes clashed with residents during the data center debate, and protesters chanted \"Hey, hey, ho, ho, Kenneth Stokes has got to go\" as he spoke, the Clarion Ledger reported. The censure is a formal statement of the body, not a disciplinary action the packet quantifies.",
+      "Ambulance district vote slips; RFP due Nov. 24: Council members put off a vote on creating the Jackson Emergency Medical Services District after seeing the proposal for the first time at Monday's work session, WLBT reported. Interim Chief Administrative Officer Drew Martin said the per-capita money at stake is roughly $75,000 a year, funds that now flow to Hinds County, which contracts with American Medical Response. Martin said the city has \"virtually no recourse\" to enforce that county contract. The city's October request for proposals for its own ambulance provider closes Nov. 24. Vice President Kevin Parkinson objected to the late add, saying he would have to tell constituents, \"Surprise, we have an item that's been added.\"",
+      "JPS chief exits June 2027 after eight years: Superintendent Errick L. Greene told the Jackson Public Schools Board of Trustees on Tuesday he will not renew his contract, which ends June 30, 2027, the district announced. Greene arrived in October 2018, when JPS faced more than a decade of academic trouble and the prospect of state intervention. The district says it has since raised its state accountability rating by two letter grades, posted its highest graduation rate, and completed more than $170 million in school renovations and facility upgrades. Board President Barbara Hilliard said the board is \"saddened\" but grateful. Mayor John Horhn praised Greene's \"steadier hand.\" The search calendar and cost are not in the district's announcement.",
+      "Water breaks nearly double in six weeks: JXN Water said Tuesday that water main breaks have nearly doubled over the last six weeks as drought dries and shifts the clay soil under the city's pipes, WLBT reported. Chief Operating Officer Terrance Byrd said crews are prioritizing breaks that cut water to homes, hospitals and schools, then larger neighborhood breaks, then small leaks. Customers with an already reported leak should call again only if it worsens; JXN Water's 24/7 line is 601-500-5200 for loss of service, flooding or a safety hazard. Repair updates post on JXN Water's Nextdoor page. The utility's statement did not give a break count or a repair cost.",
+    ],
+  },
+  {
     slug: "crigler-park-contract-flagstar-3-459-million-alternate-deduction",
     title: "Crigler Park Will Be Built for $3.46 Million, Not $10 Million: MDAH Cut the Band Shell",
     dek: "MDAH's own award letter shows Flagstar Construction bid $7.61 million, then took a $4.16 million deduction that removed the band shell. The park still gets called a $10 million project.",
