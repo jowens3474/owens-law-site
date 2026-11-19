@@ -66,6 +66,61 @@ export interface Law {
 
 export const LAWS: Law[] = [
   {
+    slug: "lottery-money-roads-schools-made-permanent",
+    bill: "HB 325",
+    title: "Lottery money for roads and schools is now permanent, with no 2028 cutoff",
+    session: "2026 Regular Session",
+    becameLaw: "signed",
+    signedOn: "2026-02-16",
+    effective: "2026-07-01",
+    topics: ["Taxes and budget","Transportation","Schools"],
+    oneSentence: "Mississippi made permanent the split that sends the first $80 million of lottery money each year to roads and everything above that to schools.",
+    whatItDoes: [
+      "The biggest change is that the lottery split no longer has an end date. Under the old law, the arrangement was set to expire June 30, 2028, according to Mississippi First. HB 325 deletes that cutoff, so the same two-way split keeps running.",
+      "The rule itself stays the same. All net lottery proceeds go into the State Highway Fund, and any money above $80 million in a fiscal year goes to the Education Enhancement Fund, according to the bill text. That fund pays for early childhood learning collaboratives, the Classroom Supply Fund and other education purposes.",
+      "The bill also makes permanent a second pot of money for roads. Fees the Department of Revenue collects from sports betting go to the State Highway Fund for highway and bridge repair, and the bill removes the date on which that arrangement would have ended, according to the Legislature's summary.",
+    ],
+    whyItHappened: [
+      "Lawmakers created the lottery in a 2018 special session and promised the first $80 million a year to roads and bridges for a limited time. The Clarion Ledger reported at the time that the first 10 years of up to $80 million a year would go to state roads and bridges or to match federal infrastructure money, with anything above that going to public education.",
+      "That deadline created a planning problem. Transportation Director Brad White told WLBT in April 2026 that knowing the $80 million is coming lets the agency plan. He said MDOT has paved more than 3,100 miles of two-lane roads with lottery money since 2018.",
+      "Without the change, the first $80 million would have gone back to the state's general fund, the pot of money lawmakers spend on almost everything, according to WLBT.",
+    ],
+    whatsBehindIt: [
+      "Rep. Steve Massengill, a Republican from District 13, sponsored the bill, and it was referred to the House Transportation Committee. It passed the House 121 to 0 on January 14, 2026, with one member absent, and the Senate 52 to 0 on February 4, 2026, according to the roll calls recorded from the Legislature's journals.",
+      "The vote was unanimous in both chambers, and every Democrat who voted joined every Republican. The Wire found no organized opposition in the pages it read.",
+      "The two sides had different reasons to like it. Road builders and MDOT got a guaranteed stream they can plan around, and schools kept the money above the cap. Mississippi First, an education policy group, counted it among the session's wins for early childhood programs.",
+    ],
+    whatItCosts: [
+      "The bill carries no new appropriation, meaning it does not itself spend a dollar. It decides where money already collected goes. The Wire could not find a fiscal note for HB 325 in the pages it read.",
+      "The size of the stakes is visible in the transfers. The lottery has sent $858,125,962.15 to the state since it started in November 2019, according to the Mississippi Lottery Corporation. In fiscal year 2025, the Education Enhancement Fund received $103,800,242.17 from the lottery, WLBT reported.",
+      "The money comes from people who buy tickets, not from a tax line on a paycheck. The tradeoff is between two public purposes: every dollar above $80 million that goes to schools is a dollar not going to the general fund, and every dollar under the cap is a dollar not going to schools.",
+    ],
+    whatChangesForYou: [
+      "Most households will not see a bill or a check change. What changes is what the state can count on. A parent whose child attends a state-funded pre-K collaborative, or a teacher who uses the classroom supply card, is downstream of the Education Enhancement Fund that this bill keeps filling.",
+      "Drivers get the more visible benefit. MDOT's lottery program pays for paving two-lane roads, and White told WLBT the agency has paved more than 3,100 miles of them since 2018.",
+      "The Wire found no deadline, hearing or filing step for residents in the pages it read. The public record to watch is the lottery's monthly transfer announcements, which show how much went to roads and how much went to schools.",
+    ],
+    watchFor: [
+      "The next test is the money itself. The lottery reported $39,743,762.04 in transfers for fiscal year 2027 through October 2026, which is the running total before the $80 million road cap is reached. Once transfers pass $80 million, the rest starts flowing to schools.",
+      "The 2027 session, which Mississippi First says it is preparing for, is the next chance for lawmakers to revisit the split. Because the expiration date is gone, changing it now takes a new bill rather than letting it lapse.",
+      "The Wire found no lawsuit challenging HB 325 in the pages it read.",
+    ],
+    sources: [
+      { name: "HB 325 as sent to the Governor (Mississippi Legislature)", url: "https://billstatus.ls.state.ms.us/documents/2026/pdf/HB/0300-0399/HB0325SG.pdf" },
+      { name: "Summary of General Legislation 2026 Regular Session, Senate Legislative Services Office", url: "https://www.legislature.ms.gov/media/1368/26-summary.pdf" },
+      { name: "Mississippi Department of Revenue, 2026 Legislation", url: "https://www.dor.ms.gov/forms-resources/laws-regulations/2026-legislation" },
+      { name: "LegiList, Mississippi HB 325 (actions and roll calls)", url: "https://legilist.com/states/mississippi/bill/2026/hb-325" },
+      { name: "Mississippi First, As New Education Laws Take Effect, A Look Back at the 2026 Legislative Session", url: "https://www.mississippifirst.org/2026-legislative-session-review/" },
+      { name: "WLBT, MDOT executive director discusses latest funding totals from lawmakers", url: "https://www.wlbt.com/2026/04/20/mdot-executive-director-discusses-latest-funding-totals-lawmakers?outputType=amp" },
+      { name: "WLBT, Education Enhancement Fund receives $9.7 million from MS Lottery proceeds", url: "https://www.wlbt.com/2025/06/09/education-enhancement-fund-receives-97-million-ms-lottery-proceeds" },
+      { name: "Mississippi Lottery Corporation, Mississippi Lottery Approaches Seventh Anniversary with $858 Million in State Transfers", url: "https://www.mslottery.com/mississippi-lottery-approaches-seventh-anniversary-with-858-million-in-state-transfers" },
+      { name: "Mississippi Lottery Corporation, Lottery Sends More Than $9.7 Million to State", url: "https://www.mslottery.com/lottery-sends-more-than-9-7-million-to-state" },
+    ],
+    author: "Jackson Wire Staff",
+    date: "2026-11-19",
+    note: "The Wire read the signed bill text, the Legislature's own end-of-session summary, the Department of Revenue's 2026 legislation list, the roll call record, Mississippi First's session review, two WLBT stories and two Mississippi Lottery press releases. The bill is broader than a schools-only story: it also makes permanent the sports betting fee money that goes to the State Highway Fund, and the Wire led with the lottery split because that is the larger and better documented piece. The Wire could not open policyrisk.com, which returned an error, and did not use it. The Wire could not find a fiscal note for HB 325, a list of registered lobbyists for or against it, or any statement from the governor explaining his approval; the signing date of February 16, 2026 comes from the Legislature's summary and the roll call record, which agree. The Wire did not contact the sponsor, MDOT, the Department of Education or the governor's office. The Wire found nothing in the pages it read that is specific to Jackson or Hinds County, so that section is empty.",
+  },
+  {
     slug: "medicaid-appropriation-fiscal-2027-budget",
     bill: "HB 1912",
     title: "Mississippi gives Medicaid a $1.17 billion share of a $7.36 billion budget",
