@@ -82,6 +82,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-11-19",
+    title: "Morning Brief: Nov 19 · Madison County Backs $11.74M Gallery TIF; Jackson Council Moves $5.4M",
+    dek: "Madison County supervisors signed off Nov. 16 on an $11.74 million TIF plan for The Gallery, pledging 75% of the project's future property taxes to repay bonds, less than a week after the city of Madison approved its own piece.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-11-19",
+    views: 0,
+    body: [
+      "Madison County backs Gallery TIF: County supervisors voted unanimously Nov. 16 to approve an $11.74 million tax increment financing plan for The Gallery, the $60 million arts and entertainment district planned at Galleria Parkway, the Clarion Ledger reported. Under the agreement, the county will use 75% of future property taxes collected from the project to repay the bonds. The county vote came less than a week after Madison's mayor and Board of Aldermen approved issuing up to $11.741 million in TIF revenue bonds on Nov. 10, the first TIF project in the city in 15 years. Neither government will use general fund money or raise taxes to cover the debt, officials said. Bellamare Development owns the 70-acre site.",
+      "Jackson Council moves $5.4M in road money: The Nov. 17 City Council agenda lists four orders authorizing the mayor to execute MOUs with the Mississippi Department of Finance and Administration to issue funds: $4,000,000 in matching money for Federal Highway Administration road projects, $750,000 for road and infrastructure work in northwest Jackson, $200,000 to pave Hanging Moss Road from East Northside Drive to Nakoma Drive, and $70,000 for tree removal at Leavell Woods and Sykes parks. A separate order covers $400,000 for the Westside Community Center. The agenda packet is posted at jacksonms.gov; it does not show which projects the $4 million match draws down.",
+      "Amazon valuation fight sets the tax base: Madison County Tax Assessor Norman Cannady told supervisors each of Amazon's five data center buildings at the Canton mega site has a true value of nearly $292 million for the 2026 tax roll, WLBT reported. Amazon's representatives proposed roughly $69 million per facility, a gap of more than $220 million per building across five structures. The board adopted the assessor's figure. The number matters beyond the county: it sets what Amazon pays under its fee-in-lieu-of-tax agreements, money that flows to schools and county government. Cannady told the Mississippi Free Press Amazon can still contest the decision in court.",
+      "Entergy's Ridgeland plant clears air permit: MDEQ issued Entergy Mississippi an air construction PSD permit on Oct. 14 for the Traceview Advanced Power Station, a 754-megawatt natural gas combined-cycle plant on 1972 W County Line Road in Ridgeland, state permit records show. Entergy says the plant is expected online in 2029 and is one of three advanced gas plants in its Superpower Mississippi grid program. A FERC environmental assessment in July 2026 identified the Madison County AWS data centers among the demand driving the project, according to a review of the filings. The site sits between Livingston Road and the Natchez Trace Parkway, next to an existing transmission corridor.",
+      "Lumumba forfeits $50,000: U.S. District Judge Daniel P. Jordan III signed an agreed order of forfeiture Nov. 17 requiring Chokwe Antar Lumumba to forfeit a $50,000 money judgment to the United States, court records show. The order states the sum represents proceeds obtained from the offense of conviction, conspiracy under 18 U.S.C. Section 371, and that it will be part of his sentence. Lumumba and his attorneys signed the agreement, which also commits him to help the government identify and dispose of forfeitable property and lets the government pursue substitute assets. The order dispenses with an ancillary hearing. The docket entry is document 230 in case 3:24-cr-103-DPJ-LGI.",
+    ],
+  },
+  {
     slug: "ole-miss-golding-injury-update-senior-day-wofford",
     title: "Golding: Ole Miss Down to a Game-Time Decision at Running Back for Senior Day vs. Wofford",
     seoTitle: "Ole Miss: Golding injury update before Wofford",
