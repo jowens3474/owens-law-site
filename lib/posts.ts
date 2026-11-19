@@ -82,6 +82,27 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "mississippi-state-2027-class-four-decommits-15-commits-signing-day",
+    title: "Mississippi State's 2027 Class Down to 15 Commits After Four Decommitments in a Week",
+    seoTitle: "Mississippi State: 2027 class loses four commits in a week",
+    dek: "Four players have left Jeff Lebby's 2027 class since Nov. 10, including four-star running back Yoshawn Hudson. Signing day is Dec. 2, and the class ranked last in the SEC.",
+    category: "General News",
+    tags: ["sports-ms-college"],
+    author: "Jackson Wire Staff",
+    date: "2026-11-19",
+    views: 0,
+    body: [
+      "Mississippi State's 2027 recruiting class has lost four players since Nov. 10, and the latest was its highest-ranked one. Four-star running back Yoshawn Hudson of Winona announced his decommitment on Nov. 17, the Clarion Ledger reported, leaving Jeff Lebby's class at 15 commitments with signing day two weeks away.",
+      "Hudson had been committed since June 14 and was a Clarion Ledger Dandy Dozen selection. \"After much consideration and prayer, I am taking this opportunity to share that I am decommitting from Mississippi State,\" Hudson wrote in a post on X. He added that he would be \"exploring my options in these final few weeks.\"",
+      "The other departures came quickly. Four-star offensive tackle Li'Marcus Jones, three-star safety Hudson Fuqua and three-star cornerback Julian McDonald also left the class, per the Clarion Ledger. Jones, a former Callaway player now at Brentwood Academy in Tennessee, flipped from Colorado to Mississippi State and back to Colorado within a day. Fuqua and McDonald have not committed elsewhere. The Bulldogs have added two junior college players in the same stretch: three-star defensive lineman Jekai Lee and unranked tight end Jourdan Butler.",
+      "The bigger number is the class ranking. Before Hudson's decommitment, the 15-player class was ranked No. 57 nationally by the 247Sports Composite, last in the SEC and on pace to be the lowest-ranked class in program history since the rankings began in 2000, according to the Clarion Ledger. Saturday Down South reported that Mississippi State holds 15 commitments after Hudson's decision, headlined by four-star defensive lineman Jaden Bayonne, whom it listed as the nation's No. 33 defensive lineman.",
+      "The timing is the problem. The early signing period opens Dec. 2, and Lebby is also rebuilding a staff on the fly. He fired offensive line coach Phil Loadholt and special teams coordinator Cliff Odom on Nov. 15, a day after a 41-9 loss to Auburn pushed the losing streak to six, and named Mason Miller and Joey Connors as interim replacements.",
+      "Asked on Nov. 16 about the full evaluation with signing day approaching, Lebby said the program is looking at every piece of it. \"Timing of things matters in a huge way,\" he said at his Monday press conference. \"But we will continue to evaluate every piece of it from the personnel department to our entire staff internally.\"",
+      "There is a counterweight on the roster. Running back Fluff Bothwell, the team's leading rusher with 649 yards and three touchdowns on 134 carries through nine games, announced Wednesday he will return in 2027, the Associated Press reported. Quarterback Kamario Taylor and receiver Zion Ragins have also said they will be back, and Bothwell framed it as a two-game focus first: \"We're focused on these last two games, then going straight to work on a big 2027.\"",
+      "What's next: Mississippi State hosts Tennessee Tech for Senior Day on Saturday, Nov. 21, at noon Central on SECN+, the Bulldogs' final home game and their last chance to build a recruiting pitch on a win before the Dec. 2 signing day.",
+    ],
+  },
+  {
     slug: "amazon-canton-air-permit-modification-still-unscheduled-permit-board",
     title: "Amazon's Canton Air Permit Modification Is Still Not on Any Permit Board Agenda, Three Months After Comment Closed",
     seoTitle: "Canton: Amazon air permit still unscheduled at MDEQ",
