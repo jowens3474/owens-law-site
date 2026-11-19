@@ -82,6 +82,28 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "amazon-canton-air-permit-modification-still-unscheduled-permit-board",
+    title: "Amazon's Canton Air Permit Modification Is Still Not on Any Permit Board Agenda, Three Months After Comment Closed",
+    seoTitle: "Canton: Amazon air permit still unscheduled at MDEQ",
+    dek: "MDEQ's own permit database shows the Canton modification at \"Draft Permit Public Comment Period Ends,\" dated Aug. 24. The board that must issue it last met Nov. 10, and the agenda is not posted.",
+    category: "Development",
+    categories: ["Economy"],
+    tags: ["data-centers","pipeline"],
+    author: "Jackson Wire Staff",
+    date: "2026-11-19",
+    views: 0,
+    body: [
+      "The Mississippi Department of Environmental Quality's permit database still lists Amazon's Canton data center air permit modification as a draft. The status line reads \"Draft Permit Public Comment Period Ends,\" dated Aug. 24, 2026, according to the enSearch record for Agency Interest 86219 (opcgis.deq.state.ms.us). Nearly three months later, no posted Permit Board agenda shows the item.",
+      "That matters because the Permit Board, not MDEQ staff, issues the permit. The board meets at 9 a.m. on the second Tuesday of each month at 515 East Amite Street in Jackson, and its page still advertises the Nov. 10, 2026 meeting with the agenda marked \"COMING SOON\" (mdeq.ms.gov/permits/permit-board). The agency's 2026 agenda archive lists a November agenda PDF, but the link carries no readable document text.",
+      "The permit is Madison County's largest single pollution control decision. The same enSearch record shows the Canton site at 1978 Highway 22 holds Air Construction Permit 1720-00098, first issued Dec. 16, 2025, and that Amazon filed a separate Title V application that MDEQ received June 29, 2026. A Title V permit is the operating permit a facility needs to run long term, as distinct from the construction permit that lets it build.",
+      "The scale is in the numbers. MDEQ's October response to comments on Entergy's Traceview plant describes the Canton facility as 331 diesel-fired generators totaling 900 megawatts, and the Ridgeland campus at 1626 County Line Road as 391 generators totaling 1,060 megawatts under Permit 1720-00099 (mdeq.ms.gov). Together that is 722 engines and 1,960 megawatts of backup diesel capacity, roughly the output of two large gas plants, sitting 15 miles apart in the same county.",
+      "The Wire's calculation: at the 100 hours a year MDEQ allows for testing and maintenance, those engines could run a combined 72,200 engine-hours annually. The Mississippi Free Press reported in February that Amazon's own applications estimate Canton's nitrogen oxide emissions could exceed 240 tons a year, roughly nine times the Nissan plant in Canton, and that MDEQ air division chief Jaricus Whitlock said 50 of the 100 hours may be used for purposes other than maintenance, including supplementing grid power.",
+      "Who pays and who benefits is not symmetric. Madison County collects fee-in-lieu-of-taxes payments from the two campuses, with the first year projected at about $28 million from Canton's first five buildings, half of it pledged to a $215 million state infrastructure loan, according to figures MCEDA attorney Chris Pace gave supervisors and reported by Mississippi Today and WLBT. The county's share is projected to reach $16.5 million by 2029 and $29 million by 2031, per the Mississippi Free Press. Neighbors along Highway 22 get the engines.",
+      "The valuation fight underneath that revenue is unresolved. On Aug. 17 the Board of Supervisors upheld Tax Assessor Norman Cannady's figure of about $292 million per building over Amazon's proposed $69 million, a gap of nearly $223 million per building, the Mississippi Free Press reported. Cannady told the outlet Amazon declined to share construction costs. Amazon can still take the assessment to circuit court, and the county has not disclosed a filing.",
+      "What's next: the decision-maker is the nine-member Mississippi Environmental Quality Permit Board, chaired by Brian Perry of the Department of Agriculture and Commerce. Its next regular meeting is the second Tuesday of December, and the date and agenda are confirmed by calling (601) 961-5041. Watch the agenda archive at mdeq.ms.gov/permits/permit-board/agendas/2026p for permit 1720-00098 and 1720-00099, and watch the enSearch status line for either number to change from draft to issued. The Title V application received June 29 is the second clock to watch, because it governs how the engines may operate once the buildings are finished.",
+    ],
+  },
+  {
     slug: "morning-brief-2026-11-19",
     title: "Morning Brief: Nov 19 · Madison County Backs $11.74M Gallery TIF; Jackson Council Moves $5.4M",
     dek: "Madison County supervisors signed off Nov. 16 on an $11.74 million TIF plan for The Gallery, pledging 75% of the project's future property taxes to repay bonds, less than a week after the city of Madison approved its own piece.",
