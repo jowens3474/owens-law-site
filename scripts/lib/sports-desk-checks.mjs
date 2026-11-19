@@ -5,6 +5,7 @@
 // They live apart from the desk script because that file runs its main() the
 // moment it is imported, which would make these impossible to test alone
 // (see sports-desk-checks.test.mjs). Nothing here touches the network or disk.
+import { isTipOnlyUrl } from "./sports-tips.mjs";
 import { apDate, weekdayOf, SPORTS, SCHEDULE_SCHOOLS } from "./espn-schedule.mjs";
 
 // En dash and em dash, written as escapes so this file contains neither.
@@ -139,6 +140,8 @@ export function mentionsTime(text, time) {
   const compact = (s) => normalizeText(s).replace(/[\s.]/g, "");
   const t = compact(time);
   if (!t) return false;
+  // "noon" must not match inside "afternoon".
+  if (t === "noon" || t === "midnight") return new RegExp(`\\b${t}\\b`).test(normalizeText(text));
   return new RegExp(`(?<!\\d)${escapeRe(t)}`).test(compact(text));
 }
 
@@ -406,28 +409,36 @@ export function staleGameProblems(article, schedules, nowIso) {
 }
 
 /** Sources the draft relied on: at least two the desk read, one trusted, one a page (not only ESPN's data). */
-export function sourceProblems(sources, readUrls, scheduleUrls = []) {
+export function sourceProblems(sources, readUrls, scheduleUrls = [], officialUrls = []) {
+  const tipOnly = (Array.isArray(sources) ? sources : []).filter((s) => isTipOnlyUrl(s));
   const read = new Set([...(readUrls || [])].map(normalizeUrl).filter(Boolean));
   const sched = new Set([...(scheduleUrls || [])].map(normalizeUrl).filter(Boolean));
+  // A school's own press conference video (read as a transcript) is official.
+  const official = new Set([...(officialUrls || [])].map(normalizeUrl).filter(Boolean));
   const given = [...new Set((Array.isArray(sources) ? sources : []).map(normalizeUrl).filter(Boolean))];
   const usable = given.filter((u) => read.has(u) || sched.has(u));
   const unread = (Array.isArray(sources) ? sources : []).filter((s) => {
     const n = normalizeUrl(s);
-    return n && !read.has(n) && !sched.has(n);
+    return n && !read.has(n) && !sched.has(n) && !isTipOnlyUrl(s);
   });
   const problems = [];
+  if (tipOnly.length) {
+    problems.push(
+      `Social posts, forums, podcasts and search trends are tips, not sources. Remove them and rely on official sources or news reports: ${tipOnly.join(", ")}.`,
+    );
+  }
   if (unread.length) {
     problems.push(
-      `These sources were not read with fetch_url in this run (or came back nearly empty), so they cannot be relied on: ${unread.join(", ")}.`,
+      `These sources were not read with fetch_url or press_conference_transcript in this run (or came back nearly empty), so they cannot be relied on: ${unread.join(", ")}.`,
     );
   }
   if (usable.length < 2) {
     problems.push("List at least two sources you opened and relied on (fetch_url pages or the team_schedule source).");
   }
-  if (!usable.some((u) => read.has(u))) {
-    problems.push("At least one source must be a page you read with fetch_url (an announcement or news report), not only ESPN's schedule data.");
+  if (!usable.some((u) => read.has(u) && !official.has(u))) {
+    problems.push("At least one source must be a page you read with fetch_url (an announcement or news report), not only ESPN's schedule data or a press conference transcript.");
   }
-  if (usable.length && !usable.some((u) => isTrusted(`https://${u}`))) {
+  if (usable.length && !usable.some((u) => isTrusted(`https://${u}`) || official.has(u))) {
     problems.push("At least one source must be official (a school, conference, the NCAA or ESPN) or an established newsroom.");
   }
   return problems;
@@ -481,7 +492,7 @@ export function draftProblems(article, ctx) {
     );
   }
   problems.push(...weekdayMismatches([article.title, article.dek, ...body].join("\n"), ctx.today));
-  problems.push(...sourceProblems(article.sources, ctx.readUrls, ctx.scheduleUrls));
+  problems.push(...sourceProblems(article.sources, ctx.readUrls, ctx.scheduleUrls, ctx.officialUrls));
   problems.push(...nextGameProblems(article, ctx.schedules, ctx.today, ctx.now));
   problems.push(...staleGameProblems(article, ctx.schedules, ctx.now));
   const twin = similarRecentTitle(article.title, ctx.recentSportsTitles);

@@ -32,14 +32,22 @@ function withTimeout(ms) {
   return { signal: c.signal, done: () => clearTimeout(t) };
 }
 
-function formatResults(results, provider) {
+// Each result is "[n] title", "URL: ...", then its text, and results are
+// separated by a blank line. A title is kept to one line and a result's
+// text never holds a blank line, so text from one result (a forum post, say)
+// cannot pose as a separate result with another site's URL
+// (screenSearchResults in sports-tips.mjs relies on this).
+export function formatResults(results, provider) {
   if (results.length === 0) return `(no results from ${provider})`;
   return (
     results
       .slice(0, MAX_RESULTS)
       .map(
         (r, i) =>
-          `[${i + 1}] ${r.title}\nURL: ${r.url}\n${(r.content || "").slice(0, 1000)}`,
+          `[${i + 1}] ${String(r.title ?? "").replace(/\s+/g, " ").trim()}\nURL: ${String(r.url ?? "").trim()}\n${String(r.content || "")
+            .slice(0, 1000)
+            .replace(/\n\s*\n/g, "\n")
+            .trim()}`,
       )
       .join("\n\n") + `\n\n(source: ${provider})`
   );

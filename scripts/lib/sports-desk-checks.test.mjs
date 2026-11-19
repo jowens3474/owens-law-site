@@ -3,6 +3,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { apDate, apTime, weekdayOf, parseSchedule, formatSchedule, scheduleUrl } from "./espn-schedule.mjs";
+import { screenSearchResults } from "./sports-tips.mjs";
 import {
   BETTING,
   normalizeUrl,
@@ -391,4 +392,37 @@ test("the headline and search title are held to the number and quote checks too"
   assert.ok(draftProblems(inventedQuote, ctx).some((p) => /does not appear word for word/.test(p)));
   const sourced = { ...goodArticle, title: "Ole Miss, 6-3, Moves to Sunday After FAA Ground Stop" };
   assert.deepEqual(draftProblems(sourced, ctx), []);
+});
+
+test("noon is a whole word", () => {
+  assert.ok(mentionsTime("Kickoff is at noon.", "noon"));
+  assert.ok(!mentionsTime("Kickoff is Saturday afternoon.", "noon"));
+});
+
+test("a school's own press conference video counts as official, but not as a page read with fetch_url", () => {
+  const video = "https://www.youtube.com/watch?v=e5IkVddyqac";
+  const blog = "https://www.on3.com/a";
+  assert.ok(sourceProblems([video, blog], [video, blog], []).some((p) => /official/.test(p)));
+  assert.deepEqual(sourceProblems([video, blog], [video, blog], [], [video]), []);
+  // A transcript and ESPN's schedule alone are not enough: one source must be a page.
+  assert.ok(sourceProblems([video, schedule.url], [video], [schedule.url], [video]).some((p) => /page you read with fetch_url/.test(p)));
+});
+
+test("social posts, forums and podcasts are tips: listing one as a source is a problem of its own", () => {
+  const read = ["https://olemisssports.com/news/2026/11/17/x", "https://www.clarionledger.com/story/sports/x"];
+  const problems = sourceProblems([...read, "https://bsky.app/profile/a.bsky.social/post/1", "https://feeds.simplecast.com/e_k5LEa3"], read);
+  assert.equal(problems.length, 1, problems.join(" | "));
+  assert.match(problems[0], /tips, not sources.*bsky\.app.*simplecast/);
+  assert.deepEqual(sourceProblems(read, read), []);
+});
+
+test("a quote or figure that only a forum search result holds fails the checks once results are screened", () => {
+  const raw = '[1] Coach search\nURL: https://www.reddit.com/r/OleMiss/comments/abc\nA booster says "it\'s done after the bowl" and the buyout is $4.2 million.\n\n[2] Interim DC named\nURL: https://olemisssports.com/news/x\nOle Miss named an interim defensive coordinator on Tuesday.';
+  const draft = ['A booster said "it\'s done after the bowl," and the buyout is $4.2 million.'];
+  // Unscreened, the forum text would have satisfied both checks.
+  assert.deepEqual(unmatchedQuotes(draft, [raw]), []);
+  assert.deepEqual(unsourcedNumbers(draft, [raw]), []);
+  const { sourceText } = screenSearchResults(raw);
+  assert.ok(unmatchedQuotes(draft, [sourceText]).length > 0);
+  assert.ok(unsourcedNumbers(draft, [sourceText]).length > 0);
 });

@@ -20,7 +20,7 @@ Files in this folder:
 | Pro briefing | active | Mondays 6:00 AM | GitHub Actions: `.github/workflows/pro-briefing.yml` | `scripts/pro-briefing.mjs` |
 | Pro alerts | active | weekdays 8:00 AM, noon, 4:00 PM | GitHub Actions: `.github/workflows/pro-alerts.yml` | `scripts/pro-alerts.mjs` |
 | Autopilot | active | daily 9:00 AM | GitHub Actions: `.github/workflows/autopilot.yml` | `scripts/autopilot.mjs` |
-| Sports desk | built, manual dry runs until the owner approves a daily schedule | on demand | GitHub Actions: `.github/workflows/sports-desk.yml` | `scripts/sports-desk.mjs` |
+| Sports desk | active | daily 8:00 AM CST (9:00 AM CDT) | GitHub Actions: `.github/workflows/sports-desk.yml` | `scripts/sports-desk.mjs`; reads the schools' press conference transcripts (`scripts/lib/press-conferences.mjs`, saved by a Mac job to the `claude/press-transcripts` branch); an idea scout pitches original stories from Bluesky, insider podcasts and Mississippi search trends (`scripts/lib/sports-tips.mjs`, `scripts/lib/sports-scout.mjs`), which the desk verifies before writing |
 | Laws desk | active | Tuesday to Saturday 10:00 AM | GitHub Actions: `.github/workflows/laws-desk.yml` | `scripts/laws-desk.mjs` |
 | Sales tax | active | daily 10:00 AM | GitHub Actions: `.github/workflows/sales-tax.yml` | `scripts/sales-tax-report.mjs` |
 | Instagram | active | daily 10:30 AM, and after any change to `lib/posts.ts` | GitHub Actions: `.github/workflows/instagram.yml` | `scripts/post-instagram.mjs` |
