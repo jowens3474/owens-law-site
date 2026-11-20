@@ -82,6 +82,27 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "ole-miss-vaught-hemingway-district-songy-highroads-ihl",
+    title: "Ole Miss Picks Songy Highroads for Vaught-Hemingway District After IHL Approval",
+    seoTitle: "Ole Miss: Vaught-Hemingway district developer approved",
+    dek: "The state College Board cleared a public-private partnership with an Atlanta firm Thursday. Ole Miss says stadium upgrades, a hotel, retail and a parking deck will rise on the stadium's north side.",
+    category: "General News",
+    tags: ["sports-ms-college"],
+    author: "Jackson Wire Staff",
+    date: "2026-11-20",
+    views: 0,
+    body: [
+      "Ole Miss has chosen an Atlanta developer to build a mixed-use entertainment district around the north side of Vaught-Hemingway Stadium, a project the university says will reshape the stadium's front door and the campus edge around it. The Board of Trustees of State Institutions of Higher Learning approved the partnership with Songy Highroads at its monthly meeting Thursday, Nov. 19, according to an Ole Miss Athletics release published Friday.",
+      "The project is structured as a public-private partnership, which Ole Miss calls a P3. Chancellor Glenn Boyce framed the vote as the start of something larger than a stadium renovation. \"This bold partnership represents a transformational moment not only for Ole Miss but also for the entire state of Mississippi,\" Boyce said in the release, which described the district as the first project of its kind in the state.",
+      "The release lists what is planned: stadium upgrades, athletics and foundation offices, new study lounge and tutoring space for student-athletes, expanded student section seating, premium offerings for season ticket holders, parking, expanded dining and short-term and extended-stay lodging. Songy Highroads President and COO Todd Nocerini described the mix as retail, office, a hotel, extended-stay residential and a parking deck arranged around an outdoor plaza built for events and game days.",
+      "The scope is not new. When Ole Miss issued its request for proposals in December 2025, its development advisor, Brailsford & Dunlavey, described a district program of a full-service luxury condotel with roughly 100 hotel keys and 30 condominium units, 35,000 square feet of retail and dining, a new plaza, and the preservation and elevation of the Walk of Champions. That RFP also called for modernized athletics offices relocated within the development footprint and said the plan must maintain a net-neutral parking impact while accommodating future stadium expansion.",
+      "What the release does not say is what the district will cost, when construction starts or whether capacity will change. Vaught-Hemingway seats 64,038, a figure Ole Miss Athletics lists as the largest in Mississippi, set by the 2016 expansion that closed in the north side for student seating. The 2025 RFP asked developers to design, build, finance, operate and maintain the stadium and district components through one or more long-term ground leases, and Ole Miss said Friday that details will be released as planning continues.",
+      "Athletics director Keith Carter tied the project to the stadium's year-round use rather than to any single season. \"This project is about much more than enhancing the stadium; it is about creating a 365 experience that will generate financial impact for North Mississippi,\" he said in the release. The university said it formed a selection committee of campus leaders in 2025 and retained Brailsford & Dunlavey as adviser before choosing Songy Highroads from a pool of firms.",
+      "Ole Miss described Songy Highroads as a privately held real estate development and investment firm that has completed more than $3.5 billion in mixed-use, hospitality, office and residential projects across the Southeast. The release cites the Signia Hilton Savannah, a 444-room headquarters hotel for the Savannah Convention Center owned by the Savannah-Georgia Convention Center Authority, among its work. The development team also includes Provident Resources Group, J.P. Morgan, Regions Bank, Brasfield & Gorrie and Cooper Carry, along with Mississippi-based businesses. The timing puts the announcement in the middle of a football weekend: No. 25 Ole Miss (6-4, 4-4 SEC) hosts Wofford on Saturday, Nov. 21, at 11 a.m. on SEC Network+, a game that will serve as Senior Day, with 17 student-athletes honored before kickoff, the school said.",
+      "What's next: Ole Miss plays Wofford on Saturday, Nov. 21, at 11 a.m. Central at Vaught-Hemingway Stadium, televised on SEC Network+, before closing the regular season against Mississippi State on Friday, Nov. 27, at 11 a.m. on ABC.",
+    ],
+  },
+  {
     slug: "jackson-data-center-moratorium-holds-until-april-4-2027-and-the-ordinance-still-is-not-written",
     title: "Jackson's Data Center Ban Now Runs to April 4, 2027. The Ordinance That Would Replace It Is Still Not Written.",
     seoTitle: "Jackson: data center ban runs to April 4, 2027",
