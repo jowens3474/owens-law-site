@@ -82,6 +82,23 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-11-20",
+    title: "Morning Brief: Nov 20 · Ambulance Bids Due Tuesday; Council Adds $5.4M in State Projects",
+    dek: "Jackson's ambulance proposals are due Tuesday at 3:30 p.m. with no EMS district yet in place to pay for them, while the council this week authorized $5.4 million in state-funded road, park and community center work.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-11-20",
+    views: 0,
+    body: [
+      "Ambulance bids due with no funding district: Proposals for Jackson's exclusive emergency ambulance contract are due Tuesday, Nov. 24, at 3:30 p.m., per the city's bid notice, and the council has not yet created the Jackson EMS District meant to help pay for it. Interim Chief Administrative Officer Drew Martin told the council the per-capita money is about $75,000 a year and currently goes to Hinds County, WLBT reported. The RFP sets a four-year initial term with a four-year option and weights price at 50%. The city also states it must spend at least 15 cents per capita, $23,055.15, to qualify for the state EMS Operating Fund.",
+      "Council taps $5.4M in state project money: The Jackson City Council on Nov. 17 authorized the mayor to sign agreements with the Department of Finance and Administration to draw $4 million in federal highway matching funds, $750,000 for northwest Jackson roads, $400,000 for the Westside Community Center, $200,000 to pave Hanging Moss Road and $70,000 for tree removal at Leavell Woods and Sykes parks, the Jackson Association of Neighborhoods recapped. The money was in the 2026 legislative projects bill. The authorizations do not mean the funds have been received or spent. Council President Vernon Hartley also asked for plain-language public meetings on city finances; a draft audit is expected by the end of November.",
+      "Airport terminal deal due by year end: The Jackson Municipal Airport Authority board has authorized negotiations on a pre-development agreement with the Jackson Forward team led by CAG Holdings, with Yates Construction and Gensler, for a new passenger terminal at JAN. JMAA says the agreement is expected by the end of 2026 and that the project would use a design-build-finance approach, which the authority calls a first for a U.S. airport project. JMAA has not published a project cost. CEO Rosa Beckett said federal funding cannot fully meet capital needs. JAN reports more than 1.2 million passengers a year.",
+      "County approves $6.6M paving, $2.07M insurance: Hinds County supervisors on Nov. 16 approved $6,600,579.49 for AJ Construction paving projects, $2,066,043.34 in general liability premiums and $488,260.51 for CDFL Architects and Engineers, the Jackson Association of Neighborhoods recapped. Supervisors also voted to send a letter opposing any closure of county libraries after the Jackson-Hinds Library System board discussed closing seven, and extended a burn ban through Dec. 18 pending Mississippi Forestry Commission approval. The board approved a request to push the spending deadline on Senate Bill 2002 bond funds to December 2027 to finish Hinds County Parkway lighting and pedestrian access. Next meeting: Dec. 7 at 9 a.m.",
+      "Jackson sales tax take up 7.5% in October: Jackson received $2,672,010 in sales tax diversions in October, up 7.5% from $2,485,254 a year earlier, Department of Revenue diversion reports show. Fiscal-year-to-date the city is at $10,623,298, up 4.7%. Ridgeland leads the metro on growth at 18.6% for the month and 14.9% fiscal-year-to-date, while Pearl is down 9.5% fiscal-year-to-date despite a 1.6% October gain. The reports are posted at dor.ms.gov. Separately, the Tax Foundation's 2027 index ranked Mississippi 27th, down one place, even as its income tax score improved to 29th from 34th after the rate fell to 4%.",
+    ],
+  },
+  {
     slug: "mississippi-state-2027-class-four-decommits-15-commits-signing-day",
     title: "Mississippi State's 2027 Class Down to 15 Commits After Four Decommitments in a Week",
     seoTitle: "Mississippi State: 2027 class loses four commits in a week",
