@@ -82,6 +82,28 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "jackson-ambulance-rfp-due-nov-24-ems-district-unfunded",
+    title: "Jackson's Ambulance Bids Are Due Nov. 24. The Fund That Would Pay for Them Is Still Unwritten.",
+    seoTitle: "Jackson ambulance bids due Nov. 24; EMS district unfunded",
+    dek: "The city wants an exclusive four-year ambulance contract, with an eight-year maximum. Its own RFP says the award depends on funding that a stalled EMS district would supply.",
+    category: "Business",
+    categories: ["Economy"],
+    tags: ["pipeline"],
+    author: "Jackson Wire Staff",
+    date: "2026-11-21",
+    views: 0,
+    body: [
+      "Jackson's next ambulance contract is three days from the deadline, and the money to pay for it is still a proposal. Proposals for RFP 99037-112426 are due Tuesday, Nov. 24 at 3:30 p.m., according to the bid advertisement posted on the PH Bidding planroom. The city's own notice says the award is \"subject to the availability of funding.\"",
+      "The contract is large and long. The winning provider gets an exclusive deal to run advanced life support and basic life support transport inside Jackson, 24 hours a day, every day, plus non-emergency patient transfers, for an initial four-year term with an option for four more, the advertisement states. Proposers are scored on price (50%), technical proposal (20%), management plan (20%) and an in-person presentation (10%).",
+      "The funding question is the one the council deferred. On Nov. 16, members declined to vote on an ordinance creating a Jackson Emergency Medical Services District, saying they had seen it for the first time at a work session the day before, WLBT reported. Interim Chief Administrative Officer Drew Martin told the council the district would draw a per-capita share now going to Hinds County, and that \"our best guess right now is the amount that would come to the city would be $75,000 a year.\"",
+      "The RFP puts a floor under that guess. To qualify for grants from the state's Emergency Medical Services Operating Fund, the city says it must spend at least 15 cents per capita, which the advertisement calculates as $23,055.15 on a population of 153,701. That is the minimum to qualify for state money, not the cost of an ambulance system. The advertisement does not state a contract value, and the city has not published an estimate of what a Jackson-only service would cost to run.",
+      "The arithmetic is the story. If Martin's $75,000 figure holds, the city's share of the per-capita money would cover about 3.3 times the $23,055.15 threshold the RFP names, and the rest of the contract would have to come from somewhere else. The advertisement does not say where. The city's own language leaves the door open: it reserves the right to pursue a joint or separate procurement with Hinds County at any time before a contract is signed, and says proposers get nothing if it does.",
+      "There is a precedent for the city going alone. Martin told the council that Biloxi and Gulfport have split from their counties, and that \"both have said that not only the communication, but the actual response times have been tremendously better,\" WLBT reported. Ward 2 Councilwoman Tina Clay questioned whether Jackson, which she said is not in the same financial shape as the two Coast cities, should follow them.",
+      "The incumbent's record is the reason the city is trying. WLBT's analysis found that between November 2023 and February 2024, American Medical Response met response-time requirements for priority one calls in Jackson less than 38% of the time. Martin said the city has \"virtually no recourse and ability to enforce the terms of the contract, because of the agreements with the county.\" AMR's Central Mississippi operation, based on Melvin Bender Drive in Jackson, reports about 216 paramedics and EMTs and roughly 41,000 transports a year, according to the company's website.",
+      "What's next: The council's next regular meeting is Tuesday, Dec. 1 at 10 a.m., per the Jackson Association of Neighborhoods recap of the Nov. 17 meeting, and the EMS district ordinance is the item to watch; the council has not set a vote date. Proposals close Nov. 24 at 3:30 p.m. at the Office of the Municipal Clerk, 219 South President Street, and the advertisement directs electronic submissions to jacksonmsbids.com. Questions about the solicitation go to Fire Chief RaSean Thomas at (601) 960-1028 or Raseanthomas@jacksonms.gov. The specifications can be inspected at the Municipal Clerk's office or at Fire Department headquarters, 555 South West Street.",
+    ],
+  },
+  {
     slug: "errick-greene-leaving-jackson-public-schools-probation-testing-scandal-closures",
     title: "Errick Greene Is Leaving JPS. On His Watch: a Test-Cheating Scandal, a Wave of School Closures and Obama Magnet's Exit From Its Campus",
     seoTitle: "Jackson Public Schools: Errick Greene leaves after 8 years",
