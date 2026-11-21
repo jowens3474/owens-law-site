@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme inline {
-  /* Fonts (sourced from next/font in layout.tsx) */
+  /* Fonts (self-hosted; the --font-* variables come from app/fonts.css) */
   --font-serif: var(--font-display), "Bodoni Moda", Georgia, serif;
   --font-sans: var(--font-body), "Libre Franklin", system-ui, sans-serif;
   --font-mono: var(--font-jbmono), ui-monospace, monospace;
