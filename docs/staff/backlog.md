@@ -17,8 +17,10 @@ new ones at the bottom of a section and keep each item on one line.
 - [ ] Grant read access to Search Console and Google Analytics for the planned growth editor.
 - [ ] GitHub starts the desks hours late (median 4h 23m over Sep 11 to Oct 10; the Morning Brief lands about 11 AM to 12:40 PM Central). Fix: have Vercel Cron trigger each desk on time, which needs a GitHub token stored in Vercel. Approve?
 - [ ] The daily newsletter has never sent, and every signup on the site fails with "not configured yet": Resend is not connected (no RESEND_API_KEY or RESEND_AUDIENCE_ID in Vercel or in GitHub secrets). See docs/NEWSLETTER-SETUP.md.
-- [ ] X, Bluesky, Facebook Page, and Instagram posting have never run: their secrets are not set. The Facebook Page step needs a one-time Meta app and Page token, and the app switched to Live. Bluesky is free and quickest. See docs/SOCIAL-SETUP.md and docs/INSTAGRAM-SETUP.md.
+- [ ] X, Bluesky, and Instagram posting have never run: their secrets are not set (Facebook Page posting works and has posted daily since October). Bluesky is free and quickest. See docs/SOCIAL-SETUP.md and docs/INSTAGRAM-SETUP.md.
 - [ ] Before the business manager reads the tips inbox through Cowork, decide whether tips are excluded or the About page's promise that a tipster's identity stays with the Wire is reworded.
+- [ ] The Senate race tracker (/mississippi-senate-race) still says the race is uncalled, with counts as of Nov. 6, though AP has projected Scott Colom the winner and Cindy Hyde-Smith has conceded. Update it to the final count or retire it. Its homepage banner came down Nov. 21.
+- [ ] The news desk's beat rotation (scripts/autopilot.mjs) counts the daily sports stories toward its four-of-six money-beat rule, so on most days the desk must pick Business, Economy, or Development and cannot take Politics or corruption-case stories, the topics that drew the most readers in October and November. Leave sports stories out of that count? Approve?
 
 ## Corrections to check
 
