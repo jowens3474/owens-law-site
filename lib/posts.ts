@@ -82,6 +82,27 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "ole-miss-wofford-59-17-chambliss-five-touchdowns-egg-bowl-next",
+    title: "Chambliss Throws Five Touchdowns as No. 25 Ole Miss Rolls Wofford 59-17",
+    seoTitle: "Ole Miss: Chambliss throws 5 TDs in 59-17 rout of Wofford",
+    dek: "Trinidad Chambliss completed 19 of 20 passes for 367 yards and five touchdowns in one half of work, and the Rebels now turn to the Egg Bowl against Mississippi State.",
+    category: "General News",
+    tags: ["sports-ms-college"],
+    author: "Jackson Wire Staff",
+    date: "2026-11-21",
+    views: 0,
+    body: [
+      "OXFORD, Miss. -- Trinidad Chambliss threw for 367 yards and five touchdowns on 19-of-20 passing, all before halftime, and No. 25 Ole Miss beat Wofford 59-17 on Saturday at Vaught-Hemingway Stadium.",
+      "Ole Miss Athletics lists the game as final at 59-17, and ESPN's schedule shows the same score. The Rebels moved to 7-4 with the win and closed their home regular-season slate. Wofford, an FCS program from the Southern Conference, finished its season at 5-6.",
+      "Chambliss was pulled in favor of Deuce Knight in the second quarter, with the Rebels ahead 35-3 with 8:35 left in the half, according to Saturday Down South. He had 178 passing yards in the first quarter alone, which the SEC Network noted was the most by an SEC quarterback in an opening quarter this season.",
+      "The start was quick. Ole Miss needed three plays and 75 yards to score on its first possession, all three of them Chambliss passes, and led 7-0 just 1:05 into the game. A 41-yard strike to Caleb Odom made it 21-0 with 7:15 left in the first quarter, per Saturday Down South.",
+      "Deuce Alexander finished with five catches for 128 yards and two touchdowns, and Knight went 5 of 6 for 107 yards with 47 rushing yards and two total touchdowns, according to FOX Sports' game stats. FOX listed Ole Miss with 735 total yards, 562 of them through the air, against a Wofford defense that had been allowing 208.6 passing yards per game.",
+      "The game was just the second meeting all time between the programs, and the Rebels are 21-3 all time against current Southern Conference members, the school's preview noted. Ole Miss entered the week ranked No. 25 in the AP poll and on its second-longest AP streak ever at 62 straight weeks since 2023, trailing only 73 from 1957-63.",
+      "The result ends a two-game skid. Ole Miss lost 42-7 to Georgia on Nov. 7 and 24-17 at Oklahoma on Nov. 15, dropping out of the playoff picture after reaching the College Football Playoff in 2025. Saturday's game was the Rebels' last home date before the Egg Bowl, which is also Chambliss's final game in Oxford.",
+      "What's next: Ole Miss hosts Mississippi State in the Egg Bowl on Friday, Nov. 27, at 11 a.m. Central, with ABC televising, according to ESPN's schedule. It is the Rebels' regular-season finale and their last chance to add a conference win before bowl assignments are made.",
+    ],
+  },
+  {
     slug: "jackson-ambulance-rfp-due-nov-24-ems-district-unfunded",
     title: "Jackson's Ambulance Bids Are Due Nov. 24. The Fund That Would Pay for Them Is Still Unwritten.",
     seoTitle: "Jackson ambulance bids due Nov. 24; EMS district unfunded",
