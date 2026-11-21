@@ -66,7 +66,7 @@ export interface SenateRace {
 export const SENATE_RACE: SenateRace = {
   slug: "mississippi-senate-race",
   status: "uncalled",
-  showBanner: true,
+  showBanner: false,
   lastUpdated: "2026-11-06T17:50:00-06:00",
   candidates: [
     {
