@@ -15,15 +15,15 @@ import CategoryTag from "@/app/components/CategoryTag";
 export const revalidate = 86400;
 
 const DEK =
-  "Complete coverage of U.S. v. Owens, Lumumba, and Banks — the federal bribery prosecution that ended July 6, 2026, with all five defendants pleading guilty and no trial. The story now moves to the fall sentencing calendar.";
+  "Complete coverage of U.S. v. Owens, Lumumba, and Banks, the federal bribery prosecution that ended with all five defendants pleading guilty and no trial. Owens got 41 months, Banks 45 and Lumumba 37, and all three report to prison Jan. 4, 2027. Angelique Lee and Sherik Smith await sentencing.";
 
 const FACTS = [
-  { label: "Status", value: "Resolved · 5 guilty pleas, no trial" },
+  { label: "Status", value: "Sentenced · 3 of 5, no trial" },
   { label: "Court", value: "U.S. District Court, S.D. Miss." },
   { label: "Courthouse", value: "Thad Cochran, downtown Jackson" },
   { label: "Judge", value: "Daniel P. Jordan III, Chief Judge" },
   { label: "Docket", value: "3:24-cr-103" },
-  { label: "Next", value: "Owens sentencing · Oct 15, 2026" },
+  { label: "Next", value: "Report to prison · Jan 4, 2027" },
 ];
 
 const DEFENDANTS: {
@@ -39,19 +39,19 @@ const DEFENDANTS: {
   {
     name: "Jody Owens",
     role: "Former Hinds County District Attorney",
-    counts: "Pleaded guilty · Jun 29, 2026",
-    exposure: "Conspiracy · max 5 years",
+    counts: "Sentenced · Nov 5, 2026",
+    exposure: "41 months · $100,000 fine",
     posture:
-      "Pleaded guilty to one count of conspiracy and resigned as district attorney effective July 1. No forfeiture; the government will seek restitution. His plea agreement references a sealed supplement, the standard vehicle for cooperation terms. Sentencing October 15.",
+      "Pleaded guilty June 29 to one count of conspiracy and resigned as district attorney. Judge Jordan called him the scheme's ringleader and sentenced him to 41 months, a $100,000 fine and three years of supervised release. Permanently disbarred July 29. Reports to prison Jan. 4, 2027.",
     pleaded: true,
   },
   {
     name: "Chokwe Antar Lumumba",
     role: "Former Mayor, City of Jackson",
-    counts: "Pleaded guilty · Jul 6, 2026",
-    exposure: "Terms not yet public",
+    counts: "Sentenced · Nov 20, 2026",
+    exposure: "37 months · $50,000 forfeited",
     posture:
-      "Pleaded guilty July 6, seven days before trial and on the deadline for final pretrial filings. His McDonnell official-act defense will never reach a jury. Full plea terms had not reached the public docket at last update.",
+      "Pleaded guilty July 6, seven days before trial, to one count of conspiracy. Sentenced to 37 months, the bottom of his guideline range, with one year of supervised release and no fine; he agreed to forfeit $50,000. Disbarred in October. Reports to prison by noon Jan. 4, 2027.",
     image: "/lumumba.jpg",
     alt: "Former Jackson Mayor Chokwe Antar Lumumba.",
     pleaded: true,
@@ -59,10 +59,10 @@ const DEFENDANTS: {
   {
     name: "Aaron Banks",
     role: "Former Ward 6 Councilman",
-    counts: "Pleaded guilty · Jul 6, 2026",
-    exposure: "Terms not yet public",
+    counts: "Sentenced · Nov 5, 2026",
+    exposure: "45 months · $15,000 fine",
     posture:
-      "The last defendant standing, for a few hours. Pleaded guilty the same Monday as Lumumba, ending the case with no trial. His pending motion on the duplicitous bribery count dies unanswered.",
+      "Pleaded guilty July 6, hours after Lumumba, to one count of conspiracy, ending the case with no trial. Sentenced to 45 months, a $15,000 fine and three years of supervised release; two prior convictions raised his guideline range above Owens'. Reports to prison Jan. 4, 2027.",
     image: "/aaron-banks.webp",
     alt: "Former Councilman Aaron Banks.",
     pleaded: true,
@@ -73,12 +73,12 @@ const COOPERATORS = [
   {
     name: "Angelique Lee",
     role: "Former Councilwoman",
-    note: "Pleaded guilty in 2024. Sitting unsentenced — classic cooperator posture.",
+    note: "Resigned and pleaded guilty in August 2024. Not yet sentenced.",
   },
   {
     name: 'Sherik "Marve" Smith',
     role: "Owens's cousin",
-    note: "Pleaded guilty in 2024. Sitting unsentenced.",
+    note: "Pleaded guilty in October 2024. Not yet sentenced.",
   },
 ];
 
@@ -128,7 +128,7 @@ const KEY_DATES: { date: string; text: string; highlight?: boolean }[] = [
   },
   {
     date: "Jun 29, 2026",
-    text: "Owens pleads guilty to one count of conspiracy and resigns as Hinds County DA effective July 1. Sentencing set for October 15.",
+    text: "Owens pleads guilty to one count of conspiracy and resigns as Hinds County DA effective July 1. Sentencing initially set for October 15.",
     highlight: true,
   },
   {
@@ -137,8 +137,18 @@ const KEY_DATES: { date: string; text: string; highlight?: boolean }[] = [
     highlight: true,
   },
   {
-    date: "Oct 15, 2026",
-    text: "Owens sentencing. Lumumba and Banks sentencing dates expected in the same window.",
+    date: "Nov 5, 2026",
+    text: "Owens sentenced to 41 months and a $100,000 fine; Banks to 45 months and a $15,000 fine.",
+    highlight: true,
+  },
+  {
+    date: "Nov 20, 2026",
+    text: "Lumumba sentenced to 37 months and forfeits $50,000, the last of the three officials indicted together in 2024 to be sentenced.",
+    highlight: true,
+  },
+  {
+    date: "Jan 4, 2027",
+    text: "Owens, Banks and Lumumba report to prison. Lee and Smith await sentencing.",
     highlight: true,
   },
 ];
@@ -171,6 +181,7 @@ export default function CorruptionCasePage() {
       "warren-kohlman-jody-owens-defense",
       "the-mayor-who-made-one-phone-call",
       "one-courtroom-three-defendants",
+      "lumumba-sentenced-37-months-jackson-bribery-case-wrap-up",
       "the-jackson-bribery-case-a-timeline",
       "the-lot",
     ].includes(p.slug),
@@ -210,7 +221,15 @@ export default function CorruptionCasePage() {
         name: "Who is on trial in the Jackson corruption case?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "No one. The case resolved with guilty pleas from all five defendants: Angelique Lee and Sherik Marve Smith in 2024, Jody Owens on June 29, 2026, and Chokwe Antar Lumumba and Aaron Banks on July 6, 2026. Sentencings begin October 15, 2026.",
+          text: "No one. The case resolved with guilty pleas from all five defendants: Angelique Lee and Sherik Marve Smith in 2024, Jody Owens on June 29, 2026, and Chokwe Antar Lumumba and Aaron Banks on July 6, 2026. Owens and Banks were sentenced Nov. 5, 2026, and Lumumba on Nov. 20, 2026; Lee and Smith await sentencing.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "What sentences did they get?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "U.S. District Judge Daniel P. Jordan III sentenced Jody Owens to 41 months in prison and a $100,000 fine and Aaron Banks to 45 months and a $15,000 fine on Nov. 5, 2026, and Chokwe Antar Lumumba to 37 months on Nov. 20, 2026, with no fine and a $50,000 forfeiture. All three report to prison Jan. 4, 2027. Angelique Lee and Sherik Marve Smith have not been sentenced.",
         },
       },
       {
@@ -226,7 +245,7 @@ export default function CorruptionCasePage() {
         name: "What are the charges?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Bribery, conspiracy, honest services wire fraud, money laundering, and a Travel Act count for the interstate trips. Owens also faces a false statement count. The total indictment is 17 counts spread across the three defendants.",
+          text: "The indictment charged bribery, conspiracy, honest services wire fraud, money laundering, and a Travel Act count for the interstate trips, and Owens was also charged with making a false statement: 17 counts spread across the three defendants. Each of the three later pleaded guilty to a single conspiracy count.",
         },
       },
       {
@@ -276,7 +295,7 @@ export default function CorruptionCasePage() {
       <section className="mt-8 grid gap-6 md:grid-cols-3">
         <div className="glow-card border border-rule p-6 text-center md:col-span-1">
           <p className="font-sans text-xs font-bold uppercase tracking-widest text-crimson">
-            Case resolved
+            Pleas complete
           </p>
           <p className="mt-2 font-serif text-6xl font-black leading-none text-ink">
             5/5
@@ -285,7 +304,7 @@ export default function CorruptionCasePage() {
             guilty pleas · no trial
           </p>
           <p className="mt-4 border-t border-rule pt-3 font-serif text-base">
-            Sentencings begin Oct 15
+            3 sentenced · report Jan 4, 2027
           </p>
         </div>
 
@@ -389,7 +408,7 @@ export default function CorruptionCasePage() {
 
         <div className="mt-6 border border-rule bg-paper p-5">
           <p className="font-sans text-xs font-bold uppercase tracking-widest text-crimson">
-            Already pleaded guilty (cooperators)
+            Pleaded guilty in 2024, awaiting sentencing
           </p>
           <ul className="mt-2 space-y-2 font-sans text-sm">
             {COOPERATORS.map((c) => (
