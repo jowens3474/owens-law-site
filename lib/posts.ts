@@ -90,7 +90,7 @@ const POSTS: Post[] = [
     categories: ["General News"],
     tags: ["corruption-case", "senate-race-2026"],
     author: "Jackson Wire Staff",
-    date: "2026-11-22",
+    date: "2026-11-21",
     views: 0,
     body: [
       "Mississippi voted Tuesday, Nov. 3, in a U.S. Senate race that would stay too close to call for eight days. Two days later, in a federal courtroom in Jackson, former Hinds County District Attorney Jody Owens talked about his name. \"When a case says 'United States versus Jody Owens,' what I want you to know is my son is Jody Owens, my father is Jody Owens, my great-grandfather is Jody Moncure,\" he said, Mississippi Today reported. U.S. District Judge Daniel P. Jordan III sentenced him to 41 months in prison. Six days later, the AP called the Senate race for Scott Colom, giving Mississippi its first Black U.S. senator since Reconstruction.",
