@@ -1,4 +1,4 @@
-import { getAllPosts, isBrief } from "@/lib/posts";
+import { getAllPosts, isBrief, publishedDateTime } from "@/lib/posts";
 import { site } from "@/lib/site";
 import { absoluteUrl } from "@/lib/markdown";
 
@@ -34,7 +34,7 @@ export async function GET() {
         <news:name>${esc(site.name)}</news:name>
         <news:language>en</news:language>
       </news:publication>
-      <news:publication_date>${new Date(p.date).toISOString()}</news:publication_date>
+      <news:publication_date>${publishedDateTime(p)}</news:publication_date>
       <news:title>${esc(p.title)}</news:title>
     </news:news>
   </url>`;

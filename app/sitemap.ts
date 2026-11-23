@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { MEETINGS } from "@/lib/meetings";
-import { getAllPosts } from "@/lib/posts";
+import { getAllPosts, modifiedDateTime } from "@/lib/posts";
 import { getAllLaws } from "@/lib/laws";
 import { NIL_GUIDE } from "@/lib/nil";
 import { SPORTS_SECTIONS } from "@/lib/sports";
@@ -167,7 +167,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const articlePages: MetadataRoute.Sitemap = posts.map((p) => ({
     url: absoluteUrl(`/article/${p.slug}`),
-    lastModified: new Date(p.date),
+    lastModified: modifiedDateTime(p),
     changeFrequency: "monthly",
     priority: 0.8,
     images: p.image ? [absoluteUrl(p.image)] : undefined,

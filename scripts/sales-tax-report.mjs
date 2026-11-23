@@ -172,6 +172,7 @@ Tracker page (link it once, in the body): ${SITE}/economy/sales-tax`;
     tags: ["by-the-numbers"],
     author: "Jackson Wire Staff",
     date: ${JSON.stringify(today)},
+    publishedAt: ${JSON.stringify(new Date().toISOString())},
     views: 0,
     body: [
 ${article.body.map((p) => `      ${JSON.stringify(p)},`).join("\n")}

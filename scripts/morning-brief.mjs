@@ -499,6 +499,7 @@ Process:
     tags: ["morning-brief"],
     author: "Jackson Wire Staff",
     date: ${JSON.stringify(today)},
+    publishedAt: ${JSON.stringify(new Date().toISOString())},
     views: 0,
     body: [
 ${brief.body.map((p) => `      ${JSON.stringify(p)},`).join("\n")}

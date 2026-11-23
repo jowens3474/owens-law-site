@@ -4,6 +4,7 @@ import {
   getPostsByTag,
   formatDate,
   readingTime,
+  publishedDateTime,
 } from "@/lib/posts";
 import { site } from "@/lib/site";
 import { absoluteUrl } from "@/lib/markdown";
@@ -116,7 +117,7 @@ export default function DataCentersPage() {
     hasPart: articles.map((p) => ({
       "@type": "NewsArticle",
       headline: p.title,
-      datePublished: p.date,
+      datePublished: publishedDateTime(p),
       url: absoluteUrl(`/article/${p.slug}`),
     })),
   };

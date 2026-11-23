@@ -416,6 +416,7 @@ function postObject(article, today, seoTitle) {
     tags: ${JSON.stringify([SPORTS_TAG])},
     author: "Jackson Wire Staff",
     date: ${JSON.stringify(today)},
+    publishedAt: ${JSON.stringify(new Date().toISOString())},
     views: 0,
     body: [
 ${article.body.map((p) => `      ${JSON.stringify(String(p).trim())},`).join("\n")}
