@@ -25,6 +25,9 @@ export interface Post {
   categories?: string[]; // optional extra sections to cross-file the story under
   author: string;
   date: string; // ISO yyyy-mm-dd
+  // When the story actually went live, as an ISO 8601 instant. The desks stamp
+  // it at publish time; search metadata uses it (see publishedDateTime).
+  publishedAt?: string;
   updated?: string; // ISO yyyy-mm-dd; set when a story is materially revised
   views: number;
   lead?: boolean; // pin to the homepage lead; auto-expires after LEAD_PIN_DAYS
@@ -91,6 +94,7 @@ const POSTS: Post[] = [
     tags: [],
     author: "Jackson Wire Staff",
     date: "2026-11-23",
+    publishedAt: "2026-11-23T16:03:08.000Z",
     views: 0,
     body: [
       "Seven of the Jackson-Hinds Library System's 12 branches are on a list that county officials say is at risk of closing: the branches in Byram, Bolton, Edwards, Terry and Utica, and the Fannie Lou Hamer and Bolden Moore libraries in Jackson, WAPT reported. Executive Director Jeanne Williams says no decision has been made and the system cannot close a branch on its own, but the money to run all 12 is not there. \"I'm not saying they can give us more money, but we have to operate within our means, and the only way to do that is likely to close branches,\" she told WAPT.",
@@ -114,6 +118,7 @@ const POSTS: Post[] = [
     tags: ["explainer"],
     author: "Jackson Wire Staff",
     date: "2026-11-23",
+    publishedAt: "2026-11-23T15:29:05.000Z",
     views: 0,
     body: [
       "Jackson City Councilman Kenneth Stokes is taking his censure to court. On Friday, Nov. 20, three days after his colleagues formally reprimanded him, Stokes filed a notice of appeal in Hinds County Circuit Court, WLBT reported, arguing the council violated his free speech rights and singled him out, according to the Clarion Ledger. The censure does not remove him from office, fine him or take away his committee seats.",
@@ -138,6 +143,7 @@ const POSTS: Post[] = [
     tags: ["sports-ms-college"],
     author: "Jackson Wire Staff",
     date: "2026-11-22",
+    publishedAt: "2026-11-23T01:53:17.000Z",
     views: 0,
     body: [
       "Mississippi State's six-game losing streak, snapped Saturday against FCS Tennessee Tech, has a start date, and it is not the day Jeff Lebby forgot how to coach. It is the toe injury Kamario Taylor suffered in September, Saturday Down South reported. The sophomore from Macon had the Bulldogs 4-0 after a 31-24 win over No. 19 Missouri on Sept. 26, and they were ranked No. 16 when Alabama came to Starkville the next week. He watched the end of that game with his right foot in a boot, Heavy reported.",
@@ -161,6 +167,7 @@ const POSTS: Post[] = [
     tags: ["corruption-case", "senate-race-2026"],
     author: "Jackson Wire Staff",
     date: "2026-11-21",
+    publishedAt: "2026-11-22T02:38:25.000Z",
     views: 0,
     body: [
       "Mississippi voted Tuesday, Nov. 3, in a U.S. Senate race that would stay too close to call for eight days. Two days later, in a federal courtroom in Jackson, former Hinds County District Attorney Jody Owens talked about his name. \"When a case says 'United States versus Jody Owens,' what I want you to know is my son is Jody Owens, my father is Jody Owens, my great-grandfather is Jody Moncure,\" he said, Mississippi Today reported. U.S. District Judge Daniel P. Jordan III sentenced him to 41 months in prison. Six days later, the AP called the Senate race for Scott Colom, giving Mississippi its first Black U.S. senator since Reconstruction.",
@@ -185,6 +192,7 @@ const POSTS: Post[] = [
     tags: ["sports-ms-college"],
     author: "Jackson Wire Staff",
     date: "2026-11-21",
+    publishedAt: "2026-11-21T20:26:48.000Z",
     updated: "2026-11-22",
     views: 0,
     body: [
@@ -209,6 +217,7 @@ const POSTS: Post[] = [
     tags: ["pipeline"],
     author: "Jackson Wire Staff",
     date: "2026-11-21",
+    publishedAt: "2026-11-21T20:19:16.000Z",
     views: 0,
     body: [
       "Jackson's next ambulance contract is three days from the deadline, and the money to pay for it is still a proposal. Proposals for RFP 99037-112426 are due Tuesday, Nov. 24 at 3:30 p.m., according to the bid advertisement posted on the PH Bidding planroom. The city's own notice says the award is \"subject to the availability of funding.\"",
@@ -231,6 +240,7 @@ const POSTS: Post[] = [
     tags: [],
     author: "Jackson Wire Staff",
     date: "2026-11-21",
+    publishedAt: "2026-11-21T17:30:32.000Z",
     views: 0,
     body: [
       "Errick Greene will leave Jackson Public Schools when his contract ends June 30, 2027, after eight years that brought a test-cheating scandal, a wave of school closures and attendance numbers far worse than the state's. The district was on state probation when he arrived and was still on it as of the state's most recent public review this spring. Greene told the school board Tuesday he will not renew.",
@@ -254,6 +264,7 @@ const POSTS: Post[] = [
     tags: ["explainer"],
     author: "Jackson Wire Staff",
     date: "2026-11-23",
+    publishedAt: "2026-11-21T14:51:01.000Z",
     views: 0,
     lead: true,
     body: [
@@ -280,6 +291,7 @@ const POSTS: Post[] = [
     tags: ["corruption-case"],
     author: "Jackson Wire Staff",
     date: "2026-11-21",
+    publishedAt: "2026-11-21T12:58:26.000Z",
     views: 0,
     body: [
       "A federal judge sentenced former Jackson Mayor Chokwe Antar Lumumba on Friday to 37 months in prison, the last of the three officials indicted together in 2024 to be sentenced in the FBI's undercover sting built around a fake downtown hotel. U.S. District Judge Daniel P. Jordan III ordered one year of supervised release and no fine, and Lumumba agreed this week to forfeit $50,000, the amount of the campaign checks he took. He, former Hinds County District Attorney Jody Owens and former Councilman Aaron Banks must report to prison Jan. 4.",
@@ -307,6 +319,7 @@ const POSTS: Post[] = [
     tags: ["sports-ms-college"],
     author: "Jackson Wire Staff",
     date: "2026-11-20",
+    publishedAt: "2026-11-20T21:45:19.000Z",
     views: 0,
     body: [
       "Ole Miss has chosen an Atlanta developer to build a mixed-use entertainment district around the north side of Vaught-Hemingway Stadium, a project the university says will reshape the stadium's front door and the campus edge around it. The Board of Trustees of State Institutions of Higher Learning approved the partnership with Songy Highroads at its monthly meeting Thursday, Nov. 19, according to an Ole Miss Athletics release published Friday.",
@@ -329,6 +342,7 @@ const POSTS: Post[] = [
     tags: ["data-centers","pipeline"],
     author: "Jackson Wire Staff",
     date: "2026-11-20",
+    publishedAt: "2026-11-20T21:37:59.000Z",
     views: 0,
     body: [
       "Jackson's pause on data centers survived its first real test on Nov. 17, and it now has a hard end date: April 4, 2027. The City Council voted 5-2 to reject an ordinance by Ward 3 Councilman Kenneth Stokes that would have repealed the moratorium adopted July 14, according to the Jackson Association of Neighborhoods recap of the meeting (jxnneighborhoods.com). Stokes and Ward 1 Councilman Ashby Foote voted to lift the ban.",
@@ -350,6 +364,7 @@ const POSTS: Post[] = [
     tags: ["morning-brief"],
     author: "Jackson Wire Staff",
     date: "2026-11-20",
+    publishedAt: "2026-11-20T18:58:17.000Z",
     views: 0,
     body: [
       "Ambulance bids due with no funding district: Proposals for Jackson's exclusive emergency ambulance contract are due Tuesday, Nov. 24, at 3:30 p.m., per the city's bid notice, and the council has not yet created the Jackson EMS District meant to help pay for it. Interim Chief Administrative Officer Drew Martin told the council the per-capita money is about $75,000 a year and currently goes to Hinds County, WLBT reported. The RFP sets a four-year initial term with a four-year option and weights price at 50%. The city also states it must spend at least 15 cents per capita, $23,055.15, to qualify for the state EMS Operating Fund.",
@@ -368,6 +383,7 @@ const POSTS: Post[] = [
     tags: ["sports-ms-college"],
     author: "Jackson Wire Staff",
     date: "2026-11-19",
+    publishedAt: "2026-11-19T22:01:40.000Z",
     views: 0,
     body: [
       "Mississippi State's 2027 recruiting class has lost four players since Nov. 10, and the latest was its highest-ranked one. Four-star running back Yoshawn Hudson of Winona announced his decommitment on Nov. 17, the Clarion Ledger reported, leaving Jeff Lebby's class at 15 commitments with signing day two weeks away.",
@@ -390,6 +406,7 @@ const POSTS: Post[] = [
     tags: ["data-centers","pipeline"],
     author: "Jackson Wire Staff",
     date: "2026-11-19",
+    publishedAt: "2026-11-19T21:56:08.000Z",
     views: 0,
     body: [
       "The Mississippi Department of Environmental Quality's permit database still lists Amazon's Canton data center air permit modification as a draft. The status line reads \"Draft Permit Public Comment Period Ends,\" dated Aug. 24, 2026, according to the enSearch record for Agency Interest 86219 (opcgis.deq.state.ms.us). Nearly three months later, no posted Permit Board agenda shows the item.",
@@ -410,6 +427,7 @@ const POSTS: Post[] = [
     tags: ["morning-brief"],
     author: "Jackson Wire Staff",
     date: "2026-11-19",
+    publishedAt: "2026-11-19T19:19:39.000Z",
     views: 0,
     body: [
       "Madison County backs Gallery TIF: County supervisors voted unanimously Nov. 16 to approve an $11.74 million tax increment financing plan for The Gallery, the $60 million arts and entertainment district planned at Galleria Parkway, the Clarion Ledger reported. Under the agreement, the county will use 75% of future property taxes collected from the project to repay the bonds. The county vote came less than a week after Madison's mayor and Board of Aldermen approved issuing up to $11.741 million in TIF revenue bonds on Nov. 10, the first TIF project in the city in 15 years. Neither government will use general fund money or raise taxes to cover the debt, officials said. Bellamare Development owns the 70-acre site.",
@@ -428,6 +446,7 @@ const POSTS: Post[] = [
     tags: ["sports-ms-college"],
     author: "Jackson Wire Staff",
     date: "2026-11-18",
+    publishedAt: "2026-11-18T21:45:20.000Z",
     views: 0,
     body: [
       "Ole Miss is down to a game-time decision at running back for Saturday's Senior Day against Wofford. Coach Pete Golding said Tuesday that Shekai Mills-Knight, who left the Oklahoma game with an ankle injury, is unlikely to be ready for the 11 a.m. kickoff at Vaught-Hemingway Stadium.",
@@ -450,6 +469,7 @@ const POSTS: Post[] = [
     tags: ["pipeline","data-centers"],
     author: "Jackson Wire Staff",
     date: "2026-11-18",
+    publishedAt: "2026-11-18T21:40:31.000Z",
     views: 0,
     body: [
       "Governor Tate Reeves released his Fiscal Year 2028 Executive Budget Recommendation on Nov. 17, and the largest single new economic development item in it is not a plant or a port. It is a bank. Reeves asks the Legislature to create an Energy Infrastructure Bank and seed it with $100 million in Capital Expense Funds, according to the recommendation posted at governorreeves.ms.gov.",
@@ -470,6 +490,7 @@ const POSTS: Post[] = [
     tags: ["morning-brief"],
     author: "Jackson Wire Staff",
     date: "2026-11-18",
+    publishedAt: "2026-11-18T19:15:23.000Z",
     views: 0,
     body: [
       "Data center ban survives until April 4: The Jackson City Council rejected an ordinance Tuesday night that would have repealed the temporary moratorium on data centers, WLBT reported. Councilmen Kenneth Stokes and Ashby Foote voted to lift the ban; Vernon Hartley, Kevin Parkinson, Tina Clay, Brian Grizzell and Lashia Brown-Thomas voted to keep it. While the ban stands, the city will not accept, process or approve permit applications for new data centers or expansions of existing ones. Stokes argued the repeal would \"untie the mayor's hands\" on economic development. Resident Yolanda Daniel asked whether the council had fully evaluated other opportunities for jobs, investment and tax revenue before ending the review early. The agenda packet does not show a dollar value attached to any pending project.",
@@ -488,6 +509,7 @@ const POSTS: Post[] = [
     tags: ["pipeline"],
     author: "Jackson Wire Staff",
     date: "2026-11-17",
+    publishedAt: "2026-11-17T21:58:15.000Z",
     views: 0,
     body: [
       "The construction contract for Margaret Ann Crigler Park is worth $3,459,000, not the $10 million figure MDAH used when it announced the January 2027 start date on Tuesday. The number comes from the department's own notice of award, posted on mdah.ms.gov, which states that Flagstar Construction Company, Inc. will be awarded the contract subject to approval by the Department of Finance and Administration.",
@@ -509,6 +531,7 @@ const POSTS: Post[] = [
     tags: ["sports-ms-college"],
     author: "Jackson Wire Staff",
     date: "2026-11-17",
+    publishedAt: "2026-11-17T20:51:49.000Z",
     views: 0,
     body: [
       "Ole Miss is 6-4 and out of the College Football Playoff race, and Pete Golding is not pretending otherwise. Asked after Sunday's 24-17 loss at Oklahoma whether the fourth loss ends the Rebels' playoff hopes, the Ole Miss coach said the game \"kind of seals the fate from a playoff standpoint.\"",
@@ -529,6 +552,7 @@ const POSTS: Post[] = [
     tags: ["morning-brief"],
     author: "Jackson Wire Staff",
     date: "2026-11-17",
+    publishedAt: "2026-11-17T19:32:39.000Z",
     views: 0,
     body: [
       "Crigler Park build starts in January: The Mississippi Department of Archives and History said Tuesday that construction on the $10 million Margaret Ann Crigler Park at the Two Mississippi Museums campus begins in January 2027, with the first phase opening in May 2028, WLBT reported. The money is a mix: a $1 million gift from retired businessman Noble T. Crigler, $4.5 million in committed private support raised by the Foundation for Mississippi History, and $3.6 million from the Legislature. MDAH said seven new partners have committed a combined $460,000 since the 2025 \"Coffee at Crigler\" event. The two-acre site adds a community lawn, walking paths and a children's area to a downtown block that has seen little new green space.",
@@ -547,6 +571,7 @@ const POSTS: Post[] = [
     tags: ["by-the-numbers"],
     author: "Jackson Wire Staff",
     date: "2026-11-16",
+    publishedAt: "2026-11-16T23:40:34.000Z",
     views: 0,
     body: [
       "Jackson received $2,672,010 in sales tax diversions in October 2026, up 7.5% from $2,485,254 in October 2025. The payment ranks fifth among the last 24 months on file. The highest was April 2026 at $2,826,377; the lowest was February 2025 at $2,338,089.",
@@ -571,6 +596,7 @@ const POSTS: Post[] = [
     tags: ["pipeline","data-centers"],
     author: "Jackson Wire Staff",
     date: "2026-11-16",
+    publishedAt: "2026-11-16T23:07:14.000Z",
     views: 0,
     body: [
       "The Mississippi Public Service Commission meets Tuesday at 10 a.m. in the courtroom on the first floor of the Woolfolk State Office Building in Jackson, and the November docket carries three items that decide who pays for the state's power buildout. Two of them are Entergy Mississippi cases. The third is a rulemaking the Commission opened on Oct. 6 and has not yet described in public.",
@@ -591,6 +617,7 @@ const POSTS: Post[] = [
     tags: ["morning-brief"],
     author: "Jackson Wire Staff",
     date: "2026-11-16",
+    publishedAt: "2026-11-16T20:47:39.000Z",
     views: 0,
     body: [
       "Jackson sales tax turns up 7.5 percent: The Department of Revenue's October diversion report, the first full month of the new fiscal year, shows Jackson receiving $2,672,010, up from $2,485,254 in October 2025. Fiscal-year-to-date Jackson is at $10,623,298, up 4.7 percent. The gain follows a flat September. Ridgeland again outran the metro, at $1,514,334, up 18.6 percent for the month and 14.9 percent year to date. Flowood rose 9.5 percent. Pearl is down 9.5 percent year to date despite a 1.6 percent October gain. The report is posted at dor.ms.gov.",
@@ -6496,6 +6523,45 @@ export function todayLocalIso(): string {
   return new Intl.DateTimeFormat("en-CA", {
     timeZone: "America/Chicago",
   }).format(new Date());
+}
+
+// Chicago's UTC offset in minutes at a given instant (-300 in CDT, -360 in CST).
+function chicagoOffsetMinutes(ms: number): number {
+  const name =
+    new Intl.DateTimeFormat("en-US", {
+      timeZone: "America/Chicago",
+      timeZoneName: "shortOffset",
+    })
+      .formatToParts(new Date(ms))
+      .find((part) => part.type === "timeZoneName")?.value ?? "GMT-6";
+  const m = name.match(/^GMT([+-])(\d{1,2})(?::(\d{2}))?$/);
+  if (!m) return -360;
+  const minutes = Number(m[2]) * 60 + Number(m[3] ?? 0);
+  return m[1] === "-" ? -minutes : minutes;
+}
+
+// When a story went live, for search engines: article structured data, Open
+// Graph and the Google News sitemap. A story stamped with `publishedAt` gets
+// that real time, but never earlier than the start of its `date` in Chicago,
+// because a story written ahead of its date goes live at that midnight. A
+// story without a stamp falls back to its plain date, which avoids implying a
+// midnight UTC time that lands on the previous evening in Jackson. The RSS
+// feed keeps its own date-only pubDate: the social poster reads that date.
+export function publishedDateTime(p: Post): string {
+  const stamped = p.publishedAt ? Date.parse(p.publishedAt) : NaN;
+  if (Number.isNaN(stamped)) return p.date;
+  // Midnight UTC on `date` is the previous evening in Chicago, before any 2 a.m.
+  // daylight saving switch, so its offset is the one in force at local midnight.
+  const utcMidnight = Date.parse(`${p.date}T00:00:00Z`);
+  if (Number.isNaN(utcMidnight)) return new Date(stamped).toISOString();
+  const dayStart = utcMidnight - chicagoOffsetMinutes(utcMidnight) * 60_000;
+  return new Date(Math.max(stamped, dayStart)).toISOString();
+}
+
+// When a story was last changed, for the same search metadata: its `updated`
+// date when that differs from `date`, otherwise its publication time.
+export function modifiedDateTime(p: Post): string {
+  return p.updated && p.updated !== p.date ? p.updated : publishedDateTime(p);
 }
 
 // An article is "live" once its `date` is today or earlier (Chicago time).

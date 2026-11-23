@@ -690,6 +690,7 @@ Use date "${today}". Pick a category from: ${CATEGORIES.join(", ")}.${assignment
     category: ${JSON.stringify(article.category)},${categoriesLine}${tagsLine}
     author: "Jackson Wire Staff",
     date: ${JSON.stringify(today)},
+    publishedAt: ${JSON.stringify(new Date().toISOString())},
     views: 0,
     body: [
 ${article.body.map((p) => `      ${JSON.stringify(p)},`).join("\n")}

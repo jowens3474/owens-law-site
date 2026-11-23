@@ -9,6 +9,8 @@ import {
   readingTime,
   isBrief,
   isScheduledSlug,
+  modifiedDateTime,
+  publishedDateTime,
 } from "@/lib/posts";
 import { capNotFoundLife } from "@/lib/not-found-cap";
 import { site, categoryByName } from "@/lib/site";
@@ -74,8 +76,8 @@ export async function generateMetadata({
       description: post.dek,
       url,
       siteName: site.name,
-      publishedTime: post.date,
-      modifiedTime: post.updated ?? post.date,
+      publishedTime: publishedDateTime(post),
+      modifiedTime: modifiedDateTime(post),
       section: post.category,
       authors: [post.author],
       images,
@@ -141,8 +143,8 @@ export default async function ArticlePage({
     "@type": "NewsArticle",
     headline: post.title,
     description: post.dek,
-    datePublished: post.date,
-    dateModified: post.updated ?? post.date,
+    datePublished: publishedDateTime(post),
+    dateModified: modifiedDateTime(post),
     articleSection: brief ? "Briefing" : post.category,
     inLanguage: "en-US",
     isAccessibleForFree: true,
@@ -209,7 +211,7 @@ export default async function ArticlePage({
               </Link>
             </span>
             <span className="text-muted">·</span>
-            <time dateTime={post.date} className="text-muted">
+            <time dateTime={publishedDateTime(post)} className="text-muted">
               {formatDate(post.date)}
             </time>
             {post.updated && post.updated !== post.date && (
