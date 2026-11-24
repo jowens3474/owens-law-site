@@ -225,7 +225,7 @@ ${feeds.bls_series}`;
     title: subject.replace(/^Pipeline Pro:\s*/i, ""),
     intro: clean(draft.lede),
     sections: tagSections(sections.filter((s) => s.items.length || s.note), UTM),
-    footer: "Pipeline Pro is edited by J. Edward Owens for The Jackson Wire. Reply to this email with a question; a researcher answers within one business day. Not legal, investment, or brokerage advice.",
+    footer: "Pipeline Pro is edited by J. Edward for The Jackson Wire. Reply to this email with a question; a researcher answers within one business day. Not legal, investment, or brokerage advice.",
   };
   const html = renderEmail(payload);
   const text = renderText(payload);

@@ -37,7 +37,7 @@ export const site = {
   // Human editor of record. Every article carries this byline and the
   // NewsArticle schema names this Person as editor.
   editor: {
-    name: "J. Edward Owens",
+    name: "J. Edward",
     title: "Editor",
     path: "/about/editor",
   },
