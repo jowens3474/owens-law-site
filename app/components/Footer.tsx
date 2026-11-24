@@ -117,6 +117,30 @@ export default function Footer() {
               </li>
               <li>
                 <Link
+                  href="/city-council"
+                  className="font-sans text-sm hover:text-crimson"
+                >
+                  City Council Guide
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/boil-water-notices"
+                  className="font-sans text-sm hover:text-crimson"
+                >
+                  Boil-Water Notices
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/trash-pickup"
+                  className="font-sans text-sm hover:text-crimson"
+                >
+                  Trash Pickup
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/pro"
                   className="font-sans text-sm hover:text-crimson"
                 >

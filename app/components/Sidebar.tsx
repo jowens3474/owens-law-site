@@ -42,6 +42,28 @@ export default function Sidebar() {
         </Link>
       </section>
 
+      <section>
+        <h2 className="border-b border-ink pb-1 font-sans text-xs font-bold uppercase tracking-widest text-ink">
+          Jackson Guides
+        </h2>
+        <ul className="mt-1 divide-y divide-rule">
+          {[
+            { href: "/boil-water-notices", label: "Boil-water notices in effect today" },
+            { href: "/trash-pickup", label: "Trash pickup: schedule, holidays and rules" },
+            { href: "/city-council", label: "City Council: members, meetings, how to speak" },
+          ].map((g) => (
+            <li key={g.href} className="py-3">
+              <Link
+                href={g.href}
+                className="font-serif font-semibold leading-snug hover:text-crimson"
+              >
+                {g.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
+
       {archive.length > 0 && (
         <section>
           <h2 className="border-b border-ink pb-1 font-sans text-xs font-bold uppercase tracking-widest text-ink">
