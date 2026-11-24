@@ -4,7 +4,7 @@ import { getAllPosts, formatDate } from "@/lib/posts";
 import { site } from "@/lib/site";
 import { absoluteUrl } from "@/lib/markdown";
 import { TRASH, HOLIDAY_NOTES, upcomingHolidays } from "@/lib/jackson-trash";
-import { centralToday, daysBetween, formatDay } from "@/lib/central-time";
+import { centralToday, formatDay } from "@/lib/central-time";
 
 // "Next holiday" depends on today's date, so refresh hourly; deploys rebuild
 // it sooner.
@@ -18,7 +18,7 @@ const DEK =
 export const metadata: Metadata = {
   title: TITLE,
   description:
-    "Jackson, Mississippi garbage pickup: twice-a-week collection, the holiday schedule, bulk item rules, what the trucks will not take, and who to call about a missed pickup.",
+    "Jackson, Mississippi, garbage pickup: twice-a-week collection, the holiday schedule, bulk item rules, what the trucks will not take, and who to call about a missed pickup.",
   alternates: { canonical: PATH },
   openGraph: {
     type: "website",
@@ -33,12 +33,6 @@ export const metadata: Metadata = {
     description: DEK,
   },
 };
-
-function countdown(days: number): string {
-  if (days === 0) return "today";
-  if (days === 1) return "tomorrow";
-  return `in ${days} days`;
-}
 
 const H2 =
   "mb-5 border-b border-ink pb-1 font-sans text-xs font-bold uppercase tracking-widest text-ink";
@@ -56,7 +50,14 @@ export default function TrashPickupPage() {
   const facts = [
     { label: "Collection", value: "Twice a week" },
     { label: "Hours", value: "7 a.m. to 9 p.m., Monday through Saturday" },
-    { label: "Hauler", value: `${TRASH.hauler.name}, ${TRASH.hauler.phone}` },
+    {
+      label: "Hauler",
+      value: (
+        <>
+          {TRASH.hauler.name}, <span className="whitespace-nowrap">{TRASH.hauler.phone}</span>
+        </>
+      ),
+    },
     { label: "Next holiday", value: `${next.name}, ${formatDay(next.date, { year: false })}` },
   ];
 
@@ -110,8 +111,7 @@ export default function TrashPickupPage() {
         <div className="grid gap-10 md:grid-cols-[3fr_2fr]">
           <div className="space-y-4 font-sans text-base leading-relaxed">
             <h3 className="font-serif text-2xl font-black leading-tight">
-              Next: {next.name}, {formatDay(next.date)},{" "}
-              {countdown(daysBetween(today, next.date))}
+              Next: {next.name}, {formatDay(next.date)}
             </h3>
             {note ? (
               <>
@@ -120,17 +120,22 @@ export default function TrashPickupPage() {
                 ))}
                 <p className="text-sm text-muted">
                   Checked {formatDay(note.checked, { weekday: false })}. Source:{" "}
-                  {note.sources.map((s) => (
-                    <a key={s.url} href={s.url} className="underline hover:text-crimson">
-                      {s.label}
-                    </a>
+                  {note.sources.map((s, i) => (
+                    <span key={s.url}>
+                      {i > 0 ? "; " : ""}
+                      <a href={s.url} className="underline hover:text-crimson">
+                        {s.label}
+                      </a>
+                    </span>
                   ))}
+                  .
                 </p>
               </>
             ) : (
               <p>
-                The Wire has not found a city announcement for this holiday yet. Until the
-                city posts one, its standing rule applies.
+                The Wire has not yet checked for a city announcement about this holiday.
+                The city&rsquo;s standing rule is below. Call {TRASH.hauler.name}{" "}
+                to confirm your pickup.
               </p>
             )}
             <p>
@@ -144,7 +149,7 @@ export default function TrashPickupPage() {
               To confirm your pickup in a holiday week, call {TRASH.hauler.name} at{" "}
               <a
                 href={`tel:${TRASH.hauler.tel}`}
-                className="font-bold underline hover:text-crimson"
+                className="whitespace-nowrap font-bold underline hover:text-crimson"
               >
                 {TRASH.hauler.phone}
               </a>
@@ -163,6 +168,10 @@ export default function TrashPickupPage() {
                 </li>
               ))}
             </ol>
+            <p className="mt-3 font-sans text-sm text-muted">
+              These are the calendar dates. When a holiday falls on a weekend, check the
+              city&rsquo;s announcement for the day it observes.
+            </p>
           </div>
         </div>
       </section>
@@ -185,14 +194,18 @@ export default function TrashPickupPage() {
                 bagged leaves.
               </li>
             </ul>
-            <p>Bulk items include: {TRASH.bulkItems.join(", ").toLowerCase()}.</p>
+            <p>
+              Bulk items include {TRASH.bulkItems.slice(0, -1).join(", ").toLowerCase()} and{" "}
+              {TRASH.bulkItems.at(-1)?.toLowerCase()}.
+            </p>
             <p>
               Appliances and tires are collected on Wednesdays and must be at the curb
               before 7 a.m.
             </p>
             <p>
               The city pages the Wire checked do not list pickup days by address. To confirm
-              yours, call {TRASH.hauler.name} at {TRASH.hauler.phone}.
+              yours, call {TRASH.hauler.name} at{" "}
+              <span className="whitespace-nowrap">{TRASH.hauler.phone}</span>.
             </p>
           </div>
         </div>
@@ -226,13 +239,17 @@ export default function TrashPickupPage() {
           <p className="mt-4 font-sans text-base leading-relaxed">
             Hazardous household waste goes to the city&rsquo;s{" "}
             {TRASH.hazardousDropOff.name}, {TRASH.hazardousDropOff.address}. The city says
-            it accepts:
+            the drop-off is for residents only and accepts:
           </p>
           <ul className="mt-2 list-disc space-y-1 pl-6 font-sans text-base leading-relaxed">
             {TRASH.hazardousDropOff.accepts.map((item) => (
               <li key={item}>{item}</li>
             ))}
           </ul>
+          <p className="mt-4 font-sans text-base leading-relaxed">
+            The city&rsquo;s pages do not list the center&rsquo;s hours and ask residents
+            not to leave items after hours, so call 311 before you go.
+          </p>
         </div>
         <div>
           <h2 className={H2}>Missed Pickup or a Problem</h2>
@@ -241,7 +258,7 @@ export default function TrashPickupPage() {
               <strong>{TRASH.hauler.name}</strong>, the city&rsquo;s hauler:{" "}
               <a
                 href={`tel:${TRASH.hauler.tel}`}
-                className="font-bold underline hover:text-crimson"
+                className="whitespace-nowrap font-bold underline hover:text-crimson"
               >
                 {TRASH.hauler.phone}
               </a>{" "}
@@ -326,6 +343,10 @@ export default function TrashPickupPage() {
         ,{" "}
         <a href={TRASH.sources.residents} className="underline hover:text-crimson">
           Trash and Recycling
+        </a>
+        ,{" "}
+        <a href={TRASH.sources.hazardous} className="underline hover:text-crimson">
+          Household Hazardous Waste
         </a>{" "}
         and{" "}
         <a href={TRASH.sources.city311} className="underline hover:text-crimson">

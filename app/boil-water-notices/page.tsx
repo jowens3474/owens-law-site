@@ -8,22 +8,26 @@ import {
   JXN_WATER_PHONE,
 } from "@/lib/boil-water";
 import type { BoilNotice } from "@/lib/boil-water-parse";
+import { streetWords } from "@/lib/street-match";
 import { formatDay, formatInstant } from "@/lib/central-time";
 import BoilNoticeList from "@/app/components/BoilNoticeList";
 
-// Rendered on every request: the list is re-read from JXN Water (at most once
-// every five minutes, see lib/boil-water.ts), so nobody is shown an old copy.
+// Rendered on every request: the list is read from JXN Water (or reused from
+// a read in the last five minutes, see lib/boil-water.ts), so nobody is shown
+// an old copy.
 export const dynamic = "force-dynamic";
 
 const PATH = "/boil-water-notices";
-const TITLE = "Jackson, MS Boil Water Notices Today";
+const TITLE = "Jackson, MS Boil-Water Notices Today";
 const DEK =
-  "The boil-water notices JXN Water lists as in effect right now, with the streets and address ranges each one covers. This page re-reads JXN Water’s own list every time it loads.";
+  "The boil-water notices JXN Water lists as in effect, with the streets and address ranges each one covers. The Wire reads JXN Water’s own list within five minutes of every visit and shows the time of the read.";
 const MSDH_NOTICES =
   "https://msdh.ms.gov/safe-food-water-and-housing/water-supply/water-safety-notices";
 
-// What JXN Water's notices page tells customers under a notice to boil water for.
+// What JXN Water's notices page tells customers under a notice to boil water
+// for. JXN Water's list ends "and all other consumption".
 const BOIL_FOR = [
+  "Drinking",
   "Cooking or baking",
   "Making ice",
   "Taking medication",
@@ -33,12 +37,13 @@ const BOIL_FOR = [
   "Mixing juices or drinks",
   "Feeding pets",
   "Washing dishes",
+  "Any other consumption",
 ];
 
 export const metadata: Metadata = {
   title: TITLE,
   description:
-    "See which Jackson streets are under a boil-water notice right now. The list comes straight from JXN Water and is re-read every time this page loads.",
+    "See which Jackson streets JXN Water lists under a boil-water notice. The Wire reads JXN Water’s own list within five minutes of every visit and shows when it was read.",
   alternates: { canonical: PATH },
   openGraph: {
     type: "website",
@@ -54,9 +59,10 @@ export const metadata: Metadata = {
   },
 };
 
-function issuedLabel(n: BoilNotice): string {
-  // A heading whose date could not be read is shown as JXN Water wrote it.
-  return n.issued ? formatDay(n.issued) : n.title;
+// "Monday, Nov. 23, 2026", or "" for a heading whose date could not be read
+// (the heading itself is then shown as the notice's name).
+function dateLabel(n: BoilNotice): string {
+  return n.issued ? formatDay(n.issued) : "";
 }
 
 function sumConnections(notices: BoilNotice[]): number | null {
@@ -64,12 +70,20 @@ function sumConnections(notices: BoilNotice[]): number | null {
   return notices.reduce((sum, n) => sum + (n.connections ?? 0), 0);
 }
 
+const H2 =
+  "mb-5 border-b border-ink pb-1 font-sans text-xs font-bold uppercase tracking-widest text-ink";
+const LINK = "underline hover:text-crimson";
+
 export default async function BoilWaterNoticesPage() {
   const result = await getBoilWaterNotices();
   const checked = formatInstant(result.checkedAt);
   const active = result.ok ? result.active : [];
   const resolved = result.ok ? result.resolved.slice(0, 12) : [];
+  const other = result.ok ? result.other : [];
   const connections = sumConnections(active);
+  // Streets with a notice in effect, to flag an older, lifted notice for the
+  // same street in the "recently lifted" list.
+  const activePlaces = new Set(active.map((n) => streetWords(n.place).join(" ")));
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -100,8 +114,12 @@ export default async function BoilWaterNoticesPage() {
         <p className="mt-4 max-w-3xl font-sans text-xl leading-relaxed text-muted">{DEK}</p>
       </header>
 
-      {/* Status */}
-      <section className="glow-card mt-8 border border-rule p-6" aria-live="polite">
+      {/* Status. Kept out of search snippets, which would go stale. */}
+      <section
+        className="glow-card mt-8 border border-rule p-6"
+        aria-live="polite"
+        data-nosnippet
+      >
         <p className="font-sans text-xs font-bold uppercase tracking-widest text-crimson">
           Right now
         </p>
@@ -109,19 +127,30 @@ export default async function BoilWaterNoticesPage() {
           <>
             <p className="mt-2 font-serif text-3xl font-black leading-tight">
               {active.length === 0
-                ? "JXN Water lists no boil-water notices in effect."
-                : `${active.length} boil-water notice${active.length === 1 ? " is" : "s are"} in effect.`}
+                ? "The Wire found no notices listed as in effect on JXN Water’s notices page."
+                : `JXN Water lists ${active.length} boil-water notice${active.length === 1 ? "" : "s"} in effect.`}
             </p>
-            {active.length > 0 && connections !== null && (
+            {active.length === 0 ? (
               <p className="mt-2 font-sans text-base">
-                Together they cover about {connections.toLocaleString("en-US")} connection
-                {connections === 1 ? "" : "s"}, by the Wire&rsquo;s sum of JXN Water&rsquo;s
-                figures. Each notice covers only the addresses it lists.
+                That is not an all-clear. This page shows only what JXN Water has posted in
+                its list. If your water looks or smells wrong, or you have heard of a notice,
+                call JXN Water at {JXN_WATER_PHONE}.
+              </p>
+            ) : (
+              <p className="mt-2 font-sans text-base">
+                {connections !== null && (
+                  <>
+                    Together they cover about {connections.toLocaleString("en-US")}{" "}
+                    connection{connections === 1 ? "" : "s"}, by the Wire&rsquo;s sum of JXN
+                    Water&rsquo;s figures.{" "}
+                  </>
+                )}
+                Each notice covers only the addresses it lists.
               </p>
             )}
             <p className="mt-3 font-sans text-sm text-muted">
               Read from{" "}
-              <a href={BOIL_WATER_SOURCE} className="underline hover:text-crimson">
+              <a href={BOIL_WATER_SOURCE} className={LINK}>
                 JXN Water&rsquo;s notices page
               </a>{" "}
               at {checked}, Central time. If this page and JXN Water differ, JXN Water is
@@ -135,27 +164,50 @@ export default async function BoilWaterNoticesPage() {
             </p>
             <p className="mt-2 font-sans text-base">
               This is a problem reaching the list, not news about your water. See{" "}
-              <a href={BOIL_WATER_SOURCE} className="font-bold underline hover:text-crimson">
+              <a href={BOIL_WATER_SOURCE} className={`font-bold ${LINK}`}>
                 JXN Water&rsquo;s notices page
               </a>{" "}
               or call JXN Water at {JXN_WATER_PHONE}.
             </p>
             <p className="mt-3 font-sans text-sm text-muted">
-              Tried at {checked}, Central time. The page tries again when it is reloaded.
+              Tried at {checked}, Central time. Reload this page in a minute to try again.
             </p>
           </>
         )}
       </section>
 
+      {/* Text on JXN Water's page that is not one of its usual notices */}
+      {other.length > 0 && (
+        <section className="mt-8 border-2 border-crimson p-6" data-nosnippet>
+          <p className="font-sans text-xs font-bold uppercase tracking-widest text-crimson">
+            Also on JXN Water&rsquo;s page
+          </p>
+          <p className="mt-2 font-sans text-base">
+            JXN Water&rsquo;s notices page carries text that is not in its usual list
+            format. It may be a wider notice. It reads:
+          </p>
+          <ul className="mt-3 space-y-2 font-serif text-lg font-bold">
+            {other.map((line, i) => (
+              <li key={`${i}-${line}`}>{line}</li>
+            ))}
+          </ul>
+          <p className="mt-3 font-sans text-sm text-muted">
+            Read it in full on{" "}
+            <a href={BOIL_WATER_SOURCE} className={LINK}>
+              JXN Water&rsquo;s notices page
+            </a>
+            .
+          </p>
+        </section>
+      )}
+
       {/* Notices in effect */}
       {active.length > 0 && (
-        <section className="mt-12">
-          <h2 className="mb-5 border-b border-ink pb-1 font-sans text-xs font-bold uppercase tracking-widest text-ink">
-            Notices in Effect
-          </h2>
+        <section className="mt-12" data-nosnippet>
+          <h2 className={H2}>Notices in Effect</h2>
           <BoilNoticeList
             notices={active}
-            issuedLabels={active.map(issuedLabel)}
+            dateLabels={active.map(dateLabel)}
             phone={JXN_WATER_PHONE}
           />
         </section>
@@ -164,13 +216,11 @@ export default async function BoilWaterNoticesPage() {
       {/* What to do */}
       <section className="mt-14 grid gap-10 md:grid-cols-2">
         <div>
-          <h2 className="mb-5 border-b border-ink pb-1 font-sans text-xs font-bold uppercase tracking-widest text-ink">
-            If Your Address Is Listed
-          </h2>
+          <h2 className={H2}>If Your Address Is Listed</h2>
           <div className="space-y-4 font-sans text-base leading-relaxed">
             <p>
-              JXN Water tells customers under a notice to bring water to a rolling boil for
-              one minute before using it for:
+              JXN Water tells customers under a notice to boil their drinking water, and to
+              bring water to a rolling boil for one minute before using it for:
             </p>
             <ul className="list-disc space-y-1 pl-6">
               {BOIL_FOR.map((use) => (
@@ -185,29 +235,29 @@ export default async function BoilWaterNoticesPage() {
           </div>
         </div>
         <div>
-          <h2 className="mb-5 border-b border-ink pb-1 font-sans text-xs font-bold uppercase tracking-widest text-ink">
-            What a Notice Means
-          </h2>
+          <h2 className={H2}>What a Notice Means</h2>
           <div className="space-y-4 font-sans text-base leading-relaxed">
             <p>
               JXN Water calls these notices precautionary. It says they follow repair work
-              on the water system and do not mean the water is unsafe, only that customers
-              should boil it first.
+              on the water system and do not mean the water is unsafe, but that customers
+              must take precautions and boil their water before using it.
             </p>
             <p>
               Questions about your water go to JXN Water&rsquo;s customer service line,{" "}
-              <a href="tel:+16015005200" className="font-bold underline hover:text-crimson">
+              <a href="tel:+16015005200" className={`whitespace-nowrap font-bold ${LINK}`}>
                 {JXN_WATER_PHONE}
               </a>
               , which the utility says is answered around the clock.
             </p>
             <p>
-              Not a JXN Water customer? Other water systems post their notices through the
-              Mississippi State Department of Health&rsquo;s{" "}
-              <a href={MSDH_NOTICES} className="underline hover:text-crimson">
+              The Mississippi State Department of Health posts{" "}
+              <a href={MSDH_NOTICES} className={LINK}>
                 water safety notices
-              </a>
-              .
+              </a>{" "}
+              that the state issues, and notices that water systems issue themselves when
+              the systems report them to it. The department says each water system is
+              responsible for telling its own customers, so check with your water system
+              first.
             </p>
           </div>
         </div>
@@ -215,27 +265,30 @@ export default async function BoilWaterNoticesPage() {
 
       {/* Recently lifted */}
       {resolved.length > 0 && (
-        <section className="mt-14">
-          <h2 className="mb-5 border-b border-ink pb-1 font-sans text-xs font-bold uppercase tracking-widest text-ink">
-            Recently Lifted
-          </h2>
+        <section className="mt-14" data-nosnippet>
+          <h2 className={H2}>Recently Lifted</h2>
           <p className="mb-4 max-w-3xl font-sans text-sm text-muted">
             The {resolved.length} most recent notices JXN Water lists as resolved. The date
             is the one JXN Water gives each notice; its list does not say when a notice
             was lifted.
           </p>
           <ol className="divide-y divide-rule border-y border-ink">
-            {resolved.map((n) => (
+            {resolved.map((n, i) => (
               <li
-                key={n.title}
+                key={`${i}-${n.title}`}
                 className="grid gap-1 py-3 sm:grid-cols-[200px_220px_1fr] sm:gap-4"
               >
                 <span className="font-sans text-xs font-semibold uppercase tracking-wider text-muted">
-                  {issuedLabel(n)}
+                  {dateLabel(n)}
                 </span>
                 <span className="font-serif text-base font-bold leading-snug">{n.place}</span>
                 <span className="font-sans text-sm text-muted">
                   {n.areas.map((a) => a.text).join("; ")}
+                  {activePlaces.has(streetWords(n.place).join(" ")) && (
+                    <strong className="block text-crimson">
+                      A separate notice for this street is in effect. See the list above.
+                    </strong>
+                  )}
                 </span>
               </li>
             ))}
@@ -245,9 +298,7 @@ export default async function BoilWaterNoticesPage() {
 
       {/* More guides */}
       <section className="mt-14">
-        <h2 className="mb-5 border-b border-ink pb-1 font-sans text-xs font-bold uppercase tracking-widest text-ink">
-          More Jackson Guides
-        </h2>
+        <h2 className={H2}>More Jackson Guides</h2>
         <ul className="grid gap-3 sm:grid-cols-2">
           <li className="border border-rule bg-paper p-4">
             <Link href="/trash-pickup" className="font-serif text-base font-bold hover:text-crimson">
@@ -264,11 +315,14 @@ export default async function BoilWaterNoticesPage() {
 
       <p className="mt-12 max-w-3xl border-t border-rule pt-6 font-sans text-sm leading-relaxed text-muted">
         How this page works: The Wire does not issue, confirm or lift boil-water notices.
-        Each time this page loads it copies the notices posted on JXN Water&rsquo;s website
-        ({BOIL_WATER_SOURCE}), reading that page no more than once every five minutes. The
+        Each time this page loads it shows the notices posted on JXN Water&rsquo;s website
+        ({BOIL_WATER_SOURCE}), from a read made within the previous five minutes. The time
+        shown is when the Wire read the page, not when JXN Water last changed it. The
         street names, address ranges and connection counts are JXN Water&rsquo;s. The total
         is the Wire&rsquo;s arithmetic. The instructions on boiling water are JXN
-        Water&rsquo;s, as posted on the same page.
+        Water&rsquo;s, as posted on the same page. The description of the state&rsquo;s
+        notices is from the Mississippi State Department of Health&rsquo;s water safety
+        notices page.
       </p>
     </div>
   );

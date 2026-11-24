@@ -4,10 +4,11 @@
 // Freshness matters more here than speed, so this does not use the Next.js
 // data cache: that cache hands back a stale copy while it refreshes, and a
 // page nobody opened overnight would greet its first morning reader with
-// last night's list. Instead the page is rendered on request and this module
-// keeps the last read in memory for a few minutes, so a burst of readers (or
-// a crawler) costs JXN Water one request, and no reader is ever shown a list
-// older than MAX_AGE_MS without being told when it was read.
+// last night's list. Instead the page is rendered on request, and each
+// server instance keeps its last read in memory for a few minutes, so a
+// burst of readers (or a crawler) shares one request to JXN Water and no
+// reader is shown a read more than MAX_AGE_MS old. The page prints the time
+// of the read.
 
 import { parseBoilWaterPage, type BoilNotice } from "./boil-water-parse";
 
@@ -21,10 +22,19 @@ const RETRY_AFTER_MS = 60 * 1000;
 const TIMEOUT_MS = 8000;
 
 export type BoilWaterResult =
-  | { ok: true; checkedAt: string; active: BoilNotice[]; resolved: BoilNotice[] }
+  | {
+      ok: true;
+      checkedAt: string;
+      active: BoilNotice[];
+      resolved: BoilNotice[];
+      // Text on JXN Water's page the parser did not recognize.
+      other: string[];
+    }
   | { ok: false; checkedAt: string };
 
 let last: { at: number; result: BoilWaterResult } | null = null;
+// A read that is under way, shared by every request that arrives meanwhile.
+let reading: Promise<BoilWaterResult> | null = null;
 
 async function read(): Promise<BoilWaterResult> {
   const checkedAt = new Date().toISOString();
@@ -39,7 +49,13 @@ async function read(): Promise<BoilWaterResult> {
     if (!res.ok) return { ok: false, checkedAt };
     const list = parseBoilWaterPage(await res.text());
     if (!list) return { ok: false, checkedAt };
-    return { ok: true, checkedAt, active: list.active, resolved: list.resolved };
+    return {
+      ok: true,
+      checkedAt,
+      active: list.active,
+      resolved: list.resolved,
+      other: list.other,
+    };
   } catch {
     return { ok: false, checkedAt };
   } finally {
@@ -48,12 +64,19 @@ async function read(): Promise<BoilWaterResult> {
 }
 
 export async function getBoilWaterNotices(): Promise<BoilWaterResult> {
-  const now = Date.now();
   if (last) {
-    const age = now - last.at;
+    const age = Date.now() - last.at;
     if (age < (last.result.ok ? MAX_AGE_MS : RETRY_AFTER_MS)) return last.result;
   }
-  const result = await read();
-  last = { at: now, result };
-  return result;
+  if (!reading) {
+    reading = read()
+      .then((result) => {
+        last = { at: Date.now(), result };
+        return result;
+      })
+      .finally(() => {
+        reading = null;
+      });
+  }
+  return reading;
 }

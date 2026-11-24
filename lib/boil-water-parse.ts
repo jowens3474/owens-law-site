@@ -1,21 +1,31 @@
 // Reads the boil-water notices out of JXN Water's public notices page
 // (https://jxnwater.com/boil-water-notices/). Pure: no network, no Next.js,
-// so `node --test lib/boil-water-parse.test.ts` can run it against a saved
+// so `node --test lib/boil-water-parse.test.mjs` can run it against a saved
 // copy of the page.
 //
-// The page lists each notice as a collapsible block:
-//   <h5 class="et_pb_toggle_title">Monday, November 23, 2026 - Arbor Hills Drive</h5>
-//   <div class="et_pb_toggle_content clearfix"> ...address ranges, customers affected... </div>
-// Notices in effect come first. Lifted ones follow a "Recently Resolved
-// Notices" heading.
+// The page lists each notice as a collapsible block inside a page column:
+//   <div class="et_pb_module et_pb_toggle ...">
+//     <h5 class="et_pb_toggle_title">Monday, November 23, 2026 - Arbor Hills Drive</h5>
+//     <div class="et_pb_toggle_content clearfix"> ...address ranges, customers affected... </div>
+//   </div>
+// Notices in effect fill one column. Lifted ones sit in a second column under
+// a "Recently Resolved Notices" heading.
 //
-// This is public-safety information, so the parser fails closed. If the page
-// does not look the way it did when this was written, it returns null and the
-// site says it could not read the list. It never guesses, and it never
-// reports "no notices" for a page it did not recognize.
+// This is public-safety information, so the parser fails closed. It returns
+// null, and the site says it could not read the list, unless all of this
+// holds:
+//   - the page has exactly one "Recently Resolved Notices" heading;
+//   - it found at least one notice, and as many notice headings as there are
+//     notice blocks, so a renamed heading cannot empty the list quietly;
+//   - where a notice sits in the page and which column it is in agree on
+//     whether it is in effect, so a reshuffled layout cannot file a notice in
+//     effect under "resolved".
+// Text in the notices area that is not a notice and not the page's usual
+// introduction is handed back in `other`, so a notice JXN Water posts in some
+// new form is shown to readers rather than dropped.
 
 export interface NoticeArea {
-  // The line exactly as JXN Water wrote it, brackets removed.
+  // The line as JXN Water wrote it, brackets removed.
   text: string;
   // Set when the line reads "[2810-2897] Arbor Hills Dr".
   from?: string;
@@ -24,7 +34,7 @@ export interface NoticeArea {
 }
 
 export interface BoilNotice {
-  // The heading exactly as posted, e.g. "Monday, November 23, 2026 - Arbor Hills Drive".
+  // The heading as posted, e.g. "Monday, November 23, 2026 - Arbor Hills Drive".
   title: string;
   // ISO yyyy-mm-dd, or null when the heading's date could not be read.
   issued: string | null;
@@ -38,11 +48,35 @@ export interface BoilNotice {
 export interface BoilNoticeList {
   active: BoilNotice[];
   resolved: BoilNotice[];
+  // Lines in the notices area the parser did not recognize, as written.
+  other: string[];
 }
 
-const TITLE_OPEN = '<h5 class="et_pb_toggle_title">';
 const PAGE_MARK = "Precautionary Boil Water Notices";
-const RESOLVED_MARK = "Recently Resolved Notices";
+
+// A class attribute that carries `name` as one of its space-separated classes.
+const hasClass = (name: string) => `\\bclass="(?:[^"]*\\s)?${name}(?:\\s[^"]*)?"`;
+
+// The heading of one notice, whatever its heading level or extra attributes.
+const TITLE_RE = new RegExp(`<(h[1-6])\\b[^>]*${hasClass("et_pb_toggle_title")}[^>]*>`, "gi");
+// One notice block.
+const TOGGLE_RE = new RegExp(`<[a-z][a-z0-9]*\\b[^>]*${hasClass("et_pb_toggle")}`, "gi");
+// Any page module, and any page column.
+const MODULE_RE = new RegExp(`<div\\b[^>]*${hasClass("et_pb_module")}`, "gi");
+const COLUMN_RE = new RegExp(`<div\\b[^>]*${hasClass("et_pb_column")}`, "gi");
+const RESOLVED_RE = /<h[1-6]\b[^>]*>\s*Recently Resolved Notices\s*<\/h[1-6]>/gi;
+
+// How the usual lines around the notices begin, lowercased. Anything else in
+// the notices area is reported in `other`.
+const KNOWN_LINES = [
+  "precautionary boil water notices",
+  "a boil water notice is a precautionary notice",
+  "all customers under a notice are advised",
+  "residents will be notified immediately",
+  "recently resolved notices",
+];
+const MAX_OTHER_LINES = 6;
+const MAX_OTHER_CHARS = 400;
 
 const MONTHS: Record<string, string> = {
   january: "01",
@@ -103,12 +137,18 @@ function htmlToLines(html: string): string[] {
   );
   return text
     .split("\n")
-    .map((line) => line.replace(/[ \s]+/g, " ").trim())
+    .map((line) =>
+      line
+        // A typed en or em dash becomes a hyphen, as the encoded ones do.
+        .replace(/[–—]/g, "-")
+        .replace(/[ \s]+/g, " ")
+        .trim(),
+    )
     .filter(Boolean);
 }
 
 function parseIssued(label: string): string | null {
-  const m = label.match(/([A-Za-z]+)\s+(\d{1,2}),\s*(\d{4})/);
+  const m = label.match(/([A-Za-z]+)\.?\s+(\d{1,2}),?\s*(\d{4})/);
   if (!m) return null;
   const month = MONTHS[m[1].toLowerCase()];
   if (!month) return null;
@@ -127,13 +167,16 @@ function parseArea(line: string): NoticeArea {
 }
 
 function parseNotice(titleHtml: string, bodyHtml: string): BoilNotice | null {
-  const title = htmlToLines(titleHtml).join(" ").replace(/[–—]/g, "-");
+  const title = htmlToLines(titleHtml).join(" ");
   if (!title) return null;
 
-  // "Monday, November 23, 2026 - Arbor Hills Drive": date, then the place.
-  const split = title.match(/^(.*?\d{4})\s*-\s*(.+)$/);
-  const dateLabel = split ? split[1] : title;
-  const place = split ? split[2].trim() : title;
+  // "Monday, November 23, 2026 - Arbor Hills Drive": the date, then the place.
+  // A heading that does not open with a date is kept whole as the place.
+  const split = title.match(
+    /^((?:[A-Za-z]+,?\s+)?[A-Za-z]+\.?\s+\d{1,2},?\s*\d{4})\s*[-:,]?\s*(.+)$/,
+  );
+  const issued = split ? parseIssued(split[1]) : null;
+  const place = split && issued ? split[2].trim() : title;
 
   const lines = htmlToLines(bodyHtml);
   const areas: NoticeArea[] = [];
@@ -149,44 +192,109 @@ function parseNotice(titleHtml: string, bodyHtml: string): BoilNotice | null {
 
   return {
     title,
-    issued: parseIssued(dateLabel),
+    issued,
     place,
     areas,
     connections: connections !== null && Number.isFinite(connections) ? connections : null,
   };
 }
 
+// The first index in a sorted list that is greater than `after`, or -1.
+function firstAfter(sorted: number[], after: number): number {
+  for (const i of sorted) if (i > after) return i;
+  return -1;
+}
+
+function indexesOf(re: RegExp, text: string): number[] {
+  return [...text.matchAll(re)].map((m) => m.index);
+}
+
 export function parseBoilWaterPage(html: string): BoilNoticeList | null {
-  if (typeof html !== "string" || !html.includes(PAGE_MARK)) return null;
+  if (typeof html !== "string") return null;
+  const start = html.indexOf(PAGE_MARK);
+  if (start === -1) return null;
 
-  // Without the "Recently Resolved Notices" heading there is no telling a
-  // notice in effect from one that was lifted, so read nothing.
-  const resolvedAt = html.indexOf(RESOLVED_MARK);
-  if (resolvedAt === -1) return null;
+  // The notices area runs from the page's heading to the end of the article.
+  const ends = [html.indexOf("</article>", start), html.indexOf("<footer", start)].filter(
+    (i) => i !== -1,
+  );
+  const region = html.slice(start, ends.length > 0 ? Math.min(...ends) : html.length);
 
-  const list: BoilNoticeList = { active: [], resolved: [] };
-  let cursor = html.indexOf(TITLE_OPEN);
-  while (cursor !== -1) {
-    const titleStart = cursor + TITLE_OPEN.length;
-    const titleEnd = html.indexOf("</h5>", titleStart);
-    if (titleEnd === -1) return null;
-    const next = html.indexOf(TITLE_OPEN, titleEnd);
+  // Exactly one "Recently Resolved Notices" heading, or there is no telling a
+  // notice in effect from one that was lifted.
+  const resolvedHeads = indexesOf(RESOLVED_RE, region);
+  if (resolvedHeads.length !== 1) return null;
+  const resolvedAt = resolvedHeads[0];
 
-    // The notice's text runs to the next page module: the next notice, the
-    // "Recently Resolved" heading, or the end of the article.
+  const columns = indexesOf(COLUMN_RE, region);
+  const columnOf = (i: number) => {
+    let column = -1;
+    for (const c of columns) {
+      if (c > i) break;
+      column = c;
+    }
+    return column;
+  };
+  const resolvedColumn = columnOf(resolvedAt);
+  if (resolvedColumn === -1) return null;
+
+  // Every notice block must have a heading this parser can read, and there
+  // must be at least one, or the page is not the one this was written for.
+  const titles = [...region.matchAll(TITLE_RE)];
+  if (titles.length === 0 || titles.length !== indexesOf(TOGGLE_RE, region).length) return null;
+
+  const modules = indexesOf(MODULE_RE, region);
+  const list: BoilNoticeList = { active: [], resolved: [], other: [] };
+  const covered: [number, number][] = [];
+
+  for (let t = 0; t < titles.length; t++) {
+    const at = titles[t].index;
+    const tag = titles[t][1];
+    const titleStart = at + titles[t][0].length;
+    const close = region.slice(titleStart).search(new RegExp(`</${tag}>`, "i"));
+    if (close === -1) return null;
+    const titleEnd = titleStart + close;
+    const next = t + 1 < titles.length ? titles[t + 1].index : -1;
+    // A heading that runs into the next one never closed.
+    if (next !== -1 && titleEnd > next) return null;
+
+    // The notice's text runs to whatever comes next on the page: another
+    // module, another column, or the "Recently Resolved" heading.
     const stops = [
-      html.indexOf('<div class="et_pb_module', titleEnd),
-      html.indexOf("</article>", titleEnd),
-      html.indexOf("<footer", titleEnd),
+      firstAfter(modules, titleEnd),
+      firstAfter(columns, titleEnd),
+      resolvedAt > titleEnd ? resolvedAt : -1,
       next,
     ].filter((i) => i !== -1);
-    const bodyEnd = stops.length > 0 ? Math.min(...stops) : html.length;
+    const bodyEnd = stops.length > 0 ? Math.min(...stops) : region.length;
 
-    const notice = parseNotice(html.slice(titleStart, titleEnd), html.slice(titleEnd + 5, bodyEnd));
+    const notice = parseNotice(
+      region.slice(titleStart, titleEnd),
+      region.slice(titleEnd + `</${tag}>`.length, bodyEnd),
+    );
     // A block with a heading but no readable notice means the page changed.
     if (!notice) return null;
-    (cursor < resolvedAt ? list.active : list.resolved).push(notice);
-    cursor = next;
+
+    // In effect or lifted? Position on the page and the column must agree.
+    const afterHeading = at > resolvedAt;
+    if (afterHeading !== (columnOf(at) === resolvedColumn)) return null;
+    (afterHeading ? list.resolved : list.active).push(notice);
+    covered.push([at, bodyEnd]);
   }
+
+  // Whatever is left in the notices area once the notices are taken out.
+  let rest = "";
+  let cursor = 0;
+  for (const [from, to] of covered) {
+    rest += `${region.slice(cursor, from)}\n`;
+    cursor = to;
+  }
+  rest += region.slice(cursor);
+  for (const line of htmlToLines(rest)) {
+    const lower = line.toLowerCase();
+    if (line.length < 12 || KNOWN_LINES.some((known) => lower.startsWith(known))) continue;
+    if (list.other.length < MAX_OTHER_LINES) list.other.push(line.slice(0, MAX_OTHER_CHARS));
+  }
+
   return list;
 }

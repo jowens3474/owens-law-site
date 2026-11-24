@@ -6,7 +6,7 @@ import { absoluteUrl } from "@/lib/markdown";
 import { COUNCIL, upcomingMeetings } from "@/lib/jackson-council";
 import { getCouncilPostings } from "@/lib/council-postings";
 import { MEETINGS, formatMeetingDate } from "@/lib/meetings";
-import { centralToday, daysBetween, formatDay, formatInstant } from "@/lib/central-time";
+import { centralToday, formatDay, formatInstant } from "@/lib/central-time";
 
 // "Next meeting" depends on today's date and the city's postings change
 // through the week, so refresh hourly; deploys rebuild it sooner.
@@ -20,7 +20,7 @@ const DEK =
 export const metadata: Metadata = {
   title: TITLE,
   description:
-    "Jackson, Mississippi City Council members by ward with phone and email, the meeting schedule, agendas, meeting video, the ward map and the rules for public comment.",
+    "Jackson, Mississippi, City Council members by ward with phone and email, the meeting schedule, agendas, meeting video, the ward map and the rules for public comment.",
   alternates: { canonical: PATH },
   openGraph: {
     type: "website",
@@ -36,12 +36,6 @@ export const metadata: Metadata = {
   },
 };
 
-function countdown(days: number): string {
-  if (days === 0) return "today";
-  if (days === 1) return "tomorrow";
-  return `in ${days} days`;
-}
-
 const H2 =
   "mb-5 border-b border-ink pb-1 font-sans text-xs font-bold uppercase tracking-widest text-ink";
 const LINK = "underline hover:text-crimson";
@@ -50,7 +44,7 @@ export default async function CityCouncilPage() {
   const today = centralToday();
   const upcoming = upcomingMeetings(today);
   const nextRegular = upcoming.find((m) => m.kind === "Regular meeting");
-  const postings = await getCouncilPostings();
+  const { postings, readAt } = await getCouncilPostings();
   const president = COUNCIL.members.find((m) => m.role);
   const archived = MEETINGS.filter((m) => m.body.startsWith("Jackson City Council")).slice(0, 5);
   const coverage = getAllPosts()
@@ -63,11 +57,18 @@ export default async function CityCouncilPage() {
       label: "Next regular meeting",
       value: nextRegular
         ? `${formatDay(nextRegular.date, { year: false })}, ${nextRegular.time}`
-        : "Not yet posted",
+        : "See the city’s schedule",
     },
     { label: "Where", value: `${COUNCIL.place.room}, ${COUNCIL.place.building}` },
     { label: "President", value: president ? `${president.name}, Ward ${president.ward}` : "" },
-    { label: "Sign up to speak", value: `Clerk of Council, ${COUNCIL.clerk.phone}` },
+    {
+      label: "Sign up to speak",
+      value: (
+        <>
+          Clerk of Council, <span className="whitespace-nowrap">{COUNCIL.clerk.phone}</span>
+        </>
+      ),
+    },
   ];
 
   const jsonLd = {
@@ -131,9 +132,7 @@ export default async function CityCouncilPage() {
                   <p className="font-serif text-lg font-bold leading-snug">
                     {formatDay(m.date)}, {m.time}
                   </p>
-                  <p className="font-sans text-sm text-muted">
-                    {m.kind}, {countdown(daysBetween(today, m.date))}
-                  </p>
+                  <p className="font-sans text-sm text-muted">{m.kind}</p>
                 </li>
               ))}
             </ol>
@@ -151,14 +150,18 @@ export default async function CityCouncilPage() {
           <div className="mt-4 space-y-3 font-sans text-base leading-relaxed">
             <p>
               Meetings are in the {where}. On the city&rsquo;s 2026 schedule, regular
-              meetings fall on alternating Tuesdays, one at 10 a.m. and the next at 6 p.m.
+              meetings generally fall on alternating Tuesdays, one at 10 a.m. and the next
+              at 6 p.m.
               Council zoning hearings are generally the third Monday of the month at
               2:30 p.m.
             </p>
             <p>
               Meetings are sometimes canceled, recessed to another day or called specially.
-              The city&rsquo;s latest notices, at right, are the place to check before you
-              go.
+              Check the city&rsquo;s{" "}
+              <a href={COUNCIL.sources.agendas} className={LINK}>
+                latest agendas and notices
+              </a>{" "}
+              before you go. The newest are listed on this page.
             </p>
           </div>
         </div>
@@ -182,7 +185,9 @@ export default async function CityCouncilPage() {
                 ))}
               </ol>
               <p className="mt-3 font-sans text-sm text-muted">
-                Titles are the city&rsquo;s, read from its website within the past hour.{" "}
+                Titles are the city&rsquo;s
+                {readAt ? `, read from its website at ${formatInstant(readAt)}` : ""}. This
+                list is refreshed about hourly.{" "}
                 <a href={COUNCIL.sources.agendas} className={LINK}>
                   All council agendas and minutes
                 </a>
@@ -213,7 +218,10 @@ export default async function CityCouncilPage() {
               </p>
               <h3 className="mt-1 font-serif text-xl font-black leading-tight">{m.name}</h3>
               <p className="mt-3 font-sans text-sm">
-                <a href={`tel:+1${m.phone.replace(/-/g, "")}`} className={LINK}>
+                <a
+                  href={`tel:+1${m.phone.replace(/-/g, "")}`}
+                  className={`whitespace-nowrap ${LINK}`}
+                >
                   {m.phone}
                 </a>
               </p>
@@ -246,7 +254,10 @@ export default async function CityCouncilPage() {
           <ol className="list-decimal space-y-2 pl-6 font-sans text-base leading-relaxed">
             <li>
               Call the Clerk of Council&rsquo;s office at{" "}
-              <a href={`tel:${COUNCIL.clerk.tel}`} className={`font-bold ${LINK}`}>
+              <a
+                href={`tel:${COUNCIL.clerk.tel}`}
+                className={`whitespace-nowrap font-bold ${LINK}`}
+              >
                 {COUNCIL.clerk.phone}
               </a>{" "}
               by noon on the business day before the meeting.
@@ -266,7 +277,7 @@ export default async function CityCouncilPage() {
           </ol>
           <p className="mt-4 font-sans text-base leading-relaxed">
             The city&rsquo;s rules limit public comment to five instances at a regular or
-            special meeting, in person or online. A federal lawsuit filed Aug. 11, 2026
+            special meeting, in person or online. A federal lawsuit filed Aug. 11, 2026,
             challenges another part of the city&rsquo;s public-comment ordinance, its ban
             on &ldquo;personal, impertinent, or slanderous remarks.&rdquo; The Wire{" "}
             <Link href="/article/servis-sues-jackson-public-comment-rules" className={LINK}>
@@ -377,10 +388,11 @@ export default async function CityCouncilPage() {
           council pages
         </a>
         , last checked {formatDay(COUNCIL.checked, { weekday: false })}. The city&rsquo;s
-        Ward 2 page lists two email addresses for Clay; this page uses the one in the
-        page&rsquo;s contact box. Hartley is named as council president in the city&rsquo;s{" "}
+        Ward 2 page lists two email addresses for Clay; this page uses the one at the top
+        of that page, beside her phone number. Hartley is named as council president in
+        the city&rsquo;s{" "}
         <a href={COUNCIL.sources.presidentNotice} className={LINK}>
-          notice of a Nov. 10, 2026 special meeting
+          notice of a Nov. 10, 2026, special meeting
         </a>
         , which also names the mayor. The city&rsquo;s{" "}
         <a href={COUNCIL.sources.officers} className={LINK}>
@@ -395,15 +407,23 @@ export default async function CityCouncilPage() {
         <a href={COUNCIL.sources.zoningSchedule} className={LINK}>
           2026 zoning schedule
         </a>
-        . The rules for speaking and the description of the council are from the city&rsquo;s{" "}
+        . The rules for speaking are from the city&rsquo;s{" "}
         <a href={COUNCIL.sources.publicComments} className={LINK}>
           public comments
+        </a>{" "}
+        page. The description of the council is from its{" "}
+        <a href={COUNCIL.sources.members} className={LINK}>
+          council members
         </a>{" "}
         and{" "}
         <a href={COUNCIL.sources.officers} className={LINK}>
           officers
         </a>{" "}
-        pages. The Wire did not ask the city to comment for this page. If the city&rsquo;s
+        pages. Canceled, recessed and special meetings are from the city&rsquo;s{" "}
+        <a href={COUNCIL.sources.agendas} className={LINK}>
+          posted agendas and notices
+        </a>
+        . The Wire did not ask the city to comment for this page. If the city&rsquo;s
         pages and this one differ, the city is right.
       </p>
     </div>

@@ -17,6 +17,8 @@ export const TRASH = {
     division:
       "https://jacksonms.gov/government/city-departments/public-works-department/solid-waste-division/",
     residents: "https://jacksonms.gov/residents/trash-and-recycling/",
+    hazardous:
+      "https://jacksonms.gov/government/city-departments/public-works-department/solid-waste-division/household-hazardous-waste/",
     city311: "https://jacksonms.gov/residents/311-2/",
   },
   bulkItems: ["Furniture", "Mattresses and box springs", "Couches", "Televisions", "Radios", "Toilets"],
@@ -34,7 +36,7 @@ export const TRASH = {
       "Batteries",
       "Pesticides and insecticides",
       "Electronics such as computers and cellphones",
-      "Fluorescent light bulbs",
+      "Fluorescent light bulbs, 4-foot only",
     ],
   },
   newService: {
@@ -64,6 +66,7 @@ export const HOLIDAY_NOTES: Record<string, HolidayNote> = {
     text: [
       "The city had not posted a Thanksgiving 2026 collection schedule on its website when the Wire checked on Nov. 23.",
       "In 2024, the city said Richard’s Disposal would not collect on Thanksgiving Day, would resume that Friday, and would finish its Friday and Saturday routes by Saturday, WLBT reported.",
+      "That year, residents on Thursday and Friday routes were asked to put trash at the curb Thursday night, and Saturday customers on Friday night, WLBT reported.",
     ],
     checked: "2026-11-23",
     sources: [

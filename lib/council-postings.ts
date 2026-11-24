@@ -1,7 +1,7 @@
 // The newest agendas and notices the City of Jackson has posted for the
 // council, read from the city website's public feed for /city-council.
-// Server-only. Cached an hour; fails soft to an empty list so the page
-// always renders.
+// Server-only. Refreshed about hourly; fails soft to an empty list so the
+// page always renders.
 
 import { decodeEntities } from "./boil-water-parse";
 
@@ -22,7 +22,17 @@ interface FeedRow {
   title?: { rendered?: unknown };
 }
 
-export async function getCouncilPostings(): Promise<CouncilPosting[]> {
+export interface CouncilPostings {
+  postings: CouncilPosting[];
+  // When the city's website answered, as an ISO instant, or null if unknown.
+  // Taken from the response's own Date header, so a copy served from the
+  // cache still carries the time it was really read.
+  readAt: string | null;
+}
+
+const NONE: CouncilPostings = { postings: [], readAt: null };
+
+export async function getCouncilPostings(): Promise<CouncilPostings> {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 8000);
   try {
@@ -31,9 +41,11 @@ export async function getCouncilPostings(): Promise<CouncilPosting[]> {
       signal: controller.signal,
       next: { revalidate: 3600 },
     });
-    if (!res.ok) return [];
+    if (!res.ok) return NONE;
     const rows: unknown = await res.json();
-    if (!Array.isArray(rows)) return [];
+    if (!Array.isArray(rows)) return NONE;
+    const answered = new Date(res.headers.get("date") ?? "");
+    const readAt = Number.isNaN(answered.getTime()) ? null : answered.toISOString();
     const postings: CouncilPosting[] = [];
     for (const row of rows as FeedRow[]) {
       const title = typeof row?.title?.rendered === "string" ? row.title.rendered : "";
@@ -49,9 +61,9 @@ export async function getCouncilPostings(): Promise<CouncilPosting[]> {
         posted: posted.toISOString(),
       });
     }
-    return postings;
+    return { postings, readAt };
   } catch {
-    return [];
+    return NONE;
   } finally {
     clearTimeout(timer);
   }
