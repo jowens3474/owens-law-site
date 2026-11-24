@@ -20,6 +20,8 @@ const MAX_AGE_MS = 5 * 60 * 1000;
 // After a failed read, wait a minute before asking JXN Water again.
 const RETRY_AFTER_MS = 60 * 1000;
 const TIMEOUT_MS = 8000;
+// JXN Water's page is about 200,000 characters. Anything far larger is not it.
+const MAX_PAGE_CHARS = 2_000_000;
 
 export type BoilWaterResult =
   | {
@@ -47,7 +49,9 @@ async function read(): Promise<BoilWaterResult> {
       cache: "no-store",
     });
     if (!res.ok) return { ok: false, checkedAt };
-    const list = parseBoilWaterPage(await res.text());
+    const html = await res.text();
+    if (html.length > MAX_PAGE_CHARS) return { ok: false, checkedAt };
+    const list = parseBoilWaterPage(html);
     if (!list) return { ok: false, checkedAt };
     return {
       ok: true,

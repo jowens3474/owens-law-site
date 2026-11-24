@@ -31,18 +31,22 @@ export default function BoilNoticeList({
   }));
   const matched = rows.filter((r) => r.match);
   const onAddress = matched.filter((r) => r.match === "address");
+  // The street is listed, but at least one listing had no range to compare.
+  const unsure = matched.some((r) => r.match === "street");
   const shown = searching && matched.length > 0 ? matched : rows;
 
   let status = "";
   if (searching) {
     if (matched.length === 0) {
-      status = `No match for “${typed}” on JXN Water’s list. That is not an all-clear: streets are abbreviated in different ways, and the list covers only the notices JXN Water has posted. Read the full list below, or call JXN Water at ${phone}.`;
-    } else if (query.number !== null && onAddress.length > 0) {
-      status = `${onAddress.length === 1 ? "A notice lists" : `${onAddress.length} notices list`} an address range that includes “${typed}”. Check the range below.`;
-    } else if (query.number !== null) {
-      status = `That street is on JXN Water’s list, but the listed address range does not include ${query.number}. Check the range below, or call JXN Water at ${phone} to be sure.`;
+      status = `No match for \u201c${typed}\u201d on JXN Water\u2019s list. That is not an all-clear: streets are abbreviated in different ways, and the list covers only the notices JXN Water has posted. Read the full list below, or call JXN Water at ${phone}.`;
+    } else if (query.number === null) {
+      status = `${matched.length === 1 ? "1 notice names" : `${matched.length} notices name`} a street matching \u201c${typed}\u201d.`;
+    } else if (onAddress.length > 0) {
+      status = `${onAddress.length === 1 ? "A notice lists" : `${onAddress.length} notices list`} an address or range that includes \u201c${typed}\u201d. Check it below.`;
+    } else if (unsure) {
+      status = `A notice names that street. Check the addresses listed below, or call JXN Water at ${phone} to be sure.`;
     } else {
-      status = `${matched.length === 1 ? "1 notice names" : `${matched.length} notices name`} a street matching “${typed}”.`;
+      status = `That street is on JXN Water\u2019s list, but the listed address range does not include ${query.number}. Check the range below, or call JXN Water at ${phone} to be sure.`;
     }
   }
 
@@ -59,7 +63,7 @@ export default function BoilNoticeList({
         type="search"
         value={text}
         onChange={(e) => setText(e.target.value)}
-        placeholder="Street name or address, like 2850 Arbor Hills Dr"
+        placeholder="Type a street name or an address"
         autoComplete="off"
         className="mt-2 w-full max-w-md border border-rule bg-paper px-3 py-2 font-sans text-base focus:border-crimson focus:outline-none"
       />

@@ -55,7 +55,7 @@ export async function GET() {
 
   lines.push("## Jackson guides", "");
   lines.push(
-    `- [Jackson boil-water notices today](${absoluteUrl("/boil-water-notices")}): The notices JXN Water lists as in effect, with streets and address ranges, read from JXN Water within five minutes of each visit.`,
+    `- [Jackson boil-water notices today](${absoluteUrl("/boil-water-notices")}): The notices JXN Water lists as in effect, with streets and address ranges, read from JXN Water no more than five minutes before each visit.`,
     `- [Jackson trash pickup](${absoluteUrl("/trash-pickup")}): Twice-a-week collection rules, the holiday schedule, bulk items, and who to call about a missed pickup.`,
     `- [Jackson City Council](${absoluteUrl("/city-council")}): Members by ward with contacts, the meeting schedule, agendas, video, and how to sign up to speak.`,
     "",

@@ -20,7 +20,7 @@ export const dynamic = "force-dynamic";
 const PATH = "/boil-water-notices";
 const TITLE = "Jackson, MS Boil-Water Notices Today";
 const DEK =
-  "The boil-water notices JXN Water lists as in effect, with the streets and address ranges each one covers. The Wire reads JXN Water’s own list within five minutes of every visit and shows the time of the read.";
+  "The boil-water notices JXN Water lists as in effect, with the streets and address ranges each one covers. The Wire reads JXN Water’s own list no more than five minutes before each visit and shows the time of the read.";
 const MSDH_NOTICES =
   "https://msdh.ms.gov/safe-food-water-and-housing/water-supply/water-safety-notices";
 
@@ -43,7 +43,7 @@ const BOIL_FOR = [
 export const metadata: Metadata = {
   title: TITLE,
   description:
-    "See which Jackson streets JXN Water lists under a boil-water notice. The Wire reads JXN Water’s own list within five minutes of every visit and shows when it was read.",
+    "See which Jackson streets JXN Water lists under a boil-water notice. The Wire reads JXN Water’s own list no more than five minutes before each visit and shows when it was read.",
   alternates: { canonical: PATH },
   openGraph: {
     type: "website",
@@ -126,9 +126,11 @@ export default async function BoilWaterNoticesPage() {
         {result.ok ? (
           <>
             <p className="mt-2 font-serif text-3xl font-black leading-tight">
-              {active.length === 0
-                ? "The Wire found no notices listed as in effect on JXN Water’s notices page."
-                : `JXN Water lists ${active.length} boil-water notice${active.length === 1 ? "" : "s"} in effect.`}
+              {active.length > 0
+                ? `JXN Water lists ${active.length} boil-water notice${active.length === 1 ? "" : "s"} in effect.`
+                : other.length > 0
+                  ? "JXN Water’s page has text the Wire could not read as a notice list. It is shown below."
+                  : "The Wire found no notices listed as in effect on JXN Water’s notices page."}
             </p>
             {active.length === 0 ? (
               <p className="mt-2 font-sans text-base">

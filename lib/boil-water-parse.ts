@@ -52,7 +52,8 @@ export interface BoilNoticeList {
   other: string[];
 }
 
-const PAGE_MARK = "Precautionary Boil Water Notices";
+// The heading that opens the notices area.
+const PAGE_RE = /<h[1-6]\b[^>]*>\s*Precautionary Boil Water Notices\s*<\/h[1-6]>/i;
 
 // A class attribute that carries `name` as one of its space-separated classes.
 const hasClass = (name: string) => `\\bclass="(?:[^"]*\\s)?${name}(?:\\s[^"]*)?"`;
@@ -66,15 +67,21 @@ const MODULE_RE = new RegExp(`<div\\b[^>]*${hasClass("et_pb_module")}`, "gi");
 const COLUMN_RE = new RegExp(`<div\\b[^>]*${hasClass("et_pb_column")}`, "gi");
 const RESOLVED_RE = /<h[1-6]\b[^>]*>\s*Recently Resolved Notices\s*<\/h[1-6]>/gi;
 
-// How the usual lines around the notices begin, lowercased. Anything else in
-// the notices area is reported in `other`.
-const KNOWN_LINES = [
-  "precautionary boil water notices",
-  "a boil water notice is a precautionary notice",
-  "all customers under a notice are advised",
-  "residents will be notified immediately",
-  "recently resolved notices",
+// The usual lines around the notices: how each begins (lowercased) and how
+// long it was when this was written. Anything else in the notices area is
+// reported in `other`. So is one of these lines if it has grown or shrunk by
+// more than LENGTH_SLACK characters, which is what a sentence added to it
+// (say, about a wider notice) would do.
+const KNOWN_LINES: { start: string; length: number }[] = [
+  { start: "jxn water", length: 9 },
+  { start: "precautionary boil water notices", length: 32 },
+  { start: "a boil water notice is a precautionary notice", length: 233 },
+  { start: "all customers under a notice are advised", length: 372 },
+  { start: "residents will be notified immediately", length: 137 },
+  { start: "recently resolved notices", length: 25 },
 ];
+const LENGTH_SLACK = 40;
+const MIN_OTHER_CHARS = 12;
 const MAX_OTHER_LINES = 6;
 const MAX_OTHER_CHARS = 400;
 
@@ -157,11 +164,18 @@ function parseIssued(label: string): string | null {
   return `${m[3]}-${month}-${String(day).padStart(2, "0")}`;
 }
 
+// "[2810-2897] Arbor Hills Dr" is a range and "[834] Foley St" a single
+// address. Stray characters before the bracket are ignored. Any other line is
+// kept as text with no range.
 function parseArea(line: string): NoticeArea {
-  const m = line.match(/^\[\s*(\d+[A-Za-z]?)\s*-\s*(\d+[A-Za-z]?)\s*\]\s*(.+)$/);
+  const m = line.match(
+    /^[^A-Za-z0-9[]*\[\s*(\d+[A-Za-z]?)\s*(?:-\s*(\d+[A-Za-z]?)\s*)?\]\s*(.*[A-Za-z].*)$/,
+  );
   if (m) {
     const street = m[3].trim();
-    return { text: `${m[1]} to ${m[2]} ${street}`, from: m[1], to: m[2], street };
+    const to = m[2] ?? m[1];
+    const range = m[2] ? `${m[1]} to ${m[2]}` : m[1];
+    return { text: `${range} ${street}`, from: m[1], to, street };
   }
   return { text: line.replace(/[[\]]/g, "").replace(/\s+/g, " ").trim() };
 }
@@ -211,14 +225,21 @@ function indexesOf(re: RegExp, text: string): number[] {
 
 export function parseBoilWaterPage(html: string): BoilNoticeList | null {
   if (typeof html !== "string") return null;
-  const start = html.indexOf(PAGE_MARK);
-  if (start === -1) return null;
+  const heading = html.match(PAGE_RE);
+  if (!heading || heading.index === undefined) return null;
 
-  // The notices area runs from the page's heading to the end of the article.
-  const ends = [html.indexOf("</article>", start), html.indexOf("<footer", start)].filter(
-    (i) => i !== -1,
-  );
-  const region = html.slice(start, ends.length > 0 ? Math.min(...ends) : html.length);
+  // The notices area is the article that holds the heading (or, failing
+  // that, everything from the heading on), up to the end of the article.
+  const article = html.lastIndexOf("<article", heading.index);
+  const start = article === -1 ? heading.index : article;
+  const ends = [
+    html.indexOf("</article>", heading.index),
+    html.indexOf("<footer", heading.index),
+  ].filter((i) => i !== -1);
+  const region = html
+    .slice(start, ends.length > 0 ? Math.min(...ends) : html.length)
+    // Script and style text is never a notice.
+    .replace(/<(script|style)\b[\s\S]*?<\/\1>/gi, "");
 
   // Exactly one "Recently Resolved Notices" heading, or there is no telling a
   // notice in effect from one that was lifted.
@@ -292,7 +313,11 @@ export function parseBoilWaterPage(html: string): BoilNoticeList | null {
   rest += region.slice(cursor);
   for (const line of htmlToLines(rest)) {
     const lower = line.toLowerCase();
-    if (line.length < 12 || KNOWN_LINES.some((known) => lower.startsWith(known))) continue;
+    const usual = KNOWN_LINES.some(
+      (known) =>
+        lower.startsWith(known.start) && Math.abs(line.length - known.length) <= LENGTH_SLACK,
+    );
+    if (usual || line.length < MIN_OTHER_CHARS) continue;
     if (list.other.length < MAX_OTHER_LINES) list.other.push(line.slice(0, MAX_OTHER_CHARS));
   }
 
