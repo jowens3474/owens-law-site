@@ -5,14 +5,23 @@
 // never shows a past deadline as the next one.
 
 const COUNTY = "https://www.hindscountyms.com";
-// The county's older database site. Its own pages link to it over http.
-const COUNTY_DB = "http://www.co.hinds.ms.us/pgs";
 const BILLS = "https://billstatus.ls.state.ms.us/documents";
 
 export const TAX = {
   // The day these facts were last compared with the sources.
   checked: "2026-11-25",
   hours: "8 a.m. to 5 p.m. Monday through Friday, except legal holidays",
+  // The county's older site hosts its lookups, its tax calculator, its tax
+  // sale files and the Tax Collector's FAQ. It did not answer on the day
+  // below, so the page names the host in plain text, never links to it, and
+  // says which Internet Archive copy each fact from that site was read in.
+  // When the site answers again, re-read those pages, link them and drop the
+  // archive wording.
+  oldSite: {
+    host: "www.co.hinds.ms.us",
+    noAnswerOn: "2026-11-25",
+    archived: { faq: "2026-09-06", taxSaleFiles: "2026-09-11", lookups: "2026-11-05" },
+  },
   collector: {
     name: "Eddie J. Fair",
     jackson: {
@@ -25,7 +34,8 @@ export const TAX = {
       mail: "P.O. Box 51, Raymond, MS 39154",
       phone: "601-857-5574",
     },
-    // The number the office's FAQ gives for a tax bill that did not arrive.
+    // The number the office's FAQ gives for a tax bill that did not arrive
+    // (from the Internet Archive copy of the FAQ).
     billPhone: "601-968-6591",
   },
   assessor: {
@@ -52,25 +62,9 @@ export const TAX = {
       phone: "601-857-8055",
     },
   },
-  // The tax districts the county's online estimator lists.
-  estimatorDistricts: [
-    "Bolton",
-    "Byram",
-    "Clinton",
-    "Clinton Separate School District",
-    "County",
-    "Edwards",
-    "Hinds-Rankin Flood District",
-    "Jackson",
-    "Jackson Annex",
-    "Jackson Separate School District",
-    "Learned",
-    "Raymond",
-    "Terry",
-    "Terry Annex",
-    "Utica",
-  ],
   sources: {
+    // The home page carries the button that leads to the tax sale files.
+    home: `${COUNTY}/`,
     collector: `${COUNTY}/elected-offices/tax-collector`,
     assessor: `${COUNTY}/elected-offices/tax-assessor`,
     chancery: `${COUNTY}/elected-offices/chancery-clerk`,
@@ -79,13 +73,6 @@ export const TAX = {
     homesteadWorksheet: `${COUNTY}/sites/default/files/Homestead_Worksheet.pdf`,
     tenPercentForm: `${COUNTY}/sites/default/files/TaxAssessor10Percent.pdf`,
     valueLookupSheet: `${COUNTY}/sites/default/files/InquiryInstuctionSheet.pdf`,
-    collectorFaq: `${COUNTY_DB}/faq.asp?id=Tax%20Collector`,
-    payLookup: `${COUNTY_DB}/apps/real_property_billing_roll_query.asp`,
-    redemptionLookup: `${COUNTY_DB}/apps/tax_sale_query.asp`,
-    taxSaleFiles: `${COUNTY_DB}/taxsalefiles.asp`,
-    estimator: `${COUNTY_DB}/elected/ta_estimated_taxes.asp`,
-    landRoll: `${COUNTY_DB}/apps/landroll_query.asp`,
-    phoneDirectory: `${COUNTY_DB}/apps/phonebook/phonebook.asp`,
     dorFaq: "https://www.dor.ms.gov/county-services/property-tax-frequently-asked-questions",
     dorHomestead: "https://www.dor.ms.gov/county-services/homestead-exemption",
     dorLaws2026: "https://www.dor.ms.gov/forms-resources/laws-regulations/2026-legislation",
@@ -96,7 +83,10 @@ export const TAX = {
     // The Legislature's index of bills by the code section they touch.
     billLookup: "https://billstatus.ls.state.ms.us/2026/pdf/lookup.htm",
     hb859of2020: `${BILLS}/2020/html/HB/0800-0899/HB0859SG.htm`,
+    sb2643of2021: `${BILLS}/2021/html/SB/2600-2699/SB2643SG.htm`,
     hb420of2026: `${BILLS}/2026/html/HB/0400-0499/HB0420SG.htm`,
+    hb1380of2026: `${BILLS}/2026/html/HB/1300-1399/HB1380SG.htm`,
+    hb1385of2026: `${BILLS}/2026/html/HB/1300-1399/HB1385SG.htm`,
     hb4044of2026: `${BILLS}/2026/html/HB/4000-4099/HB4044SG.htm`,
     sb2882of2026: `${BILLS}/2026/html/SB/2800-2899/SB2882SG.htm`,
   },
@@ -148,7 +138,11 @@ function datesIn(year: number): TaxDate[] {
       label: "Final installment due, where installments are allowed",
       date: iso(year, 7, 1),
     },
-    { kind: "tax-sale", label: "Tax sale, the last Monday in August", date: lastMondayOfAugust(year) },
+    {
+      kind: "tax-sale",
+      label: "Last Monday in August, the tax sale date in state law",
+      date: lastMondayOfAugust(year),
+    },
   ];
   return list.map((d) => ({ ...d, weekend: [0, 6].includes(weekday(d.date)) }));
 }
