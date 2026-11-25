@@ -1,6 +1,8 @@
-// Facts for /jackson-homicides. Every number here is somebody's count, never
-// the Wire's own: the `cites` on each figure say whose it is and when they
-// published it. Sources do not agree, so a year can hold several figures.
+// Facts for /jackson-homicides. The Wire counts no cases itself: the `cites`
+// on each figure say whose count it is and when they published it. The one
+// exception is the FBI column, where each value is the Wire's sum of the
+// monthly figures the FBI's Crime Data Explorer shows for the Jackson Police
+// Department. Sources do not agree, so a year can hold several figures.
 // When a new count is published, add it here and move `checked` forward.
 
 export interface Cite {
@@ -95,6 +97,7 @@ const CL_FIVE_YEARS: Cite = { outlet: "Clarion Ledger", date: "2025-02-16", url:
 const CL_2022: Cite = { outlet: "Clarion Ledger", date: "2023-01-09", url: URLS.cl2022 };
 const CL_NOV_2021: Cite = { outlet: "Clarion Ledger", date: "2021-11-30", url: URLS.clNov2021 };
 const CL_FEB_2024: Cite = { outlet: "Clarion Ledger", date: "2024-02-09", url: URLS.clFeb2024 };
+const CL_NOV_2023: Cite = { outlet: "Clarion Ledger", date: "2023-11-19", url: URLS.clNov2023 };
 const CL_AUG_2026: Cite = { outlet: "Clarion Ledger", date: "2026-08-05", url: URLS.clAug2026 };
 const JFP_2018: Cite = { outlet: "Jackson Free Press", date: "2019-01-04", url: URLS.jfp2018 };
 const JFP_2019: Cite = { outlet: "Jackson Free Press", date: "2020-01-13", url: URLS.jfp2019 };
@@ -107,14 +110,18 @@ const WLBT_2025: Cite = { outlet: "WLBT", date: "2026-01-01", url: URLS.wlbt2025
 const ST_2024: Cite = { outlet: "SuperTalk Mississippi", date: "2025-01-07", url: URLS.superTalk2024 };
 const ST_2025: Cite = { outlet: "SuperTalk Mississippi", date: "2026-01-05", url: URLS.superTalk2025 };
 
-// Homicides per year in the data file behind WLBT's Homicide Tracker, as the
-// Wire downloaded it on the `checked` date. WLBT says the data can change as
-// new cases surface. The same numbers feed the table and the rate.
+// Homicides per year as WLBT's Homicide Tracker displayed them on the
+// `checked` date (its "By Year" list with every year ticked). The tracker
+// files each case under the year of its date. Do not recount these from the
+// "Year" column of the tracker's data file: two entries there carry a
+// different year than their date, so that column gives other totals. WLBT
+// says the data can change as new cases surface. The same numbers feed the
+// table and the rate.
 export const TRACKER_COUNTS: Record<number, number> = {
-  2016: 68,
+  2016: 69,
   2017: 64,
-  2018: 84,
-  2019: 83,
+  2018: 85,
+  2019: 82,
   2020: 133,
   2021: 160,
   2022: 138,
@@ -190,8 +197,9 @@ export const HOMICIDES = {
     capitolPolice: 10,
     chiefOpen: 20,
     chiefCleared: 57,
-    // WLBT's tracker data as downloaded on the `checked` date.
-    tracker: { total: 89, latest: "2026-11-22", jpd: 78, capitolPolice: 11 },
+    // What WLBT's tracker displayed on the `checked` date. `latest` is the
+    // date of the newest case in its data file.
+    tracker: { total: 88, latest: "2026-11-22", jpd: 77, capitolPolice: 11 },
     throughOctober: { year: 75, priorYear: 63 },
     throughJuly: { total: 54, jpd: 50, capitolPolice: 4 },
     projection: 99,
@@ -241,7 +249,13 @@ export const YEARS: YearRow[] = [
         cites: [FBI, MT],
       },
     ],
-    other: [{ value: "74", note: "Inside the city limits.", cites: [MT] }],
+    other: [
+      {
+        value: "74",
+        note: "JPD recorded 63 of them, Mississippi Today reported.",
+        cites: [MT],
+      },
+    ],
   },
   {
     year: 2024,
@@ -270,14 +284,17 @@ export const YEARS: YearRow[] = [
     wlbt: [tracked(2022, undefined, [WLBT_2022])],
     clarionLedger: [
       { value: "At least 130", note: "Before an official count was out.", cites: [CL_2022] },
-      { value: "135", cites: [CL_FEB_2024] },
+      {
+        value: "135",
+        note: "JPD’s number. The newspaper listed around 135 under JPD and Capitol Police’s three 2022 homicides separately.",
+        cites: [CL_FEB_2024, CL_NOV_2023],
+      },
     ],
     jpd: [
       {
         value: "135",
-        note:
-          "Then-Chief Joseph Wade, quoted by WLBT in January 2024. He called it the previous year’s number.",
-        cites: [WLBT_2023],
+        note: "Then-Chief Joseph Wade, quoted by WLBT in January 2024, called it the previous year’s number. The Clarion Ledger reported around 135 as JPD’s number.",
+        cites: [WLBT_2023, CL_NOV_2023, CL_FEB_2024],
       },
     ],
     fbi: [FBI_NO_DATA],
@@ -290,7 +307,7 @@ export const YEARS: YearRow[] = [
       { value: "155", cites: [CL_2022, CL_FEB_2024] },
       { value: "157", note: "From public records, the newspaper said.", cites: [CL_FIVE_YEARS] },
     ],
-    jpd: [NONE_FOUND],
+    jpd: [{ value: "155", note: "JPD’s number, the Clarion Ledger reported.", cites: [CL_NOV_2023] }],
     fbi: [FBI_NO_DATA],
     other: [],
   },
@@ -304,7 +321,13 @@ export const YEARS: YearRow[] = [
       { value: "130", cites: [CL_NOV_2021, CL_FEB_2024] },
       { value: "128", cites: [CL_2022] },
     ],
-    jpd: [NONE_FOUND],
+    jpd: [
+      {
+        value: "128",
+        note: "JPD’s number, according to records obtained by the Clarion Ledger.",
+        cites: [CL_NOV_2023],
+      },
+    ],
     fbi: [
       {
         value: "110",
@@ -356,10 +379,9 @@ export const YEARS: YearRow[] = [
     year: 2015,
     wlbt: [
       {
-        value: "Not tracked",
-        missing: true,
-        note: "WLBT’s count starts in 2016.",
-        cites: [WLBT_2025],
+        value: "54",
+        note: "From the figures behind the tracker’s all-years chart. WLBT’s own case list starts in 2016.",
+        cites: [TRACKER, WLBT_2025],
       },
     ],
     clarionLedger: [{ value: "58", cites: [CL_FIVE_YEARS] }],

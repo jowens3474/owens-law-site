@@ -217,10 +217,10 @@ export default function JacksonHomicidesPage() {
               <a href={S.tracker} className={LINK}>
                 Homicide Tracker
               </a>
-              . When the Wire downloaded the tracker’s data on {CHECKED_SHORT}, it listed{" "}
-              {Y.tracker.total} homicides for {Y.year}, the latest dated{" "}
-              {shortDay(Y.tracker.latest)}. It named JPD as the investigating agency for{" "}
-              {Y.tracker.jpd} and Capitol Police for {Y.tracker.capitolPolice}.
+              . On {CHECKED_SHORT}, the tracker displayed {Y.tracker.total} homicides for{" "}
+              {Y.year}, the latest dated {shortDay(Y.tracker.latest)}. It showed JPD as the
+              investigating agency for {Y.tracker.jpd} and Capitol Police for{" "}
+              {Y.tracker.capitolPolice}.
             </p>
             <p>
               The Clarion Ledger wrote on {AS_OF} that, if recent trends continue, Jackson
@@ -241,7 +241,8 @@ export default function JacksonHomicidesPage() {
                   <a href={S.tracker} className={LINK}>
                     WLBT Homicide Tracker
                   </a>
-                  , as downloaded {CHECKED_SHORT}.
+                  , as displayed {CHECKED_SHORT}. JPD {Y.tracker.jpd}, Capitol Police{" "}
+                  {Y.tracker.capitolPolice}.
                 </span>
               </li>
               <li className="py-3">
@@ -366,10 +367,11 @@ export default function JacksonHomicidesPage() {
             Wire did not find a yearly count published by JPD or the city itself.
           </p>
           <p>
-            WLBT’s numbers are from its Homicide Tracker data as the Wire downloaded it on{" "}
-            {CHECKED}. WLBT says its data may be updated as new cases surface. The FBI’s
-            numbers are the monthly homicide figures its Crime Data Explorer shows for the
-            Jackson Police Department, added up by the Wire.
+            In the WLBT column, the numbers for 2016 to 2025 that are linked to the Homicide
+            Tracker are the yearly totals it displayed on {CHECKED}. WLBT says its data may be
+            updated as new cases surface.
+            The FBI’s yearly numbers are the Wire’s sums of the monthly homicide figures
+            its Crime Data Explorer shows for the Jackson Police Department.
           </p>
         </div>
       </section>
@@ -396,18 +398,13 @@ export default function JacksonHomicidesPage() {
             <a href={S.mississippiToday} className={LINK}>
               Mississippi Today
             </a>
-            .
-          </li>
-          <li>
-            <strong>The 2018 counts show the difference.</strong>{" "}
-            The{" "}
+            . In a correction to its story on the 2018 count, the{" "}
             <a href={S.jfp2018} className={LINK}>
               Jackson Free Press
             </a>{" "}
-            reported 84 homicides for 2018. In a correction, it said three were ruled
-            justifiable and three were deaths in shootings by officers, and that JPD said
-            its Comstat report should not include those six. The FBI’s figure for 2018 is
-            78, which is six fewer than 84.
+            reported that three of that year’s homicides were ruled justifiable and three
+            were deaths in shootings by officers, and that JPD said its Comstat report
+            should not include those six.
           </li>
           <li>
             <strong>More than one agency works homicides in the city.</strong>{" "}
@@ -445,24 +442,29 @@ export default function JacksonHomicidesPage() {
             </a>{" "}
             shows 26 under murder. JPD recorded 63 homicides that year, Mississippi Today
             reported. It wrote that the FBI numbers “appear incomplete” and that JPD did
-            not respond to its questions about why. The state site says Mississippi
-            recently started collecting details about each incident and that not all
-            agencies are reporting. For January through October {Y.year}, the FBI’s data
-            shows 33 from JPD.
+            not respond to its questions about why. For January through October {Y.year},
+            the FBI’s data shows 33 from JPD. The Wire does not know why the FBI’s numbers
+            for JPD are lower than JPD’s own.
           </li>
           <li>
-            <strong>JPD stopped posting its own numbers.</strong>{" "}
-            Mississippi Today reported that JPD once released weekly crime statistics on
-            the city’s website, later switched to monthly reports and stopped routinely
-            releasing numbers in the summer of 2020. The Wire found no homicide statistics
-            on the city’s{" "}
+            <strong>
+              JPD stopped routinely releasing its numbers in 2020, Mississippi Today reported.
+            </strong>{" "}
+            The department once released weekly crime statistics on the city’s website,
+            later switched to monthly reports and ceased routinely releasing numbers in the
+            summer of 2020, according to the news outlet. In February 2024, the{" "}
+            <a href={S.clFeb2024} className={LINK}>
+              Clarion Ledger
+            </a>{" "}
+            cited the city’s website for JPD’s 2023 number. The Wire found no homicide
+            statistics on the city’s{" "}
             <a href={S.cityJpd} className={LINK}>
               JPD page
             </a>{" "}
             when it checked on {CHECKED}.
           </li>
           <li>
-            <strong>Newsrooms build their counts from different records.</strong>{" "}
+            <strong>Newsrooms keep their own counts.</strong>{" "}
             The{" "}
             <a href={S.clNov12} className={LINK}>
               Clarion Ledger
@@ -497,7 +499,9 @@ export default function JacksonHomicidesPage() {
                 Clarion Ledger
               </a>
               , for example, divided the 2024 count by a 2023 population estimate because
-              the Census Bureau had not yet released one for 2024.
+              the Census Bureau had not yet released one for 2024. WLBT’s tracker charts
+              its own rate with population figures that differ from these for 2016 through
+              2024, so its rates differ too.
             </p>
             <p>
               This page does not rank Jackson against other cities. Mississippi Today
@@ -730,28 +734,30 @@ export default function JacksonHomicidesPage() {
       </section>
 
       <p className="mt-12 max-w-3xl border-t border-rule pt-6 font-sans text-sm leading-relaxed text-muted">
-        Reporting note: The Wire did not count homicides itself. Every number on this page
-        is a count published by the source named beside it. WLBT’s numbers are from the
-        data file behind its{" "}
-        <a href={S.tracker} className={LINK}>
-          Homicide Tracker
-        </a>
-        , downloaded {CHECKED}; the Wire counted the entries for each year. The FBI numbers
-        are from its{" "}
+        Reporting note: The Wire did not count homicide cases itself. Each count on this
+        page was published by the source named beside it, with one exception: each FBI
+        number is the Wire’s sum of the monthly figures the FBI’s{" "}
         <a href={S.fbi} className={LINK}>
           Crime Data Explorer
-        </a>
-        , which showed a last refresh date of Nov. 15, 2026; the Wire added up the monthly
-        figures. Clarion Ledger stories were read in the copies carried by Yahoo News and
-        AOL, and the Mississippi Today story in a republished copy, because those
-        newsrooms’ own sites refused the Wire’s automated requests. The Department of
-        Public Safety’s Capitol Police pages did the same, so the Wire read Internet
-        Archive copies saved Aug. 25 and Nov. 9, 2026. Population figures are the Census
-        Bureau’s, and the rates are the Wire’s arithmetic. The Wire did not ask JPD,
-        Capitol Police, the FBI or any newsroom to comment for this page, and it has not
-        checked any count against police case files. It could not reach Hinds County’s
-        website to confirm the sheriff’s office’s role from an official source. This page
-        does not name victims or suspects. Last checked {CHECKED}. If a source’s own page
+        </a>{" "}
+        showed for JPD. The explorer showed a last refresh date of Nov. 15, 2026. The rates
+        are also the Wire’s arithmetic, from WLBT’s counts and the Census Bureau’s
+        population estimates. The WLBT tracker totals for 2016 through {Y.year} are what
+        its{" "}
+        <a href={S.tracker} className={LINK}>
+          Homicide Tracker
+        </a>{" "}
+        displayed on {CHECKED}. The tracker’s 2015 number is from the figures on its page
+        that feed its all-years chart, and the date of its latest case is from its data
+        file. Clarion Ledger stories were read in the copies
+        carried by Yahoo News and AOL because the newspaper’s own site refused the Wire’s
+        automated requests. The Mississippi Today story was read in a republished copy, and
+        the passages used here were checked against the original on {CHECKED}. The
+        Department of Public Safety’s Capitol Police pages were read on its site the same
+        day. The Wire did not ask JPD, Capitol Police, the FBI or any newsroom to comment
+        for this page, and it has not checked any count against police case files. It could
+        not reach Hinds County’s website to confirm the sheriff’s office’s role from an
+        official source. This page does not name victims or suspects. Last checked {CHECKED}. If a source’s own page
         and this one differ, the source is right about its own number.
       </p>
     </div>
