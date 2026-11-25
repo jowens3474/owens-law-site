@@ -17,8 +17,10 @@ export interface Guide {
   llmsTitle: string;
   llmsSummary: string;
   // ISO date the page's facts were last compared with their sources, or null
-  // for a page that reads its source when a reader opens it.
+  // for a page that reads its source itself. Such a page sets `liveNote`, one
+  // sentence saying how fresh its reading is, in place of a checked date.
   checked: string | null;
+  liveNote?: string;
   changeFrequency: "hourly" | "daily" | "weekly" | "monthly";
   priority: number;
 }
@@ -34,6 +36,8 @@ export const GUIDES: Guide[] = [
     llmsSummary:
       "The notices JXN Water lists as in effect, with streets and address ranges, read from JXN Water no more than five minutes before each visit.",
     checked: null,
+    liveNote:
+      "Read from JXN Water's notices page no more than five minutes before you open it.",
     changeFrequency: "hourly",
     priority: 0.9,
   },

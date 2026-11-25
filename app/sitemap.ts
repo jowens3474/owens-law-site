@@ -75,7 +75,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     ...GUIDES.map((g) => ({
       url: absoluteUrl(g.href),
-      // A guide with no checked date reads its source when it is opened.
+      // A guide with no checked date reads its source itself (see lib/guides.ts).
       lastModified: g.checked ? new Date(g.checked) : new Date(),
       changeFrequency: g.changeFrequency,
       priority: g.priority,

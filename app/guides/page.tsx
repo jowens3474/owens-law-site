@@ -74,7 +74,7 @@ export default function GuidesPage() {
             <p className="mt-1 font-sans text-sm text-muted">
               {g.checked
                 ? `Facts last checked ${formatDay(g.checked, { weekday: false })}.`
-                : "Read from the source when you open the page."}
+                : g.liveNote}
             </p>
           </li>
         ))}
