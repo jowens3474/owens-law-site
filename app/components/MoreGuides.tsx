@@ -2,7 +2,7 @@ import Link from "next/link";
 import { GUIDES } from "@/lib/guides";
 
 // The "More Jackson Guides" box at the foot of each guide page: every guide in
-// lib/guides.ts except the one being read.
+// lib/guides.ts except the one being read, then a link to the full index.
 export default function MoreGuides({
   current,
   headingClassName,
@@ -16,7 +16,7 @@ export default function MoreGuides({
   return (
     <section className="mt-14">
       <h2 className={headingClassName}>More Jackson Guides</h2>
-      <ul className="grid gap-3 sm:grid-cols-2">
+      <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {others.map((g) => (
           <li key={g.href} className="border border-rule bg-paper p-4">
             <Link
@@ -27,6 +27,14 @@ export default function MoreGuides({
             </Link>
           </li>
         ))}
+        <li className="border border-rule p-4">
+          <Link
+            href="/guides"
+            className="font-sans text-sm font-bold uppercase tracking-widest text-crimson hover:text-crimson-bright"
+          >
+            All Jackson guides →
+          </Link>
+        </li>
       </ul>
     </section>
   );

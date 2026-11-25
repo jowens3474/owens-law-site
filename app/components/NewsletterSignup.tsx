@@ -8,7 +8,9 @@ type Status = "idle" | "pending" | "success" | "error";
 // Tells Google Analytics which sign-up box was used for a successful sign-up,
 // so the Wire can see which placements work. The placement is part of the
 // event name (for example newsletter_signup_article_middle) so the counts
-// show in Analytics' Events report without any setup there. Only the
+// show in Analytics' Events report without any setup there. Analytics drops
+// event names longer than 40 characters, so keep a placement name to 22
+// characters or fewer. Only the
 // placement is sent, never the email address. A repeat sign-up by an address
 // already on the list is counted too. Does nothing when Analytics is not
 // loaded on the page, and never throws: a counting failure must not turn a
@@ -67,8 +69,7 @@ export default function NewsletterSignup({
   placement,
 }: {
   variant?: "card" | "strip" | "block" | "inline";
-  // Optional copy overrides for the "block" and "inline" variants. Defaults
-  // are unchanged.
+  // Optional copy overrides for the "block" and "inline" variants.
   heading?: string;
   blurb?: string;
   successMessage?: string;
@@ -88,9 +89,11 @@ export default function NewsletterSignup({
     return (
       <aside
         aria-label="Newsletter sign-up"
-        data-nosnippet
         className="my-8 border-y border-rule py-5"
       >
+        {/* Google honors data-nosnippet only on span, div and section, so the
+            attribute sits on this wrapper, not on the aside. */}
+        <div data-nosnippet>
         <div className="font-sans text-xs font-bold uppercase tracking-widest text-crimson">
           The Morning Dispatch
         </div>
@@ -124,6 +127,7 @@ export default function NewsletterSignup({
         </form>
         <div aria-live="polite" className="mt-2 font-sans text-xs text-muted">
           {message}
+        </div>
         </div>
       </aside>
     );
