@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -32,6 +33,12 @@ import { extractCitations } from "@/lib/citations";
 // if its URL is opened early, the not-found render is cached for at most an
 // hour (lib/not-found-cap.ts).
 export const revalidate = false;
+
+// A compact newsletter sign-up box goes after this paragraph of a story, but
+// only in stories at least this many paragraphs long, so a short story is not
+// interrupted just before its own end-of-story sign-up box.
+const MID_SIGNUP_AFTER_PARAGRAPH = 3;
+const MID_SIGNUP_MIN_PARAGRAPHS = 6;
 
 export function generateStaticParams() {
   return getAllPosts().map((post) => ({ slug: post.slug }));
@@ -273,7 +280,13 @@ export default async function ArticlePage({
         ) : (
           <div className="prose-article mt-8 max-w-2xl">
             {post.body.map((para, i) => (
-              <p key={i}>{para}</p>
+              <Fragment key={i}>
+                <p>{para}</p>
+                {i === MID_SIGNUP_AFTER_PARAGRAPH - 1 &&
+                  post.body.length >= MID_SIGNUP_MIN_PARAGRAPHS && (
+                    <NewsletterSignup variant="inline" placement="article-middle" />
+                  )}
+              </Fragment>
             ))}
           </div>
         )}
@@ -382,7 +395,7 @@ export default async function ArticlePage({
       </article>
 
       <div className="mt-12">
-        <NewsletterSignup variant="block" />
+        <NewsletterSignup variant="block" placement="article-end" />
       </div>
 
       {related.length > 0 && (

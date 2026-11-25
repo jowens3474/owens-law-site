@@ -1,10 +1,20 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { sendGAEvent } from "@next/third-parties/google";
 
 type Status = "idle" | "pending" | "success" | "error";
 
-function useSubscribe(successMessage: string) {
+// Tells Google Analytics which sign-up box a new subscriber used, so the Wire
+// can see which placements work. Only the placement name is sent, never the
+// email address. Does nothing when Analytics is not loaded on the page.
+function reportSignup(placement: string) {
+  const w = window as unknown as { dataLayer?: unknown };
+  if (!Array.isArray(w.dataLayer)) return;
+  sendGAEvent("event", "newsletter_signup", { placement });
+}
+
+function useSubscribe(successMessage: string, placement: string) {
   const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState("");
   const [email, setEmail] = useState("");
@@ -25,6 +35,7 @@ function useSubscribe(successMessage: string) {
         setStatus("success");
         setMessage(successMessage);
         setEmail("");
+        reportSignup(placement);
       } else {
         setStatus("error");
         setMessage(data?.error || "Something went wrong. Try again.");
@@ -43,15 +54,68 @@ export default function NewsletterSignup({
   heading,
   blurb,
   successMessage = "You're in. First brief lands tomorrow morning.",
+  placement,
 }: {
-  variant?: "card" | "strip" | "block";
-  // Optional copy overrides for the "block" variant. Defaults are unchanged.
+  variant?: "card" | "strip" | "block" | "inline";
+  // Optional copy overrides for the "block" and "inline" variants. Defaults
+  // are unchanged.
   heading?: string;
   blurb?: string;
   successMessage?: string;
+  // Where on the site this box sits; reported to Analytics on a sign-up.
+  placement?: string;
 } = {}) {
-  const { status, message, email, setEmail, onSubmit } = useSubscribe(successMessage);
+  const { status, message, email, setEmail, onSubmit } = useSubscribe(
+    successMessage,
+    placement ?? variant,
+  );
   const pending = status === "pending";
+
+  if (variant === "inline") {
+    // Compact box for the middle of an article. It sits inside the
+    // .prose-article container, whose CSS styles every <p> as body text and
+    // gives a drop cap to a first <p>, so this variant uses no <p> elements.
+    return (
+      <aside
+        aria-label="Newsletter sign-up"
+        className="my-8 border-y border-rule py-5"
+      >
+        <div className="font-sans text-xs font-bold uppercase tracking-widest text-crimson">
+          The Morning Dispatch
+        </div>
+        <div className="mt-1 font-sans text-base font-semibold leading-snug text-ink">
+          {heading ?? "Get Jackson news like this in your inbox each morning."}
+        </div>
+        <div className="mt-1 font-sans text-sm text-muted">
+          {blurb ?? "Free. No spam. Unsubscribe in one click."}
+        </div>
+        <form
+          onSubmit={onSubmit}
+          className="mt-3 flex flex-col gap-2 sm:flex-row sm:items-center"
+        >
+          <input
+            type="email"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="you@email.com"
+            aria-label="Email address"
+            className="w-full min-w-0 border border-rule bg-newsprint px-3 py-2 font-sans text-sm text-ink placeholder:text-muted focus:border-ink focus:outline-none sm:max-w-xs"
+          />
+          <button
+            type="submit"
+            disabled={pending}
+            className="inline-block bg-ink px-5 py-2 font-sans text-sm font-bold uppercase tracking-wide text-newsprint transition-colors hover:bg-crimson disabled:opacity-60"
+          >
+            {pending ? "Signing you up..." : "Subscribe by email"}
+          </button>
+        </form>
+        <div aria-live="polite" className="mt-2 font-sans text-xs text-muted">
+          {message}
+        </div>
+      </aside>
+    );
+  }
 
   if (variant === "strip") {
     // Slim strip for the top of pages

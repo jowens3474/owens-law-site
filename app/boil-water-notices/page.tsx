@@ -219,7 +219,9 @@ export default async function BoilWaterNoticesPage() {
           <h2 className={H2}>Notices in Effect</h2>
           <p className="mb-5 max-w-3xl font-sans text-base leading-relaxed">
             Find your street in the list, then check whether your house number falls in
-            the range shown. If you are not sure, call JXN Water at{" "}
+            the range shown. One notice can cover more than one street, so read every
+            address line under a heading, not only the heading. If you are not sure,
+            call JXN Water at{" "}
             <a href="tel:+16015005200" className={`whitespace-nowrap font-bold ${LINK}`}>
               {JXN_WATER_PHONE}
             </a>

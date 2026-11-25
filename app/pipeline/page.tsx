@@ -25,20 +25,24 @@ export const revalidate = 86400;
 const DEK =
   "Every development project, bond, rate case, and ballot question the Wire is tracking in metro Jackson, with the dates that will decide them. Read this to see what is coming before it is announced.";
 
+// The search-result title says what the page is; "The Pipeline" stays as the
+// name readers see on the page itself.
+const SEO_TITLE = "Jackson Metro Development Tracker: What's Being Built";
+
 export const metadata: Metadata = {
-  title: "The Pipeline",
+  title: SEO_TITLE,
   description: DEK,
   alternates: { canonical: "/pipeline" },
   openGraph: {
     type: "website",
-    title: `The Pipeline | ${site.name}`,
+    title: `${SEO_TITLE} | ${site.name}`,
     description: DEK,
     url: absoluteUrl("/pipeline"),
     siteName: site.name,
   },
   twitter: {
     card: "summary_large_image",
-    title: `The Pipeline | ${site.name}`,
+    title: `${SEO_TITLE} | ${site.name}`,
     description: DEK,
   },
 };
