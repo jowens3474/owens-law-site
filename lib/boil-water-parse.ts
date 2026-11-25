@@ -71,16 +71,16 @@ const RESOLVED_RE = /<h[1-6]\b[^>]*>\s*Recently Resolved Notices\s*<\/h[1-6]>/gi
 // long it was when this was written. Anything else in the notices area is
 // reported in `other`. So is one of these lines if it has grown or shrunk by
 // more than LENGTH_SLACK characters, which is what a sentence added to it
-// (say, about a wider notice) would do.
+// (say, about a wider notice) would do. The page's bare "JXN Water" heading
+// is shorter than MIN_OTHER_CHARS and is skipped on that ground.
 const KNOWN_LINES: { start: string; length: number }[] = [
-  { start: "jxn water", length: 9 },
   { start: "precautionary boil water notices", length: 32 },
   { start: "a boil water notice is a precautionary notice", length: 233 },
   { start: "all customers under a notice are advised", length: 372 },
   { start: "residents will be notified immediately", length: 137 },
   { start: "recently resolved notices", length: 25 },
 ];
-const LENGTH_SLACK = 40;
+const LENGTH_SLACK = 20;
 const MIN_OTHER_CHARS = 12;
 const MAX_OTHER_LINES = 6;
 const MAX_OTHER_CHARS = 400;
@@ -171,7 +171,9 @@ function parseArea(line: string): NoticeArea {
   const m = line.match(
     /^[^A-Za-z0-9[]*\[\s*(\d+[A-Za-z]?)\s*(?:-\s*(\d+[A-Za-z]?)\s*)?\]\s*(.*[A-Za-z].*)$/,
   );
-  if (m) {
+  // A second bracket or number range in the street part ("[100-200] and
+  // [300-400] Main St") means one range does not describe the line.
+  if (m && !/[[\]]|\d\s*-\s*\d/.test(m[3])) {
     const street = m[3].trim();
     const to = m[2] ?? m[1];
     const range = m[2] ? `${m[1]} to ${m[2]}` : m[1];

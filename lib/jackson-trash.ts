@@ -4,7 +4,7 @@
 
 export const TRASH = {
   // The day these facts were last compared with the city's pages.
-  checked: "2026-11-23",
+  checked: "2026-11-25",
   hauler: {
     name: "Richard’s Disposal",
     phone: "769-333-4222",
@@ -64,12 +64,17 @@ export interface HolidayNote {
 export const HOLIDAY_NOTES: Record<string, HolidayNote> = {
   "2026-11-26": {
     text: [
-      "The city had not posted a Thanksgiving 2026 collection schedule on its website when the Wire checked on Nov. 23.",
-      "In 2024, the city said Richard’s Disposal would not collect on Thanksgiving Day, would resume that Friday, and would finish its Friday and Saturday routes by Saturday, WLBT reported.",
-      "That year, residents on Thursday and Friday routes were asked to put trash at the curb Thursday night, and Saturday customers on Friday night, WLBT reported.",
+      "The city had not posted a Thanksgiving 2026 collection schedule on its website when the Wire checked on Nov. 25.",
+      "In both 2023 and 2024, the city said Richard’s Disposal would not collect on Thanksgiving Day, WLBT reported. If the city does the same this year, there will be no pickup on Thursday.",
+      "What happened to the missed routes differed. In 2023, Thursday routes were collected the following Monday and Friday pickup ran as usual. In 2024, collection resumed that Friday and the Friday and Saturday routes were finished by Saturday.",
+      "In 2024, residents on Thursday and Friday routes were asked to put trash at the curb Thursday night, and Saturday customers on Friday night, WLBT reported.",
     ],
-    checked: "2026-11-23",
+    checked: "2026-11-25",
     sources: [
+      {
+        label: "WLBT, Nov. 21, 2023",
+        url: "https://www.wlbt.com/2023/11/21/richards-disposal-will-not-collect-trash-jackson-thanksgiving/",
+      },
       {
         label: "WLBT, Nov. 27, 2024",
         url: "https://www.wlbt.com/2024/11/27/cities-release-trash-collection-schedules-ahead-thanksgiving-holiday/",

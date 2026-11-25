@@ -132,7 +132,12 @@ export default async function BoilWaterNoticesPage() {
                   ? "JXN Water’s page has text the Wire could not read as a notice list. It is shown below."
                   : "The Wire found no notices listed as in effect on JXN Water’s notices page."}
             </p>
-            {active.length === 0 ? (
+            {active.length === 0 && other.length > 0 ? (
+              <p className="mt-2 font-sans text-base">
+                It may be a notice in a form this page does not know. Read it below and on
+                JXN Water&rsquo;s page, or call JXN Water at {JXN_WATER_PHONE}.
+              </p>
+            ) : active.length === 0 ? (
               <p className="mt-2 font-sans text-base">
                 That is not an all-clear. This page shows only what JXN Water has posted in
                 its list. If your water looks or smells wrong, or you have heard of a notice,

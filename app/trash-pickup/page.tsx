@@ -142,8 +142,9 @@ export default function TrashPickupPage() {
               <strong>The standing rule.</strong>{" "}
               The city says collection days change around five holidays only. A pickup day that &ldquo;falls on or after&rdquo; one of
               them is collected &ldquo;on the following collection day,&rdquo; its website
-              says. Watch for a city announcement before each holiday: in 2024 it posted
-              its Thanksgiving schedule on social media, WLBT reported.
+              says. In practice the makeup day has varied from year to year, so watch for a
+              city announcement before each holiday. In 2024 it posted its Thanksgiving
+              schedule on social media, WLBT reported.
             </p>
             <p>
               To confirm your pickup in a holiday week, call {TRASH.hauler.name} at{" "}

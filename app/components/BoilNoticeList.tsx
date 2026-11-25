@@ -42,7 +42,7 @@ export default function BoilNoticeList({
     } else if (query.number === null) {
       status = `${matched.length === 1 ? "1 notice names" : `${matched.length} notices name`} a street matching \u201c${typed}\u201d.`;
     } else if (onAddress.length > 0) {
-      status = `${onAddress.length === 1 ? "A notice lists" : `${onAddress.length} notices list`} an address or range that includes \u201c${typed}\u201d. Check it below.`;
+      status = `${onAddress.length === 1 ? "A notice lists" : `${onAddress.length} notices list`} a matching street with an address or range that includes ${query.number}. Check the street and the range below.`;
     } else if (unsure) {
       status = `A notice names that street. Check the addresses listed below, or call JXN Water at ${phone} to be sure.`;
     } else {

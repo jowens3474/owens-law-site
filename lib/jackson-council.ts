@@ -17,7 +17,7 @@ const MEMBER_PAGE = (ward: number) =>
 
 export const COUNCIL = {
   // The day these facts were last compared with the city's pages.
-  checked: "2026-11-23",
+  checked: "2026-11-25",
   mayor: "John Horhn",
   clerk: { name: "Shanekia Jordan", title: "Clerk of the Council", phone: "601-960-1031", tel: "+16019601031" },
   place: {

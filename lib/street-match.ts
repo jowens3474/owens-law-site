@@ -75,10 +75,15 @@ const UNIT = new Set(["apt", "apartment", "unit", "lot", "suite", "ste"]);
 function rawWords(text: string): string[] {
   return text
     .toLowerCase()
+    .replace(/\bmlk\b/g, "martin luther king")
     .replace(/['’.]/g, "")
     .split(/[^a-z0-9]+/)
     .filter(Boolean);
 }
+
+const isNumber = (word: string) => /^\d+[a-z]?$/.test(word);
+// A word that names a street, rather than giving its kind, direction or number.
+const isName = (word: string) => !(word in TYPES) && !(word in DIRECTIONS) && !isNumber(word);
 
 const shorten = (word: string) =>
   word === "saint" ? "st" : (TYPES[word] ?? DIRECTIONS[word] ?? word);
@@ -108,15 +113,21 @@ export function parseStreetQuery(text: string): StreetQuery {
   let raw = rawWords(text.split(",")[0].replace(/#\s*\w+/g, " "));
   const unit = raw.findIndex((w, i) => i > 0 && UNIT.has(w));
   if (unit !== -1) raw = raw.slice(0, unit);
-  while (raw.length > 1 && (TRAILING.has(raw.at(-1)!) || /^39\d{3}$/.test(raw.at(-1)!))) {
+  // Drop a trailing city, state or ZIP, but only while a street name is left:
+  // "200 Jackson" and "200 E Mississippi" are streets, not a city and a state.
+  while (
+    raw.length > 1 &&
+    (TRAILING.has(raw.at(-1)!) || /^39\d{3}$/.test(raw.at(-1)!)) &&
+    raw.slice(0, -1).some(isName)
+  ) {
     raw = raw.slice(0, -1);
   }
 
-  // A leading number is a house number only when a street name follows it.
-  // "18 Hwy" is Highway 18, not house number 18 on some highway.
+  // A leading number is a house number when a street follows it: a name
+  // ("600 Seneca"), or two or more words ("909 North Street"). A number and
+  // one kind-of-street word is a route instead: "18 Hwy" is Highway 18.
   const rest = raw.slice(1);
-  const named = rest.some((w) => !(w in TYPES) && !(w in DIRECTIONS));
-  if (raw.length > 1 && /^\d+[a-z]?$/.test(raw[0]) && named) {
+  if (isNumber(raw[0] ?? "") && (rest.length >= 2 || rest.some(isName))) {
     return { number: parseInt(raw[0], 10), words: rest.map(shorten), joined: joinedName(rest) };
   }
   return { number: null, words: raw.map(shorten), joined: joinedName(raw) };
@@ -126,6 +137,13 @@ export function parseStreetQuery(text: string): StreetQuery {
 function namesStreet(query: StreetQuery, street: string): boolean {
   const raw = rawWords(street);
   const words = raw.map(shorten);
+  // A street called only by direction and kind words ("North Street",
+  // "Court St", "Parkway Dr") has no name to search on, so the reader's words
+  // must be the listing's words exactly. Otherwise "North Street" would also
+  // find N West St.
+  if (!query.words.some(isName)) {
+    return words.length === query.words.length && words.every((w, i) => w === query.words[i]);
+  }
   const hasDirection = words.some((w) => DIRECTION_SET.has(w));
   const byWord = query.words.every((q) => {
     // A direction the reader typed must agree with the street's, but a
@@ -149,7 +167,7 @@ function namesStreet(query: StreetQuery, street: string): boolean {
   }
   // "Woodglen" for Wood Glen, "South Haven" for Southhaven.
   const name = joinedName(raw);
-  return query.joined.length >= 5 && (name === query.joined || name.startsWith(query.joined));
+  return query.joined.length >= 5 && name === query.joined;
 }
 
 export interface MatchArea {
