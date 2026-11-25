@@ -98,7 +98,7 @@ export const GUIDES: Guide[] = [
       "The number of homicides in Jackson for each year since 2015, with the source of every count shown beside it, and the 2026 count as of a stated date.",
     llmsTitle: "Jackson homicides by year",
     llmsSummary:
-      "Homicides in Jackson, Mississippi, for each year since 2015, with each count attributed to its source (WLBT, the Clarion Ledger, police figures as reported by news outlets, the FBI), the 2026 count as of a stated date, and rates per 100,000 residents computed by the Wire from Census estimates.",
+      "Homicides in Jackson, Mississippi, for each year since 2015, with each count attributed to its source (WLBT, the Clarion Ledger, the FBI, and police figures as reported by news outlets), the 2026 count as of a stated date, and rates per 100,000 residents computed by the Wire from WLBT's counts and Census estimates.",
     checked: HOMICIDES.checked,
     changeFrequency: "monthly",
     priority: 0.8,
