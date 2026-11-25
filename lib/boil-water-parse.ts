@@ -73,12 +73,13 @@ const RESOLVED_RE = /<h[1-6]\b[^>]*>\s*Recently Resolved Notices\s*<\/h[1-6]>/gi
 // more than LENGTH_SLACK characters, which is what a sentence added to it
 // (say, about a wider notice) would do. The page's bare "JXN Water" heading
 // is shorter than MIN_OTHER_CHARS and is skipped on that ground.
-const KNOWN_LINES: { start: string; length: number }[] = [
-  { start: "precautionary boil water notices", length: 32 },
+const KNOWN_LINES: { start: string; length: number; exact?: boolean }[] = [
+  // The two headings must be exactly themselves.
+  { start: "precautionary boil water notices", length: 32, exact: true },
   { start: "a boil water notice is a precautionary notice", length: 233 },
   { start: "all customers under a notice are advised", length: 372 },
   { start: "residents will be notified immediately", length: 137 },
-  { start: "recently resolved notices", length: 25 },
+  { start: "recently resolved notices", length: 25, exact: true },
 ];
 const LENGTH_SLACK = 20;
 const MIN_OTHER_CHARS = 12;
@@ -317,7 +318,8 @@ export function parseBoilWaterPage(html: string): BoilNoticeList | null {
     const lower = line.toLowerCase();
     const usual = KNOWN_LINES.some(
       (known) =>
-        lower.startsWith(known.start) && Math.abs(line.length - known.length) <= LENGTH_SLACK,
+        lower.startsWith(known.start) &&
+        Math.abs(line.length - known.length) <= (known.exact ? 0 : LENGTH_SLACK),
     );
     if (usual || line.length < MIN_OTHER_CHARS) continue;
     if (list.other.length < MAX_OTHER_LINES) list.other.push(line.slice(0, MAX_OTHER_CHARS));

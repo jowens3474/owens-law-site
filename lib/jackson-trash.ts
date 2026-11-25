@@ -66,7 +66,7 @@ export const HOLIDAY_NOTES: Record<string, HolidayNote> = {
     text: [
       "The city had not posted a Thanksgiving 2026 collection schedule on its website when the Wire checked on Nov. 25.",
       "In both 2023 and 2024, the city said Richard’s Disposal would not collect on Thanksgiving Day, WLBT reported. If the city does the same this year, there will be no pickup on Thursday.",
-      "What happened to the missed routes differed. In 2023, Thursday routes were collected the following Monday and Friday pickup ran as usual. In 2024, collection resumed that Friday and the Friday and Saturday routes were finished by Saturday.",
+      "The plan for the missed routes differed. In 2023, the city said Thursday routes would be collected the following Monday and Friday pickup would run as usual. In 2024, it said collection would resume that Friday and the Friday and Saturday routes would be finished by Saturday, WLBT reported.",
       "In 2024, residents on Thursday and Friday routes were asked to put trash at the curb Thursday night, and Saturday customers on Friday night, WLBT reported.",
     ],
     checked: "2026-11-25",

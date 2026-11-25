@@ -8,7 +8,6 @@ import {
   JXN_WATER_PHONE,
 } from "@/lib/boil-water";
 import type { BoilNotice } from "@/lib/boil-water-parse";
-import { streetWords } from "@/lib/street-match";
 import { formatDay, formatInstant } from "@/lib/central-time";
 import BoilNoticeList from "@/app/components/BoilNoticeList";
 
@@ -65,6 +64,12 @@ function dateLabel(n: BoilNotice): string {
   return n.issued ? formatDay(n.issued) : "";
 }
 
+// A street name reduced to lowercase words, to tell when two notices name
+// the same street.
+function streetKey(place: string): string {
+  return place.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+}
+
 function sumConnections(notices: BoilNotice[]): number | null {
   if (notices.some((n) => n.connections === null)) return null;
   return notices.reduce((sum, n) => sum + (n.connections ?? 0), 0);
@@ -83,7 +88,7 @@ export default async function BoilWaterNoticesPage() {
   const connections = sumConnections(active);
   // Streets with a notice in effect, to flag an older, lifted notice for the
   // same street in the "recently lifted" list.
-  const activePlaces = new Set(active.map((n) => streetWords(n.place).join(" ")));
+  const activePlaces = new Set(active.map((n) => streetKey(n.place)));
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -212,11 +217,15 @@ export default async function BoilWaterNoticesPage() {
       {active.length > 0 && (
         <section className="mt-12" data-nosnippet>
           <h2 className={H2}>Notices in Effect</h2>
-          <BoilNoticeList
-            notices={active}
-            dateLabels={active.map(dateLabel)}
-            phone={JXN_WATER_PHONE}
-          />
+          <p className="mb-5 max-w-3xl font-sans text-base leading-relaxed">
+            Find your street in the list, then check whether your house number falls in
+            the range shown. If you are not sure, call JXN Water at{" "}
+            <a href="tel:+16015005200" className={`whitespace-nowrap font-bold ${LINK}`}>
+              {JXN_WATER_PHONE}
+            </a>
+            .
+          </p>
+          <BoilNoticeList notices={active} dateLabels={active.map(dateLabel)} />
         </section>
       )}
 
@@ -291,7 +300,7 @@ export default async function BoilWaterNoticesPage() {
                 <span className="font-serif text-base font-bold leading-snug">{n.place}</span>
                 <span className="font-sans text-sm text-muted">
                   {n.areas.map((a) => a.text).join("; ")}
-                  {activePlaces.has(streetWords(n.place).join(" ")) && (
+                  {activePlaces.has(streetKey(n.place)) && (
                     <strong className="block text-crimson">
                       A separate notice for this street is in effect. See the list above.
                     </strong>
