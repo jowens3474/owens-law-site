@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getAllPosts, getPostBySlug, isBrief, formatDate } from "@/lib/posts";
 import { site } from "@/lib/site";
 import { absoluteUrl } from "@/lib/markdown";
 import {
@@ -49,11 +48,9 @@ const H2 =
   "mb-5 border-b border-ink pb-1 font-sans text-xs font-bold uppercase tracking-widest text-ink";
 const LINK = "underline hover:text-crimson";
 
-// The Wire's stories this page points to by name. Looked up by slug so a
-// title is never copied here.
-const DEPARTURE_STORY =
-  "errick-greene-leaving-jackson-public-schools-probation-testing-scandal-closures";
-const STAFFING_STORY = "jps-central-office-staffing-largest-in-mississippi-not-1861";
+// This page shows no Wire headlines. One link at the foot sends readers to
+// the site's search for the Wire's reporting on the district.
+const WIRE_SEARCH = "/search?q=JPS";
 
 // "Monday, Nov. 23, to Friday, Nov. 27, 2026" for a break, or one day for a
 // single date. `year: false` drops the year.
@@ -73,12 +70,7 @@ export default function JacksonPublicSchoolsPage() {
   const nextMeeting = meetings[0];
   const years = [...new Set(SCHOOL_DATES.map((d) => d.start.slice(0, 4)))];
   const programs = JPS.enrollment.specialPrograms;
-  const departureStory = getPostBySlug(DEPARTURE_STORY);
-  const staffingStory = getPostBySlug(STAFFING_STORY);
-  const coverage = getAllPosts()
-    .filter((p) => /\bJPS\b|Jackson Public Schools/i.test(`${p.title} ${p.dek}`))
-    .filter((p) => !isBrief(p))
-    .slice(0, 6);
+  const weatherDates = SCHOOL_DATES.filter((d) => d.weatherNote);
   const boardWhere = `${JPS.board.room} at ${JPS.board.address}`;
 
   const facts = [
@@ -179,15 +171,16 @@ export default function JacksonPublicSchoolsPage() {
               </p>
             )}
             <p>
-              On the district’s calendar, the first day for students was{" "}
-              {formatDay(FIRST_DAY)}, and the last is {formatDay(LAST_DAY)}. The calendar
-              counts 180 student days and 190 teacher days. The district calls its students
-              scholars, so its calendar lists the “Last Day for Scholars.”
+              The district’s calendar lists {formatDay(FIRST_DAY)}, as the first day for
+              students and {formatDay(LAST_DAY)}, as the last. It counts 180 student days and
+              190 teacher days. The district calls its students scholars, so its calendar
+              lists the “Last Day for Scholars.”
             </p>
             <p>
-              Term 2 ends {formatDay(SCHOOL_TERMS[1].ends)}, which the district’s printable
-              calendar also marks as the end of the first semester. Winter break follows,
-              and the calendar has students returning {formatDay(SCHOOL_TERMS[2].begins)}.
+              The calendar lists {formatDay(SCHOOL_TERMS[1].ends)}, as the end of Term 2,
+              and the district’s printable calendar also marks that day as the end of the
+              first semester. It lists {formatDay(SCHOOL_TERMS[2].begins)}, as the day
+              students return after winter break.
             </p>
             <p>
               <strong>Short days.</strong>{" "}
@@ -221,9 +214,11 @@ export default function JacksonPublicSchoolsPage() {
             </div>
             <p>
               <strong>Dates can change.</strong>{" "}
-              The district says it will delay the start of school when possible in bad
-              weather, and that if more inclement weather days are needed, “adjustments to
-              the calendar will be made.” Check the{" "}
+              The district’s calendar attaches a note headed “Inclement Weather Days” to two
+              entries: {weatherDates.map((d) => `${d.name} (${formatSpan(d)})`).join(" and ")}.
+              The note reads: “The District will delay the start of school when possible to
+              address inclement weather if necessary. If additional inclement weather days
+              are needed, adjustments to the calendar will be made.” Check the{" "}
               <a href={JPS.sources.calendar} className={LINK}>
                 district’s calendar page
               </a>{" "}
@@ -336,16 +331,23 @@ export default function JacksonPublicSchoolsPage() {
           ))}
         </ul>
         <p className="mt-4 max-w-3xl font-sans text-base leading-relaxed">
-          The district’s{" "}
-          <a href={JPS.sources.boardWards} className={LINK}>
-            Board Members by City Wards
+          Figgers is listed as secretary in the board’s{" "}
+          <a href={JPS.sources.boardMinutes} className={LINK}>
+            minutes of its Oct. 6, 2026, meeting
           </a>{" "}
-          page listed the Ward 2 seat as vacant when the Wire checked. The board’s Nov. 17,
-          2026, letter to the community lists Frank Figgers as secretary; the district’s{" "}
+          and in its{" "}
+          <a href={JPS.sources.boardLetter} className={LINK}>
+            Nov. 17, 2026, letter to the community
+          </a>
+          . The district’s{" "}
           <a href={JPS.sources.board} className={LINK}>
             School Board
           </a>{" "}
-          page lists him as a member. To write to the board, use the{" "}
+          web page listed him as a member when the Wire checked. The district’s{" "}
+          <a href={JPS.sources.boardWards} className={LINK}>
+            Board Members by City Wards
+          </a>{" "}
+          page listed the Ward 2 seat as vacant. To write to the board, use the{" "}
           <a href={JPS.sources.boardContact} className={LINK}>
             district’s contact form
           </a>
@@ -391,15 +393,14 @@ export default function JacksonPublicSchoolsPage() {
               <a href={JPS.sources.boardSchedulePdf} className={LINK}>
                 2026-27 meeting schedule (PDF)
               </a>{" "}
-              before you go. For questions about a meeting, the district says to call the
-              board’s secretary at{" "}
+              before you go. For questions about a meeting, call the board’s office at{" "}
               <a
-                href={`tel:${JPS.board.secretaryTel}`}
+                href={`tel:${JPS.board.officeTel}`}
                 className={`whitespace-nowrap font-bold ${LINK}`}
               >
-                {JPS.board.secretaryPhone}
+                {JPS.board.officePhone}
               </a>
-              .
+              , the number the district’s directory lists for the Board of Trustees.
             </p>
           </div>
         </div>
@@ -436,7 +437,10 @@ export default function JacksonPublicSchoolsPage() {
             </p>
           </div>
           <ol className="mt-3 list-decimal space-y-2 pl-6 font-sans text-base leading-relaxed">
-            <li>Register with the board secretary, on the required form, before the meeting.</li>
+            <li>
+              Sign up first. A speaker “must register with the board secretary on the
+              required form prior to the board meeting.”
+            </li>
             <li>
               Public participation time comes at the beginning of regular meetings. Speakers
               are recognized in the order they registered.
@@ -448,11 +452,23 @@ export default function JacksonPublicSchoolsPage() {
             </li>
           </ol>
           <p className="mt-4 font-sans text-base leading-relaxed">
+            The procedures do not say where to get the form or give a phone number. The
+            district’s contact page lists a “Secretary to Board of Trustees,” who is not one
+            of the trustees, and its directory lists the Board of Trustees office at{" "}
+            <a
+              href={`tel:${JPS.board.officeTel}`}
+              className={`whitespace-nowrap font-bold ${LINK}`}
+            >
+              {JPS.board.officePhone}
+            </a>
+            .
+          </p>
+          <p className="mt-4 font-sans text-base leading-relaxed">
             To make a presentation as an agenda item, the procedures say to call the
-            secretary to the board and give the superintendent a written statement six
-            working days before the next regular meeting. The presentation is limited to five
-            minutes, and the board president and the superintendent decide whether the item
-            goes on the agenda.
+            secretary to the board of trustees and give the superintendent a written
+            statement six working days before the next regular meeting. The presentation is
+            limited to five minutes, and the board president and the superintendent decide
+            whether the item goes on the agenda.
           </p>
         </div>
       </section>
@@ -468,7 +484,7 @@ export default function JacksonPublicSchoolsPage() {
             </p>
             <p>
               At the school board’s {formatDay(JPS.superintendent.announced, { weekday: false })},
-              meeting, Greene announced that he will not renew his contract beyond{" "}
+              meeting, Greene announced his decision not to renew his contract beyond{" "}
               {formatDay(JPS.superintendent.contractEnds, { weekday: false })}, the district
               said in a{" "}
               <a href={JPS.sources.departure} className={LINK}>
@@ -488,22 +504,14 @@ export default function JacksonPublicSchoolsPage() {
               regarding future district leadership.”
             </p>
             <p>
-              Neither document names an interim superintendent or gives a schedule for a
-              search. The district’s{" "}
+              Neither document names a successor or gives a schedule for a search. The
+              district’s{" "}
               <a href={JPS.sources.news} className={LINK}>
                 news page
               </a>{" "}
               showed no later announcement about either when the Wire checked on{" "}
               {formatDay(JPS.checked, { weekday: false })}.
             </p>
-            {departureStory && (
-              <p>
-                <Link href={`/article/${departureStory.slug}`} className={LINK}>
-                  The Wire’s report on the announcement
-                </Link>
-                .
-              </p>
-            )}
             <p>
               To reach the superintendent’s office, use the{" "}
               <a href={JPS.sources.superintendentContact} className={LINK}>
@@ -602,11 +610,11 @@ export default function JacksonPublicSchoolsPage() {
               {JPS.numbers.mdeEnrollment}
             </p>
             <p className="mt-2 font-sans text-sm leading-relaxed">
-              Students enrolled in 2025-26, according to the{" "}
+              Students enrolled in 2026-27, according to the{" "}
               <a href={JPS.sources.mdeEnrollment} className={LINK}>
                 Mississippi Department of Education
               </a>
-              . The{" "}
+              , which lists {JPS.numbers.mdeEnrollmentPrior} for 2025-26. The{" "}
               <a href={JPS.sources.nces} className={LINK}>
                 National Center for Education Statistics
               </a>{" "}
@@ -655,14 +663,6 @@ export default function JacksonPublicSchoolsPage() {
             </p>
           </li>
         </ul>
-        {staffingStory && (
-          <p className="mt-4 max-w-3xl font-sans text-base leading-relaxed">
-            From the Wire, on the district’s staffing figures:{" "}
-            <Link href={`/article/${staffingStory.slug}`} className={LINK}>
-              {staffingStory.title}
-            </Link>
-          </p>
-        )}
       </section>
 
       {/* Enrolling and contacts */}
@@ -699,6 +699,12 @@ export default function JacksonPublicSchoolsPage() {
               {JPS.enrollment.building} at 1017 Robinson St., the district says.
             </p>
             <p>
+              For homeless children and youth, whom the district registers under the
+              McKinney-Vento Homeless Assistance Act, it says parents should contact{" "}
+              {JPS.enrollment.office} to enroll. For children in foster care, it says social
+              workers should contact the same office.
+            </p>
+            <p>
               A{" "}
               <a href={JPS.sources.kindergarten} className={LINK}>
                 kindergarten student
@@ -719,11 +725,12 @@ export default function JacksonPublicSchoolsPage() {
                 <strong>Special programs.</strong>{" "}
                 Applications for the district’s special programs for the {programs.forYear}{" "}
                 school year opened {formatDay(programs.opened, { weekday: false })}, and
-                close {formatDay(programs.closes)}, the district says. The{" "}
+                close {formatDay(programs.closes)}, the district says. Its{" "}
                 <a href={JPS.sources.specialPrograms} className={LINK}>
                   program application page
                 </a>{" "}
-                lists the programs and the admission criteria.
+                lists the programs and the admission criteria. The same page says the dates
+                on its recruitment timeline “are projected and may be subject to change.”
               </p>
             )}
           </div>
@@ -780,12 +787,12 @@ export default function JacksonPublicSchoolsPage() {
               .
             </li>
             <li>
-              <strong>School board secretary:</strong>{" "}
+              <strong>Board of Trustees office:</strong>{" "}
               <a
-                href={`tel:${JPS.board.secretaryTel}`}
+                href={`tel:${JPS.board.officeTel}`}
                 className={`whitespace-nowrap font-bold ${LINK}`}
               >
-                {JPS.board.secretaryPhone}
+                {JPS.board.officePhone}
               </a>
               .
             </li>
@@ -804,28 +811,6 @@ export default function JacksonPublicSchoolsPage() {
           </ul>
         </div>
       </section>
-
-      {/* Coverage */}
-      {coverage.length > 0 && (
-        <section className="mt-14">
-          <h2 className={H2}>From the Wire: Jackson Public Schools</h2>
-          <ol className="divide-y divide-rule border-y border-ink">
-            {coverage.map((p) => (
-              <li key={p.slug} className="py-4">
-                <Link
-                  href={`/article/${p.slug}`}
-                  className="grid grid-cols-[100px_1fr] gap-4 hover:text-crimson sm:grid-cols-[140px_1fr]"
-                >
-                  <span className="font-sans text-xs font-semibold uppercase tracking-wider text-muted">
-                    {formatDate(p.date)}
-                  </span>
-                  <span className="font-serif text-lg font-bold leading-snug">{p.title}</span>
-                </Link>
-              </li>
-            ))}
-          </ol>
-        </section>
-      )}
 
       {/* More guides */}
       <section className="mt-14">
@@ -852,6 +837,13 @@ export default function JacksonPublicSchoolsPage() {
         </ul>
       </section>
 
+      {/* The Wire's own reporting: one search link, no headlines */}
+      <p className="mt-10 font-sans text-base leading-relaxed">
+        <Link href={WIRE_SEARCH} className={`font-bold ${LINK}`}>
+          Search The Jackson Wire’s reporting on JPS
+        </Link>
+      </p>
+
       <p className="mt-12 max-w-3xl border-t border-rule pt-6 font-sans text-sm leading-relaxed text-muted">
         Reporting note: Calendar dates, terms and the weather note are from the{" "}
         <a href={JPS.sources.calendar} className={LINK}>
@@ -866,7 +858,8 @@ export default function JacksonPublicSchoolsPage() {
           bell schedules
         </a>{" "}
         page. Days of the week, and which date comes next, are the Wire’s calculation from
-        those dates. Board members, wards and officers are from the district’s{" "}
+        those dates. Board members, wards, the president and the vice president are from
+        the district’s{" "}
         <a href={JPS.sources.board} className={LINK}>
           School Board
         </a>{" "}
@@ -874,9 +867,11 @@ export default function JacksonPublicSchoolsPage() {
         <a href={JPS.sources.boardWards} className={LINK}>
           Board Members by City Wards
         </a>{" "}
-        pages. The board’s Nov. 17, 2026, letter spells one member’s name Akilah Irving;
-        both board pages spell it Irvin, the spelling used here. The district writes “Dr.”
-        before the names of Greene and Hairston. Meeting dates and rules are from the{" "}
+        pages. The secretary is from the board’s Oct. 6, 2026, minutes and its Nov. 17,
+        2026, letter. That letter spells one member’s name Akilah Irving; both board pages
+        and the minutes spell it Irvin, the spelling used here. The district writes “Dr.”
+        before the names of Greene and Hairston; the Wire follows AP style and leaves the
+        title off. Meeting dates and rules are from the{" "}
         <a href={JPS.sources.boardMeetings} className={LINK}>
           Board Meetings
         </a>{" "}
@@ -887,10 +882,11 @@ export default function JacksonPublicSchoolsPage() {
         </a>{" "}
         page. Salary figures are from the district’s FY 2027 teacher salary scale. Enrollment
         steps and phone numbers are from the district’s enrollment pages, its 2026-2027
-        registration flyer and its 2026-2027 directory. The board’s letter and the flyer are
-        posted as images, and the Wire read them by eye. The state grade and state
-        enrollment count are from the Mississippi Department of Education, and the federal
-        counts from the National Center for Education Statistics. All were last checked{" "}
+        registration flyer and its 2026-2027 directory. The board’s letter, its minutes and
+        the flyer are posted as images, and so is the “1st Semester Ends” label on the
+        calendar PDF; the Wire read them by eye. The state grade and state enrollment
+        counts are from the Mississippi Department of Education, and the federal counts
+        from the National Center for Education Statistics. All were last checked{" "}
         {formatDay(JPS.checked, { weekday: false })}. This page is general information. The
         Wire did not ask the district to comment for it. If the district’s pages and this one
         differ, the district is right.

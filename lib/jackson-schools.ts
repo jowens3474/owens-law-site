@@ -28,15 +28,20 @@ export const JPS = {
     room: "School Board Meeting Room",
     address: "621 S. State St.",
     time: "5:30 p.m.",
-    secretaryPhone: "601-960-8734",
-    secretaryTel: "+16019608734",
+    // The number the district's directory lists for "Board of Trustees". The
+    // district's contact page lists a "Secretary to Board of Trustees" who is
+    // not a trustee; do not present this number as the phone of the trustee
+    // who is the board's secretary.
+    officePhone: "601-960-8734",
+    officeTel: "+16019608734",
     // Seats by City Council ward, as the district's board page and its ward
     // chart (revised July 1, 2026) list them. The district writes "Dr. Jeanne
-    // Middleton Hairston".
+    // Middleton Hairston". Figgers is "Secretary" in the board's Oct. 6, 2026,
+    // minutes and its Nov. 17, 2026, letter; the board web page says "Member".
     seats: [
       { ward: 1, name: "Akilah Irvin" },
       { ward: 2, name: null },
-      { ward: 3, name: "Frank Figgers" },
+      { ward: 3, name: "Frank Figgers", role: "Secretary" },
       { ward: 4, name: "Barbara T. Hilliard", role: "President" },
       { ward: 5, name: "Jeanne Middleton Hairston" },
       { ward: 6, name: "Lee Scott" },
@@ -72,8 +77,10 @@ export const JPS = {
     hrTel: "+16019608745",
   },
   numbers: {
-    // Mississippi Department of Education, enrollment data for 2025-26.
-    mdeEnrollment: "16,968",
+    // Mississippi Department of Education Data Explorer. Its SchoolYear value
+    // is the year the school year ends: 2027 is 2026-27, 2026 is 2025-26.
+    mdeEnrollment: "16,138",
+    mdeEnrollmentPrior: "16,968",
     // NCES district detail, 2024-25 school year.
     ncesEnrollment: "17,429",
     // The district's strategic plan At-A-Glance page, which gives no date.
@@ -117,6 +124,8 @@ export const JPS = {
     boardMeetings: `${JPS_SITE}/about-us/school-board/board-meetings`,
     boardSchedulePdf: `${JPS_SITE}/fs/resource-manager/view/0d546935-d403-41c3-80e0-a644bcc26fc4`,
     boardAgendas: `${JPS_SITE}/about-us/school-board/board-agendas-minutes`,
+    // Minutes of the Oct. 6, 2026, regular meeting, which list the officers.
+    boardMinutes: `${JPS_SITE}/fs/resource-manager/view/cc71894a-aa26-449d-a67b-76fb4ecae59c`,
     boardPolicy: `${JPS_SITE}/fs/resource-manager/view/07f0bda0-1bef-44e0-83da-9808047347a8`,
     boardContact: `${JPS_SITE}/about-us/school-board/contact-jps-school-board`,
     boardVideo: "https://www.youtube.com/playlist?list=PL3CPWmrsJWnQ4qP1gFAMs26zK1uq3vhkI",
@@ -149,6 +158,9 @@ export interface SchoolDate {
   end?: string; // yyyy-mm-dd, for a break of more than one day
   name: string;
   detail?: string;
+  // True for the two entries the district's table marks "**", its
+  // "Inclement Weather Days" note.
+  weatherNote?: boolean;
 }
 
 // Key dates for 2026-27 from the "District Calendar At-A-Glance 2026-2027"
@@ -168,12 +180,13 @@ export const SCHOOL_DATES: SchoolDate[] = [
     end: "2026-10-16",
     name: "Fall break",
     detail: "Schools closed Monday through Friday; offices closed Wednesday through Friday",
+    weatherNote: true,
   },
   { start: "2026-10-23", name: "Parent-teacher conference day", detail: "60% day for students" },
   { start: "2026-11-12", name: "Teacher professional development day", detail: "80% day for students" },
   { start: "2026-11-13", name: "Teacher professional development day", detail: "No school for students" },
   { start: "2026-11-23", end: "2026-11-27", name: "Thanksgiving break", detail: "Districtwide closure" },
-  { start: "2026-12-18", name: "Term 2 ends", detail: "End of the first semester" },
+  { start: "2026-12-18", name: "End of Term 2", detail: "End of the first semester" },
   { start: "2026-12-21", end: "2027-01-01", name: "Winter holiday break", detail: "Districtwide closure" },
   { start: "2027-01-04", name: "Teacher professional development day", detail: "No school for students" },
   { start: "2027-01-05", name: "Students return", detail: "Term 3 begins" },
@@ -181,7 +194,13 @@ export const SCHOOL_DATES: SchoolDate[] = [
   { start: "2027-02-11", name: "Parent-teacher conference day", detail: "60% day for students" },
   { start: "2027-02-12", name: "Teacher professional development day", detail: "No school for students" },
   { start: "2027-03-08", end: "2027-03-12", name: "Spring break", detail: "Districtwide closure" },
-  { start: "2027-03-26", end: "2027-03-29", name: "Easter break", detail: "Districtwide closure" },
+  {
+    start: "2027-03-26",
+    end: "2027-03-29",
+    name: "Easter break",
+    detail: "Districtwide closure",
+    weatherNote: true,
+  },
   { start: "2027-05-21", name: "Last day for students" },
   { start: "2027-05-24", end: "2027-05-25", name: "High school graduations" },
   { start: "2027-05-25", name: "Last day for teachers" },
