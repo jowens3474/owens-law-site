@@ -286,7 +286,7 @@ export const YEARS: YearRow[] = [
       { value: "At least 130", note: "Before an official count was out.", cites: [CL_2022] },
       {
         value: "135",
-        note: "JPD’s number. The newspaper listed around 135 under JPD and Capitol Police’s three 2022 homicides separately.",
+        note: "JPD’s number: the newspaper listed about 135 for JPD and, separately, three for Capitol Police.",
         cites: [CL_FEB_2024, CL_NOV_2023],
       },
     ],
@@ -379,9 +379,10 @@ export const YEARS: YearRow[] = [
     year: 2015,
     wlbt: [
       {
-        value: "54",
-        note: "From the figures behind the tracker’s all-years chart. WLBT’s own case list starts in 2016.",
-        cites: [TRACKER, WLBT_2025],
+        value: "Not tracked",
+        missing: true,
+        note: "WLBT’s count starts in 2016.",
+        cites: [WLBT_2025],
       },
     ],
     clarionLedger: [{ value: "58", cites: [CL_FIVE_YEARS] }],

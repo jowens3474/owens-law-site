@@ -491,7 +491,8 @@ export default function JacksonHomicidesPage() {
             <p>
               A different count or a different population figure gives a different rate.
               The Wire used WLBT’s counts because WLBT is the only source on this page with
-              a number for every year from 2016 to 2025.
+              a number for every year from 2016 to 2025. The table leaves out 2026 because
+              the year is not over.
             </p>
             <p>
               Other published rates differ for that reason. The{" "}
@@ -747,18 +748,21 @@ export default function JacksonHomicidesPage() {
         <a href={S.tracker} className={LINK}>
           Homicide Tracker
         </a>{" "}
-        displayed on {CHECKED}. The tracker’s 2015 number is from the figures on its page
-        that feed its all-years chart, and the date of its latest case is from its data
-        file. Clarion Ledger stories were read in the copies
+        displayed on {CHECKED}. In the tracker’s data file, one entry dated July 12, 2016,
+        is labeled 2026 and one dated Dec. 27, 2018, is labeled 2019; the tracker’s display
+        goes by the date, so its totals for 2016, 2018, 2019 and 2026 would each shift by
+        one if WLBT changed those dates to match the labels. The date of the tracker’s
+        latest case is from its data file. Clarion Ledger stories were read in the copies
         carried by Yahoo News and AOL because the newspaper’s own site refused the Wire’s
         automated requests. The Mississippi Today story was read in a republished copy, and
         the passages used here were checked against the original on {CHECKED}. The
         Department of Public Safety’s Capitol Police pages were read on its site the same
         day. The Wire did not ask JPD, Capitol Police, the FBI or any newsroom to comment
-        for this page, and it has not checked any count against police case files. It could
-        not reach Hinds County’s website to confirm the sheriff’s office’s role from an
-        official source. This page does not name victims or suspects. Last checked {CHECKED}. If a source’s own page
-        and this one differ, the source is right about its own number.
+        for this page, and it has not checked any count against police case files. Hinds
+        County’s sheriff page does not say when the sheriff’s office leads a homicide case
+        inside the city. This page does not name victims or suspects. Last checked{" "}
+        {CHECKED}. If a source’s own page and this one differ, the source is right about its
+        own number.
       </p>
     </div>
   );
