@@ -8,6 +8,8 @@ import { SENATE_RACE } from "@/lib/senate-race";
 import { getAllRulings } from "@/lib/rulings";
 import { categories } from "@/lib/site";
 import { absoluteUrl } from "@/lib/markdown";
+import { TRASH } from "@/lib/jackson-trash";
+import { COUNCIL } from "@/lib/jackson-council";
 
 // Refresh at most daily; deploys rebuild it sooner. Each refresh is a billed
 // cache write on Vercel.
@@ -62,6 +64,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: 0.5,
     })),
+    {
+      url: absoluteUrl("/boil-water-notices"),
+      lastModified: new Date(),
+      changeFrequency: "hourly",
+      priority: 0.9,
+    },
+    {
+      url: absoluteUrl("/trash-pickup"),
+      lastModified: new Date(TRASH.checked),
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
+      url: absoluteUrl("/city-council"),
+      lastModified: new Date(COUNCIL.checked),
+      changeFrequency: "daily",
+      priority: 0.8,
+    },
     {
       url: absoluteUrl("/data-centers"),
       lastModified: latest,
