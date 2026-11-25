@@ -61,6 +61,14 @@ function formatSpan(d: SchoolDate, { year = true } = {}): string {
   return `${formatDay(d.start, { year: year && crossesYear })}, to ${formatDay(end, { year })}`;
 }
 
+// A calendar entry's name for use inside a sentence: "Fall break" becomes
+// "fall break"; a name that starts with a proper noun is left alone.
+function midSentence(name: string): string {
+  return /^(Easter|Thanksgiving|Martin|Labor|Memorial|Juneteenth|Independence|JPS)\b/.test(name)
+    ? name
+    : name.charAt(0).toLowerCase() + name.slice(1);
+}
+
 export default function JacksonPublicSchoolsPage() {
   const today = centralToday();
   const upcoming = upcomingSchoolDates(today);
@@ -215,7 +223,7 @@ export default function JacksonPublicSchoolsPage() {
             <p>
               <strong>Dates can change.</strong>{" "}
               The district’s calendar attaches a note headed “Inclement Weather Days” to two
-              entries: {weatherDates.map((d) => `${d.name} (${formatSpan(d)})`).join(" and ")}.
+              entries: {weatherDates.map((d) => `${midSentence(d.name)} (${formatSpan(d)})`).join(" and ")}.
               The note reads: “The District will delay the start of school when possible to
               address inclement weather if necessary. If additional inclement weather days
               are needed, adjustments to the calendar will be made.” Check the{" "}
@@ -431,44 +439,50 @@ export default function JacksonPublicSchoolsPage() {
               <strong>Speak.</strong>{" "}
               The board’s{" "}
               <a href={JPS.sources.boardPolicy} className={LINK}>
-                public participation procedures (PDF)
-              </a>{" "}
-              set these rules:
+                policy on public participation (PDF)
+              </a>
+              , amended {formatDay(JPS.board.commentPolicyAmended, { weekday: false })}, says
+              people who want to address the board at a regularly scheduled meeting “must
+              sign up in advance.” Its rules:
             </p>
           </div>
           <ol className="mt-3 list-decimal space-y-2 pl-6 font-sans text-base leading-relaxed">
             <li>
-              Sign up first. A speaker “must register with the board secretary on the
-              required form prior to the board meeting.”
+              Sign up by email or in person. The policy says people may sign up “by emailing{" "}
+              <a href={`mailto:${JPS.board.signupEmail}`} className={`${LINK} break-all`}>
+                {JPS.board.signupEmail}
+              </a>{" "}
+              no later than 4:00 p.m. on the day of the meeting, or by appearing in person in
+              the board room no later than 5:15 p.m. on the day of the meeting.”
+            </li>
+            <li>Each speaker is allowed up to three minutes.</li>
+            <li>
+              The board “will listen to and consider all public comments but will not respond
+              during the meeting.”
             </li>
             <li>
-              Public participation time comes at the beginning of regular meetings. Speakers
-              are recognized in the order they registered.
-            </li>
-            <li>Each speaker is limited to three minutes.</li>
-            <li>
-              Speakers may comment on school operations and programs. The board will not hear
-              complaints about school personnel in public session.
+              “Any sensitive topics or comments that reference specific scholars or District
+              staff will be heard in executive session.”
             </li>
           </ol>
           <p className="mt-4 font-sans text-base leading-relaxed">
-            The procedures do not say where to get the form or give a phone number. The
-            district’s contact page lists a “Secretary to Board of Trustees,” who is not one
-            of the trustees, and its directory lists the Board of Trustees office at{" "}
+            <strong>Get on the agenda.</strong>{" "}
+            To make a presentation as an agenda item, the board’s{" "}
+            <a href={JPS.sources.boardAgendaPolicy} className={LINK}>
+              policy on meeting agendas (PDF)
+            </a>
+            , amended {formatDay(JPS.board.agendaPolicyAmended, { weekday: false })}, says to
+            call the superintendent’s office and give the superintendent a written statement
+            of the presentation at least six working days before the next board meeting. The
+            final decision “rests with the president of the board of trustees and the
+            superintendent.” The district’s directory lists the superintendent’s office at{" "}
             <a
-              href={`tel:${JPS.board.officeTel}`}
+              href={`tel:${JPS.office.tel}`}
               className={`whitespace-nowrap font-bold ${LINK}`}
             >
-              {JPS.board.officePhone}
+              {JPS.office.phone}
             </a>
             .
-          </p>
-          <p className="mt-4 font-sans text-base leading-relaxed">
-            To make a presentation as an agenda item, the procedures say to call the
-            secretary to the board of trustees and give the superintendent a written
-            statement six working days before the next regular meeting. The presentation is
-            limited to five minutes, and the board president and the superintendent decide
-            whether the item goes on the agenda.
           </p>
         </div>
       </section>
@@ -871,12 +885,18 @@ export default function JacksonPublicSchoolsPage() {
         2026, letter. That letter spells one member’s name Akilah Irving; both board pages
         and the minutes spell it Irvin, the spelling used here. The district writes “Dr.”
         before the names of Greene and Hairston; the Wire follows AP style and leaves the
-        title off. Meeting dates and rules are from the{" "}
+        title off. Meeting dates are from the{" "}
         <a href={JPS.sources.boardMeetings} className={LINK}>
           Board Meetings
         </a>{" "}
-        page, the 2026-2027 meeting schedule and the board’s public participation
-        procedures. The superintendent’s appointment is from the district’s{" "}
+        page and the 2026-2027 meeting schedule. The rules for speaking and for agenda
+        items are from board policies BCG/KCA and BCC on the district’s{" "}
+        <a href={JPS.sources.boardPolicies} className={LINK}>
+          Board Approved Policies
+        </a>{" "}
+        page. The Board Meetings page also links an older procedures file, last amended
+        Dec. 6, 2016, that describes a different sign-up; this page follows the 2025
+        policy. The superintendent’s appointment is from the district’s{" "}
         <a href={JPS.sources.superintendent} className={LINK}>
           Superintendent
         </a>{" "}

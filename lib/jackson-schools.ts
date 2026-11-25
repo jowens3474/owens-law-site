@@ -34,6 +34,12 @@ export const JPS = {
     // who is the board's secretary.
     officePhone: "601-960-8734",
     officeTel: "+16019608734",
+    // Policy BCG/KCA, Public Participation in Board Meetings: the date of its
+    // latest amendment and the sign-up address it prints.
+    commentPolicyAmended: "2025-06-17",
+    signupEmail: "roswilliams@jackson.k12.ms.us",
+    // Policy BCC, Board Meeting Agendas: the date of its latest amendment.
+    agendaPolicyAmended: "2021-05-21",
     // Seats by City Council ward, as the district's board page and its ward
     // chart (revised July 1, 2026) list them. The district writes "Dr. Jeanne
     // Middleton Hairston". Figgers is "Secretary" in the board's Oct. 6, 2026,
@@ -126,7 +132,12 @@ export const JPS = {
     boardAgendas: `${JPS_SITE}/about-us/school-board/board-agendas-minutes`,
     // Minutes of the Oct. 6, 2026, regular meeting, which list the officers.
     boardMinutes: `${JPS_SITE}/fs/resource-manager/view/cc71894a-aa26-449d-a67b-76fb4ecae59c`,
-    boardPolicy: `${JPS_SITE}/fs/resource-manager/view/07f0bda0-1bef-44e0-83da-9808047347a8`,
+    // Current board policies, from the Board Approved Policies page. The
+    // Board Meetings page also links a 2016 procedures file for public
+    // comment that gives a different sign-up rule; use the 2025 policy.
+    boardPolicies: `${JPS_SITE}/about-us/school-board/board-approved-policies`,
+    boardPolicy: `${JPS_SITE}/fs/resource-manager/view/fd5084e4-84d1-4c9c-afdc-6ea30f40e101`,
+    boardAgendaPolicy: `${JPS_SITE}/fs/resource-manager/view/d617163b-e428-4bdd-b60f-95ebc51b6f55`,
     boardContact: `${JPS_SITE}/about-us/school-board/contact-jps-school-board`,
     boardVideo: "https://www.youtube.com/playlist?list=PL3CPWmrsJWnQ4qP1gFAMs26zK1uq3vhkI",
     superintendent: `${JPS_SITE}/about-us/superintendent/superintendent`,
