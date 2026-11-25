@@ -13,6 +13,7 @@ import {
   type YearRow,
 } from "@/lib/jackson-homicides";
 import { formatDay } from "@/lib/central-time";
+import MoreGuides from "@/app/components/MoreGuides";
 
 // Every figure on this page is a dated fact from lib/jackson-homicides.ts.
 // Nothing here is fetched or computed from today's date, so the page is
@@ -709,30 +710,7 @@ export default function JacksonHomicidesPage() {
         </section>
       )}
 
-      {/* More guides */}
-      <section className="mt-14">
-        <h2 className={H2}>More Jackson Guides</h2>
-        <ul className="grid gap-3 sm:grid-cols-3">
-          <li className="border border-rule bg-paper p-4">
-            <Link
-              href="/boil-water-notices"
-              className="font-serif text-base font-bold hover:text-crimson"
-            >
-              Jackson boil-water notices
-            </Link>
-          </li>
-          <li className="border border-rule bg-paper p-4">
-            <Link href="/trash-pickup" className="font-serif text-base font-bold hover:text-crimson">
-              Jackson trash pickup: schedule, holidays and rules
-            </Link>
-          </li>
-          <li className="border border-rule bg-paper p-4">
-            <Link href="/city-council" className="font-serif text-base font-bold hover:text-crimson">
-              Jackson City Council: members, meetings and how to speak
-            </Link>
-          </li>
-        </ul>
-      </section>
+      <MoreGuides current="/jackson-homicides" headingClassName={H2} />
 
       <p className="mt-12 max-w-3xl border-t border-rule pt-6 font-sans text-sm leading-relaxed text-muted">
         Reporting note: The Wire did not count homicide cases itself. Each count on this
