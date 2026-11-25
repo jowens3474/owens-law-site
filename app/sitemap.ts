@@ -8,8 +8,7 @@ import { SENATE_RACE } from "@/lib/senate-race";
 import { getAllRulings } from "@/lib/rulings";
 import { categories } from "@/lib/site";
 import { absoluteUrl } from "@/lib/markdown";
-import { TRASH } from "@/lib/jackson-trash";
-import { COUNCIL } from "@/lib/jackson-council";
+import { GUIDES } from "@/lib/guides";
 
 // Refresh at most daily; deploys rebuild it sooner. Each refresh is a billed
 // cache write on Vercel.
@@ -19,6 +18,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const posts = getAllPosts();
   const latest = posts[0] ? new Date(posts[0].date) : new Date();
   const rulings = getAllRulings();
+  const guideChecks = GUIDES.flatMap((g) => (g.checked ? [g.checked] : [])).sort();
+  const latestGuideCheck = guideChecks.length
+    ? new Date(guideChecks[guideChecks.length - 1])
+    : latest;
 
   const staticPages: MetadataRoute.Sitemap = [
     { url: absoluteUrl("/"), lastModified: latest, changeFrequency: "daily", priority: 1 },
@@ -65,23 +68,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.5,
     })),
     {
-      url: absoluteUrl("/boil-water-notices"),
-      lastModified: new Date(),
-      changeFrequency: "hourly",
-      priority: 0.9,
-    },
-    {
-      url: absoluteUrl("/trash-pickup"),
-      lastModified: new Date(TRASH.checked),
+      url: absoluteUrl("/guides"),
+      lastModified: latestGuideCheck,
       changeFrequency: "weekly",
-      priority: 0.8,
+      priority: 0.6,
     },
-    {
-      url: absoluteUrl("/city-council"),
-      lastModified: new Date(COUNCIL.checked),
-      changeFrequency: "daily",
-      priority: 0.8,
-    },
+    ...GUIDES.map((g) => ({
+      url: absoluteUrl(g.href),
+      // A guide with no checked date reads its source itself (see lib/guides.ts).
+      lastModified: g.checked ? new Date(g.checked) : new Date(),
+      changeFrequency: g.changeFrequency,
+      priority: g.priority,
+    })),
     {
       url: absoluteUrl("/data-centers"),
       lastModified: latest,

@@ -378,6 +378,7 @@ export default function SenateRacePage() {
       <div className="mt-12">
         <NewsletterSignup
           variant="block"
+          placement="senate-race"
           heading="Get an alert when the race is called"
           blurb="We'll email you when AP or the state calls it, plus the Morning Dispatch each weekday. Unsubscribe in one click."
           successMessage="You're in. We'll email you when the race is called."

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getFromTheArchive, formatDate } from "@/lib/posts";
 import { categories, site } from "@/lib/site";
 import { pro } from "@/lib/pro";
+import { GUIDES, SIDEBAR_GUIDE_COUNT } from "@/lib/guides";
 import NewsletterSignup from "./NewsletterSignup";
 
 const orderSubject = "STOKES Hat order";
@@ -23,7 +24,7 @@ export default function Sidebar() {
 
   return (
     <aside className="space-y-8">
-      <NewsletterSignup />
+      <NewsletterSignup placement="sidebar" />
 
       <section className="border border-ink bg-paper p-5">
         <p className="font-sans text-xs font-bold uppercase tracking-widest text-crimson">
@@ -47,11 +48,7 @@ export default function Sidebar() {
           Jackson Guides
         </h2>
         <ul className="mt-1 divide-y divide-rule">
-          {[
-            { href: "/boil-water-notices", label: "Boil-water notices in effect today" },
-            { href: "/trash-pickup", label: "Trash pickup: schedule, holidays and rules" },
-            { href: "/city-council", label: "City Council: members, meetings, how to speak" },
-          ].map((g) => (
+          {GUIDES.slice(0, SIDEBAR_GUIDE_COUNT).map((g) => (
             <li key={g.href} className="py-3">
               <Link
                 href={g.href}
@@ -62,6 +59,12 @@ export default function Sidebar() {
             </li>
           ))}
         </ul>
+        <Link
+          href="/guides"
+          className="mt-2 inline-block font-sans text-xs font-bold uppercase tracking-widest text-crimson hover:text-crimson-bright"
+        >
+          All guides →
+        </Link>
       </section>
 
       {archive.length > 0 && (

@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -25,6 +26,7 @@ import NewsletterSignup from "@/app/components/NewsletterSignup";
 import ReadingProgress from "@/app/components/ReadingProgress";
 import ShareBar from "@/app/components/ShareBar";
 import { extractCitations } from "@/lib/citations";
+import { midSignupAfter } from "@/lib/mid-signup";
 
 // Rebuilt on every deploy and otherwise served from cache. Each refresh is a
 // billed cache write on Vercel, and the daily automated commits redeploy the
@@ -102,6 +104,8 @@ export default async function ArticlePage({
   }
 
   const related = getRelatedPosts(post, 3);
+  // Where the compact newsletter box goes in this story, if anywhere.
+  const signupAfter = midSignupAfter(post.body);
 
   const categorySlug = categoryByName(post.category)?.slug;
   const breadcrumbsJsonLd = {
@@ -273,7 +277,12 @@ export default async function ArticlePage({
         ) : (
           <div className="prose-article mt-8 max-w-2xl">
             {post.body.map((para, i) => (
-              <p key={i}>{para}</p>
+              <Fragment key={i}>
+                <p>{para}</p>
+                {i + 1 === signupAfter && (
+                  <NewsletterSignup variant="inline" placement="article-middle" />
+                )}
+              </Fragment>
             ))}
           </div>
         )}
@@ -382,7 +391,7 @@ export default async function ArticlePage({
       </article>
 
       <div className="mt-12">
-        <NewsletterSignup variant="block" />
+        <NewsletterSignup variant="block" placement="article-end" />
       </div>
 
       {related.length > 0 && (

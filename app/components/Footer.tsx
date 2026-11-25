@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { categories, site } from "@/lib/site";
 import { getAllRulings } from "@/lib/rulings";
+import { GUIDES, FOOTER_GUIDE_COUNT } from "@/lib/guides";
 import Wordmark from "./Wordmark";
 
 export default function Footer() {
@@ -115,28 +116,22 @@ export default function Footer() {
                   The Record
                 </Link>
               </li>
+              {GUIDES.slice(0, FOOTER_GUIDE_COUNT).map((g) => (
+                <li key={g.href}>
+                  <Link
+                    href={g.href}
+                    className="font-sans text-sm hover:text-crimson"
+                  >
+                    {g.footerLabel}
+                  </Link>
+                </li>
+              ))}
               <li>
                 <Link
-                  href="/city-council"
+                  href="/guides"
                   className="font-sans text-sm hover:text-crimson"
                 >
-                  City Council Guide
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/boil-water-notices"
-                  className="font-sans text-sm hover:text-crimson"
-                >
-                  Boil-Water Notices
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/trash-pickup"
-                  className="font-sans text-sm hover:text-crimson"
-                >
-                  Trash Pickup
+                  All Jackson Guides
                 </Link>
               </li>
               <li>
