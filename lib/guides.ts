@@ -6,6 +6,7 @@
 import { TRASH } from "./jackson-trash";
 import { COUNCIL } from "./jackson-council";
 import { JPS } from "./jackson-schools";
+import { HOMICIDES } from "./jackson-homicides";
 
 export interface Guide {
   href: string;
@@ -86,6 +87,20 @@ export const GUIDES: Guide[] = [
       "The district's 2026-27 calendar, school board members and meetings, how to sign up to speak, the superintendent, salary scales, enrollment steps and contacts.",
     checked: JPS.checked,
     changeFrequency: "weekly",
+    priority: 0.8,
+  },
+  {
+    href: "/jackson-homicides",
+    footerLabel: "Homicides by Year",
+    label: "Jackson homicides by year, with sources",
+    crossLabel: "Jackson homicides by year: counts and their sources",
+    summary:
+      "The number of homicides in Jackson for each year since 2015, with the source of every count shown beside it, and the 2026 count as of a stated date.",
+    llmsTitle: "Jackson homicides by year",
+    llmsSummary:
+      "Homicides in Jackson, Mississippi, for each year since 2015, with each count attributed to its source (WLBT, the Clarion Ledger, the FBI, and police figures as reported by news outlets), the 2026 count as of a stated date, and rates per 100,000 residents computed by the Wire from WLBT's counts and Census estimates.",
+    checked: HOMICIDES.checked,
+    changeFrequency: "monthly",
     priority: 0.8,
   },
 ];

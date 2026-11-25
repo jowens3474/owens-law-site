@@ -2,10 +2,11 @@
 //
 // The box sits after the third paragraph of a story with at least six
 // paragraphs. It must not split a paragraph that introduces a list from the
-// list, or cut into a "First ... Second ..." run. When the third-paragraph
-// slot would do that, the slot after the second paragraph is tried; when that
-// would too, the story gets no mid-story box (every story still ends with the
-// full sign-up block).
+// list, cut into a "First ... Second ..." run, or sit beside a very short
+// paragraph, which is usually a set-up line or a punch line that belongs with
+// its neighbor. When the third-paragraph slot would do that, the slot after
+// the second paragraph is tried; when that would too, the story gets no
+// mid-story box (every story still ends with the full sign-up block).
 
 export const MID_SIGNUP_MIN_PARAGRAPHS = 6;
 const PREFERRED_SLOTS = [3, 2];
@@ -18,6 +19,12 @@ const COUNT_LEAD_IN =
 // A paragraph that continues a numbered run begun earlier.
 const CONTINUES_RUN = /^(?:First|Second|Third|Fourth|Fifth|Finally|One more)\b/;
 
+// A paragraph this short before the box reads as a set-up line, and one this
+// short after it as a punch line. Either way the two paragraphs belong
+// together.
+const SHORT_BEFORE = 80;
+const SHORT_AFTER = 30;
+
 function lastSentence(paragraph: string): string {
   const parts = paragraph.trim().split(/(?<=[.?!])\s+/);
   return parts[parts.length - 1] ?? "";
@@ -25,9 +32,11 @@ function lastSentence(paragraph: string): string {
 
 function splitsARun(before: string, after: string): boolean {
   const lead = before.trim();
+  const next = after.trim();
   if (lead.endsWith(":")) return true;
   if (COUNT_LEAD_IN.test(lastSentence(lead))) return true;
-  return CONTINUES_RUN.test(after.trim());
+  if (lead.length < SHORT_BEFORE || next.length < SHORT_AFTER) return true;
+  return CONTINUES_RUN.test(next);
 }
 
 // Returns N when the box belongs right after the Nth paragraph (1-based), or

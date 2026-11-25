@@ -9,9 +9,9 @@ import { absoluteUrl } from "@/lib/markdown";
 // cache write on Vercel.
 export const revalidate = 86400;
 
-const TITLE = "Jackson, MS Guides: City Services and Local Government";
+const TITLE = "Jackson, MS Guides: City Services, Schools, Public Safety";
 const DEK =
-  "Standing reference pages from The Jackson Wire on city services and local government in Jackson. Each one names its sources.";
+  "Standing reference pages from The Jackson Wire on city services, local government, schools and public safety in Jackson. Each one names its sources.";
 
 export const metadata: Metadata = {
   title: TITLE,
