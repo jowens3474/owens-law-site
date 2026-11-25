@@ -78,8 +78,6 @@ export default function JacksonPublicSchoolsPage() {
   const coverage = getAllPosts()
     .filter((p) => /\bJPS\b|Jackson Public Schools/i.test(`${p.title} ${p.dek}`))
     .filter((p) => !isBrief(p))
-    // This page does not mention lawsuits involving the district.
-    .filter((p) => !/lawsuit|\bsu(?:e|es|ed|it|ing)\b/i.test(p.title))
     .slice(0, 6);
   const boardWhere = `${JPS.board.room} at ${JPS.board.address}`;
 
