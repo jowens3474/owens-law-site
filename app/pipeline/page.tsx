@@ -27,7 +27,7 @@ const DEK =
 
 // The search-result title says what the page is; "The Pipeline" stays as the
 // name readers see on the page itself.
-const SEO_TITLE = "Jackson Metro Development Tracker: What's Being Built";
+const SEO_TITLE = "Jackson Metro Development: What's Planned and Being Built";
 
 export const metadata: Metadata = {
   title: SEO_TITLE,

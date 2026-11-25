@@ -26,6 +26,7 @@ import NewsletterSignup from "@/app/components/NewsletterSignup";
 import ReadingProgress from "@/app/components/ReadingProgress";
 import ShareBar from "@/app/components/ShareBar";
 import { extractCitations } from "@/lib/citations";
+import { midSignupAfter } from "@/lib/mid-signup";
 
 // Rebuilt on every deploy and otherwise served from cache. Each refresh is a
 // billed cache write on Vercel, and the daily automated commits redeploy the
@@ -33,12 +34,6 @@ import { extractCitations } from "@/lib/citations";
 // if its URL is opened early, the not-found render is cached for at most an
 // hour (lib/not-found-cap.ts).
 export const revalidate = false;
-
-// A compact newsletter sign-up box goes after this paragraph of a story, but
-// only in stories at least this many paragraphs long, so a short story is not
-// interrupted just before its own end-of-story sign-up box.
-const MID_SIGNUP_AFTER_PARAGRAPH = 3;
-const MID_SIGNUP_MIN_PARAGRAPHS = 6;
 
 export function generateStaticParams() {
   return getAllPosts().map((post) => ({ slug: post.slug }));
@@ -109,6 +104,8 @@ export default async function ArticlePage({
   }
 
   const related = getRelatedPosts(post, 3);
+  // Where the compact newsletter box goes in this story, if anywhere.
+  const signupAfter = midSignupAfter(post.body);
 
   const categorySlug = categoryByName(post.category)?.slug;
   const breadcrumbsJsonLd = {
@@ -282,10 +279,9 @@ export default async function ArticlePage({
             {post.body.map((para, i) => (
               <Fragment key={i}>
                 <p>{para}</p>
-                {i === MID_SIGNUP_AFTER_PARAGRAPH - 1 &&
-                  post.body.length >= MID_SIGNUP_MIN_PARAGRAPHS && (
-                    <NewsletterSignup variant="inline" placement="article-middle" />
-                  )}
+                {i + 1 === signupAfter && (
+                  <NewsletterSignup variant="inline" placement="article-middle" />
+                )}
               </Fragment>
             ))}
           </div>

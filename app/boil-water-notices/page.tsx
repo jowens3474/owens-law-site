@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { site } from "@/lib/site";
 import { absoluteUrl } from "@/lib/markdown";
 import {
@@ -10,6 +9,7 @@ import {
 import type { BoilNotice } from "@/lib/boil-water-parse";
 import { formatDay, formatInstant } from "@/lib/central-time";
 import BoilNoticeList from "@/app/components/BoilNoticeList";
+import MoreGuides from "@/app/components/MoreGuides";
 
 // Rendered on every request: the list is read from JXN Water (or reused from
 // a read in the last five minutes, see lib/boil-water.ts), so nobody is shown
@@ -314,22 +314,7 @@ export default async function BoilWaterNoticesPage() {
         </section>
       )}
 
-      {/* More guides */}
-      <section className="mt-14">
-        <h2 className={H2}>More Jackson Guides</h2>
-        <ul className="grid gap-3 sm:grid-cols-2">
-          <li className="border border-rule bg-paper p-4">
-            <Link href="/trash-pickup" className="font-serif text-base font-bold hover:text-crimson">
-              Jackson trash pickup: schedule, holidays and rules
-            </Link>
-          </li>
-          <li className="border border-rule bg-paper p-4">
-            <Link href="/city-council" className="font-serif text-base font-bold hover:text-crimson">
-              Jackson City Council: members, meetings and how to speak
-            </Link>
-          </li>
-        </ul>
-      </section>
+      <MoreGuides current="/boil-water-notices" headingClassName={H2} />
 
       <p className="mt-12 max-w-3xl border-t border-rule pt-6 font-sans text-sm leading-relaxed text-muted">
         How this page works: The Wire does not issue, confirm or lift boil-water notices.

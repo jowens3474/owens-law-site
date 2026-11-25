@@ -61,8 +61,11 @@ export default function PrivacyPage() {
           We use Google Analytics, which sets cookies, to count visits and to
           see which stories people read and how they found them. Links we post
           on social media and in our emails carry tags that tell Analytics
-          where a visit came from. Our host, Vercel, keeps standard server
-          logs, such as IP addresses, to run and protect the site.
+          where a visit came from. When someone signs up for the newsletter,
+          Analytics also records that a sign-up happened and which sign-up box
+          on the site was used. The email address is not sent to Analytics.
+          Our host, Vercel, keeps standard server logs, such as IP addresses,
+          to run and protect the site.
         </p>
       </Section>
 
@@ -119,7 +122,7 @@ export default function PrivacyPage() {
       </Section>
 
       <p className="mt-12 font-sans text-xs text-muted">
-        Last updated October 11, 2026.
+        Last updated November 25, 2026.
       </p>
     </div>
   );

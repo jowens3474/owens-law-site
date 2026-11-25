@@ -5,6 +5,7 @@ import { site } from "@/lib/site";
 import { absoluteUrl } from "@/lib/markdown";
 import { TRASH, HOLIDAY_NOTES, upcomingHolidays } from "@/lib/jackson-trash";
 import { centralToday, formatDay } from "@/lib/central-time";
+import MoreGuides from "@/app/components/MoreGuides";
 
 // "Next holiday" depends on today's date, so refresh hourly; deploys rebuild
 // it sooner.
@@ -312,25 +313,7 @@ export default function TrashPickupPage() {
         </section>
       )}
 
-      {/* More guides */}
-      <section className="mt-14">
-        <h2 className={H2}>More Jackson Guides</h2>
-        <ul className="grid gap-3 sm:grid-cols-2">
-          <li className="border border-rule bg-paper p-4">
-            <Link
-              href="/boil-water-notices"
-              className="font-serif text-base font-bold hover:text-crimson"
-            >
-              Jackson boil-water notices in effect today
-            </Link>
-          </li>
-          <li className="border border-rule bg-paper p-4">
-            <Link href="/city-council" className="font-serif text-base font-bold hover:text-crimson">
-              Jackson City Council: members, meetings and how to speak
-            </Link>
-          </li>
-        </ul>
-      </section>
+      <MoreGuides current="/trash-pickup" headingClassName={H2} />
 
       <p className="mt-12 max-w-3xl border-t border-rule pt-6 font-sans text-sm leading-relaxed text-muted">
         Reporting note: The collection rules, hours, bulk items, holiday rule, drop-off site

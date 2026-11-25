@@ -7,6 +7,7 @@ import { COUNCIL, upcomingMeetings } from "@/lib/jackson-council";
 import { getCouncilPostings } from "@/lib/council-postings";
 import { MEETINGS, formatMeetingDate } from "@/lib/meetings";
 import { centralToday, formatDay, formatInstant } from "@/lib/central-time";
+import MoreGuides from "@/app/components/MoreGuides";
 
 // "Next meeting" depends on today's date and the city's postings change
 // through the week, so refresh hourly; deploys rebuild it sooner.
@@ -361,25 +362,7 @@ export default async function CityCouncilPage() {
         </section>
       )}
 
-      {/* More guides */}
-      <section className="mt-14">
-        <h2 className={H2}>More Jackson Guides</h2>
-        <ul className="grid gap-3 sm:grid-cols-2">
-          <li className="border border-rule bg-paper p-4">
-            <Link
-              href="/boil-water-notices"
-              className="font-serif text-base font-bold hover:text-crimson"
-            >
-              Jackson boil-water notices in effect today
-            </Link>
-          </li>
-          <li className="border border-rule bg-paper p-4">
-            <Link href="/trash-pickup" className="font-serif text-base font-bold hover:text-crimson">
-              Jackson trash pickup: schedule, holidays and rules
-            </Link>
-          </li>
-        </ul>
-      </section>
+      <MoreGuides current="/city-council" headingClassName={H2} />
 
       <p className="mt-12 max-w-3xl border-t border-rule pt-6 font-sans text-sm leading-relaxed text-muted">
         Reporting note: Members, phone numbers and email addresses are from the City of

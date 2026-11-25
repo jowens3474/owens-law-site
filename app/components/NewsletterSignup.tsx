@@ -5,13 +5,23 @@ import { sendGAEvent } from "@next/third-parties/google";
 
 type Status = "idle" | "pending" | "success" | "error";
 
-// Tells Google Analytics which sign-up box a new subscriber used, so the Wire
-// can see which placements work. Only the placement name is sent, never the
-// email address. Does nothing when Analytics is not loaded on the page.
+// Tells Google Analytics which sign-up box was used for a successful sign-up,
+// so the Wire can see which placements work. The placement is part of the
+// event name (for example newsletter_signup_article_middle) so the counts
+// show in Analytics' Events report without any setup there. Only the
+// placement is sent, never the email address. A repeat sign-up by an address
+// already on the list is counted too. Does nothing when Analytics is not
+// loaded on the page, and never throws: a counting failure must not turn a
+// good sign-up into an error message.
 function reportSignup(placement: string) {
-  const w = window as unknown as { dataLayer?: unknown };
-  if (!Array.isArray(w.dataLayer)) return;
-  sendGAEvent("event", "newsletter_signup", { placement });
+  try {
+    const w = window as unknown as { dataLayer?: unknown };
+    if (!Array.isArray(w.dataLayer)) return;
+    const suffix = placement.toLowerCase().replace(/[^a-z0-9]+/g, "_");
+    sendGAEvent("event", `newsletter_signup_${suffix}`, { placement });
+  } catch {
+    // Counting is best effort.
+  }
 }
 
 function useSubscribe(successMessage: string, placement: string) {
@@ -78,6 +88,7 @@ export default function NewsletterSignup({
     return (
       <aside
         aria-label="Newsletter sign-up"
+        data-nosnippet
         className="my-8 border-y border-rule py-5"
       >
         <div className="font-sans text-xs font-bold uppercase tracking-widest text-crimson">
@@ -100,7 +111,8 @@ export default function NewsletterSignup({
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@email.com"
             aria-label="Email address"
-            className="w-full min-w-0 border border-rule bg-newsprint px-3 py-2 font-sans text-sm text-ink placeholder:text-muted focus:border-ink focus:outline-none sm:max-w-xs"
+            autoComplete="email"
+            className="w-full min-w-0 border border-rule bg-newsprint px-3 py-2 font-sans text-base text-ink placeholder:text-muted focus:border-ink focus:outline-none sm:max-w-xs sm:text-sm"
           />
           <button
             type="submit"
