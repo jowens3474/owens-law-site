@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { categories, site } from "@/lib/site";
 import { getAllRulings } from "@/lib/rulings";
-import { GUIDES } from "@/lib/guides";
+import { GUIDES, FOOTER_GUIDE_COUNT } from "@/lib/guides";
 import Wordmark from "./Wordmark";
 
 export default function Footer() {
@@ -116,7 +116,7 @@ export default function Footer() {
                   The Record
                 </Link>
               </li>
-              {GUIDES.map((g) => (
+              {GUIDES.slice(0, FOOTER_GUIDE_COUNT).map((g) => (
                 <li key={g.href}>
                   <Link
                     href={g.href}

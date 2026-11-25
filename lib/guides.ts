@@ -5,6 +5,7 @@
 
 import { TRASH } from "./jackson-trash";
 import { COUNCIL } from "./jackson-council";
+import { JPS } from "./jackson-schools";
 
 export interface Guide {
   href: string;
@@ -73,7 +74,23 @@ export const GUIDES: Guide[] = [
     changeFrequency: "daily",
     priority: 0.8,
   },
+  {
+    href: "/jackson-public-schools",
+    footerLabel: "Jackson Public Schools",
+    label: "Jackson Public Schools: calendar, board, pay",
+    crossLabel: "Jackson Public Schools: calendar, board, pay and enrollment",
+    summary:
+      "The 2026-27 school calendar, the school board and its meetings, how to speak at one, pay scales, how to enroll and who to call.",
+    llmsTitle: "Jackson Public Schools guide",
+    llmsSummary:
+      "The district's 2026-27 calendar, school board members and meetings, how to sign up to speak, the superintendent, salary scales, enrollment steps and contacts.",
+    checked: JPS.checked,
+    changeFrequency: "weekly",
+    priority: 0.8,
+  },
 ];
 
-// How many guides the sidebar box lists before it points to the full index.
+// How many guides the sidebar box and the footer column list before they
+// point to the full index at /guides.
 export const SIDEBAR_GUIDE_COUNT = 5;
+export const FOOTER_GUIDE_COUNT = 4;

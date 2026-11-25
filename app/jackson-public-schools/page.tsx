@@ -15,6 +15,7 @@ import {
   type SchoolDate,
 } from "@/lib/jackson-schools";
 import { centralToday, formatDay } from "@/lib/central-time";
+import MoreGuides from "@/app/components/MoreGuides";
 
 // "Next on the calendar" and "next board meeting" depend on today's date, so
 // refresh hourly; deploys rebuild it sooner.
@@ -826,30 +827,7 @@ export default function JacksonPublicSchoolsPage() {
         </div>
       </section>
 
-      {/* More guides */}
-      <section className="mt-14">
-        <h2 className={H2}>More Jackson Guides</h2>
-        <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          <li className="border border-rule bg-paper p-4">
-            <Link href="/city-council" className="font-serif text-base font-bold hover:text-crimson">
-              Jackson City Council: members, meetings and how to speak
-            </Link>
-          </li>
-          <li className="border border-rule bg-paper p-4">
-            <Link href="/trash-pickup" className="font-serif text-base font-bold hover:text-crimson">
-              Jackson trash pickup: schedule, holidays and rules
-            </Link>
-          </li>
-          <li className="border border-rule bg-paper p-4">
-            <Link
-              href="/boil-water-notices"
-              className="font-serif text-base font-bold hover:text-crimson"
-            >
-              Jackson boil-water notices in effect today
-            </Link>
-          </li>
-        </ul>
-      </section>
+      <MoreGuides current="/jackson-public-schools" headingClassName={H2} />
 
       {/* The Wire's own reporting: one search link, no headlines */}
       <p className="mt-10 font-sans text-base leading-relaxed">
