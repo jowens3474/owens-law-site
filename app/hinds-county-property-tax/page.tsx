@@ -346,7 +346,7 @@ export default function HindsPropertyTaxPage() {
         <div>
           <h2 className={H2}>How to Pay: Online</h2>
           <div className={BODY}>
-            <p>
+            <p id="older-site">
               The county&rsquo;s{" "}
               <a href={S.payOnline} className={LINK}>
                 Pay Online
@@ -646,8 +646,11 @@ export default function HindsPropertyTaxPage() {
               <a href={S.assessor} className={LINK}>
                 Tax Assessor&rsquo;s page
               </a>{" "}
-              and sit on the county&rsquo;s older site, {OLD.host}. {OLD_SITE_DOWN} For
-              help, the sheet gives <Phone number={assessor.valuePhones[0]} /> and{" "}
+              and sit on{" "}
+              <a href="#older-site" className={LINK}>
+                the older site named above
+              </a>
+              . For help, the sheet gives <Phone number={assessor.valuePhones[0]} /> and{" "}
               <Phone number={assessor.valuePhones[1]} />.
             </p>
             <p>
@@ -703,8 +706,8 @@ export default function HindsPropertyTaxPage() {
               <li>
                 <strong>Two districts.</strong>{" "}
                 In a county with two court districts, land is advertised and sold in the
-                district where it lies. Hinds County has two, with offices in Jackson and
-                Raymond.
+                district where it lies (Section 27-41-55). Hinds County has two, with
+                offices in Jackson and Raymond.
               </li>
               <li>
                 <strong>The sale.</strong>{" "}
@@ -758,14 +761,16 @@ export default function HindsPropertyTaxPage() {
                   county&rsquo;s home page
                 </a>{" "}
                 has a button labeled Delinquent Property Tax &amp; Tax Sale Lists. It
-                leads to a Tax Sale Files page on the county&rsquo;s older site,{" "}
-                {OLD.host}. {OLD_SITE_DOWN} An Internet Archive copy of the Tax Sale Files
-                page made{" "}
-                {FILES_COPY}, carried the parcels advertised for the 2026 sale, the parcels
-                in that sale, the final results of the 2025 sale and the parcels that
-                matured to the state in August 2025.
+                leads to a Tax Sale Files page on{" "}
+                <a href="#older-site" className={LINK}>
+                  the older site named above
+                </a>
+                . An Internet Archive copy of the Tax Sale Files page made {FILES_COPY},
+                carried the parcels advertised for the 2026 sale, the parcels in that
+                sale, the final results of the 2025 sale and the parcels that matured to
+                the state in August 2025.
               </p>
-              <p>
+              <p id="tax-sale-lookup">
                 <strong>Was a parcel sold?</strong>{" "}
                 The{" "}
                 <a href={S.chancery} className={LINK}>
@@ -841,10 +846,18 @@ export default function HindsPropertyTaxPage() {
               <a href={S.payOnline} className={LINK}>
                 Pay Online
               </a>{" "}
-              page also has a Delinquent Tax Redemption button. It leads to the
-              county&rsquo;s older site, {OLD.host}, which did not answer when the Wire
-              checked on {NO_ANSWER}, so the Wire could not see what the button offers.
-              Ask the Chancery Clerk&rsquo;s office how it takes payment.
+              page also has a Delinquent Tax Redemption button. It leads to the same{" "}
+              <a href="#tax-sale-lookup" className={LINK}>
+                tax sale lookup
+              </a>{" "}
+              as the Chancery Clerk&rsquo;s link, on{" "}
+              <a href="#older-site" className={LINK}>
+                the older site named above
+              </a>
+              . The Internet Archive copy of that lookup made {LOOKUP_COPY}, shows only a
+              search form, by owner&rsquo;s name, buyer&rsquo;s name or parcel number. The
+              Wire could not see whether a payment can be made there. Ask the Chancery
+              Clerk&rsquo;s office how it takes payment.
             </p>
             <p>
               The Chancery Clerk&rsquo;s page also says the clerk collects the taxes for
@@ -870,23 +883,67 @@ export default function HindsPropertyTaxPage() {
               27-43-1).
             </p>
             <p>
-              Section 27-43-3 says how. For an owner who lives in Mississippi, the sheriff
-              or a constable serves the notice: in person if the owner can be found,
-              otherwise by leaving it at the owner&rsquo;s home with the owner&rsquo;s
-              spouse or another resident older than 16, or by posting it on a door of
-              the home. The clerk also mails a copy by registered or certified mail and
-              publishes a
+              Section 27-43-3 says how. For an owner who is a resident of Mississippi, the
+              sheriff or a constable must serve the notice. The section gives three ways,
+              in this order:
+            </p>
+            <ol className="list-decimal space-y-2 pl-6">
+              <li>
+                &ldquo;Upon the reputed owner personally, if he can be found in the county
+                after diligent search and inquiry, by handing him a true copy of the
+                notice;&rdquo;
+              </li>
+              <li>
+                &ldquo;If the reputed owner cannot be found in the county after diligent
+                search and inquiry, then by leaving a true copy of the notice at his usual
+                place of abode with the spouse of the reputed owner or some other person
+                who lives at his usual place of abode above the age of sixteen (16) years,
+                and willing to receive the copy of the notice; or&rdquo;
+              </li>
+              <li>
+                &ldquo;If the reputed owner cannot be found after diligent search and
+                inquiry, and if no person above the age of sixteen (16) years who lives at
+                his usual place of abode can be found at his usual place of abode who is
+                willing to receive the copy of the notice, then by posting a true copy of
+                the notice on a door of the reputed owner&rsquo;s usual place of
+                abode.&rdquo;
+              </li>
+            </ol>
+            <p>
+              For an owner who is not a resident, the section says: &ldquo;If the reputed
+              owner is a nonresident of the State of Mississippi, then the clerk shall
+              mail a copy of the notice to the reputed owner in the same manner as set out
+              in this section for notice to a resident of the State of Mississippi, except
+              that notice served by the sheriff or constable shall not be required.&rdquo;
+            </p>
+            <p>
+              The clerk also mails a copy by registered or certified mail and publishes a
               notice in a newspaper &ldquo;at least forty-five (45) days prior to the
-              expiration of the redemption period.&rdquo; For an owner who lives out of
-              state, the section requires the mailed notice but not service by the
-              sheriff or constable.
+              expiration of the redemption period.&rdquo;
+            </p>
+            <p>
+              When notices come back, the section says: &ldquo;In the event the notice by
+              mail is returned undelivered and the notice as required in this section to
+              be served by the sheriff or constable is returned not found, then the clerk
+              shall make further search and inquiry to ascertain the reputed
+              owner&rsquo;s street and post-office address. If the reputed owner&rsquo;s
+              street or post-office address is ascertained after the additional search
+              and inquiry, the clerk shall again issue notice as set out in this section.
+              If notice is again issued and it is again returned not found and if notice
+              by mail is again returned undelivered, then the clerk shall file an
+              affidavit to that effect and shall specify in the affidavit the acts of
+              search and inquiry made by him in an effort to ascertain the reputed
+              owner&rsquo;s street and post-office address and the affidavit shall be
+              retained as a permanent record in the office of the clerk and that action
+              shall be noted on the tax sales record.&rdquo;
             </p>
             <p>
               The section says an owner&rsquo;s failure to actually receive the notice
               does not void the title if the clerk and the sheriff or constable did what
               it requires. It also says: &ldquo;Should the clerk inadvertently fail to
-              send notice as prescribed in this section, then the sale shall be
-              void.&rdquo;
+              send notice as prescribed in this section, then the sale shall be void and
+              the clerk shall not be liable to the purchaser or owner upon refund of all
+              purchase money paid.&rdquo;
             </p>
             <p>
               The clerk must also send notice by certified mail to the mortgagees,
