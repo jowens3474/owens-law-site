@@ -85,6 +85,24 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "morning-brief-2026-11-28",
+    title: "Morning Brief: Nov 28 · City's Water Reply Due Dec 4; DA Runoff Tuesday",
+    dek: "Jackson must file its first written answer to Ted Henifin's water transition plan by Dec. 4, and the city is billing JXN Water and the federal court for the engineering work behind it.",
+    category: "General News",
+    tags: ["morning-brief"],
+    author: "Jackson Wire Staff",
+    date: "2026-11-28",
+    publishedAt: "2026-11-28T16:47:23.753Z",
+    views: 0,
+    body: [
+      "City water reply due Dec 4: Jackson's first written answer to Ted Henifin's water and sewer transition plan is due to the federal court by Dec. 4, and the city has hired Waggoner Engineering to draft it. Interim Chief Administrative Officer Drew Martin told the City Council's Public Works Committee on Nov. 24 that invoices go directly to JXN Water and the court, citing provisions in the stipulated order that pay for expert services. Henifin recommends converting JXN Water into a state-authorized utility with its first board appointed by Judge Henry Wingate. Mayor John Horhn wants a board he appoints and the council confirms. Martin said the city will detail more at the Dec. 1 council meeting.",
+      "Jackson sales tax collections up 7.5 percent: Jackson received $2,672,010 in sales tax diversions in October, up 7.5% from $2,485,254 a year earlier, Department of Revenue diversion reports show. Fiscal-year-to-date the city is at $10,623,298, up 4.7%. The suburbs are growing faster: Ridgeland is up 18.6% for the month and 14.9% year to date, and Flowood is up 9.5% and 7.5%. Pearl is down 9.5% year to date at $4,855,722. Jackson's monthly gain is the strongest of the four largest metro cities, but its base is roughly $1.2 million a month larger than Ridgeland's, so the percentage gap still narrows.",
+      "DA runoff caps a year of turnover: Hinds County voters pick a district attorney Tuesday, Dec. 1, choosing Darla Palmer or Gwen Agho to finish the term of Jody Owens, who resigned in June after pleading guilty to a federal conspiracy charge and was sentenced Nov. 5 to 41 months. Palmer led the Nov. 3 field with 20,073 votes to Agho's 17,087, a 2,986-vote margin, according to certified county results cited by the Clarion Ledger. The winner inherits a case backlog that county leaders, judges and prosecutors have spent a year trying to clear to relieve pressure on the Hinds County jail. Polls are open 7 a.m. to 7 p.m. and a photo ID is required.",
+      "State touts investment, wages still trail: The Mississippi Development Authority says 2026 is on track to be the state's strongest year since 2021 for foreign direct investment and reshoring, with 3,433 jobs committed through the third quarter, Magnolia Tribune reported. MDA counts 45 such projects since 2020 committing 14,677 jobs and about $8.1 billion in capital, with 35 of 38 projects announced at least six months ago moving forward. The wage picture is slower: inflation-adjusted median household income was $57,840 in 2025 against $87,460 nationally, up 1.5% versus 2.6%. MDA says closing the gap requires Mississippi wages to outgrow the national average.",
+      "City seeks contractor training vendor: Jackson has an open request for qualifications for workforce training and contractor development services, published Nov. 19 with responses due Dec. 22, according to the city's bid page. The scope and dollar value are in the bid document posted with the notice; the listing itself does not state a contract amount. The solicitation lands as Hinds County absorbs the largest single private investment in its history, Amazon's $1 billion retrofit of the former Delphi plant in Clinton, which MDA says will create 100 jobs. Separately, the city has reposted its McCluer Road bridge replacement request for proposals, dated Nov. 23.",
+    ],
+  },
+  {
     slug: "jackson-hinds-library-board-votes-branch-closures-county-pushback",
     title: "Library Board Votes for a Plan to Close Branches, and Hinds County Pushes Back",
     seoTitle: "Jackson-Hinds library board votes for branch closures",
