@@ -85,6 +85,28 @@ export interface Post {
 // },
 const POSTS: Post[] = [
   {
+    slug: "ole-miss-bowl-picture-golding-staff-changes-2026",
+    title: "Ole Miss Is Bowl-Bound at 8-4, and Golding Says the Staff Review Starts Now",
+    seoTitle: "Ole Miss: Rebels finish 8-4 and await bowl destination",
+    dek: "A fourth straight Egg Bowl win left the Rebels 8-4 and waiting on a bowl bid. Pete Golding says signing day comes first, then a full review of roster and staff.",
+    category: "General News",
+    tags: ["sports-ms-college"],
+    author: "Jackson Wire Staff",
+    date: "2026-11-28",
+    publishedAt: "2026-11-28T17:11:29.498Z",
+    views: 0,
+    body: [
+      "Ole Miss finished its regular season at 8-4 and 5-4 in the SEC, and the Rebels are going to a bowl. The school's postgame notes after Friday's 41-17 Egg Bowl win list Pete Golding's career record at 10-5 overall and 5-4 in the SEC, and the Rebels had already cleared the six-win threshold for bowl eligibility before kickoff, the Clarion Ledger reported.",
+      "What the Rebels do not have is a destination. Bowl matchups are not set until Dec. 6, and the projections published before the Egg Bowl had Ole Miss in several different places. ESPN's Mark Schlabach slotted the Rebels against Ohio State in the ReliaQuest Bowl on Dec. 31 in Tampa, Kyle Bonagura had them against Wisconsin in the same game, CBS Sports projected a Texas Bowl trip against Oklahoma State, and USA TODAY and Sports Illustrated both had Ole Miss in the Citrus Bowl on Jan. 2 in Orlando.",
+      "The Rebels will bring their quarterback to whichever game it is. Trinidad Chambliss said after the Wofford win that he intends to play in the bowl, and he repeated it Friday. At his postgame press conference he said he would sort out his plan for after the bowl game later, and that for now he wanted to enjoy the Egg Bowl win with his teammates before turning to bowl preparation and trying to close his Ole Miss career with one more victory.",
+      "Golding's own offseason is already underway. At his postgame press conference he laid out the order: signing day on Wednesday first, then a discretionary week in the weight room, then the review. \"What do we need to do to give us our best chance to compete at championship level?\" Golding said. He said the evaluation would cover \"the roster,\" \"the staff\" and \"my job description,\" and that it would not be an emotional decision.",
+      "The staff piece is not hypothetical. SuperTalk Mississippi reported that Golding, who called defensive plays in all but one game this season, has made it known Ole Miss will have a full-time defensive coordinator next season. The Rebels' defense closed the regular season with a season-high 13 tackles for loss and seven sacks against Mississippi State, per the school's postgame notes.",
+      "The win itself carried some history. It was the Rebels' fourth straight in the series, the first four-game Ole Miss streak since the Rebels won four in a row from 1983 to 1986, according to the school's postgame notes. The announced attendance was 67,000, and the sixth home win of the season gave Ole Miss at least six home victories in four consecutive years for the first time in program history.",
+      "Chambliss leaves with numbers the box score does not fully show. His 237 passing yards Friday moved him past Chad Kelly for fifth all-time at Ole Miss with 7,027, and his 3,090 yards this season made him the fifth Rebel quarterback with back-to-back 3,000-yard seasons, joining Jaxson Dart, Matt Corral, Bo Wallace and Eli Manning. His 34 touchdowns responsible for this season rank second in a single year at Ole Miss.",
+      "What's next: Ole Miss has no game on its schedule while it waits for a bowl invitation, which will be settled when the postseason matchups are announced Dec. 6. Golding said the days before that belong to signing day on Wednesday and keeping the current class intact.",
+    ],
+  },
+  {
     slug: "traceview-air-permit-issued-oct-14-water-permit-still-draft",
     title: "Entergy's $1 Billion Ridgeland Plant Has Its Air Permit. Its Water Permit Is Still a Draft.",
     dek: "MDEQ issued the PSD air permit for the 754-megawatt Traceview plant on Oct. 14, 2026. The pretreatment application for the same site is still in draft, and construction coverage runs only to Jan. 31, 2027.",
